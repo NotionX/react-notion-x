@@ -1,0 +1,13 @@
+{
+  "name": "notion-utils",
+  "version": "0.1.0",
+  "description": "Useful utilities for working with Notion data. Isomorphic.",
+  "repository": "transitive-bullshit/notion",
+  "author": "Saasify <dev@saasify.sh>",
+  "license": "MIT",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
+  "engines": {
+    "node": ">=10"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "noEmitOnError": true,
+
+    "strict": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "traceResolution": false,
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "pretty": true,
+
+    // "lib": ["es2017", "dom"],
+    // "types": ["node"],
+
+    "baseUrl": ".",
+    "paths": {
+      "*": ["types/*"]
+    }
+  }
+}
