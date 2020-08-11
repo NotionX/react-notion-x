@@ -1,4 +1,11 @@
-import { BlockMap } from 'notion-types'
+import * as types from 'notion-types'
+
+export interface RecordMap {
+  block: types.BlockMap
+  collection: types.CollectionMap
+  collection_view: types.CollectionViewMap
+  notion_user: types.UserMap
+}
 
 export interface NotionSearchParams {
   ancestorId: string
@@ -13,9 +20,7 @@ export interface NotionSearchParams {
 }
 
 export interface NotionSearchResults {
-  recordMap: {
-    block: BlockMap
-  }
+  recordMap: RecordMap
   results: NotionSearchResult[]
   total: number
 }

@@ -25,7 +25,7 @@ export type Color =
   | 'red_background'
 
 /** Types of structured data supported by Notion */
-export type DataType =
+export type PropertyType =
   | 'title'
   | 'text'
   | 'number'
@@ -50,6 +50,14 @@ export type NumberFormat =
   | 'rupee'
   | 'won'
   | 'yuan'
+
+/** Types of collection views supported by Notion */
+export type CollectionViewType =
+  | 'table'
+  | 'gallery'
+  | 'list'
+  | 'board'
+  | 'calendar'
 
 type BoldFormat = ['b']
 type ItalicFormat = ['i']
@@ -89,9 +97,9 @@ export type Decoration = BaseDecoration | AdditionalDecoration
 // ----------------------------------------------------------------------------
 
 /**
- * Base properties that all blocks share.
+ * Base properties shared by all block types.
  */
-interface BaseBlockValue {
+interface BaseBlock {
   id: ID
   version: number
   created_time: number
@@ -108,7 +116,33 @@ interface BaseBlockValue {
   content?: ID[]
 }
 
-export interface PageBlockValue extends BaseBlockValue {
+interface BaseTextBlock extends BaseBlock {
+  properties?: {
+    title: Decoration[]
+  }
+  format?: {
+    block_color: Color
+  }
+}
+
+interface BaseContentBlock extends BaseBlock {
+  properties: {
+    source: string[][]
+    caption?: Decoration[]
+  }
+  format: {
+    block_width: number
+    block_height: number
+    display_source: string
+    block_full_width: boolean
+    block_page_width: boolean
+    block_aspect_ratio: number
+    block_preserve_scale: boolean
+  }
+  file_ids?: string[]
+}
+
+export interface PageBlock extends BaseBlock {
   type: 'page'
   properties?: {
     title: Decoration[]
@@ -126,7 +160,7 @@ export interface PageBlockValue extends BaseBlockValue {
   file_ids?: string[]
 }
 
-export interface BookmarkBlockValue extends BaseBlockValue {
+export interface BookmarkBlock extends BaseBlock {
   type: 'bookmark'
   properties: {
     link: Decoration[]
@@ -140,44 +174,36 @@ export interface BookmarkBlockValue extends BaseBlockValue {
   }
 }
 
-export interface BaseTextBlockValue extends BaseBlockValue {
-  properties?: {
-    title: Decoration[]
-  }
-  format?: {
-    block_color: Color
-  }
-}
-
-export interface TextBlockValue extends BaseTextBlockValue {
+export interface TextBlock extends BaseTextBlock {
   type: 'text'
 }
 
-export interface BulletedListBlockValue extends BaseTextBlockValue {
+export interface BulletedListBlock extends BaseTextBlock {
   type: 'bulleted_list'
 }
 
-export interface NumberedListBlockValue extends BaseTextBlockValue {
+export interface NumberedListBlock extends BaseTextBlock {
   type: 'numbered_list'
 }
 
-export interface HeaderBlockValue extends BaseTextBlockValue {
+export interface HeaderBlock extends BaseTextBlock {
   type: 'header'
 }
 
-export interface SubHeaderBlockValue extends BaseTextBlockValue {
+export interface SubHeaderBlock extends BaseTextBlock {
   type: 'sub_header'
 }
 
-export interface SubSubHeaderBlockValue extends BaseTextBlockValue {
+export interface SubSubHeaderBlock extends BaseTextBlock {
   type: 'sub_sub_header'
 }
 
-export interface QuoteBlockValue extends BaseTextBlockValue {
+export interface QuoteBlock extends BaseTextBlock {
   type: 'quote'
 }
 
-export interface TodoBlockValue extends BaseTextBlockValue {
+// TODO
+export interface TodoBlock extends BaseTextBlock {
   type: 'to_do'
   properties: {
     title: Decoration[]
@@ -185,22 +211,22 @@ export interface TodoBlockValue extends BaseTextBlockValue {
   }
 }
 
-export interface DividerBlockValue extends BaseBlockValue {
+export interface DividerBlock extends BaseBlock {
   type: 'divider'
 }
 
-export interface ColumnListBlockValue extends BaseBlockValue {
+export interface ColumnListBlock extends BaseBlock {
   type: 'column_list'
 }
 
-export interface ColumnBlockValue extends BaseBlockValue {
+export interface ColumnBlock extends BaseBlock {
   type: 'column'
   format: {
     column_ratio: number
   }
 }
 
-export interface CalloutBlockValue extends BaseBlockValue {
+export interface CalloutBlock extends BaseBlock {
   type: 'callout'
   format: {
     page_icon: string
@@ -211,43 +237,26 @@ export interface CalloutBlockValue extends BaseBlockValue {
   }
 }
 
-export interface ToggleBlockValue extends BaseBlockValue {
+export interface ToggleBlock extends BaseBlock {
   type: 'toggle'
   properties: {
     title: Decoration[]
   }
 }
 
-export interface BaseContentBlockValue extends BaseBlockValue {
-  properties: {
-    source: string[][]
-    caption?: Decoration[]
-  }
-  format: {
-    block_width: number
-    block_height: number
-    display_source: string
-    block_full_width: boolean
-    block_page_width: boolean
-    block_aspect_ratio: number
-    block_preserve_scale: boolean
-  }
-  file_ids?: string[]
-}
-
-export interface ImageBlockValue extends BaseContentBlockValue {
+export interface ImageBlock extends BaseContentBlock {
   type: 'image'
 }
 
-export interface EmbedBlockValue extends BaseContentBlockValue {
+export interface EmbedBlock extends BaseContentBlock {
   type: 'embed'
 }
 
-export interface VideoBlockValue extends BaseContentBlockValue {
+export interface VideoBlock extends BaseContentBlock {
   type: 'video'
 }
 
-export interface CodeBlockValue extends BaseBlockValue {
+export interface CodeBlock extends BaseBlock {
   type: 'code'
   properties: {
     title: Decoration[]
@@ -255,97 +264,51 @@ export interface CodeBlockValue extends BaseBlockValue {
   }
 }
 
-export interface CollectionBlockValue extends BaseContentBlockValue {
+export interface CollectionBlock extends BaseContentBlock {
   type: 'collection_view'
   collection_id: ID
   view_ids: ID[]
 }
 
 /** The different block values a block can have. */
-export type BlockValue =
-  | TextBlockValue
-  | PageBlockValue
-  | BulletedListBlockValue
-  | NumberedListBlockValue
-  | HeaderBlockValue
-  | SubHeaderBlockValue
-  | SubSubHeaderBlockValue
-  | TodoBlockValue
-  | DividerBlockValue
-  | ColumnListBlockValue
-  | ColumnBlockValue
-  | QuoteBlockValue
-  | CodeBlockValue
-  | ImageBlockValue
-  | VideoBlockValue
-  | EmbedBlockValue
-  | CalloutBlockValue
-  | BookmarkBlockValue
-  | ToggleBlockValue
-  | CollectionBlockValue
+export type Block =
+  | TextBlock
+  | PageBlock
+  | BulletedListBlock
+  | NumberedListBlock
+  | HeaderBlock
+  | SubHeaderBlock
+  | SubSubHeaderBlock
+  | TodoBlock
+  | DividerBlock
+  | ColumnListBlock
+  | ColumnBlock
+  | QuoteBlock
+  | CodeBlock
+  | ImageBlock
+  | VideoBlock
+  | EmbedBlock
+  | CalloutBlock
+  | BookmarkBlock
+  | ToggleBlock
+  | CollectionBlock
 
-export interface Block {
-  role: string
-  value: BlockValue
-}
+// Users
+// ----------------------------------------------------------------------------
 
 export interface User {
-  role: string
-  value: {
-    id: ID
-    version: number
-    email: string
-    given_name: string
-    family_name: string
-    profile_photo: string
-    onboarding_completed: boolean
-    mobile_onboarding_completed: boolean
-  }
-}
-
-export type BlockMap = {
-  [key: string]: Block
-}
-
-export type UserMap = {
-  [key: string]: User
+  id: ID
+  version: number
+  email: string
+  given_name: string
+  family_name: string
+  profile_photo: string
+  onboarding_completed: boolean
+  mobile_onboarding_completed: boolean
 }
 
 // Collections
 // ----------------------------------------------------------------------------
-
-export interface BaseCollectionViewValue {}
-
-export interface TableCollectionViewValue extends BaseCollectionViewValue {
-  type: 'table'
-  format: {
-    table_wrap: boolean
-    table_properties: Array<{
-      visible: boolean
-      property: string
-      width: number
-    }>
-  }
-}
-
-export interface GalleryCollectionViewValue extends BaseCollectionViewValue {
-  type: 'gallery'
-  format: {
-    gallery_cover: {
-      type: 'page_cover'
-    }
-    gallery_cover_aspect: 'cover'
-    gallery_properties: Array<{ visible: boolean; property: string }>
-  }
-}
-
-export type CollectionViewValue =
-  | TableCollectionViewValue
-  | GalleryCollectionViewValue
-
-export interface CollectionDataRow {
-  [key: string]: Decoration[] | string
-}
 
 export interface SelectOption {
   id: ID
@@ -353,23 +316,127 @@ export interface SelectOption {
   value: string
 }
 
-export interface ColumnSchema {
+export interface CollectionPropertySchema {
   name: string
-  type: DataType
+  type: PropertyType
   options?: SelectOption[]
   number_format?: NumberFormat
 }
 
-export interface CollectionValue {
+export interface CollectionPropertySchemaMap {
+  [key: string]: CollectionPropertySchema
+}
+
+export interface Collection {
   id: ID
   version: number
   name: string[][]
-  schema: ColumnSchemaMap
+  schema: CollectionPropertySchemaMap
   icon: string
   parent_id: ID
   parent_table: string
   alive: boolean
   copied_from: string
+}
+
+// Collection Views
+// ----------------------------------------------------------------------------
+
+export type CollectionPropertyID = 'string'
+
+export interface BaseCollectionView {
+  id: ID
+  type: CollectionViewType
+  name: string
+  format: any
+
+  version: number
+  alive: boolean
+  parent_id: ID
+  parent_table: string
+
+  query2: {
+    // TODO
+    aggregations?: object[]
+    group_by: CollectionPropertyID
+  }
+}
+
+export interface TableCollectionView extends BaseCollectionView {
+  type: 'table'
+  format: {
+    table_wrap: boolean
+    table_properties: Array<{
+      property: CollectionPropertyID
+      visible: boolean
+      width: number
+    }>
+  }
+
+  page_sort: ID[]
+}
+
+export interface GalleryCollectionView extends BaseCollectionView {
+  type: 'gallery'
+  format: {
+    gallery_cover: {
+      type: 'page_cover' | 'page_content'
+    }
+    gallery_cover_size: 'medium'
+    gallery_cover_aspect: 'cover'
+    gallery_properties: Array<{
+      property: CollectionPropertyID
+      visible: boolean
+    }>
+  }
+}
+
+export interface ListCollectionView extends BaseCollectionView {
+  type: 'list'
+  format: {
+    list_properties: Array<{
+      property: CollectionPropertyID
+      visible: boolean
+    }>
+  }
+}
+
+export interface BoardCollectionView extends BaseCollectionView {
+  type: 'board'
+  format: {
+    board_properties: Array<{
+      property: CollectionPropertyID
+      visible: boolean
+    }>
+
+    board_groups2: Array<{
+      property: CollectionPropertyID
+      hidden: boolean
+      value: {
+        type: PropertyType
+        value: string
+
+        // TODO: needs testing for more cases
+      }
+    }>
+  }
+}
+
+export type CollectionView =
+  | TableCollectionView
+  | GalleryCollectionView
+  | ListCollectionView
+  | BoardCollectionView
+
+// Convenience map types
+// ----------------------------------------------------------------------------
+
+export type BlockMap = {
+  [key: string]: Block
+}
+
+export type UserMap = {
+  [key: string]: User
 }
 
 export type CollectionMap = {
@@ -380,23 +447,15 @@ export type CollectionViewMap = {
   [key: string]: CollectionView
 }
 
-export interface ColumnSchemaMap {
-  [key: string]: ColumnSchema
-}
+// ACL wrappers
+// ----------------------------------------------------------------------------
 
-export interface Collection {
+export interface ACLWrapper<T> {
   role: string
-  value: CollectionValue
+  value: T
 }
 
-export interface CollectionView {
-  role: string
-  value: CollectionViewValue
-}
-
-export interface RecordMap {
-  block: BlockMap
-  notion_user: UserMap
-  collection: CollectionMap
-  collection_view: CollectionViewMap
-}
+export type ACLBlock = ACLWrapper<Block>
+export type ACLCollection = ACLWrapper<Collection>
+export type ACLCollectionView = ACLWrapper<CollectionView>
+export type ACLUser = ACLWrapper<User>
