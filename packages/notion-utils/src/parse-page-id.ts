@@ -7,10 +7,14 @@ interface ParsePageIdOptions {
 const pageIdRe = /\b([a-f0-9]{32})\b/
 const pageId2Re = /\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b/
 
-/** Robustly extracts the notion page ID from a notion URL or pathname suffix */
+/**
+ * Robustly extracts the notion page ID from a notion URL or pathname suffix.
+ *
+ * Defaults to returning a UUID (with dashes).
+ */
 export const parsePageId = (
   id: string = '',
-  opts: ParsePageIdOptions = { uuid: false }
+  opts: ParsePageIdOptions = { uuid: true }
 ) => {
   id = id.split('?')[0]
   const match = id.match(pageIdRe)

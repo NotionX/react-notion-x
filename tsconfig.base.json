@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "es2017",
-    "module": "commonjs",
+    "target": "ES6",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "sourceMap": true,
@@ -11,7 +11,6 @@
     "noEmitOnError": true,
 
     "strict": true,
-
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -22,8 +21,7 @@
     "listFiles": false,
     "pretty": true,
 
-    // "lib": ["es2017", "dom"],
-    // "types": ["node"],
+    "lib": ["ESNext", "ES2019", "ESNext.Array"],
 
     "baseUrl": ".",
     "paths": {

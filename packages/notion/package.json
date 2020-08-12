@@ -1,7 +1,7 @@
 {
   "name": "notion",
   "version": "0.1.0",
-  "description": "Unofficial Notion API",
+  "description": "TypeScript wrapper around the Notion API",
   "repository": "saasify-sh/notion",
   "author": "Saasify <dev@saasify.sh>",
   "license": "MIT",

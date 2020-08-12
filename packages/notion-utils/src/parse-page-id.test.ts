@@ -31,9 +31,9 @@ const pageIdFixturesFailure = [
   'fde5ac74-eea3-4527-8f00-4482710e1af'
 ]
 
-test('utils.parsePageId success', (t) => {
+test('utils.parsePageId non-uuid success', (t) => {
   for (const id of pageIdFixturesSuccess) {
-    const pageId = parsePageId(id)
+    const pageId = parsePageId(id, { uuid: false })
     t.truthy(pageId)
     t.falsy((pageId as string).includes('-'))
     t.snapshot(pageId)
