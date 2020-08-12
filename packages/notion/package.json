@@ -2,7 +2,7 @@
   "name": "notion",
   "version": "0.1.0",
   "description": "Unofficial Notion API",
-  "repository": "transitive-bullshit/notion",
+  "repository": "saasify-sh/notion",
   "author": "Saasify <dev@saasify.sh>",
   "license": "MIT",
   "main": "build/index.js",
@@ -11,7 +11,6 @@
     "node": ">=10"
   },
   "dependencies": {
-    "ky": "^0.23.0",
-    "ky-universal": "^0.8.1"
+    "ky": "^0.23.0"
   }
 }

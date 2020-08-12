@@ -1,1 +1,1 @@
-export const foo = 'bar'
+export * from './parse-page-id'

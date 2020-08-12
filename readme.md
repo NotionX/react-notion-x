@@ -2,7 +2,7 @@
 
 > Focused TS packages for Notion's unofficial API, types, and related utilities.
 
-[![NPM](https://img.shields.io/npm/v/notion.svg)](https://www.npmjs.com/package/notion) [![Build Status](https://travis-ci.com/transitive-bullshit/notion.svg?branch=master)](https://travis-ci.com/transitive-bullshit/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/notion.svg)](https://www.npmjs.com/package/notion) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Packages
 

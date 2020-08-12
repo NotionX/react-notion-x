@@ -24,7 +24,7 @@ export type Color =
   | 'pink_background'
   | 'red_background'
 
-/** Types of structured data supported by Notion */
+/** Types of structured data supported by Notion collections */
 export type PropertyType =
   | 'title'
   | 'text'
@@ -372,7 +372,6 @@ export interface TableCollectionView extends BaseCollectionView {
       width: number
     }>
   }
-
   page_sort: ID[]
 }
 
@@ -422,30 +421,30 @@ export interface BoardCollectionView extends BaseCollectionView {
   }
 }
 
+export interface CalendarCollectionView extends BaseCollectionView {
+  type: 'calendar'
+
+  // TODO
+}
+
 export type CollectionView =
   | TableCollectionView
   | GalleryCollectionView
   | ListCollectionView
   | BoardCollectionView
+  | CalendarCollectionView
 
 // Convenience map types
 // ----------------------------------------------------------------------------
 
-export type BlockMap = {
-  [key: string]: Block
+export interface NotionMap<T> {
+  [key: string]: T
 }
 
-export type UserMap = {
-  [key: string]: User
-}
-
-export type CollectionMap = {
-  [key: string]: Collection
-}
-
-export type CollectionViewMap = {
-  [key: string]: CollectionView
-}
+export type BlockMap = NotionMap<Block>
+export type UserMap = NotionMap<User>
+export type CollectionMap = NotionMap<Collection>
+export type CollectionViewMap = NotionMap<CollectionView>
 
 // ACL wrappers
 // ----------------------------------------------------------------------------
@@ -456,6 +455,11 @@ export interface ACLWrapper<T> {
 }
 
 export type ACLBlock = ACLWrapper<Block>
+export type ACLUser = ACLWrapper<User>
 export type ACLCollection = ACLWrapper<Collection>
 export type ACLCollectionView = ACLWrapper<CollectionView>
-export type ACLUser = ACLWrapper<User>
+
+export type ACLBlockMap = NotionMap<ACLWrapper<Block>>
+export type ACLUserMap = NotionMap<ACLWrapper<User>>
+export type ACLCollectionMap = NotionMap<ACLWrapper<Collection>>
+export type ACLCollectionViewMap = NotionMap<ACLWrapper<CollectionView>>

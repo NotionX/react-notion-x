@@ -2,12 +2,29 @@
   "name": "notion-utils",
   "version": "0.1.0",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
-  "repository": "transitive-bullshit/notion",
+  "repository": "saasify-sh/notion",
   "author": "Saasify <dev@saasify.sh>",
   "license": "MIT",
   "main": "build/index.js",
   "typings": "build/index.d.ts",
   "engines": {
     "node": ">=10"
+  },
+  "scripts": {
+    "test": "ava -v"
+  },
+  "devDependencies": {
+    "ava": "^3.11.1",
+    "ts-node": "^8.10.2"
+  },
+  "ava": {
+    "failFast": true,
+    "snapshotDir": "./.snapshots",
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
   }
 }

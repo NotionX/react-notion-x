@@ -2,7 +2,7 @@
   "name": "notion",
   "private": true,
   "description": "Focused TS packages for Notion's unofficial API, types, and related utilities.",
-  "repository": "transitive-bullshit/notion",
+  "repository": "saasify-sh/notion",
   "author": "Travis Fischer <travis@saasify.sh>",
   "license": "MIT",
   "engines": {
