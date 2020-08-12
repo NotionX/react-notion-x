@@ -112,7 +112,7 @@ interface BaseBlock {
   last_edited_by_table: string
   last_edited_by_id: ID
   space_id?: ID
-  properties?: any
+  properties?: object
   content?: ID[]
 }
 
@@ -344,7 +344,7 @@ export interface Collection {
 
 export type CollectionPropertyID = 'string'
 
-export interface BaseCollectionView {
+interface BaseCollectionView {
   id: ID
   type: CollectionViewType
   name: string
@@ -434,32 +434,17 @@ export type CollectionView =
   | BoardCollectionView
   | CalendarCollectionView
 
-// Convenience map types
+// Aggregate map types
 // ----------------------------------------------------------------------------
 
-export interface NotionMap<T> {
-  [key: string]: T
+interface NotionMap<T> {
+  [key: string]: {
+    role: string
+    value: T
+  }
 }
 
 export type BlockMap = NotionMap<Block>
 export type UserMap = NotionMap<User>
 export type CollectionMap = NotionMap<Collection>
 export type CollectionViewMap = NotionMap<CollectionView>
-
-// ACL wrappers
-// ----------------------------------------------------------------------------
-
-export interface ACLWrapper<T> {
-  role: string
-  value: T
-}
-
-export type ACLBlock = ACLWrapper<Block>
-export type ACLUser = ACLWrapper<User>
-export type ACLCollection = ACLWrapper<Collection>
-export type ACLCollectionView = ACLWrapper<CollectionView>
-
-export type ACLBlockMap = NotionMap<ACLWrapper<Block>>
-export type ACLUserMap = NotionMap<ACLWrapper<User>>
-export type ACLCollectionMap = NotionMap<ACLWrapper<Collection>>
-export type ACLCollectionViewMap = NotionMap<ACLWrapper<CollectionView>>

@@ -11,6 +11,11 @@
     "node": ">=10"
   },
   "dependencies": {
-    "ky": "^0.23.0"
+    "ky": "^0.23.0",
+    "ky-universal": "^0.8.1"
+  },
+  "devDependencies": {
+    "commander": "^6.0.0",
+    "ts-node": "^8.10.2"
   }
 }

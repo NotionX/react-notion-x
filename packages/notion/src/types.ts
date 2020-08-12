@@ -1,10 +1,10 @@
 import * as types from 'notion-types'
 
 export interface RecordMap {
-  block: types.ACLBlockMap
-  collection: types.ACLCollectionMap
-  collection_view: types.ACLCollectionViewMap
-  notion_user: types.ACLUserMap
+  block: types.BlockMap
+  collection: types.CollectionMap
+  collection_view: types.CollectionViewMap
+  notion_user: types.UserMap
 }
 
 export interface PageChunk {
