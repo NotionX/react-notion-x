@@ -33,15 +33,25 @@ const pageIdFixturesFailure = [
 
 test('utils.parsePageId success', (t) => {
   for (const id of pageIdFixturesSuccess) {
-    const parsedId = parsePageId(id)
-    t.truthy(parsedId)
-    t.snapshot(parsedId)
+    const pageId = parsePageId(id)
+    t.truthy(pageId)
+    t.falsy((pageId as string).includes('-'))
+    t.snapshot(pageId)
+  }
+})
+
+test('utils.parsePageId uuid success', (t) => {
+  for (const id of pageIdFixturesSuccess) {
+    const pageId = parsePageId(id, { uuid: true })
+    t.truthy(pageId)
+    t.truthy((pageId as string).includes('-'))
+    t.snapshot(pageId)
   }
 })
 
 test('utils.parsePageId failure', (t) => {
   for (const id of pageIdFixturesFailure) {
-    const parsedId = parsePageId(id)
-    t.falsy(parsedId)
+    const pageId = parsePageId(id)
+    t.falsy(pageId)
   }
 })
