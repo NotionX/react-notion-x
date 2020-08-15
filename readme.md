@@ -4,11 +4,13 @@
 
 [![NPM](https://img.shields.io/npm/v/notion.svg)](https://www.npmjs.com/package/notion) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
-## Packages
+## Documentation
 
-- `notion`
-- `notion-types`
-- `notion-utils`
+| Package                                 | NPM                                                                                                 | Docs                           |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------ |
+| [notion](./packages/notion)             | [![NPM](https://img.shields.io/npm/v/notion.svg)](https://www.npmjs.com/package/notion)             | [docs](./docs/notion.md)       |
+| [notion-types](./packages/notion-types) | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types) | [docs](./docs/notion-types.md) |
+| [notion-utils](./packages/notion-utils) | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils) | [docs](./docs/notion-utils.md) |
 
 ## Related
 
