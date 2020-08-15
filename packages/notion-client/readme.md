@@ -30,7 +30,7 @@ const colectionData = await api.getCollectionData(
 
 ## API
 
-See the [auto-generated docs](../../docs/notion-client.md).
+See the [auto-generated docs](https://github.com/saasify-sh/notion/blob/master/docs/notion-client.md).
 
 ## License
 

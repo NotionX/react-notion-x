@@ -20,7 +20,7 @@ import * as notion from 'notion-types'
 
 ## API
 
-See the [auto-generated docs](../../docs/notion-types.md).
+See the [auto-generated docs](https://github.com/saasify-sh/notion/blob/master/docs/notion-types.md).
 
 ## License
 

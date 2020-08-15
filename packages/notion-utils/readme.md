@@ -31,7 +31,7 @@ parsePageId('About-d9ae0c6e7cad49a78e21d240cf2e3d04', { uuid: false })
 
 ## API
 
-See the [auto-generated docs](../../docs/notion-utils.md).
+See the [auto-generated docs](https://github.com/saasify-sh/notion/blob/master/docs/notion-utils.md).
 
 ## License
 
