@@ -1,7 +1,7 @@
 {
   "name": "notion",
   "private": true,
-  "description": "Focused TS packages for Notion's unofficial API, types, and related utilities.",
+  "description": "TS packages for Notion's unofficial API, data types, and related utilities.",
   "repository": "saasify-sh/notion",
   "author": "Travis Fischer <travis@saasify.sh>",
   "license": "MIT",
@@ -22,16 +22,23 @@
     "test": "run-s test:*",
     "test:unit": "ava -v",
     "test:prettier": "prettier '**/*.ts' --check",
+    "docs": "run-s docs:extract docs:generate",
+    "docs:extract": "lerna exec api-extractor run",
+    "docs:generate": "lerna exec api-documenter -- markdown -i build -o docs",
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish",
     "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') < 0) throw new Error('this package requires yarn for development')\"",
     "postinstall": "run-s bootstrap"
   },
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.8.25",
+    "@microsoft/api-extractor": "^7.9.4",
+    "add": "^2.0.6",
     "del-cli": "^3.0.1",
     "lerna": "^3.22.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "yarn": "^1.22.4"
   }
 }

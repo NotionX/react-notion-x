@@ -59,15 +59,17 @@ export type CollectionViewType =
   | 'board'
   | 'calendar'
 
-type BoldFormat = ['b']
-type ItalicFormat = ['i']
-type StrikeFormat = ['s']
-type CodeFormat = ['c']
-type LinkFormat = ['a', string]
-type ColorFormat = ['h', Color]
-type UserFormat = ['u', string]
-type PageFormat = ['p', string]
-type DateFormat = [
+export type Role = 'editor' | 'reader' | 'none' | 'read_and_write'
+
+export type BoldFormat = ['b']
+export type ItalicFormat = ['i']
+export type StrikeFormat = ['s']
+export type CodeFormat = ['c']
+export type LinkFormat = ['a', string]
+export type ColorFormat = ['h', Color]
+export type UserFormat = ['u', string]
+export type PageFormat = ['p', string]
+export type DateFormat = [
   'd',
   {
     type: 'date' | 'daterange'
@@ -77,7 +79,7 @@ type DateFormat = [
   }
 ]
 
-type SubDecoration =
+export type SubDecoration =
   | BoldFormat
   | ItalicFormat
   | StrikeFormat
@@ -88,8 +90,8 @@ type SubDecoration =
   | UserFormat
   | PageFormat
 
-type BaseDecoration = [string]
-type AdditionalDecoration = [string, SubDecoration[]]
+export type BaseDecoration = [string]
+export type AdditionalDecoration = [string, SubDecoration[]]
 
 export type Decoration = BaseDecoration | AdditionalDecoration
 
@@ -99,7 +101,7 @@ export type Decoration = BaseDecoration | AdditionalDecoration
 /**
  * Base properties shared by all block types.
  */
-interface BaseBlock {
+export interface BaseBlock {
   id: ID
   version: number
   created_time: number
@@ -116,7 +118,7 @@ interface BaseBlock {
   content?: ID[]
 }
 
-interface BaseTextBlock extends BaseBlock {
+export interface BaseTextBlock extends BaseBlock {
   properties?: {
     title: Decoration[]
   }
@@ -125,7 +127,7 @@ interface BaseTextBlock extends BaseBlock {
   }
 }
 
-interface BaseContentBlock extends BaseBlock {
+export interface BaseContentBlock extends BaseBlock {
   properties: {
     source: string[][]
     caption?: Decoration[]
@@ -156,7 +158,7 @@ export interface PageBlock extends BaseBlock {
     page_cover?: string
     page_icon?: string
   }
-  permissions: { role: string; type: string }[]
+  permissions: { role: Role; type: string }[]
   file_ids?: string[]
 }
 
@@ -344,7 +346,7 @@ export interface Collection {
 
 export type CollectionPropertyID = 'string'
 
-interface BaseCollectionView {
+export interface BaseCollectionView {
   id: ID
   type: CollectionViewType
   name: string
@@ -437,9 +439,9 @@ export type CollectionView =
 // Aggregate map types
 // ----------------------------------------------------------------------------
 
-interface NotionMap<T> {
+export interface NotionMap<T> {
   [key: string]: {
-    role: string
+    role: Role
     value: T
   }
 }
@@ -449,7 +451,7 @@ export type UserMap = NotionMap<User>
 export type CollectionMap = NotionMap<Collection>
 export type CollectionViewMap = NotionMap<CollectionView>
 
-// API types
+// Aggregate API types
 // ----------------------------------------------------------------------------
 
 export interface RecordMap {
@@ -459,6 +461,8 @@ export interface RecordMap {
   notion_user?: UserMap
 }
 
+// NOTE: This is not a native Notion type, but rather a convenience type that
+// extends Notion's native RecordMap with data for collection instances.
 export interface ExtendedRecordMap extends RecordMap {
   collection_query?: {
     [collectionId: string]: {
