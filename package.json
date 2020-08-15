@@ -6,7 +6,7 @@
   "author": "Travis Fischer <travis@saasify.sh>",
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "workspaces": [
     "packages/*"

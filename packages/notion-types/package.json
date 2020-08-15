@@ -8,6 +8,6 @@
   "main": "build/index.js",
   "typings": "build/index.d.ts",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   }
 }
