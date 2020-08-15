@@ -28,7 +28,7 @@ const colectionData = await api.getCollectionData(
 )
 ```
 
-All examples use this public [notion workspace](https://www.notion.so/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf) that aims to cover 100% of Notion's public functionality.
+All examples use this public [notion workspace](https://www.notion.so/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf) which **aims to cover 100% of Notion's public functionality**.
 
 ## Docs
 
