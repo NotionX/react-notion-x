@@ -1,19 +1,19 @@
-# notion
+# notion-client
 
 > TypeScript client for the unofficial Notion API.
 
-[![NPM](https://img.shields.io/npm/v/notion.svg)](https://www.npmjs.com/package/notion) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Install
 
 ```bash
-npm install notion
+npm install notion-client
 ```
 
 ## Usage
 
 ```ts
-import { NotionAPI } from 'notion'
+import { NotionAPI } from 'notion-client'
 
 const api = new NotionAPI()
 const page = await api.getPage('067dd719-a912-471e-a9a3-ac10710e7fdf')
@@ -28,7 +28,7 @@ const colectionData = await api.getCollectionData(
 
 ## API
 
-See the [auto-generated docs](../../docs/notion.md).
+See the [auto-generated docs](../../docs/notion-client.md).
 
 ## License
 
