@@ -16,15 +16,5 @@
   "devDependencies": {
     "ava": "^3.11.1",
     "ts-node": "^8.10.2"
-  },
-  "ava": {
-    "failFast": true,
-    "snapshotDir": "./.snapshots",
-    "extensions": [
-      "ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ]
   }
 }

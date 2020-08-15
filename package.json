@@ -24,7 +24,7 @@
     "test:prettier": "prettier '**/*.ts' --check",
     "docs": "run-s docs:extract docs:generate",
     "docs:extract": "lerna exec api-extractor run",
-    "docs:generate": "lerna exec api-documenter -- markdown -i build -o docs",
+    "docs:generate": "api-documenter -- markdown -i build -o docs",
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish",
     "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') < 0) throw new Error('this package requires yarn for development')\"",
