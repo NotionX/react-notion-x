@@ -12,7 +12,7 @@
   "docModel": {
     "enabled": true,
 
-    "apiJsonFilePath": "<projectFolder>/build/<unscopedPackageName>.api.json"
+    "apiJsonFilePath": "<projectFolder>/../../build/<unscopedPackageName>.api.json"
   },
 
   "dtsRollup": {
