@@ -4,6 +4,24 @@
 
 [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
+## Usage
+
+```ts
+import { NotionAPI } from 'notion-client'
+
+const api = new NotionAPI()
+const page = await api.getPage('067dd719-a912-471e-a9a3-ac10710e7fdf')
+
+const collectionId = '2d8aec23-8281-4a94-9090-caaf823dd21a'
+const collectionViewId = 'ab639a5a-853e-45e1-9ef7-133b486c0acf'
+const colectionData = await api.getCollectionData(
+  collectionId,
+  collectionViewId
+)
+```
+
+All examples use this public [notion workspace](https://www.notion.so/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf) that aims to cover 100% of Notion's public functionality.
+
 ## Docs
 
 | Package                                   | NPM                                                                                                   | Docs                            | Description                                       |
