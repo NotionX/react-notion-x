@@ -14,6 +14,7 @@
 
 ## Related
 
+- [notion test suite](https://www.notion.so/saasifysh/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of public Notion pages to test individual features.
 - [react-notion](https://github.com/splitbee/react-notion) - React renderer for Notion data.
 - [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker.
   - Currently doesn't handle collection data very robustly.
