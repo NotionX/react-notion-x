@@ -10,6 +10,8 @@
 npm install notion-utils
 ```
 
+This package is compatible with both Node.js and client-side web usage.
+
 ## Usage
 
 ```ts

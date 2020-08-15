@@ -10,6 +10,8 @@
 npm install notion-types
 ```
 
+This package only exports types and is compatible with both Node.js and browsers.
+
 ## Usage
 
 ```ts
