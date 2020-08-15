@@ -10,12 +10,15 @@
   "engines": {
     "node": ">=10"
   },
+  "scripts": {
+    "test": "ava -v"
+  },
   "dependencies": {
     "ky": "^0.23.0",
-    "ky-universal": "^0.8.1"
+    "ky-universal": "^0.8.1",
+    "p-map": "^4.0.0"
   },
   "devDependencies": {
-    "commander": "^6.0.0",
-    "ts-node": "^8.10.2"
+    "ava": "^3.11.1"
   }
 }

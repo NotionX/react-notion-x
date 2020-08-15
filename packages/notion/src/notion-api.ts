@@ -1,15 +1,7 @@
 import ky from 'ky-universal'
+import pMap from 'p-map'
 import { parsePageId } from 'notion-utils'
 import * as notion from 'notion-types'
-import * as types from './types'
-
-interface NotionAPIOptions {
-  apiBaseUrl?: string
-  authToken?: string
-
-  userLocale?: string
-  userTimeZone?: string
-}
 
 export class NotionAPI {
   private readonly _apiBaseUrl: string
@@ -17,27 +9,42 @@ export class NotionAPI {
   private readonly _userLocale: string
   private readonly _userTimeZone: string
 
-  constructor(opts: NotionAPIOptions = {}) {
-    this._apiBaseUrl = opts.apiBaseUrl || 'https://www.notion.so/api/v3'
-    this._authToken = opts.authToken
-    this._userLocale = opts.userLocale || 'en'
-    this._userTimeZone = opts.userTimeZone || 'America/New_York'
+  constructor({
+    apiBaseUrl = 'https://www.notion.so/api/v3',
+    authToken,
+    userLocale = 'en',
+    userTimeZone = 'America/New_York'
+  }: {
+    apiBaseUrl?: string
+    authToken?: string
+    userLocale?: string
+    userTimeZone?: string
+  } = {}) {
+    this._apiBaseUrl = apiBaseUrl
+    this._authToken = authToken
+    this._userLocale = userLocale
+    this._userTimeZone = userTimeZone
   }
 
-  public async getPage(pageId: string): Promise<types.RecordMap> {
+  public async getPage(
+    pageId: string,
+    {
+      concurrency = 2,
+      fetchCollections = true
+    }: { concurrency?: number; fetchCollections?: boolean } = {}
+  ): Promise<notion.ExtendedRecordMap> {
     const page = await this.getPageRaw(pageId)
-    const baseBlocks = page.recordMap.block
-
-    let allBlocks = baseBlocks
+    const recordMap: notion.ExtendedRecordMap = page.recordMap
+    recordMap.collection_query = {}
 
     // fetch any missing content blocks
     while (true) {
-      const pendingBlocks = Object.keys(allBlocks).flatMap((blockId) => {
-        const block = allBlocks[blockId]
+      const pendingBlocks = Object.keys(recordMap.block).flatMap((blockId) => {
+        const block = recordMap.block[blockId]
         const content = block.value && block.value.content
 
         return content && block.value.type !== 'page'
-          ? content.filter((id: string) => !allBlocks[id])
+          ? content.filter((id) => !recordMap.block[id])
           : []
       })
 
@@ -49,55 +56,59 @@ export class NotionAPI {
         (res) => res.recordMap.block
       )
 
-      allBlocks = { ...allBlocks, ...newBlocks }
+      recordMap.block = { ...recordMap.block, ...newBlocks }
     }
 
-    // const allCollectionInstances = Object.keys(allBlocks).flatMap((blockId) => {
-    //   const block = allBlocks[blockId]
+    if (fetchCollections) {
+      const allCollectionInstances = Object.keys(recordMap.block).flatMap(
+        (blockId) => {
+          const block = recordMap.block[blockId]
 
-    //   // only return the first view for this collection
-    //   if (block.value.type === 'collection_view') {
-    //     const value = block.value
+          if (block.value.type === 'collection_view') {
+            const value = block.value
 
-    //     return value.view_ids.map((collectionViewId) => ({
-    //       id: value.id,
-    //       collectionId: value.collection_id,
-    //       collectionViewId
-    //     }))
-    //   } else {
-    //     return []
-    //   }
-    // })
+            return value.view_ids.map((collectionViewId) => ({
+              collectionId: value.collection_id,
+              collectionViewId
+            }))
+          } else {
+            return []
+          }
+        }
+      )
 
-    // for (const collectionInstance of allCollectionInstances) {
-    //   const { id, collectionId, collectionViewId } = collectionInstance
-    //   const collection = page.recordMap.collection[collectionId]
+      // fetch data for all collection view instances
+      await pMap(
+        allCollectionInstances,
+        async (collectionInstance) => {
+          const { collectionId, collectionViewId } = collectionInstance
+          const collectionData = await this.getCollectionData(
+            collectionId,
+            collectionViewId
+          )
 
-    //   const { rows, schema } = await this.getCollectionData(
-    //     collection,
-    //     collectionViewId
-    //   )
+          recordMap.block = {
+            ...recordMap.block,
+            ...collectionData.recordMap.block
+          }
 
-    //   const viewIds = allBlocks[id].value.view_ids!
+          recordMap.notion_user = {
+            ...recordMap.notion_user,
+            ...collectionData.recordMap.notion_user
+          }
 
-    //   allBlocks[id] = {
-    //     ...allBlocks[id],
-    //     collection: {
-    //       title: collection.value.name,
-    //       schema,
-    //       views: viewIds
-    //         .map((id) => {
-    //           const col = page.recordMap.collection_view[id]
-    //           return col ? col.value : undefined
-    //         })
-    //         .filter(Boolean),
-    //       data: rows
-    //     }
-    //   }
-    // }
+          recordMap.collection_query![collectionId] = {
+            ...recordMap.collection_query![collectionId],
+            [collectionViewId]: collectionData.result
+          }
+        },
+        {
+          concurrency
+        }
+      )
+    }
 
-    page.recordMap.block = allBlocks
-    return page.recordMap
+    return recordMap
   }
 
   public async getPageRaw(pageId: string) {
@@ -107,11 +118,11 @@ export class NotionAPI {
       throw new Error(`invalid notion pageId "${pageId}"`)
     }
 
-    return this.fetch<types.PageChunk>({
+    return this.fetch<notion.PageChunk>({
       endpoint: 'loadPageChunk',
       body: {
         pageId: parsedPageId,
-        limit: 999,
+        limit: 999999,
         cursor: { stack: [] },
         chunkNumber: 0,
         verticalColumns: false
@@ -124,7 +135,7 @@ export class NotionAPI {
     collectionViewId: string,
     collectionType: string = 'table'
   ) {
-    return this.fetch<types.CollectionData>({
+    return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
       body: {
         collectionId,
@@ -132,7 +143,7 @@ export class NotionAPI {
         query: { aggregations: [{ property: 'title', aggregator: 'count' }] },
         loader: {
           type: collectionType,
-          limit: 999,
+          limit: 999999,
           searchQuery: '',
           userTimeZone: this._userTimeZone,
           userLocale: this._userLocale,
@@ -143,7 +154,7 @@ export class NotionAPI {
   }
 
   public async getUsers(userIds: string[]) {
-    return this.fetch<types.RecordValues<notion.User>>({
+    return this.fetch<notion.RecordValues<notion.User>>({
       endpoint: 'getRecordValues',
       body: {
         requests: userIds.map((id) => ({ id, table: 'notion_user' }))
@@ -152,7 +163,7 @@ export class NotionAPI {
   }
 
   public async getBlocks(blockIds: string[]) {
-    return this.fetch<types.PageChunk>({
+    return this.fetch<notion.PageChunk>({
       endpoint: 'syncRecordValues',
       body: {
         recordVersionMap: {
@@ -168,8 +179,8 @@ export class NotionAPI {
     })
   }
 
-  public async search(params: types.NotionSearchParams) {
-    return this.fetch<types.NotionSearchResults>({
+  public async search(params: notion.SearchParams) {
+    return this.fetch<notion.SearchResults>({
       endpoint: 'search',
       body: {
         type: 'BlocksInAncestor',
