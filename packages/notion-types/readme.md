@@ -18,7 +18,7 @@ This package only exports types and is compatible with both Node.js and browsers
 import * as notion from 'notion-types'
 ```
 
-## API
+## Docs
 
 See the [auto-generated docs](https://github.com/saasify-sh/notion/blob/master/docs/notion-types.md).
 
@@ -27,5 +27,3 @@ See the [auto-generated docs](https://github.com/saasify-sh/notion/blob/master/d
 MIT © [Travis Fischer](https://transitivebullsh.it)
 
 Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
-
-This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.

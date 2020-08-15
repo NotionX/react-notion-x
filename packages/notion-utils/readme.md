@@ -29,7 +29,7 @@ parsePageId('About-d9ae0c6e7cad49a78e21d240cf2e3d04', { uuid: false })
 // 'd9ae0c6e7cad49a78e21d240cf2e3d04'
 ```
 
-## API
+## Docs
 
 See the [auto-generated docs](https://github.com/saasify-sh/notion/blob/master/docs/notion-utils.md).
 
@@ -38,5 +38,3 @@ See the [auto-generated docs](https://github.com/saasify-sh/notion/blob/master/d
 MIT © [Travis Fischer](https://transitivebullsh.it)
 
 Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
-
-This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.
