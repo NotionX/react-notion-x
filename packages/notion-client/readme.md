@@ -1,6 +1,6 @@
 # notion
 
-> TypeScript types for core Notion data structures.
+> TypeScript client for the unofficial Notion API.
 
 [![NPM](https://img.shields.io/npm/v/notion.svg)](https://www.npmjs.com/package/notion) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 

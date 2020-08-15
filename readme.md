@@ -2,15 +2,15 @@
 
 > TS packages for Notion's unofficial API, data types, and related utilities.
 
-[![NPM](https://img.shields.io/npm/v/notion.svg)](https://www.npmjs.com/package/notion) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Documentation
 
-| Package                                 | NPM                                                                                                 | Docs                           |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------ |
-| [notion](./packages/notion)             | [![NPM](https://img.shields.io/npm/v/notion.svg)](https://www.npmjs.com/package/notion)             | [docs](./docs/notion.md)       |
-| [notion-types](./packages/notion-types) | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types) | [docs](./docs/notion-types.md) |
-| [notion-utils](./packages/notion-utils) | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils) | [docs](./docs/notion-utils.md) |
+| Package                                   | NPM                                                                                                   | Docs                            | Description                                               |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------- | --------------------------------------------------------- |
+| [notion-client](./packages/notion-client) | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) | [docs](./docs/notion-client.md) | TypeScript client for the unofficial Notion API.          |
+| [notion-types](./packages/notion-types)   | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)   | [docs](./docs/notion-types.md)  | TypeScript types for core Notion data structures.         |
+| [notion-utils](./packages/notion-utils)   | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)   | [docs](./docs/notion-utils.md)  | Useful utilities for working with Notion data. Isomorphic |
 
 ## Related
 

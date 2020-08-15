@@ -8,7 +8,7 @@
 
 |  Package | Description |
 |  --- | --- |
-|  [notion](./notion.md) |  |
+|  [notion-client](./notion-client.md) |  |
 |  [notion-types](./notion-types.md) |  |
 |  [notion-utils](./notion-utils.md) |  |
 

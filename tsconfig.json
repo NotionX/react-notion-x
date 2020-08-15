@@ -7,6 +7,6 @@
   "references": [
     { "path": "./packages/notion-types" },
     { "path": "./packages/notion-utils" },
-    { "path": "./packages/notion" }
+    { "path": "./packages/notion-client" }
   ]
 }
