@@ -1,3 +1,7 @@
+<p align="center">
+  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/saasify-sh/notion/master/notion-ts.png" width="689">
+</p>
+
 # notion-types
 
 > TypeScript types for core Notion data structures.
