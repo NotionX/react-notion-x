@@ -114,7 +114,7 @@ export interface BaseBlock {
   last_edited_by_table: string
   last_edited_by_id: ID
   space_id?: ID
-  properties?: object
+  properties?: any
   content?: ID[]
 }
 
@@ -523,4 +523,10 @@ export interface SearchResult {
     pathText: string
     text: string
   }
+}
+
+export interface APIError {
+  errorId: string
+  name: string
+  message: string
 }

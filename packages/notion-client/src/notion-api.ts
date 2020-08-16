@@ -1,4 +1,4 @@
-import ky from 'ky-universal'
+import got from 'got'
 import pMap from 'p-map'
 import { parsePageId } from 'notion-utils'
 import * as notion from 'notion-types'
@@ -33,9 +33,12 @@ export class NotionAPI {
       fetchCollections = true
     }: { concurrency?: number; fetchCollections?: boolean } = {}
   ): Promise<notion.ExtendedRecordMap> {
+    console.log('getPageRaw', pageId)
     const page = await this.getPageRaw(pageId)
     const recordMap: notion.ExtendedRecordMap = page.recordMap
     recordMap.collection_query = {}
+
+    console.log('getPage', pageId)
 
     // fetch any missing content blocks
     while (true) {
@@ -52,6 +55,7 @@ export class NotionAPI {
         break
       }
 
+      console.log('getBlocks', pendingBlocks)
       const newBlocks = await this.getBlocks(pendingBlocks).then(
         (res) => res.recordMap.block
       )
@@ -76,6 +80,8 @@ export class NotionAPI {
           }
         }
       )
+
+      console.log('allCollectionInstances', allCollectionInstances)
 
       // fetch data for all collection view instances
       await pMap(
@@ -218,7 +224,7 @@ export class NotionAPI {
       headers.cookie = `token_v2=${this._authToken}`
     }
 
-    return ky
+    return got
       .post(endpoint, {
         prefixUrl: this._apiBaseUrl,
         json: body,
