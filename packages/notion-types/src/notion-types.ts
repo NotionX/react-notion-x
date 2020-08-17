@@ -61,6 +61,15 @@ export type CollectionViewType =
 
 export type Role = 'editor' | 'reader' | 'none' | 'read_and_write'
 
+export type CollectionCardCoverType =
+  | 'page_cover'
+  | 'page_content'
+  | 'none'
+  | 'file'
+
+export type CollectionCardCoverSize = 'small' | 'medium' | 'large'
+export type CollectionCardCoverAspect = 'cover' | 'contain'
+
 export type BoldFormat = ['b']
 export type ItalicFormat = ['i']
 export type StrikeFormat = ['s']
@@ -116,6 +125,7 @@ export interface BaseBlock {
   space_id?: ID
   properties?: any
   content?: ID[]
+  type: string
 }
 
 export interface BaseTextBlock extends BaseBlock {
@@ -132,7 +142,7 @@ export interface BaseContentBlock extends BaseBlock {
     source: string[][]
     caption?: Decoration[]
   }
-  format: {
+  format?: {
     block_width: number
     block_height: number
     display_source: string
@@ -258,6 +268,26 @@ export interface VideoBlock extends BaseContentBlock {
   type: 'video'
 }
 
+export interface FigmaBlock extends BaseContentBlock {
+  type: 'figma'
+}
+
+export interface TweetBlock extends BaseContentBlock {
+  type: 'tweet'
+}
+
+export interface MapsBlock extends BaseContentBlock {
+  type: 'maps'
+}
+
+export interface PdfBlock extends BaseContentBlock {
+  type: 'pdf'
+}
+
+export interface AudioBlock extends BaseContentBlock {
+  type: 'audio'
+}
+
 export interface CodeBlock extends BaseBlock {
   type: 'code'
   properties: {
@@ -289,6 +319,11 @@ export type Block =
   | CodeBlock
   | ImageBlock
   | VideoBlock
+  | FigmaBlock
+  | TweetBlock
+  | PdfBlock
+  | MapsBlock
+  | AudioBlock
   | EmbedBlock
   | CalloutBlock
   | BookmarkBlock
@@ -381,10 +416,11 @@ export interface GalleryCollectionView extends BaseCollectionView {
   type: 'gallery'
   format: {
     gallery_cover: {
-      type: 'page_cover' | 'page_content'
+      type: CollectionCardCoverType
     }
-    gallery_cover_size: 'medium'
-    gallery_cover_aspect: 'cover'
+    gallery_cover_size: CollectionCardCoverSize
+    gallery_cover_aspect: CollectionCardCoverAspect
+
     gallery_properties: Array<{
       property: CollectionPropertyID
       visible: boolean
@@ -405,6 +441,12 @@ export interface ListCollectionView extends BaseCollectionView {
 export interface BoardCollectionView extends BaseCollectionView {
   type: 'board'
   format: {
+    board_cover: {
+      type: CollectionCardCoverType
+    }
+    board_cover_size: CollectionCardCoverSize
+    board_cover_aspect: CollectionCardCoverAspect
+
     board_properties: Array<{
       property: CollectionPropertyID
       visible: boolean
@@ -464,7 +506,11 @@ export interface RecordMap {
 // NOTE: This is not a native Notion type, but rather a convenience type that
 // extends Notion's native RecordMap with data for collection instances.
 export interface ExtendedRecordMap extends RecordMap {
-  collection_query?: {
+  collection: CollectionMap
+  collection_view: CollectionViewMap
+  notion_user: UserMap
+
+  collection_query: {
     [collectionId: string]: {
       [collectionViewId: string]: CollectionQueryResult
     }
@@ -486,17 +532,29 @@ export interface CollectionInstance {
 export interface CollectionQueryResult {
   type: CollectionViewType
   total: number
+
   blockIds: ID[]
-  aggregationResults: Array<{
-    type: PropertyType
-    value: any
+  aggregationResults: Array<AggregationResult>
+
+  // only used for board collection views
+  groupResults?: Array<{
+    value: AggregationResult
+    blockIds: ID[]
+    total: number
+    aggregationResult: AggregationResult
   }>
+}
+
+export interface AggregationResult {
+  type: PropertyType
+  value: any
 }
 
 export interface RecordValues<T> {
   results: T[]
 }
 
+// TODO: some of these types should be moved into notion-api/src/types.ts
 export interface SearchParams {
   ancestorId: string
   query: string

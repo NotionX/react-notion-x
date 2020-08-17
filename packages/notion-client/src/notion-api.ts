@@ -1,7 +1,10 @@
 import got from 'got'
 import pMap from 'p-map'
+
 import { parsePageId } from 'notion-utils'
 import * as notion from 'notion-types'
+
+import * as types from './types'
 
 export class NotionAPI {
   private readonly _apiBaseUrl: string
@@ -29,16 +32,18 @@ export class NotionAPI {
   public async getPage(
     pageId: string,
     {
-      concurrency = 2,
       fetchCollections = true
     }: { concurrency?: number; fetchCollections?: boolean } = {}
   ): Promise<notion.ExtendedRecordMap> {
-    console.log('getPageRaw', pageId)
     const page = await this.getPageRaw(pageId)
-    const recordMap: notion.ExtendedRecordMap = page.recordMap
-    recordMap.collection_query = {}
+    const recordMap = page.recordMap as notion.ExtendedRecordMap
 
-    console.log('getPage', pageId)
+    // ensure that all top-level maps exist
+    recordMap.block = recordMap.block ?? {}
+    recordMap.collection = recordMap.collection ?? {}
+    recordMap.collection_view = recordMap.collection_view ?? {}
+    recordMap.notion_user = recordMap.notion_user ?? {}
+    recordMap.collection_query = {}
 
     // fetch any missing content blocks
     while (true) {
@@ -55,7 +60,6 @@ export class NotionAPI {
         break
       }
 
-      console.log('getBlocks', pendingBlocks)
       const newBlocks = await this.getBlocks(pendingBlocks).then(
         (res) => res.recordMap.block
       )
@@ -81,21 +85,37 @@ export class NotionAPI {
         }
       )
 
-      console.log('allCollectionInstances', allCollectionInstances)
-
       // fetch data for all collection view instances
       await pMap(
         allCollectionInstances,
         async (collectionInstance) => {
           const { collectionId, collectionViewId } = collectionInstance
+          const collectionView =
+            recordMap.collection_view[collectionViewId]?.value
+
           const collectionData = await this.getCollectionData(
             collectionId,
-            collectionViewId
+            collectionViewId,
+            {
+              type: collectionView?.type,
+              query: collectionView?.query2,
+              groups: collectionView?.format?.board_groups2
+            }
           )
 
           recordMap.block = {
             ...recordMap.block,
             ...collectionData.recordMap.block
+          }
+
+          recordMap.collection = {
+            ...recordMap.collection,
+            ...collectionData.recordMap.collection
+          }
+
+          recordMap.collection_view = {
+            ...recordMap.collection_view,
+            ...collectionData.recordMap.collection_view
           }
 
           recordMap.notion_user = {
@@ -109,7 +129,7 @@ export class NotionAPI {
           }
         },
         {
-          concurrency
+          concurrency: 1
         }
       )
     }
@@ -139,22 +159,59 @@ export class NotionAPI {
   public async getCollectionData(
     collectionId: string,
     collectionViewId: string,
-    collectionType: string = 'table'
+    {
+      type = 'table',
+      query = { aggregations: [{ property: 'title', aggregator: 'count' }] },
+      groups = undefined,
+      limit = 999999,
+      searchQuery = '',
+      userTimeZone = this._userTimeZone,
+      userLocale = this._userLocale,
+      loadContentCover = true
+    }: {
+      type?: notion.CollectionViewType
+      query?: any
+      groups?: any
+      limit?: number
+      searchQuery?: string
+      userTimeZone?: string
+      userLocale?: string
+      loadContentCover?: boolean
+    } = {}
   ) {
+    // TODO: All other collection types queries fail with 400 errors.
+    // My guess is that they require slightly different query params, but since
+    // their results are the same AFAICT, there's not much point in supporting
+    // them.
+    if (type !== 'table' && type !== 'board') {
+      type = 'table'
+    }
+
+    const loader: any = {
+      type,
+      limit,
+      searchQuery,
+      userTimeZone,
+      userLocale,
+      loadContentCover
+    }
+
+    if (groups) {
+      // used for 'board' collection view queries
+      loader.groups = groups
+    }
+
+    if (type === 'board') {
+      console.log(JSON.stringify({ query, loader }, null, 2))
+    }
+
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
       body: {
         collectionId,
         collectionViewId,
-        query: { aggregations: [{ property: 'title', aggregator: 'count' }] },
-        loader: {
-          type: collectionType,
-          limit: 999999,
-          searchQuery: '',
-          userTimeZone: this._userTimeZone,
-          userLocale: this._userLocale,
-          loadContentCover: true
-        }
+        query,
+        loader
       }
     })
   }
@@ -181,6 +238,15 @@ export class NotionAPI {
             {}
           )
         }
+      }
+    })
+  }
+
+  public async getSignedFileUrls(urls: types.SignedUrlRequest[]) {
+    return this.fetch<types.SignedUrlResponse>({
+      endpoint: 'getSignedFileUrls',
+      body: {
+        urls
       }
     })
   }
