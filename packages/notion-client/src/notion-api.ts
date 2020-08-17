@@ -38,8 +38,11 @@ export class NotionAPI {
     const page = await this.getPageRaw(pageId)
     const recordMap = page.recordMap as notion.ExtendedRecordMap
 
+    if (!recordMap.block) {
+      throw new Error(`Notion page not found "${pageId}"`)
+    }
+
     // ensure that all top-level maps exist
-    recordMap.block = recordMap.block ?? {}
     recordMap.collection = recordMap.collection ?? {}
     recordMap.collection_view = recordMap.collection_view ?? {}
     recordMap.notion_user = recordMap.notion_user ?? {}
