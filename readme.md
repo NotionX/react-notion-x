@@ -23,7 +23,7 @@ import { NotionAPI } from 'notion-client'
 
 const api = new NotionAPI()
 
-// fetch a page's content, including all async blocks, collection queries, and signed urls
+// fetch a notion page's content, including all async blocks, collection queries, and signed urls
 const page = await api.getPage('067dd719-a912-471e-a9a3-ac10710e7fdf')
 
 // fetch the data for a specific collection instance
