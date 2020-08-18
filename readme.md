@@ -99,7 +99,7 @@ All known blocks and most known configuration settings can be found in our [test
 
 ## Related
 
-- [notion test suite](https://www.notion.so/saasifysh/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of public Notion pages to test individual features.
+- [Notion Test Suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of Notion test pages aimed at covering all of Notion's individual blocks, collection views, formatting options, and features.
 - [react-notion](https://github.com/splitbee/react-notion) - React renderer for Notion data.
 - [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker.
   - This provided a solid starting point for `notion-types` and `notion-client`.
