@@ -106,7 +106,7 @@ All known blocks and most known configuration settings can be found in our [test
 - [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker.
   - This provided a solid starting point for `notion-types` and `notion-client`.
   - Currently doesn't handle collection data very robustly.
-  - One of the main use cases for `react-notion` is server-side rendering via Next.js, in which case wrapping the Notion API via a CF worker is completely unnecessary.
+  - One of the main use cases for `react-notion` is server-side rendering via Next.js, in which case the CF worker is unnecessary.
 - [notion-api-agent](https://github.com/dragonman225/notionapi-agent) - Alternative Notion API client.
 
 ## License
