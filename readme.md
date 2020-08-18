@@ -21,7 +21,6 @@
 ```ts
 import { NotionAPI } from 'notion-client'
 
-// you can optionally pass an authToken to access private notion resources
 const api = new NotionAPI()
 
 // fetch a page's content, including all async blocks, collection queries, and signed urls
@@ -36,7 +35,7 @@ const colectionData = await api.getCollectionData(
 )
 ```
 
-All examples use this public [notion workspace](https://www.notion.so/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf).
+You can optionally pass an `authToken` to `NotionAPI` if you need to access private notion resources.
 
 ## Packages
 
