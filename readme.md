@@ -40,51 +40,55 @@ All examples use this public [notion workspace](https://www.notion.so/Notion-Tes
 
 ## Supported Blocks
 
-Most common block types are supported. We happily accept pull requests to add support for the missing blocks.
+The majority of Notion blocks and collections are fully supported.
 
-| Block Type                  | Supported  | Block Type             | Notes                                           |
-| --------------------------- | ---------- | ---------------------- | ----------------------------------------------- |
+| Block Type                  | Supported  | Block Type             | Notes                                                                                                            |
+| --------------------------- | ---------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Page                        | ✅ Yes     | `page`                 |
-| Text                        | ✅ Yes     | `text`                 | Includes all known text formatting options      |
-| Bookmark                    | ✅ Yes     | `bookmark`             | Embedded preview of external URL                |
-| Bulleted List               | ✅ Yes     | `bulleted_list`        | `<ul>`                                          |
-| Numbered List               | ✅ Yes     | `numbered_list`        | `<ol>`                                          |
-| Heading 1                   | ✅ Yes     | `header`               | `<h1>`                                          |
-| Heading 2                   | ✅ Yes     | `sub_header`           | `<h2>`                                          |
-| Heading 3                   | ✅ Yes     | `sub_sub_header`       | `<h3>`                                          |
+| Text                        | ✅ Yes     | `text`                 | Includes all known text formatting options                                                                       |
+| Bookmark                    | ✅ Yes     | `bookmark`             | Embedded preview of external URL                                                                                 |
+| Bulleted List               | ✅ Yes     | `bulleted_list`        | `<ul>`                                                                                                           |
+| Numbered List               | ✅ Yes     | `numbered_list`        | `<ol>`                                                                                                           |
+| Heading 1                   | ✅ Yes     | `header`               | `<h1>`                                                                                                           |
+| Heading 2                   | ✅ Yes     | `sub_header`           | `<h2>`                                                                                                           |
+| Heading 3                   | ✅ Yes     | `sub_sub_header`       | `<h3>`                                                                                                           |
 | Quote                       | ✅ Yes     | `quote`                |
 | Callout                     | ✅ Yes     | `callout`              |
-| Equation (block)            | ✅ Yes     | `equation`             | [katex](https://katex.org/)                     |
-| Equation (inline)           | ✅ Yes     | `text`                 | [katex](https://katex.org/)                     |
+| Equation (block)            | ✅ Yes     | `equation`             | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)                       |
+| Equation (inline)           | ✅ Yes     | `text`                 | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)                       |
 | Todos (checkboxes)          | ✅ Yes     | `to_do`                |
-| Table Of Contents           | ✅ Yes     | `table_of_contents`    | See `notion-utils` `get                         |
-| Divider                     | ✅ Yes     | `divider`              |
+| Table Of Contents           | ✅ Yes     | `table_of_contents`    | See `notion-utils` `get                                                                                          |
+| Divider                     | ✅ Yes     | `divider`              | Horizontal line                                                                                                  |
 | Column                      | ✅ Yes     | `column`               |
 | Column List                 | ✅ Yes     | `column_list`          |
-| Toggle                      | ✅ Yes     | `toggle`               |
-| Image                       | ✅ Yes     | `image`                |
-| Embed                       | ✅ Yes     | `embed`                | iframes and oembed                              |
-| Video                       | ✅ Yes     | `video`                |
-| Figma                       | ✅ Yes     | `figma`                |
-| Tweet                       | ✅ Yes     | `tweet`                |
-| Google Maps                 | ✅ Yes     | `maps`                 |
-| Google Drive                | ✅ Yes     | `drive`                | Google Docs, Sheets, etc                        |
-| PDF                         | ✅ Yes     | `pdf`                  | Uses S3 signed URLs                             |
-| Audio                       | ✅ Yes     | `audio`                | Uses S3 signed URLs                             |
-| File                        | ✅ Yes     | `file`                 | Uses S3 signed URLs (generic downloadable file) |
-| Link                        | ✅ Yes     | `text`                 |
-| Page Link                   | ✅ Yes     | `page`                 |
-| External Page Link          | ✅ Yes     | `text`                 |
-| Code (block)                | ✅ Yes     | `code`                 |
-| Code (inline)               | ✅ Yes     | `text`                 |
-| Collections                 | ✅ Yes     |                        | Collection Views are the actual blocks          |
-| Collections View            | ✅ Yes     | `collection_view`      |
-| Collections View (Table)    | ✅ Yes     | `collection_view`      | `type = "table"` (default table view)           |
-| Collections View (Gallery)  | ✅ Yes     | `collection_view`      | `type = "gallery"` (grid view)                  |
-| Collections View (Board)    | ✅ Yes     | `collection_view`      | `type = "board"` (kanban view)                  |
-| Collections View (List)     | ✅ Yes     | `collection_view`      | `type = "list"` (vertical list view)            |
-| Collections View (Calendar) | ❌ Missing | `collection_view`      | `type = "calendar"` (embedded calendar view)    |
-| Collections View Page       | ❌ Missing | `collection_view_page` | Collection view as a standalone page            |
+| Toggle                      | ✅ Yes     | `toggle`               | [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details)                                 |
+| Image                       | ✅ Yes     | `image`                | `<img>`                                                                                                          |
+| Embed                       | ✅ Yes     | `embed`                | Generic `iframe` embeds                                                                                          |
+| Video                       | ✅ Yes     | `video`                | `iframe`                                                                                                         |
+| Figma                       | ✅ Yes     | `figma`                | `iframe`                                                                                                         |
+| Google Maps                 | ✅ Yes     | `maps`                 | `iframe`                                                                                                         |
+| Google Drive                | ✅ Yes     | `drive`                | Google Docs, Sheets, etc custom embed                                                                            |
+| Tweet                       | ✅ Yes     | `tweet`                | Uses the twitter embedding SDK                                                                                   |
+| PDF                         | ✅ Yes     | `pdf`                  | Uses S3 signed URLs and [react-pdf](https://github.com/wojtekmaj/react-pdf)                                      |
+| Audio                       | ✅ Yes     | `audio`                | Uses S3 signed URLs and [HTML5 `audio` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) |
+| File                        | ✅ Yes     | `file`                 | Uses S3 signed URLs (generic downloadable file)                                                                  |
+| Link                        | ✅ Yes     | `text`                 | External links                                                                                                   |
+| Page Link                   | ✅ Yes     | `page`                 | Link to a notion page in the same workspace                                                                      |
+| External Page Link          | ✅ Yes     | `text`                 | Links to a notion page or collection view in another workspace                                                   |
+| Code (block)                | ✅ Yes     | `code`                 | Block code syntax highlighting via [prismjs](https://prismjs.com/)                                               |
+| Code (inline)               | ✅ Yes     | `text`                 | Inline code formatting (no syntax highlighting)                                                                  |
+| Collections                 | ✅ Yes     |                        | Also known as [databases](https://www.notion.so/Intro-to-databases-fd8cd2d212f74c50954c11086d85997e)             |
+| Collections View            | ✅ Yes     | `collection_view`      | Collections have a 1:N mapping to collection views                                                               |
+| Collections View (Table)    | ✅ Yes     | `collection_view`      | `type = "table"` (default table view)                                                                            |
+| Collections View (Gallery)  | ✅ Yes     | `collection_view`      | `type = "gallery"` (grid view)                                                                                   |
+| Collections View (Board)    | ✅ Yes     | `collection_view`      | `type = "board"` (kanban view)                                                                                   |
+| Collections View (List)     | ✅ Yes     | `collection_view`      | `type = "list"` (vertical list view)                                                                             |
+| Collections View (Calendar) | ❌ Missing | `collection_view`      | `type = "calendar"` (embedded calendar view)                                                                     |
+| Collections View Page       | ❌ Missing | `collection_view_page` | Collection view as a standalone page                                                                             |
+
+Please let us know if you find any issues or missing blocks.
+
+All known blocks and most known configuration settings can be found in our [test suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf).
 
 ## Related
 
