@@ -8,8 +8,6 @@
 
 [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
-The goal of this project is to support **100% of Notion's public, readonly functionality** as faithfully as possible in order to unlock Notion's potential as a next-generation headless CMS.
-
 ## Features
 
 - 🚀 **Simple** - It's all TypeScript. Easy peasy.
@@ -40,7 +38,7 @@ const colectionData = await api.getCollectionData(
 
 All examples use this public [notion workspace](https://www.notion.so/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf).
 
-## Docs
+## Packages
 
 | Package                                   | NPM                                                                                                   | Docs                            | Description                                             |
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------- |
@@ -94,7 +92,7 @@ The majority of Notion blocks and collection views are fully supported.
 | Collections View (Board)    | ✅ Yes     | `collection_view`      | `type = "board"` (kanban view)                                                                                   |
 | Collections View (List)     | ✅ Yes     | `collection_view`      | `type = "list"` (vertical list view)                                                                             |
 | Collections View (Calendar) | ❌ Missing | `collection_view`      | `type = "calendar"` (embedded calendar view)                                                                     |
-| Collections View Page       | ❌ Missing | `collection_view_page` | Collection view as a standalone page                                                                             |
+| Collections View Page       | ✅ Yes     | `collection_view_page` | Collection view as a standalone page                                                                             |
 
 Please let us know if you find any issues or missing blocks.
 
