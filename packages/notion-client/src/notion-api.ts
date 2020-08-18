@@ -62,9 +62,9 @@ export class NotionAPI {
     while (true) {
       const pendingBlocks = Object.keys(recordMap.block).flatMap((blockId) => {
         const block = recordMap.block[blockId]
-        const content = block.value && block.value.content
+        const content = block.value?.content
 
-        return content && block.value.type !== 'page'
+        return content && block.value?.type !== 'page'
           ? content.filter((id) => !recordMap.block[id])
           : []
       })
@@ -90,7 +90,7 @@ export class NotionAPI {
         (blockId) => {
           const block = recordMap.block[blockId].value
 
-          if (block.type === 'collection_view') {
+          if (block?.type === 'collection_view') {
             return block.view_ids.map((collectionViewId) => ({
               collectionId: block.collection_id,
               collectionViewId
@@ -160,9 +160,10 @@ export class NotionAPI {
           const block = recordMap.block[blockId].value
 
           if (
-            block.type === 'pdf' ||
-            block.type === 'audio' ||
-            block.type === 'file'
+            block &&
+            (block.type === 'pdf' ||
+              block.type === 'audio' ||
+              block.type === 'file')
           ) {
             const source = block.properties?.source?.[0]?.[0]
 

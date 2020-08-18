@@ -120,6 +120,7 @@ export type BlockType =
   | 'sub_header'
   | 'sub_sub_header'
   | 'quote'
+  | 'equation'
   | 'to_do'
   | 'table_of_contents'
   | 'divider'
@@ -139,6 +140,8 @@ export type BlockType =
   | 'file'
   | 'code'
   | 'collection_view'
+  // fallback for unknown blocks
+  | string
 
 /**
  * Base properties shared by all block types.
@@ -245,6 +248,10 @@ export interface SubSubHeaderBlock extends BaseTextBlock {
 
 export interface QuoteBlock extends BaseTextBlock {
   type: 'quote'
+}
+
+export interface EquationBlock extends BaseTextBlock {
+  type: 'equation'
 }
 
 // TODO
@@ -389,6 +396,7 @@ export type Block =
   | ColumnListBlock
   | ColumnBlock
   | QuoteBlock
+  | EquationBlock
   | CodeBlock
   | ImageBlock
   | VideoBlock
