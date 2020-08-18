@@ -4,22 +4,32 @@
 
 # notion
 
-> TypeScript packages for Notion's unofficial API, data types, and related utilities.
+> TypeScript packages for [Notion's](https://notion.so) unofficial API, data types, and related utilities.
 
 [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+
+The goal of this project is to support **100% of Notion's public, readonly functionality** as faithfully as possible in order to unlock Notion's potential as a next-generation headless CMS.
+
+## Features
+
+- 🚀 **Simple** - It's all TypeScript. Easy peasy.
+- ⚡ **Fast** - Concurrent network IO for fetching all resources on a page.
+- 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering 98% of Notion functionality.
+- 📓 **Docs** - Auto-generated [docs](./docs/index.md) for all packages.
+- 🔥 **Solid** - Used in production by Notion X (_coming soon_), [Notion VIP](https://www.notion.vip), and [Notion2Site](http://notion2site.com).
 
 ## Usage
 
 ```ts
 import { NotionAPI } from 'notion-client'
 
+// you can optionally pass an authToken to access private notion resources
 const api = new NotionAPI()
 
-// this will fetch all blocks for the given page as well as any collection data
-// for collection views contained on the page
+// fetch a page's content, including all async blocks, collection queries, and signed urls
 const page = await api.getPage('067dd719-a912-471e-a9a3-ac10710e7fdf')
 
-// example of fetching the data for a specific collection instance
+// fetch the data for a specific collection instance
 const collectionId = '2d8aec23-8281-4a94-9090-caaf823dd21a'
 const collectionViewId = 'ab639a5a-853e-45e1-9ef7-133b486c0acf'
 const colectionData = await api.getCollectionData(
@@ -28,19 +38,19 @@ const colectionData = await api.getCollectionData(
 )
 ```
 
-All examples use this public [notion workspace](https://www.notion.so/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf) which **aims to cover 100% of Notion's public functionality**.
+All examples use this public [notion workspace](https://www.notion.so/Notion-Tests-067dd719a912471ea9a3ac10710e7fdf).
 
 ## Docs
 
-| Package                                   | NPM                                                                                                   | Docs                            | Description                                       |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------- |
-| [notion-client](./packages/notion-client) | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) | [docs](./docs/notion-client.md) | TypeScript client for the unofficial Notion API.  |
-| [notion-types](./packages/notion-types)   | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)   | [docs](./docs/notion-types.md)  | TypeScript types for core Notion data structures. |
-| [notion-utils](./packages/notion-utils)   | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)   | [docs](./docs/notion-utils.md)  | Useful utilities for working with Notion data.    |
+| Package                                   | NPM                                                                                                   | Docs                            | Description                                             |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------- | ------------------------------------------------------- |
+| [notion-client](./packages/notion-client) | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) | [docs](./docs/notion-client.md) | Robust TypeScript client for the unofficial Notion API. |
+| [notion-types](./packages/notion-types)   | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)   | [docs](./docs/notion-types.md)  | TypeScript types for core Notion data structures.       |
+| [notion-utils](./packages/notion-utils)   | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)   | [docs](./docs/notion-utils.md)  | Useful utilities for working with Notion data.          |
 
 ## Supported Blocks
 
-The majority of Notion blocks and collections are fully supported.
+The majority of Notion blocks and collection views are fully supported.
 
 | Block Type                  | Supported  | Block Type             | Notes                                                                                                            |
 | --------------------------- | ---------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |

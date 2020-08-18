@@ -1,7 +1,7 @@
 {
   "name": "notion-client",
   "version": "0.4.0",
-  "description": "TypeScript client for the unofficial Notion API.",
+  "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "saasify-sh/notion",
   "author": "Saasify <dev@saasify.sh>",
   "license": "MIT",

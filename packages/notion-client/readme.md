@@ -4,7 +4,7 @@
 
 # notion-client
 
-> TypeScript client for the unofficial Notion API.
+> Robust TypeScript client for the unofficial Notion API.
 
 [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
@@ -21,13 +21,13 @@ This package is compatible with server-side V8 contexts such as Node.js, Deno, a
 ```ts
 import { NotionAPI } from 'notion-client'
 
+// you can optionally pass an authToken to access private notion resources
 const api = new NotionAPI()
 
-// this will fetch all blocks for the given page as well as any collection data
-// for collection views contained on the page
+// fetch a page's content, including all async blocks, collection queries, and signed urls
 const page = await api.getPage('067dd719-a912-471e-a9a3-ac10710e7fdf')
 
-// example of fetching the data for a specific collection instance
+// fetch the data for a specific collection instance
 const collectionId = '2d8aec23-8281-4a94-9090-caaf823dd21a'
 const collectionViewId = 'ab639a5a-853e-45e1-9ef7-133b486c0acf'
 const colectionData = await api.getCollectionData(
