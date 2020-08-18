@@ -1,6 +1,6 @@
 {
   "name": "notion-utils",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
   "repository": "saasify-sh/notion",
   "author": "Saasify <dev@saasify.sh>",
@@ -14,7 +14,7 @@
     "test": "ava -v"
   },
   "dependencies": {
-    "notion-types": "^0.3.0"
+    "notion-types": "^0.4.0"
   },
   "devDependencies": {
     "ava": "^3.11.1",

@@ -1,6 +1,6 @@
 {
   "name": "notion-types",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "TypeScript types for core Notion data structures.",
   "repository": "saasify-sh/notion",
   "author": "Saasify <dev@saasify.sh>",
