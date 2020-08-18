@@ -14,8 +14,9 @@ export interface CollectionQueryResult
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [aggregationResults](./notion-types.collectionqueryresult.aggregationresults.md) | Array&lt;{ type: [PropertyType](./notion-types.propertytype.md)<!-- -->; value: any; }&gt; |  |
+|  [aggregationResults](./notion-types.collectionqueryresult.aggregationresults.md) | Array&lt;[AggregationResult](./notion-types.aggregationresult.md)<!-- -->&gt; |  |
 |  [blockIds](./notion-types.collectionqueryresult.blockids.md) | [ID](./notion-types.id.md)<!-- -->\[\] |  |
+|  [groupResults](./notion-types.collectionqueryresult.groupresults.md) | Array&lt;{ value: [AggregationResult](./notion-types.aggregationresult.md)<!-- -->; blockIds: [ID](./notion-types.id.md)<!-- -->\[\]; total: number; aggregationResult: [AggregationResult](./notion-types.aggregationresult.md)<!-- -->; }&gt; |  |
 |  [total](./notion-types.collectionqueryresult.total.md) | number |  |
 |  [type](./notion-types.collectionqueryresult.type.md) | [CollectionViewType](./notion-types.collectionviewtype.md) |  |
 

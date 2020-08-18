@@ -8,11 +8,9 @@
 
 ```typescript
 format: {
-        gallery_cover: {
-            type: 'page_cover' | 'page_content';
-        };
-        gallery_cover_size: 'medium';
-        gallery_cover_aspect: 'cover';
+        gallery_cover: CollectionCardCover;
+        gallery_cover_size: CollectionCardCoverSize;
+        gallery_cover_aspect: CollectionCardCoverAspect;
         gallery_properties: Array<{
             property: CollectionPropertyID;
             visible: boolean;

@@ -22,9 +22,10 @@ export declare class NotionAPI
 |  --- | --- | --- |
 |  [fetch({ endpoint, body })](./notion-client.notionapi.fetch.md) |  |  |
 |  [getBlocks(blockIds)](./notion-client.notionapi.getblocks.md) |  |  |
-|  [getCollectionData(collectionId, collectionViewId, collectionType)](./notion-client.notionapi.getcollectiondata.md) |  |  |
-|  [getPage(pageId, { concurrency, fetchCollections })](./notion-client.notionapi.getpage.md) |  |  |
+|  [getCollectionData(collectionId, collectionViewId, { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover })](./notion-client.notionapi.getcollectiondata.md) |  |  |
+|  [getPage(pageId, { concurrency, fetchCollections, signFileUrls })](./notion-client.notionapi.getpage.md) |  |  |
 |  [getPageRaw(pageId)](./notion-client.notionapi.getpageraw.md) |  |  |
+|  [getSignedFileUrls(urls)](./notion-client.notionapi.getsignedfileurls.md) |  |  |
 |  [getUsers(userIds)](./notion-client.notionapi.getusers.md) |  |  |
 |  [search(params)](./notion-client.notionapi.search.md) |  |  |
 

@@ -27,7 +27,8 @@ export interface BaseBlock
 |  [last\_edited\_time](./notion-types.baseblock.last_edited_time.md) | number |  |
 |  [parent\_id](./notion-types.baseblock.parent_id.md) | [ID](./notion-types.id.md) |  |
 |  [parent\_table](./notion-types.baseblock.parent_table.md) | string |  |
-|  [properties](./notion-types.baseblock.properties.md) | object |  |
+|  [properties](./notion-types.baseblock.properties.md) | any |  |
 |  [space\_id](./notion-types.baseblock.space_id.md) | [ID](./notion-types.id.md) |  |
+|  [type](./notion-types.baseblock.type.md) | [BlockType](./notion-types.blocktype.md) |  |
 |  [version](./notion-types.baseblock.version.md) | number |  |
 

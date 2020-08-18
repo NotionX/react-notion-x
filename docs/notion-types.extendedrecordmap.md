@@ -16,4 +16,8 @@ export interface ExtendedRecordMap extends RecordMap
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [collection\_query](./notion-types.extendedrecordmap.collection_query.md) | { \[collectionId: string\]: { \[collectionViewId: string\]: [CollectionQueryResult](./notion-types.collectionqueryresult.md)<!-- -->; }; } |  |
+|  [collection\_view](./notion-types.extendedrecordmap.collection_view.md) | [CollectionViewMap](./notion-types.collectionviewmap.md) |  |
+|  [collection](./notion-types.extendedrecordmap.collection.md) | [CollectionMap](./notion-types.collectionmap.md) |  |
+|  [notion\_user](./notion-types.extendedrecordmap.notion_user.md) | [UserMap](./notion-types.usermap.md) |  |
+|  [signed\_urls](./notion-types.extendedrecordmap.signed_urls.md) | { \[blockId: string\]: string; } |  |
 

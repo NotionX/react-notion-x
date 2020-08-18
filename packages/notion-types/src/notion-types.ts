@@ -114,8 +114,8 @@ export type Decoration = BaseDecoration | AdditionalDecoration
 
 export type BlockType =
   | 'page'
-  | 'bookmark'
   | 'text'
+  | 'bookmark'
   | 'bulleted_list'
   | 'numbered_list'
   | 'header'

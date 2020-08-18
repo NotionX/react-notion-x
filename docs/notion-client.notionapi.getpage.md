@@ -7,9 +7,10 @@
 <b>Signature:</b>
 
 ```typescript
-getPage(pageId: string, { concurrency, fetchCollections }?: {
+getPage(pageId: string, { concurrency, fetchCollections, signFileUrls }?: {
         concurrency?: number;
         fetchCollections?: boolean;
+        signFileUrls?: boolean;
     }): Promise<notion.ExtendedRecordMap>;
 ```
 
@@ -18,7 +19,7 @@ getPage(pageId: string, { concurrency, fetchCollections }?: {
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  pageId | string |  |
-|  { concurrency, fetchCollections } | { concurrency?: number; fetchCollections?: boolean; } |  |
+|  { concurrency, fetchCollections, signFileUrls } | { concurrency?: number; fetchCollections?: boolean; signFileUrls?: boolean; } |  |
 
 <b>Returns:</b>
 

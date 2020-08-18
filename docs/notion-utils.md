@@ -4,10 +4,19 @@
 
 ## notion-utils package
 
+## Interfaces
+
+|  Interface | Description |
+|  --- | --- |
+|  [TableOfContentsEntry](./notion-utils.tableofcontentsentry.md) |  |
+
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
+|  [getPageTableOfContents](./notion-utils.getpagetableofcontents.md) |  |
+|  [getTextContent](./notion-utils.gettextcontent.md) | Gets the raw, unformatted text content of a block's content value.<!-- -->This is useful, for instance, for extracting a block's <code>title</code> without any rich text formatting. |
 |  [idToUuid](./notion-utils.idtouuid.md) |  |
 |  [parsePageId](./notion-utils.parsepageid.md) | Robustly extracts the notion page ID from a notion URL or pathname suffix.<!-- -->Defaults to returning a UUID (with dashes). |
+|  [uuidToId](./notion-utils.uuidtoid.md) |  |
 

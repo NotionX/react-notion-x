@@ -7,17 +7,13 @@
 <b>Signature:</b>
 
 ```typescript
-export interface PageBlock extends BaseBlock 
+export interface PageBlock extends BasePageBlock 
 ```
-<b>Extends:</b> [BaseBlock](./notion-types.baseblock.md)
+<b>Extends:</b> [BasePageBlock](./notion-types.basepageblock.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [file\_ids](./notion-types.pageblock.file_ids.md) | string\[\] |  |
-|  [format](./notion-types.pageblock.format.md) | { page\_full\_width?: boolean; page\_small\_text?: boolean; page\_cover\_position?: number; block\_locked?: boolean; block\_locked\_by?: string; page\_cover?: string; page\_icon?: string; } |  |
-|  [permissions](./notion-types.pageblock.permissions.md) | { role: [Role](./notion-types.role.md)<!-- -->; type: string; }\[\] |  |
-|  [properties](./notion-types.pageblock.properties.md) | { title: [Decoration](./notion-types.decoration.md)<!-- -->\[\]; } |  |
 |  [type](./notion-types.pageblock.type.md) | 'page' |  |
 

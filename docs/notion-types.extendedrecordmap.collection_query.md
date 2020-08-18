@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-collection_query?: {
+collection_query: {
         [collectionId: string]: {
             [collectionViewId: string]: CollectionQueryResult;
         };

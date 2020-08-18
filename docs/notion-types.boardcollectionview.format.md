@@ -8,6 +8,9 @@
 
 ```typescript
 format: {
+        board_cover: CollectionCardCover;
+        board_cover_size: CollectionCardCoverSize;
+        board_cover_aspect: CollectionCardCoverAspect;
         board_properties: Array<{
             property: CollectionPropertyID;
             visible: boolean;

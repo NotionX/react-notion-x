@@ -7,8 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-aggregationResults: Array<{
-        type: PropertyType;
-        value: any;
-    }>;
+aggregationResults: Array<AggregationResult>;
 ```

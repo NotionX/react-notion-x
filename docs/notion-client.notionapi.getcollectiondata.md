@@ -7,7 +7,16 @@
 <b>Signature:</b>
 
 ```typescript
-getCollectionData(collectionId: string, collectionViewId: string, collectionType?: string): Promise<notion.CollectionInstance>;
+getCollectionData(collectionId: string, collectionViewId: string, { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover }?: {
+        type?: notion.CollectionViewType;
+        query?: any;
+        groups?: any;
+        limit?: number;
+        searchQuery?: string;
+        userTimeZone?: string;
+        userLocale?: string;
+        loadContentCover?: boolean;
+    }): Promise<notion.CollectionInstance>;
 ```
 
 ## Parameters
@@ -16,7 +25,7 @@ getCollectionData(collectionId: string, collectionViewId: string, collectionType
 |  --- | --- | --- |
 |  collectionId | string |  |
 |  collectionViewId | string |  |
-|  collectionType | string |  |
+|  { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover } | { type?: notion.[CollectionViewType](./notion-types.collectionviewtype.md)<!-- -->; query?: any; groups?: any; limit?: number; searchQuery?: string; userTimeZone?: string; userLocale?: string; loadContentCover?: boolean; } |  |
 
 <b>Returns:</b>
 

@@ -10,3 +10,11 @@
 |  --- | --- |
 |  [NotionAPI](./notion-client.notionapi.md) |  |
 
+## Interfaces
+
+|  Interface | Description |
+|  --- | --- |
+|  [PermissionRecord](./notion-client.permissionrecord.md) |  |
+|  [SignedUrlRequest](./notion-client.signedurlrequest.md) |  |
+|  [SignedUrlResponse](./notion-client.signedurlresponse.md) |  |
+

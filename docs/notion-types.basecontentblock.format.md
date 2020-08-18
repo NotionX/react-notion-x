@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-format: {
+format?: {
         block_width: number;
         block_height: number;
         display_source: string;
