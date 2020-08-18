@@ -1,2 +1,5 @@
+export * from './get-text-content'
+export * from './get-page-table-of-contents'
 export * from './parse-page-id'
 export * from './id-to-uuid'
+export * from './uuid-to-id'

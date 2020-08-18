@@ -107,6 +107,34 @@ export type Decoration = BaseDecoration | AdditionalDecoration
 // Block Types
 // ----------------------------------------------------------------------------
 
+export type BlockType =
+  | 'page'
+  | 'bookmark'
+  | 'text'
+  | 'bulleted_list'
+  | 'numbered_list'
+  | 'header'
+  | 'sub_header'
+  | 'sub_sub_header'
+  | 'quote'
+  | 'to_do'
+  | 'table_of_contents'
+  | 'divider'
+  | 'column_list'
+  | 'column'
+  | 'callout'
+  | 'toggle'
+  | 'image'
+  | 'embed'
+  | 'video'
+  | 'figma'
+  | 'tweet'
+  | 'maps'
+  | 'pdf'
+  | 'audio'
+  | 'code'
+  | 'collection_view'
+
 /**
  * Base properties shared by all block types.
  */
@@ -125,7 +153,7 @@ export interface BaseBlock {
   space_id?: ID
   properties?: any
   content?: ID[]
-  type: string
+  type: BlockType
 }
 
 export interface BaseTextBlock extends BaseBlock {
@@ -223,6 +251,13 @@ export interface TodoBlock extends BaseTextBlock {
   }
 }
 
+export interface TableOfContentsBlock extends BaseBlock {
+  type: 'table_of_contents'
+  format?: {
+    block_color: Color
+  }
+}
+
 export interface DividerBlock extends BaseBlock {
   type: 'divider'
 }
@@ -312,6 +347,7 @@ export type Block =
   | SubHeaderBlock
   | SubSubHeaderBlock
   | TodoBlock
+  | TableOfContentsBlock
   | DividerBlock
   | ColumnListBlock
   | ColumnBlock
