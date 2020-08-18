@@ -12,11 +12,11 @@ The goal of this project is to support **100% of Notion's public, readonly funct
 
 ## Features
 
-- 🚀 **Simple** - It's all TypeScript. Easy peasy.
-- ⚡ **Fast** - Concurrent network IO for fetching all resources on a page.
-- 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering 98% of Notion functionality.
-- 📓 **Docs** - Auto-generated [docs](./docs/index.md) for all packages.
-- 🔥 **Solid** - Used in production by Notion X (_coming soon_), [Notion VIP](https://www.notion.vip), and [Notion2Site](http://notion2site.com).
+🚀 **Simple** - It's all TypeScript. Easy peasy.
+⚡ **Fast** - Concurrent network IO for fetching all resources on a page.
+💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering 98% of Notion functionality.
+📓 **Docs** - Auto-generated [docs](./docs/index.md) for all packages.
+🔥 **Solid** - Used in production by Notion X (_coming soon_), [Notion VIP](https://www.notion.vip), and [Notion2Site](http://notion2site.com).
 
 ## Usage
 
