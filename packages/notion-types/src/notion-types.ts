@@ -79,6 +79,7 @@ export type LinkFormat = ['a', string]
 export type ColorFormat = ['h', Color]
 export type UserFormat = ['u', string]
 export type PageFormat = ['p', string]
+export type InlineEquationFormat = ['e', string]
 export type ExternalLinkFormat = ['‣', [string, string]]
 export type DateFormat = [
   'd',
@@ -99,6 +100,7 @@ export type SubDecoration =
   | ColorFormat
   | DateFormat
   | UserFormat
+  | InlineEquationFormat
   | PageFormat
   | ExternalLinkFormat
 
@@ -140,6 +142,7 @@ export type BlockType =
   | 'file'
   | 'code'
   | 'collection_view'
+  | 'collection_view_page'
   // fallback for unknown blocks
   | string
 
@@ -190,8 +193,7 @@ export interface BaseContentBlock extends BaseBlock {
   file_ids?: string[]
 }
 
-export interface PageBlock extends BaseBlock {
-  type: 'page'
+export interface BasePageBlock extends BaseBlock {
   properties?: {
     title: Decoration[]
   }
@@ -206,6 +208,10 @@ export interface PageBlock extends BaseBlock {
   }
   permissions: { role: Role; type: string }[]
   file_ids?: string[]
+}
+
+export interface PageBlock extends BasePageBlock {
+  type: 'page'
 }
 
 export interface BookmarkBlock extends BaseBlock {
@@ -375,8 +381,14 @@ export interface CodeBlock extends BaseBlock {
   }
 }
 
-export interface CollectionBlock extends BaseContentBlock {
+export interface CollectionViewBlock extends BaseContentBlock {
   type: 'collection_view'
+  collection_id: ID
+  view_ids: ID[]
+}
+
+export interface CollectionViewPageBlock extends BasePageBlock {
+  type: 'collection_view_page'
   collection_id: ID
   view_ids: ID[]
 }
@@ -411,7 +423,8 @@ export type Block =
   | CalloutBlock
   | BookmarkBlock
   | ToggleBlock
-  | CollectionBlock
+  | CollectionViewBlock
+  | CollectionViewPageBlock
 
 // Users
 // ----------------------------------------------------------------------------
