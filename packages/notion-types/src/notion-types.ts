@@ -64,6 +64,7 @@ export type Role = 'editor' | 'reader' | 'none' | 'read_and_write'
 export type CollectionCardCoverType =
   | 'page_cover'
   | 'page_content'
+  | 'property'
   | 'none'
   | 'file'
 
@@ -78,6 +79,7 @@ export type LinkFormat = ['a', string]
 export type ColorFormat = ['h', Color]
 export type UserFormat = ['u', string]
 export type PageFormat = ['p', string]
+export type ExternalLinkFormat = ['‣', [string, string]]
 export type DateFormat = [
   'd',
   {
@@ -98,6 +100,7 @@ export type SubDecoration =
   | DateFormat
   | UserFormat
   | PageFormat
+  | ExternalLinkFormat
 
 export type BaseDecoration = [string]
 export type AdditionalDecoration = [string, SubDecoration[]]
@@ -132,6 +135,8 @@ export type BlockType =
   | 'maps'
   | 'pdf'
   | 'audio'
+  | 'drive'
+  | 'file'
   | 'code'
   | 'collection_view'
 
@@ -323,6 +328,38 @@ export interface AudioBlock extends BaseContentBlock {
   type: 'audio'
 }
 
+export interface FileBlock extends BaseBlock {
+  type: 'file'
+  properties: {
+    title: Decoration[]
+    size: Decoration[]
+    source: string[][]
+  }
+  file_ids?: string[]
+}
+
+export interface GoogleDriveBlock extends BaseBlock {
+  type: 'drive'
+  format: {
+    drive_status: {
+      authed: boolean
+      last_fetched: number
+    }
+    drive_properties: {
+      url: string
+      icon: string
+      title: string
+      file_id: string
+      trashed: boolean
+      version: string
+      thumbnail: string
+      user_name: string
+      modified_time: number
+    }
+  }
+  file_ids?: string[]
+}
+
 export interface CodeBlock extends BaseBlock {
   type: 'code'
   properties: {
@@ -360,6 +397,8 @@ export type Block =
   | PdfBlock
   | MapsBlock
   | AudioBlock
+  | GoogleDriveBlock
+  | FileBlock
   | EmbedBlock
   | CalloutBlock
   | BookmarkBlock
@@ -410,6 +449,13 @@ export interface Collection {
   parent_table: string
   alive: boolean
   copied_from: string
+
+  format?: {
+    collection_page_properties?: Array<{
+      property: CollectionPropertyID
+      visible: boolean
+    }>
+  }
 }
 
 // Collection Views
@@ -451,9 +497,7 @@ export interface TableCollectionView extends BaseCollectionView {
 export interface GalleryCollectionView extends BaseCollectionView {
   type: 'gallery'
   format: {
-    gallery_cover: {
-      type: CollectionCardCoverType
-    }
+    gallery_cover: CollectionCardCover
     gallery_cover_size: CollectionCardCoverSize
     gallery_cover_aspect: CollectionCardCoverAspect
 
@@ -474,12 +518,15 @@ export interface ListCollectionView extends BaseCollectionView {
   }
 }
 
+export interface CollectionCardCover {
+  type: CollectionCardCoverType
+  property?: CollectionPropertyID
+}
+
 export interface BoardCollectionView extends BaseCollectionView {
   type: 'board'
   format: {
-    board_cover: {
-      type: CollectionCardCoverType
-    }
+    board_cover: CollectionCardCover
     board_cover_size: CollectionCardCoverSize
     board_cover_aspect: CollectionCardCoverAspect
 
@@ -546,10 +593,16 @@ export interface ExtendedRecordMap extends RecordMap {
   collection_view: CollectionViewMap
   notion_user: UserMap
 
+  // added for convenience
   collection_query: {
     [collectionId: string]: {
       [collectionViewId: string]: CollectionQueryResult
     }
+  }
+
+  // added for convenience
+  signed_urls: {
+    [blockId: string]: string
   }
 }
 

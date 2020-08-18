@@ -32,8 +32,14 @@ export class NotionAPI {
   public async getPage(
     pageId: string,
     {
-      fetchCollections = true
-    }: { concurrency?: number; fetchCollections?: boolean } = {}
+      concurrency = 3,
+      fetchCollections = true,
+      signFileUrls = true
+    }: {
+      concurrency?: number
+      fetchCollections?: boolean
+      signFileUrls?: boolean
+    } = {}
   ): Promise<notion.ExtendedRecordMap> {
     const page = await this.getPageRaw(pageId)
     const recordMap = page.recordMap as notion.ExtendedRecordMap
@@ -46,7 +52,11 @@ export class NotionAPI {
     recordMap.collection = recordMap.collection ?? {}
     recordMap.collection_view = recordMap.collection_view ?? {}
     recordMap.notion_user = recordMap.notion_user ?? {}
+
+    // additional mappings added for convenience
+    // note: these are not native notion objects
     recordMap.collection_query = {}
+    recordMap.signed_urls = {}
 
     // fetch any missing content blocks
     while (true) {
@@ -70,16 +80,19 @@ export class NotionAPI {
       recordMap.block = { ...recordMap.block, ...newBlocks }
     }
 
+    // Optionally fetch all data for embedded collections and their associated views.
+    // NOTE: We're eagerly fetching *all* data for each collection and all of its views.
+    // This is really convenient in order to ensure that all data needed for a given
+    // Notion page is readily available for use cases involving server-side rendering
+    // and edge caching.
     if (fetchCollections) {
       const allCollectionInstances = Object.keys(recordMap.block).flatMap(
         (blockId) => {
-          const block = recordMap.block[blockId]
+          const block = recordMap.block[blockId].value
 
-          if (block.value.type === 'collection_view') {
-            const value = block.value
-
-            return value.view_ids.map((collectionViewId) => ({
-              collectionId: value.collection_id,
+          if (block.type === 'collection_view') {
+            return block.view_ids.map((collectionViewId) => ({
+              collectionId: block.collection_id,
               collectionViewId
             }))
           } else {
@@ -132,9 +145,58 @@ export class NotionAPI {
           }
         },
         {
-          concurrency: 1
+          concurrency
         }
       )
+    }
+
+    // Optionally fetch signed URLs for any embedded files.
+    // NOTE: Similar to collection data, we default to eagerly fetching signed URL info
+    // because it is preferable for many use cases as opposed to making these API calls
+    // lazily from the client-side.
+    if (signFileUrls) {
+      const allFileInstances = Object.keys(recordMap.block).flatMap(
+        (blockId) => {
+          const block = recordMap.block[blockId].value
+
+          if (
+            block.type === 'pdf' ||
+            block.type === 'audio' ||
+            block.type === 'file'
+          ) {
+            const source = block.properties?.source?.[0]?.[0]
+
+            if (source) {
+              return {
+                permissionRecord: {
+                  table: 'block',
+                  id: block.id
+                },
+                url: source
+              }
+            }
+          }
+
+          return []
+        }
+      )
+
+      if (allFileInstances.length > 0) {
+        try {
+          const { signedUrls } = await this.getSignedFileUrls(allFileInstances)
+
+          if (signedUrls.length === allFileInstances.length) {
+            for (let i = 0; i < allFileInstances.length; ++i) {
+              const file = allFileInstances[i]
+              const signedUrl = signedUrls[i]
+
+              recordMap.signed_urls[file.permissionRecord.id] = signedUrl
+            }
+          }
+        } catch (err) {
+          console.warn('NotionAPI getSignedfileUrls error', err)
+        }
+      }
     }
 
     return recordMap
@@ -188,6 +250,11 @@ export class NotionAPI {
     // them.
     if (type !== 'table' && type !== 'board') {
       type = 'table'
+    }
+
+    if (query.filter) {
+      const { filter, ...rest } = query
+      query = rest
     }
 
     const loader: any = {
