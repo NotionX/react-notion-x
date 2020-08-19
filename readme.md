@@ -1,12 +1,12 @@
 <p align="center">
-  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/saasify-sh/notion/master/notion-ts.png" width="689">
+  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/saasify-sh/notion-kit/master/notion-ts.png" width="689">
 </p>
 
-# notion
+# Notion Kit
 
 > TypeScript packages for [Notion's](https://notion.so) unofficial API, data types, and related utilities.
 
-[![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion.svg?branch=master)](https://travis-ci.com/saasify-sh/notion) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion-kit.svg?branch=master)](https://travis-ci.com/saasify-sh/notion-kit) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Features
 

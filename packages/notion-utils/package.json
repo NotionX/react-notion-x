@@ -2,7 +2,7 @@
   "name": "notion-utils",
   "version": "1.0.0",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
-  "repository": "saasify-sh/notion",
+  "repository": "saasify-sh/notion-kit",
   "author": "Saasify <dev@saasify.sh>",
   "license": "MIT",
   "main": "build/index.js",
