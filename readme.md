@@ -45,7 +45,7 @@ You can optionally pass an `authToken` to `NotionAPI` if you need to access priv
 | [notion-types](./packages/notion-types)   | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)   | [docs](./docs/notion-types.md)  | Universal     | TypeScript types for core Notion data structures.       |
 | [notion-utils](./packages/notion-utils)   | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)   | [docs](./docs/notion-utils.md)  | Universal     | Useful utilities for working with Notion data.          |
 
-\* The Notion API is not expected to be used from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js, Deno, and Cloudflare Workers.
+\* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js, Deno, and Cloudflare Workers.
 
 ## Supported Blocks
 
@@ -101,7 +101,11 @@ All known blocks and most known configuration settings can be found in our [test
 
 ## Related
 
-- [Notion Test Suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of Notion test pages aimed at covering all of Notion's individual blocks, collection views, formatting options, and features.
+- [Notion Test Suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of Notion test pages
+  - Includes all individual blocks
+  - Includes all collection views
+  - Covers most formatting options
+  - More edge cases and feature coverage will be added over time
 - [react-notion](https://github.com/splitbee/react-notion) - React renderer for Notion data.
 - [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker.
   - This provided a solid starting point for `notion-types` and `notion-client`.
