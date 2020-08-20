@@ -109,39 +109,45 @@ export class NotionAPI {
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value
 
-          const collectionData = await this.getCollectionData(
-            collectionId,
-            collectionViewId,
-            {
-              type: collectionView?.type,
-              query: collectionView?.query2,
-              groups: collectionView?.format?.board_groups2
+          try {
+            const collectionData = await this.getCollectionData(
+              collectionId,
+              collectionViewId,
+              {
+                type: collectionView?.type,
+                query: collectionView?.query2,
+                groups: collectionView?.format?.board_groups2
+              }
+            )
+
+            recordMap.block = {
+              ...recordMap.block,
+              ...collectionData.recordMap.block
             }
-          )
 
-          recordMap.block = {
-            ...recordMap.block,
-            ...collectionData.recordMap.block
-          }
+            recordMap.collection = {
+              ...recordMap.collection,
+              ...collectionData.recordMap.collection
+            }
 
-          recordMap.collection = {
-            ...recordMap.collection,
-            ...collectionData.recordMap.collection
-          }
+            recordMap.collection_view = {
+              ...recordMap.collection_view,
+              ...collectionData.recordMap.collection_view
+            }
 
-          recordMap.collection_view = {
-            ...recordMap.collection_view,
-            ...collectionData.recordMap.collection_view
-          }
+            recordMap.notion_user = {
+              ...recordMap.notion_user,
+              ...collectionData.recordMap.notion_user
+            }
 
-          recordMap.notion_user = {
-            ...recordMap.notion_user,
-            ...collectionData.recordMap.notion_user
-          }
-
-          recordMap.collection_query![collectionId] = {
-            ...recordMap.collection_query![collectionId],
-            [collectionViewId]: collectionData.result
+            recordMap.collection_query![collectionId] = {
+              ...recordMap.collection_query![collectionId],
+              [collectionViewId]: collectionData.result
+            }
+          } catch (err) {
+            // It's possible for public pages to link to private collections, in which case
+            // Notion returns a 400 error
+            console.warn('NotionAPI collectionQuery error', err.message)
           }
         },
         {
