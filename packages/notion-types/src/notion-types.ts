@@ -463,7 +463,7 @@ export interface CollectionPropertySchemaMap {
 export interface Collection {
   id: ID
   version: number
-  name: string[][]
+  name: Decoration[]
   schema: CollectionPropertySchemaMap
   icon: string
   parent_id: ID
