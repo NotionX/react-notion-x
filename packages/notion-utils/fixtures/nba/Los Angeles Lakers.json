@@ -1,0 +1,125 @@
+{
+  "id": "85e4d626-09cc-45f6-9a28-07d5d490ca1d",
+  "version": 4,
+  "type": "gallery",
+  "name": "Los Angeles Lakers",
+  "query": {
+    "sort": [
+      {
+        "id": "0643c2be-0d39-43d0-b87a-aecfdd468edb",
+        "type": "formula",
+        "property": "=7m2",
+        "direction": "ascending"
+      }
+    ],
+    "filter": [
+      {
+        "id": "b477edbf-0ebd-49d7-98e3-8d46bd0de0dc",
+        "type": "relation",
+        "value": "f6c7514f-b3bf-4a1b-99fd-8588eb0fdc13",
+        "property": "p4nU",
+        "comparator": "enum_contains"
+      }
+    ],
+    "filter_operator": "and"
+  },
+  "format": {
+    "gallery_cover": {
+      "type": "property",
+      "property": "9DS!"
+    },
+    "gallery_cover_size": "small",
+    "gallery_properties": [
+      {
+        "visible": true,
+        "property": "p4nU"
+      },
+      {
+        "visible": true,
+        "property": "IY\\1"
+      },
+      {
+        "visible": true,
+        "property": "([kx"
+      },
+      {
+        "visible": true,
+        "property": "RyF."
+      },
+      {
+        "visible": true,
+        "property": "i?W1"
+      },
+      {
+        "visible": true,
+        "property": "LH{*"
+      },
+      {
+        "visible": false,
+        "property": "gq#*"
+      },
+      {
+        "visible": false,
+        "property": "MYa3"
+      },
+      {
+        "visible": false,
+        "property": "jhk5"
+      },
+      {
+        "visible": false,
+        "property": "\"G]_"
+      },
+      {
+        "visible": false,
+        "property": "-@$\\"
+      },
+      {
+        "visible": false,
+        "property": "ZHAU"
+      },
+      {
+        "visible": false,
+        "property": "N!$K"
+      },
+      {
+        "visible": false,
+        "property": "9DS!"
+      },
+      {
+        "visible": false,
+        "property": "=7m2"
+      }
+    ],
+    "gallery_cover_aspect": "contain",
+    "gallery_title_visible": true
+  },
+  "parent_id": "25630754-1583-4e09-b080-787768ecff62",
+  "parent_table": "block",
+  "alive": true,
+  "query2": {
+    "sort": [
+      {
+        "id": "0643c2be-0d39-43d0-b87a-aecfdd468edb",
+        "type": "formula",
+        "property": "=7m2",
+        "direction": "ascending"
+      }
+    ],
+    "filter": {
+      "filters": [
+        {
+          "filter": {
+            "value": {
+              "type": "exact",
+              "value": "f6c7514f-b3bf-4a1b-99fd-8588eb0fdc13"
+            },
+            "operator": "relation_contains"
+          },
+          "property": "p4nU"
+        }
+      ],
+      "operator": "and"
+    }
+  }
+}

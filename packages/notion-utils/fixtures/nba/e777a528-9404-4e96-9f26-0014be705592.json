@@ -1,0 +1,44 @@
+{
+  "id": "e777a528-9404-4e96-9f26-0014be705592",
+  "version": 34,
+  "name": [
+    [
+      "NBA Teams"
+    ]
+  ],
+  "schema": {
+    "$N1}": {
+      "name": "Conference",
+      "type": "select",
+      "options": [
+        {
+          "id": "`8t(",
+          "color": "blue",
+          "value": "Eastern Conference"
+        },
+        {
+          "id": "A'Q~",
+          "color": "red",
+          "value": "Western Conference"
+        }
+      ]
+    },
+    "3-5L": {
+      "name": "Players",
+      "type": "relation",
+      "property": "p4nU",
+      "collection_id": "1a425309-21c0-4ca1-8548-c5915137b566"
+    },
+    "f+&p": {
+      "name": "Logo",
+      "type": "file"
+    },
+    "title": {
+      "name": "﻿Team",
+      "type": "title"
+    }
+  },
+  "parent_id": "8a586d25-3f98-4b85-b482-54da84465d23",
+  "parent_table": "block",
+  "alive": true
+}

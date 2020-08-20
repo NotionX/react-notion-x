@@ -1,3 +1,4 @@
+// import { promises as fs } from 'fs'
 import got from 'got'
 import pMap from 'p-map'
 
@@ -119,6 +120,11 @@ export class NotionAPI {
                 groups: collectionView?.format?.board_groups2
               }
             )
+
+            // await fs.writeFile(
+            //   `${collectionId}-${collectionViewId}.json`,
+            //   JSON.stringify(collectionData.result, null, 2)
+            // )
 
             recordMap.block = {
               ...recordMap.block,
@@ -259,11 +265,6 @@ export class NotionAPI {
       type = 'table'
     }
 
-    if (query.filter) {
-      const { filter, ...rest } = query
-      query = rest
-    }
-
     const loader: any = {
       type,
       limit,
@@ -278,9 +279,9 @@ export class NotionAPI {
       loader.groups = groups
     }
 
-    if (type === 'board') {
-      console.log(JSON.stringify({ query, loader }, null, 2))
-    }
+    // if (type === 'board') {
+    //   console.log(JSON.stringify({ query, loader }, null, 2))
+    // }
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',

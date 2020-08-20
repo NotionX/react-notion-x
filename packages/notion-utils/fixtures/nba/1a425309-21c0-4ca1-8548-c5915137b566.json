@@ -1,0 +1,452 @@
+{
+  "id": "1a425309-21c0-4ca1-8548-c5915137b566",
+  "version": 174,
+  "name": [
+    [
+      "2020 NBA Players"
+    ]
+  ],
+  "schema": {
+    "\"G]_": {
+      "name": "Draft",
+      "type": "text"
+    },
+    "([kx": {
+      "name": "Nationality",
+      "type": "text"
+    },
+    "-@$\\": {
+      "name": "Height",
+      "type": "text",
+      "options": [
+        {
+          "id": "<8JB",
+          "color": "default",
+          "value": "6' 11\""
+        },
+        {
+          "id": "iV93",
+          "color": "purple",
+          "value": "6' 10\""
+        },
+        {
+          "id": "x)?v",
+          "color": "default",
+          "value": "6' 7\""
+        },
+        {
+          "id": ";G[_",
+          "color": "green",
+          "value": "6' 5\""
+        },
+        {
+          "id": "L><@",
+          "color": "yellow",
+          "value": "6' 1\""
+        },
+        {
+          "id": "}yVJ",
+          "color": "orange",
+          "value": "6' 8\""
+        },
+        {
+          "id": "KjKY",
+          "color": "green",
+          "value": "6' 4\""
+        },
+        {
+          "id": "(/=[",
+          "color": "pink",
+          "value": "6' 6\""
+        },
+        {
+          "id": "nOii",
+          "color": "default",
+          "value": "6' 9\""
+        },
+        {
+          "id": "Bgws",
+          "color": "purple",
+          "value": "6' 0\""
+        },
+        {
+          "id": "2t)V",
+          "color": "yellow",
+          "value": "7' 0\""
+        },
+        {
+          "id": "Jm69",
+          "color": "brown",
+          "value": "6' 3\""
+        },
+        {
+          "id": "}|`Y",
+          "color": "green",
+          "value": "5' 11\""
+        },
+        {
+          "id": "4t;7",
+          "color": "blue",
+          "value": "6' 2\""
+        },
+        {
+          "id": "1mfp",
+          "color": "purple",
+          "value": "5' 9\""
+        },
+        {
+          "id": "aVuk",
+          "color": "pink",
+          "value": "7' 4\""
+        },
+        {
+          "id": "tu[%",
+          "color": "green",
+          "value": "7' 1\""
+        },
+        {
+          "id": "Sq9R",
+          "color": "blue",
+          "value": "7' 2\""
+        },
+        {
+          "id": "oD-K",
+          "color": "brown",
+          "value": "7' 5\""
+        },
+        {
+          "id": "|tNZ",
+          "color": "blue",
+          "value": "5' 10\""
+        },
+        {
+          "id": "vDdE",
+          "color": "purple",
+          "value": "7' 3\""
+        }
+      ]
+    },
+    "9DS!": {
+      "name": "Photo",
+      "type": "file"
+    },
+    "=7m2": {
+      "name": "Last Name",
+      "type": "formula",
+      "formula": {
+        "args": [
+          {
+            "id": "title",
+            "name": "Name",
+            "type": "property",
+            "result_type": "text"
+          },
+          {
+            "type": "constant",
+            "value": ".+ ",
+            "value_type": "string",
+            "result_type": "text"
+          },
+          {
+            "type": "constant",
+            "value": "",
+            "value_type": "string",
+            "result_type": "text"
+          }
+        ],
+        "name": "replaceAll",
+        "type": "function",
+        "result_type": "text"
+      }
+    },
+    "IY\\1": {
+      "name": "Number | Position | Height",
+      "type": "formula",
+      "formula": {
+        "args": [
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "args": [
+                      {
+                        "id": "gq#*",
+                        "name": "Number",
+                        "type": "property",
+                        "result_type": "text"
+                      },
+                      {
+                        "type": "constant",
+                        "value": " | ",
+                        "value_type": "string",
+                        "result_type": "text"
+                      }
+                    ],
+                    "name": "add",
+                    "type": "operator",
+                    "operator": "+",
+                    "result_type": "text"
+                  },
+                  {
+                    "id": "MYa3",
+                    "name": "Position",
+                    "type": "property",
+                    "result_type": "text"
+                  }
+                ],
+                "name": "add",
+                "type": "operator",
+                "operator": "+",
+                "result_type": "text"
+              },
+              {
+                "type": "constant",
+                "value": " | ",
+                "value_type": "string",
+                "result_type": "text"
+              }
+            ],
+            "name": "add",
+            "type": "operator",
+            "operator": "+",
+            "result_type": "text"
+          },
+          {
+            "id": "-@$\\",
+            "name": "Height",
+            "type": "property",
+            "result_type": "text"
+          }
+        ],
+        "name": "add",
+        "type": "operator",
+        "operator": "+",
+        "result_type": "text"
+      }
+    },
+    "LH{*": {
+      "name": "Labeled Draft",
+      "type": "formula",
+      "formula": {
+        "args": [
+          {
+            "args": [
+              {
+                "id": "\"G]_",
+                "name": "Draft",
+                "type": "property",
+                "result_type": "text"
+              },
+              {
+                "type": "constant",
+                "value": ":",
+                "value_type": "string",
+                "result_type": "text"
+              },
+              {
+                "type": "constant",
+                "value": " Draft:",
+                "value_type": "string",
+                "result_type": "text"
+              }
+            ],
+            "name": "replace",
+            "type": "function",
+            "result_type": "text"
+          },
+          {
+            "type": "constant",
+            "value": "Rnd",
+            "value_type": "string",
+            "result_type": "text"
+          },
+          {
+            "type": "constant",
+            "value": "Round",
+            "value_type": "string",
+            "result_type": "text"
+          }
+        ],
+        "name": "replace",
+        "type": "function",
+        "result_type": "text"
+      }
+    },
+    "MYa3": {
+      "name": "Position",
+      "type": "select",
+      "options": [
+        {
+          "id": "-*!z",
+          "color": "default",
+          "value": "Center"
+        },
+        {
+          "id": "i5^K",
+          "color": "default",
+          "value": "Center-Forward"
+        },
+        {
+          "id": "o;Os",
+          "color": "default",
+          "value": "Forward"
+        },
+        {
+          "id": "pV.U",
+          "color": "default",
+          "value": "Forward-Center"
+        },
+        {
+          "id": "o|jr",
+          "color": "default",
+          "value": "Forward-Guard"
+        },
+        {
+          "id": "=p8a",
+          "color": "default",
+          "value": "Guard"
+        },
+        {
+          "id": "_Fdr",
+          "color": "default",
+          "value": "Guard-Forward"
+        }
+      ]
+    },
+    "N!$K": {
+      "name": "Age",
+      "type": "number",
+      "number_format": "number"
+    },
+    "RyF.": {
+      "name": "Labeled School",
+      "type": "formula",
+      "formula": {
+        "args": [
+          {
+            "type": "constant",
+            "value": "School: ",
+            "value_type": "string",
+            "result_type": "text"
+          },
+          {
+            "id": "jhk5",
+            "name": "School",
+            "type": "property",
+            "result_type": "text"
+          }
+        ],
+        "name": "add",
+        "type": "operator",
+        "operator": "+",
+        "result_type": "text"
+      }
+    },
+    "ZHAU": {
+      "name": "Birthday",
+      "type": "date"
+    },
+    "gq#*": {
+      "name": "Number",
+      "type": "text"
+    },
+    "i?W1": {
+      "name": "Birthday | Age",
+      "type": "formula",
+      "formula": {
+        "args": [
+          {
+            "args": [
+              {
+                "args": [
+                  {
+                    "args": [
+                      {
+                        "type": "constant",
+                        "value": "Born: ",
+                        "value_type": "string",
+                        "result_type": "text"
+                      },
+                      {
+                        "args": [
+                          {
+                            "id": "ZHAU",
+                            "name": "Birthday",
+                            "type": "property",
+                            "result_type": "date"
+                          }
+                        ],
+                        "name": "format",
+                        "type": "function",
+                        "result_type": "text"
+                      }
+                    ],
+                    "name": "add",
+                    "type": "operator",
+                    "operator": "+",
+                    "result_type": "text"
+                  },
+                  {
+                    "type": "constant",
+                    "value": " | ",
+                    "value_type": "string",
+                    "result_type": "text"
+                  }
+                ],
+                "name": "add",
+                "type": "operator",
+                "operator": "+",
+                "result_type": "text"
+              },
+              {
+                "type": "constant",
+                "value": "Age: ",
+                "value_type": "string",
+                "result_type": "text"
+              }
+            ],
+            "name": "add",
+            "type": "operator",
+            "operator": "+",
+            "result_type": "text"
+          },
+          {
+            "args": [
+              {
+                "id": "N!$K",
+                "name": "Age",
+                "type": "property",
+                "result_type": "number"
+              }
+            ],
+            "name": "format",
+            "type": "function",
+            "result_type": "text"
+          }
+        ],
+        "name": "add",
+        "type": "operator",
+        "operator": "+",
+        "result_type": "text"
+      }
+    },
+    "jhk5": {
+      "name": "School",
+      "type": "text"
+    },
+    "p4nU": {
+      "name": "Team",
+      "type": "relation",
+      "property": "3-5L",
+      "collection_id": "e777a528-9404-4e96-9f26-0014be705592"
+    },
+    "title": {
+      "name": "Name",
+      "type": "title"
+    }
+  },
+  "parent_id": "25630754-1583-4e09-b080-787768ecff62",
+  "parent_table": "block",
+  "alive": true
+}

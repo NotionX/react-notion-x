@@ -1,0 +1,48 @@
+{
+  "id": "c0d2d91c-e2a5-4ea5-a9b7-2b2d8ae2d591",
+  "version": 8,
+  "type": "list",
+  "name": "List",
+  "format": {
+    "list_properties": [
+      {
+        "visible": false,
+        "property": "$N1}"
+      },
+      {
+        "visible": false,
+        "property": "f+&p"
+      },
+      {
+        "visible": false,
+        "property": "3-5L"
+      }
+    ]
+  },
+  "parent_id": "b2b89bc2-7db9-487a-b834-9047b0e0f5c5",
+  "parent_table": "block",
+  "alive": true,
+  "query2": {
+    "sort": [
+      {
+        "property": "title",
+        "direction": "ascending"
+      }
+    ],
+    "filter": {
+      "filters": [
+        {
+          "filter": {
+            "value": {
+              "type": "exact",
+              "value": "Eastern Conference"
+            },
+            "operator": "enum_is"
+          },
+          "property": "$N1}"
+        }
+      ],
+      "operator": "and"
+    }
+  }
+}
