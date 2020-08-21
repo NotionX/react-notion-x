@@ -115,8 +115,10 @@ export class NotionAPI {
               collectionViewId,
               {
                 type: collectionView?.type,
-                query: collectionView?.query2,
-                groups: collectionView?.format?.board_groups2
+                query: collectionView?.query2 || collectionView?.query,
+                groups:
+                  collectionView?.format?.board_groups2 ||
+                  collectionView?.format?.board_groups
               }
             )
 
@@ -254,8 +256,6 @@ export class NotionAPI {
       loadContentCover?: boolean
     } = {}
   ) {
-    const origType = type
-
     // TODO: All other collection types queries fail with 400 errors.
     // My guess is that they require slightly different query params, but since
     // their results are the same AFAICT, there's not much point in supporting
@@ -273,19 +273,13 @@ export class NotionAPI {
       loadContentCover
     }
 
-    if (origType === 'gallery') {
-      delete query.filter
-    }
-
     if (groups) {
       // used for 'board' collection view queries
       loader.groups = groups
     }
 
-    console.log(JSON.stringify({ query, loader }, null, 2))
-    // if (type === 'board') {
-    //   console.log(JSON.stringify({ query, loader }, null, 2))
-    // }
+    // useful for debugging collection queries
+    // console.log(JSON.stringify('queryCollection', { collectionId, collectionViewId, query, loader }, null, 2))
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',

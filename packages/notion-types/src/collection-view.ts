@@ -29,8 +29,11 @@ export interface BaseCollectionView {
   parent_id: ID
   parent_table: string
 
+  query?: any
+
   query2: {
     // TODO
+    filter?: any
     aggregations?: object[]
     group_by: PropertyID
   }
