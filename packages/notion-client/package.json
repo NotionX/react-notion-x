@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "saasify-sh/notion-kit",
   "author": "Saasify <dev@saasify.sh>",
@@ -16,7 +16,7 @@
   "dependencies": {
     "got": "^11.5.2",
     "notion-types": "^1.2.0",
-    "notion-utils": "^1.2.0",
+    "notion-utils": "^1.3.0",
     "p-map": "^4.0.0"
   },
   "devDependencies": {
