@@ -2,7 +2,12 @@ import { PropertyID } from './core'
 
 // @see https://www.notion.vip/formulas/
 
-export type FormulaType = 'constant' | 'property' | 'operator' | 'function'
+export type FormulaType =
+  | 'constant'
+  | 'property'
+  | 'operator'
+  | 'function'
+  | 'symbol'
 
 export type FormulaConstantType = 'e' | 'false' | 'true' | 'pi'
 
@@ -14,7 +19,12 @@ export type FormulaValueType =
   | FormulaConstantType
 
 export type FormulaResult = string | number | boolean | Date
-export type FormulaResultType = 'text' | 'number' | 'boolean' | 'date'
+export type FormulaResultType =
+  | 'text'
+  | 'number'
+  | 'boolean'
+  | 'date'
+  | 'checkbox'
 
 export type FormulaOperatorType =
   // arithmetic
@@ -115,6 +125,11 @@ export interface PropertyFormula extends BaseFormula {
   name: string
 }
 
+export interface SymbolFormula extends BaseFormula {
+  type: 'symbol'
+  name: string
+}
+
 export interface FunctionFormula extends BaseFormula {
   type: 'function'
   name: FormulaFunctionType
@@ -133,3 +148,4 @@ export type Formula =
   | OperatorFormula
   | ConstantFormula
   | PropertyFormula
+  | SymbolFormula

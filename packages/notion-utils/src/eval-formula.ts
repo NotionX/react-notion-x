@@ -43,6 +43,10 @@ export function evalFormula(
 
   // TODO: coerce return type using `formula.return_type`
   switch (formula?.type) {
+    case 'symbol':
+      // TODO: this isn't documented anywhere but seen in the wild
+      return formula.name === 'true'
+
     case 'constant':
       return formula.value
 
@@ -90,6 +94,7 @@ export function evalFormula(
       return evalFunctionFormula(formula, ctx)
 
     default:
+      console.log(formula)
       throw new Error(
         `invalid or unsupported formula "${(formula as any)?.type}`
       )
@@ -382,6 +387,7 @@ function evalFunctionFormula(
       return getYear(evalFormula(args[0], ctx) as Date)
 
     default:
+      console.log(formula)
       throw new Error(
         `invalid or unsupported function formula "${(formula as any)?.type}`
       )

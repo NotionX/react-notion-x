@@ -12,14 +12,12 @@ export const getPageContentBlockIds = (
 
   function addContentBlocks(blockId: string) {
     if (contentBlockIds.has(blockId)) return
+    contentBlockIds.add(blockId)
 
     const block = recordMap.block[blockId]?.value
     if (!block) return
 
-    contentBlockIds.add(blockId)
-
     const { content, type } = block
-
     if (!content) return
 
     if (type === 'page' && blockId !== rootBlockId) {
