@@ -128,6 +128,7 @@ export interface BasePageBlock extends BaseBlock {
     block_locked_by?: string
     page_cover?: string
     page_icon?: string
+    block_color?: Color
   }
   permissions: { role: Role; type: string }[]
   file_ids?: string[]
