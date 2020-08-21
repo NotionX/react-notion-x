@@ -88,8 +88,9 @@ export class NotionAPI {
         const block = recordMap.block[blockId].value
 
         if (
-          block.type === 'collection_view' ||
-          block.type === 'collection_view_page'
+          block &&
+          (block.type === 'collection_view' ||
+            block.type === 'collection_view_page')
         ) {
           return block.view_ids.map((collectionViewId) => ({
             collectionId: block.collection_id,
