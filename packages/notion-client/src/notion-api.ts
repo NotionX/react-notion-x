@@ -254,6 +254,8 @@ export class NotionAPI {
       loadContentCover?: boolean
     } = {}
   ) {
+    const origType = type
+
     // TODO: All other collection types queries fail with 400 errors.
     // My guess is that they require slightly different query params, but since
     // their results are the same AFAICT, there's not much point in supporting
@@ -271,11 +273,16 @@ export class NotionAPI {
       loadContentCover
     }
 
+    if (origType === 'gallery') {
+      delete query.filter
+    }
+
     if (groups) {
       // used for 'board' collection view queries
       loader.groups = groups
     }
 
+    console.log(JSON.stringify({ query, loader }, null, 2))
     // if (type === 'board') {
     //   console.log(JSON.stringify({ query, loader }, null, 2))
     // }

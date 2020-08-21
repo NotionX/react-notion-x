@@ -358,7 +358,10 @@ function evalFunctionFormula(
 
     case 'formatDate': {
       const date = evalFormula(args[0], ctx) as Date
-      const formatValue = evalFormula(args[1], ctx) as string
+      const formatValue = (evalFormula(args[1], ctx) as string).replace(
+        'dddd',
+        'eeee'
+      )
       return format(date, formatValue)
     }
 

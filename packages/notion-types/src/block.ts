@@ -89,6 +89,8 @@ export interface BaseBlock {
 }
 
 export interface BaseTextBlock extends BaseBlock {
+  // some text blocks occasionally have children
+  content?: ID[]
   properties?: {
     title: Decoration[]
   }
