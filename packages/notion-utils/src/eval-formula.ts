@@ -47,8 +47,17 @@ export function evalFormula(
       // TODO: this isn't documented anywhere but seen in the wild
       return formula.name === 'true'
 
-    case 'constant':
-      return formula.value
+    case 'constant': {
+      const value = formula.value
+      switch (formula.result_type) {
+        case 'text':
+          return value
+        case 'number':
+          return parseFloat(value)
+        default:
+          return value
+      }
+    }
 
     case 'property':
       const value = ctx.properties[formula.id]
@@ -160,10 +169,17 @@ function evalFunctionFormula(
       return Math.abs(evalFormula(args[0], ctx) as number)
 
     case 'add':
-      return (
-        (evalFormula(args[0], ctx) as number) +
-        (evalFormula(args[1], ctx) as number)
-      )
+      const v0 = evalFormula(args[0], ctx)
+      const v1 = evalFormula(args[1], ctx)
+
+      if (typeof v0 === 'number') {
+        return v0 + +v1
+      } else if (typeof v0 === 'string') {
+        return v0 + `${v1}`
+      } else {
+        // TODO
+        return v0
+      }
 
     case 'cbrt':
       return Math.cbrt(evalFormula(args[0], ctx) as number)
