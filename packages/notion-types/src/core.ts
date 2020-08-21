@@ -82,15 +82,14 @@ export type UserFormat = ['u', string]
 export type PageFormat = ['p', string]
 export type InlineEquationFormat = ['e', string]
 export type ExternalLinkFormat = ['‣', [string, string]]
-export type DateFormat = [
-  'd',
-  {
-    type: 'date' | 'daterange'
-    start_date: string
-    end_date?: string
-    date_format: string
-  }
-]
+export type DateFormat = ['d', FormattedDate]
+
+export interface FormattedDate {
+  type: 'date' | 'daterange'
+  start_date: string
+  end_date?: string
+  date_format?: string
+}
 
 export type SubDecoration =
   | BoldFormat

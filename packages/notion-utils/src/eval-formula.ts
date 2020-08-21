@@ -1,46 +1,81 @@
 import * as types from 'notion-types'
-import * as dates from 'date-fns'
+import {
+  format,
+  getDate,
+  getDay,
+  getHours,
+  getMinutes,
+  getMonth,
+  getYear,
+  add,
+  sub,
+  intervalToDuration
+} from 'date-fns'
 
 import { getTextContent } from './get-text-content'
+import { getDateValue } from './get-date-value'
 
 export interface EvalFormulaOptions {
   properties: types.PropertyMap
   schema: types.CollectionPropertySchemaMap
+
+  endDate?: boolean
 }
 
+/**
+ * Evaluates a Notion formula expression to a result value.
+ *
+ * All built-in functions and operators are supported.
+ *
+ * @param formula - Formula to evaluate.
+ * @param options - Collection context containing property schema and values.
+ */
 export function evalFormula(
   formula: types.Formula,
-  opts: EvalFormulaOptions
+  options: EvalFormulaOptions
 ): types.FormulaResult {
+  const { endDate, ...opts } = options
+
   // TODO: coerce return type using `formula.return_type`
   switch (formula?.type) {
     case 'constant':
       return formula.value
 
     case 'property':
-      const value = getTextContent(opts.properties[formula.id])
+      const value = opts.properties[formula.id]
+      const text = getTextContent(value)
 
       switch (formula.result_type) {
         case 'text':
-          return value
+          return text
 
         case 'number':
-          return parseFloat(value)
+          return parseFloat(text)
 
         case 'boolean':
           // TODO: handle chceckbox properties
-          if (typeof value === 'string') {
-            return value === 'true'
+          if (typeof text === 'string') {
+            return text === 'true'
           } else {
-            return !!value
+            return !!text
           }
 
         case 'date':
-          // TODO: handle range
-          return new Date(value)
+          // console.log('date', text, value)
+
+          const v = getDateValue(value)
+          if (v) {
+            if (endDate && v.end_date) {
+              return new Date(v.end_date)
+            } else {
+              return new Date(v.start_date)
+            }
+          } else {
+            return new Date(text)
+          }
 
         default:
-          return value
+          return text
       }
 
     case 'operator':
@@ -56,6 +91,13 @@ export function evalFormula(
   }
 }
 
+/**
+ * Evaluates a Notion formula function or operator expression.
+ *
+ * Note that all operators are also exposed as functions, so we handle them the same.
+ *
+ * @private
+ */
 function evalFunctionFormula(
   formula: types.FunctionFormula | types.OperatorFormula,
   opts: EvalFormulaOptions
@@ -210,8 +252,26 @@ function evalFunctionFormula(
         evalFormula(args[1], opts) as string
       )
 
-    case 'format':
-      return `${evalFormula(args[0], opts)}`
+    case 'format': {
+      const value = evalFormula(args[0], opts)
+
+      switch (typeof value) {
+        case 'string':
+          return value
+
+        case 'object':
+          if (value instanceof Date) {
+            return format(value as Date, 'MMM d, YYY')
+          } else {
+            // shouldn't ever get here
+            return `${value}`
+          }
+
+        case 'number':
+        default:
+          return `${value}`
+      }
+    }
 
     case 'join': {
       const [delimiterArg, ...restArgs] = args
@@ -255,20 +315,20 @@ function evalFunctionFormula(
     // ------------------------------------------------------------------------
 
     case 'date':
-      return dates.getDate(evalFormula(args[0], opts) as Date)
+      return getDate(evalFormula(args[0], opts) as Date)
 
     case 'dateAdd': {
       const date = evalFormula(args[0], opts) as Date
       const number = evalFormula(args[1], opts) as number
       const unit = evalFormula(args[1], opts) as string
-      return dates.add(date, { [unit]: number })
+      return add(date, { [unit]: number })
     }
 
     case 'dateBetween': {
       const date1 = evalFormula(args[0], opts) as Date
       const date2 = evalFormula(args[1], opts) as Date
       const unit = evalFormula(args[1], opts) as string
-      return (dates.intervalToDuration({
+      return (intervalToDuration({
         start: date2,
         end: date1
       }) as any)[unit] as number
@@ -278,45 +338,43 @@ function evalFunctionFormula(
       const date = evalFormula(args[0], opts) as Date
       const number = evalFormula(args[1], opts) as number
       const unit = evalFormula(args[1], opts) as string
-      return dates.sub(date, { [unit]: number })
+      return sub(date, { [unit]: number })
 
     case 'day':
-      return dates.getDay(evalFormula(args[0], opts) as Date)
+      return getDay(evalFormula(args[0], opts) as Date)
 
     case 'end':
-      // TODO
-      return new Date()
+      return evalFormula(args[0], { ...opts, endDate: true }) as Date
 
     case 'formatDate': {
       const date = evalFormula(args[0], opts) as Date
-      const format = evalFormula(args[1], opts) as string
-      return dates.format(date, format)
+      const formatValue = evalFormula(args[1], opts) as string
+      return format(date, formatValue)
     }
 
     case 'fromTimestamp':
       return new Date(evalFormula(args[0], opts) as number)
 
     case 'hour':
-      return dates.getHours(evalFormula(args[0], opts) as Date)
+      return getHours(evalFormula(args[0], opts) as Date)
 
     case 'minute':
-      return dates.getMinutes(evalFormula(args[0], opts) as Date)
+      return getMinutes(evalFormula(args[0], opts) as Date)
 
     case 'month':
-      return dates.getMonth(evalFormula(args[0], opts) as Date)
+      return getMonth(evalFormula(args[0], opts) as Date)
 
     case 'now':
       return new Date()
 
     case 'start':
-      // TODO
-      return new Date()
+      return evalFormula(args[0], { ...opts, endDate: false }) as Date
 
     case 'timestamp':
       return (evalFormula(args[0], opts) as Date).getTime()
 
     case 'year':
-      return dates.getYear(evalFormula(args[0], opts) as Date)
+      return getYear(evalFormula(args[0], opts) as Date)
 
     default:
       throw new Error(

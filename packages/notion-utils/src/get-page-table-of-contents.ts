@@ -14,6 +14,10 @@ const indentLevels = {
   sub_sub_header: 2
 }
 
+/**
+ * Gets the metadata for a table of contents block by parsing the page's
+ * H1, H2, and H3 elements.
+ */
 export const getPageTableOfContents = (
   page: types.PageBlock,
   recordMap: types.ExtendedRecordMap
