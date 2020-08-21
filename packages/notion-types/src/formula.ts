@@ -105,7 +105,7 @@ export interface BaseFormula {
 
 export interface ConstantFormula extends BaseFormula {
   type: 'constant'
-  value: any
+  value: any // TODO
   value_type: FormulaValueType
 }
 

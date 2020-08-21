@@ -36,6 +36,7 @@ export function evalFormula(
           }
 
         case 'date':
+          // TODO: handle range
           return new Date(value)
 
         default:
@@ -232,7 +233,7 @@ function evalFunctionFormula(
       const value = evalFormula(args[0], opts) as string
       const regex = evalFormula(args[1], opts) as string
       const replacement = evalFormula(args[2], opts) as string
-      return value.replaceAll(new RegExp(regex), replacement)
+      return value.replace(new RegExp(regex, 'g'), replacement)
     }
 
     case 'slice': {
@@ -274,40 +275,48 @@ function evalFunctionFormula(
     }
 
     case 'dateSubtract':
-      return true
+      const date = evalFormula(args[0], opts) as Date
+      const number = evalFormula(args[1], opts) as number
+      const unit = evalFormula(args[1], opts) as string
+      return dates.sub(date, { [unit]: number })
 
     case 'day':
-      return true
+      return dates.getDay(evalFormula(args[0], opts) as Date)
 
     case 'end':
-      return true
+      // TODO
+      return new Date()
 
-    case 'formatDate':
-      return true
+    case 'formatDate': {
+      const date = evalFormula(args[0], opts) as Date
+      const format = evalFormula(args[1], opts) as string
+      return dates.format(date, format)
+    }
 
     case 'fromTimestamp':
-      return true
+      return new Date(evalFormula(args[0], opts) as number)
 
     case 'hour':
-      return true
+      return dates.getHours(evalFormula(args[0], opts) as Date)
 
     case 'minute':
-      return true
+      return dates.getMinutes(evalFormula(args[0], opts) as Date)
 
     case 'month':
-      return true
+      return dates.getMonth(evalFormula(args[0], opts) as Date)
 
     case 'now':
-      return true
+      return new Date()
 
     case 'start':
-      return true
+      // TODO
+      return new Date()
 
     case 'timestamp':
-      return true
+      return (evalFormula(args[0], opts) as Date).getTime()
 
     case 'year':
-      return true
+      return dates.getYear(evalFormula(args[0], opts) as Date)
 
     default:
       throw new Error(
