@@ -2,7 +2,7 @@
 import got from 'got'
 import pMap from 'p-map'
 
-import { parsePageId } from 'notion-utils'
+import { parsePageId, getPageContentBlocks } from 'notion-utils'
 import * as notion from 'notion-types'
 
 import * as types from './types'
@@ -61,25 +61,22 @@ export class NotionAPI {
 
     // fetch any missing content blocks
     while (true) {
-      const pendingBlocks = Object.keys(recordMap.block).flatMap((blockId) => {
-        const block = recordMap.block[blockId]
-        const content = block.value?.content
+      const pendingBlockIds = getPageContentBlocks(recordMap).filter(
+        (id) => !recordMap.block[id]
+      )
 
-        return content && block.value?.type !== 'page'
-          ? content.filter((id) => !recordMap.block[id])
-          : []
-      })
-
-      if (!pendingBlocks.length) {
+      if (!pendingBlockIds.length) {
         break
       }
 
-      const newBlocks = await this.getBlocks(pendingBlocks).then(
+      const newBlocks = await this.getBlocks(pendingBlockIds).then(
         (res) => res.recordMap.block
       )
 
       recordMap.block = { ...recordMap.block, ...newBlocks }
     }
+
+    const contentBlockIds = getPageContentBlocks(recordMap)
 
     // Optionally fetch all data for embedded collections and their associated views.
     // NOTE: We're eagerly fetching *all* data for each collection and all of its views.
@@ -87,20 +84,18 @@ export class NotionAPI {
     // Notion page is readily available for use cases involving server-side rendering
     // and edge caching.
     if (fetchCollections) {
-      const allCollectionInstances = Object.keys(recordMap.block).flatMap(
-        (blockId) => {
-          const block = recordMap.block[blockId].value
+      const allCollectionInstances = contentBlockIds.flatMap((blockId) => {
+        const block = recordMap.block[blockId].value
 
-          if (block?.type === 'collection_view') {
-            return block.view_ids.map((collectionViewId) => ({
-              collectionId: block.collection_id,
-              collectionViewId
-            }))
-          } else {
-            return []
-          }
+        if (block?.type === 'collection_view') {
+          return block.view_ids.map((collectionViewId) => ({
+            collectionId: block.collection_id,
+            collectionViewId
+          }))
+        } else {
+          return []
         }
-      )
+      })
 
       // fetch data for all collection view instances
       await pMap(
@@ -167,32 +162,30 @@ export class NotionAPI {
     // because it is preferable for many use cases as opposed to making these API calls
     // lazily from the client-side.
     if (signFileUrls) {
-      const allFileInstances = Object.keys(recordMap.block).flatMap(
-        (blockId) => {
-          const block = recordMap.block[blockId].value
+      const allFileInstances = contentBlockIds.flatMap((blockId) => {
+        const block = recordMap.block[blockId].value
 
-          if (
-            block &&
-            (block.type === 'pdf' ||
-              block.type === 'audio' ||
-              block.type === 'file')
-          ) {
-            const source = block.properties?.source?.[0]?.[0]
+        if (
+          block &&
+          (block.type === 'pdf' ||
+            block.type === 'audio' ||
+            block.type === 'file')
+        ) {
+          const source = block.properties?.source?.[0]?.[0]
 
-            if (source) {
-              return {
-                permissionRecord: {
-                  table: 'block',
-                  id: block.id
-                },
-                url: source
-              }
+          if (source) {
+            return {
+              permissionRecord: {
+                table: 'block',
+                id: block.id
+              },
+              url: source
             }
           }
-
-          return []
         }
-      )
+
+        return []
+      })
 
       if (allFileInstances.length > 0) {
         try {

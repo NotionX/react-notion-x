@@ -76,7 +76,7 @@ export interface BaseBlock {
   created_time: number
   last_edited_time: number
   parent_id: ID
-  parent_table: string
+  parent_table: string | 'space' | 'block' | 'table'
   alive: boolean
   created_by_table: string
   created_by_id: ID

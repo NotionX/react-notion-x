@@ -27,6 +27,11 @@ export interface EvalFormulaContext {
  *
  * All built-in functions and operators are supported.
  *
+ * NOTE: this needs a lot more testing, especially around covering all the different
+ * function types and coercing different property values correctly.
+ *
+ * It does work for many of our test cases, however.
+ *
  * @param formula - Formula to evaluate.
  * @param context - Collection context containing property schema and values.
  */
