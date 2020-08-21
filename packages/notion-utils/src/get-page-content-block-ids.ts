@@ -1,9 +1,9 @@
 import * as types from 'notion-types'
 
 /**
- * Gets the IDs of all the blocks contained on a page starting from a root block ID.
+ * Gets the IDs of all blocks contained on a page starting from a root block ID.
  */
-export const getPageContentBlocks = (
+export const getPageContentBlockIds = (
   recordMap: types.ExtendedRecordMap,
   blockId?: string
 ): string[] => {

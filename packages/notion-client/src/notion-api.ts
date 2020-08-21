@@ -2,7 +2,7 @@
 import got from 'got'
 import pMap from 'p-map'
 
-import { parsePageId, getPageContentBlocks } from 'notion-utils'
+import { parsePageId, getPageContentBlockIds } from 'notion-utils'
 import * as notion from 'notion-types'
 
 import * as types from './types'
@@ -61,7 +61,7 @@ export class NotionAPI {
 
     // fetch any missing content blocks
     while (true) {
-      const pendingBlockIds = getPageContentBlocks(recordMap).filter(
+      const pendingBlockIds = getPageContentBlockIds(recordMap).filter(
         (id) => !recordMap.block[id]
       )
 
@@ -76,7 +76,7 @@ export class NotionAPI {
       recordMap.block = { ...recordMap.block, ...newBlocks }
     }
 
-    const contentBlockIds = getPageContentBlocks(recordMap)
+    const contentBlockIds = getPageContentBlockIds(recordMap)
 
     // Optionally fetch all data for embedded collections and their associated views.
     // NOTE: We're eagerly fetching *all* data for each collection and all of its views.
