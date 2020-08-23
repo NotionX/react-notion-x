@@ -76,6 +76,7 @@ export type BoldFormat = ['b']
 export type ItalicFormat = ['i']
 export type StrikeFormat = ['s']
 export type CodeFormat = ['c']
+export type UnderlineFormat = ['_']
 export type LinkFormat = ['a', string]
 export type ColorFormat = ['h', Color]
 export type UserFormat = ['u', string]
@@ -96,6 +97,7 @@ export type SubDecoration =
   | ItalicFormat
   | StrikeFormat
   | CodeFormat
+  | UnderlineFormat
   | LinkFormat
   | ColorFormat
   | DateFormat

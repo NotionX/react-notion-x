@@ -72,20 +72,23 @@ export type Block =
  */
 export interface BaseBlock {
   id: ID
+  type: BlockType
+  properties?: any
+  format?: object
+  content?: ID[]
+
+  space_id?: ID
+  parent_id: ID
+  parent_table: string | 'space' | 'block' | 'table'
+
   version: number
   created_time: number
   last_edited_time: number
-  parent_id: ID
-  parent_table: string | 'space' | 'block' | 'table'
   alive: boolean
   created_by_table: string
   created_by_id: ID
   last_edited_by_table: string
   last_edited_by_id: ID
-  space_id?: ID
-  properties?: any
-  content?: ID[]
-  type: BlockType
 }
 
 export interface BaseTextBlock extends BaseBlock {
