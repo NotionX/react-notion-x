@@ -20,7 +20,7 @@
     "dev": "run-s start",
     "pretest": "run-s build",
     "test": "run-s test:*",
-    "test:unit": "ava -v",
+    "test:unit": "lerna run test",
     "test:prettier": "prettier '**/*.ts' --check",
     "docs": "run-s docs:extract docs:generate",
     "docs:extract": "lerna exec api-extractor run",

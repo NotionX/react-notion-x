@@ -12,7 +12,7 @@
     "node": ">=12"
   },
   "scripts": {
-    "test": "ava -v"
+    "test": "ava -v 'build/cjs/**/*.test.js'"
   },
   "dependencies": {
     "got": "^11.5.2",
