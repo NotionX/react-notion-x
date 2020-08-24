@@ -5,8 +5,11 @@
   "files": [],
   "include": [],
   "references": [
-    { "path": "./packages/notion-types" },
-    { "path": "./packages/notion-utils" },
-    { "path": "./packages/notion-client" }
+    { "path": "./packages/notion-types/tsconfig.json" },
+    { "path": "./packages/notion-types/tsconfig.cjs.json" },
+    { "path": "./packages/notion-utils/tsconfig.json" },
+    { "path": "./packages/notion-utils/tsconfig.cjs.json" },
+    { "path": "./packages/notion-client/tsconfig.json" },
+    { "path": "./packages/notion-client/tsconfig.cjs.json" }
   ]
 }

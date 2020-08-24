@@ -5,13 +5,14 @@
   "repository": "saasify-sh/notion-kit",
   "author": "Saasify <dev@saasify.sh>",
   "license": "MIT",
-  "main": "build/index.js",
-  "typings": "build/index.d.ts",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "typings": "build/esm/index.d.ts",
   "engines": {
     "node": ">=12"
   },
   "scripts": {
-    "test": "ava -v"
+    "test": "ava -v 'build/cjs/**/*.test.js'"
   },
   "dependencies": {
     "got": "^11.5.2",
