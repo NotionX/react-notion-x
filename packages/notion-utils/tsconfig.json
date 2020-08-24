@@ -3,8 +3,8 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
-    "outDir": "build",
-    "tsBuildInfoFile": "build/index.tsbuildinfo"
+    "outDir": "build/esm",
+    "tsBuildInfoFile": "build/esm/index.tsbuildinfo"
   },
   "include": ["src"],
   "references": [{ "path": "../notion-types" }]

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "ES6",
-    "module": "CommonJS",
+    // "target": "ES6",
+    "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "sourceMap": true,
