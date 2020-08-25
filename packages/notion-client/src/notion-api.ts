@@ -1,8 +1,7 @@
-// import { promises as fs } from 'fs'
 import got from 'got'
 import pMap from 'p-map'
 
-import { parsePageId, getPageContentBlockIds } from 'notion-utils'
+import { parsePageId, getPageContentBlockIds, uuidToId } from 'notion-utils'
 import * as notion from 'notion-types'
 
 import * as types from './types'
@@ -43,10 +42,10 @@ export class NotionAPI {
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
     const page = await this.getPageRaw(pageId)
-    const recordMap = page.recordMap as notion.ExtendedRecordMap
+    const recordMap = page?.recordMap as notion.ExtendedRecordMap
 
-    if (!recordMap.block) {
-      throw new Error(`Notion page not found "${pageId}"`)
+    if (!recordMap?.block) {
+      throw new Error(`Notion page not found "${uuidToId(pageId)}"`)
     }
 
     // ensure that all top-level maps exist
