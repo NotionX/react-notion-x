@@ -1,4 +1,6 @@
 export * from './get-text-content'
+export * from './get-block-title'
+export * from './get-page-title'
 export * from './get-date-value'
 export * from './get-block-parent-page'
 export * from './get-page-table-of-contents'
