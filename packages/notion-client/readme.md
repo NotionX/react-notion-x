@@ -1,12 +1,12 @@
 <p align="center">
-  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/saasify-sh/notion-kit/master/notion-ts.png" width="689">
+  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/notion-x/notion-kit/master/notion-ts.png" width="689">
 </p>
 
 # notion-client
 
 > Robust TypeScript client for the unofficial Notion API.
 
-[![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion-kit.svg?branch=master)](https://travis-ci.com/saasify-sh/notion-kit) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/notion-x/notion-kit.svg?branch=master)](https://travis-ci.com/notion-x/notion-kit) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Install
 
@@ -38,7 +38,7 @@ const colectionData = await api.getCollectionData(
 
 ## Docs
 
-See the [auto-generated docs](https://github.com/saasify-sh/notion-kit/blob/master/docs/notion-client.md).
+See the [auto-generated docs](https://github.com/notion-x/notion-kit/blob/master/docs/notion-client.md).
 
 ## License
 

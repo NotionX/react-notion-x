@@ -1,18 +1,18 @@
 <p align="center">
-  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/saasify-sh/notion-kit/master/notion-ts.png" width="689">
+  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/notion-x/notion-kit/master/notion-ts.png" width="689">
 </p>
 
 # Notion Kit
 
 > TypeScript packages for [Notion's](https://notion.so) unofficial API, data types, and related utilities.
 
-[![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/saasify-sh/notion-kit.svg?branch=master)](https://travis-ci.com/saasify-sh/notion-kit) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/notion-x/notion-kit.svg?branch=master)](https://travis-ci.com/notion-x/notion-kit) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Features
 
 - 🚀 **Simple** - It's all TypeScript. Easy peasy.
 - ⚡ **Fast** - Concurrent network IO for fetching all resources on a page.
-- 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering 98% of Notion functionality.
+- 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering 98% of Notion functionality.
 - 📓 **Docs** - Auto-generated [docs](./docs/index.md) for all packages.
 - 🔥 **Solid** - Used in production by Notion X (_coming soon_), [Notion VIP](https://www.notion.vip), and [Notion2Site](http://notion2site.com).
 
@@ -97,11 +97,11 @@ The majority of Notion blocks and collection views are fully supported.
 
 Please let us know if you find any issues or missing blocks.
 
-All known blocks and most known configuration settings can be found in our [test suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf).
+All known blocks and most known configuration settings can be found in our [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf).
 
 ## Related
 
-- [Notion Test Suite](https://www.notion.so/saasifysh/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of Notion test pages
+- [Notion Test Suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of Notion test pages
   - Includes all individual blocks
   - Includes all collection views
   - Covers most formatting options

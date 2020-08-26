@@ -2,8 +2,8 @@
   "name": "notion",
   "private": true,
   "description": "TS packages for Notion's unofficial API, data types, and related utilities.",
-  "repository": "saasify-sh/notion-kit",
-  "author": "Travis Fischer <travis@saasify.sh>",
+  "repository": "notion-x/notion-kit",
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "engines": {
     "node": ">=12"
