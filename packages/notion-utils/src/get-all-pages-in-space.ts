@@ -1,7 +1,11 @@
 import PQueue from 'p-queue'
 
-import { ExtendedRecordMap, ID } from 'notion-types'
+import { ExtendedRecordMap } from 'notion-types'
 import { parsePageId } from './parse-page-id'
+
+export interface PageMap {
+  [pageId: string]: ExtendedRecordMap | null
+}
 
 /**
  * Performs a traversal over a given Notion workspace starting from a seed page.
@@ -24,15 +28,15 @@ export async function getAllPagesInSpace(
   }: {
     concurrency?: number
   } = {}
-): Promise<Map<ID, ExtendedRecordMap | null>> {
-  const pages = new Map<ID, ExtendedRecordMap | null>()
+): Promise<PageMap> {
+  const pages: PageMap = {}
   const pendingPageIds = new Set<string>()
   const queue = new PQueue({ concurrency })
 
   async function processPage(pageId: string) {
     pageId = parsePageId(pageId) as string
 
-    if (pageId && !pages.has(pageId) && !pendingPageIds.has(pageId)) {
+    if (pageId && !pages[pageId] && !pendingPageIds.has(pageId)) {
       pendingPageIds.add(pageId)
 
       queue.add(async () => {
@@ -52,10 +56,10 @@ export async function getAllPagesInSpace(
             })
             .forEach((subPageId) => processPage(subPageId))
 
-          pages.set(pageId, page)
+          pages[pageId] = page
         } catch (err) {
           console.warn('page load error', { pageId, spaceId: rootSpaceId }, err)
-          pages.set(pageId, null)
+          pages[pageId] = null
         }
 
         pendingPageIds.delete(pageId)
