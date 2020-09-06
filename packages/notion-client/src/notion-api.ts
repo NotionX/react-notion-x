@@ -368,7 +368,6 @@ export class NotionAPI {
     }
 
     const url = `${this._apiBaseUrl}/${endpoint}`
-    console.log('notion fetch', url)
 
     return fetch(url, {
       method: 'post',
