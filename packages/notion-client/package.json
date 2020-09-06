@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "NotionX/notion-kit",
   "author": "Saasify <dev@saasify.sh>",
