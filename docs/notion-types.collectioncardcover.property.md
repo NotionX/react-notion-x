@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-property?: CollectionPropertyID;
+property?: PropertyID;
 ```

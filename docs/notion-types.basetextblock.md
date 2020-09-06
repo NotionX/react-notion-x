@@ -15,6 +15,7 @@ export interface BaseTextBlock extends BaseBlock
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [content](./notion-types.basetextblock.content.md) | [ID](./notion-types.id.md)<!-- -->\[\] |  |
 |  [format](./notion-types.basetextblock.format.md) | { block\_color: [Color](./notion-types.color.md)<!-- -->; } |  |
 |  [properties](./notion-types.basetextblock.properties.md) | { title: [Decoration](./notion-types.decoration.md)<!-- -->\[\]; } |  |
 

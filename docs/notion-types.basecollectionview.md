@@ -20,7 +20,8 @@ export interface BaseCollectionView
 |  [name](./notion-types.basecollectionview.name.md) | string |  |
 |  [parent\_id](./notion-types.basecollectionview.parent_id.md) | [ID](./notion-types.id.md) |  |
 |  [parent\_table](./notion-types.basecollectionview.parent_table.md) | string |  |
-|  [query2](./notion-types.basecollectionview.query2.md) | { aggregations?: object\[\]; group\_by: [CollectionPropertyID](./notion-types.collectionpropertyid.md)<!-- -->; } |  |
+|  [query](./notion-types.basecollectionview.query.md) | any |  |
+|  [query2](./notion-types.basecollectionview.query2.md) | { filter?: any; aggregations?: object\[\]; group\_by: [PropertyID](./notion-types.propertyid.md)<!-- -->; } |  |
 |  [type](./notion-types.basecollectionview.type.md) | [CollectionViewType](./notion-types.collectionviewtype.md) |  |
 |  [version](./notion-types.basecollectionview.version.md) | number |  |
 

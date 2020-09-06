@@ -14,6 +14,6 @@ export interface CollectionCardCover
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [property](./notion-types.collectioncardcover.property.md) | [CollectionPropertyID](./notion-types.collectionpropertyid.md) |  |
+|  [property](./notion-types.collectioncardcover.property.md) | [PropertyID](./notion-types.propertyid.md) |  |
 |  [type](./notion-types.collectioncardcover.type.md) | [CollectionCardCoverType](./notion-types.collectioncardcovertype.md) |  |
 

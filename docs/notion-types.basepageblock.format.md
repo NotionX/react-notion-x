@@ -15,5 +15,6 @@ format: {
         block_locked_by?: string;
         page_cover?: string;
         page_icon?: string;
+        block_color?: Color;
     };
 ```

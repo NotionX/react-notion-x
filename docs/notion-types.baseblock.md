@@ -4,7 +4,7 @@
 
 ## BaseBlock interface
 
-Base properties shared by all block types.
+Base properties shared by all blocks.
 
 <b>Signature:</b>
 
@@ -21,12 +21,13 @@ export interface BaseBlock
 |  [created\_by\_id](./notion-types.baseblock.created_by_id.md) | [ID](./notion-types.id.md) |  |
 |  [created\_by\_table](./notion-types.baseblock.created_by_table.md) | string |  |
 |  [created\_time](./notion-types.baseblock.created_time.md) | number |  |
+|  [format](./notion-types.baseblock.format.md) | object |  |
 |  [id](./notion-types.baseblock.id.md) | [ID](./notion-types.id.md) |  |
 |  [last\_edited\_by\_id](./notion-types.baseblock.last_edited_by_id.md) | [ID](./notion-types.id.md) |  |
 |  [last\_edited\_by\_table](./notion-types.baseblock.last_edited_by_table.md) | string |  |
 |  [last\_edited\_time](./notion-types.baseblock.last_edited_time.md) | number |  |
 |  [parent\_id](./notion-types.baseblock.parent_id.md) | [ID](./notion-types.id.md) |  |
-|  [parent\_table](./notion-types.baseblock.parent_table.md) | string |  |
+|  [parent\_table](./notion-types.baseblock.parent_table.md) | string \| 'space' \| 'block' \| 'table' |  |
 |  [properties](./notion-types.baseblock.properties.md) | any |  |
 |  [space\_id](./notion-types.baseblock.space_id.md) | [ID](./notion-types.id.md) |  |
 |  [type](./notion-types.baseblock.type.md) | [BlockType](./notion-types.blocktype.md) |  |

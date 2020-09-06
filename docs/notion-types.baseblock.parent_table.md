@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-parent_table: string;
+parent_table: string | 'space' | 'block' | 'table';
 ```

@@ -16,7 +16,7 @@ export interface BasePageBlock extends BaseBlock
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [file\_ids](./notion-types.basepageblock.file_ids.md) | string\[\] |  |
-|  [format](./notion-types.basepageblock.format.md) | { page\_full\_width?: boolean; page\_small\_text?: boolean; page\_cover\_position?: number; block\_locked?: boolean; block\_locked\_by?: string; page\_cover?: string; page\_icon?: string; } |  |
+|  [format](./notion-types.basepageblock.format.md) | { page\_full\_width?: boolean; page\_small\_text?: boolean; page\_cover\_position?: number; block\_locked?: boolean; block\_locked\_by?: string; page\_cover?: string; page\_icon?: string; block\_color?: [Color](./notion-types.color.md)<!-- -->; } |  |
 |  [permissions](./notion-types.basepageblock.permissions.md) | { role: [Role](./notion-types.role.md)<!-- -->; type: string; }\[\] |  |
 |  [properties](./notion-types.basepageblock.properties.md) | { title: [Decoration](./notion-types.decoration.md)<!-- -->\[\]; } |  |
 

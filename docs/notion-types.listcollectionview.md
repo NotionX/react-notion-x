@@ -15,6 +15,6 @@ export interface ListCollectionView extends BaseCollectionView
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [format](./notion-types.listcollectionview.format.md) | { list\_properties: Array&lt;{ property: [CollectionPropertyID](./notion-types.collectionpropertyid.md)<!-- -->; visible: boolean; }&gt;; } |  |
+|  [format](./notion-types.listcollectionview.format.md) | { list\_properties: Array&lt;{ property: [PropertyID](./notion-types.propertyid.md)<!-- -->; visible: boolean; }&gt;; } |  |
 |  [type](./notion-types.listcollectionview.type.md) | 'list' |  |
 

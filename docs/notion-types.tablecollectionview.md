@@ -15,7 +15,7 @@ export interface TableCollectionView extends BaseCollectionView
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [format](./notion-types.tablecollectionview.format.md) | { table\_wrap: boolean; table\_properties: Array&lt;{ property: [CollectionPropertyID](./notion-types.collectionpropertyid.md)<!-- -->; visible: boolean; width: number; }&gt;; } |  |
+|  [format](./notion-types.tablecollectionview.format.md) | { table\_wrap: boolean; table\_properties: Array&lt;{ property: [PropertyID](./notion-types.propertyid.md)<!-- -->; visible: boolean; width: number; }&gt;; } |  |
 |  [page\_sort](./notion-types.tablecollectionview.page_sort.md) | [ID](./notion-types.id.md)<!-- -->\[\] |  |
 |  [type](./notion-types.tablecollectionview.type.md) | 'table' |  |
 

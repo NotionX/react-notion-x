@@ -4,6 +4,8 @@
 
 ## ID type
 
+UUID
+
 <b>Signature:</b>
 
 ```typescript

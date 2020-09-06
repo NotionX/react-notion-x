@@ -12,7 +12,7 @@ format: {
         gallery_cover_size: CollectionCardCoverSize;
         gallery_cover_aspect: CollectionCardCoverAspect;
         gallery_properties: Array<{
-            property: CollectionPropertyID;
+            property: PropertyID;
             visible: boolean;
         }>;
     };

@@ -9,7 +9,7 @@
 ```typescript
 format: {
         list_properties: Array<{
-            property: CollectionPropertyID;
+            property: PropertyID;
             visible: boolean;
         }>;
     };
