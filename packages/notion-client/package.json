@@ -15,7 +15,7 @@
     "test": "ava -v 'build/cjs/**/*.test.js'"
   },
   "dependencies": {
-    "got": "^11.5.2",
+    "got": "^11.6.0",
     "notion-types": "^2.2.1",
     "notion-utils": "^2.2.2",
     "p-map": "^4.0.0"

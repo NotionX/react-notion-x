@@ -365,9 +365,11 @@ export class NotionAPI {
       headers.cookie = `token_v2=${this._authToken}`
     }
 
+    const url = `${this._apiBaseUrl}/${endpoint}`
+    console.log('got', { url })
     return got
-      .post(endpoint, {
-        prefixUrl: this._apiBaseUrl,
+      .post(url, {
+        // prefixUrl: this._apiBaseUrl,
         json: body,
         headers
       })
