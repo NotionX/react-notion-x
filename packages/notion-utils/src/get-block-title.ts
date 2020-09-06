@@ -17,5 +17,5 @@ export function getBlockTitle(block: Block, recordMap: ExtendedRecordMap) {
     }
   }
 
-  return null
+  return ''
 }
