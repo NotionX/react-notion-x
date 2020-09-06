@@ -1,4 +1,4 @@
-import got from 'got'
+import fetch from 'node-fetch'
 import pMap from 'p-map'
 
 import { parsePageId, getPageContentBlockIds, uuidToId } from 'notion-utils'
@@ -359,20 +359,21 @@ export class NotionAPI {
     endpoint: string
     body: object
   }): Promise<T> {
-    const headers: any = {}
+    const headers: any = {
+      'Content-Type': 'application/json'
+    }
 
     if (this._authToken) {
       headers.cookie = `token_v2=${this._authToken}`
     }
 
     const url = `${this._apiBaseUrl}/${endpoint}`
-    console.log('got', { url })
-    return got
-      .post(url, {
-        // prefixUrl: this._apiBaseUrl,
-        json: body,
-        headers
-      })
-      .json()
+    console.log('notion fetch', url)
+
+    return fetch(url, {
+      method: 'post',
+      body: JSON.stringify(body),
+      headers
+    }).then((res) => res.json())
   }
 }
