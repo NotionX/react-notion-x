@@ -12,6 +12,10 @@ export const parsePageId = (
   id: string = '',
   { uuid = true }: { uuid?: boolean } = {}
 ) => {
+  if (!id) {
+    return null
+  }
+
   id = id.split('?')[0]
   const match = id.match(pageIdRe)
 

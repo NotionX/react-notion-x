@@ -28,7 +28,8 @@ const pageIdFixturesFailure = [
   '267c0d1f1df8457f9b5c8f7efca16d83a',
   '267c0d1f1%f8457f9b5c8f7efca16d83',
   'Twitter-Automation-Tool',
-  'fde5ac74-eea3-4527-8f00-4482710e1af'
+  'fde5ac74-eea3-4527-8f00-4482710e1af',
+  null
 ]
 
 test('utils.parsePageId non-uuid success', (t) => {
@@ -51,7 +52,7 @@ test('utils.parsePageId uuid success', (t) => {
 
 test('utils.parsePageId failure', (t) => {
   for (const id of pageIdFixturesFailure) {
-    const pageId = parsePageId(id)
+    const pageId = parsePageId(id as string)
     t.falsy(pageId)
   }
 })
