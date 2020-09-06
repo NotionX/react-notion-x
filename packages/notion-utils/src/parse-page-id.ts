@@ -9,7 +9,7 @@ const pageId2Re = /\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{1
  * Defaults to returning a UUID (with dashes).
  */
 export const parsePageId = (
-  id: string = '',
+  id: string | null = '',
   { uuid = true }: { uuid?: boolean } = {}
 ) => {
   if (!id) {

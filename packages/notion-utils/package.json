@@ -15,7 +15,8 @@
     "test": "ava -v 'build/cjs/**/*.test.js'"
   },
   "dependencies": {
-    "notion-types": "^2.2.1"
+    "notion-types": "^2.2.1",
+    "p-queue": "^6.6.1"
   },
   "devDependencies": {
     "ava": "^3.11.1",
