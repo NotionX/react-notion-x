@@ -6,6 +6,9 @@ import * as notion from 'notion-types'
 
 import * as types from './types'
 
+/**
+ * Main Notion API client.
+ */
 export class NotionAPI {
   private readonly _apiBaseUrl: string
   private readonly _authToken?: string
