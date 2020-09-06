@@ -1,6 +1,6 @@
 {
   "name": "notion-utils",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
   "repository": "NotionX/notion-kit",
   "author": "Saasify <dev@saasify.sh>",
