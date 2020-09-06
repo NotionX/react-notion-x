@@ -10,10 +10,10 @@ export const getBlockParentPage = (
   block: types.Block,
   recordMap: types.ExtendedRecordMap
 ): types.PageBlock | null => {
-  while (block?.type !== 'page') {
+  do {
     if (!block) return null
     block = recordMap.block[block.parent_id]?.value
-  }
+  } while (block?.type !== 'page')
 
   return block
 }
