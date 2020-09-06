@@ -14,6 +14,7 @@ export interface CollectionPropertySchema
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [formula](./notion-types.collectionpropertyschema.formula.md) | [Formula](./notion-types.formula.md) |  |
 |  [name](./notion-types.collectionpropertyschema.name.md) | string |  |
 |  [number\_format](./notion-types.collectionpropertyschema.number_format.md) | [NumberFormat](./notion-types.numberformat.md) |  |
 |  [options](./notion-types.collectionpropertyschema.options.md) | [SelectOption](./notion-types.selectoption.md)<!-- -->\[\] |  |

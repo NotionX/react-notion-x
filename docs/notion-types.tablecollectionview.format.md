@@ -10,7 +10,7 @@
 format: {
         table_wrap: boolean;
         table_properties: Array<{
-            property: CollectionPropertyID;
+            property: PropertyID;
             visible: boolean;
             width: number;
         }>;

@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type SubDecoration = BoldFormat | ItalicFormat | StrikeFormat | CodeFormat | LinkFormat | ColorFormat | DateFormat | UserFormat | InlineEquationFormat | PageFormat | ExternalLinkFormat;
+export declare type SubDecoration = BoldFormat | ItalicFormat | StrikeFormat | CodeFormat | UnderlineFormat | LinkFormat | ColorFormat | DateFormat | UserFormat | InlineEquationFormat | PageFormat | ExternalLinkFormat;
 ```

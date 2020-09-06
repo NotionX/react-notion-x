@@ -7,10 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-export declare type DateFormat = ['d', {
-    type: 'date' | 'daterange';
-    start_date: string;
-    end_date?: string;
-    date_format: string;
-}];
+export declare type DateFormat = ['d', FormattedDate];
 ```

@@ -12,11 +12,11 @@ format: {
         board_cover_size: CollectionCardCoverSize;
         board_cover_aspect: CollectionCardCoverAspect;
         board_properties: Array<{
-            property: CollectionPropertyID;
+            property: PropertyID;
             visible: boolean;
         }>;
         board_groups2: Array<{
-            property: CollectionPropertyID;
+            property: PropertyID;
             hidden: boolean;
             value: {
                 type: PropertyType;

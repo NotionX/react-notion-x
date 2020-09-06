@@ -15,6 +15,6 @@ export interface GalleryCollectionView extends BaseCollectionView
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [format](./notion-types.gallerycollectionview.format.md) | { gallery\_cover: [CollectionCardCover](./notion-types.collectioncardcover.md)<!-- -->; gallery\_cover\_size: [CollectionCardCoverSize](./notion-types.collectioncardcoversize.md)<!-- -->; gallery\_cover\_aspect: [CollectionCardCoverAspect](./notion-types.collectioncardcoveraspect.md)<!-- -->; gallery\_properties: Array&lt;{ property: [CollectionPropertyID](./notion-types.collectionpropertyid.md)<!-- -->; visible: boolean; }&gt;; } |  |
+|  [format](./notion-types.gallerycollectionview.format.md) | { gallery\_cover: [CollectionCardCover](./notion-types.collectioncardcover.md)<!-- -->; gallery\_cover\_size: [CollectionCardCoverSize](./notion-types.collectioncardcoversize.md)<!-- -->; gallery\_cover\_aspect: [CollectionCardCoverAspect](./notion-types.collectioncardcoveraspect.md)<!-- -->; gallery\_properties: Array&lt;{ property: [PropertyID](./notion-types.propertyid.md)<!-- -->; visible: boolean; }&gt;; } |  |
 |  [type](./notion-types.gallerycollectionview.type.md) | 'gallery' |  |
 

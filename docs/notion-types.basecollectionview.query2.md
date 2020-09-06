@@ -8,7 +8,8 @@
 
 ```typescript
 query2: {
+        filter?: any;
         aggregations?: object[];
-        group_by: CollectionPropertyID;
+        group_by: PropertyID;
     };
 ```

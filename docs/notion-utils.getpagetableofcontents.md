@@ -4,6 +4,8 @@
 
 ## getPageTableOfContents variable
 
+Gets the metadata for a table of contents block by parsing the page's H1, H2, and H3 elements.
+
 <b>Signature:</b>
 
 ```typescript

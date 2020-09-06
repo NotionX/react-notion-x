@@ -4,6 +4,14 @@
 
 ## notion-utils package
 
+## Functions
+
+|  Function | Description |
+|  --- | --- |
+|  [getBlockIcon(block, recordMap)](./notion-utils.getblockicon.md) |  |
+|  [getBlockTitle(block, recordMap)](./notion-utils.getblocktitle.md) |  |
+|  [getPageTitle(recordMap)](./notion-utils.getpagetitle.md) |  |
+
 ## Interfaces
 
 |  Interface | Description |
@@ -14,7 +22,10 @@
 
 |  Variable | Description |
 |  --- | --- |
-|  [getPageTableOfContents](./notion-utils.getpagetableofcontents.md) |  |
+|  [getBlockParentPage](./notion-utils.getblockparentpage.md) | Returns the parent page block containing a given page.<!-- -->Note that many times this will not be the direct parent block since some non-page content blocks can contain sub-blocks. |
+|  [getDateValue](./notion-utils.getdatevalue.md) | Attempts to find a valid date from a given property. |
+|  [getPageContentBlockIds](./notion-utils.getpagecontentblockids.md) | Gets the IDs of all blocks contained on a page starting from a root block ID. |
+|  [getPageTableOfContents](./notion-utils.getpagetableofcontents.md) | Gets the metadata for a table of contents block by parsing the page's H1, H2, and H3 elements. |
 |  [getTextContent](./notion-utils.gettextcontent.md) | Gets the raw, unformatted text content of a block's content value.<!-- -->This is useful, for instance, for extracting a block's <code>title</code> without any rich text formatting. |
 |  [idToUuid](./notion-utils.idtouuid.md) |  |
 |  [parsePageId](./notion-utils.parsepageid.md) | Robustly extracts the notion page ID from a notion URL or pathname suffix.<!-- -->Defaults to returning a UUID (with dashes). |

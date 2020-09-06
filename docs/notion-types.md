@@ -11,9 +11,10 @@
 |  [AggregationResult](./notion-types.aggregationresult.md) |  |
 |  [APIError](./notion-types.apierror.md) |  |
 |  [AudioBlock](./notion-types.audioblock.md) |  |
-|  [BaseBlock](./notion-types.baseblock.md) | Base properties shared by all block types. |
+|  [BaseBlock](./notion-types.baseblock.md) | Base properties shared by all blocks. |
 |  [BaseCollectionView](./notion-types.basecollectionview.md) |  |
 |  [BaseContentBlock](./notion-types.basecontentblock.md) |  |
+|  [BaseFormula](./notion-types.baseformula.md) |  |
 |  [BasePageBlock](./notion-types.basepageblock.md) |  |
 |  [BaseTextBlock](./notion-types.basetextblock.md) |  |
 |  [BoardCollectionView](./notion-types.boardcollectionview.md) |  |
@@ -32,12 +33,15 @@
 |  [CollectionViewPageBlock](./notion-types.collectionviewpageblock.md) |  |
 |  [ColumnBlock](./notion-types.columnblock.md) |  |
 |  [ColumnListBlock](./notion-types.columnlistblock.md) |  |
+|  [ConstantFormula](./notion-types.constantformula.md) |  |
 |  [DividerBlock](./notion-types.dividerblock.md) |  |
 |  [EmbedBlock](./notion-types.embedblock.md) |  |
 |  [EquationBlock](./notion-types.equationblock.md) |  |
 |  [ExtendedRecordMap](./notion-types.extendedrecordmap.md) |  |
 |  [FigmaBlock](./notion-types.figmablock.md) |  |
 |  [FileBlock](./notion-types.fileblock.md) |  |
+|  [FormattedDate](./notion-types.formatteddate.md) |  |
+|  [FunctionFormula](./notion-types.functionformula.md) |  |
 |  [GalleryCollectionView](./notion-types.gallerycollectionview.md) |  |
 |  [GoogleDriveBlock](./notion-types.googledriveblock.md) |  |
 |  [HeaderBlock](./notion-types.headerblock.md) |  |
@@ -46,9 +50,12 @@
 |  [MapsBlock](./notion-types.mapsblock.md) |  |
 |  [NotionMap](./notion-types.notionmap.md) |  |
 |  [NumberedListBlock](./notion-types.numberedlistblock.md) |  |
+|  [OperatorFormula](./notion-types.operatorformula.md) |  |
 |  [PageBlock](./notion-types.pageblock.md) |  |
 |  [PageChunk](./notion-types.pagechunk.md) |  |
 |  [PdfBlock](./notion-types.pdfblock.md) |  |
+|  [PropertyFormula](./notion-types.propertyformula.md) |  |
+|  [PropertyMap](./notion-types.propertymap.md) |  |
 |  [QuoteBlock](./notion-types.quoteblock.md) |  |
 |  [RecordMap](./notion-types.recordmap.md) |  |
 |  [RecordValues](./notion-types.recordvalues.md) |  |
@@ -58,6 +65,7 @@
 |  [SelectOption](./notion-types.selectoption.md) |  |
 |  [SubHeaderBlock](./notion-types.subheaderblock.md) |  |
 |  [SubSubHeaderBlock](./notion-types.subsubheaderblock.md) |  |
+|  [SymbolFormula](./notion-types.symbolformula.md) |  |
 |  [TableCollectionView](./notion-types.tablecollectionview.md) |  |
 |  [TableOfContentsBlock](./notion-types.tableofcontentsblock.md) |  |
 |  [TextBlock](./notion-types.textblock.md) |  |
@@ -82,7 +90,6 @@
 |  [CollectionCardCoverSize](./notion-types.collectioncardcoversize.md) |  |
 |  [CollectionCardCoverType](./notion-types.collectioncardcovertype.md) |  |
 |  [CollectionMap](./notion-types.collectionmap.md) |  |
-|  [CollectionPropertyID](./notion-types.collectionpropertyid.md) |  |
 |  [CollectionView](./notion-types.collectionview.md) |  |
 |  [CollectionViewMap](./notion-types.collectionviewmap.md) |  |
 |  [CollectionViewType](./notion-types.collectionviewtype.md) | Types of collection views supported by Notion |
@@ -91,16 +98,26 @@
 |  [DateFormat](./notion-types.dateformat.md) |  |
 |  [Decoration](./notion-types.decoration.md) |  |
 |  [ExternalLinkFormat](./notion-types.externallinkformat.md) |  |
-|  [ID](./notion-types.id.md) |  |
+|  [Formula](./notion-types.formula.md) |  |
+|  [FormulaConstantType](./notion-types.formulaconstanttype.md) |  |
+|  [FormulaFunctionType](./notion-types.formulafunctiontype.md) |  |
+|  [FormulaOperatorType](./notion-types.formulaoperatortype.md) |  |
+|  [FormulaResult](./notion-types.formularesult.md) |  |
+|  [FormulaResultType](./notion-types.formularesulttype.md) |  |
+|  [FormulaType](./notion-types.formulatype.md) |  |
+|  [FormulaValueType](./notion-types.formulavaluetype.md) |  |
+|  [ID](./notion-types.id.md) | UUID |
 |  [InlineEquationFormat](./notion-types.inlineequationformat.md) |  |
 |  [ItalicFormat](./notion-types.italicformat.md) |  |
 |  [LinkFormat](./notion-types.linkformat.md) |  |
 |  [NumberFormat](./notion-types.numberformat.md) | Types of number formatting supported by Notion |
 |  [PageFormat](./notion-types.pageformat.md) |  |
+|  [PropertyID](./notion-types.propertyid.md) | Unique identifier for collection properties representing the columns in a traditional relational database.<!-- -->Either a 4-character hash like <code>o;Os</code> or <code>title</code> as a special, reserved property ID for collection title properties.<!-- -->You can think of <code>title</code> properties as primary indexes that are guaranteed to exist as in a traditional database. |
 |  [PropertyType](./notion-types.propertytype.md) | Types of structured data supported by Notion collections |
 |  [Role](./notion-types.role.md) |  |
 |  [StrikeFormat](./notion-types.strikeformat.md) |  |
 |  [SubDecoration](./notion-types.subdecoration.md) |  |
+|  [UnderlineFormat](./notion-types.underlineformat.md) |  |
 |  [UserFormat](./notion-types.userformat.md) |  |
 |  [UserMap](./notion-types.usermap.md) |  |
 
