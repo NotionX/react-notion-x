@@ -15,12 +15,13 @@
     "test": "ava -v 'build/cjs/**/*.test.js'"
   },
   "dependencies": {
-    "got": "^11.6.0",
+    "node-fetch": "^2.6.1",
     "notion-types": "^2.2.1",
     "notion-utils": "^2.2.3",
     "p-map": "^4.0.0"
   },
   "devDependencies": {
+    "@types/node-fetch": "^2.5.7",
     "ava": "^3.11.1"
   }
 }
