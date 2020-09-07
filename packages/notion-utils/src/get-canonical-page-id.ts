@@ -18,7 +18,7 @@ export const getCanonicalPageId = (
     const title = normalizeTitle(getBlockTitle(block, recordMap))
 
     if (title) {
-      return `${normalizeTitle(title)}-${id}`
+      return `${title}-${id}`
     }
   }
 
