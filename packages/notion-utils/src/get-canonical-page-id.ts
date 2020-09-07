@@ -1,6 +1,6 @@
 import { ExtendedRecordMap } from 'notion-types'
 import { uuidToId } from './uuid-to-id'
-import { getPageTitle } from './get-page-title'
+import { getBlockTitle } from './get-block-title'
 
 /**
  * Gets the canonical, display-friendly version of a page's ID for use in URLs.
@@ -12,13 +12,17 @@ export const getCanonicalPageId = (
   if (!pageId || !recordMap) return null
 
   const id = uuidToId(pageId)
-  const title = normalizeTitle(getPageTitle(recordMap))
+  const block = recordMap.block[pageId]?.value
 
-  if (title) {
-    return `${normalizeTitle(title)}-${id}`
-  } else {
-    return id
+  if (block) {
+    const title = normalizeTitle(getBlockTitle(block, recordMap))
+
+    if (title) {
+      return `${normalizeTitle(title)}-${id}`
+    }
   }
+
+  return id
 }
 
 export const normalizeTitle = (title: string | null): string => {
