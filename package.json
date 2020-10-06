@@ -2,7 +2,7 @@
   "name": "notion",
   "private": true,
   "description": "Fast and accurate React renderer for Notion. TS batteries included.",
-  "repository": "NotionX/notion-kit",
+  "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "engines": {
