@@ -26,11 +26,10 @@ import { NotionAPI } from 'notion-client'
 
 const notion = new NotionAPI()
 
-// fetch the page's content, including all async blocks, collection queries, and signed urls
 const recordMap = await notion.getPage('067dd719a912471ea9a3ac10710e7fdf')
 ```
 
-Once you have the data for a Notion page, you can render it:
+Once you have the data for a Notion page, you can render it via React:
 
 ```tsx
 import React from 'react'
@@ -45,7 +44,7 @@ You may optionally pass an `authToken` to the API if you want to access private 
 
 ## Styles
 
-You'll need to import some CSS styles as well. If you're using Next.js, we recommend you put these in `pages/_app.js`:
+You'll need to import some CSS styles as well. If you're using Next.js, we recommend you place these imports at the top of `pages/_app.js`:
 
 ```ts
 // core styles shared by all of react-notion-x (required)
@@ -67,7 +66,7 @@ Here's a full [Next.js example project](https://github.com/NotionX/react-notion-
 
 You can check out this [example hosted live on Vercel](https://react-demo.notionx.so).
 
-If you're interested in a more optimized service built around `react-notion-x`, check out the equivalent [Notion X Demo](https://demo.notionx.so).
+If you're interested in a more robust service built around `react-notion-x` that features a bunch of additional goodies and optimizations, check out the equivalent [Notion X Demo](https://demo.notionx.so).
 
 ## Packages
 
@@ -78,7 +77,7 @@ If you're interested in a more optimized service built around `react-notion-x`, 
 | [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | [docs](./docs/notion-types.md)    | Universal     | Core Notion TypeScript types.                  |
 | [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | [docs](./docs/notion-utils.md)    | Universal     | Useful utilities for working with Notion data. |
 
-\* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js, Deno, and Cloudflare Workers.
+\* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js and Deno.
 
 ## Supported Blocks
 
@@ -132,22 +131,20 @@ Please let us know if you find any issues or missing blocks.
 
 All known blocks and most known configuration settings can be found in our [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf).
 
-## Perf
+## Performance
 
-Out of the box, `react-notion-x` is pretty fast and relatively lightweight, but there are certainly areas that can be improved.
+Out of the box, `react-notion-x` is pretty fast and relatively lightweight, but there are a few key factors to be aware of.
 
 Bundlephobia reports a [~27.5kb gzip bundle size](https://bundlephobia.com/result?p=react-notion-x@0.1.0), but about 80% of this opaque bundle is loaded lazily via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) for heavier features like PDF and collection support _only if a page needs them_. For most pages, the total gzip bundle size for `react-notion-x` will be ~10kb.
 
-Another major factor for perf comes from images hosted by Notion. They're generally unoptimized, not properly sized, and not cacheable because Notion has to deal with fine-grained access control that users can change at any time. You can override the default `mapImageUrl` function on `NotionRenderer` to add caching via a CDN like Cloudflare Workers, which is what Notion X does for optimal page load speeds.
+Another major factor for perf comes from images hosted by Notion. They're generally unoptimized, improperly sized, and not cacheable because Notion has to deal with fine-grained access control that users can change at any time. You can override the default `mapImageUrl` function on `NotionRenderer` to add caching via a CDN like Cloudflare Workers, which is what Notion X does for optimal page load speeds.
 
 `NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://demo.notionx.so/image-sizing-3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
 
 <p align="center">
   <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="600" />
-
-<br>
-<i>Example Google Lighthouse scores for a <a href="https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518">page</a> hosted by Notion X.</i>
-
+  <br>
+  <i>Example Google Lighthouse scores for a <a href="https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518">page</a> hosted by Notion X.</i>
 </p>
 
 ## Related
@@ -170,7 +167,5 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 MIT © [Travis Fischer](https://transitivebullsh.it)
 
 Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
-
-This project has been built with the expectation that once Notion's official API launches, it will only take minor changes to support.
 
 This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.

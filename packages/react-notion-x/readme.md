@@ -7,7 +7,7 @@
 
 # React Notion X
 
-> Extremely fast and accurate React renderer for Notion.
+> Fast and accurate React renderer for Notion.
 
 [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) [![Build Status](https://travis-ci.com/NotionX/react-notion-x.svg?branch=master)](https://travis-ci.com/NotionX/react-notion-x) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
