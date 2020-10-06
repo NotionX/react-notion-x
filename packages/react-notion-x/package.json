@@ -1,0 +1,48 @@
+{
+  "name": "react-notion-x",
+  "version": "2.2.1",
+  "description": "Notion renderer for React that powers Notion X.",
+  "repository": "NotionX/notion-kit",
+  "author": "Saasify <dev@saasify.sh>",
+  "license": "MIT",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "typings": "build/esm/index.d.ts",
+  "engines": {
+    "node": ">=12"
+  },
+  "dependencies": {
+    "@matejmazur/react-katex": "^3.1.3",
+    "classnames": "^2.2.6",
+    "date-fns": "^2.15.0",
+    "format-number": "^3.0.0",
+    "is-url-superb": "^4.0.0",
+    "katex": "^0.12.0",
+    "lodash.throttle": "^4.1.1",
+    "medium-zoom": "^1.0.6",
+    "notion-types": "^2.2.1",
+    "notion-utils": "^2.4.1",
+    "prismjs": "^1.20.0",
+    "rc-dropdown": "^3.1.2",
+    "rc-menu": "^8.5.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-image": "^4.0.3",
+    "react-lazy-images": "^1.1.0",
+    "react-modal": "^3.11.2",
+    "react-pdf": "^4.2.0",
+    "react-tweet-embed": "^1.2.2",
+    "react-use": "^15.3.3"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.10",
+    "@types/next": "^9.0.0",
+    "@types/node": "^14.6.0",
+    "@types/react": "^16.9.46",
+    "@types/react-modal": "^3.10.5",
+    "@types/react-pdf": "^4.0.5"
+  },
+  "peerDependencies": {
+    "next": "^9.5.3"
+  }
+}
