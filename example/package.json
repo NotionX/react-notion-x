@@ -1,0 +1,29 @@
+{
+  "name": "notion-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "next": "9.5.3",
+    "notion-client": "^2.4.1",
+    "notion-utils": "^2.4.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-notion-x": "^0.1.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^9.5.3",
+    "@types/node": "^14.11.5",
+    "@types/react": "^16.9.51",
+    "cross-env": "^7.0.2",
+    "typescript": "^4.0.3"
+  }
+}
