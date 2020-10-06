@@ -26,10 +26,10 @@ First you'll want to fetch the content for a Notion page:
 ```ts
 import { NotionAPI } from 'notion-client'
 
-const api = new NotionAPI()
+const notion = new NotionAPI()
 
 // fetch the page's content, including all async blocks, collection queries, and signed urls
-const recordMap = await api.getPage('067dd719a912471ea9a3ac10710e7fdf')
+const recordMap = await notion.getPage('067dd719a912471ea9a3ac10710e7fdf')
 ```
 
 Once you have the data for a Notion page, you can render it:
@@ -38,12 +38,8 @@ Once you have the data for a Notion page, you can render it:
 import React from 'react'
 import { NotionRenderer } from 'react-notion-x'
 
-export default ExampleNotionPage({ recordMap }) => (
-  <NotionRenderer
-    recordMap={recordMap}
-    fullPage={true}
-    darkMode={false}
-  />
+export default ({ recordMap }) => (
+  <NotionRenderer recordMap={recordMap} fullPage={true} darkMode={false} />
 )
 ```
 
@@ -59,12 +55,12 @@ If you're interested in a more optimized service built around `react-notion-x`, 
 
 ## Packages
 
-| Package                                     | NPM                                                                                                     | Docs                              | Environment   | Description                                             |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------- | ------------- | ------------------------------------------------------- |
-| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | [docs](./packages/react-notion-x) | Browser + SSR | Fast and accurate React renderer for Notion.            |
-| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | [docs](./docs/notion-client.md)   | Server-side\* | Robust TypeScript client for the unofficial Notion API. |
-| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | [docs](./docs/notion-types.md)    | Universal     | TypeScript types for core Notion data structures.       |
-| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | [docs](./docs/notion-utils.md)    | Universal     | Useful utilities for working with Notion data.          |
+| Package                                     | NPM                                                                                                     | Docs                              | Environment   | Description                                    |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------- | ------------- | ---------------------------------------------- |
+| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | [docs](./packages/react-notion-x) | Browser + SSR | React renderer for Notion.                     |
+| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | [docs](./docs/notion-client.md)   | Server-side\* | Robust TypeScript client for the Notion API.   |
+| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | [docs](./docs/notion-types.md)    | Universal     | Core Notion TypeScript types.                  |
+| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | [docs](./docs/notion-utils.md)    | Universal     | Useful utilities for working with Notion data. |
 
 \* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js, Deno, and Cloudflare Workers.
 
