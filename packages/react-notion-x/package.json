@@ -1,7 +1,7 @@
 {
   "name": "react-notion-x",
   "version": "0.1.0",
-  "description": "Notion renderer for React that powers Notion X.",
+  "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
   "author": "Saasify <dev@saasify.sh>",
   "license": "MIT",
