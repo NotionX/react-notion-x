@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="React Notion Kit" src="https://raw.githubusercontent.com/NotionX/notion-kit/master/notion-ts.png" width="689">
+  <img alt="React Notion Kit" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/notion-ts.png" width="689">
 </p>
 
 # React Notion X
@@ -10,10 +10,9 @@
 
 ## Features
 
-- 🚀 **Simple** - TypeScript + React. Easy peasy.
-- ⚡ **Fast** - Concurrent network IO for fetching all resources on a page.
-- 😻 **Lightweight** - ~95% lighthouse performance scores.
-  - 10-100x faster than Notion.
+- 🚀 **Simple** - TypeScript + React.
+- ⚡ **Fast** - 10-100x faster than Notion.
+  - 95-100% Lighthouse scores.
   - Heavier components like PDFs and collection views are loaded lazily via `next/dynamic`.
 - 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality.
 - 🔥 **Solid** - Used in production by Notion X (_coming soon_), [Notion VIP](https://www.notion.vip), and [Notion2Site](http://notion2site.com).
@@ -120,6 +119,22 @@ The majority of Notion blocks and collection views are fully supported.
 Please let us know if you find any issues or missing blocks.
 
 All known blocks and most known configuration settings can be found in our [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf).
+
+## Perf
+
+Out of the box, `react-notion-x` is pretty fast and relatively lightweight, but there are certainly areas that can be improved.
+
+Bundlephobia reports a [~27.5kb gzip bundle size](https://bundlephobia.com/result?p=react-notion-x@0.1.0), but about 80% of this opaque bundle is loaded lazily via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) for heavier features like PDF and collection support _only if a page needs them_. For most pages, the total gzip bundle size for `react-notion-x` will be ~10kb.
+
+Another major factor for perf comes from images hosted by Notion. They're generally unoptimized, not properly sized, and not cacheable because Notion has to deal with fine-grained access control that users can change at any time. You can override the default `mapImageUrl` function on `NotionRenderer` to add caching via a CDN like Cloudflare Workers, which is what Notion X does for optimal page load speeds.
+
+`NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://demo.notionx.so/image-sizing-3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
+
+<p align="center">
+  <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="500">
+</p>
+
+_Example Google Lighthouse scores for a [page](https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518) hosted by Notion X._
 
 ## Related
 
