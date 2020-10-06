@@ -41,7 +41,7 @@ export async function getStaticPaths() {
   }
 }
 
-export default function NotionHomePage({ recordMap }) {
+export default function NotionPage({ recordMap }) {
   if (!recordMap) {
     return null
   }

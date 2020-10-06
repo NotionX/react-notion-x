@@ -1,7 +1,7 @@
 {
   "name": "notion",
   "private": true,
-  "description": "TS packages for Notion's unofficial API, data types, and related utilities.",
+  "description": "Fast and accurate React renderer for Notion. TS batteries included.",
   "repository": "NotionX/notion-kit",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
