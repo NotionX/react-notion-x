@@ -13,6 +13,7 @@
   "dependencies": {
     "next": "9.5.3",
     "notion-client": "^2.4.1",
+    "notion-utils": "^2.4.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-notion-x": "^0.1.0"
