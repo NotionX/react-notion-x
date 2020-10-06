@@ -57,7 +57,7 @@ If you're interested in a more optimized service built around `react-notion-x`, 
 
 | Package                                     | NPM                                                                                                     | Docs                              | Environment   | Description                                    |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------- | ------------- | ---------------------------------------------- |
-| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | [docs](./packages/react-notion-x) | Browser + SSR | React renderer for Notion.                     |
+| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | [docs](./packages/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                |
 | [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | [docs](./docs/notion-client.md)   | Server-side\* | Robust TypeScript client for the Notion API.   |
 | [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | [docs](./docs/notion-types.md)    | Universal     | Core Notion TypeScript types.                  |
 | [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | [docs](./docs/notion-utils.md)    | Universal     | Useful utilities for working with Notion data. |
@@ -127,10 +127,11 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 `NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://demo.notionx.so/image-sizing-3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
 
 <p align="center">
-  <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="500">
-</p>
+  <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="500" />
 
-_Example Google Lighthouse scores for a [page](https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518) hosted by Notion X._
+<i>Example Google Lighthouse scores for a <a href="https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518">page</a> hosted by Notion X.</i>
+
+</p>
 
 ## Related
 
