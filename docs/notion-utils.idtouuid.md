@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-idToUuid: (id: string) => string
+idToUuid: (id?: string) => string
 ```

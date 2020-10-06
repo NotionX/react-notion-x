@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getBlockTitle(block: Block, recordMap: ExtendedRecordMap): string | null;
+export declare function getBlockTitle(block: Block, recordMap: ExtendedRecordMap): string;
 ```
 
 ## Parameters
@@ -19,5 +19,5 @@ export declare function getBlockTitle(block: Block, recordMap: ExtendedRecordMap
 
 <b>Returns:</b>
 
-string \| null
+string
 

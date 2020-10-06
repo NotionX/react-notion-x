@@ -17,7 +17,6 @@ export interface PageMap {
  * @param rootSpaceId - Space ID to scope traversal.
  * @param getPage - Function used to fetch a single page.
  * @param opts - Optional config
- * @param opts.concurrency - Optional max concurrency (default 4)
  */
 export async function getAllPagesInSpace(
   rootPageId: string,

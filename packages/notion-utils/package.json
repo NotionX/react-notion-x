@@ -19,7 +19,6 @@
     "p-queue": "^6.6.1"
   },
   "devDependencies": {
-    "ava": "^3.11.1",
-    "ts-node": "^8.10.2"
+    "ava": "^3.13.0"
   }
 }

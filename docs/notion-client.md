@@ -8,7 +8,7 @@
 
 |  Class | Description |
 |  --- | --- |
-|  [NotionAPI](./notion-client.notionapi.md) |  |
+|  [NotionAPI](./notion-client.notionapi.md) | Main Notion API client. |
 
 ## Interfaces
 
