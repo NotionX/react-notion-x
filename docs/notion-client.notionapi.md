@@ -4,6 +4,8 @@
 
 ## NotionAPI class
 
+Main Notion API client.
+
 <b>Signature:</b>
 
 ```typescript

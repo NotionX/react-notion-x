@@ -22,6 +22,6 @@
   },
   "devDependencies": {
     "@types/node-fetch": "^2.5.7",
-    "ava": "^3.11.1"
+    "ava": "^3.13.0"
   }
 }

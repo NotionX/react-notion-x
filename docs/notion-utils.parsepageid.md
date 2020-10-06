@@ -11,7 +11,7 @@ Defaults to returning a UUID (with dashes).
 <b>Signature:</b>
 
 ```typescript
-parsePageId: (id?: string, { uuid }?: {
+parsePageId: (id?: string | null, { uuid }?: {
     uuid?: boolean | undefined;
 }) => string | null
 ```
