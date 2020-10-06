@@ -9,7 +9,12 @@ import { LazyImage } from './lazy-image'
 
 const isServer = typeof window === 'undefined'
 
-const DynamicTweet = dynamic(() => import('react-tweet-embed'))
+const DynamicTweet = dynamic(() =>
+  import('react-tweet-embed').then((res) => {
+    // console.log('DynamicTweet', res)
+    return res.default
+  })
+) as any
 const DynamicPdfDocument: any = dynamic(() =>
   import('react-pdf').then((pdf) => pdf.Document)
 )

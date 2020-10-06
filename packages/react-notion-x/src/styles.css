@@ -390,6 +390,10 @@
   max-width: 100%;
 }
 
+.notion-full-page {
+  padding-bottom: calc(max(10vh, 120px));
+}
+
 .notion-page-offset {
   margin-top: 96px;
 }
@@ -1993,7 +1997,7 @@ svg.notion-page-icon {
   padding: 0 8px;
 }
 
-.notion-search .searchOverlay {
+.notion-search-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -2007,7 +2011,7 @@ svg.notion-page-icon {
   z-index: 1001;
 }
 
-.notion-search .searchModal {
+.notion-search {
   box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
     rgba(15, 15, 15, 0.1) 0px 5px 10px, rgba(15, 15, 15, 0.2) 0px 15px 40px;
   border-radius: 3px;

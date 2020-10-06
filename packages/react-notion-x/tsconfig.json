@@ -8,7 +8,7 @@
     "lib": ["DOM", "ESNext"],
     "strict": false,
     "noImplicitReturns": false,
-    "jsx": "preserve"
+    "jsx": "react"
   },
   "include": ["src"],
   "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]

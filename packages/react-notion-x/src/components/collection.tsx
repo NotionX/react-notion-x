@@ -1,5 +1,4 @@
 import * as React from 'react'
-import cs from 'classnames'
 import { useLocalStorage, useWindowSize } from 'react-use'
 
 import { getBlockParentPage, getTextContent } from 'notion-utils'
@@ -12,6 +11,7 @@ import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
 import { PageIcon } from './page-icon'
 import { useNotionContext } from '../context'
+import { cs } from '../utils'
 
 const isServer = typeof window === 'undefined'
 const triggers = ['click']
