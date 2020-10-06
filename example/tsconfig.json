@@ -4,7 +4,7 @@
     "lib": ["dom", "esnext"],
     "allowJs": false,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "noEmit": true,
