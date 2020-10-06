@@ -1,6 +1,10 @@
 'use strict'
 
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
+
+module.exports = withBundleAnalyzer({
   async redirects() {
     return [
       // redirect the index page to our notion test suite
@@ -11,4 +15,4 @@ module.exports = {
       }
     ]
   }
-}
+})
