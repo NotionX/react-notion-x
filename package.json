@@ -9,7 +9,8 @@
     "node": ">=12"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "example/"
   ],
   "scripts": {
     "build": "tsc --build tsconfig.json",

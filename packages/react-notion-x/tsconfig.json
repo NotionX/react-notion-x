@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base",
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "build/esm",
+    "tsBuildInfoFile": "build/esm/index.tsbuildinfo",
+    "lib": ["DOM", "ESNext"],
+    "strict": false,
+    "noImplicitReturns": false,
+    "jsx": "react"
+  },
+  "include": ["src"],
+  "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]
+}
