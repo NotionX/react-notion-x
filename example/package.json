@@ -15,7 +15,7 @@
     "notion-client": "^2.4.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-notion-x": "^0.0.1"
+    "react-notion-x": "^0.1.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.5.3",
