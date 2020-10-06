@@ -127,7 +127,7 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 `NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://demo.notionx.so/image-sizing-3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
 
 <p align="center">
-  <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="500" />
+  <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="600" />
 
 <br>
 <i>Example Google Lighthouse scores for a <a href="https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518">page</a> hosted by Notion X.</i>
