@@ -17,8 +17,6 @@
 - 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality.
 - 🔥 **Solid** - Used in production by Notion X (_coming soon_), [Notion VIP](https://www.notion.vip), and [Notion2Site](http://notion2site.com).
 
-This project has been built with the expectation that once Notion's official API launches, it will only take minor changes to support.
-
 ## Usage
 
 First you'll want to fetch the content for a Notion page:
@@ -44,6 +42,24 @@ export default ({ recordMap }) => (
 ```
 
 You may optionally pass an `authToken` to the API if you want to access private Notion resources.
+
+## Styles
+
+You'll need to import some CSS styles as well. If you're using Next.js, we recommend you put these in `pages/_app.js`:
+
+```ts
+// core styles shared by all of react-notion-x (required)
+import 'react-notion-x/src/styles.css'
+
+// used for code syntax highlighting (optional)
+import 'prismjs/themes/prism-tomorrow.css'
+
+// used for collection views (optional)
+import 'rc-dropdown/assets/index.css'
+
+// used for rendering equations (optional)
+import 'katex/dist/katex.min.css'
+```
 
 ## Next.js Example
 
@@ -83,7 +99,7 @@ The majority of Notion blocks and collection views are fully supported.
 | Equation (block)         | ✅ Yes     | `equation`             | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)                       |
 | Equation (inline)        | ✅ Yes     | `text`                 | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)                       |
 | Todos (checkboxes)       | ✅ Yes     | `to_do`                |
-| Table Of Contents        | ✅ Yes     | `table_of_contents`    | See `notion-utils` `get                                                                                          |
+| Table Of Contents        | ✅ Yes     | `table_of_contents`    | See `notion-utils` `getPageTableOfContents` helper funtion                                                       |
 | Divider                  | ✅ Yes     | `divider`              | Horizontal line                                                                                                  |
 | Column                   | ✅ Yes     | `column`               |
 | Column List              | ✅ Yes     | `column_list`          |
@@ -154,5 +170,7 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 MIT © [Travis Fischer](https://transitivebullsh.it)
 
 Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+
+This project has been built with the expectation that once Notion's official API launches, it will only take minor changes to support.
 
 This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.

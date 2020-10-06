@@ -45,6 +45,24 @@ export default ExampleNotionPage({ recordMap }) => (
 )
 ```
 
+## Styles
+
+You'll need to import some CSS styles as well. If you're using Next.js, we recommend you put these in `pages/_app.js`:
+
+```ts
+// core styles shared by all of react-notion-x (required)
+import 'react-notion-x/src/styles.css'
+
+// used for code syntax highlighting (optional)
+import 'prismjs/themes/prism-tomorrow.css'
+
+// used for collection views (optional)
+import 'rc-dropdown/assets/index.css'
+
+// used for rendering equations (optional)
+import 'katex/dist/katex.min.css'
+```
+
 ## License
 
 MIT © [Travis Fischer](https://transitivebullsh.it)
