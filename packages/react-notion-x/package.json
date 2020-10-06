@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Notion renderer for React that powers Notion X.",
   "repository": "NotionX/notion-kit",
   "author": "Saasify <dev@saasify.sh>",
