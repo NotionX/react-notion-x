@@ -1,12 +1,12 @@
 <p align="center">
-  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/NotionX/notion-kit/master/notion-ts.png" width="689">
+  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/notion-ts.png" width="689">
 </p>
 
 # notion-types
 
 > TypeScript types for core Notion data structures.
 
-[![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types) [![Build Status](https://travis-ci.com/NotionX/notion-kit.svg?branch=master)](https://travis-ci.com/NotionX/notion-kit) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types) [![Build Status](https://travis-ci.com/NotionX/react-notion-x.svg?branch=master)](https://travis-ci.com/NotionX/react-notion-x) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Install
 
@@ -24,7 +24,7 @@ import * as notion from 'notion-types'
 
 ## Docs
 
-See the [auto-generated docs](https://github.com/NotionX/notion-kit/blob/master/docs/notion-types.md).
+See the [auto-generated docs](https://github.com/NotionX/react-notion-x/blob/master/docs/notion-types.md).
 
 ## License
 

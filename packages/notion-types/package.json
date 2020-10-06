@@ -2,7 +2,7 @@
   "name": "notion-types",
   "version": "2.2.1",
   "description": "TypeScript types for core Notion data structures.",
-  "repository": "NotionX/notion-kit",
+  "repository": "NotionX/react-notion-x",
   "author": "Saasify <dev@saasify.sh>",
   "license": "MIT",
   "main": "build/cjs/index.js",
