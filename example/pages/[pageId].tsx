@@ -1,5 +1,7 @@
 import React from 'react'
+import Head from 'next/head'
 
+import { getPageTitle } from 'notion-utils'
 import { NotionAPI } from 'notion-client'
 import { NotionRenderer } from 'react-notion-x'
 
@@ -29,9 +31,17 @@ export default function NotionHomePage({ recordMap }) {
     return null
   }
 
-  console.log(recordMap)
+  const title = getPageTitle(recordMap)
+  console.log(title, recordMap)
 
   return (
-    <NotionRenderer recordMap={recordMap} fullPage={true} darkMode={false} />
+    <>
+      <Head>
+        <meta property='og:title' content={title} />
+        <title>{title}</title>
+      </Head>
+
+      <NotionRenderer recordMap={recordMap} fullPage={true} darkMode={false} />
+    </>
   )
 }
