@@ -3,7 +3,7 @@ import isUrl from 'is-url-superb'
 import { getBlockIcon, getBlockTitle } from 'notion-utils'
 
 import { Block, PageBlock, CalloutBlock } from '../types'
-import { classNames } from '../utils'
+import { cs } from '../utils'
 import { DefaultPageIcon } from '../icons/default-page-icon'
 import { useNotionContext } from '../context'
 import { GracefulImage } from './graceful-image'
@@ -36,7 +36,7 @@ export const PageIcon: React.FC<{
 
     return (
       <GracefulImage
-        className={classNames(
+        className={cs(
           className,
           large ? 'notion-page-icon-cover' : 'notion-page-icon'
         )}
@@ -51,7 +51,7 @@ export const PageIcon: React.FC<{
     if (!iconValue) {
       return (
         <DefaultPageIcon
-          className={classNames(
+          className={cs(
             className,
             large ? 'notion-page-icon-cover' : 'notion-page-icon'
           )}
@@ -62,7 +62,7 @@ export const PageIcon: React.FC<{
 
     return (
       <span
-        className={classNames(
+        className={cs(
           className,
           large ? 'notion-page-icon-cover' : 'notion-page-icon'
         )}

@@ -68,7 +68,7 @@ const defaultNotionContext: NotionContext = {
 
   fullPage: false,
   darkMode: false,
-  previewImages: true,
+  previewImages: false,
 
   zoom: null
 }
@@ -79,21 +79,25 @@ export const NotionContextProvider: React.SFC<PartialNotionContext> = ({
   components: themeComponents = {},
   children,
   mapPageUrl,
+  mapImageUrl,
   rootPageId,
   ...rest
-}) => (
-  <ctx.Provider
-    value={{
-      ...defaultNotionContext,
-      ...rest,
-      rootPageId,
-      mapPageUrl: mapPageUrl ?? defaultMapPageUrl(rootPageId),
-      components: { ...defaultComponents, ...themeComponents }
-    }}
-  >
-    {children}
-  </ctx.Provider>
-)
+}) => {
+  return (
+    <ctx.Provider
+      value={{
+        ...defaultNotionContext,
+        ...rest,
+        rootPageId,
+        mapPageUrl: mapPageUrl ?? defaultMapPageUrl(rootPageId),
+        mapImageUrl: mapImageUrl ?? defaultMapImageUrl,
+        components: { ...defaultComponents, ...themeComponents }
+      }}
+    >
+      {children}
+    </ctx.Provider>
+  )
+}
 
 export const useNotionContext = (): NotionContext => {
   return React.useContext(ctx)

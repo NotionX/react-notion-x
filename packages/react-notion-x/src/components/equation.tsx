@@ -1,6 +1,6 @@
 import * as React from 'react'
-import cs from 'classnames'
 import dynamic from 'next/dynamic'
+import { cs } from '../utils'
 
 const DynamicTex = dynamic(() => import('@matejmazur/react-katex'))
 

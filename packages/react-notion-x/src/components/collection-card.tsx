@@ -1,9 +1,8 @@
 import * as React from 'react'
-import cs from 'classnames'
 
 import * as types from '../types'
 import { Property } from './property'
-import { getTextContent } from '../utils'
+import { cs, getTextContent } from '../utils'
 import { useNotionContext, dummyLink, NotionContextProvider } from '../context'
 import { LazyImage } from './lazy-image'
 

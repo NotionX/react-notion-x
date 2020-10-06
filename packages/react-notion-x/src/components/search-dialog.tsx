@@ -52,23 +52,23 @@ export class SearchDialog extends React.Component<{
       <DynamicReactModal
         isOpen={isOpen}
         contentLabel='Search'
-        className={'notion-search searchModal'}
-        overlayClassName={'searchOverlay'}
+        className='notion-search'
+        overlayClassName='notion-search-overlay'
         onRequestClose={onClose}
         onAfterOpen={this._onAfterOpen}
       >
-        <div className={'quickFindMenu'}>
-          <div className={'searchBar'}>
-            <div className={'inlineIcon'}>
+        <div className='quickFindMenu'>
+          <div className='searchBar'>
+            <div className='inlineIcon'>
               {isLoading ? (
-                <LoadingIcon className={'loadingIcon'} />
+                <LoadingIcon className='loadingIcon' />
               ) : (
                 <SearchIcon />
               )}
             </div>
 
             <input
-              className={'searchInput'}
+              className='searchInput'
               placeholder='Search'
               value={query}
               ref={this._inputRef}
@@ -78,10 +78,10 @@ export class SearchDialog extends React.Component<{
             {query && (
               <div
                 role='button'
-                className={'clearButton'}
+                className='clearButton'
                 onClick={this._onClearQuery}
               >
-                <ClearIcon className={'clearIcon'} />
+                <ClearIcon className='clearIcon' />
               </div>
             )}
           </div>
@@ -90,36 +90,34 @@ export class SearchDialog extends React.Component<{
             <>
               {searchResult.results.length ? (
                 <>
-                  <div className={'resultsPane'}>
+                  <div className='resultsPane'>
                     {searchResult.results.map((result) => (
                       <a
                         key={result.id}
-                        className={'result'}
+                        className='result'
                         href={`/${result.id.replace(/-/g, '')}`}
                       >
-                        <div className={'breadcrumb'}>
-                          <PageIcon className={'icon'} block={result.block} />
+                        <div className='breadcrumb'>
+                          <PageIcon className='icon' block={result.block} />
 
-                          <span className={'title'}>{result.title}</span>
+                          <span className='title'>{result.title}</span>
                         </div>
                       </a>
                     ))}
                   </div>
 
-                  <footer className={'resultsFooter'}>
+                  <footer className='resultsFooter'>
                     <div>
-                      <span className={'resultsCount'}>
-                        {searchResult.total}
-                      </span>
+                      <span className='resultsCount'>{searchResult.total}</span>
 
                       {searchResult.total === 1 ? ' result' : ' results'}
                     </div>
                   </footer>
                 </>
               ) : (
-                <div className={'noResultsPane'}>
-                  <div className={'noResults'}>No results</div>
-                  <div className={'noResultsDetail'}>
+                <div className='noResultsPane'>
+                  <div className='noResults'>No results</div>
+                  <div className='noResultsDetail'>
                     Try different search terms
                   </div>
                 </div>
@@ -128,8 +126,8 @@ export class SearchDialog extends React.Component<{
           )}
 
           {hasQuery && !searchResult && searchError && (
-            <div className={'noResultsPane'}>
-              <div className={'noResults'}>Search error</div>
+            <div className='noResultsPane'>
+              <div className='noResults'>Search error</div>
             </div>
           )}
         </div>

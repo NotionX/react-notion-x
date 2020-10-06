@@ -1,7 +1,7 @@
 import * as React from 'react'
-import cs from 'classnames'
 
 import * as types from '../types'
+import { cs } from '../utils'
 import { CollectionCard } from './collection-card'
 import { EmptyIcon } from '../icons/empty-icon'
 import { Property } from './property'

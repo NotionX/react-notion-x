@@ -1,7 +1,7 @@
 import * as React from 'react'
-import cs from 'classnames'
 
 import * as types from '../types'
+import { cs } from '../utils'
 import { Property } from './property'
 import { CollectionColumnTitle } from './collection-column-title'
 import { useNotionContext } from '../context'

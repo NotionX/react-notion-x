@@ -1,7 +1,7 @@
 import * as React from 'react'
-import cs from 'classnames'
 import { LazyImageFull, ImageState } from 'react-lazy-images'
 import { useNotionContext } from '../context'
+import { cs } from '../utils'
 
 /**
  * Progressive, lazy images modeled after Medium's LQIP technique.

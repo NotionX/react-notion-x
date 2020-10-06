@@ -1,10 +1,10 @@
 import * as React from 'react'
-import cs from 'classnames'
 
 import { getBlockTitle, getBlockIcon, getBlockParentPage } from 'notion-utils'
 import { useNotionContext } from '../context'
 import { PageIcon } from './page-icon'
 import { SearchIcon } from '../icons/search-icon'
+import { cs } from '../utils'
 import { SearchDialog } from './search-dialog'
 
 export const PageHeader: React.FC<{}> = () => {
@@ -63,7 +63,7 @@ export const PageHeader: React.FC<{}> = () => {
   }, [])
 
   return (
-    <header className={'notion-header'}>
+    <header className='notion-header'>
       {isSearchOpen && (
         <SearchDialog
           isOpen={isSearchOpen}
@@ -72,8 +72,8 @@ export const PageHeader: React.FC<{}> = () => {
         />
       )}
 
-      <div className={'nav-header'}>
-        <div className={'breadcrumbs'}>
+      <div className='nav-header'>
+        <div className='breadcrumbs'>
           {breadcrumbs.map((breadcrumb, index) => {
             const pageLinkProps: any = {}
             const componentMap = {
@@ -93,31 +93,31 @@ export const PageHeader: React.FC<{}> = () => {
                   {...pageLinkProps}
                 >
                   {breadcrumb.icon && (
-                    <PageIcon className={'icon'} block={breadcrumb.block} />
+                    <PageIcon className='icon' block={breadcrumb.block} />
                   )}
 
                   {breadcrumb.title && (
-                    <span className={'title'}>{breadcrumb.title}</span>
+                    <span className='title'>{breadcrumb.title}</span>
                   )}
                 </componentMap.pageLink>
 
                 {index < breadcrumbs.length - 1 && (
-                  <span className={'spacer'}>/</span>
+                  <span className='spacer'>/</span>
                 )}
               </React.Fragment>
             )
           })}
         </div>
 
-        <div className={'rhs'}>
+        <div className='rhs'>
           <div
             role='button'
             className={cs('breadcrumb', 'button')}
             onClick={onOpenSearch}
           >
-            <SearchIcon className={'searchIcon'} />
+            <SearchIcon className='searchIcon' />
 
-            <span className={'title'}>Search</span>
+            <span className='title'>Search</span>
           </div>
         </div>
       </div>

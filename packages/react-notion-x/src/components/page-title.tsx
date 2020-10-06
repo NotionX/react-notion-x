@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Block } from '../types'
-import { classNames } from '../utils'
+import { cs } from '../utils'
 import { useNotionContext } from '../context'
 import { Text } from './text'
 import { PageIcon } from './page-icon'
@@ -38,7 +38,7 @@ export const PageTitle: React.FC<{
   }
 
   return (
-    <span className={classNames('notion-page-title', className)} {...rest}>
+    <span className={cs('notion-page-title', className)} {...rest}>
       <PageIcon block={block} className='notion-page-title-icon' />
 
       <span className='notion-page-title-text'>

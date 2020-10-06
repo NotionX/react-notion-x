@@ -1,5 +1,4 @@
 import * as React from 'react'
-import cs from 'classnames'
 import dynamic from 'next/dynamic'
 
 import * as types from './types'
@@ -17,7 +16,7 @@ import { GracefulImage } from './components/graceful-image'
 import { LazyImage } from './components/lazy-image'
 import { useNotionContext } from './context'
 import {
-  classNames,
+  cs,
   getTextContent,
   getListNumber,
   getPageTableOfContents,
@@ -111,9 +110,10 @@ export const Block: React.FC<BlockProps> = (props) => {
                     )}
 
                     <main
-                      className={classNames(
+                      className={cs(
                         'notion-page',
                         !page_cover && 'notion-page-offset',
+                        'notion-full-page',
                         page_full_width && 'notion-full-width',
                         page_small_text && 'notion-small-text',
                         bodyClassName
@@ -181,7 +181,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
         return (
           <components.pageLink
-            className={classNames(
+            className={cs(
               'notion-page-link',
               blockColor && `notion-${blockColor}`
             )}
@@ -206,7 +206,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       return (
         <h3
-          className={classNames(
+          className={cs(
             block.type === 'header' && 'notion-h1',
             block.type === 'sub_header' && 'notion-h2',
             block.type === 'sub_sub_header' && 'notion-h3',
@@ -239,10 +239,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       return (
         <div
-          className={classNames(
-            'notion-text',
-            blockColor && `notion-${blockColor}`
-          )}
+          className={cs('notion-text', blockColor && `notion-${blockColor}`)}
         >
           <Text value={block.properties.title} block={block} />
 
@@ -375,10 +372,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       return (
         <blockquote
-          className={classNames(
-            'notion-quote',
-            blockColor && `notion-${blockColor}`
-          )}
+          className={cs('notion-quote', blockColor && `notion-${blockColor}`)}
         >
           <Text value={block.properties.title} block={block} />
         </blockquote>
@@ -391,7 +385,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'callout':
       return (
         <div
-          className={classNames(
+          className={cs(
             'notion-callout',
             block.format?.block_color &&
               `notion-${block.format?.block_color}_co`
@@ -427,7 +421,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           <components.link
             target='_blank'
             rel='noopener noreferrer'
-            className={classNames(
+            className={cs(
               'notion-bookmark',
               block.format?.block_color && `notion-${block.format.block_color}`
             )}
@@ -494,7 +488,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       return (
         <div
-          className={classNames(
+          className={cs(
             'notion-table-of-contents',
             blockColor && `notion-${blockColor}`
           )}
@@ -528,7 +522,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           <Checkbox isChecked={isChecked} />
 
           <div
-            className={classNames(
+            className={cs(
               'notion-to-do-body',
               isChecked && `notion-to-do-checked`
             )}
