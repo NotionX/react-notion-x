@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Notion + TypeScript" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/notion-ts.png" width="689">
+  <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/notion-ts.png" width="689">
 </p>
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
