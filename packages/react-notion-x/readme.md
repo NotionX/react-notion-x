@@ -1,8 +1,5 @@
 <p align="center">
-  <img
-    src="https://storage.googleapis.com/saasify-assets/notionx-social-1x.jpg"
-    alt="Notion X"
-  />
+  <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/notion-ts.png" width="689">
 </p>
 
 # React Notion X
