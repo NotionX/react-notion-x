@@ -144,7 +144,7 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 <p align="center">
   <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="600" />
   <br>
-  <i>Example Google Lighthouse scores for a <a href="https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518">page</a> hosted by Notion X.</i>
+  <i>Google Lighthouse scores for an <a href="https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518">example page</a> hosted by Notion X.</i>
 </p>
 
 ## Related
