@@ -14,6 +14,7 @@ export class NotionAPI {
   private readonly _authToken?: string
   private readonly _userLocale: string
   private readonly _userTimeZone: string
+  private readonly _activeUser: string
 
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
@@ -25,11 +26,13 @@ export class NotionAPI {
     authToken?: string
     userLocale?: string
     userTimeZone?: string
+    activeUser?: string
   } = {}) {
     this._apiBaseUrl = apiBaseUrl
     this._authToken = authToken
     this._userLocale = userLocale
     this._userTimeZone = userTimeZone
+    this._activeUser = activeUser
   }
 
   public async getPage(
@@ -368,6 +371,10 @@ export class NotionAPI {
 
     if (this._authToken) {
       headers.cookie = `token_v2=${this._authToken}`
+    }
+
+    if (this._activeUser) {
+      headers['x-notion-active-user-header'] = this._activeUser
     }
 
     const url = `${this._apiBaseUrl}/${endpoint}`
