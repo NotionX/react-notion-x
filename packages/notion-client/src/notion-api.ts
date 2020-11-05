@@ -12,12 +12,14 @@ import * as types from './types'
 export class NotionAPI {
   private readonly _apiBaseUrl: string
   private readonly _authToken?: string
+  private readonly _activeUser?: string
   private readonly _userLocale: string
   private readonly _userTimeZone: string
 
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
+    activeUser,
     userLocale = 'en',
     userTimeZone = 'America/New_York'
   }: {
@@ -25,9 +27,11 @@ export class NotionAPI {
     authToken?: string
     userLocale?: string
     userTimeZone?: string
+    activeUser?: string
   } = {}) {
     this._apiBaseUrl = apiBaseUrl
     this._authToken = authToken
+    this._activeUser = activeUser
     this._userLocale = userLocale
     this._userTimeZone = userTimeZone
   }
@@ -368,6 +372,10 @@ export class NotionAPI {
 
     if (this._authToken) {
       headers.cookie = `token_v2=${this._authToken}`
+    }
+
+    if (this._activeUser) {
+      headers['x-notion-active-user-header'] = this._activeUser
     }
 
     const url = `${this._apiBaseUrl}/${endpoint}`
