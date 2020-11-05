@@ -19,9 +19,9 @@ export class NotionAPI {
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
+    activeUser,
     userLocale = 'en',
-    userTimeZone = 'America/New_York',
-    activeUser
+    userTimeZone = 'America/New_York'
   }: {
     apiBaseUrl?: string
     authToken?: string
@@ -31,9 +31,9 @@ export class NotionAPI {
   } = {}) {
     this._apiBaseUrl = apiBaseUrl
     this._authToken = authToken
+    this._activeUser = activeUser
     this._userLocale = userLocale
     this._userTimeZone = userTimeZone
-    this._activeUser = activeUser
   }
 
   public async getPage(
