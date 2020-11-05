@@ -20,7 +20,8 @@ export class NotionAPI {
     apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
     userLocale = 'en',
-    userTimeZone = 'America/New_York'
+    userTimeZone = 'America/New_York',
+    activeUser = undefined
   }: {
     apiBaseUrl?: string
     authToken?: string
