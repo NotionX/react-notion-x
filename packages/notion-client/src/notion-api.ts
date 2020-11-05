@@ -12,9 +12,9 @@ import * as types from './types'
 export class NotionAPI {
   private readonly _apiBaseUrl: string
   private readonly _authToken?: string
+  private readonly _activeUser?: string
   private readonly _userLocale: string
   private readonly _userTimeZone: string
-  private readonly _activeUser: string
 
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
