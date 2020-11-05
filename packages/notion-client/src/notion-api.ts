@@ -21,7 +21,7 @@ export class NotionAPI {
     authToken,
     userLocale = 'en',
     userTimeZone = 'America/New_York',
-    activeUser = undefined
+    activeUser
   }: {
     apiBaseUrl?: string
     authToken?: string
