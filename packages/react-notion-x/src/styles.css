@@ -1645,10 +1645,6 @@ svg.notion-page-icon {
   transition: background 120ms ease-in 0s;
 }
 
-.notion-page-link:hover {
-  background: var(--bg-color-0);
-}
-
 .notion-page-title-icon {
   display: flex;
   align-items: center;
