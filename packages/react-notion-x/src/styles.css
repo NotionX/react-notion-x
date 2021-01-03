@@ -503,7 +503,7 @@ img.notion-page-icon-offset {
 img.notion-page-icon,
 svg.notion-page-icon {
   display: block;
-  object-fit: cover;
+  object-fit: fill;
   border-radius: 3px;
   /* padding: 1px; */
   max-width: 22px;
