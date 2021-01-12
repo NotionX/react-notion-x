@@ -46,6 +46,10 @@ export const getListNumber = (blockId: string, blockMap: BlockMap) => {
 }
 
 export const defaultMapImageUrl = (url: string, block: Block) => {
+  if (!url) {
+    return null
+  }
+
   if (url.startsWith('data:')) {
     return url
   }
