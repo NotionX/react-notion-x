@@ -306,12 +306,12 @@ export const Block: React.FC<BlockProps> = (props) => {
           className={cs(
             'notion-asset-wrapper',
             `notion-asset-wrapper-${block.type}`,
-            block?.format?.block_full_width && 'notion-asset-wrapper-full'
+            block.format?.block_full_width && 'notion-asset-wrapper-full'
           )}
         >
           <Asset block={block} />
 
-          {value.properties.caption && (
+          {value?.properties?.caption && (
             <figcaption className='notion-asset-caption'>
               <Text value={block.properties.caption} block={block} />
             </figcaption>
