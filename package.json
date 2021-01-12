@@ -22,7 +22,7 @@
     "pretest": "run-s build",
     "test": "run-s test:*",
     "test:unit": "lerna run test",
-    "test:prettier": "prettier '**/*.ts' --check",
+    "test:prettier": "prettier '**/*.{js,ts,tsx}' --check",
     "docs": "run-s docs:extract docs:generate",
     "docs:extract": "lerna exec api-extractor run",
     "docs:generate": "api-documenter markdown -i build -o docs",
