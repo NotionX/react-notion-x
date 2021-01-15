@@ -19,7 +19,7 @@ const triggers = ['click']
 const Collection: React.FC<{
   block: types.CollectionViewBlock | types.CollectionViewPageBlock
 }> = ({ block }) => {
-  const { recordMap } = useNotionContext()
+  const { recordMap, showCollectionViewDropdown } = useNotionContext()
   const { collection_id: collectionId, view_ids: viewIds } = block
 
   const [collectionState, setCollectionState] = useLocalStorage(block.id, {
@@ -93,13 +93,17 @@ const Collection: React.FC<{
         {title && (
           <div className='notion-collection-header-title'>
             <>
-              <PageIcon block={block} className='notion-page-title-icon' />
+              <PageIcon
+                block={block}
+                className='notion-page-title-icon'
+                hideDefaultIcon
+              />
               {title}
             </>
           </div>
         )}
 
-        {viewIds.length > 1 && (
+        {viewIds.length > 1 && showCollectionViewDropdown && (
           <Dropdown
             trigger={triggers}
             overlay={

@@ -41,6 +41,7 @@
     "@types/next": "^9.0.0",
     "@types/node": "^14.14.21",
     "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
     "@types/react-modal": "^3.10.6",
     "@types/react-pdf": "^5.0.1",
     "react": "^17.0.1",

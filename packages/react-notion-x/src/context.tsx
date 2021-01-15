@@ -14,10 +14,12 @@ export interface NotionContext {
   mapPageUrl: MapPageUrl
   mapImageUrl: MapImageUrl
 
-  fullPage: boolean
   rootPageId?: string
+
+  fullPage: boolean
   darkMode: boolean
   previewImages: boolean
+  showCollectionViewDropdown: boolean
 
   zoom: any
 }
@@ -29,10 +31,12 @@ export interface PartialNotionContext {
   mapPageUrl?: MapPageUrl
   mapImageUrl?: MapImageUrl
 
-  fullPage?: boolean
   rootPageId?: string
+
+  fullPage?: boolean
   darkMode?: boolean
   previewImages?: boolean
+  showCollectionViewDropdown?: boolean
 
   zoom?: any
 }
@@ -69,6 +73,7 @@ const defaultNotionContext: NotionContext = {
   fullPage: false,
   darkMode: false,
   previewImages: false,
+  showCollectionViewDropdown: true,
 
   zoom: null
 }
