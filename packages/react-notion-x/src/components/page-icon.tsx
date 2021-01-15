@@ -21,7 +21,8 @@ export const PageIcon: React.FC<{
   block: Block
   large?: boolean
   className?: string
-}> = ({ block, className, large = false }) => {
+  hideDefaultIcon?: boolean
+}> = ({ block, className, large = false, hideDefaultIcon = false }) => {
   const { mapImageUrl, recordMap } = useNotionContext()
 
   if (!isIconBlock(block)) {
@@ -49,6 +50,10 @@ export const PageIcon: React.FC<{
     const iconValue = icon?.trim()
 
     if (!iconValue) {
+      if (hideDefaultIcon) {
+        return null
+      }
+
       return (
         <DefaultPageIcon
           className={cs(

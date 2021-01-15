@@ -12,11 +12,11 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
-    "next": "9.5.3",
+    "next": "^10.0.5",
     "notion-client": "^3.0.1",
     "notion-utils": "^3.0.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-notion-x": "^3.0.1"
   },
   "devDependencies": {

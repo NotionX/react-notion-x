@@ -17,9 +17,23 @@ const CollectionRow: React.FC<{
     return null
   }
 
-  const propertyIds = Object.keys(schemas).filter((id) => id !== 'title')
+  let propertyIds = Object.keys(schemas).filter((id) => id !== 'title')
+
+  console.log('row', propertyIds, collection)
+
+  // filter properties based on visibility
+  if (collection.format?.property_visibility) {
+    propertyIds = propertyIds.filter(
+      (id) =>
+        collection.format.property_visibility.find(
+          ({ property }) => property === id
+        )?.visibility !== 'hide'
+    )
+  }
+
+  // sort properties
   if (collection.format?.collection_page_properties) {
-    // sort properties based on collectino page order
+    // sort properties based on collection page order
     const idToIndex = collection.format?.collection_page_properties.reduce(
       (acc, p, i) => ({
         ...acc,
