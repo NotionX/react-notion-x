@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "2.5.3",
+  "version": "3.0.0",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "NotionX/react-notion-x",
   "author": "Saasify <dev@saasify.sh>",
@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "node-fetch": "^2.6.1",
-    "notion-types": "^2.5.1",
-    "notion-utils": "^2.5.1",
+    "notion-types": "^3.0.0",
+    "notion-utils": "^3.0.0",
     "p-map": "^4.0.0"
   },
   "devDependencies": {
