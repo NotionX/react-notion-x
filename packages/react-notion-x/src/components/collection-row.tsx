@@ -19,8 +19,6 @@ const CollectionRow: React.FC<{
 
   let propertyIds = Object.keys(schemas).filter((id) => id !== 'title')
 
-  console.log('row', propertyIds, collection)
-
   // filter properties based on visibility
   if (collection.format?.property_visibility) {
     propertyIds = propertyIds.filter(
