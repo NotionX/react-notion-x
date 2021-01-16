@@ -1,11 +1,7 @@
 import PQueue from 'p-queue'
 
-import { ExtendedRecordMap } from 'notion-types'
+import { ExtendedRecordMap, PageMap } from 'notion-types'
 import { parsePageId } from './parse-page-id'
-
-export interface PageMap {
-  [pageId: string]: ExtendedRecordMap | null
-}
 
 /**
  * Performs a traversal over a given Notion workspace starting from a seed page.

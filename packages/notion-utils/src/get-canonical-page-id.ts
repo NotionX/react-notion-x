@@ -7,7 +7,8 @@ import { getBlockTitle } from './get-block-title'
  */
 export const getCanonicalPageId = (
   pageId: string,
-  recordMap: ExtendedRecordMap
+  recordMap: ExtendedRecordMap,
+  { uuid = true }: { uuid?: boolean } = {}
 ): string | null => {
   if (!pageId || !recordMap) return null
 
@@ -18,7 +19,11 @@ export const getCanonicalPageId = (
     const title = normalizeTitle(getBlockTitle(block, recordMap))
 
     if (title) {
-      return `${title}-${id}`
+      if (uuid) {
+        return `${title}-${id}`
+      } else {
+        return title
+      }
     }
   }
 

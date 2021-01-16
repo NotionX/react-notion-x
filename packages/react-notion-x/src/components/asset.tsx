@@ -52,7 +52,11 @@ export const Asset: React.FC<{
   }
 
   const assetStyle: React.CSSProperties = {}
-  console.log('asset', block)
+  if (block.type === 'gist') {
+    console.log('gist', block)
+    // https://gist.github.com/transitive-bullshit/403c5d3f09a873b92bf607c08c9bee47.pibb
+    // https://gist.github.com/transitive-bullshit/403c5d3f09a873b92bf607c08c9bee47
+  }
 
   if (block.format) {
     const {
@@ -142,23 +146,48 @@ export const Asset: React.FC<{
     block.type === 'gist' ||
     block.type === 'maps'
   ) {
-    const src = block.format?.display_source ?? source
+    let src = block.format?.display_source ?? source
 
     if (src) {
-      content = (
-        <iframe
-          className='notion-asset-object-fit'
-          style={assetStyle}
-          src={src}
-          title={`iframe ${block.type}`}
-          frameBorder='0'
-          // TODO: is this sandbox necessary?
-          // sandbox='allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin'
-          allowFullScreen
-          // this is important for perf but react's TS definitions don't seem to like it
-          loading='lazy'
-        />
-      )
+      if (block.type === 'gist' && !src.endsWith('.pibb')) {
+        src = `${src}.pibb`
+      }
+
+      if (block.type === 'gist') {
+        assetStyle.width = '100%'
+        style.paddingBottom = '50%'
+
+        // TODO: GitHub gists do not resize their height properly
+        content = (
+          <iframe
+            style={assetStyle}
+            className='notion-asset-object-fit'
+            src={src}
+            title='GitHub Gist'
+            frameBorder='0'
+            // TODO: is this sandbox necessary?
+            // sandbox='allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin'
+            // this is important for perf but react's TS definitions don't seem to like it
+            loading='lazy'
+            scrolling='auto'
+          />
+        )
+      } else {
+        content = (
+          <iframe
+            className='notion-asset-object-fit'
+            style={assetStyle}
+            src={src}
+            title={`iframe ${block.type}`}
+            frameBorder='0'
+            // TODO: is this sandbox necessary?
+            // sandbox='allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin'
+            allowFullScreen
+            // this is important for perf but react's TS definitions don't seem to like it
+            loading='lazy'
+          />
+        )
+      }
     }
   } else if (block.type === 'image') {
     // console.log('image', block)
