@@ -1824,7 +1824,8 @@ svg.notion-page-icon {
   transform: scale(1.1);
 
   opacity: 1;
-  transition: opacity 400ms ease-out !important;
+  transition: opacity 400ms ease-in !important;
+  transition-delay: 100ms;
   will-change: opacity;
 }
 
@@ -1845,8 +1846,12 @@ svg.notion-page-icon {
   opacity: 1;
 }
 
+/* NOTE: if we hide the preview image, there's a weird bug with react hydration where
+   the image will sometimes flicker to show the background during initial page load.
+   So I'm removing this `opacity: 0` for now, but it will cause issues if the real
+   image is transparent. */
 .lazy-image-loaded .lazy-image-preview {
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .lazy-image-loaded .lazy-image-real {
