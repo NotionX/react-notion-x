@@ -339,7 +339,10 @@ export class NotionAPI {
       body: {
         type: 'BlocksInAncestor',
         source: 'quick_find_public',
-        ancestorId: params.ancestorId,
+        ancestorId: parsePageId(params.ancestorId),
+        sort: 'Relevance',
+        limit: params.limit || 20,
+        query: params.query,
         filters: {
           isDeletedOnly: false,
           excludeTemplates: true,
@@ -351,10 +354,7 @@ export class NotionAPI {
           lastEditedTime: {},
           createdTime: {},
           ...params.filters
-        },
-        sort: 'Relevance',
-        limit: params.limit || 20,
-        query: params.query
+        }
       }
     })
   }

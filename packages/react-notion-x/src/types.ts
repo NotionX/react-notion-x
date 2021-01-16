@@ -4,6 +4,9 @@ export * from 'notion-types'
 
 export type MapPageUrl = (pageId: string) => string
 export type MapImageUrl = (url: string, block: types.Block) => string
+export type SearchNotion = (
+  params: types.SearchParams
+) => Promise<types.SearchResults>
 
 export interface NotionComponents {
   // TODO: better typing for arbitrary react components

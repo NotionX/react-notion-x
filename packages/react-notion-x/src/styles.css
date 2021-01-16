@@ -2152,18 +2152,11 @@ svg.notion-page-icon {
   font-size: 14px;
   user-select: none;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   color: rgb(55, 53, 47);
   text-decoration: none;
-}
-
-.notion-search .result .breadcrumb {
-  padding: 0;
-  width: 100%;
-  background: unset !important;
-  justify-content: flex-start;
 }
 
 .notion-search .resultsPane .result:hover {
