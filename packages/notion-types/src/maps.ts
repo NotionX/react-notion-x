@@ -85,3 +85,10 @@ export interface AggregationResult {
   type: PropertyType
   value: any
 }
+
+// Misc
+// ----------------------------------------------------------------------------
+
+export interface PageMap {
+  [pageId: string]: ExtendedRecordMap | null
+}
