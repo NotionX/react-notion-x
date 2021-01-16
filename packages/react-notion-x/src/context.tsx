@@ -3,6 +3,7 @@ import {
   ExtendedRecordMap,
   MapPageUrl,
   MapImageUrl,
+  SearchNotion,
   NotionComponents
 } from './types'
 import { defaultMapPageUrl, defaultMapImageUrl } from './utils'
@@ -13,6 +14,7 @@ export interface NotionContext {
 
   mapPageUrl: MapPageUrl
   mapImageUrl: MapImageUrl
+  searchNotion?: SearchNotion
 
   rootPageId?: string
 
@@ -30,6 +32,7 @@ export interface PartialNotionContext {
 
   mapPageUrl?: MapPageUrl
   mapImageUrl?: MapImageUrl
+  searchNotion?: SearchNotion
 
   rootPageId?: string
 
@@ -69,6 +72,7 @@ const defaultNotionContext: NotionContext = {
 
   mapPageUrl: defaultMapPageUrl(),
   mapImageUrl: defaultMapImageUrl,
+  searchNotion: null,
 
   fullPage: false,
   darkMode: false,
@@ -103,6 +107,8 @@ export const NotionContextProvider: React.SFC<PartialNotionContext> = ({
     </ctx.Provider>
   )
 }
+
+export const NotionContextConsumer = ctx.Consumer
 
 export const useNotionContext = (): NotionContext => {
   return React.useContext(ctx)

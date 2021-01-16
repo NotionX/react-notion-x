@@ -8,10 +8,18 @@ import { cs } from '../utils'
 import { SearchDialog } from './search-dialog'
 
 export const PageHeader: React.FC<{}> = () => {
-  const { components, recordMap, rootPageId, mapPageUrl } = useNotionContext()
+  const {
+    components,
+    recordMap,
+    rootPageId,
+    mapPageUrl,
+    searchNotion
+  } = useNotionContext()
+
   const blockMap = recordMap.block
   const blockIds = Object.keys(blockMap)
   const activePageId = blockIds[0]
+  const hasSearch = !!searchNotion
 
   if (!activePageId) {
     return null
@@ -64,11 +72,12 @@ export const PageHeader: React.FC<{}> = () => {
 
   return (
     <header className='notion-header'>
-      {isSearchOpen && (
+      {isSearchOpen && hasSearch && (
         <SearchDialog
           isOpen={isSearchOpen}
           rootBlockId={rootPageId || activePageId}
           onClose={onCloseSearch}
+          searchNotion={searchNotion}
         />
       )}
 
@@ -110,15 +119,17 @@ export const PageHeader: React.FC<{}> = () => {
         </div>
 
         <div className='rhs'>
-          <div
-            role='button'
-            className={cs('breadcrumb', 'button')}
-            onClick={onOpenSearch}
-          >
-            <SearchIcon className='searchIcon' />
+          {hasSearch && (
+            <div
+              role='button'
+              className={cs('breadcrumb', 'button')}
+              onClick={onOpenSearch}
+            >
+              <SearchIcon className='searchIcon' />
 
-            <span className='title'>Search</span>
-          </div>
+              <span className='title'>Search</span>
+            </div>
+          )}
         </div>
       </div>
     </header>

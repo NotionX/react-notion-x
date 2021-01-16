@@ -4,6 +4,7 @@ import {
   ExtendedRecordMap,
   MapPageUrl,
   MapImageUrl,
+  SearchNotion,
   NotionComponents
 } from './types'
 import { Block } from './block'
@@ -12,8 +13,10 @@ import { useNotionContext, NotionContextProvider } from './context'
 export interface NotionRendererProps {
   recordMap: ExtendedRecordMap
   components?: Partial<NotionComponents>
+
   mapPageUrl?: MapPageUrl
   mapImageUrl?: MapImageUrl
+  searchNotion?: SearchNotion
 
   rootPageId?: string
   fullPage?: boolean
@@ -43,6 +46,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   recordMap,
   mapPageUrl,
   mapImageUrl,
+  searchNotion,
   fullPage,
   rootPageId,
   darkMode,
@@ -64,6 +68,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
       recordMap={recordMap}
       mapPageUrl={mapPageUrl}
       mapImageUrl={mapImageUrl}
+      searchNotion={searchNotion}
       fullPage={fullPage}
       rootPageId={rootPageId}
       darkMode={darkMode}
