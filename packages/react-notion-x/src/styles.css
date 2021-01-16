@@ -434,6 +434,8 @@ img.notion-page-icon-offset {
 }
 
 .notion-quote {
+  display: block;
+  width: 100%;
   white-space: pre-wrap;
   word-break: break-word;
   border-left: 3px solid currentcolor;
@@ -793,6 +795,7 @@ svg.notion-page-icon {
   width: 24px;
   height: 24px;
   font-size: 1.3em;
+  line-height: 1em;
 }
 
 .notion-callout-text {
