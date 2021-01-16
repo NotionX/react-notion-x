@@ -214,13 +214,9 @@ export const Block: React.FC<BlockProps> = (props) => {
           )}
           id={id}
         >
-          <components.link
-            className='notion-hash-link'
-            href={`#${id}`}
-            title={title}
-          >
+          <a className='notion-hash-link' href={`#${id}`} title={title}>
             <LinkIcon />
-          </components.link>
+          </a>
 
           <Text value={block.properties.title} block={block} />
         </h3>
