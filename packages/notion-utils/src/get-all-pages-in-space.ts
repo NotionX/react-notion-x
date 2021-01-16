@@ -51,6 +51,17 @@ export async function getAllPagesInSpace(
             })
             .forEach((subPageId) => processPage(subPageId))
 
+          for (const collectionId of Object.keys(page.collection_query)) {
+            const collectionViews = page.collection_query[collectionId]
+            for (const collectionViewId of Object.keys(collectionViews)) {
+              const collectionData = collectionViews[collectionViewId]
+
+              for (const collectionItemId of collectionData.blockIds) {
+                processPage(collectionItemId)
+              }
+            }
+          }
+
           pages[pageId] = page
         } catch (err) {
           console.warn('page load error', { pageId, spaceId: rootSpaceId }, err)
