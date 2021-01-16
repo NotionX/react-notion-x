@@ -20,6 +20,7 @@ export type BlockType =
   | 'toggle'
   | 'image'
   | 'embed'
+  | 'gist'
   | 'video'
   | 'figma'
   | 'tweet'
@@ -61,6 +62,7 @@ export type Block =
   | GoogleDriveBlock
   | FileBlock
   | EmbedBlock
+  | GistBlock
   | CalloutBlock
   | BookmarkBlock
   | ToggleBlock
@@ -242,6 +244,10 @@ export interface ImageBlock extends BaseContentBlock {
 
 export interface EmbedBlock extends BaseContentBlock {
   type: 'embed'
+}
+
+export interface GistBlock extends BaseContentBlock {
+  type: 'gist'
 }
 
 export interface VideoBlock extends BaseContentBlock {

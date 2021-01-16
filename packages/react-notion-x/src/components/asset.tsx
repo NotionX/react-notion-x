@@ -22,7 +22,16 @@ const DynamicPdfPage: any = dynamic(() =>
   import('react-pdf').then((pdf) => pdf.Page)
 )
 
-const types = ['video', 'image', 'embed', 'figma', 'maps', 'tweet', 'pdf']
+const types = [
+  'video',
+  'image',
+  'embed',
+  'figma',
+  'maps',
+  'tweet',
+  'pdf',
+  'gist'
+]
 
 export const Asset: React.FC<{
   block: BaseContentBlock
@@ -43,6 +52,7 @@ export const Asset: React.FC<{
   }
 
   const assetStyle: React.CSSProperties = {}
+  console.log('asset', block)
 
   if (block.format) {
     const {
@@ -65,6 +75,9 @@ export const Asset: React.FC<{
         style.paddingBottom = `${block_aspect_ratio * 100}%`
       } else if (block_height) {
         style.height = block_height
+      } else if (block_preserve_scale) {
+        style.minHeight = 100
+        style.paddingBottom = '75%'
       }
     } else {
       if (block_width) {
@@ -126,6 +139,7 @@ export const Asset: React.FC<{
     block.type === 'embed' ||
     block.type === 'video' ||
     block.type === 'figma' ||
+    block.type === 'gist' ||
     block.type === 'maps'
   ) {
     const src = block.format?.display_source ?? source

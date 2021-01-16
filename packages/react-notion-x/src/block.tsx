@@ -296,6 +296,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     // fallthrough
     case 'image':
     // fallthrough
+    case 'gist':
+    // fallthrough
     case 'embed':
     // fallthrough
     case 'video':
