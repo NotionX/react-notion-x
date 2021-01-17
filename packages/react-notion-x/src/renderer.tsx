@@ -24,6 +24,10 @@ export interface NotionRendererProps {
   previewImages?: boolean
   showCollectionViewDropdown?: boolean
 
+  defaultPageIcon?: string
+  defaultPageCover?: string
+  defaultPageCoverPosition?: number
+
   className?: string
   bodyClassName?: string
   footer?: React.ReactNode
@@ -54,6 +58,9 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   darkMode,
   previewImages,
   showCollectionViewDropdown,
+  defaultPageIcon,
+  defaultPageCover,
+  defaultPageCoverPosition,
   ...rest
 }) => {
   const zoom =
@@ -76,6 +83,9 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
       darkMode={darkMode}
       previewImages={previewImages}
       showCollectionViewDropdown={showCollectionViewDropdown}
+      defaultPageIcon={defaultPageIcon}
+      defaultPageCover={defaultPageCover}
+      defaultPageCoverPosition={defaultPageCoverPosition}
       zoom={zoom}
     >
       <NotionBlockRenderer {...rest} />

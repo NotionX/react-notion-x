@@ -22,14 +22,21 @@ export const PageIcon: React.FC<{
   large?: boolean
   className?: string
   hideDefaultIcon?: boolean
-}> = ({ block, className, large = false, hideDefaultIcon = false }) => {
+  defaultIcon?: string
+}> = ({
+  block,
+  className,
+  large = false,
+  hideDefaultIcon = false,
+  defaultIcon
+}) => {
   const { mapImageUrl, recordMap } = useNotionContext()
 
   if (!isIconBlock(block)) {
     return null
   }
 
-  const icon = getBlockIcon(block, recordMap)
+  const icon = getBlockIcon(block, recordMap) ?? defaultIcon
   const title = getBlockTitle(block, recordMap)
 
   if (icon && isUrl(icon)) {

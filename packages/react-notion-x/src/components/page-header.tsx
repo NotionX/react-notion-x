@@ -122,7 +122,7 @@ export const PageHeader: React.FC<{}> = () => {
           {hasSearch && (
             <div
               role='button'
-              className={cs('breadcrumb', 'button')}
+              className={cs('breadcrumb', 'button', 'notion-search-button')}
               onClick={onOpenSearch}
             >
               <SearchIcon className='searchIcon' />

@@ -48,7 +48,10 @@ export const Block: React.FC<BlockProps> = (props) => {
     darkMode,
     recordMap,
     mapPageUrl,
-    mapImageUrl
+    mapImageUrl,
+    defaultPageIcon,
+    defaultPageCover,
+    defaultPageCoverPosition
   } = useNotionContext()
 
   const {
@@ -77,12 +80,10 @@ export const Block: React.FC<BlockProps> = (props) => {
     // fallthrough
     case 'page':
       if (level === 0) {
-        console.log('page', { darkMode })
-
         const {
-          page_icon,
-          page_cover,
-          page_cover_position,
+          page_icon = defaultPageIcon,
+          page_cover = defaultPageCover,
+          page_cover_position = defaultPageCoverPosition,
           page_full_width,
           page_small_text
         } = block.format || {}
@@ -138,6 +139,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                             page_cover ? 'notion-page-icon-offset' : undefined
                           }
                           block={block}
+                          defaultIcon={defaultPageIcon}
                           large
                         />
                       )}
