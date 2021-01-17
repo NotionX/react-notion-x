@@ -27,6 +27,8 @@ export interface NotionRendererProps {
   className?: string
   bodyClassName?: string
   footer?: React.ReactNode
+  pageHeader?: React.ReactNode
+  pageFooter?: React.ReactNode
 
   blockId?: string
 }
