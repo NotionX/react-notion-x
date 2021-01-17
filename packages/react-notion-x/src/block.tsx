@@ -37,6 +37,8 @@ interface BlockProps {
   className?: string
   bodyClassName?: string
   footer?: React.ReactNode
+  pageHeader?: React.ReactNode
+  pageFooter?: React.ReactNode
 }
 
 export const Block: React.FC<BlockProps> = (props) => {
@@ -49,7 +51,16 @@ export const Block: React.FC<BlockProps> = (props) => {
     mapImageUrl
   } = useNotionContext()
 
-  const { block, children, level, className, bodyClassName, footer } = props
+  const {
+    block,
+    children,
+    level,
+    className,
+    bodyClassName,
+    footer,
+    pageHeader,
+    pageFooter
+  } = props
 
   if (!block) {
     return null
@@ -66,6 +77,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     // fallthrough
     case 'page':
       if (level === 0) {
+        console.log('page', { darkMode })
+
         const {
           page_icon,
           page_cover,
@@ -129,6 +142,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                         />
                       )}
 
+                      {pageHeader}
+
                       <div className='notion-title'>
                         <Text value={properties?.title} block={block} />
                       </div>
@@ -143,6 +158,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                       )}
 
                       {children}
+
+                      {pageFooter}
                     </main>
 
                     {footer}
@@ -164,6 +181,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                 bodyClassName
               )}
             >
+              {pageHeader}
+
               {block.type === 'page' && block.parent_table === 'collection' && (
                 <CollectionRow block={block} />
               )}
@@ -173,6 +192,8 @@ export const Block: React.FC<BlockProps> = (props) => {
               )}
 
               {children}
+
+              {pageFooter}
             </main>
           )
         }
