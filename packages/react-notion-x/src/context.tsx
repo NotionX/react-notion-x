@@ -23,6 +23,10 @@ export interface NotionContext {
   previewImages: boolean
   showCollectionViewDropdown: boolean
 
+  defaultPageIcon?: string
+  defaultPageCover?: string
+  defaultPageCoverPosition?: number
+
   zoom: any
 }
 
@@ -40,6 +44,10 @@ export interface PartialNotionContext {
   darkMode?: boolean
   previewImages?: boolean
   showCollectionViewDropdown?: boolean
+
+  defaultPageIcon?: string
+  defaultPageCover?: string
+  defaultPageCoverPosition?: number
 
   zoom?: any
 }
@@ -78,6 +86,10 @@ const defaultNotionContext: NotionContext = {
   darkMode: false,
   previewImages: false,
   showCollectionViewDropdown: true,
+
+  defaultPageIcon: null,
+  defaultPageCover: null,
+  defaultPageCoverPosition: 0.5,
 
   zoom: null
 }
