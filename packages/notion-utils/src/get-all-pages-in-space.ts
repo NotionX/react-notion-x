@@ -19,9 +19,11 @@ export async function getAllPagesInSpace(
   rootSpaceId: string,
   getPage: (pageId: string) => Promise<ExtendedRecordMap>,
   {
-    concurrency = 4
+    concurrency = 4,
+    fetchCollections = true
   }: {
     concurrency?: number
+    fetchCollections?: boolean
   } = {}
 ): Promise<PageMap> {
   const pages: PageMap = {}
@@ -51,13 +53,19 @@ export async function getAllPagesInSpace(
             })
             .forEach((subPageId) => processPage(subPageId))
 
-          for (const collectionId of Object.keys(page.collection_query)) {
-            const collectionViews = page.collection_query[collectionId]
-            for (const collectionViewId of Object.keys(collectionViews)) {
-              const collectionData = collectionViews[collectionViewId]
+          // traverse collection item pages as they may contain subpages as well
+          if (fetchCollections) {
+            for (const collectionViews of Object.values(
+              page.collection_query
+            )) {
+              for (const collectionData of Object.values(collectionViews)) {
+                const { blockIds } = collectionData
 
-              for (const collectionItemId of collectionData.blockIds) {
-                processPage(collectionItemId)
+                if (blockIds) {
+                  for (const collectionItemId of blockIds) {
+                    processPage(collectionItemId)
+                  }
+                }
               }
             }
           }
