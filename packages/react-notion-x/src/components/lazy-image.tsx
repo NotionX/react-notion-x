@@ -76,6 +76,7 @@ export const LazyImage: React.FC<{
                 width={previewImage.originalWidth}
                 height={previewImage.originalHeight}
                 decoding='async'
+                loading='lazy'
               />
             </div>
           )

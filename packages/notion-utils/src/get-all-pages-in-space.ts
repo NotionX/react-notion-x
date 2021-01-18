@@ -20,10 +20,10 @@ export async function getAllPagesInSpace(
   getPage: (pageId: string) => Promise<ExtendedRecordMap>,
   {
     concurrency = 4,
-    fetchCollections = true
+    traverseCollections = true
   }: {
     concurrency?: number
-    fetchCollections?: boolean
+    traverseCollections?: boolean
   } = {}
 ): Promise<PageMap> {
   const pages: PageMap = {}
@@ -48,13 +48,14 @@ export async function getAllPagesInSpace(
               const isPage =
                 block.type === 'page' || block.type === 'collection_view_page'
 
-              // the space id check is important because pages can link to pages in other spaces
+              // the space id check is important to limit traversal because pages
+              // can reference pages in other spaces
               return isPage && block.space_id === rootSpaceId
             })
             .forEach((subPageId) => processPage(subPageId))
 
           // traverse collection item pages as they may contain subpages as well
-          if (fetchCollections) {
+          if (traverseCollections) {
             for (const collectionViews of Object.values(
               page.collection_query
             )) {
