@@ -52,11 +52,6 @@ export const Asset: React.FC<{
   }
 
   const assetStyle: React.CSSProperties = {}
-  if (block.type === 'gist') {
-    console.log('gist', block)
-    // https://gist.github.com/transitive-bullshit/403c5d3f09a873b92bf607c08c9bee47.pibb
-    // https://gist.github.com/transitive-bullshit/403c5d3f09a873b92bf607c08c9bee47
-  }
 
   if (block.format) {
     const {
@@ -81,7 +76,12 @@ export const Asset: React.FC<{
         style.height = block_height
       } else if (block_preserve_scale) {
         style.minHeight = 100
-        style.paddingBottom = '75%'
+
+        if (block.type === 'image') {
+          style.height = '100%'
+        } else {
+          style.paddingBottom = '75%'
+        }
       }
     } else {
       if (block_width) {
