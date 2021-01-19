@@ -11,7 +11,9 @@ module.exports = withBundleAnalyzer({
       {
         source: '/',
         destination: '/067dd719a912471ea9a3ac10710e7fdf',
-        permanent: true
+        // don't set permanent to true because it will get cached by browser
+        // while developing on localhost
+        permanent: false
       }
     ]
   }
