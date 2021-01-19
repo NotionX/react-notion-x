@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { useHotkeys } from 'react-hotkeys-hook'
 import { getBlockTitle, getBlockIcon, getBlockParentPage } from 'notion-utils'
 import { useNotionContext } from '../context'
 import { PageIcon } from './page-icon'
@@ -62,13 +63,19 @@ export const PageHeader: React.FC<{}> = () => {
   breadcrumbs.reverse()
 
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
-  const onOpenSearch = React.useCallback(async () => {
+  const onOpenSearch = React.useCallback(() => {
     setIsSearchOpen(true)
   }, [])
 
-  const onCloseSearch = React.useCallback(async () => {
+  const onCloseSearch = React.useCallback(() => {
     setIsSearchOpen(false)
   }, [])
+
+  useHotkeys('cmd+p', (event) => {
+    onOpenSearch()
+    event.preventDefault()
+    event.stopPropagation()
+  })
 
   return (
     <header className='notion-header'>
