@@ -8,7 +8,8 @@ import { PageIcon } from './page-icon'
 export const PageTitle: React.FC<{
   block: Block
   className?: string
-}> = ({ block, className, ...rest }) => {
+  defaultIcon?: string
+}> = ({ block, className, defaultIcon, ...rest }) => {
   const { recordMap } = useNotionContext()
 
   if (!block) return null
@@ -39,7 +40,11 @@ export const PageTitle: React.FC<{
 
   return (
     <span className={cs('notion-page-title', className)} {...rest}>
-      <PageIcon block={block} className='notion-page-title-icon' />
+      <PageIcon
+        block={block}
+        defaultIcon={defaultIcon}
+        className='notion-page-title-icon'
+      />
 
       <span className='notion-page-title-text'>
         <Text value={block.properties?.title} block={block} />

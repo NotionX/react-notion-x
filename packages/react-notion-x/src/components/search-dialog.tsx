@@ -56,7 +56,7 @@ export class SearchDialog extends React.Component<{
     return (
       <NotionContextConsumer>
         {(ctx) => {
-          const { components, mapPageUrl } = ctx
+          const { components, defaultPageIcon, mapPageUrl } = ctx
 
           return (
             <DynamicReactModal
@@ -110,7 +110,10 @@ export class SearchDialog extends React.Component<{
                               className={cs('result', 'notion-page-link')}
                               href={mapPageUrl(result.block.id)}
                             >
-                              <PageTitle block={result.block} />
+                              <PageTitle
+                                block={result.block}
+                                defaultIcon={defaultPageIcon}
+                              />
                             </components.pageLink>
                           ))}
                         </div>
