@@ -33,7 +33,14 @@ import { Text } from './components/text'
 // load heavier components asynchronously
 const Code = dynamic(() => import('./components/code'))
 const Collection = dynamic(() => import('./components/collection'))
-const CollectionRow = dynamic(() => import('./components/collection-row'))
+// TODO: there seems to be a bug causing SSR to fail for pages with
+// CollectionRows. This manifests as corrupted DOM with weird rendering
+// artifacts when loaded directly from the server which doesn't repro when
+// loading the same page client-side. It seems to be related to our use of
+// next/dynamic and react hydration.
+const CollectionRow = dynamic(() => import('./components/collection-row'), {
+  ssr: false
+})
 
 interface BlockProps {
   block: types.Block
