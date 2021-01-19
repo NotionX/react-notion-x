@@ -25,6 +25,11 @@ import {
 } from './utils'
 import { Text } from './components/text'
 
+// eagerly load heavier components synchronously
+// import Code from './components/code'
+// import Collection from './components/collection'
+// import CollectionRow from './components/collection-row'
+
 // load heavier components asynchronously
 const Code = dynamic(() => import('./components/code'))
 const Collection = dynamic(() => import('./components/collection'))
