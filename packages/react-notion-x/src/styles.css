@@ -1833,6 +1833,10 @@ svg.notion-page-icon {
   will-change: opacity;
 }
 
+.lazy-image-wrapper img.lazy-image-real {
+  position: relative;
+}
+
 .lazy-image-real {
   opacity: 0;
   transition: opacity 400ms ease-out !important;
@@ -1855,7 +1859,7 @@ svg.notion-page-icon {
    So I'm removing this `opacity: 0` for now, but it will cause issues if the real
    image is transparent. */
 .lazy-image-loaded .lazy-image-preview {
-  /* opacity: 0; */
+  opacity: 0;
 }
 
 .lazy-image-loaded .lazy-image-real {

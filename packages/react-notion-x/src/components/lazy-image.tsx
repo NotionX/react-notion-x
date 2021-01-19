@@ -40,10 +40,12 @@ export const LazyImage: React.FC<{
           const wrapperStyle: React.CSSProperties = {
             width: '100%'
           }
+          const imgStyle: React.CSSProperties = {}
 
           if (height) {
             wrapperStyle.height = height
           } else {
+            imgStyle.position = 'absolute'
             wrapperStyle.paddingBottom = `${aspectRatio * 100}%`
           }
 
@@ -72,7 +74,10 @@ export const LazyImage: React.FC<{
                 alt={alt}
                 ref={attachZoomRef}
                 className='lazy-image-real'
-                style={style}
+                style={{
+                  ...style,
+                  ...imgStyle
+                }}
                 width={previewImage.originalWidth}
                 height={previewImage.originalHeight}
                 decoding='async'
