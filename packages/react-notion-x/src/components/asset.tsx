@@ -52,7 +52,7 @@ export const Asset: React.FC<{
   }
 
   const assetStyle: React.CSSProperties = {}
-  console.log('asset', block)
+  // console.log('asset', block)
 
   if (block.format) {
     const {
@@ -72,7 +72,7 @@ export const Asset: React.FC<{
       }
 
       if (block_aspect_ratio && block.type !== 'image') {
-        console.log(block.type, block)
+        // console.log(block.type, block)
         style.paddingBottom = `${block_aspect_ratio * 100}%`
       } else if (block_height) {
         style.height = block_height
