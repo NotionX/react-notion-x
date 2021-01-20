@@ -119,65 +119,65 @@ export const Block: React.FC<BlockProps> = (props) => {
                 className
               )}
             >
-              <div className='notion-cursor-listener'>
-                <div className='notion-frame'>
-                  <PageHeader />
+              <div className='notion-viewport' />
 
-                  <div className='notion-page-scroller'>
-                    {page_cover && (
-                      <LazyImage
-                        src={mapImageUrl(page_cover, block)}
-                        alt={getTextContent(properties?.title)}
-                        className='notion-page-cover'
-                        style={{
-                          objectPosition: `center ${coverPosition}%`
-                        }}
+              <div className='notion-frame'>
+                <PageHeader />
+
+                <div className='notion-page-scroller'>
+                  {page_cover && (
+                    <LazyImage
+                      src={mapImageUrl(page_cover, block)}
+                      alt={getTextContent(properties?.title)}
+                      className='notion-page-cover'
+                      style={{
+                        objectPosition: `center ${coverPosition}%`
+                      }}
+                    />
+                  )}
+
+                  <main
+                    className={cs(
+                      'notion-page',
+                      !page_cover && 'notion-page-offset',
+                      'notion-full-page',
+                      page_full_width && 'notion-full-width',
+                      page_small_text && 'notion-small-text',
+                      bodyClassName
+                    )}
+                  >
+                    {page_icon && (
+                      <PageIcon
+                        className={
+                          page_cover ? 'notion-page-icon-offset' : undefined
+                        }
+                        block={block}
+                        defaultIcon={defaultPageIcon}
+                        large
                       />
                     )}
 
-                    <main
-                      className={cs(
-                        'notion-page',
-                        !page_cover && 'notion-page-offset',
-                        'notion-full-page',
-                        page_full_width && 'notion-full-width',
-                        page_small_text && 'notion-small-text',
-                        bodyClassName
-                      )}
-                    >
-                      {page_icon && (
-                        <PageIcon
-                          className={
-                            page_cover ? 'notion-page-icon-offset' : undefined
-                          }
-                          block={block}
-                          defaultIcon={defaultPageIcon}
-                          large
-                        />
+                    {pageHeader}
+
+                    <div className='notion-title'>
+                      <Text value={properties?.title} block={block} />
+                    </div>
+
+                    {block.type === 'page' &&
+                      block.parent_table === 'collection' && (
+                        <CollectionRow block={block} />
                       )}
 
-                      {pageHeader}
+                    {block.type === 'collection_view_page' && (
+                      <Collection block={block} />
+                    )}
 
-                      <div className='notion-title'>
-                        <Text value={properties?.title} block={block} />
-                      </div>
+                    {children}
 
-                      {block.type === 'page' &&
-                        block.parent_table === 'collection' && (
-                          <CollectionRow block={block} />
-                        )}
+                    {pageFooter}
+                  </main>
 
-                      {block.type === 'collection_view_page' && (
-                        <Collection block={block} />
-                      )}
-
-                      {children}
-
-                      {pageFooter}
-                    </main>
-
-                    {footer}
-                  </div>
+                  {footer}
                 </div>
               </div>
             </div>

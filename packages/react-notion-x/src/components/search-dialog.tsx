@@ -14,7 +14,7 @@ import { NotionContextConsumer, NotionContextProvider } from '../context'
 const DynamicReactModal = dynamic(
   () =>
     import('react-modal').then((modal) => {
-      modal.default.setAppElement('.notion-app')
+      modal.default.setAppElement('.notion-viewport')
       return modal
     }),
   {
