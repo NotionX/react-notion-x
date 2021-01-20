@@ -66,7 +66,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   const zoom =
     typeof window !== 'undefined' &&
     mediumZoom({
-      container: '.notion',
+      container: '.notion-viewport',
       background: 'rgba(0, 0, 0, 0.8)',
       margin: getMediumZoomMargin()
     })
