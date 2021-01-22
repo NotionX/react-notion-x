@@ -139,7 +139,7 @@
   flex-direction: column;
 }
 
-@media (min-width: 1300px) {
+@media (min-width: 1300px) and (min-height: 300px) {
   .notion-page-content-has-toc {
     display: flex;
     flex-direction: row;
@@ -166,6 +166,7 @@
 .notion-aside {
   position: sticky;
   top: 148px;
+  /* top: calc((100vh - 48px - 100%) / 2); */
 
   align-self: flex-start;
   flex: 1;
@@ -180,7 +181,7 @@
   flex-direction: column;
   align-items: center;
   max-height: calc(100vh - 148px - 16px);
-  overflow: auto;
+  overflow: hidden auto;
   min-width: 222px;
   overflow: auto;
 }
