@@ -58,16 +58,18 @@ export const LazyImage: React.FC<{
               )}
               style={wrapperStyle}
             >
-              <img
-                src={previewImage.dataURIBase64}
-                alt={alt}
-                ref={ref}
-                className='lazy-image-preview'
-                style={style}
-                width={previewImage.originalWidth}
-                height={previewImage.originalHeight}
-                decoding='async'
-              />
+              <div className='lazy-image-preview-wrapper'>
+                <img
+                  src={previewImage.dataURIBase64}
+                  alt={alt}
+                  ref={ref}
+                  className='lazy-image-preview'
+                  style={style}
+                  width={previewImage.originalWidth}
+                  height={previewImage.originalHeight}
+                  decoding='async'
+                />
+              </div>
 
               <img
                 src={src}
@@ -81,7 +83,6 @@ export const LazyImage: React.FC<{
                 width={previewImage.originalWidth}
                 height={previewImage.originalHeight}
                 decoding='async'
-                loading='lazy'
               />
             </div>
           )

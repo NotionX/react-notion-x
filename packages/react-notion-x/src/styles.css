@@ -1903,7 +1903,6 @@ svg.notion-page-icon {
 
 .lazy-image-wrapper {
   position: relative;
-  overflow: hidden;
 }
 
 .lazy-image-wrapper img {
@@ -1920,9 +1919,8 @@ svg.notion-page-icon {
   transform: scale(1.1);
 
   opacity: 1;
-  transition: opacity 400ms ease-in !important;
-  transition-delay: 100ms;
-  will-change: opacity;
+  transition: visibility 0ms ease 400ms !important;
+  /* will-change: visibility; */
 }
 
 .lazy-image-wrapper img.lazy-image-real {
@@ -1930,15 +1928,16 @@ svg.notion-page-icon {
 }
 
 .lazy-image-real {
+  /* background: var(--bg-color); */
   opacity: 0;
-  transition: opacity 400ms ease-out !important;
-  will-change: opacity;
+  transition: opacity 400ms ease !important;
+  /* will-change: opacity; */
 }
 
 .lazy-image-real.medium-zoom-image {
   transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1),
     opacity 400ms ease-out !important;
-  will-change: opacity, transform;
+  /* will-change: opacity, transform; */
 }
 
 .medium-zoom-image--opened {
@@ -1946,12 +1945,29 @@ svg.notion-page-icon {
   opacity: 1;
 }
 
+.lazy-image-preview-wrapper {
+  transform: translateZ(0);
+  /* will-change: opacity; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 100ms 400ms;
+  opacity: 1;
+  overflow: hidden;
+}
+
 /* NOTE: if we hide the preview image, there's a weird bug with react hydration where
    the image will sometimes flicker to show the background during initial page load.
    So I'm removing this `opacity: 0` for now, but it will cause issues if the real
    image is transparent. */
+.lazy-image-loaded .lazy-image-preview-wrapper {
+  /* opacity: 0; */
+}
+
 .lazy-image-loaded .lazy-image-preview {
-  opacity: 0;
+  /* visibility: hidden; */
 }
 
 .lazy-image-loaded .lazy-image-real {
