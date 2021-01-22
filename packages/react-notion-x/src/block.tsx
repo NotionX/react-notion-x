@@ -124,6 +124,9 @@ export const Block: React.FC<BlockProps> = (props) => {
           const [activeSection, setActiveSection] = React.useState(null)
 
           const throttleMs = 100
+
+          // this scrollspy logic was originally based on
+          // https://github.com/Purii/react-use-scrollspy
           const actionSectionScrollSpy = throttle(() => {
             const sections = document.getElementsByClassName('notion-h')
 
@@ -356,7 +359,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           className={cs(
             block.type === 'header' && 'notion-h notion-h1',
             block.type === 'sub_header' && 'notion-h notion-h2',
-            block.type === 'sub_sub_header' && 'notion-h3',
+            block.type === 'sub_sub_header' && 'notion-h notion-h3',
             blockColor && `notion-${blockColor}`
           )}
           data-id={id}
