@@ -22,6 +22,8 @@ export interface NotionContext {
   darkMode: boolean
   previewImages: boolean
   showCollectionViewDropdown: boolean
+  showTableOfContents: boolean
+  minTableOfContentsItems: number
 
   defaultPageIcon?: string
   defaultPageCover?: string
@@ -44,6 +46,9 @@ export interface PartialNotionContext {
   darkMode?: boolean
   previewImages?: boolean
   showCollectionViewDropdown?: boolean
+
+  showTableOfContents?: boolean
+  minTableOfContentsItems?: number
 
   defaultPageIcon?: string
   defaultPageCover?: string
@@ -87,6 +92,9 @@ const defaultNotionContext: NotionContext = {
   previewImages: false,
   showCollectionViewDropdown: true,
 
+  showTableOfContents: false,
+  minTableOfContentsItems: 3,
+
   defaultPageIcon: null,
   defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
@@ -104,6 +112,12 @@ export const NotionContextProvider: React.SFC<PartialNotionContext> = ({
   rootPageId,
   ...rest
 }) => {
+  for (const key of Object.keys(rest)) {
+    if (rest[key] === undefined) {
+      delete rest[key]
+    }
+  }
+
   return (
     <ctx.Provider
       value={{
