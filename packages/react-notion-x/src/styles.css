@@ -211,7 +211,7 @@
 }
 
 .notion-aside-table-of-contents .notion-table-of-contents-item-indent-level-2 {
-  display: none;
+  font-size: 12px;
 }
 
 .notion-aside-table-of-contents .notion-table-of-contents-item-body {
