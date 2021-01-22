@@ -1,5 +1,6 @@
 import * as React from 'react'
 import dynamic from 'next/dynamic'
+import throttle from 'lodash.throttle'
 
 import * as types from './types'
 import { Asset } from './components/asset'
@@ -61,6 +62,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     recordMap,
     mapPageUrl,
     mapImageUrl,
+    showTableOfContents,
+    minTableOfContentsItems,
     defaultPageIcon,
     defaultPageCover,
     defaultPageCoverPosition
@@ -109,6 +112,62 @@ export const Block: React.FC<BlockProps> = (props) => {
                 }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
+
+          const toc = getPageTableOfContents(
+            block as types.PageBlock,
+            recordMap
+          )
+
+          const hasToc =
+            showTableOfContents && toc.length >= minTableOfContentsItems
+
+          const [activeSection, setActiveSection] = React.useState(null)
+
+          const throttleMs = 100
+          const actionSectionScrollSpy = throttle(() => {
+            const sections = document.getElementsByClassName('notion-h')
+
+            let prevBBox: DOMRect = null
+            let currentSectionId = activeSection
+
+            for (let i = 0; i < sections.length; ++i) {
+              const section = sections[i]
+              if (!section || !(section instanceof Element)) continue
+
+              if (!currentSectionId) {
+                currentSectionId = section.getAttribute('data-id')
+              }
+
+              const bbox = section.getBoundingClientRect()
+              const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
+              const offset = Math.max(150, prevHeight / 4)
+
+              // GetBoundingClientRect returns values relative to viewport
+              if (bbox.top - offset < 0) {
+                currentSectionId = section.getAttribute('data-id')
+
+                prevBBox = bbox
+                continue
+              }
+
+              // No need to continue loop, if last element has been detected
+              break
+            }
+
+            setActiveSection(currentSectionId)
+          }, throttleMs)
+
+          if (hasToc) {
+            React.useEffect(() => {
+              window.addEventListener('scroll', actionSectionScrollSpy)
+
+              actionSectionScrollSpy()
+
+              return () => {
+                window.removeEventListener('scroll', actionSectionScrollSpy)
+              }
+            }, [])
+          }
 
           return (
             <div
@@ -172,7 +231,60 @@ export const Block: React.FC<BlockProps> = (props) => {
                       <Collection block={block} />
                     )}
 
-                    {children}
+                    <div
+                      className={cs(
+                        'notion-page-content',
+                        hasToc && 'notion-page-content-has-toc'
+                      )}
+                    >
+                      <article className='notion-page-content-inner'>
+                        {children}
+                      </article>
+
+                      {hasToc && (
+                        <aside className='notion-aside'>
+                          <div className='notion-aside-table-of-contents'>
+                            <div className='notion-aside-table-of-contents-header'>
+                              Table of Contents
+                            </div>
+
+                            <nav
+                              className={cs(
+                                'notion-table-of-contents',
+                                'notion-gray'
+                              )}
+                            >
+                              {toc.map((tocItem) => {
+                                const id = uuidToId(tocItem.id)
+
+                                return (
+                                  <a
+                                    key={id}
+                                    href={`#${id}`}
+                                    className={cs(
+                                      'notion-table-of-contents-item',
+                                      `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
+                                      activeSection === id &&
+                                        'notion-table-of-contents-active-item'
+                                    )}
+                                  >
+                                    <span
+                                      className='notion-table-of-contents-item-body'
+                                      style={{
+                                        display: 'inline-block',
+                                        marginLeft: tocItem.indentLevel * 16
+                                      }}
+                                    >
+                                      {tocItem.text}
+                                    </span>
+                                  </a>
+                                )
+                              })}
+                            </nav>
+                          </div>
+                        </aside>
+                      )}
+                    </div>
 
                     {pageFooter}
                   </main>
@@ -242,13 +354,15 @@ export const Block: React.FC<BlockProps> = (props) => {
       return (
         <h3
           className={cs(
-            block.type === 'header' && 'notion-h1',
-            block.type === 'sub_header' && 'notion-h2',
+            block.type === 'header' && 'notion-h notion-h1',
+            block.type === 'sub_header' && 'notion-h notion-h2',
             block.type === 'sub_sub_header' && 'notion-h3',
             blockColor && `notion-${blockColor}`
           )}
-          id={id}
+          data-id={id}
         >
+          <div id={id} className='notion-header-anchor' />
+
           <a className='notion-hash-link' href={`#${id}`} title={title}>
             <LinkIcon />
           </a>
