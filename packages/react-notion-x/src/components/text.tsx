@@ -134,9 +134,13 @@ export const Text: React.FC<{
               return <Equation math={decorator[1]} />
 
             case 'a':
+              const isExternalLink = !!linkProtocol;
+
               return (
                 <components.link
                   className='notion-link'
+                  target={isExternalLink ? `_blank` : `_self`}
+                  rel={isExternalLink ? `noopener noreferrer` : ``}
                   href={
                     linkProtocol
                       ? `${linkProtocol}:${decorator[1]}`
