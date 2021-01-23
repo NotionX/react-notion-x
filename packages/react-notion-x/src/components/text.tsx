@@ -134,7 +134,7 @@ export const Text: React.FC<{
               return <Equation math={decorator[1]} />
 
             case 'a':
-              const isExternalLink = !!linkProtocol;
+              const isExternalLink = !!linkProtocol
 
               return (
                 <components.link
