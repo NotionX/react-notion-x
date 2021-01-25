@@ -310,6 +310,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                 bodyClassName
               )}
             >
+              <div className='notion-viewport' />
+
               {pageHeader}
 
               {block.type === 'page' && block.parent_table === 'collection' && (
