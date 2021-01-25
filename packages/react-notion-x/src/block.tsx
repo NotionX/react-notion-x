@@ -51,9 +51,11 @@ interface BlockProps {
 
   className?: string
   bodyClassName?: string
+
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
+  pageAside?: React.ReactNode
 }
 
 export const Block: React.FC<BlockProps> = (props) => {
@@ -79,7 +81,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     bodyClassName,
     footer,
     pageHeader,
-    pageFooter
+    pageFooter,
+    pageAside
   } = props
 
   if (!block) {
@@ -115,6 +118,9 @@ export const Block: React.FC<BlockProps> = (props) => {
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
 
+          const pageIcon = getBlockIcon(block, recordMap) ?? defaultPageIcon
+          const isPageIconUrl = pageIcon && isUrl(pageIcon)
+
           const toc = getPageTableOfContents(
             block as types.PageBlock,
             recordMap
@@ -122,6 +128,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
           const hasToc =
             showTableOfContents && toc.length >= minTableOfContentsItems
+          const hasAside = hasToc || pageAside
 
           const [activeSection, setActiveSection] = React.useState(null)
 
@@ -173,9 +180,6 @@ export const Block: React.FC<BlockProps> = (props) => {
               }
             }, [])
           }
-
-          const pageIcon = getBlockIcon(block, recordMap) ?? defaultPageIcon
-          const isPageIconUrl = pageIcon && isUrl(pageIcon)
 
           return (
             <div
@@ -245,6 +249,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                     <div
                       className={cs(
                         'notion-page-content',
+                        hasAside && 'notion-page-content-has-aside',
                         hasToc && 'notion-page-content-has-toc'
                       )}
                     >
@@ -252,47 +257,51 @@ export const Block: React.FC<BlockProps> = (props) => {
                         {children}
                       </article>
 
-                      {hasToc && (
+                      {hasAside && (
                         <aside className='notion-aside'>
-                          <div className='notion-aside-table-of-contents'>
-                            <div className='notion-aside-table-of-contents-header'>
-                              Table of Contents
-                            </div>
+                          {hasToc && (
+                            <div className='notion-aside-table-of-contents'>
+                              <div className='notion-aside-table-of-contents-header'>
+                                Table of Contents
+                              </div>
 
-                            <nav
-                              className={cs(
-                                'notion-table-of-contents',
-                                'notion-gray'
-                              )}
-                            >
-                              {toc.map((tocItem) => {
-                                const id = uuidToId(tocItem.id)
+                              <nav
+                                className={cs(
+                                  'notion-table-of-contents',
+                                  'notion-gray'
+                                )}
+                              >
+                                {toc.map((tocItem) => {
+                                  const id = uuidToId(tocItem.id)
 
-                                return (
-                                  <a
-                                    key={id}
-                                    href={`#${id}`}
-                                    className={cs(
-                                      'notion-table-of-contents-item',
-                                      `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
-                                      activeSection === id &&
-                                        'notion-table-of-contents-active-item'
-                                    )}
-                                  >
-                                    <span
-                                      className='notion-table-of-contents-item-body'
-                                      style={{
-                                        display: 'inline-block',
-                                        marginLeft: tocItem.indentLevel * 16
-                                      }}
+                                  return (
+                                    <a
+                                      key={id}
+                                      href={`#${id}`}
+                                      className={cs(
+                                        'notion-table-of-contents-item',
+                                        `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
+                                        activeSection === id &&
+                                          'notion-table-of-contents-active-item'
+                                      )}
                                     >
-                                      {tocItem.text}
-                                    </span>
-                                  </a>
-                                )
-                              })}
-                            </nav>
-                          </div>
+                                      <span
+                                        className='notion-table-of-contents-item-body'
+                                        style={{
+                                          display: 'inline-block',
+                                          marginLeft: tocItem.indentLevel * 16
+                                        }}
+                                      >
+                                        {tocItem.text}
+                                      </span>
+                                    </a>
+                                  )
+                                })}
+                              </nav>
+                            </div>
+                          )}
+
+                          {pageAside}
                         </aside>
                       )}
                     </div>
