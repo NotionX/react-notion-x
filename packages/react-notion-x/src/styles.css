@@ -499,7 +499,7 @@
 }
 
 .notion-page-has-cover {
-  padding-top: 96px;
+  padding-top: 112px;
 }
 
 .notion-page-has-cover.notion-page-has-text-icon {
@@ -529,13 +529,11 @@
   top: -42px;
 }
 
-.notion-page-no-cover {
-  /* padding-top: 48px; */
-}
-
 .notion-page-icon-wrapper span.notion-page-icon {
   height: 78px;
   width: 78px;
+  max-width: 78px;
+  max-height: 78px;
   font-size: 78px;
   line-height: 1.1;
   margin-left: 0;
@@ -549,7 +547,6 @@
   height: 124px;
   max-width: 124px;
   max-height: 124px;
-  margin: 8px;
 }
 
 .notion-full-width {
