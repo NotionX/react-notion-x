@@ -1,9 +1,8 @@
 import * as React from 'react'
-import isUrl from 'is-url-superb'
 import { getBlockIcon, getBlockTitle } from 'notion-utils'
 
 import { Block, PageBlock, CalloutBlock } from '../types'
-import { cs } from '../utils'
+import { cs, isUrl } from '../utils'
 import { DefaultPageIcon } from '../icons/default-page-icon'
 import { useNotionContext } from '../context'
 import { GracefulImage } from './graceful-image'
@@ -19,17 +18,10 @@ const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
 
 export const PageIcon: React.FC<{
   block: Block
-  large?: boolean
   className?: string
   hideDefaultIcon?: boolean
   defaultIcon?: string
-}> = ({
-  block,
-  className,
-  large = false,
-  hideDefaultIcon = false,
-  defaultIcon
-}) => {
+}> = ({ block, className, hideDefaultIcon = false, defaultIcon }) => {
   const { mapImageUrl, recordMap } = useNotionContext()
 
   if (!isIconBlock(block)) {
@@ -44,10 +36,7 @@ export const PageIcon: React.FC<{
 
     return (
       <GracefulImage
-        className={cs(
-          className,
-          large ? 'notion-page-icon-cover' : 'notion-page-icon'
-        )}
+        className={cs(className, 'notion-page-icon')}
         src={url}
         alt={title ? title : 'Icon'}
         loading='lazy'
@@ -63,10 +52,7 @@ export const PageIcon: React.FC<{
 
       return (
         <DefaultPageIcon
-          className={cs(
-            className,
-            large ? 'notion-page-icon-cover' : 'notion-page-icon'
-          )}
+          className={cs(className, 'notion-page-icon')}
           alt={title ? title : 'Page'}
         />
       )
@@ -74,10 +60,7 @@ export const PageIcon: React.FC<{
 
     return (
       <span
-        className={cs(
-          className,
-          large ? 'notion-page-icon-cover' : 'notion-page-icon'
-        )}
+        className={cs(className, 'notion-page-icon')}
         role='img'
         aria-label={icon}
       >
