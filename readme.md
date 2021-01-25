@@ -157,7 +157,7 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 
 ## Related
 
-- [Next.js Template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit) - Easiest way to deploy a self-hosted Notion site with Next.js and Vercel.
+- [Next.js Template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit) - The easiest way to deploy a self-hosted Notion site with Next.js and Vercel.
   - Only takes a few minutes to setup!
   - Uses `react-notion-x` under the hood
 - [Notion Test Suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of Notion test pages
