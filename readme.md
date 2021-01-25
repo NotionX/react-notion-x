@@ -169,9 +169,11 @@ Another major factor for perf comes from images hosted by Notion. They're genera
   - `react-notion-x` is a fork of `react-notion` with better support for different types of Notion content (especially collections).
   - I'm also a maintainer and contributor to `react-notion`.
   - It's my hope that the two projects will be merged together incrementally going forwards.
+  - => Use [react-notion-x](./packages/react-notion-x) instead.
 - [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker.
   - `notion-types` and `notion-client` are a refactored fork of `notion-api-worker`.
   - One of the main use cases for `react-notion` is server-side rendering via Next.js, in which case the CF worker is unnecessary.
+  - => Use [notion-client](./packages/notion-client) instead.
 - [notion-api-agent](https://github.com/dragonman225/notionapi-agent) - Alternative Notion API client.
 
 ## License
