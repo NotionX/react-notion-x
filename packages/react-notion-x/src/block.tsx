@@ -1,6 +1,7 @@
 import * as React from 'react'
 import dynamic from 'next/dynamic'
 import throttle from 'lodash.throttle'
+import { getBlockIcon } from 'notion-utils'
 
 import * as types from './types'
 import { Asset } from './components/asset'
@@ -22,7 +23,8 @@ import {
   getListNumber,
   getPageTableOfContents,
   getBlockParentPage,
-  uuidToId
+  uuidToId,
+  isUrl
 } from './utils'
 import { Text } from './components/text'
 
@@ -172,6 +174,9 @@ export const Block: React.FC<BlockProps> = (props) => {
             }, [])
           }
 
+          const pageIcon = getBlockIcon(block, recordMap) ?? defaultPageIcon
+          const isPageIconUrl = pageIcon && isUrl(pageIcon)
+
           return (
             <div
               className={cs(
@@ -201,7 +206,15 @@ export const Block: React.FC<BlockProps> = (props) => {
                   <main
                     className={cs(
                       'notion-page',
-                      !page_cover && 'notion-page-offset',
+                      page_cover
+                        ? 'notion-page-has-cover'
+                        : 'notion-page-no-cover',
+                      page_icon
+                        ? 'notion-page-has-icon'
+                        : 'notion-page-no-icon',
+                      isPageIconUrl
+                        ? 'notion-page-has-image-icon'
+                        : 'notion-page-has-text-icon',
                       'notion-full-page',
                       page_full_width && 'notion-full-width',
                       page_small_text && 'notion-small-text',
@@ -209,14 +222,9 @@ export const Block: React.FC<BlockProps> = (props) => {
                     )}
                   >
                     {page_icon && (
-                      <PageIcon
-                        className={
-                          page_cover ? 'notion-page-icon-offset' : undefined
-                        }
-                        block={block}
-                        defaultIcon={defaultPageIcon}
-                        large
-                      />
+                      <div className='notion-page-icon-wrapper'>
+                        <PageIcon block={block} defaultIcon={defaultPageIcon} />
+                      </div>
                     )}
 
                     {pageHeader}

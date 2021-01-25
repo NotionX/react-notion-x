@@ -393,7 +393,6 @@
   width: 100%;
   font-size: 2.5em;
   font-weight: 700;
-  margin-top: 40px;
   margin-bottom: 20px;
   line-height: 1.2;
 }
@@ -486,12 +485,55 @@
   padding-bottom: calc(max(10vh, 120px));
 }
 
-.notion-page-offset {
-  margin-top: 96px;
+.notion-page-no-cover {
+  margin-top: 48px !important;
+  padding-top: 96px;
 }
 
-span.notion-page-icon-cover {
+.notion-page-no-cover.notion-page-no-icon {
+  padding-top: 0;
+}
+
+.notion-page-has-cover.notion-page-no-icon {
+  padding-top: 48px;
+}
+
+.notion-page-has-cover {
+  padding-top: 96px;
+}
+
+.notion-page-has-cover.notion-page-has-text-icon {
+  padding-top: 64px;
+}
+
+.notion-page-icon-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.notion-page-icon-wrapper .notion-page-icon {
+  position: relative;
   display: block;
+}
+
+.notion-page-has-cover .notion-page-icon-wrapper img.notion-page-icon {
+  top: -62px;
+}
+
+.notion-page-has-cover .notion-page-icon-wrapper span.notion-page-icon {
+  top: -42px;
+}
+
+.notion-page-no-cover {
+  /* padding-top: 48px; */
+}
+
+.notion-page-icon-wrapper span.notion-page-icon {
   height: 78px;
   width: 78px;
   font-size: 78px;
@@ -500,20 +542,14 @@ span.notion-page-icon-cover {
   color: var(--fg-color-icon);
 }
 
-span.notion-page-icon-offset {
-  margin-top: -42px;
-}
-
-img.notion-page-icon-cover {
+.notion-page-icon-wrapper img.notion-page-icon {
   display: block;
   border-radius: 3px;
   width: 124px;
   height: 124px;
+  max-width: 124px;
+  max-height: 124px;
   margin: 8px;
-}
-
-img.notion-page-icon-offset {
-  margin-top: -80px;
 }
 
 .notion-full-width {

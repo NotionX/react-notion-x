@@ -1,9 +1,12 @@
 import { Block, BlockMap } from './types'
+import isUrl from 'is-url-superb'
 
 export * from 'notion-utils'
 
 export const cs = (...classes: Array<string | undefined | false>) =>
   classes.filter((a) => !!a).join(' ')
+
+export { isUrl }
 
 const groupBlockContent = (blockMap: BlockMap): string[][] => {
   const output: string[][] = []
