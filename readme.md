@@ -166,7 +166,8 @@ Another major factor for perf comes from images hosted by Notion. They're genera
   - Covers most formatting options
   - More edge cases and feature coverage will be added over time
 - [react-notion](https://github.com/splitbee/react-notion) - Original React renderer for Notion.
-  - `react-notion-x` is a fork of `react-notion` with better support for different types of Notion content (especially collection views).
+  - `react-notion-x` is a fork of `react-notion` with better support for different types of Notion content (especially collections).
+  - I'm also a maintainer and contributor to `react-notion`.
   - It's my hope that the two projects will be merged together incrementally going forwards.
 - [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker.
   - `notion-types` and `notion-client` are a refactored fork of `notion-api-worker`.
