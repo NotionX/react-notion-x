@@ -29,7 +29,7 @@ export const LazyImage: React.FC<{
 
   const attachZoomRef = zoomable ? attachZoom : undefined
 
-  if (previewImage && false) {
+  if (previewImage) {
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
 
     return (
