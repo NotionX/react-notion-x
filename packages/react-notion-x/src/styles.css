@@ -140,17 +140,17 @@
 }
 
 @media (min-width: 1300px) and (min-height: 300px) {
-  .notion-page-content-has-toc {
+  .notion-page-content-has-aside {
     display: flex;
     flex-direction: row;
     width: calc((100vw + var(--notion-max-width)) / 2);
   }
 
-  .notion-page-content-has-toc .notion-aside {
+  .notion-page-content-has-aside .notion-aside {
     display: flex;
   }
 
-  .notion-page-content-has-toc .notion-page-content-inner {
+  .notion-page-content-has-aside .notion-page-content-inner {
     width: var(--notion-max-width);
     max-width: var(--notion-max-width);
   }
