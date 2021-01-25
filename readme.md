@@ -8,6 +8,14 @@
 
 [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) [![Build Status](https://travis-ci.com/NotionX/react-notion-x.svg?branch=master)](https://travis-ci.com/NotionX/react-notion-x) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
+---
+
+If you want to build a website with Notion and React, we recommend using this amazing [Next.js template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit) (which uses `react-notion-x` under the hood).
+
+Just edit one config file to point to your Notion page and deploy in a few minutes!
+
+---
+
 ## Features
 
 - 🚀 **Simple** - TypeScript + React.
@@ -149,6 +157,9 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 
 ## Related
 
+- [Next.js Template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit) - Easiest way to deploy a self-hosted Notion site with Next.js and Vercel.
+  - Only takes a few minutes to setup!
+  - Uses `react-notion-x` under the hood
 - [Notion Test Suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of Notion test pages
   - Includes all individual blocks
   - Includes all collection views
