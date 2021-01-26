@@ -66,8 +66,6 @@ export const Text: React.FC<{
               const linkType = decorator[1][0]
               const id = decorator[1][1]
 
-              console.log('text', linkType, id)
-
               switch (linkType) {
                 case 'u':
                   const user = recordMap.notion_user[id]?.value
@@ -96,8 +94,6 @@ export const Text: React.FC<{
                     console.log('"‣" missing block', linkType, id)
                     return null
                   }
-
-                  console.log('text >', id, value)
 
                   return (
                     <components.pageLink
@@ -136,7 +132,6 @@ export const Text: React.FC<{
               return <Equation math={decorator[1]} />
 
             case 'a': {
-              console.log('text a', value)
               const v = decorator[1]
               const pathname = v.substr(1)
               const id = parsePageId(pathname, { uuid: true })
