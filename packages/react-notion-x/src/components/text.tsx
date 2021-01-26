@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Block, Decoration } from '../types'
 import { useNotionContext } from '../context'
-import { formatDate } from '../utils'
+import { formatDate, parsePageId } from '../utils'
 import { Equation } from './equation'
 import { PageTitle } from './page-title'
 import { GracefulImage } from './graceful-image'
@@ -97,6 +97,8 @@ export const Text: React.FC<{
                     return null
                   }
 
+                  console.log('text >', id, value)
+
                   return (
                     <components.pageLink
                       className='notion-link'
@@ -133,41 +135,60 @@ export const Text: React.FC<{
             case 'e':
               return <Equation math={decorator[1]} />
 
-            case 'a':
-              return (
-                <components.link
-                  className='notion-link'
-                  href={
-                    linkProtocol
-                      ? `${linkProtocol}:${decorator[1]}`
-                      : decorator[1]
-                  }
-                  {...linkProps}
-                >
-                  {element}
-                </components.link>
-              )
+            case 'a': {
+              console.log('text a', value)
+              const v = decorator[1]
+              const pathname = v.substr(1)
+              const id = parsePageId(pathname, { uuid: true })
 
-            case 'd':
-              const value = decorator[1]
-              const type = value.type
+              if (v[0] === '/' && id) {
+                return (
+                  <components.pageLink
+                    className='notion-link'
+                    href={mapPageUrl(id)}
+                    {...linkProps}
+                  >
+                    {element}
+                  </components.pageLink>
+                )
+              } else {
+                return (
+                  <components.link
+                    className='notion-link'
+                    href={
+                      linkProtocol
+                        ? `${linkProtocol}:${decorator[1]}`
+                        : decorator[1]
+                    }
+                    {...linkProps}
+                  >
+                    {element}
+                  </components.link>
+                )
+              }
+            }
+
+            case 'd': {
+              const v = decorator[1]
+              const type = v?.type
 
               if (type === 'date') {
                 // Example: Jul 31, 2010
-                const startDate = value.start_date
+                const startDate = v.start_date
 
                 return formatDate(startDate)
               } else if (type === 'daterange') {
                 // Example: Jul 31, 2010 → Jul 31, 2020
-                const startDate = value.start_date
-                const endDate = value.end_date
+                const startDate = v.start_date
+                const endDate = v.end_date
 
                 return `${formatDate(startDate)} → ${formatDate(endDate)}`
               } else {
                 return element
               }
+            }
 
-            case 'u':
+            case 'u': {
               const userId = decorator[1]
               const user = recordMap.notion_user[userId]?.value
 
@@ -187,6 +208,7 @@ export const Text: React.FC<{
                   alt={name}
                 />
               )
+            }
 
             default:
               if (process.env.NODE_ENV !== 'production') {
