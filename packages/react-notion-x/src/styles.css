@@ -70,6 +70,7 @@
   --fg-color-3: var(--fg-color);
   --fg-color-4: var(--fg-color);
   --fg-color-5: rgba(255, 255, 255, 0.7);
+  --fg-color-6: #fff;
   --fg-color-icon: #fff;
 
   --bg-color: #2f3437;
