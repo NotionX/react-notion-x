@@ -268,7 +268,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                               <nav
                                 className={cs(
                                   'notion-table-of-contents',
-                                  'notion-gray'
+                                  !darkMode && 'notion-gray'
                                 )}
                               >
                                 {toc.map((tocItem) => {
