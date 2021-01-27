@@ -515,18 +515,22 @@ export const Block: React.FC<BlockProps> = (props) => {
       return <div className='notion-row'>{children}</div>
 
     case 'column':
-      const spacerMaxWidth = 46
-      const spacerWidth = `min(${spacerMaxWidth}px, 4vw)`
+      // note: notion uses 46px
+      const spacerWidth = `min(32px, 4vw)`
       const ratio = block.format?.column_ratio || 0.5
-      const columns = Math.max(2, Math.ceil(1.0 / ratio))
+      const parent = recordMap.block[block.parent_id]?.value
+      const columns =
+        parent?.content?.length || Math.max(2, Math.ceil(1.0 / ratio))
+      console.log(block, { ratio, columns })
 
       const width = `calc((100% - (${
         columns - 1
       } * ${spacerWidth}px)) * ${ratio})`
+      const style = { width }
 
       return (
         <>
-          <div className='notion-column' style={{ width }}>
+          <div className='notion-column' style={style}>
             {children}
           </div>
 

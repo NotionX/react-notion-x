@@ -871,7 +871,7 @@ svg.notion-page-icon {
 }
 
 .notion-spacer {
-  width: calc(min(46px, 4vw));
+  width: calc(min(32px, 4vw));
 }
 
 .notion-spacer:last-child {
@@ -915,6 +915,10 @@ svg.notion-page-icon {
   box-sizing: border-box;
   margin: 4px 0;
   border: 1px solid var(--fg-color-0);
+}
+
+.notion-dark .notion-callout {
+  border-color: var(--bg-color-2);
 }
 
 .notion-callout .notion-page-icon {
