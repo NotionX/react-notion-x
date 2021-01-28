@@ -22,8 +22,8 @@ export const getPageTableOfContents = (
   page: types.PageBlock,
   recordMap: types.ExtendedRecordMap
 ): Array<TableOfContentsEntry> => {
-  const toc = page.content
-    ?.map((blockId) => {
+  const toc = (page.content ?? [])
+    .map((blockId: string) => {
       const block = recordMap.block[blockId]?.value
 
       if (block) {

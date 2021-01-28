@@ -521,7 +521,6 @@ export const Block: React.FC<BlockProps> = (props) => {
       const parent = recordMap.block[block.parent_id]?.value
       const columns =
         parent?.content?.length || Math.max(2, Math.ceil(1.0 / ratio))
-      console.log(block, { ratio, columns })
 
       const width = `calc((100% - (${
         columns - 1
