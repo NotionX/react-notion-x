@@ -9,6 +9,10 @@ import { parsePageId } from './parse-page-id'
  * Returns a map containing all of the pages that are reachable from the seed
  * page in the space.
  *
+ * If `rootSpaceId` is not defined, the space ID of the root page will be used
+ * to scope traversal.
+ *
+ *
  * @param rootPageId - Page ID to start from.
  * @param rootSpaceId - Space ID to scope traversal.
  * @param getPage - Function used to fetch a single page.
@@ -16,7 +20,7 @@ import { parsePageId } from './parse-page-id'
  */
 export async function getAllPagesInSpace(
   rootPageId: string,
-  rootSpaceId: string,
+  rootSpaceId: string | undefined,
   getPage: (pageId: string) => Promise<ExtendedRecordMap>,
   {
     concurrency = 4,
@@ -39,6 +43,13 @@ export async function getAllPagesInSpace(
       queue.add(async () => {
         try {
           const page = await getPage(pageId)
+          const spaceId = page.block[pageId]?.value?.space_id
+
+          if (!rootSpaceId) {
+            rootSpaceId = spaceId
+          } else if (rootSpaceId !== spaceId) {
+            return
+          }
 
           Object.keys(page.block)
             .filter((key) => {

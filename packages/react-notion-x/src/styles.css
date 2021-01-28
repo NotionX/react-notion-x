@@ -809,6 +809,10 @@ svg.notion-page-icon {
   user-select: none;
 }
 
+.notion-dark .notion-bookmark {
+  border-color: var(--bg-color-0);
+}
+
 .notion-bookmark > div:first-child {
   flex: 4 1 180px;
   padding: 12px 14px 14px;
