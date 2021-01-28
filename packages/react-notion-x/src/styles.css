@@ -262,6 +262,7 @@
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
+  min-height: calc(100vh - 45px);
 }
 
 .notion-red,
@@ -458,6 +459,7 @@
   float: left;
   margin-left: -20px;
   padding-right: 4px;
+  fill: var(--fg-color-icon);
 }
 
 .notion-page-cover {

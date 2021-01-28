@@ -51,6 +51,8 @@ export const Text: React.FC<{
                 return null
               }
 
+              // console.log('p', blockId)
+
               return (
                 <components.pageLink
                   className='notion-link'
@@ -137,6 +139,8 @@ export const Text: React.FC<{
               const id = parsePageId(pathname, { uuid: true })
 
               if (v[0] === '/' && id) {
+                // console.log('a', id)
+
                 return (
                   <components.pageLink
                     className='notion-link'
