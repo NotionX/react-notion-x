@@ -1,6 +1,12 @@
 import * as React from 'react'
 import throttle from 'lodash.throttle'
-import { getBlockIcon } from 'notion-utils'
+import {
+  getBlockIcon,
+  getTextContent,
+  getPageTableOfContents,
+  getBlockParentPage,
+  uuidToId
+} from 'notion-utils'
 import * as types from 'notion-types'
 
 import { Asset } from './components/asset'
@@ -16,15 +22,7 @@ import { Equation } from './components/equation'
 import { GracefulImage } from './components/graceful-image'
 import { LazyImage } from './components/lazy-image'
 import { useNotionContext } from './context'
-import {
-  cs,
-  getTextContent,
-  getListNumber,
-  getPageTableOfContents,
-  getBlockParentPage,
-  uuidToId,
-  isUrl
-} from './utils'
+import { cs, getListNumber, isUrl } from './utils'
 import { Text } from './components/text'
 
 // eagerly load heavier components synchronously
