@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Block, Decoration } from 'notion-types'
+import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '../context'
-import { formatDate, parsePageId } from '../utils'
+import { formatDate } from '../utils'
 import { Equation } from './equation'
 import { PageTitle } from './page-title'
 import { GracefulImage } from './graceful-image'

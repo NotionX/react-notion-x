@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { ImageBlock } from 'notion-types'
+import { getTextContent } from 'notion-utils'
 
 import { CollectionCardProps } from '../types'
 import { Property } from './property'
-import { cs, getTextContent } from '../utils'
+import { cs } from '../utils'
 import { useNotionContext, dummyLink, NotionContextProvider } from '../context'
 import { LazyImage } from './lazy-image'
 

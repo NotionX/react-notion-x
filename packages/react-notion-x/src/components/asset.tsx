@@ -1,10 +1,9 @@
 import * as React from 'react'
 import dynamic from 'next/dynamic'
-
 import { BaseContentBlock, Block } from 'notion-types'
-import { getTextContent } from '../utils'
-import { useNotionContext } from '../context'
+import { getTextContent } from 'notion-utils'
 
+import { useNotionContext } from '../context'
 import { LazyImage } from './lazy-image'
 
 const isServer = typeof window === 'undefined'
