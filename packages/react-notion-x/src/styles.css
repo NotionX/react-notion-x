@@ -1,4 +1,4 @@
-.notion {
+:root {
   --fg-color: rgb(55, 53, 47);
   --fg-color-0: rgba(55, 53, 47, 0.09);
   --fg-color-1: rgba(55, 53, 47, 0.16);
@@ -62,7 +62,7 @@
   --notion-max-width: 720px;
 }
 
-.notion-dark {
+.dark-mode {
   --fg-color: rgba(255, 255, 255, 0.9);
   --fg-color-0: var(--fg-color);
   --fg-color-1: var(--fg-color);
@@ -809,7 +809,7 @@ svg.notion-page-icon {
   user-select: none;
 }
 
-.notion-dark .notion-bookmark {
+.dark-mode .notion-bookmark {
   border-color: var(--bg-color-0);
 }
 
@@ -923,7 +923,7 @@ svg.notion-page-icon {
   border: 1px solid var(--fg-color-0);
 }
 
-.notion-dark .notion-callout {
+.dark-mode .notion-callout {
   border-color: var(--bg-color-2);
 }
 

@@ -166,7 +166,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               className={cs(
                 'notion',
                 'notion-app',
-                darkMode && 'notion-dark',
+                darkMode && 'dark-mode',
                 className
               )}
             >
@@ -299,7 +299,7 @@ export const Block: React.FC<BlockProps> = (props) => {
             <main
               className={cs(
                 'notion',
-                darkMode && 'notion-dark',
+                darkMode && 'dark-mode',
                 'notion-page',
                 page_full_width && 'notion-full-width',
                 page_small_text && 'notion-small-text',
