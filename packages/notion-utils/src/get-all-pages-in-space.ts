@@ -54,7 +54,7 @@ export async function getAllPagesInSpace(
           Object.keys(page.block)
             .filter((key) => {
               const block = page.block[key]?.value
-              if (!block) return
+              if (!block) return false
 
               const isPage =
                 block.type === 'page' || block.type === 'collection_view_page'

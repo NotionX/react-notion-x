@@ -10,12 +10,13 @@
     "esModuleInterop": true,
     "noEmitOnError": true,
 
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
 
+    "isolatedModules": true,
     "traceResolution": false,
     "listEmittedFiles": false,
     "listFiles": false,
