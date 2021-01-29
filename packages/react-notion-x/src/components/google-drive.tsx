@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { GoogleDriveBlock } from 'notion-types'
 
 import { formatDistance } from 'date-fns'

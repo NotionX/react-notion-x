@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 function SvgTypeFile(props: React.SVGProps<SVGSVGElement>) {
   return (

@@ -7,6 +7,7 @@ export * from './context'
 export * from './components/code'
 export * from './components/collection'
 export * from './components/collection-row'
+export * from './third-party'
 
 export { NotionRenderer } from './renderer'
 export type { NotionRendererProps } from './renderer'

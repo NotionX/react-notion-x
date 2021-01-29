@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Block } from 'notion-types'
 
 import { cs } from '../utils'

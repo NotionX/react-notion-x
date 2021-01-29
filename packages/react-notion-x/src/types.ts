@@ -10,6 +10,19 @@ export interface NotionComponents {
   // TODO: better typing for arbitrary react components
   link: any
   pageLink: any
+
+  // blocks
+  code: any
+  equation: any
+
+  // collection
+  collection: any
+  collectionRow: any
+
+  // assets
+  pdf: any
+  tweet: any
+  modal: any
 }
 
 export interface CollectionViewProps {

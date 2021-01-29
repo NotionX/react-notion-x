@@ -1,8 +1,6 @@
-import * as React from 'react'
-import dynamic from 'next/dynamic'
+import React from 'react'
 import { cs } from '../utils'
-
-const DynamicTex = dynamic(() => import('@matejmazur/react-katex'))
+import { useNotionContext } from '../context'
 
 const katexSettings = {
   throwOnError: false,
@@ -14,6 +12,8 @@ export const Equation: React.FC<{
   block?: boolean
   children?: React.ReactNode
 }> = ({ math, ...rest }) => {
+  const { components } = useNotionContext()
+
   return (
     <span
       role='button'
@@ -23,7 +23,7 @@ export const Equation: React.FC<{
         rest.block ? 'notion-equation-block' : 'notion-equation-inline'
       )}
     >
-      <DynamicTex math={math} settings={katexSettings} {...rest} />
+      <components.equation math={math} settings={katexSettings} {...rest} />
     </span>
   )
 }
