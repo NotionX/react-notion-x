@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Block } from '../types'
+import { Block } from 'notion-types'
+
 import { cs } from '../utils'
 import { useNotionContext } from '../context'
 import { Text } from './text'

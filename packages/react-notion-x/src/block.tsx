@@ -1,9 +1,8 @@
 import * as React from 'react'
-import dynamic from 'next/dynamic'
 import throttle from 'lodash.throttle'
 import { getBlockIcon } from 'notion-utils'
+import * as types from 'notion-types'
 
-import * as types from './types'
 import { Asset } from './components/asset'
 import { Checkbox } from './components/checkbox'
 import { PageIcon } from './components/page-icon'
@@ -34,16 +33,16 @@ import { Text } from './components/text'
 // import CollectionRow from './components/collection-row'
 
 // load heavier components asynchronously
-const Code = dynamic(() => import('./components/code'))
-const Collection = dynamic(() => import('./components/collection'))
-// TODO: there seems to be a bug causing SSR to fail for pages with
-// CollectionRows. This manifests as corrupted DOM with weird rendering
-// artifacts when loaded directly from the server which doesn't repro when
-// loading the same page client-side. It seems to be related to our use of
-// next/dynamic and react hydration.
-const CollectionRow = dynamic(() => import('./components/collection-row'), {
-  ssr: false
-})
+// const Code = dynamic(() => import('./components/code'))
+// const Collection = dynamic(() => import('./components/collection'))
+// // TODO: there seems to be a bug causing SSR to fail for pages with
+// // CollectionRows. This manifests as corrupted DOM with weird rendering
+// // artifacts when loaded directly from the server which doesn't repro when
+// // loading the same page client-side. It seems to be related to our use of
+// // next/dynamic and react hydration.
+// const CollectionRow = dynamic(() => import('./components/collection-row'), {
+//   ssr: false
+// })
 
 interface BlockProps {
   block: types.Block

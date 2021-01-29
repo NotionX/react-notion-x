@@ -1958,6 +1958,8 @@ svg.notion-page-icon {
   object-fit: cover;
   max-width: 100%;
   max-height: 100%;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .lazy-image-preview {
