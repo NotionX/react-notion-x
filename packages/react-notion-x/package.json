@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
   "author": "Saasify <dev@saasify.sh>",
