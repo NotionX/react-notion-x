@@ -797,6 +797,20 @@ svg.notion-page-icon {
   max-width: 100%;
 }
 
+@media (max-width: 640px) {
+  .notion-row {
+    flex-direction: column;
+  }
+
+  .notion-row .notion-column {
+    width: 100% !important;
+  }
+
+  .notion-row .notion-spacer {
+    display: none;
+  }
+}
+
 .notion-bookmark {
   margin: 4px 0;
   width: 100%;
@@ -2053,6 +2067,7 @@ svg.notion-page-icon {
 
   width: 100%;
   max-width: 100vw;
+  overflow: hidden;
   height: 45px;
   min-height: 45px;
 
@@ -2089,9 +2104,10 @@ svg.notion-page-icon {
 .notion-header .breadcrumb {
   display: inline-flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   white-space: nowrap;
+  text-overflow: ellipsis;
 
   color: var(--fg-color);
   text-decoration: none;
