@@ -1,13 +1,15 @@
 import React from 'react'
 import { GoogleDriveBlock } from 'notion-types'
-
 import { formatDistance } from 'date-fns'
+
 import { useNotionContext } from '../context'
+import { cs } from '../utils'
 import { GracefulImage } from './graceful-image'
 
-export const GoogleDrive: React.FC<{ block: GoogleDriveBlock }> = ({
-  block
-}) => {
+export const GoogleDrive: React.FC<{
+  block: GoogleDriveBlock
+  className?: string
+}> = ({ block, className }) => {
   const { components, mapImageUrl } = useNotionContext()
   const properties = block.format?.drive_properties
   if (!properties) return null
@@ -21,7 +23,7 @@ export const GoogleDrive: React.FC<{ block: GoogleDriveBlock }> = ({
   }
 
   return (
-    <div className='notion-google-drive'>
+    <div className={cs('notion-google-drive', className)}>
       <components.link
         className='notion-google-drive-link'
         href={properties.url}

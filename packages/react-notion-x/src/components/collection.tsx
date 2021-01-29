@@ -17,7 +17,8 @@ const triggers = ['click']
 
 export const Collection: React.FC<{
   block: types.CollectionViewBlock | types.CollectionViewPageBlock
-}> = ({ block }) => {
+  className?: string
+}> = ({ block, className }) => {
   const { recordMap, showCollectionViewDropdown } = useNotionContext()
   const { collection_id: collectionId, view_ids: viewIds } = block
 
@@ -87,7 +88,7 @@ export const Collection: React.FC<{
   }
 
   return (
-    <div className='notion-collection'>
+    <div className={cs('notion-collection', className)}>
       <div className='notion-collection-header' style={style}>
         {title && (
           <div className='notion-collection-header-title'>
