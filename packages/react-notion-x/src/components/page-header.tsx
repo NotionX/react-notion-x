@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 import { useHotkeys } from 'react-hotkeys-hook'
 import { getBlockTitle, getBlockIcon, getBlockParentPage } from 'notion-utils'

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { CollectionViewType } from 'notion-types'
 
 import CollectionViewTableIcon from './collection-view-table'

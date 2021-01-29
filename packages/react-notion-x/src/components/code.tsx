@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { highlight, languages } from 'prismjs'
 import 'prismjs/components/prism-jsx'
 

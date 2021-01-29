@@ -1,7 +1,6 @@
-import * as React from 'react'
-import throttle from 'lodash.throttle'
-import dynamic from 'next/dynamic'
+import React from 'react'
 import * as types from 'notion-types'
+import throttle from 'lodash.throttle'
 import { getBlockTitle } from 'notion-utils'
 
 import { SearchIcon } from '../icons/search-icon'
@@ -11,16 +10,7 @@ import { PageTitle } from './page-title'
 import { cs } from '../utils'
 import { NotionContextConsumer, NotionContextProvider } from '../context'
 
-const DynamicReactModal = dynamic(
-  () =>
-    import('react-modal').then((modal) => {
-      modal.default.setAppElement('.notion-viewport')
-      return modal
-    }),
-  {
-    ssr: false
-  }
-) as any
+// TODO: modal.default.setAppElement('.notion-viewport')
 
 export class SearchDialog extends React.Component<{
   isOpen: boolean
@@ -59,7 +49,7 @@ export class SearchDialog extends React.Component<{
           const { components, defaultPageIcon, mapPageUrl } = ctx
 
           return (
-            <DynamicReactModal
+            <components.modal
               isOpen={isOpen}
               contentLabel='Search'
               className='notion-search'
@@ -145,7 +135,7 @@ export class SearchDialog extends React.Component<{
                   </div>
                 )}
               </div>
-            </DynamicReactModal>
+            </components.modal>
           )
         }}
       </NotionContextConsumer>

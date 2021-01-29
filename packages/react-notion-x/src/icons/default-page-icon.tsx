@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 export const DefaultPageIcon = (props) => {
   const { className, ...rest } = props

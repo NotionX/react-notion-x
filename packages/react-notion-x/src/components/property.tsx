@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
+import * as types from 'notion-types'
 import formatNumber from 'format-number'
 import { format } from 'date-fns'
-import * as types from 'notion-types'
 
 import { cs } from '../utils'
 import { Checkbox } from './checkbox'

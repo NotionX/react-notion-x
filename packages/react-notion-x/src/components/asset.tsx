@@ -1,5 +1,4 @@
-import * as React from 'react'
-import dynamic from 'next/dynamic'
+import React from 'react'
 import { BaseContentBlock, Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
@@ -7,19 +6,6 @@ import { useNotionContext } from '../context'
 import { LazyImage } from './lazy-image'
 
 const isServer = typeof window === 'undefined'
-
-const DynamicTweet = dynamic(() =>
-  import('react-tweet-embed').then((res) => {
-    // console.log('DynamicTweet', res)
-    return res.default
-  })
-) as any
-const DynamicPdfDocument: any = dynamic(() =>
-  import('react-pdf').then((pdf) => pdf.Document)
-)
-const DynamicPdfPage: any = dynamic(() =>
-  import('react-pdf').then((pdf) => pdf.Page)
-)
 
 const types = [
   'video',
@@ -35,7 +21,7 @@ const types = [
 export const Asset: React.FC<{
   block: BaseContentBlock
 }> = ({ block }) => {
-  const { recordMap, mapImageUrl } = useNotionContext()
+  const { recordMap, mapImageUrl, components } = useNotionContext()
 
   if (!block || !types.includes(block.type)) {
     return null
@@ -120,7 +106,7 @@ export const Asset: React.FC<{
           marginRight: 'auto'
         }}
       >
-        <DynamicTweet id={id} />
+        <components.tweet id={id} />
       </div>
     )
   } else if (block.type === 'pdf') {
@@ -133,11 +119,7 @@ export const Asset: React.FC<{
       if (!signedUrl) return null
       console.log('pdf', block, signedUrl)
 
-      content = (
-        <DynamicPdfDocument file={signedUrl}>
-          <DynamicPdfPage pageNumber={1} />
-        </DynamicPdfDocument>
-      )
+      content = <components.pdf file={signedUrl} />
     }
   } else if (
     block.type === 'embed' ||
