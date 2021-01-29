@@ -11,7 +11,8 @@ export const Equation: React.FC<{
   math: string
   block?: boolean
   children?: React.ReactNode
-}> = ({ math, ...rest }) => {
+  className?: string
+}> = ({ math, className, ...rest }) => {
   const { components } = useNotionContext()
 
   return (
@@ -20,7 +21,8 @@ export const Equation: React.FC<{
       tabIndex={0}
       className={cs(
         'notion-equation',
-        rest.block ? 'notion-equation-block' : 'notion-equation-inline'
+        rest.block ? 'notion-equation-block' : 'notion-equation-inline',
+        className
       )}
     >
       <components.equation math={math} settings={katexSettings} {...rest} />
