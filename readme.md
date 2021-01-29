@@ -21,7 +21,7 @@ Just edit one config file to point to your Notion page and deploy in a few minut
 - 🚀 **Simple** - TypeScript + React.
 - ⚡ **Fast** - 10-100x faster than Notion.
   - 95-100% Lighthouse scores.
-  - Heavier components like PDFs and collection views are loaded lazily via `next/dynamic`.
+  - Heavier components like PDFs and collection views can be loaded lazily via `next/dynamic`.
 - 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality.
 - 🔥 **Solid** - Used in production by Notion X (_coming soon_), [Notion VIP](https://www.notion.vip), and [Notion2Site](http://notion2site.com).
 
@@ -49,6 +49,8 @@ export default ({ recordMap }) => (
 ```
 
 You may optionally pass an `authToken` to the API if you want to access private Notion resources.
+
+Note: for heavier blocks, you'll have to opt into using them via `NotionRenderer.components`. These are not included in the default `NotionRenderer` export because they're too heavyweight for the majority of use cases.
 
 ## Styles
 
