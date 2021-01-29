@@ -1,5 +1,7 @@
-import fetch from 'node-fetch'
+// import fetch from 'node-fetch'
+import got, { OptionsOfJSONResponseBody } from 'got'
 import pMap from 'p-map'
+// import pRetry from 'p-retry'
 
 import { parsePageId, getPageContentBlockIds, uuidToId } from 'notion-utils'
 import * as notion from 'notion-types'
@@ -41,14 +43,16 @@ export class NotionAPI {
     {
       concurrency = 3,
       fetchCollections = true,
-      signFileUrls = true
+      signFileUrls = true,
+      gotOptions
     }: {
       concurrency?: number
       fetchCollections?: boolean
       signFileUrls?: boolean
+      gotOptions?: OptionsOfJSONResponseBody
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
-    const page = await this.getPageRaw(pageId)
+    const page = await this.getPageRaw(pageId, gotOptions)
     const recordMap = page?.recordMap as notion.ExtendedRecordMap
 
     if (!recordMap?.block) {
@@ -75,7 +79,7 @@ export class NotionAPI {
         break
       }
 
-      const newBlocks = await this.getBlocks(pendingBlockIds).then(
+      const newBlocks = await this.getBlocks(pendingBlockIds, gotOptions).then(
         (res) => res.recordMap.block
       )
 
@@ -124,7 +128,8 @@ export class NotionAPI {
                 query: collectionView?.query2 || collectionView?.query,
                 groups:
                   collectionView?.format?.board_groups2 ||
-                  collectionView?.format?.board_groups
+                  collectionView?.format?.board_groups,
+                gotOptions
               }
             )
 
@@ -201,7 +206,10 @@ export class NotionAPI {
 
       if (allFileInstances.length > 0) {
         try {
-          const { signedUrls } = await this.getSignedFileUrls(allFileInstances)
+          const { signedUrls } = await this.getSignedFileUrls(
+            allFileInstances,
+            gotOptions
+          )
 
           if (signedUrls.length === allFileInstances.length) {
             for (let i = 0; i < allFileInstances.length; ++i) {
@@ -220,7 +228,10 @@ export class NotionAPI {
     return recordMap
   }
 
-  public async getPageRaw(pageId: string) {
+  public async getPageRaw(
+    pageId: string,
+    gotOptions?: OptionsOfJSONResponseBody
+  ) {
     const parsedPageId = parsePageId(pageId)
 
     if (!parsedPageId) {
@@ -235,7 +246,8 @@ export class NotionAPI {
         cursor: { stack: [] },
         chunkNumber: 0,
         verticalColumns: false
-      }
+      },
+      gotOptions
     })
   }
 
@@ -250,7 +262,8 @@ export class NotionAPI {
       searchQuery = '',
       userTimeZone = this._userTimeZone,
       userLocale = this._userLocale,
-      loadContentCover = true
+      loadContentCover = true,
+      gotOptions
     }: {
       type?: notion.CollectionViewType
       query?: any
@@ -260,6 +273,7 @@ export class NotionAPI {
       userTimeZone?: string
       userLocale?: string
       loadContentCover?: boolean
+      gotOptions?: OptionsOfJSONResponseBody
     } = {}
   ) {
     // TODO: All other collection types queries fail with 400 errors.
@@ -294,20 +308,28 @@ export class NotionAPI {
         collectionViewId,
         query,
         loader
-      }
+      },
+      gotOptions
     })
   }
 
-  public async getUsers(userIds: string[]) {
+  public async getUsers(
+    userIds: string[],
+    gotOptions?: OptionsOfJSONResponseBody
+  ) {
     return this.fetch<notion.RecordValues<notion.User>>({
       endpoint: 'getRecordValues',
       body: {
         requests: userIds.map((id) => ({ id, table: 'notion_user' }))
-      }
+      },
+      gotOptions
     })
   }
 
-  public async getBlocks(blockIds: string[]) {
+  public async getBlocks(
+    blockIds: string[],
+    gotOptions?: OptionsOfJSONResponseBody
+  ) {
     return this.fetch<notion.PageChunk>({
       endpoint: 'syncRecordValues',
       body: {
@@ -320,20 +342,28 @@ export class NotionAPI {
             {}
           )
         }
-      }
+      },
+      gotOptions
     })
   }
 
-  public async getSignedFileUrls(urls: types.SignedUrlRequest[]) {
+  public async getSignedFileUrls(
+    urls: types.SignedUrlRequest[],
+    gotOptions?: OptionsOfJSONResponseBody
+  ) {
     return this.fetch<types.SignedUrlResponse>({
       endpoint: 'getSignedFileUrls',
       body: {
         urls
-      }
+      },
+      gotOptions
     })
   }
 
-  public async search(params: notion.SearchParams) {
+  public async search(
+    params: notion.SearchParams,
+    gotOptions?: OptionsOfJSONResponseBody
+  ) {
     return this.fetch<notion.SearchResults>({
       endpoint: 'search',
       body: {
@@ -355,18 +385,22 @@ export class NotionAPI {
           createdTime: {},
           ...params.filters
         }
-      }
+      },
+      gotOptions
     })
   }
 
   public async fetch<T>({
     endpoint,
-    body
+    body,
+    gotOptions
   }: {
     endpoint: string
     body: object
+    gotOptions?: OptionsOfJSONResponseBody
   }): Promise<T> {
     const headers: any = {
+      ...gotOptions?.headers,
       'Content-Type': 'application/json'
     }
 
@@ -380,10 +414,18 @@ export class NotionAPI {
 
     const url = `${this._apiBaseUrl}/${endpoint}`
 
-    return fetch(url, {
-      method: 'post',
-      body: JSON.stringify(body),
-      headers
-    }).then((res) => res.json())
+    return got
+      .post(url, {
+        ...gotOptions,
+        json: body,
+        headers
+      })
+      .json()
+
+    // return fetch(url, {
+    //   method: 'post',
+    //   body: JSON.stringify(body),
+    //   headers
+    // }).then((res) => res.json())
   }
 }
