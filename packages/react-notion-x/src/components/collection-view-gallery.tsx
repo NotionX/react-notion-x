@@ -1,11 +1,12 @@
-import * as React from 'react'
+import React from 'react'
+import { PageBlock } from 'notion-types'
 
-import * as types from '../types'
+import { CollectionViewProps } from '../types'
 import { cs } from '../utils'
 import { useNotionContext } from '../context'
 import { CollectionCard } from './collection-card'
 
-export const CollectionViewGallery: React.FC<types.CollectionViewProps> = ({
+export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData
@@ -29,7 +30,7 @@ export const CollectionViewGallery: React.FC<types.CollectionViewProps> = ({
           )}
         >
           {collectionData.blockIds.map((blockId) => {
-            const block = recordMap.block[blockId]?.value as types.PageBlock
+            const block = recordMap.block[blockId]?.value as PageBlock
             if (!block) return null
 
             return (

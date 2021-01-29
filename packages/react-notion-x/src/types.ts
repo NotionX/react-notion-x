@@ -1,7 +1,5 @@
 import * as types from 'notion-types'
 
-export * from 'notion-types'
-
 export type MapPageUrl = (pageId: string) => string
 export type MapImageUrl = (url: string, block: types.Block) => string
 export type SearchNotion = (
@@ -12,6 +10,19 @@ export interface NotionComponents {
   // TODO: better typing for arbitrary react components
   link: any
   pageLink: any
+
+  // blocks
+  code: any
+  equation: any
+
+  // collection
+  collection: any
+  collectionRow: any
+
+  // assets
+  pdf: any
+  tweet: any
+  modal: any
 }
 
 export interface CollectionViewProps {

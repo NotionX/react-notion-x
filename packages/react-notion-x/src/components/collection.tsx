@@ -1,11 +1,10 @@
-import * as React from 'react'
-import { useLocalStorage, useWindowSize } from 'react-use'
-
+import React from 'react'
+import * as types from 'notion-types'
 import { getBlockParentPage, getTextContent } from 'notion-utils'
+import { useLocalStorage, useWindowSize } from 'react-use'
 import Dropdown from 'rc-dropdown'
 import Menu, { Item as MenuItem } from 'rc-menu'
 
-import * as types from '../types'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
@@ -16,7 +15,7 @@ import { cs } from '../utils'
 const isServer = typeof window === 'undefined'
 const triggers = ['click']
 
-const Collection: React.FC<{
+export const Collection: React.FC<{
   block: types.CollectionViewBlock | types.CollectionViewPageBlock
 }> = ({ block }) => {
   const { recordMap, showCollectionViewDropdown } = useNotionContext()
@@ -165,5 +164,3 @@ const CollectionViewColumnDesc: React.FC<{
     </div>
   )
 }
-
-export default Collection

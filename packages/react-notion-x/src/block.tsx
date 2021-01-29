@@ -1,9 +1,14 @@
-import * as React from 'react'
-import dynamic from 'next/dynamic'
+import React from 'react'
 import throttle from 'lodash.throttle'
-import { getBlockIcon } from 'notion-utils'
+import {
+  getBlockIcon,
+  getTextContent,
+  getPageTableOfContents,
+  getBlockParentPage,
+  uuidToId
+} from 'notion-utils'
+import * as types from 'notion-types'
 
-import * as types from './types'
 import { Asset } from './components/asset'
 import { Checkbox } from './components/checkbox'
 import { PageIcon } from './components/page-icon'
@@ -17,33 +22,8 @@ import { Equation } from './components/equation'
 import { GracefulImage } from './components/graceful-image'
 import { LazyImage } from './components/lazy-image'
 import { useNotionContext } from './context'
-import {
-  cs,
-  getTextContent,
-  getListNumber,
-  getPageTableOfContents,
-  getBlockParentPage,
-  uuidToId,
-  isUrl
-} from './utils'
+import { cs, getListNumber, isUrl } from './utils'
 import { Text } from './components/text'
-
-// eagerly load heavier components synchronously
-// import Code from './components/code'
-// import Collection from './components/collection'
-// import CollectionRow from './components/collection-row'
-
-// load heavier components asynchronously
-const Code = dynamic(() => import('./components/code'))
-const Collection = dynamic(() => import('./components/collection'))
-// TODO: there seems to be a bug causing SSR to fail for pages with
-// CollectionRows. This manifests as corrupted DOM with weird rendering
-// artifacts when loaded directly from the server which doesn't repro when
-// loading the same page client-side. It seems to be related to our use of
-// next/dynamic and react hydration.
-const CollectionRow = dynamic(() => import('./components/collection-row'), {
-  ssr: false
-})
 
 interface BlockProps {
   block: types.Block
@@ -239,11 +219,11 @@ export const Block: React.FC<BlockProps> = (props) => {
 
                     {block.type === 'page' &&
                       block.parent_table === 'collection' && (
-                        <CollectionRow block={block} />
+                        <components.collectionRow block={block} />
                       )}
 
                     {block.type === 'collection_view_page' && (
-                      <Collection block={block} />
+                      <components.collection block={block} />
                     )}
 
                     <div
@@ -332,11 +312,11 @@ export const Block: React.FC<BlockProps> = (props) => {
               {pageHeader}
 
               {block.type === 'page' && block.parent_table === 'collection' && (
-                <CollectionRow block={block} />
+                <components.collectionRow block={block} />
               )}
 
               {block.type === 'collection_view_page' && (
-                <Collection block={block} />
+                <components.collection block={block} />
               )}
 
               {children}
@@ -506,7 +486,13 @@ export const Block: React.FC<BlockProps> = (props) => {
       if (block.properties.title) {
         const content = block.properties.title[0][0]
         const language = block.properties.language[0][0]
-        return <Code key={block.id} language={language || ''} code={content} />
+        return (
+          <components.code
+            key={block.id}
+            language={language || ''}
+            code={content}
+          />
+        )
       }
       break
     }
@@ -552,7 +538,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     }
 
     case 'collection_view':
-      return <Collection block={block} />
+      return <components.collection block={block} />
 
     case 'callout':
       return (

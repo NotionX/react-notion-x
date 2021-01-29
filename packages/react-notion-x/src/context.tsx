@@ -1,6 +1,7 @@
-import * as React from 'react'
+import React from 'react'
+import { ExtendedRecordMap } from 'notion-types'
+
 import {
-  ExtendedRecordMap,
   MapPageUrl,
   MapImageUrl,
   SearchNotion,
@@ -66,9 +67,27 @@ export const dummyLink = ({ href, rel, target, title, ...rest }) => (
   <span {...rest} />
 )
 
+const dummyComponent = (name: string) => () => {
+  console.warn(
+    `Error using empty component: ${name}\nYou should override this in NotionRenderer.components`
+  )
+
+  return null
+}
+
 const defaultComponents: NotionComponents = {
   link: DefaultLink,
-  pageLink: DefaultPageLink
+  pageLink: DefaultPageLink,
+
+  code: dummyComponent('code'),
+  equation: dummyComponent('equation'),
+
+  collection: dummyComponent('collection'),
+  collectionRow: dummyComponent('collectionRow'),
+
+  pdf: dummyComponent('pdf'),
+  tweet: dummyComponent('tweet'),
+  modal: dummyComponent('modal')
 }
 
 const defaultNotionContext: NotionContext = {
