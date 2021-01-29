@@ -1,12 +1,13 @@
 import * as React from 'react'
+import { ImageBlock } from 'notion-types'
 
-import * as types from '../types'
+import { CollectionCardProps } from '../types'
 import { Property } from './property'
 import { cs, getTextContent } from '../utils'
 import { useNotionContext, dummyLink, NotionContextProvider } from '../context'
 import { LazyImage } from './lazy-image'
 
-export const CollectionCard: React.FC<types.CollectionCardProps> = ({
+export const CollectionCard: React.FC<CollectionCardProps> = ({
   collection,
   block,
   cover,
@@ -33,8 +34,7 @@ export const CollectionCard: React.FC<types.CollectionCardProps> = ({
     })
 
     if (contentBlockId) {
-      const contentBlock = recordMap.block[contentBlockId]
-        ?.value as types.ImageBlock
+      const contentBlock = recordMap.block[contentBlockId]?.value as ImageBlock
 
       const source =
         contentBlock.properties?.source?.[0]?.[0] ??

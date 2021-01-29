@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import * as types from '../types'
+import { CollectionViewProps } from '../types'
 import { cs } from '../utils'
 import { Property } from './property'
 import { CollectionColumnTitle } from './collection-column-title'
 import { useNotionContext } from '../context'
 
-export const CollectionViewTable: React.FC<types.CollectionViewProps> = ({
+export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData,

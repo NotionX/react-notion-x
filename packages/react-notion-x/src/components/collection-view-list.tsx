@@ -1,10 +1,11 @@
 import * as React from 'react'
+import { PageBlock } from 'notion-types'
 
-import * as types from '../types'
+import { CollectionViewProps } from '../types'
 import { Property } from './property'
 import { useNotionContext } from '../context'
 
-export const CollectionViewList: React.FC<types.CollectionViewProps> = ({
+export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData
@@ -17,7 +18,7 @@ export const CollectionViewList: React.FC<types.CollectionViewProps> = ({
       <div className='notion-list-view'>
         <div className='notion-list-body'>
           {collectionData.blockIds.map((blockId) => {
-            const block = recordMap.block[blockId]?.value as types.PageBlock
+            const block = recordMap.block[blockId]?.value as PageBlock
 
             const titleSchema = collection.schema.title
             const titleData = block?.properties?.title

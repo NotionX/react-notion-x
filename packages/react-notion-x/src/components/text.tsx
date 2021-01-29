@@ -1,6 +1,6 @@
 import * as React from 'react'
+import { Block, Decoration } from 'notion-types'
 
-import { Block, Decoration } from '../types'
 import { useNotionContext } from '../context'
 import { formatDate, parsePageId } from '../utils'
 import { Equation } from './equation'

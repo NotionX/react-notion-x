@@ -1,7 +1,7 @@
 import * as React from 'react'
 import dynamic from 'next/dynamic'
 
-import { BaseContentBlock, Block } from '../types'
+import { BaseContentBlock, Block } from 'notion-types'
 import { getTextContent } from '../utils'
 import { useNotionContext } from '../context'
 

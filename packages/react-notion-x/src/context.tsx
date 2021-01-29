@@ -1,6 +1,7 @@
 import * as React from 'react'
+import { ExtendedRecordMap } from 'notion-types'
+
 import {
-  ExtendedRecordMap,
   MapPageUrl,
   MapImageUrl,
   SearchNotion,

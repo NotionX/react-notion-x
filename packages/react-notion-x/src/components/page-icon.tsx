@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { getBlockIcon, getBlockTitle } from 'notion-utils'
+import { Block, PageBlock, CalloutBlock } from 'notion-types'
 
-import { Block, PageBlock, CalloutBlock } from '../types'
 import { cs, isUrl } from '../utils'
 import { DefaultPageIcon } from '../icons/default-page-icon'
 import { useNotionContext } from '../context'

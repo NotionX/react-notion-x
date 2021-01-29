@@ -58,7 +58,7 @@ export function evalFormula(
       }
     }
 
-    case 'property':
+    case 'property': {
       const value = ctx.properties[formula.id]
       const text = getTextContent(value)
 
@@ -77,7 +77,7 @@ export function evalFormula(
             return !!text
           }
 
-        case 'date':
+        case 'date': {
           // console.log('date', text, value)
 
           const v = getDateValue(value)
@@ -90,14 +90,17 @@ export function evalFormula(
           } else {
             return new Date(text)
           }
+        }
 
         default:
           return text
       }
+    }
 
     case 'operator':
     // All operators are exposed as functions, so we handle them the same
 
+    // eslint-disable-next-line no-fallthrough
     case 'function':
       return evalFunctionFormula(formula, ctx)
 
@@ -133,6 +136,7 @@ function evalFunctionFormula(
       return !evalFormula(args[0], ctx)
 
     case 'equal':
+      // eslint-disable-next-line eqeqeq
       return evalFormula(args[0], ctx) == evalFormula(args[1], ctx)
 
     case 'if':
@@ -159,6 +163,7 @@ function evalFunctionFormula(
       return evalFormula(args[0], ctx) <= evalFormula(args[1], ctx)
 
     case 'unequal':
+      // eslint-disable-next-line eqeqeq
       return evalFormula(args[0], ctx) != evalFormula(args[1], ctx)
 
     // numeric
@@ -167,7 +172,7 @@ function evalFunctionFormula(
     case 'abs':
       return Math.abs(evalFormula(args[0], ctx) as number)
 
-    case 'add':
+    case 'add': {
       const v0 = evalFormula(args[0], ctx)
       const v1 = evalFormula(args[1], ctx)
 
@@ -179,6 +184,7 @@ function evalFunctionFormula(
         // TODO
         return v0
       }
+    }
 
     case 'cbrt':
       return Math.cbrt(evalFormula(args[0], ctx) as number)
@@ -207,12 +213,13 @@ function evalFunctionFormula(
     case 'log2':
       return Math.log2(evalFormula(args[0], ctx) as number)
 
-    case 'max':
+    case 'max': {
       const values = args.map((arg) => evalFormula(arg, ctx) as number)
       return values.reduce(
         (acc, value) => Math.max(acc, value),
         Number.NEGATIVE_INFINITY
       )
+    }
 
     case 'min': {
       const values = args.map((arg) => evalFormula(arg, ctx) as number)
@@ -308,11 +315,12 @@ function evalFunctionFormula(
     case 'length':
       return (evalFormula(args[0], ctx) as string).length
 
-    case 'replace':
+    case 'replace': {
       const value = evalFormula(args[0], ctx) as string
       const regex = evalFormula(args[1], ctx) as string
       const replacement = evalFormula(args[2], ctx) as string
       return value.replace(new RegExp(regex), replacement)
+    }
 
     case 'replaceAll': {
       const value = evalFormula(args[0], ctx) as string
@@ -359,11 +367,12 @@ function evalFunctionFormula(
       }) as any)[unit] as number
     }
 
-    case 'dateSubtract':
+    case 'dateSubtract': {
       const date = evalFormula(args[0], ctx) as Date
       const number = evalFormula(args[1], ctx) as number
       const unit = evalFormula(args[1], ctx) as string
       return sub(date, { [unit]: number })
+    }
 
     case 'day':
       return getDay(evalFormula(args[0], ctx) as Date)

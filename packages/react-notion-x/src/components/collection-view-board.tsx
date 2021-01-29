@@ -1,13 +1,14 @@
 import * as React from 'react'
+import { PageBlock } from 'notion-types'
 
-import * as types from '../types'
+import { CollectionViewProps } from '../types'
 import { cs } from '../utils'
 import { CollectionCard } from './collection-card'
 import { EmptyIcon } from '../icons/empty-icon'
 import { Property } from './property'
 import { useNotionContext } from '../context'
 
-export const CollectionViewBoard: React.FC<types.CollectionViewProps> = ({
+export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData,
@@ -81,8 +82,7 @@ export const CollectionViewBoard: React.FC<types.CollectionViewProps> = ({
             return (
               <div className='notion-board-group' key={index}>
                 {group.blockIds.map((blockId) => {
-                  const block = recordMap.block[blockId]
-                    ?.value as types.PageBlock
+                  const block = recordMap.block[blockId]?.value as PageBlock
                   if (!block) return null
 
                   return (
