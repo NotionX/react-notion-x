@@ -12,5 +12,9 @@ format?: {
             property: PropertyID;
             visible: boolean;
         }>;
+        property_visibility?: Array<{
+            property: PropertyID;
+            visibility: 'show' | 'hide';
+        }>;
     };
 ```

@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getBlockIcon(block: Block, recordMap: ExtendedRecordMap): string | null | undefined;
+export declare function getBlockIcon(block: Block, recordMap: ExtendedRecordMap): string;
 ```
 
 ## Parameters
@@ -19,5 +19,5 @@ export declare function getBlockIcon(block: Block, recordMap: ExtendedRecordMap)
 
 <b>Returns:</b>
 
-string \| null \| undefined
+string
 

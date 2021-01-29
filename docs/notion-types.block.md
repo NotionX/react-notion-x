@@ -9,5 +9,5 @@ The different block values a block can have.
 <b>Signature:</b>
 
 ```typescript
-export declare type Block = TextBlock | PageBlock | BulletedListBlock | NumberedListBlock | HeaderBlock | SubHeaderBlock | SubSubHeaderBlock | TodoBlock | TableOfContentsBlock | DividerBlock | ColumnListBlock | ColumnBlock | QuoteBlock | EquationBlock | CodeBlock | ImageBlock | VideoBlock | FigmaBlock | TweetBlock | PdfBlock | MapsBlock | AudioBlock | GoogleDriveBlock | FileBlock | EmbedBlock | CalloutBlock | BookmarkBlock | ToggleBlock | CollectionViewBlock | CollectionViewPageBlock;
+export declare type Block = TextBlock | PageBlock | BulletedListBlock | NumberedListBlock | HeaderBlock | SubHeaderBlock | SubSubHeaderBlock | TodoBlock | TableOfContentsBlock | DividerBlock | ColumnListBlock | ColumnBlock | QuoteBlock | EquationBlock | CodeBlock | ImageBlock | VideoBlock | FigmaBlock | TweetBlock | PdfBlock | MapsBlock | AudioBlock | GoogleDriveBlock | FileBlock | EmbedBlock | GistBlock | CalloutBlock | BookmarkBlock | ToggleBlock | CollectionViewBlock | CollectionViewPageBlock;
 ```

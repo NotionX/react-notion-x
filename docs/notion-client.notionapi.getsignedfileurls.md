@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-getSignedFileUrls(urls: types.SignedUrlRequest[]): Promise<types.SignedUrlResponse>;
+getSignedFileUrls(urls: types.SignedUrlRequest[], gotOptions?: OptionsOfJSONResponseBody): Promise<types.SignedUrlResponse>;
 ```
 
 ## Parameters
@@ -15,6 +15,7 @@ getSignedFileUrls(urls: types.SignedUrlRequest[]): Promise<types.SignedUrlRespon
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  urls | types.[SignedUrlRequest](./notion-client.signedurlrequest.md)<!-- -->\[\] |  |
+|  gotOptions | OptionsOfJSONResponseBody |  |
 
 <b>Returns:</b>
 

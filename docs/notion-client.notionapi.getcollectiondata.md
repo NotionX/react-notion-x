@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-getCollectionData(collectionId: string, collectionViewId: string, { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover }?: {
+getCollectionData(collectionId: string, collectionViewId: string, { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover, gotOptions }?: {
         type?: notion.CollectionViewType;
         query?: any;
         groups?: any;
@@ -16,6 +16,7 @@ getCollectionData(collectionId: string, collectionViewId: string, { type, query,
         userTimeZone?: string;
         userLocale?: string;
         loadContentCover?: boolean;
+        gotOptions?: OptionsOfJSONResponseBody;
     }): Promise<notion.CollectionInstance>;
 ```
 
@@ -25,7 +26,7 @@ getCollectionData(collectionId: string, collectionViewId: string, { type, query,
 |  --- | --- | --- |
 |  collectionId | string |  |
 |  collectionViewId | string |  |
-|  { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover } | { type?: notion.[CollectionViewType](./notion-types.collectionviewtype.md)<!-- -->; query?: any; groups?: any; limit?: number; searchQuery?: string; userTimeZone?: string; userLocale?: string; loadContentCover?: boolean; } |  |
+|  { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover, gotOptions } | { type?: notion.[CollectionViewType](./notion-types.collectionviewtype.md)<!-- -->; query?: any; groups?: any; limit?: number; searchQuery?: string; userTimeZone?: string; userLocale?: string; loadContentCover?: boolean; gotOptions?: OptionsOfJSONResponseBody; } |  |
 
 <b>Returns:</b>
 

@@ -8,11 +8,14 @@ Performs a traversal over a given Notion workspace starting from a seed page.
 
 Returns a map containing all of the pages that are reachable from the seed page in the space.
 
+If `rootSpaceId` is not defined, the space ID of the root page will be used to scope traversal.
+
 <b>Signature:</b>
 
 ```typescript
-export declare function getAllPagesInSpace(rootPageId: string, rootSpaceId: string, getPage: (pageId: string) => Promise<ExtendedRecordMap>, { concurrency }?: {
+export declare function getAllPagesInSpace(rootPageId: string, rootSpaceId: string | undefined, getPage: (pageId: string) => Promise<ExtendedRecordMap>, { concurrency, traverseCollections }?: {
     concurrency?: number;
+    traverseCollections?: boolean;
 }): Promise<PageMap>;
 ```
 
@@ -21,11 +24,11 @@ export declare function getAllPagesInSpace(rootPageId: string, rootSpaceId: stri
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  rootPageId | string | Page ID to start from. |
-|  rootSpaceId | string | Space ID to scope traversal. |
+|  rootSpaceId | string \| undefined | Space ID to scope traversal. |
 |  getPage | (pageId: string) =&gt; Promise&lt;[ExtendedRecordMap](./notion-types.extendedrecordmap.md)<!-- -->&gt; | Function used to fetch a single page. |
-|  { concurrency } | { concurrency?: number; } |  |
+|  { concurrency, traverseCollections } | { concurrency?: number; traverseCollections?: boolean; } |  |
 
 <b>Returns:</b>
 
-Promise&lt;[PageMap](./notion-utils.pagemap.md)<!-- -->&gt;
+Promise&lt;[PageMap](./notion-types.pagemap.md)<!-- -->&gt;
 

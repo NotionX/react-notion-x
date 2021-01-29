@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function getPageTitle(recordMap: ExtendedRecordMap): string | null;
+export declare function getPageTitle(recordMap: ExtendedRecordMap): string;
 ```
 
 ## Parameters
@@ -18,5 +18,5 @@ export declare function getPageTitle(recordMap: ExtendedRecordMap): string | nul
 
 <b>Returns:</b>
 
-string \| null
+string
 

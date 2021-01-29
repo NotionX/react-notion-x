@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-getBlocks(blockIds: string[]): Promise<notion.PageChunk>;
+getBlocks(blockIds: string[], gotOptions?: OptionsOfJSONResponseBody): Promise<notion.PageChunk>;
 ```
 
 ## Parameters
@@ -15,6 +15,7 @@ getBlocks(blockIds: string[]): Promise<notion.PageChunk>;
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  blockIds | string\[\] |  |
+|  gotOptions | OptionsOfJSONResponseBody |  |
 
 <b>Returns:</b>
 

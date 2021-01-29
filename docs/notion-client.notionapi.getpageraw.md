@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-getPageRaw(pageId: string): Promise<notion.PageChunk>;
+getPageRaw(pageId: string, gotOptions?: OptionsOfJSONResponseBody): Promise<notion.PageChunk>;
 ```
 
 ## Parameters
@@ -15,6 +15,7 @@ getPageRaw(pageId: string): Promise<notion.PageChunk>;
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  pageId | string |  |
+|  gotOptions | OptionsOfJSONResponseBody |  |
 
 <b>Returns:</b>
 

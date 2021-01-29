@@ -7,9 +7,10 @@
 <b>Signature:</b>
 
 ```typescript
-fetch<T>({ endpoint, body }: {
+fetch<T>({ endpoint, body, gotOptions }: {
         endpoint: string;
         body: object;
+        gotOptions?: OptionsOfJSONResponseBody;
     }): Promise<T>;
 ```
 
@@ -17,7 +18,7 @@ fetch<T>({ endpoint, body }: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { endpoint, body } | { endpoint: string; body: object; } |  |
+|  { endpoint, body, gotOptions } | { endpoint: string; body: object; gotOptions?: OptionsOfJSONResponseBody; } |  |
 
 <b>Returns:</b>
 

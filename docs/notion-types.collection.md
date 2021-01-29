@@ -16,7 +16,7 @@ export interface Collection
 |  --- | --- | --- |
 |  [alive](./notion-types.collection.alive.md) | boolean |  |
 |  [copied\_from](./notion-types.collection.copied_from.md) | string |  |
-|  [format](./notion-types.collection.format.md) | { collection\_page\_properties?: Array&lt;{ property: [PropertyID](./notion-types.propertyid.md)<!-- -->; visible: boolean; }&gt;; } |  |
+|  [format](./notion-types.collection.format.md) | { collection\_page\_properties?: Array&lt;{ property: [PropertyID](./notion-types.propertyid.md)<!-- -->; visible: boolean; }&gt;; property\_visibility?: Array&lt;{ property: [PropertyID](./notion-types.propertyid.md)<!-- -->; visibility: 'show' \| 'hide'; }&gt;; } |  |
 |  [icon](./notion-types.collection.icon.md) | string |  |
 |  [id](./notion-types.collection.id.md) | [ID](./notion-types.id.md) |  |
 |  [name](./notion-types.collection.name.md) | [Decoration](./notion-types.decoration.md)<!-- -->\[\] |  |

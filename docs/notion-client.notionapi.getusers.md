@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-getUsers(userIds: string[]): Promise<notion.RecordValues<notion.User>>;
+getUsers(userIds: string[], gotOptions?: OptionsOfJSONResponseBody): Promise<notion.RecordValues<notion.User>>;
 ```
 
 ## Parameters
@@ -15,6 +15,7 @@ getUsers(userIds: string[]): Promise<notion.RecordValues<notion.User>>;
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  userIds | string\[\] |  |
+|  gotOptions | OptionsOfJSONResponseBody |  |
 
 <b>Returns:</b>
 

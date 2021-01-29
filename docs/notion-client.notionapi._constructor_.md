@@ -9,11 +9,12 @@ Constructs a new instance of the `NotionAPI` class
 <b>Signature:</b>
 
 ```typescript
-constructor({ apiBaseUrl, authToken, userLocale, userTimeZone }?: {
+constructor({ apiBaseUrl, authToken, activeUser, userLocale, userTimeZone }?: {
         apiBaseUrl?: string;
         authToken?: string;
         userLocale?: string;
         userTimeZone?: string;
+        activeUser?: string;
     });
 ```
 
@@ -21,5 +22,5 @@ constructor({ apiBaseUrl, authToken, userLocale, userTimeZone }?: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { apiBaseUrl, authToken, userLocale, userTimeZone } | { apiBaseUrl?: string; authToken?: string; userLocale?: string; userTimeZone?: string; } |  |
+|  { apiBaseUrl, authToken, activeUser, userLocale, userTimeZone } | { apiBaseUrl?: string; authToken?: string; userLocale?: string; userTimeZone?: string; activeUser?: string; } |  |
 
