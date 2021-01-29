@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-search(params: notion.SearchParams): Promise<notion.SearchResults>;
+search(params: notion.SearchParams, gotOptions?: OptionsOfJSONResponseBody): Promise<notion.SearchResults>;
 ```
 
 ## Parameters
@@ -15,6 +15,7 @@ search(params: notion.SearchParams): Promise<notion.SearchResults>;
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  params | notion.[SearchParams](./notion-types.searchparams.md) |  |
+|  gotOptions | OptionsOfJSONResponseBody |  |
 
 <b>Returns:</b>
 

@@ -11,5 +11,5 @@ This is useful, for instance, for extracting a block's `title` without any rich 
 <b>Signature:</b>
 
 ```typescript
-getTextContent: (text?: types.Decoration[] | undefined) => string
+getTextContent: (text?: types.Decoration[]) => string
 ```

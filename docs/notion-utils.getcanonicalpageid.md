@@ -9,5 +9,7 @@ Gets the canonical, display-friendly version of a page's ID for use in URLs.
 <b>Signature:</b>
 
 ```typescript
-getCanonicalPageId: (pageId: string, recordMap: ExtendedRecordMap) => string | null
+getCanonicalPageId: (pageId: string, recordMap: ExtendedRecordMap, { uuid }?: {
+    uuid?: boolean;
+}) => string | null
 ```

@@ -9,5 +9,5 @@ Gets the IDs of all blocks contained on a page starting from a root block ID.
 <b>Signature:</b>
 
 ```typescript
-getPageContentBlockIds: (recordMap: types.ExtendedRecordMap, blockId?: string | undefined) => string[]
+getPageContentBlockIds: (recordMap: types.ExtendedRecordMap, blockId?: string) => string[]
 ```

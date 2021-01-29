@@ -16,18 +16,18 @@ export declare class NotionAPI
 
 |  Constructor | Modifiers | Description |
 |  --- | --- | --- |
-|  [(constructor)({ apiBaseUrl, authToken, userLocale, userTimeZone })](./notion-client.notionapi._constructor_.md) |  | Constructs a new instance of the <code>NotionAPI</code> class |
+|  [(constructor)({ apiBaseUrl, authToken, activeUser, userLocale, userTimeZone })](./notion-client.notionapi._constructor_.md) |  | Constructs a new instance of the <code>NotionAPI</code> class |
 
 ## Methods
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [fetch({ endpoint, body })](./notion-client.notionapi.fetch.md) |  |  |
-|  [getBlocks(blockIds)](./notion-client.notionapi.getblocks.md) |  |  |
-|  [getCollectionData(collectionId, collectionViewId, { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover })](./notion-client.notionapi.getcollectiondata.md) |  |  |
-|  [getPage(pageId, { concurrency, fetchCollections, signFileUrls })](./notion-client.notionapi.getpage.md) |  |  |
-|  [getPageRaw(pageId)](./notion-client.notionapi.getpageraw.md) |  |  |
-|  [getSignedFileUrls(urls)](./notion-client.notionapi.getsignedfileurls.md) |  |  |
-|  [getUsers(userIds)](./notion-client.notionapi.getusers.md) |  |  |
-|  [search(params)](./notion-client.notionapi.search.md) |  |  |
+|  [fetch({ endpoint, body, gotOptions })](./notion-client.notionapi.fetch.md) |  |  |
+|  [getBlocks(blockIds, gotOptions)](./notion-client.notionapi.getblocks.md) |  |  |
+|  [getCollectionData(collectionId, collectionViewId, { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover, gotOptions })](./notion-client.notionapi.getcollectiondata.md) |  |  |
+|  [getPage(pageId, { concurrency, fetchCollections, signFileUrls, gotOptions })](./notion-client.notionapi.getpage.md) |  |  |
+|  [getPageRaw(pageId, gotOptions)](./notion-client.notionapi.getpageraw.md) |  |  |
+|  [getSignedFileUrls(urls, gotOptions)](./notion-client.notionapi.getsignedfileurls.md) |  |  |
+|  [getUsers(userIds, gotOptions)](./notion-client.notionapi.getusers.md) |  |  |
+|  [search(params, gotOptions)](./notion-client.notionapi.search.md) |  |  |
 

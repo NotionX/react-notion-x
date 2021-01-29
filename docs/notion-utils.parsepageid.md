@@ -12,6 +12,6 @@ Defaults to returning a UUID (with dashes).
 
 ```typescript
 parsePageId: (id?: string | null, { uuid }?: {
-    uuid?: boolean | undefined;
-}) => string | null
+    uuid?: boolean;
+}) => string
 ```
