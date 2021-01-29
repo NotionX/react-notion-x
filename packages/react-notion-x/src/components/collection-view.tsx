@@ -1,12 +1,12 @@
-import * as React from 'react'
+import React from 'react'
 
-import * as types from '../types'
+import { CollectionViewProps } from '../types'
 import { CollectionViewTable } from './collection-view-table'
 import { CollectionViewGallery } from './collection-view-gallery'
 import { CollectionViewList } from './collection-view-list'
 import { CollectionViewBoard } from './collection-view-board'
 
-export const CollectionView: React.FC<types.CollectionViewProps> = (props) => {
+export const CollectionView: React.FC<CollectionViewProps> = (props) => {
   const { collectionView } = props
 
   switch (collectionView.type) {

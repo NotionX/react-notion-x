@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 import { FileIcon } from '../icons/file-icon'
 import { FileBlock } from 'notion-types'

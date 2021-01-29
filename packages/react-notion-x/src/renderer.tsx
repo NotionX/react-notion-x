@@ -1,7 +1,8 @@
 import React from 'react'
 import mediumZoom from 'medium-zoom'
+import { ExtendedRecordMap } from 'notion-types'
+
 import {
-  ExtendedRecordMap,
   MapPageUrl,
   MapImageUrl,
   SearchNotion,

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 export const FileIcon = (props) => {
   const { className, ...rest } = props

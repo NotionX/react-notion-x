@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
+import { GoogleDriveBlock } from 'notion-types'
 
 import { formatDistance } from 'date-fns'
-import { GoogleDriveBlock } from '../types'
 import { useNotionContext } from '../context'
 import { GracefulImage } from './graceful-image'
 

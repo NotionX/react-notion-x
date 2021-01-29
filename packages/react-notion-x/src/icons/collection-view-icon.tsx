@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import { CollectionViewType } from '../types'
+import React from 'react'
+import { CollectionViewType } from 'notion-types'
 
 import CollectionViewTableIcon from './collection-view-table'
 import CollectionViewBoardIcon from './collection-view-board'
