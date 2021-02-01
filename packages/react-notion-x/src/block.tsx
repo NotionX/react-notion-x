@@ -38,6 +38,10 @@ interface BlockProps {
   pageAside?: React.ReactNode
 }
 
+const tocIndentLevelCache: {
+  [blockId: string]: number
+} = {}
+
 export const Block: React.FC<BlockProps> = (props) => {
   const {
     components,
@@ -168,7 +172,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               className={cs(
                 'notion',
                 'notion-app',
-                darkMode && 'dark-mode',
+                darkMode ? 'dark-mode' : 'light-mode',
                 blockId,
                 className
               )}
@@ -302,7 +306,7 @@ export const Block: React.FC<BlockProps> = (props) => {
             <main
               className={cs(
                 'notion',
-                darkMode && 'dark-mode',
+                darkMode ? 'dark-mode' : 'light-mode',
                 'notion-page',
                 page_full_width && 'notion-full-width',
                 page_small_text && 'notion-small-text',
@@ -358,6 +362,28 @@ export const Block: React.FC<BlockProps> = (props) => {
       const title =
         getTextContent(block.properties.title) || `Notion Header ${id}`
 
+      // we use a cache here because constructing the ToC is non-trivial
+      let indentLevel = tocIndentLevelCache[block.id]
+      let indentLevelClass: string
+
+      if (indentLevel === undefined) {
+        const page = getBlockParentPage(block, recordMap)
+
+        if (page) {
+          const toc = getPageTableOfContents(page, recordMap)
+          const tocItem = toc.find((tocItem) => tocItem.id === block.id)
+
+          if (tocItem) {
+            indentLevel = tocItem.indentLevel
+            tocIndentLevelCache[block.id] = indentLevel
+          }
+        }
+      }
+
+      if (indentLevel !== undefined) {
+        indentLevelClass = `notion-h-indent-${indentLevel}`
+      }
+
       return (
         <h3
           className={cs(
@@ -365,6 +391,7 @@ export const Block: React.FC<BlockProps> = (props) => {
             block.type === 'sub_header' && 'notion-h notion-h2',
             block.type === 'sub_sub_header' && 'notion-h notion-h3',
             blockColor && `notion-${blockColor}`,
+            indentLevelClass,
             blockId
           )}
           data-id={id}
@@ -375,7 +402,9 @@ export const Block: React.FC<BlockProps> = (props) => {
             <LinkIcon />
           </a>
 
-          <Text value={block.properties.title} block={block} />
+          <span className='notion-h-title'>
+            <Text value={block.properties.title} block={block} />
+          </span>
         </h3>
       )
     }

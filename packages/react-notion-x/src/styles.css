@@ -399,10 +399,9 @@
   line-height: 1.2;
 }
 
-.notion-h1,
-.notion-h2,
-.notion-h3 {
+.notion-h {
   position: relative;
+  display: inline-block;
 
   font-weight: 600;
   line-height: 1.3;
@@ -410,7 +409,6 @@
   margin-bottom: 1px;
 
   max-width: 100%;
-  width: 100%;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -447,9 +445,7 @@
   margin-top: 1em;
 }
 
-.notion-h1:hover .notion-hash-link,
-.notion-h2:hover .notion-hash-link,
-.notion-h3:hover .notion-hash-link {
+.notion-h:hover .notion-hash-link {
   opacity: 1;
 }
 
