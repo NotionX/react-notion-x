@@ -114,7 +114,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
           const hasToc =
             showTableOfContents && toc.length >= minTableOfContentsItems
-          const hasAside = hasToc || pageAside
+          const hasAside = (hasToc || pageAside) && !page_full_width
 
           const [activeSection, setActiveSection] = React.useState(null)
 
