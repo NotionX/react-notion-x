@@ -1,7 +1,5 @@
-// import fetch from 'node-fetch'
 import got, { OptionsOfJSONResponseBody } from 'got'
 import pMap from 'p-map'
-// import pRetry from 'p-retry'
 
 import { parsePageId, getPageContentBlockIds, uuidToId } from 'notion-utils'
 import * as notion from 'notion-types'
@@ -238,15 +236,17 @@ export class NotionAPI {
       throw new Error(`invalid notion pageId "${pageId}"`)
     }
 
+    const body = {
+      pageId: parsedPageId,
+      limit: 999999,
+      cursor: { stack: [] },
+      chunkNumber: 0,
+      verticalColumns: false
+    }
+
     return this.fetch<notion.PageChunk>({
       endpoint: 'loadPageChunk',
-      body: {
-        pageId: parsedPageId,
-        limit: 999999,
-        cursor: { stack: [] },
-        chunkNumber: 0,
-        verticalColumns: false
-      },
+      body,
       gotOptions
     })
   }
@@ -333,15 +333,12 @@ export class NotionAPI {
     return this.fetch<notion.PageChunk>({
       endpoint: 'syncRecordValues',
       body: {
-        recordVersionMap: {
-          block: blockIds.reduce(
-            (acc, blockId) => ({
-              ...acc,
-              [blockId]: -1
-            }),
-            {}
-          )
-        }
+        requests: blockIds.map((blockId) => ({
+          // TODO: when to use table 'space' vs 'block'?
+          table: 'block',
+          id: blockId,
+          version: -1
+        }))
       },
       gotOptions
     })
@@ -393,13 +390,16 @@ export class NotionAPI {
   public async fetch<T>({
     endpoint,
     body,
-    gotOptions
+    gotOptions,
+    headers: clientHeaders
   }: {
     endpoint: string
     body: object
     gotOptions?: OptionsOfJSONResponseBody
+    headers?: any
   }): Promise<T> {
     const headers: any = {
+      ...clientHeaders,
       ...gotOptions?.headers,
       'Content-Type': 'application/json'
     }
@@ -426,6 +426,9 @@ export class NotionAPI {
     //   method: 'post',
     //   body: JSON.stringify(body),
     //   headers
-    // }).then((res) => res.json())
+    // }).then((res) => {
+    //   console.log(endpoint, res)
+    //   return res.json()
+    // })
   }
 }
