@@ -11,11 +11,16 @@ export function getPageProperty(
   block: Block,
   recordMap: ExtendedRecordMap
 ): string | null {
+  if (!block.properties) {
+    // TODO: check parent page?
+    return null
+  }
+
   const collection = recordMap.collection[block.parent_id]?.value
 
   if (collection) {
     const propertyId = Object.keys(collection.schema).find(
-      (key) => collection.schema[key].name === propertyName
+      (key) => collection.schema[key]?.name === propertyName
     )
 
     if (propertyId) {
