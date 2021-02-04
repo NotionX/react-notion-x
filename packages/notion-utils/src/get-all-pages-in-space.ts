@@ -43,6 +43,10 @@ export async function getAllPagesInSpace(
       queue.add(async () => {
         try {
           const page = await getPage(pageId)
+          if (!page) {
+            return
+          }
+
           const spaceId = page.block[pageId]?.value?.space_id
 
           if (!rootSpaceId) {
