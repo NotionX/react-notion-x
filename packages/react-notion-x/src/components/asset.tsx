@@ -128,47 +128,62 @@ export const Asset: React.FC<{
     block.type === 'gist' ||
     block.type === 'maps'
   ) {
-    let src = block.format?.display_source ?? source
+    const signedUrl = recordMap.signed_urls[block.id]
 
-    if (src) {
-      if (block.type === 'gist' && !src.endsWith('.pibb')) {
-        src = `${src}.pibb`
-      }
+    if (block.type === 'video' && signedUrl) {
+      content = (
+        <video
+          playsInline
+          controls
+          preload='metadata'
+          style={assetStyle}
+          src={signedUrl}
+          title={block.type}
+        />
+      )
+    } else {
+      let src = block.format?.display_source ?? source
 
-      if (block.type === 'gist') {
-        assetStyle.width = '100%'
-        style.paddingBottom = '50%'
+      if (src) {
+        if (block.type === 'gist' && !src.endsWith('.pibb')) {
+          src = `${src}.pibb`
+        }
 
-        // TODO: GitHub gists do not resize their height properly
-        content = (
-          <iframe
-            style={assetStyle}
-            className='notion-asset-object-fit'
-            src={src}
-            title='GitHub Gist'
-            frameBorder='0'
-            // TODO: is this sandbox necessary?
-            // sandbox='allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin'
-            // this is important for perf but react's TS definitions don't seem to like it
-            loading='lazy'
-            scrolling='auto'
-          />
-        )
-      } else {
-        content = (
-          <iframe
-            className='notion-asset-object-fit'
-            style={assetStyle}
-            src={src}
-            title={`iframe ${block.type}`}
-            frameBorder='0'
-            // TODO: is this sandbox necessary?
-            // sandbox='allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin'
-            allowFullScreen
-            // this is important for perf but react's TS definitions don't seem to like it
-            loading='lazy'
-          />
-        )
+        if (block.type === 'gist') {
+          assetStyle.width = '100%'
+          style.paddingBottom = '50%'
+
+          // TODO: GitHub gists do not resize their height properly
+          content = (
+            <iframe
+              style={assetStyle}
+              className='notion-asset-object-fit'
+              src={src}
+              title='GitHub Gist'
+              frameBorder='0'
+              // TODO: is this sandbox necessary?
+              // sandbox='allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin'
+              // this is important for perf but react's TS definitions don't seem to like it
+              loading='lazy'
+              scrolling='auto'
+            />
+          )
+        } else {
+          content = (
+            <iframe
+              className='notion-asset-object-fit'
+              style={assetStyle}
+              src={src}
+              title={`iframe ${block.type}`}
+              frameBorder='0'
+              // TODO: is this sandbox necessary?
+              // sandbox='allow-scripts allow-popups allow-top-navigation-by-user-activation allow-forms allow-same-origin'
+              allowFullScreen
+              // this is important for perf but react's TS definitions don't seem to like it
+              loading='lazy'
+            />
+          )
+        }
       }
     }
   } else if (block.type === 'image') {
