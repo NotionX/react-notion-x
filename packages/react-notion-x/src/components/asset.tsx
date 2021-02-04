@@ -130,7 +130,12 @@ export const Asset: React.FC<{
   ) {
     const signedUrl = recordMap.signed_urls[block.id]
 
-    if (block.type === 'video' && signedUrl) {
+    if (
+      block.type === 'video' &&
+      signedUrl &&
+      signedUrl.indexOf('youtube') < 0 &&
+      signedUrl.indexOf('vimeo') < 0
+    ) {
       content = (
         <video
           playsInline

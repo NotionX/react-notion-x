@@ -188,8 +188,13 @@ export class NotionAPI {
             block.type === 'file')
         ) {
           const source = block.properties?.source?.[0]?.[0]
+          // console.log(block, source)
 
           if (source) {
+            if (source.indexOf('youtube') >= 0 || source.indexOf('vimeo')) {
+              return []
+            }
+
             return {
               permissionRecord: {
                 table: 'block',
