@@ -45,7 +45,7 @@ export const getPageContentBlockIds = (
         const p = properties[key]
         p.map((d: any) => {
           const value = d?.[0]?.[1]?.[0]
-          if (value?.[0] === 'p') {
+          if (value?.[0] === 'p' && value[1]) {
             contentBlockIds.add(value[1])
           }
         })
@@ -53,7 +53,7 @@ export const getPageContentBlockIds = (
         // [["‣", [["p", "841918aa-f2a3-4d4c-b5ad-64b0f57c47b8"]]]]
         const value = p?.[0]?.[1]?.[0]
 
-        if (value?.[0] === 'p') {
+        if (value?.[0] === 'p' && value[1]) {
           contentBlockIds.add(value[1])
         }
       }
