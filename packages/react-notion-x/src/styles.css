@@ -464,6 +464,7 @@
   width: 100%;
   height: 30vh;
   min-height: 30vh;
+  max-height: 30vh;
   padding: 0;
 }
 
