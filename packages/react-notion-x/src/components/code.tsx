@@ -1,5 +1,6 @@
 import React from 'react'
 import { highlight, languages } from 'prismjs'
+
 import 'prismjs/components/prism-jsx'
 
 export const Code: React.FC<{ code: string; language: string }> = ({

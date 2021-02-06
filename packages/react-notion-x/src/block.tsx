@@ -36,6 +36,7 @@ interface BlockProps {
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
   pageAside?: React.ReactNode
+  pageCover?: React.ReactNode
 }
 
 const tocIndentLevelCache: {
@@ -66,7 +67,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     footer,
     pageHeader,
     pageFooter,
-    pageAside
+    pageAside,
+    pageCover
   } = props
 
   if (!block) {
@@ -167,6 +169,8 @@ export const Block: React.FC<BlockProps> = (props) => {
             }, [])
           }
 
+          const hasPageCover = pageCover || page_cover
+
           return (
             <div
               className={cs(
@@ -183,7 +187,9 @@ export const Block: React.FC<BlockProps> = (props) => {
                 <PageHeader />
 
                 <div className='notion-page-scroller'>
-                  {page_cover && (
+                  {hasPageCover && pageCover ? (
+                    pageCover
+                  ) : (
                     <LazyImage
                       src={mapImageUrl(page_cover, block)}
                       alt={getTextContent(properties?.title)}
@@ -197,7 +203,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                   <main
                     className={cs(
                       'notion-page',
-                      page_cover
+                      hasPageCover
                         ? 'notion-page-has-cover'
                         : 'notion-page-no-cover',
                       page_icon
