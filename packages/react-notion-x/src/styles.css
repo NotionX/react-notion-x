@@ -60,6 +60,7 @@
   --notion-item-gray: rgba(155, 154, 151, 0.4);
 
   --notion-max-width: 720px;
+  --notion-header-height: 45px;
 }
 
 .dark-mode {
@@ -262,7 +263,7 @@
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
-  min-height: calc(100vh - 45px);
+  min-height: calc(100vh - var(--notion-header-height));
 }
 
 .notion-red,
@@ -1459,7 +1460,7 @@ svg.notion-page-icon {
 }
 
 .notion-board-header-placeholder {
-  height: 45px;
+  height: var(--notion-header-height);
 }
 
 .notion-board-th {
@@ -2066,8 +2067,8 @@ svg.notion-page-icon {
   width: 100%;
   max-width: 100vw;
   overflow: hidden;
-  height: 45px;
-  min-height: 45px;
+  height: var(--notion-header-height);
+  min-height: var(--notion-header-height);
 
   background: var(--bg-color);
 }
