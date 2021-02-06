@@ -39,6 +39,7 @@ export interface NotionRendererProps {
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
   pageAside?: React.ReactNode
+  pageCover?: React.ReactNode
 
   blockId?: string
 }
