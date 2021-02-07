@@ -187,18 +187,20 @@ export const Block: React.FC<BlockProps> = (props) => {
                 <PageHeader />
 
                 <div className='notion-page-scroller'>
-                  {hasPageCover && pageCover ? (
-                    pageCover
-                  ) : (
-                    <LazyImage
-                      src={mapImageUrl(page_cover, block)}
-                      alt={getTextContent(properties?.title)}
-                      className='notion-page-cover'
-                      style={{
-                        objectPosition: `center ${coverPosition}%`
-                      }}
-                    />
-                  )}
+                  {hasPageCover ? (
+                    pageCover ? (
+                      pageCover
+                    ) : (
+                      <LazyImage
+                        src={mapImageUrl(page_cover, block)}
+                        alt={getTextContent(properties?.title)}
+                        className='notion-page-cover'
+                        style={{
+                          objectPosition: `center ${coverPosition}%`
+                        }}
+                      />
+                    )
+                  ) : null}
 
                   <main
                     className={cs(

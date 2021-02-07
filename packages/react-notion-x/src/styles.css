@@ -495,6 +495,10 @@
   padding-top: 0;
 }
 
+.notion-page-no-cover.notion-page-has-image-icon {
+  padding-top: 148px;
+}
+
 .notion-page-has-cover.notion-page-no-icon {
   padding-top: 48px;
 }
