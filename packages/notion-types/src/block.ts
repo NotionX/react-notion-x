@@ -23,6 +23,7 @@ export type BlockType =
   | 'gist'
   | 'video'
   | 'figma'
+  | 'typeform'
   | 'tweet'
   | 'maps'
   | 'pdf'
@@ -55,6 +56,7 @@ export type Block =
   | ImageBlock
   | VideoBlock
   | FigmaBlock
+  | TypeformBlock
   | TweetBlock
   | PdfBlock
   | MapsBlock
@@ -256,6 +258,10 @@ export interface VideoBlock extends BaseContentBlock {
 
 export interface FigmaBlock extends BaseContentBlock {
   type: 'figma'
+}
+
+export interface TypeformBlock extends BaseContentBlock {
+  type: 'typeform'
 }
 
 export interface TweetBlock extends BaseContentBlock {

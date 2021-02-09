@@ -12,6 +12,7 @@ const types = [
   'image',
   'embed',
   'figma',
+  'typeform',
   'maps',
   'tweet',
   'pdf',
@@ -125,6 +126,7 @@ export const Asset: React.FC<{
     block.type === 'embed' ||
     block.type === 'video' ||
     block.type === 'figma' ||
+    block.type === 'typeform' ||
     block.type === 'gist' ||
     block.type === 'maps'
   ) {
