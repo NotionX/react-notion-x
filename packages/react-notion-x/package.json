@@ -34,7 +34,6 @@
     "react-lazy-images": "^1.1.0",
     "react-modal": "^3.11.2",
     "react-pdf": "^4.2.0",
-    "react-tweet-embed": "^1.2.2",
     "react-use": "^15.3.3"
   },
   "devDependencies": {
