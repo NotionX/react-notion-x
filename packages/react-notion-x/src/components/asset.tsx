@@ -38,7 +38,7 @@ export const Asset: React.FC<{
   }
 
   const assetStyle: React.CSSProperties = {}
-  // console.log('asset', block)
+  console.log('asset', block)
 
   if (block.format) {
     const {
@@ -68,6 +68,7 @@ export const Asset: React.FC<{
         } else {
           // TODO: this is just a guess
           style.paddingBottom = '75%'
+          style.minHeight = 100
         }
       }
     } else {
@@ -75,7 +76,10 @@ export const Asset: React.FC<{
         style.width = block_width
       }
 
-      if (!block_preserve_scale) {
+      if (block_preserve_scale) {
+        style.paddingBottom = '50%'
+        style.minHeight = 100
+      } else {
         if (block_height) {
           style.height = block_height
         }
