@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example",
-  "version": "4.2.19",
+  "version": "4.2.20",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "next": "^10.0.5",
-    "notion-client": "^4.2.18",
-    "notion-utils": "^4.2.18",
+    "notion-client": "^4.2.20",
+    "notion-utils": "^4.2.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-notion-x": "^4.2.19"
+    "react-notion-x": "^4.2.20"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.5.3",
