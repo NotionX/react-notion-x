@@ -685,7 +685,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               <div className='notion-bookmark-image'>
                 <GracefulImage
                   src={block.format?.bookmark_cover}
-                  alt={getTextContent(block.properties.title)}
+                  alt={getTextContent(block.properties?.title)}
                   loading='lazy'
                 />
               </div>
@@ -698,7 +698,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       return (
         <details className={cs('notion-toggle', blockId)}>
           <summary>
-            <Text value={block.properties.title} block={block} />
+            <Text value={block.properties?.title} block={block} />
           </summary>
 
           <div>{children}</div>
