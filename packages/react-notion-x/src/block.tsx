@@ -421,7 +421,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       return <hr className={cs('notion-hr', blockId)} />
 
     case 'text':
-      if (!block.properties) {
+      if (!block.properties && !block.content?.length) {
         return <div className={cs('notion-blank', blockId)}>&nbsp;</div>
       }
 
@@ -435,7 +435,9 @@ export const Block: React.FC<BlockProps> = (props) => {
             blockId
           )}
         >
-          <Text value={block.properties.title} block={block} />
+          {block.properties?.title && (
+            <Text value={block.properties.title} block={block} />
+          )}
 
           {children && <div className='notion-text-children'>{children}</div>}
         </div>

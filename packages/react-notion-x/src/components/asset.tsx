@@ -38,7 +38,7 @@ export const Asset: React.FC<{
   }
 
   const assetStyle: React.CSSProperties = {}
-  console.log('asset', block)
+  // console.log('asset', block)
 
   if (block.format) {
     const {
