@@ -82,6 +82,7 @@ export type ColorFormat = ['h', Color]
 export type UserFormat = ['u', string]
 export type PageFormat = ['p', string]
 export type InlineEquationFormat = ['e', string]
+export type DiscussionFormat = ['m', string]
 export type ExternalLinkFormat = ['‣', [string, string]]
 export type DateFormat = ['d', FormattedDate]
 
@@ -105,6 +106,7 @@ export type SubDecoration =
   | InlineEquationFormat
   | PageFormat
   | ExternalLinkFormat
+  | DiscussionFormat
 
 export type BaseDecoration = [string]
 export type AdditionalDecoration = [string, SubDecoration[]]

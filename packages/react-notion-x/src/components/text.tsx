@@ -134,6 +134,10 @@ export const Text: React.FC<{
             case 'e':
               return <Equation math={decorator[1]} />
 
+            case 'm':
+              // comment / discussion
+              return null
+
             case 'a': {
               const v = decorator[1]
               const pathname = v.substr(1)
