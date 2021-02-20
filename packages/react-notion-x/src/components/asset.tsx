@@ -76,7 +76,7 @@ export const Asset: React.FC<{
         style.width = block_width
       }
 
-      if (block_preserve_scale) {
+      if (block_preserve_scale && block.type !== 'image') {
         style.paddingBottom = '50%'
         style.minHeight = 100
       } else {
