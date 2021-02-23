@@ -10,9 +10,9 @@
 
 ## Advice
 
-If you just want to publish a website using Notion, we highly recommend using [Super.so](https://s.super.so/x), which is a hosted solution that takes care of all the details for you.
+If you just want to publish a website using Notion, we highly recommend using [Super.so](https://s.super.so/x) — a hosted solution that takes care of all the details for you.
 
-If you want want more control over your website via React, we recommend using this amazing [Next.js template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which uses `react-notion-x` under the hood.
+If you want want more control over your website via React, we recommend using this amazing [Next.js template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which is free and uses `react-notion-x` under the hood.
 
 And if you want even more control, then you're in the right place! 👇👇
 
