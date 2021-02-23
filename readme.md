@@ -188,7 +188,7 @@ Support my OSS work by <a href="https://twitter.com/transitive_bs">following me 
 
 ## Sponsor
 
-[Super](https://s.super.so/x) has been kind enough to sponsor this project! If you're looking for a hosted solution that takes a very similar approach to `react-notion-x` but handles all of the details for you, then definitely check out [Super](https://s.super.so/x).
+[Super.so](https://s.super.so/x) has been kind enough to sponsor this project! If you're looking for a hosted solution that takes a very similar approach to `react-notion-x` but handles all of the details for you, then definitely check them out.
 
 <p align="center">
   <a href="https://s.super.so/x" title="Super.so">
