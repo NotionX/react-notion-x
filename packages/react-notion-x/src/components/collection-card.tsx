@@ -82,7 +82,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
     const schema = collection.schema[property]
     const data = block.properties?.[property]
 
-    if (schema) {
+    if (schema && data) {
       if (schema.type === 'file') {
         const files = data
           .filter((v) => v.length === 2)
