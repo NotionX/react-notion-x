@@ -151,6 +151,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
                 collection.schema[p.property]
             )
             .map((p) => {
+              if (!block.properties) return null
               const schema = collection.schema[p.property]
               const data = block.properties[p.property]
 
