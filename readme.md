@@ -182,6 +182,16 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 
 MIT © [Travis Fischer](https://transitivebullsh.it)
 
+This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.
+
 Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
 
-This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.
+## Sponsor
+
+[Super.so](https://s.super.so/x) has been kind enough to sponsor this project! If you're looking for a hosted solution that takes a very similar approach to `react-notion-x` but handles all the details for you, then definitely check out [Super](https://s.super.so/x).
+
+<p align="center">
+  <a href="https://s.super.so/x" title="Super.so">
+    <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/super-so-banner.png">
+  </a>
+</p>
