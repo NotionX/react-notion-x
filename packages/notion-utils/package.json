@@ -1,6 +1,6 @@
 {
   "name": "notion-utils",
-  "version": "4.2.20",
+  "version": "4.3.0",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
@@ -16,7 +16,7 @@
     "test": "ava -v 'build/cjs/**/*.test.js'"
   },
   "dependencies": {
-    "notion-types": "^4.2.20",
+    "notion-types": "^4.3.0",
     "p-queue": "^6.6.1"
   },
   "devDependencies": {
