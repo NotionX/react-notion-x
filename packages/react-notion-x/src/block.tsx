@@ -574,7 +574,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       const width = `calc((100% - (${
         columns - 1
-      } * ${spacerWidth}px)) * ${ratio})`
+      } * ${spacerWidth})) * ${ratio})`
       const style = { width }
 
       return (
