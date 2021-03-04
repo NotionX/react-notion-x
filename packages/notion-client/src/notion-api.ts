@@ -247,7 +247,7 @@ export class NotionAPI {
 
     const body = {
       pageId: parsedPageId,
-      limit: 999999,
+      limit: 100,
       cursor: { stack: [] },
       chunkNumber: 0,
       verticalColumns: false
