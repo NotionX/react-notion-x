@@ -85,7 +85,7 @@ export const Property: React.FC<{
           const values = (data[0][0] || '').split(',')
 
           content = values.map((value, index) => {
-            const option = schema.options.find(
+            const option = schema.options?.find(
               (option) => value === option.value
             )
             const color = option?.color
