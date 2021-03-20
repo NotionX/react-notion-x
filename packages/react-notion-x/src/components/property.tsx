@@ -24,7 +24,7 @@ export const Property: React.FC<{
   collection?: types.Collection
   inline?: boolean
 }> = ({ schema, data, block, collection, inline = false }) => {
-  const { components, mapImageUrl } = useNotionContext()
+  const { components, mapImageUrl, mapPageUrl } = useNotionContext()
 
   if (schema) {
     let content = null
@@ -73,7 +73,14 @@ export const Property: React.FC<{
 
         case 'title':
           if (block) {
-            content = <PageTitle block={block} />
+            content = (
+              <components.pageLink
+                className={cs('notion-page-link')}
+                href={mapPageUrl(block.id)}
+              >
+                <PageTitle block={block} />
+              </components.pageLink>
+            )
           } else {
             content = <Text value={data} block={block} />
           }
