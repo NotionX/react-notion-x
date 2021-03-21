@@ -93,6 +93,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
       previewImages={previewImages}
       showCollectionViewDropdown={showCollectionViewDropdown}
       showTableOfContents={showTableOfContents}
+      minTableOfContentsItems={minTableOfContentsItems}
       defaultPageIcon={defaultPageIcon}
       defaultPageCover={defaultPageCover}
       defaultPageCoverPosition={defaultPageCoverPosition}
