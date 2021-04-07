@@ -24,10 +24,12 @@ export async function getAllPagesInSpace(
   getPage: (pageId: string) => Promise<ExtendedRecordMap>,
   {
     concurrency = 4,
-    traverseCollections = true
+    traverseCollections = true,
+    targetPageId = null
   }: {
     concurrency?: number
     traverseCollections?: boolean
+    targetPageId?: string
   } = {}
 ): Promise<PageMap> {
   const pages: PageMap = {}
@@ -35,6 +37,10 @@ export async function getAllPagesInSpace(
   const queue = new PQueue({ concurrency })
 
   async function processPage(pageId: string) {
+    if (targetPageId && pendingPageIds.has(targetPageId)) {
+      return
+    }
+
     pageId = parsePageId(pageId) as string
 
     if (pageId && !pages[pageId] && !pendingPageIds.has(pageId)) {
@@ -42,6 +48,14 @@ export async function getAllPagesInSpace(
 
       queue.add(async () => {
         try {
+          if (
+            targetPageId &&
+            pendingPageIds.has(targetPageId) &&
+            pageId !== targetPageId
+          ) {
+            return
+          }
+
           const page = await getPage(pageId)
           if (!page) {
             return
