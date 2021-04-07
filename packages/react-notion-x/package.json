@@ -8,11 +8,14 @@
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
   "typings": "build/esm/index.d.ts",
+  "type": "module",
   "sideEffects": false,
-  "type": "commonjs",
   "exports": {
-    "import": "./build/esm/index.js",
-    "default": "./build/cjs/index.js"
+    "./src/styles.css": "./src/styles.css",
+    ".": {
+      "import": "./build/esm/index.js",
+      "default": "./build/cjs/index.js"
+    }
   },
   "engines": {
     "node": ">=12"
