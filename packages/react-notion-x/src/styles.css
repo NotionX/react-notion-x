@@ -630,6 +630,15 @@
   background: var(--bg-color-0);
 }
 
+.notion-collection-card .notion-page-link {
+  height: unset;
+  margin: 0;
+  transition: unset;
+}
+.notion-collection-card .notion-page-link {
+  background: unset;
+}
+
 .notion-page-icon {
   font-family: 'Apple Color Emoji', 'Segoe UI Emoji', NotoColorEmoji,
     'Noto Color Emoji', 'Segoe UI Symbol', 'Android Emoji', EmojiSymbols;
