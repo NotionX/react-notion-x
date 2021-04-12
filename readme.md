@@ -177,6 +177,7 @@ Another major factor for perf comes from images hosted by Notion. They're genera
   - One of the main use cases for `react-notion` is server-side rendering via Next.js, in which case the CF worker is unnecessary.
   - => Use [notion-client](./packages/notion-client) instead.
 - [notion-api-agent](https://github.com/dragonman225/notionapi-agent) - Alternative Notion API client.
+- [notion-py](https://github.com/jamalex/notion-py) - Excellent Python wrapper around the Notion API.
 
 ## License
 
