@@ -102,7 +102,12 @@ export async function getAllPagesInSpace(
 
           pages[pageId] = page
         } catch (err) {
-          console.warn('page load error', { pageId, spaceId: rootSpaceId }, err)
+          console.warn(
+            'page load error',
+            { pageId, spaceId: rootSpaceId },
+            err.statusCode,
+            err.message
+          )
           pages[pageId] = null
         }
 
