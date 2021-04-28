@@ -98,6 +98,7 @@ export const LazyImage: React.FC<{
         src={src}
         ref={attachZoomRef}
         loading='lazy'
+        alt={alt}
         decoding='async'
         {...rest}
       />
