@@ -24,7 +24,7 @@ export const Text: React.FC<{
   inline?: boolean // TODO: currently unused
 }> = ({ value, block, linkProps, linkProtocol }) => {
   const { components, recordMap, mapPageUrl, mapImageUrl } = useNotionContext()
-
+  
   return (
     <React.Fragment>
       {value?.map(([text, decorations], index) => {
@@ -92,12 +92,12 @@ export const Text: React.FC<{
 
                 default: {
                   const linkedBlock = recordMap.block[id]?.value
-
+                  
                   if (!linkedBlock) {
                     console.log('"‣" missing block', linkType, id)
                     return null
                   }
-
+                  
                   return (
                     <components.pageLink
                       className='notion-link'
@@ -136,7 +136,7 @@ export const Text: React.FC<{
 
             case 'm':
               // comment / discussion
-              return null
+              return element  //still need to return the base element
 
             case 'a': {
               const v = decorator[1]
