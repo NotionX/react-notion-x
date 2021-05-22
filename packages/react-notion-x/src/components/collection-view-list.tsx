@@ -11,7 +11,7 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collectionData
 }) => {
   const { components, recordMap, mapPageUrl } = useNotionContext()
-  console.log('list', { collection, collectionView, collectionData })
+  // console.log('list', { collection, collectionView, collectionData })
 
   return (
     <div className='notion-list-collection'>

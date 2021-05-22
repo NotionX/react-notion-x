@@ -18,7 +18,7 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
     gallery_cover_aspect = 'cover'
   } = collectionView.format || {}
 
-  console.log('gallery', { collection, collectionView, collectionData })
+  // console.log('gallery', { collection, collectionView, collectionData })
 
   return (
     <div className='notion-gallery'>
