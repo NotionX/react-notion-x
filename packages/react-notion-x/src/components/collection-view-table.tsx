@@ -14,7 +14,7 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   width
 }) => {
   const { recordMap } = useNotionContext()
-  console.log('table', { collection, collectionView, collectionData })
+  // console.log('table', { collection, collectionView, collectionData })
 
   let properties = []
 
