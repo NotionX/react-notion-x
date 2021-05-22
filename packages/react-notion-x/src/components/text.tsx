@@ -136,7 +136,7 @@ export const Text: React.FC<{
 
             case 'm':
               // comment / discussion
-              return element  //still need to return the base element
+              return element //still need to return the base element
 
             case 'a': {
               const v = decorator[1]
