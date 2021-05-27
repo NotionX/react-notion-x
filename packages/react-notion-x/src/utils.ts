@@ -24,8 +24,10 @@ const groupBlockContent = (blockMap: BlockMap): string[][] => {
           lastType = blockType
           output[index] = []
         }
-
-        output[index].push(blockId)
+        
+        if (index > -1) {
+          output[index].push(blockId)
+        }
       })
     }
 
