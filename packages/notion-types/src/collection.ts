@@ -46,7 +46,7 @@ export interface Collection {
     }>
     property_visibility?: Array<{
       property: PropertyID
-      visibility: 'show' | 'hide'
+      visibility: 'show' | 'hide' | 'hide_if_empty'
     }>
   }
 }
