@@ -87,7 +87,7 @@ If you're interested in a more robust service built around `react-notion-x` that
 | [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | [docs](./docs/notion-types.md)    | Universal     | Core Notion TypeScript types.                  |
 | [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | [docs](./docs/notion-utils.md)    | Universal     | Useful utilities for working with Notion data. |
 
-\* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js and Deno.
+\* Notion's API should not be called from client-side browsers due to CORS restrictions. If you want to call api from client-side, you can self host api server like [react-notion-x-worker](https://github.com/kohheepeace/react-notion-x-worker). `notion-client` is compatible with Node.js and Deno.
 
 ## Supported Blocks
 
