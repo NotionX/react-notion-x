@@ -550,14 +550,22 @@ export const Block: React.FC<BlockProps> = (props) => {
         const language = block.properties.language
           ? block.properties.language[0][0]
           : ''
+        const caption = block.properties.caption
 
         // TODO: add className
         return (
-          <components.code
-            key={block.id}
-            language={language || ''}
-            code={content}
-          />
+          <>
+            <components.code
+              key={block.id}
+              language={language || ''}
+              code={content}
+            />
+            {caption && (
+              <figcaption className='notion-asset-caption'>
+                <Text value={caption} block={block} />
+              </figcaption>
+            )}
+          </>
         )
       }
       break
