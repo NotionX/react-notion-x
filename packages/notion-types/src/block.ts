@@ -316,7 +316,8 @@ export interface CodeBlock extends BaseBlock {
   type: 'code'
   properties: {
     title: Decoration[]
-    language: Decoration[]
+    language: Decoration[],
+    caption: Decoration[]
   }
 }
 
