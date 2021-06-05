@@ -77,6 +77,12 @@ export const PageHeader: React.FC<{}> = () => {
     event.stopPropagation()
   })
 
+  useHotkeys('cmd+k', (event) => {
+    onOpenSearch()
+    event.preventDefault()
+    event.stopPropagation()
+  })
+
   return (
     <header className='notion-header'>
       {isSearchOpen && hasSearch && (
