@@ -42,6 +42,7 @@ export interface NotionRendererProps {
   pageCover?: React.ReactNode
 
   blockId?: string
+  hideBlockId?: boolean
 }
 
 interface NotionBlockRendererProps {
@@ -50,6 +51,7 @@ interface NotionBlockRendererProps {
   footer?: React.ReactNode
 
   blockId?: string
+  hideBlockId?: boolean
   level?: number
   zoom?: any
 }
