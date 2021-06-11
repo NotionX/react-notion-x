@@ -37,6 +37,8 @@ interface BlockProps {
   pageFooter?: React.ReactNode
   pageAside?: React.ReactNode
   pageCover?: React.ReactNode
+
+  hideBlockId?: boolean
 }
 
 const tocIndentLevelCache: {
@@ -68,7 +70,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     pageHeader,
     pageFooter,
     pageAside,
-    pageCover
+    pageCover,
+    hideBlockId
   } = props
 
   if (!block) {
@@ -81,7 +84,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     ;(block as any).type = 'collection_view_page'
   }
 
-  const blockId = `notion-block-${uuidToId(block.id)}`
+  const blockId = hideBlockId? 'notion-block' : `notion-block-${block.id}`
 
   switch (block.type) {
     case 'collection_view_page':
