@@ -112,3 +112,5 @@ export const formatDate = (input: string) => {
   const month = date.getMonth()
   return `${months[month]} ${date.getDate()}, ${date.getFullYear()}`
 }
+
+export const isBrowser = typeof window !== 'undefined';
