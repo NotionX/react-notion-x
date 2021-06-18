@@ -10,7 +10,7 @@ export const SyncPointerBlock: React.FC<{
   block: BlockType
   level: number
 }> = (props) => {
-  let { block, level } = props
+  const { block, level } = props
 
   if (!block) {
     if (process.env.NODE_ENV !== 'production') {
@@ -20,10 +20,9 @@ export const SyncPointerBlock: React.FC<{
   }
   const syncPointerBlock = block as SyncPointerBlockType
   const referencePointerId =
-    syncPointerBlock?.format?.transclusion_reference_pointer.id
-  if (referencePointerId == null) return
+    syncPointerBlock?.format?.transclusion_reference_pointer?.id
 
-  if (referencePointerId == null) return null
+  if (!referencePointerId) return null
 
   return (
     <NotionBlockRenderer
