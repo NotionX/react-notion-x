@@ -33,6 +33,8 @@ export type BlockType =
   | 'code'
   | 'collection_view'
   | 'collection_view_page'
+  | 'transclusion_container'
+  | 'transclusion_reference'
   // fallback for unknown blocks
   | string
 
@@ -70,6 +72,8 @@ export type Block =
   | ToggleBlock
   | CollectionViewBlock
   | CollectionViewPageBlock
+  | SyncBlock
+  | SyncPointerBlock
 
 /**
  * Base properties shared by all blocks.
@@ -331,4 +335,22 @@ export interface CollectionViewPageBlock extends BasePageBlock {
   type: 'collection_view_page'
   collection_id: ID
   view_ids: ID[]
+}
+
+export interface SyncBlock extends BaseBlock {
+  type: 'transclusion_container'
+}
+
+export interface SyncPointerBlock extends BaseBlock {
+  type: 'transclusion_reference',
+  format: {
+    copied_from_pointer: {
+      id: string,
+      spaceid: string
+    }
+    transclusion_reference_pointer: {
+      id: string,
+      spaceId: string
+    }
+  }
 }

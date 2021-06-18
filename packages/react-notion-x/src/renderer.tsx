@@ -106,7 +106,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   )
 }
 
-const NotionBlockRenderer: React.FC<NotionBlockRendererProps> = ({
+export const NotionBlockRenderer: React.FC<NotionBlockRendererProps> = ({
   level = 0,
   blockId,
   ...props
