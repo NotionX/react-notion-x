@@ -24,6 +24,7 @@ import { LazyImage } from './components/lazy-image'
 import { useNotionContext } from './context'
 import { cs, getListNumber, isUrl } from './utils'
 import { Text } from './components/text'
+import { SyncPointerBlock } from './components/sync-pointer-block'
 
 interface BlockProps {
   block: types.Block
@@ -84,7 +85,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     ;(block as any).type = 'collection_view_page'
   }
 
-  const blockId = hideBlockId? 'notion-block' : `notion-block-${block.id}`
+  const blockId = hideBlockId ? 'notion-block' : `notion-block-${block.id}`
 
   switch (block.type) {
     case 'collection_view_page':
@@ -777,6 +778,12 @@ export const Block: React.FC<BlockProps> = (props) => {
           <div className='notion-to-do-children'>{children}</div>
         </div>
       )
+
+    case 'transclusion_container':
+      return <div className={cs('sync-block', blockId)}>{children}</div>
+
+    case 'transclusion_reference':
+      return <SyncPointerBlock block={block} level={level + 1} {...props} />
 
     default:
       if (process.env.NODE_ENV !== 'production') {
