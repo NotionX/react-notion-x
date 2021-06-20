@@ -143,7 +143,8 @@ export const Asset: React.FC<{
       signedUrl.indexOf('youtu.be') < 0 &&
       signedUrl.indexOf('vimeo') < 0 &&
       signedUrl.indexOf('wistia') < 0 &&
-      signedUrl.indexOf('loom') < 0
+      signedUrl.indexOf('loom') < 0 &&
+      signedUrl.indexOf('videoask') < 0
     ) {
       content = (
         <video
