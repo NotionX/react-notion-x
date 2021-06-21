@@ -85,7 +85,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     ;(block as any).type = 'collection_view_page'
   }
 
-  const blockId = hideBlockId ? 'notion-block' : `notion-block-${block.id}`
+  const blockId = hideBlockId ? 'notion-block' : `notion-block-${uuidToId(block.id)}`
 
   switch (block.type) {
     case 'collection_view_page':
