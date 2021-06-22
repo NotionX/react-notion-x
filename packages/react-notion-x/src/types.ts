@@ -1,6 +1,6 @@
 import * as types from 'notion-types'
 
-export type MapPageUrl = (pageId: string) => string
+export type MapPageUrl = (pageId: string, recordMap?: types.ExtendedRecordMap | undefined) => string
 export type MapImageUrl = (url: string, block: types.Block) => string
 export type SearchNotion = (
   params: types.SearchParams
