@@ -19,10 +19,9 @@ const indentLevels = {
  * H1, H2, and H3 elements.
  */
 export const getPageTableOfContents = (
-  page: types.PageBlock,
   recordMap: types.ExtendedRecordMap
 ): Array<TableOfContentsEntry> => {
-  const toc = (page.content ?? [])
+  const toc = (Object.keys(recordMap?.block) ?? [])
     .map((blockId: string) => {
       const block = recordMap.block[blockId]?.value
 

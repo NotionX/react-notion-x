@@ -113,10 +113,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           const pageIcon = getBlockIcon(block, recordMap) ?? defaultPageIcon
           const isPageIconUrl = pageIcon && isUrl(pageIcon)
 
-          const toc = getPageTableOfContents(
-            block as types.PageBlock,
-            recordMap
-          )
+          const toc = getPageTableOfContents(recordMap)
 
           const hasToc =
             showTableOfContents && toc.length >= minTableOfContentsItems
@@ -382,7 +379,7 @@ export const Block: React.FC<BlockProps> = (props) => {
         const page = getBlockParentPage(block, recordMap)
 
         if (page) {
-          const toc = getPageTableOfContents(page, recordMap)
+          const toc = getPageTableOfContents(recordMap)
           const tocItem = toc.find((tocItem) => tocItem.id === block.id)
 
           if (tocItem) {
@@ -725,7 +722,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       const page = getBlockParentPage(block, recordMap)
       if (!page) return null
 
-      const toc = getPageTableOfContents(page, recordMap)
+      const toc = getPageTableOfContents(recordMap)
       const blockColor = block.format?.block_color
 
       return (
