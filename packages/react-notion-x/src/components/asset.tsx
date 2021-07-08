@@ -13,6 +13,7 @@ const types = [
   'embed',
   'figma',
   'typeform',
+  'excalidraw',
   'maps',
   'tweet',
   'pdf',
@@ -132,7 +133,8 @@ export const Asset: React.FC<{
     block.type === 'figma' ||
     block.type === 'typeform' ||
     block.type === 'gist' ||
-    block.type === 'maps'
+    block.type === 'maps' ||
+    block.type === 'excalidraw'
   ) {
     const signedUrl = recordMap.signed_urls[block.id]
 
@@ -144,7 +146,8 @@ export const Asset: React.FC<{
       signedUrl.indexOf('vimeo') < 0 &&
       signedUrl.indexOf('wistia') < 0 &&
       signedUrl.indexOf('loom') < 0 &&
-      signedUrl.indexOf('videoask') < 0
+      signedUrl.indexOf('videoask') < 0 &&
+      signedUrl.indexOf('getcloudapp') < 0
     ) {
       content = (
         <video
