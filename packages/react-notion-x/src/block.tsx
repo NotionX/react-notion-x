@@ -501,6 +501,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     // fallthrough
     case 'typeform':
     // fallthrough
+    case 'excalidraw':
+    // fallthrough
     case 'image':
     // fallthrough
     case 'gist':
