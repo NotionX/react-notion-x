@@ -85,7 +85,9 @@ export const Block: React.FC<BlockProps> = (props) => {
     ;(block as any).type = 'collection_view_page'
   }
 
-  const blockId = hideBlockId ? 'notion-block' : `notion-block-${uuidToId(block.id)}`
+  const blockId = hideBlockId
+    ? 'notion-block'
+    : `notion-block-${uuidToId(block.id)}`
 
   switch (block.type) {
     case 'collection_view_page':
@@ -643,6 +645,8 @@ export const Block: React.FC<BlockProps> = (props) => {
       )
 
     case 'bookmark':
+      if (!block.properties) return null
+
       let title = getTextContent(block.properties?.title)
       if (!title) {
         title = getTextContent(block.properties?.link)
