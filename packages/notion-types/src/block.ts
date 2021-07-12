@@ -24,6 +24,7 @@ export type BlockType =
   | 'video'
   | 'figma'
   | 'typeform'
+  | 'codepen'
   | 'excalidraw'
   | 'tweet'
   | 'maps'
@@ -60,6 +61,7 @@ export type Block =
   | VideoBlock
   | FigmaBlock
   | TypeformBlock
+  | CodepenBlock
   | ExcalidrawBlock
   | TweetBlock
   | PdfBlock
@@ -268,6 +270,10 @@ export interface FigmaBlock extends BaseContentBlock {
 
 export interface TypeformBlock extends BaseContentBlock {
   type: 'typeform'
+}
+
+export interface CodepenBlock extends BaseContentBlock {
+  type: 'codepen'
 }
 
 export interface ExcalidrawBlock extends BaseContentBlock {
