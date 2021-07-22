@@ -126,7 +126,8 @@ export class NotionAPI {
                 query: collectionView?.query2 || collectionView?.query,
                 groups:
                   collectionView?.format?.board_groups2 ||
-                  collectionView?.format?.board_groups,
+                  collectionView?.format?.board_groups ||
+                  collectionView?.format?.board_columns,
                 gotOptions
               }
             )
