@@ -231,9 +231,9 @@ export const Block: React.FC<BlockProps> = (props) => {
 
                     {pageHeader}
 
-                    <div className='notion-title'>
+                    <h1 className='notion-title'>
                       <Text value={properties?.title} block={block} />
-                    </div>
+                    </h1>
 
                     {block.type === 'page' &&
                       block.parent_table === 'collection' && (
