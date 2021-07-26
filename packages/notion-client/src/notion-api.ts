@@ -123,10 +123,11 @@ export class NotionAPI {
               collectionViewId,
               {
                 type: collectionView?.type,
-                query: collectionView?.query2 || collectionView?.query,
+                query: this.getQuery(collectionView),
                 groups:
                   collectionView?.format?.board_groups2 ||
-                  collectionView?.format?.board_groups,
+                  collectionView?.format?.board_groups ||
+                  collectionView?.format?.board_columns,
                 gotOptions
               }
             )
@@ -320,6 +321,18 @@ export class NotionAPI {
       },
       gotOptions
     })
+  }
+
+  //handle setting group_by for the query if it isn't already
+  private getQuery(collectionView: notion.CollectionView | undefined) {
+    let query = collectionView?.query2 || collectionView?.query
+    const groupBy = collectionView?.format?.board_columns_by
+      ? collectionView?.format?.board_columns_by?.property
+      : undefined
+    if (groupBy) {
+      query.group_by = groupBy
+    }
+    return query
   }
 
   public async getUsers(

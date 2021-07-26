@@ -11,7 +11,8 @@ const pageIdFixturesSuccess = [
   'e68c18a461904eb5a2ddc3748e76b893',
   'https://www.notion.so/saasifysh/Saasify-Key-Takeaways-689a8abc1afa4699905aa2f2e585e208',
   'https://www.notion.so/saasifysh/TransitiveBullsh-it-78fc5a4b88d74b0e824e29407e9f1ec1',
-  'https://www.notion.so/saasifysh/About-8d0062776d0c4afca96eb1ace93a7538'
+  'https://www.notion.so/saasifysh/About-8d0062776d0c4afca96eb1ace93a7538',
+  'https://www.notion.so/potionsite/newest-board-a899b98b7cdc424585e5ddebbdae60cc'
 
   // collections stress test
   // NOTE: removing because of sporadic timeouts
