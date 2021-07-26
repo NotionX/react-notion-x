@@ -395,18 +395,21 @@ export const Block: React.FC<BlockProps> = (props) => {
         indentLevelClass = `notion-h-indent-${indentLevel}`
       }
 
-      return (
-        <h3
-          className={cs(
-            block.type === 'header' && 'notion-h notion-h1',
-            block.type === 'sub_header' && 'notion-h notion-h2',
-            block.type === 'sub_sub_header' && 'notion-h notion-h3',
-            blockColor && `notion-${blockColor}`,
-            indentLevelClass,
-            blockId
-          )}
-          data-id={id}
-        >
+      const isH1 = block.type === 'header'
+      const isH2 = block.type === 'sub_header'
+      const isH3 = block.type === 'sub_sub_header'
+
+      const classNameStr = cs(
+        isH1 && 'notion-h notion-h1',
+        isH2 && 'notion-h notion-h2',
+        isH3 && 'notion-h notion-h3',
+        blockColor && `notion-${blockColor}`,
+        indentLevelClass,
+        blockId
+      )
+
+      const innerHeader = (
+        <span>
           <div id={id} className='notion-header-anchor' />
 
           <a className='notion-hash-link' href={`#${id}`} title={title}>
@@ -416,8 +419,29 @@ export const Block: React.FC<BlockProps> = (props) => {
           <span className='notion-h-title'>
             <Text value={block.properties.title} block={block} />
           </span>
-        </h3>
+        </span>
       )
+
+      //page title takes the h1 so all header blocks are greater
+      if (isH1) {
+        return (
+          <h2 className={classNameStr} data-id={id}>
+            {innerHeader}
+          </h2>
+        )
+      } else if (isH2) {
+        return (
+          <h3 className={classNameStr} data-id={id}>
+            {innerHeader}
+          </h3>
+        )
+      } else {
+        return (
+          <h4 className={classNameStr} data-id={id}>
+            {innerHeader}
+          </h4>
+        )
+      }
     }
 
     case 'divider':
