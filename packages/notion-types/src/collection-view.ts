@@ -103,6 +103,17 @@ export interface BoardCollectionView extends BaseCollectionView {
         // TODO: needs testing for more cases
       }
     }>
+    
+    board_columns: Array<{
+      property: PropertyID
+      hidden: boolean
+      value: {
+        type: PropertyType
+        value: string
+
+        // TODO: needs testing for more cases
+      }
+    }>
   }
 }
 
