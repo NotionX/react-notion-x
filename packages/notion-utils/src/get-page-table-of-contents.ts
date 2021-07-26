@@ -21,9 +21,14 @@ const indentLevels = {
 export const getPageTableOfContents = (
   recordMap: types.ExtendedRecordMap
 ): Array<TableOfContentsEntry> => {
-  const toc = (Object.keys(recordMap?.block) ?? [])
+  let recordMapBlock: any = []
+  if (recordMap && recordMap.block) {
+    recordMapBlock = recordMap.block
+  }
+  
+  const toc = (Object.keys(recordMapBlock) ?? [])
     .map((blockId: string) => {
-      const block = recordMap.block[blockId]?.value
+      const block = recordMapBlock[blockId]?.value
 
       if (block) {
         const { type } = block
