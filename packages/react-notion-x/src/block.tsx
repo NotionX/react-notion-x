@@ -9,7 +9,6 @@ import {
 } from 'notion-utils'
 import * as types from 'notion-types'
 
-import { Asset } from './components/asset'
 import { Checkbox } from './components/checkbox'
 import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
@@ -25,6 +24,7 @@ import { useNotionContext } from './context'
 import { cs, getListNumber, isUrl } from './utils'
 import { Text } from './components/text'
 import { SyncPointerBlock } from './components/sync-pointer-block'
+import { AssetWrapper } from './components/asset-wrapper'
 
 interface BlockProps {
   block: types.Block
@@ -535,28 +535,17 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'embed':
     // fallthrough
     case 'video':
-      const value = block as types.BaseContentBlock
-
-      return (
-        <figure
-          className={cs(
-            'notion-asset-wrapper',
-            `notion-asset-wrapper-${block.type}`,
-            block.format?.block_full_width && 'notion-asset-wrapper-full',
-            blockId
-          )}
-        >
-          <Asset block={block} />
-
-          {value?.properties?.caption && (
-            <figcaption className='notion-asset-caption'>
-              <Text value={block.properties.caption} block={block} />
-            </figcaption>
-          )}
-        </figure>
-      )
+      return <AssetWrapper blockId={blockId} block={block} />
 
     case 'drive':
+      const properties = block.format?.drive_properties
+      if (!properties) {
+        //check if this drive actually needs to be embeded ex. google sheets.
+        if (block.format?.display_source) {
+          return <AssetWrapper blockId={blockId} block={block} />
+        }
+      }
+
       return (
         <GoogleDrive
           block={block as types.GoogleDriveBlock}

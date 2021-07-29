@@ -18,7 +18,8 @@ const types = [
   'tweet',
   'pdf',
   'gist',
-  'codepen'
+  'codepen',
+  'drive'
 ]
 
 export const Asset: React.FC<{
@@ -136,7 +137,8 @@ export const Asset: React.FC<{
     block.type === 'gist' ||
     block.type === 'maps' ||
     block.type === 'excalidraw' ||
-    block.type === 'codepen'
+    block.type === 'codepen' ||
+    block.type === 'drive'
   ) {
     const signedUrl = recordMap.signed_urls[block.id]
 
