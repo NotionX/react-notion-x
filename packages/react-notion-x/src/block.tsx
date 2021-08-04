@@ -652,6 +652,13 @@ export const Block: React.FC<BlockProps> = (props) => {
 
           <div className='notion-callout-text'>
             <Text value={block.properties?.title} block={block} />
+            <>
+              {
+                block.content?.map((elementId) => (
+                  <Block block={recordMap.block[elementId].value} level={1} />
+                ))
+              }
+            </>
           </div>
         </div>
       )
