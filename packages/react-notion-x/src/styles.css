@@ -971,6 +971,9 @@ svg.notion-page-icon {
   margin-left: 8px;
   white-space: pre-wrap;
   word-break: break-word;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .notion-toggle {

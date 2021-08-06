@@ -652,6 +652,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
           <div className='notion-callout-text'>
             <Text value={block.properties?.title} block={block} />
+            {children}
           </div>
         </div>
       )
