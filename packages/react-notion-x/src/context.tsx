@@ -8,6 +8,7 @@ import {
   NotionComponents
 } from './types'
 import { defaultMapPageUrl, defaultMapImageUrl } from './utils'
+import { Checkbox as DefaultCheckbox } from './components/checkbox'
 
 export interface NotionContext {
   recordMap: ExtendedRecordMap
@@ -78,6 +79,7 @@ const dummyComponent = (name: string) => () => {
 const defaultComponents: NotionComponents = {
   link: DefaultLink,
   pageLink: DefaultPageLink,
+  checkbox: DefaultCheckbox,
 
   code: dummyComponent('code'),
   equation: dummyComponent('equation'),
