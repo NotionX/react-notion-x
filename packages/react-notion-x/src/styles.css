@@ -2370,3 +2370,7 @@ svg.notion-page-icon {
 .notion-search .resultsPane .result:active {
   background: rgba(55, 53, 47, 0.16) !important;
 }
+
+.notion-sync-block {
+  width: 100%;
+}
