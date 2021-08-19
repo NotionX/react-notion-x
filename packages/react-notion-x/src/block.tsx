@@ -799,7 +799,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       )
 
     case 'transclusion_container':
-      return <div className={cs('sync-block', blockId)}>{children}</div>
+      return <div className={cs('notion-sync-block', blockId)}>{children}</div>
 
     case 'transclusion_reference':
       return <SyncPointerBlock block={block} level={level + 1} {...props} />
