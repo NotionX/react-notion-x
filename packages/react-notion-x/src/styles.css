@@ -971,9 +971,7 @@ svg.notion-page-icon {
   margin-left: 8px;
   white-space: pre-wrap;
   word-break: break-word;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
+  width: 100%;
 }
 
 .notion-toggle {
@@ -1879,6 +1877,11 @@ svg.notion-page-icon {
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
+}
+
+/* removes double underline with links */
+.notion-link .notion-page-title-text {
+  border-bottom: 0px;
 }
 
 .notion-collection-row {
