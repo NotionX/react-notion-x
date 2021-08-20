@@ -945,7 +945,6 @@ svg.notion-page-icon {
 
 .notion-callout {
   padding: 16px 16px 16px 12px;
-  display: inline-flex;
   width: 100%;
   border-radius: 3px;
   border-width: 1px;
