@@ -945,6 +945,7 @@ svg.notion-page-icon {
 
 .notion-callout {
   padding: 16px 16px 16px 12px;
+  display: inline-flex;
   width: 100%;
   border-radius: 3px;
   border-width: 1px;
@@ -970,9 +971,7 @@ svg.notion-page-icon {
   margin-left: 8px;
   white-space: pre-wrap;
   word-break: break-word;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
+  width: 100%;
 }
 
 .notion-toggle {
