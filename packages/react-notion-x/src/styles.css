@@ -1879,6 +1879,11 @@ svg.notion-page-icon {
   font-weight: 500;
 }
 
+/* removes double underline with links */
+.notion-link .notion-page-title-text {
+  border-bottom: 0px;
+}
+
 .notion-collection-row {
   width: 100%;
   padding: 4px 0 8px;
