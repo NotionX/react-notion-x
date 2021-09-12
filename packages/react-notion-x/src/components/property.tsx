@@ -143,7 +143,7 @@ export const Property: React.FC<{
         case 'checkbox':
           const isChecked = data && data[0][0] === 'Yes'
 
-          return <Checkbox isChecked={isChecked} />
+          return <Checkbox isChecked={isChecked} blockId={undefined} />
 
         case 'url':
           // TODO: refactor to less hackyh solution
