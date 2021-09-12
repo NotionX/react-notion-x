@@ -10,6 +10,7 @@ export interface NotionComponents {
   // TODO: better typing for arbitrary react components
   link: any
   pageLink: any
+  checkbox: React.FC<{ isChecked: boolean, blockId: string }>
 
   // blocks
   code: any
@@ -23,6 +24,7 @@ export interface NotionComponents {
   pdf: any
   tweet: any
   modal: any
+
 }
 
 export interface CollectionViewProps {

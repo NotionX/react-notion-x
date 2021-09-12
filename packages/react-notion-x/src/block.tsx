@@ -782,7 +782,10 @@ export const Block: React.FC<BlockProps> = (props) => {
       return (
         <div className={cs('notion-to-do', blockId)}>
           <div className='notion-to-do-item'>
-            <Checkbox isChecked={isChecked} />
+            <components.checkbox
+              blockId={block.blockId}
+              isChecked={isChecked}
+            />
 
             <div
               className={cs(
