@@ -9,7 +9,6 @@ import {
 } from 'notion-utils'
 import * as types from 'notion-types'
 
-import { Checkbox } from './components/checkbox'
 import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
 import { LinkIcon } from './icons/link-icon'
@@ -783,7 +782,7 @@ export const Block: React.FC<BlockProps> = (props) => {
         <div className={cs('notion-to-do', blockId)}>
           <div className='notion-to-do-item'>
             <components.checkbox
-              blockId={block.blockId}
+              blockId={blockId}
               isChecked={isChecked}
             />
 
