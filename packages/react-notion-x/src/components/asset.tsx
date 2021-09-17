@@ -23,8 +23,9 @@ const types = [
 ]
 
 export const Asset: React.FC<{
-  block: BaseContentBlock
-}> = ({ block }) => {
+  block: BaseContentBlock,
+  children: any
+}> = ({ block, children }) => {
   const { recordMap, mapImageUrl, components } = useNotionContext()
 
   if (!block || !types.includes(block.type)) {
@@ -37,7 +38,8 @@ export const Asset: React.FC<{
     justifyContent: 'center',
     alignSelf: 'center',
     width: '100%',
-    maxWidth: '100%'
+    maxWidth: '100%',
+    flexDirection: 'column'
   }
 
   const assetStyle: React.CSSProperties = {}
@@ -220,11 +222,14 @@ export const Asset: React.FC<{
         src={src}
         alt={alt}
         style={assetStyle}
-        zoomable={true}
+        zoomable={false}
         height={style.height as number}
       />
     )
   }
 
-  return <div style={style}>{content}</div>
+  return <div style={style}>
+          {content}
+          {children}
+        </div>
 }
