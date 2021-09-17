@@ -222,7 +222,7 @@ export const Asset: React.FC<{
         src={src}
         alt={alt}
         style={assetStyle}
-        zoomable={true}
+        zoomable={false}
         height={style.height as number}
       />
     )
