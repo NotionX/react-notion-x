@@ -19,13 +19,13 @@ export const AssetWrapper: React.FC<{
         blockId
       )}
     >
-      <Asset block={value} />
-
-      {value?.properties?.caption && (
-        <figcaption className='notion-asset-caption'>
-          <Text value={block.properties.caption} block={block} />
-        </figcaption>
-      )}
+      <Asset block={value}>
+        {value?.properties?.caption && (
+          <figcaption className='notion-asset-caption'>
+            <Text value={block.properties.caption} block={block} />
+          </figcaption>
+        )}
+      </Asset>
     </figure>
   )
 }
