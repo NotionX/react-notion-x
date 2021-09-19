@@ -2,8 +2,9 @@ import React from 'react'
 import { highlight, languages } from 'prismjs'
 
 import 'prismjs/components/prism-jsx'
+import { NotionComponents } from '..'
 
-export const Code: React.FC<{ code: string; language: string }> = ({
+export const Code: NotionComponents['code'] = ({
   code,
   language = 'javascript'
 }) => {

@@ -23,8 +23,7 @@ const types = [
 ]
 
 export const Asset: React.FC<{
-  block: BaseContentBlock,
-  children: any
+  block: BaseContentBlock
 }> = ({ block, children }) => {
   const { recordMap, mapImageUrl, components } = useNotionContext()
 
@@ -228,8 +227,10 @@ export const Asset: React.FC<{
     )
   }
 
-  return <div style={style}>
-          {content}
-          {children}
-        </div>
+  return (
+    <div style={style}>
+      {content}
+      {children}
+    </div>
+  )
 }

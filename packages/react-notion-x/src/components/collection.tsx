@@ -11,14 +11,15 @@ import { CollectionView } from './collection-view'
 import { PageIcon } from './page-icon'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
+import { NotionComponents } from '..'
 
 const isServer = typeof window === 'undefined'
 const triggers = ['click']
 
-export const Collection: React.FC<{
-  block: types.CollectionViewBlock | types.CollectionViewPageBlock
-  className?: string
-}> = ({ block, className }) => {
+export const Collection: NotionComponents['collection'] = ({
+  block,
+  className
+}) => {
   const { recordMap, showCollectionViewDropdown } = useNotionContext()
   const { collection_id: collectionId, view_ids: viewIds } = block
 

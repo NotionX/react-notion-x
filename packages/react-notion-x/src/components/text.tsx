@@ -7,6 +7,7 @@ import { formatDate } from '../utils'
 import { Equation } from './equation'
 import { PageTitle } from './page-title'
 import { GracefulImage } from './graceful-image'
+import { NotionComponents } from '..'
 
 /**
  * Renders a single piece of Notion text, including basic rich text formatting.
@@ -19,7 +20,7 @@ import { GracefulImage } from './graceful-image'
 export const Text: React.FC<{
   value: Decoration[]
   block: Block
-  linkProps?: any
+  linkProps?: React.PropsWithChildren<NotionComponents['pageLink']>
   linkProtocol?: string
   inline?: boolean // TODO: currently unused
 }> = ({ value, block, linkProps, linkProtocol }) => {

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Page, Document } from 'react-pdf'
+import { Page, Document, DocumentProps } from 'react-pdf'
 import Equation from '@matejmazur/react-katex'
 import Modal from 'react-modal'
 
-const Pdf = ({ file, children, ...rest }) => {
+const Pdf: React.FC<DocumentProps> = (props) => {
   const [numPages, setNumPages] = React.useState(null)
 
   function onDocumentLoadSuccess({ numPages }) {
@@ -11,7 +11,7 @@ const Pdf = ({ file, children, ...rest }) => {
   }
 
   return (
-    <Document file={file} onLoadSuccess={onDocumentLoadSuccess} {...rest}>
+    <Document {...props} onLoadSuccess={onDocumentLoadSuccess}>
       {Array.from(new Array(numPages), (_, index) => (
         <Page key={`page_${index + 1}`} pageNumber={index + 1} />
       ))}

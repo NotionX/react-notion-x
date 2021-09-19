@@ -1,13 +1,11 @@
 import React from 'react'
-import { PageBlock } from 'notion-types'
 
 import { CollectionColumnTitle } from './collection-column-title'
 import { Property } from './property'
 import { useNotionContext } from '../context'
+import { NotionComponents } from '..'
 
-export const CollectionRow: React.FC<{
-  block: PageBlock
-}> = ({ block }) => {
+export const CollectionRow: NotionComponents['collectionRow'] = ({ block }) => {
   const { recordMap } = useNotionContext()
   const collectionId = block.parent_id
   const collection = recordMap.collection[collectionId]?.value

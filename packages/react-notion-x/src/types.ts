@@ -1,30 +1,56 @@
 import * as types from 'notion-types'
+import React from 'react'
 
-export type MapPageUrl = (pageId: string, recordMap?: types.ExtendedRecordMap | undefined) => string
+export type MapPageUrl = (
+  pageId: string,
+  recordMap?: types.ExtendedRecordMap | undefined
+) => string
 export type MapImageUrl = (url: string, block: types.Block) => string
 export type SearchNotion = (
   params: types.SearchParams
 ) => Promise<types.SearchResults>
 
 export interface NotionComponents {
-  // TODO: better typing for arbitrary react components
-  link: any
-  pageLink: any
-  checkbox: React.FC<{ isChecked: boolean, blockId: string }>
+  link: React.FC<JSX.IntrinsicElements['a']>
+  pageLink: React.FC<JSX.IntrinsicElements['a']>
+  checkbox: React.FC<{ blockId: string; isChecked: boolean }>
 
   // blocks
-  code: any
-  equation: any
+  code: React.FC<{
+    language: string
+    code: string
+  }>
+  equation: React.FC<{
+    math: string
+    block?: boolean
+    className?: string
+    settings: {
+      throwOnError: boolean
+      strict: boolean
+    }
+  }>
 
   // collection
-  collection: any
-  collectionRow: any
+  collection: React.FC<{
+    block: types.CollectionViewPageBlock | types.CollectionViewBlock
+    className?: string
+  }>
+  collectionRow: React.FC<{
+    block: types.PageBlock
+    className?: string
+  }>
 
   // assets
-  pdf: any
-  tweet: any
-  modal: any
-
+  pdf: React.FC<{ file: string }>
+  tweet: React.FC<{ id: string }>
+  modal: React.FC<{
+    isOpen: boolean
+    contentLabel: string
+    className?: string
+    overlayClassName?: string
+    onRequestClose: () => void
+    onAfterOpen: () => void
+  }>
 }
 
 export interface CollectionViewProps {

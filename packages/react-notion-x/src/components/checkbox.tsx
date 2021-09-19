@@ -1,11 +1,9 @@
 import React from 'react'
+import { NotionComponents } from '..'
 
 import CheckIcon from '../icons/check'
 
-export const Checkbox: React.FC<{
-  isChecked: boolean,
-  blockId: string | undefined
-}> = ({ isChecked }) => {
+export const Checkbox: NotionComponents['checkbox'] = ({ isChecked }) => {
   let content = null
 
   if (isChecked) {
