@@ -23,7 +23,8 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
 
   // console.log('board', { collection, collectionView, collectionData })
 
-  const boardGroups = collectionView.format.board_groups2 || collectionView.format.board_columns
+  const boardGroups =
+    collectionView.format.board_groups2 || collectionView.format.board_columns
 
   return (
     <div className='notion-board'>
@@ -39,7 +40,8 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
         <div className='notion-board-header'>
           <div className='notion-board-header-inner'>
             {boardGroups.map((p, index) => {
-              if (!collectionData.groupResults) { //no groupResults in the data when collection is in a toggle
+              if (!collectionData.groupResults) {
+                //no groupResults in the data when collection is in a toggle
                 return null
               }
               const group = collectionData.groupResults![index]

@@ -323,7 +323,7 @@ export interface GoogleDriveBlock extends BaseContentBlock {
       thumbnail: string
       user_name: string
       modified_time: number
-    },
+    }
     block_width: number
     block_height: number
     display_source: string
@@ -339,7 +339,7 @@ export interface CodeBlock extends BaseBlock {
   type: 'code'
   properties: {
     title: Decoration[]
-    language: Decoration[],
+    language: Decoration[]
     caption: Decoration[]
   }
 }
@@ -361,14 +361,14 @@ export interface SyncBlock extends BaseBlock {
 }
 
 export interface SyncPointerBlock extends BaseBlock {
-  type: 'transclusion_reference',
+  type: 'transclusion_reference'
   format: {
     copied_from_pointer: {
-      id: string,
+      id: string
       spaceid: string
     }
     transclusion_reference_pointer: {
-      id: string,
+      id: string
       spaceId: string
     }
   }

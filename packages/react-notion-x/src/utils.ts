@@ -24,7 +24,7 @@ const groupBlockContent = (blockMap: BlockMap): string[][] => {
           lastType = blockType
           output[index] = []
         }
-        
+
         if (index > -1) {
           output[index].push(blockId)
         }
@@ -113,4 +113,4 @@ export const formatDate = (input: string) => {
   return `${months[month]} ${date.getDate()}, ${date.getFullYear()}`
 }
 
-export const isBrowser = typeof window !== 'undefined';
+export const isBrowser = typeof window !== 'undefined'

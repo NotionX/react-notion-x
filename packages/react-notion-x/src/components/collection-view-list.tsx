@@ -19,7 +19,7 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
         <div className='notion-list-body'>
           {collectionData.blockIds.map((blockId) => {
             const block = recordMap.block[blockId]?.value as PageBlock
-            if(!block) return null
+            if (!block) return null
 
             const titleSchema = collection.schema.title
             const titleData = block?.properties?.title

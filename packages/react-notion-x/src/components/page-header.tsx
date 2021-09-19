@@ -103,7 +103,11 @@ export const PageHeader: React.FC<{}> = () => {
             }
 
             if (breadcrumb.active) {
-              componentMap.pageLink = (props) => <div {...props} />
+              componentMap.pageLink = ({ children, style, className }) => (
+                <div style={style} className={className}>
+                  {children}
+                </div>
+              )
             } else {
               pageLinkProps.href = mapPageUrl(breadcrumb.pageId)
             }
