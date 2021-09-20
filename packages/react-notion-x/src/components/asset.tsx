@@ -212,8 +212,8 @@ export const Asset: React.FC<{
     }
   } else if (block.type === 'image') {
     // console.log('image', block)
-
-    const src = mapImageUrl(source, block as Block)
+    const signedUrl = recordMap.signed_urls?.[block.id]
+    const src = mapImageUrl(signedUrl ||  source, block as Block)
     const caption = getTextContent(block.properties?.caption)
     const alt = caption || 'notion image'
 
