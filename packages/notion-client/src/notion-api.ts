@@ -185,7 +185,7 @@ export class NotionAPI {
           block &&
           (block.type === 'pdf' ||
             block.type === 'audio' ||
-            block.type === 'image' ||
+            (block.type === 'image' && block.file_ids?.length) ||
             block.type === 'video' ||
             block.type === 'file')
         ) {
