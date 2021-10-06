@@ -262,6 +262,7 @@ export class NotionAPI {
     collectionViewId: string,
     {
       type = 'table',
+      query,
       groups = undefined,
       limit = 999999,
       searchQuery = '',
@@ -304,6 +305,7 @@ export class NotionAPI {
           }
         }
       },
+      ...query, //add the filters
       searchQuery,
       userTimeZone
     }
