@@ -319,8 +319,12 @@ export class NotionAPI {
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
       body: {
-        collectionId,
-        collectionViewId,
+        collection: {
+          id: collectionId
+        },
+        collectionView: {
+          id: collectionViewId
+        },
         loader
       },
       gotOptions
