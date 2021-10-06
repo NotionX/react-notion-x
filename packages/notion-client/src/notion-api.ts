@@ -13,14 +13,12 @@ export class NotionAPI {
   private readonly _apiBaseUrl: string
   private readonly _authToken?: string
   private readonly _activeUser?: string
-  private readonly _userLocale: string
   private readonly _userTimeZone: string
 
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
     activeUser,
-    userLocale = 'en',
     userTimeZone = 'America/New_York'
   }: {
     apiBaseUrl?: string
@@ -32,7 +30,6 @@ export class NotionAPI {
     this._apiBaseUrl = apiBaseUrl
     this._authToken = authToken
     this._activeUser = activeUser
-    this._userLocale = userLocale
     this._userTimeZone = userTimeZone
   }
 
@@ -156,10 +153,9 @@ export class NotionAPI {
               ...recordMap.notion_user,
               ...collectionData.recordMap.notion_user
             }
-
             recordMap.collection_query![collectionId] = {
               ...recordMap.collection_query![collectionId],
-              [collectionViewId]: collectionData.result
+              [collectionViewId]: (collectionData.result as any)?.reducerResults?.collection_group_results
             }
           } catch (err) {
             // It's possible for public pages to link to private collections, in which case
@@ -266,12 +262,10 @@ export class NotionAPI {
     collectionViewId: string,
     {
       type = 'table',
-      query = { aggregations: [{ property: 'title', aggregator: 'count' }] },
       groups = undefined,
       limit = 999999,
       searchQuery = '',
       userTimeZone = this._userTimeZone,
-      userLocale = this._userLocale,
       loadContentCover = true,
       gotOptions
     }: {
@@ -295,12 +289,23 @@ export class NotionAPI {
     }
 
     const loader: any = {
-      type,
-      limit,
+      type: "reducer",
+      reducers: {
+        collection_group_results: {
+          type: "results",
+          limit,
+          loadContentCover
+        },
+        "table:uncategorized:title:count": {
+          type: "aggregation",
+          aggregation: {
+            property: "title",
+            aggregator: "count"
+          }
+        }
+      },
       searchQuery,
-      userTimeZone,
-      userLocale,
-      loadContentCover
+      userTimeZone
     }
 
     if (groups) {
@@ -309,14 +314,13 @@ export class NotionAPI {
     }
 
     // useful for debugging collection queries
-    // console.log(JSON.stringify('queryCollection', { collectionId, collectionViewId, query, loader }, null, 2))
+    // console.log('queryCollection', JSON.stringify( { collectionId, collectionViewId, query, loader}, null, 2))
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
       body: {
         collectionId,
         collectionViewId,
-        query,
         loader
       },
       gotOptions
