@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "4.9.2",
+  "version": "4.9.3",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
