@@ -23,7 +23,7 @@ const types = [
 ]
 
 export const Asset: React.FC<{
-  block: BaseContentBlock,
+  block: BaseContentBlock
   children: any
 }> = ({ block, children }) => {
   const { recordMap, mapImageUrl, components } = useNotionContext()
@@ -127,7 +127,7 @@ export const Asset: React.FC<{
     if (!isServer) {
       const signedUrl = recordMap.signed_urls?.[block.id]
       if (!signedUrl) return null
-      console.log('pdf', block, signedUrl)
+      // console.log('pdf', block, signedUrl)
 
       content = <components.pdf file={signedUrl} />
     }
@@ -228,8 +228,10 @@ export const Asset: React.FC<{
     )
   }
 
-  return <div style={style}>
-          {content}
-          {children}
-        </div>
+  return (
+    <div style={style}>
+      {content}
+      {children}
+    </div>
+  )
 }
