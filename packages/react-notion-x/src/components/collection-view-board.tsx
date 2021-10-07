@@ -23,7 +23,8 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
 
   // console.log('board', { collection, collectionView, collectionData })
 
-  const boardGroups = collectionView.format.board_groups2 || collectionView.format.board_columns
+  const boardGroups =
+    collectionView.format.board_groups2 || collectionView.format.board_columns
 
   return (
     <div className='notion-board'>
@@ -39,10 +40,13 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
         <div className='notion-board-header'>
           <div className='notion-board-header-inner'>
             {boardGroups.map((p, index) => {
-              if (!collectionData.groupResults) { //no groupResults in the data when collection is in a toggle
+              if (!(collectionData as any).board_columns.results) {
+                //no groupResults in the data when collection is in a toggle
                 return null
               }
-              const group = collectionData.groupResults![index]
+              const group = (collectionData as any).board_columns.results![
+                index
+              ]
               const schema = collection.schema[p.property]
 
               if (!group || !schema || p.hidden) {
@@ -77,10 +81,12 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
 
         <div className='notion-board-body'>
           {boardGroups.map((p, index) => {
-            if (!collectionData.groupResults) {
+            if (!(collectionData as any).board_columns.results) {
               return null
             }
-            const group = collectionData.groupResults![index]
+            const group = p.value.value
+              ? (collectionData as any)[`board:${p.value.value}`]
+              : (collectionData as any)['results:uncategorized']
             const schema = collection.schema[p.property]
 
             if (!group || !schema || p.hidden) {
