@@ -105,7 +105,7 @@ export function evalFormula(
       return evalFunctionFormula(formula, ctx)
 
     default:
-      console.log(formula)
+      // console.log(formula)
       throw new Error(
         `invalid or unsupported formula "${(formula as any)?.type}`
       )
@@ -414,7 +414,7 @@ function evalFunctionFormula(
       return getYear(evalFormula(args[0], ctx) as Date)
 
     default:
-      console.log(formula)
+      // console.log(formula)
       throw new Error(
         `invalid or unsupported function formula "${(formula as any)?.type}`
       )
