@@ -59,7 +59,7 @@ export const Property: React.FC<{
             })
 
             if (isNaN(content)) {
-              console.log('NaN', schema.formula)
+              // console.log('NaN', schema.formula)
             }
 
             if (content instanceof Date) {
@@ -250,11 +250,11 @@ export const Property: React.FC<{
           break
 
         case 'created_by':
-          console.log('created_by', schema, data)
+          // console.log('created_by', schema, data)
           break
 
         case 'last_edited_by':
-          console.log('last_edited_by', schema, data)
+          // console.log('last_edited_by', schema, data)
           break
 
         default:
