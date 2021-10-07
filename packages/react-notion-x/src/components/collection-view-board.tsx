@@ -21,7 +21,7 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
     board_cover_aspect = 'cover'
   } = collectionView.format || {}
 
-  // console.log('board', { collection, collectionView, collectionData })
+  //console.log('board', { collection, collectionView, collectionData })
 
   const boardGroups =
     collectionView.format.board_groups2 || collectionView.format.board_columns
