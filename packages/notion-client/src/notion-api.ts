@@ -155,7 +155,10 @@ export class NotionAPI {
             }
             recordMap.collection_query![collectionId] = {
               ...recordMap.collection_query![collectionId],
-              [collectionViewId]: (collectionData.result as any)?.reducerResults?.collection_group_results
+              [collectionViewId]:
+                (collectionData.result as any)?.reducerResults
+                  ?.collection_group_results ??
+                (collectionData.result as any)?.reducerResults
             }
           } catch (err) {
             // It's possible for public pages to link to private collections, in which case
@@ -290,18 +293,18 @@ export class NotionAPI {
     }
 
     const loader: any = {
-      type: "reducer",
+      type: 'reducer',
       reducers: {
         collection_group_results: {
-          type: "results",
+          type: 'results',
           limit,
           loadContentCover
         },
-        "table:uncategorized:title:count": {
-          type: "aggregation",
+        'table:uncategorized:title:count': {
+          type: 'aggregation',
           aggregation: {
-            property: "title",
-            aggregator: "count"
+            property: 'title',
+            aggregator: 'count'
           }
         }
       },
@@ -310,9 +313,112 @@ export class NotionAPI {
       userTimeZone
     }
 
-    if (groups) {
+    if (groups && groups.length > 0) {
       // used for 'board' collection view queries
-      loader.groups = groups
+      const boardReducers = {
+        board_columns: {
+          type: 'groups',
+          groupBy: {
+            sort: {
+              type: 'manual'
+            },
+            type: 'select',
+            property: groups[0].property
+          },
+          groupSortPreference: groups.map((group) => {
+            if (group.value) {
+              return {
+                type: 'select',
+                value: group.value
+              }
+            }
+            return {
+              type: 'select'
+            }
+          }),
+          limit: 10
+        }
+      }
+
+      for (const group of groups) {
+        if (!group.value.value) {
+          boardReducers['board:uncategorized'] = {
+            type: 'aggregation',
+            filter: {
+              operator: 'and',
+              filters: [
+                {
+                  property: group.property,
+                  filter: {
+                    operator: 'is_empty'
+                  }
+                }
+              ]
+            },
+            aggregation: {
+              aggregator: 'count'
+            }
+          }
+          boardReducers['results:uncategorized'] = {
+            type: 'results',
+            filter: {
+              operator: 'and',
+              filters: [
+                {
+                  property: group.property,
+                  filter: {
+                    operator: 'is_empty'
+                  }
+                }
+              ]
+            },
+            limit
+          }
+        } else {
+          boardReducers[`board:${group.value.value}`] = {
+            type: 'aggregation',
+            filter: {
+              operator: 'and',
+              filters: [
+                {
+                  property: group.property,
+                  filter: {
+                    operator: 'enum_is',
+                    value: {
+                      type: 'exact',
+                      value: group.value.value
+                    }
+                  }
+                }
+              ]
+            },
+            aggregation: {
+              aggregator: 'count'
+            }
+          }
+
+          boardReducers[`board:${group.value.value}`] = {
+            type: 'results',
+            filter: {
+              operator: 'and',
+              filters: [
+                {
+                  property: group.property,
+                  filter: {
+                    operator: 'enum_is',
+                    value: {
+                      type: 'exact',
+                      value: group.value.value
+                    }
+                  }
+                }
+              ]
+            },
+            limit
+          }
+        }
+      }
+      loader.reducers = boardReducers
     }
 
     // useful for debugging collection queries
