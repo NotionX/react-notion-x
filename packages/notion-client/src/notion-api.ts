@@ -444,6 +444,8 @@ export class NotionAPI {
   //handle setting group_by for the query if it isn't already
   private getQuery(collectionView: notion.CollectionView | undefined) {
     let query = collectionView?.query2 || collectionView?.query
+    if(!query) return undefined
+    
     const groupBy = collectionView?.format?.board_columns_by
       ? collectionView?.format?.board_columns_by?.property
       : undefined
