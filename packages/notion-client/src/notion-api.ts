@@ -423,8 +423,8 @@ export class NotionAPI {
       loader.reducers = boardReducers
     }
 
-    // useful for debugging collection queries
-    // console.log('queryCollection', JSON.stringify( { collectionId, collectionViewId, query, loader}, null, 2))
+    //useful for debugging collection queries
+    //console.log('queryCollection', JSON.stringify( { collectionId, collectionViewId, query, loader}, null, 2))
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
