@@ -19,6 +19,7 @@ export interface NotionContext {
   searchNotion?: SearchNotion
 
   rootPageId?: string
+  rootDomain?: string
 
   fullPage: boolean
   darkMode: boolean
@@ -43,6 +44,7 @@ export interface PartialNotionContext {
   searchNotion?: SearchNotion
 
   rootPageId?: string
+  rootDomain?: string
 
   fullPage?: boolean
   darkMode?: boolean

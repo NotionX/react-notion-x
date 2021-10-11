@@ -71,6 +71,7 @@ export default function NotionPage({ recordMap }) {
       <NotionRenderer recordMap={recordMap}
                       fullPage={true}
                       darkMode={false}
+                      rootDomain='localhost:9090' // used to detect root domain links and open this in the same tab
                       components={{
                         collection: Collection,
                         collectionRow: CollectionRow
