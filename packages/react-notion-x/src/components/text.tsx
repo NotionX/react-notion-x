@@ -23,7 +23,7 @@ export const Text: React.FC<{
   linkProtocol?: string
   inline?: boolean // TODO: currently unused
 }> = ({ value, block, linkProps, linkProtocol }) => {
-  const { components, recordMap, mapPageUrl, mapImageUrl } = useNotionContext()
+  const { components, recordMap, mapPageUrl, mapImageUrl, rootDomain } = useNotionContext()
 
   return (
     <React.Fragment>
@@ -143,13 +143,13 @@ export const Text: React.FC<{
               const pathname = v.substr(1)
               const id = parsePageId(pathname, { uuid: true })
 
-              if (v[0] === '/' && id) {
+              if ((v[0] === '/' || v.includes(rootDomain)) && id) {
                 // console.log('a', id)
 
                 return (
                   <components.pageLink
                     className='notion-link'
-                    href={mapPageUrl(id)}
+                    href={v.includes(rootDomain) ? v : mapPageUrl(id)}
                     {...linkProps}
                   >
                     {element}
