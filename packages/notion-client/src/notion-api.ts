@@ -194,6 +194,8 @@ export class NotionAPI {
     contentBlockIds: string[]
     gotOptions?: OptionsOfJSONResponseBody
   }) {
+    recordMap.signed_urls = {}
+
     const allFileInstances = contentBlockIds.flatMap((blockId) => {
       const block = recordMap.block[blockId].value
 
