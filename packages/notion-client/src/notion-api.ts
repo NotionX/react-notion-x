@@ -179,63 +179,72 @@ export class NotionAPI {
     // because it is preferable for many use cases as opposed to making these API calls
     // lazily from the client-side.
     if (signFileUrls) {
-      const allFileInstances = contentBlockIds.flatMap((blockId) => {
-        const block = recordMap.block[blockId].value
-
-        if (
-          block &&
-          (block.type === 'pdf' ||
-            block.type === 'audio' ||
-            (block.type === 'image' && block.file_ids?.length) ||
-            block.type === 'video' ||
-            block.type === 'file')
-        ) {
-          const source = block.properties?.source?.[0]?.[0]
-          // console.log(block, source)
-
-          if (source) {
-            if (
-              source.indexOf('youtube') >= 0 ||
-              source.indexOf('vimeo') >= 0
-            ) {
-              return []
-            }
-
-            return {
-              permissionRecord: {
-                table: 'block',
-                id: block.id
-              },
-              url: source
-            }
-          }
-        }
-
-        return []
-      })
-
-      if (allFileInstances.length > 0) {
-        try {
-          const { signedUrls } = await this.getSignedFileUrls(
-            allFileInstances,
-            gotOptions
-          )
-
-          if (signedUrls.length === allFileInstances.length) {
-            for (let i = 0; i < allFileInstances.length; ++i) {
-              const file = allFileInstances[i]
-              const signedUrl = signedUrls[i]
-
-              recordMap.signed_urls[file.permissionRecord.id] = signedUrl
-            }
-          }
-        } catch (err) {
-          console.warn('NotionAPI getSignedfileUrls error', err)
-        }
-      }
+      await this.addSignedUrls({ recordMap, contentBlockIds, gotOptions })
     }
 
     return recordMap
+  }
+
+  public async addSignedUrls({
+    recordMap,
+    contentBlockIds,
+    gotOptions = {}
+  }: {
+    recordMap: notion.ExtendedRecordMap
+    contentBlockIds: string[]
+    gotOptions?: OptionsOfJSONResponseBody
+  }) {
+    const allFileInstances = contentBlockIds.flatMap((blockId) => {
+      const block = recordMap.block[blockId].value
+
+      if (
+        block &&
+        (block.type === 'pdf' ||
+          block.type === 'audio' ||
+          (block.type === 'image' && block.file_ids?.length) ||
+          block.type === 'video' ||
+          block.type === 'file')
+      ) {
+        const source = block.properties?.source?.[0]?.[0]
+        // console.log(block, source)
+
+        if (source) {
+          if (source.indexOf('youtube') >= 0 || source.indexOf('vimeo') >= 0) {
+            return []
+          }
+
+          return {
+            permissionRecord: {
+              table: 'block',
+              id: block.id
+            },
+            url: source
+          }
+        }
+      }
+
+      return []
+    })
+
+    if (allFileInstances.length > 0) {
+      try {
+        const { signedUrls } = await this.getSignedFileUrls(
+          allFileInstances,
+          gotOptions
+        )
+
+        if (signedUrls.length === allFileInstances.length) {
+          for (let i = 0; i < allFileInstances.length; ++i) {
+            const file = allFileInstances[i]
+            const signedUrl = signedUrls[i]
+
+            recordMap.signed_urls[file.permissionRecord.id] = signedUrl
+          }
+        }
+      } catch (err) {
+        console.warn('NotionAPI getSignedfileUrls error', err)
+      }
+    }
   }
 
   public async getPageRaw(
@@ -445,8 +454,8 @@ export class NotionAPI {
   //handle setting group_by for the query if it isn't already
   private getQuery(collectionView: notion.CollectionView | undefined) {
     let query = collectionView?.query2 || collectionView?.query
-    if(!query) return undefined
-    
+    if (!query) return undefined
+
     const groupBy = collectionView?.format?.board_columns_by
       ? collectionView?.format?.board_columns_by?.property
       : undefined
