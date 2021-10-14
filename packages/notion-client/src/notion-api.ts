@@ -191,10 +191,14 @@ export class NotionAPI {
     gotOptions = {}
   }: {
     recordMap: notion.ExtendedRecordMap
-    contentBlockIds: string[]
+    contentBlockIds?: string[]
     gotOptions?: OptionsOfJSONResponseBody
   }) {
     recordMap.signed_urls = {}
+
+    if (!contentBlockIds) {
+      contentBlockIds = getPageContentBlockIds(recordMap)
+    }
 
     const allFileInstances = contentBlockIds.flatMap((blockId) => {
       const block = recordMap.block[blockId].value
