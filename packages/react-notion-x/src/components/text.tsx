@@ -144,12 +144,13 @@ export const Text: React.FC<{
               const id = parsePageId(pathname, { uuid: true })
 
               if ((v[0] === '/' || v.includes(rootDomain)) && id) {
-                // console.log('a', id)
-
+                const href = v.includes(rootDomain) 
+                  ? v 
+                  : `${mapPageUrl(id)}${v.includes('#') ? v.replace(/^.+(#.+)$/, '$2') : ''}`;
                 return (
                   <components.pageLink
                     className='notion-link'
-                    href={v.includes(rootDomain) ? v : mapPageUrl(id)}
+                    href={href}
                     {...linkProps}
                   >
                     {element}
