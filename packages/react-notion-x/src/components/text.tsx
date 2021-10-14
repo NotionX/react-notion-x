@@ -146,7 +146,7 @@ export const Text: React.FC<{
               if ((v[0] === '/' || v.includes(rootDomain)) && id) {
                 const href = v.includes(rootDomain) 
                   ? v 
-                  : `${mapPageUrl(id)}${v.includes('#') ? v.replace(/^.+(#.+)$/, '$2') : ''}`;
+                  : `${mapPageUrl(id)}${v.includes('#') ? v.replace(/^.+(#.+)$/, '$1') : ''}`;
                 return (
                   <components.pageLink
                     className='notion-link'
