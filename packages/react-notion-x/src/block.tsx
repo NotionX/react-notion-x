@@ -84,9 +84,10 @@ export const Block: React.FC<BlockProps> = (props) => {
     ;(block as any).type = 'collection_view_page'
   }
 
-  const blockId = hideBlockId
+  const idString = uuidToId(block.id);
+  const blockClass = hideBlockId
     ? 'notion-block'
-    : `notion-block-${uuidToId(block.id)}`
+    : `notion-block-${idString}`
 
   switch (block.type) {
     case 'collection_view_page':
@@ -179,9 +180,10 @@ export const Block: React.FC<BlockProps> = (props) => {
                 'notion',
                 'notion-app',
                 darkMode ? 'dark-mode' : 'light-mode',
-                blockId,
+                blockClass,
                 className
               )}
+              id={hideBlockId ? idString : undefined}
             >
               <div className='notion-viewport' />
 
