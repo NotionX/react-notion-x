@@ -28,6 +28,5 @@
     "paths": {
       "*": ["types/*"]
     }
-  },
-  "exclude": ["node_modules/**/*"]
+  }
 }
