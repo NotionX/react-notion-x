@@ -8,7 +8,7 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [getAllPagesInSpace(rootPageId, rootSpaceId, getPage, { concurrency, traverseCollections })](./notion-utils.getallpagesinspace.md) | Performs a traversal over a given Notion workspace starting from a seed page.<!-- -->Returns a map containing all of the pages that are reachable from the seed page in the space.<!-- -->If <code>rootSpaceId</code> is not defined, the space ID of the root page will be used to scope traversal. |
+|  [getAllPagesInSpace(rootPageId, rootSpaceId, getPage, { concurrency, traverseCollections, targetPageId })](./notion-utils.getallpagesinspace.md) | Performs a traversal over a given Notion workspace starting from a seed page.<!-- -->Returns a map containing all of the pages that are reachable from the seed page in the space.<!-- -->If <code>rootSpaceId</code> is not defined, the space ID of the root page will be used to scope traversal. |
 |  [getBlockIcon(block, recordMap)](./notion-utils.getblockicon.md) |  |
 |  [getBlockTitle(block, recordMap)](./notion-utils.getblocktitle.md) |  |
 |  [getPageProperty(propertyName, block, recordMap)](./notion-utils.getpageproperty.md) | Gets the value of a collection property for a given page (collection item).<!-- -->TODO: handle non-text property types. |

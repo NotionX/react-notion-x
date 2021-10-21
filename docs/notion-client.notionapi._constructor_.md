@@ -9,7 +9,7 @@ Constructs a new instance of the `NotionAPI` class
 <b>Signature:</b>
 
 ```typescript
-constructor({ apiBaseUrl, authToken, activeUser, userLocale, userTimeZone }?: {
+constructor({ apiBaseUrl, authToken, activeUser, userTimeZone }?: {
         apiBaseUrl?: string;
         authToken?: string;
         userLocale?: string;
@@ -22,5 +22,5 @@ constructor({ apiBaseUrl, authToken, activeUser, userLocale, userTimeZone }?: {
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  { apiBaseUrl, authToken, activeUser, userLocale, userTimeZone } | { apiBaseUrl?: string; authToken?: string; userLocale?: string; userTimeZone?: string; activeUser?: string; } |  |
+|  { apiBaseUrl, authToken, activeUser, userTimeZone } | { apiBaseUrl?: string; authToken?: string; userLocale?: string; userTimeZone?: string; activeUser?: string; } |  |
 

@@ -7,15 +7,15 @@
 <b>Signature:</b>
 
 ```typescript
-export interface GoogleDriveBlock extends BaseBlock 
+export interface GoogleDriveBlock extends BaseContentBlock 
 ```
-<b>Extends:</b> [BaseBlock](./notion-types.baseblock.md)
+<b>Extends:</b> [BaseContentBlock](./notion-types.basecontentblock.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [file\_ids](./notion-types.googledriveblock.file_ids.md) | string\[\] |  |
-|  [format](./notion-types.googledriveblock.format.md) | { drive\_status: { authed: boolean; last\_fetched: number; }; drive\_properties: { url: string; icon: string; title: string; file\_id: string; trashed: boolean; version: string; thumbnail: string; user\_name: string; modified\_time: number; }; } |  |
+|  [format](./notion-types.googledriveblock.format.md) | { drive\_status: { authed: boolean; last\_fetched: number; }; drive\_properties: { url: string; icon: string; title: string; file\_id: string; trashed: boolean; version: string; thumbnail: string; user\_name: string; modified\_time: number; }; block\_width: number; block\_height: number; display\_source: string; block\_full\_width: boolean; block\_page\_width: boolean; block\_aspect\_ratio: number; block\_preserve\_scale: boolean; } |  |
 |  [type](./notion-types.googledriveblock.type.md) | 'drive' |  |
 

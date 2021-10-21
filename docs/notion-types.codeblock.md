@@ -15,6 +15,6 @@ export interface CodeBlock extends BaseBlock
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [properties](./notion-types.codeblock.properties.md) | { title: [Decoration](./notion-types.decoration.md)<!-- -->\[\]; language: [Decoration](./notion-types.decoration.md)<!-- -->\[\]; } |  |
+|  [properties](./notion-types.codeblock.properties.md) | { title: [Decoration](./notion-types.decoration.md)<!-- -->\[\]; language: [Decoration](./notion-types.decoration.md)<!-- -->\[\]; caption: [Decoration](./notion-types.decoration.md)<!-- -->\[\]; } |  |
 |  [type](./notion-types.codeblock.type.md) | 'code' |  |
 
