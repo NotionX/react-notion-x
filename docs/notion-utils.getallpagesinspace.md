@@ -13,9 +13,10 @@ If `rootSpaceId` is not defined, the space ID of the root page will be used to s
 <b>Signature:</b>
 
 ```typescript
-export declare function getAllPagesInSpace(rootPageId: string, rootSpaceId: string | undefined, getPage: (pageId: string) => Promise<ExtendedRecordMap>, { concurrency, traverseCollections }?: {
+export declare function getAllPagesInSpace(rootPageId: string, rootSpaceId: string | undefined, getPage: (pageId: string) => Promise<ExtendedRecordMap>, { concurrency, traverseCollections, targetPageId }?: {
     concurrency?: number;
     traverseCollections?: boolean;
+    targetPageId?: string;
 }): Promise<PageMap>;
 ```
 
@@ -26,7 +27,7 @@ export declare function getAllPagesInSpace(rootPageId: string, rootSpaceId: stri
 |  rootPageId | string | Page ID to start from. |
 |  rootSpaceId | string \| undefined | Space ID to scope traversal. |
 |  getPage | (pageId: string) =&gt; Promise&lt;[ExtendedRecordMap](./notion-types.extendedrecordmap.md)<!-- -->&gt; | Function used to fetch a single page. |
-|  { concurrency, traverseCollections } | { concurrency?: number; traverseCollections?: boolean; } |  |
+|  { concurrency, traverseCollections, targetPageId } | { concurrency?: number; traverseCollections?: boolean; targetPageId?: string; } |  |
 
 <b>Returns:</b>
 

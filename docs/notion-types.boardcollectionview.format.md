@@ -23,5 +23,13 @@ format: {
                 value: string;
             };
         }>;
+        board_columns: Array<{
+            property: PropertyID;
+            hidden: boolean;
+            value: {
+                type: PropertyType;
+                value: string;
+            };
+        }>;
     };
 ```

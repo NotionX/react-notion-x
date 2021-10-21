@@ -10,5 +10,6 @@
 properties: {
         title: Decoration[];
         language: Decoration[];
+        caption: Decoration[];
     };
 ```

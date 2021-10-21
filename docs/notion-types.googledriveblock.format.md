@@ -23,5 +23,12 @@ format: {
             user_name: string;
             modified_time: number;
         };
+        block_width: number;
+        block_height: number;
+        display_source: string;
+        block_full_width: boolean;
+        block_page_width: boolean;
+        block_aspect_ratio: number;
+        block_preserve_scale: boolean;
     };
 ```

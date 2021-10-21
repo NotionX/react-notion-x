@@ -16,15 +16,16 @@ export declare class NotionAPI
 
 |  Constructor | Modifiers | Description |
 |  --- | --- | --- |
-|  [(constructor)({ apiBaseUrl, authToken, activeUser, userLocale, userTimeZone })](./notion-client.notionapi._constructor_.md) |  | Constructs a new instance of the <code>NotionAPI</code> class |
+|  [(constructor)({ apiBaseUrl, authToken, activeUser, userTimeZone })](./notion-client.notionapi._constructor_.md) |  | Constructs a new instance of the <code>NotionAPI</code> class |
 
 ## Methods
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [fetch({ endpoint, body, gotOptions })](./notion-client.notionapi.fetch.md) |  |  |
+|  [addSignedUrls({ recordMap, contentBlockIds, gotOptions })](./notion-client.notionapi.addsignedurls.md) |  |  |
+|  [fetch({ endpoint, body, gotOptions, headers: clientHeaders })](./notion-client.notionapi.fetch.md) |  |  |
 |  [getBlocks(blockIds, gotOptions)](./notion-client.notionapi.getblocks.md) |  |  |
-|  [getCollectionData(collectionId, collectionViewId, { type, query, groups, limit, searchQuery, userTimeZone, userLocale, loadContentCover, gotOptions })](./notion-client.notionapi.getcollectiondata.md) |  |  |
+|  [getCollectionData(collectionId, collectionViewId, { type, query, groups, limit, searchQuery, userTimeZone, loadContentCover, gotOptions })](./notion-client.notionapi.getcollectiondata.md) |  |  |
 |  [getPage(pageId, { concurrency, fetchCollections, signFileUrls, gotOptions })](./notion-client.notionapi.getpage.md) |  |  |
 |  [getPageRaw(pageId, gotOptions)](./notion-client.notionapi.getpageraw.md) |  |  |
 |  [getSignedFileUrls(urls, gotOptions)](./notion-client.notionapi.getsignedfileurls.md) |  |  |
