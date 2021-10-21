@@ -22,7 +22,6 @@
     "p-map": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node-fetch": "^2.5.7",
-    "ava": "^3.13.0"
+    "ava": "^3.15.0"
   }
 }
