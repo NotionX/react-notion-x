@@ -1276,9 +1276,9 @@
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
 "@types/prop-types@*":
-  version "15.7.3"
-  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
-  integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+  version "15.7.4"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
+  integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
 
 "@types/react@^17.0.31":
   version "17.0.31"
@@ -1297,9 +1297,9 @@
     "@types/node" "*"
 
 "@types/scheduler@*":
-  version "0.16.1"
-  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
-  integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
+  integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
 "@xobotyi/scrollbar-width@^1.9.5":
   version "1.9.5"
@@ -2560,9 +2560,9 @@ cssnano-simple@3.0.0:
     cssnano-preset-simple "^3.0.0"
 
 csstype@^3.0.2:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.3.tgz#2b410bbeba38ba9633353aff34b05d9755d065f8"
-  integrity sha512-jPl+wbWPOWJ7SXsWyqGRk3lGecbar0Cb0OvZF/r/ZU011R4YqiRehgkQ9p4eQfo9DSDLqLL3wHwfxeJiuIsNag==
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.9.tgz#6410af31b26bd0520933d02cbc64fce9ce3fbf0b"
+  integrity sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==
 
 csstype@^3.0.6:
   version "3.0.8"
@@ -3126,14 +3126,6 @@ figures@^3.0.0, figures@^3.2.0:
   integrity sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==
   dependencies:
     escape-string-regexp "^1.0.5"
-
-file-loader@^6.0.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/file-loader/-/file-loader-6.2.0.tgz#baef7cf8e1840df325e4390b4484879480eebe4d"
-  integrity sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==
-  dependencies:
-    loader-utils "^2.0.0"
-    schema-utils "^3.0.0"
 
 fill-range@^7.0.1:
   version "7.0.1"
@@ -5796,10 +5788,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-pdfjs-dist@2.9.359:
-  version "2.9.359"
-  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-2.9.359.tgz#e67bafebf20e50fc41f1a5c189155ad008ac4f81"
-  integrity sha512-P2nYtkacdlZaNNwrBLw1ZyMm0oE2yY/5S/GDCAmMJ7U4+ciL/D0mrlEC/o4HZZc/LNE3w8lEVzBEyVgEQlPVKQ==
+pdfjs-dist@2.5.207:
+  version "2.5.207"
+  resolved "https://registry.yarnpkg.com/pdfjs-dist/-/pdfjs-dist-2.5.207.tgz#b5e8c19627be64269cd3fb6df3eaaf45ddffe7b6"
+  integrity sha512-xGDUhnCYPfHy+unMXCLCJtlpZaaZ17Ew3WIL0tnSgKFUZXHAPD49GO9xScyszSsQMoutNDgRb+rfBXIaX/lJbw==
 
 performance-now@^2.1.0:
   version "2.1.0"
@@ -6241,19 +6233,19 @@ react-modal@^3.14.3:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
-react-pdf@^5.4.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/react-pdf/-/react-pdf-5.4.1.tgz#b60924ea1ca9310ceca27ff64baa022691c5bd43"
-  integrity sha512-/MsRwGF9j+mPlPVMiwHejH92T55MmwpHfdRjobWxPbMGOY8bMq6zsTrKd+FMrZI0uhC1q8FNW40lBQ8rfY4R8Q==
+react-pdf@5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/react-pdf/-/react-pdf-5.2.0.tgz#a0c3b8fb953eb3aaad58d7cb35aba2dc71a0cc9e"
+  integrity sha512-/vl+fzurHzz1o1knGSnLzFu1lL/1yb67JSE3WSX3bC/ioL/j34q5WiJbxK2D61Og0RZe6CNy9rve6JyB+sfHCw==
   dependencies:
     "@babel/runtime" "^7.0.0"
-    file-loader "^6.0.0"
     make-cancellable-promise "^1.0.0"
     make-event-props "^1.1.0"
     merge-class-names "^1.1.1"
     merge-refs "^1.0.0"
-    pdfjs-dist "2.9.359"
+    pdfjs-dist "2.5.207"
     prop-types "^15.6.2"
+    worker-loader "^3.0.0"
 
 react-refresh@0.8.3:
   version "0.8.3"
@@ -7954,6 +7946,14 @@ wordwrap@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
+
+worker-loader@^3.0.0:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/worker-loader/-/worker-loader-3.0.8.tgz#5fc5cda4a3d3163d9c274a4e3a811ce8b60dbb37"
+  integrity sha512-XQyQkIFeRVC7f7uRhFdNMe/iJOdO6zxAaR3EWbDp45v3mDhrTi+++oswKNxShUNjPC/1xUp5DB29YKLhFo129g==
+  dependencies:
+    loader-utils "^2.0.0"
+    schema-utils "^3.0.0"
 
 wrap-ansi@^7.0.0:
   version "7.0.0"
