@@ -12,7 +12,7 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
-    "next": "^10.0.5",
+    "next": "^11.1.2",
     "notion-client": "^4.9.10",
     "notion-utils": "^4.8.6",
     "react": "^17.0.2",
@@ -20,10 +20,10 @@
     "react-notion-x": "^4.9.9"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^9.5.3",
-    "@types/node": "^14.11.5",
-    "@types/react": "^16.9.51",
-    "cross-env": "^7.0.2",
-    "typescript": "^4.0.3"
+    "@next/bundle-analyzer": "^11.1.2",
+    "@types/node": "^16.11.2",
+    "@types/react": "^17.0.31",
+    "cross-env": "^7.0.3",
+    "typescript": "^4.4.4"
   }
 }
