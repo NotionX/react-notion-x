@@ -9,13 +9,8 @@ import { cs } from '../utils'
 import { SearchDialog } from './search-dialog'
 
 export const PageHeader: React.FC<{}> = () => {
-  const {
-    components,
-    recordMap,
-    rootPageId,
-    mapPageUrl,
-    searchNotion
-  } = useNotionContext()
+  const { components, recordMap, rootPageId, mapPageUrl, searchNotion } =
+    useNotionContext()
 
   const blockMap = recordMap.block
   const blockIds = Object.keys(blockMap)

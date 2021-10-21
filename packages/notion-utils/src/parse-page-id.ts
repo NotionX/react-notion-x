@@ -1,7 +1,8 @@
 import { idToUuid } from './id-to-uuid'
 
 const pageIdRe = /\b([a-f0-9]{32})\b/
-const pageId2Re = /\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b/
+const pageId2Re =
+  /\b([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})\b/
 
 /**
  * Robustly extracts the notion page ID from a notion URL or pathname suffix.
