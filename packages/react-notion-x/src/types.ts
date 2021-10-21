@@ -1,6 +1,9 @@
 import * as types from 'notion-types'
 
-export type MapPageUrl = (pageId: string, recordMap?: types.ExtendedRecordMap | undefined) => string
+export type MapPageUrl = (
+  pageId: string,
+  recordMap?: types.ExtendedRecordMap | undefined
+) => string
 export type MapImageUrl = (url: string, block: types.Block) => string
 export type SearchNotion = (
   params: types.SearchParams
@@ -10,7 +13,7 @@ export interface NotionComponents {
   // TODO: better typing for arbitrary react components
   link: any
   pageLink: any
-  checkbox: React.FC<{ isChecked: boolean, blockId: string }>
+  checkbox: React.FC<{ isChecked: boolean; blockId: string }>
 
   // blocks
   code: any
@@ -24,7 +27,6 @@ export interface NotionComponents {
   pdf: any
   tweet: any
   modal: any
-
 }
 
 export interface CollectionViewProps {
