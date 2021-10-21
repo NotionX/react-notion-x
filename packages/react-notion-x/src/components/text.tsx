@@ -23,13 +23,8 @@ export const Text: React.FC<{
   linkProtocol?: string
   inline?: boolean // TODO: currently unused
 }> = ({ value, block, linkProps, linkProtocol }) => {
-  const {
-    components,
-    recordMap,
-    mapPageUrl,
-    mapImageUrl,
-    rootDomain
-  } = useNotionContext()
+  const { components, recordMap, mapPageUrl, mapImageUrl, rootDomain } =
+    useNotionContext()
 
   return (
     <React.Fragment>

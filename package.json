@@ -32,12 +32,12 @@
     "postinstall": "run-s bootstrap"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "^7.8.28",
-    "@microsoft/api-extractor": "7.8.2-pr1796.0",
-    "del-cli": "^3.0.1",
-    "lerna": "^3.22.1",
+    "@microsoft/api-documenter": "^7.13.63",
+    "@microsoft/api-extractor": "^7.18.16",
+    "del-cli": "^4.0.1",
+    "lerna": "^4.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
-    "typescript": "^4.2.4"
+    "prettier": "^2.4.1",
+    "typescript": "^4.4.4"
   }
 }

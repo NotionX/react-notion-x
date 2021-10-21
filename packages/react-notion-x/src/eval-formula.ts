@@ -361,10 +361,12 @@ function evalFunctionFormula(
       const date1 = evalFormula(args[0], ctx) as Date
       const date2 = evalFormula(args[1], ctx) as Date
       const unit = evalFormula(args[1], ctx) as string
-      return (intervalToDuration({
-        start: date2,
-        end: date1
-      }) as any)[unit] as number
+      return (
+        intervalToDuration({
+          start: date2,
+          end: date1
+        }) as any
+      )[unit] as number
     }
 
     case 'dateSubtract': {

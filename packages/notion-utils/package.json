@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "notion-types": "^4.8.2",
-    "p-queue": "^6.6.1"
+    "p-queue": "6"
   },
   "devDependencies": {
-    "ava": "^3.13.0"
+    "ava": "^3.15.0"
   }
 }
