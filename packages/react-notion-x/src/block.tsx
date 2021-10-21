@@ -114,7 +114,10 @@ export const Block: React.FC<BlockProps> = (props) => {
           const pageIcon = getBlockIcon(block, recordMap) ?? defaultPageIcon
           const isPageIconUrl = pageIcon && isUrl(pageIcon)
 
-          const toc = getPageTableOfContents(block as types.PageBlock, recordMap)
+          const toc = getPageTableOfContents(
+            block as types.PageBlock,
+            recordMap
+          )
 
           const hasToc =
             showTableOfContents && toc.length >= minTableOfContentsItems
@@ -781,10 +784,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       return (
         <div className={cs('notion-to-do', blockId)}>
           <div className='notion-to-do-item'>
-            <components.checkbox
-              blockId={blockId}
-              isChecked={isChecked}
-            />
+            <components.checkbox blockId={blockId} isChecked={isChecked} />
 
             <div
               className={cs(

@@ -98,7 +98,10 @@ export class SearchDialog extends React.Component<{
                             <components.pageLink
                               key={result.id}
                               className={cs('result', 'notion-page-link')}
-                              href={mapPageUrl(result.block.id, searchResult.recordMap)}
+                              href={mapPageUrl(
+                                result.block.id,
+                                searchResult.recordMap
+                              )}
                             >
                               <PageTitle
                                 block={result.block}
