@@ -22,11 +22,12 @@
     "listFiles": false,
     "pretty": true,
 
-    "lib": ["ESNext", "ES2019", "ESNext.Array"],
+    "lib": ["ESNext", "ES2019", "ESNext.Array", "DOM"],
 
     "baseUrl": ".",
     "paths": {
       "*": ["types/*"]
     }
-  }
+  },
+  "exclude": ["node_modules/**/*"]
 }
