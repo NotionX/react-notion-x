@@ -23,7 +23,7 @@ And if you want even more control, then you're in the right place! 👇👇
   - 95-100% Lighthouse scores.
   - Heavier components like PDFs and collection views can be loaded lazily via `next/dynamic`.
 - 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality.
-- 🔥 **Solid** - Used in production by Notion X (_coming soon_), [Notion VIP](https://www.notion.vip), and [Notion2Site](http://notion2site.com).
+- 🔥 **Solid** - Used in production by [Potion](https://www.potion.so) and thousands of websites.
 
 ## Usage
 
