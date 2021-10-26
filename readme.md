@@ -74,9 +74,9 @@ import 'katex/dist/katex.min.css'
 
 Here's a full [Next.js example project](https://github.com/NotionX/react-notion-x/tree/master/example) with the most important code in [`pages/[pageId]`.tsx](https://github.com/NotionX/react-notion-x/blob/master/example/pages/%5BpageId%5D.tsx).
 
-You can check out this [example hosted live on Vercel](https://react-demo.notionx.so).
+You can check out this [example hosted live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
 
-If you're interested in a more robust service built around `react-notion-x` that features a bunch of additional goodies and optimizations, check out the equivalent [Notion X Demo](https://demo.notionx.so).
+If you're interested in a more robust service built around `react-notion-x` that features a bunch of additional goodies and optimizations, check out the equivalent [Notion X Demo](https://react-notion-x-demo.transitivebullsh.it).
 
 ## Packages
 
@@ -149,12 +149,12 @@ Bundlephobia reports a [~27.5kb gzip bundle size](https://bundlephobia.com/resul
 
 Another major factor for perf comes from images hosted by Notion. They're generally unoptimized, improperly sized, and not cacheable because Notion has to deal with fine-grained access control that users can change at any time. You can override the default `mapImageUrl` function on `NotionRenderer` to add caching via a CDN like Cloudflare Workers, which is what Notion X does for optimal page load speeds.
 
-`NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://demo.notionx.so/image-sizing-3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
+`NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://react-notion-x-demo.transitivebullsh.it/image-sizing-3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
 
 <p align="center">
   <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="600" />
   <br>
-  <i>Google Lighthouse scores for an <a href="https://demo.notionx.so/checklists-38fa73d49b8f40aab1f3f8c82332e518">example page</a> hosted by Notion X.</i>
+  <i>Google Lighthouse scores for an <a href="https://react-notion-x-demo.transitivebullsh.it/checklists-38fa73d49b8f40aab1f3f8c82332e518">example page</a> hosted by Notion X.</i>
 </p>
 
 ## Related
