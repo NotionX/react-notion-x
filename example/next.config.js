@@ -5,6 +5,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 module.exports = withBundleAnalyzer({
+  images: {
+    domains: ["www.notion.so", "images.unsplash.com"]
+  },
   async redirects() {
     return [
       // redirect the index page to our notion test suite

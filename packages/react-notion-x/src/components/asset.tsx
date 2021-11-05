@@ -3,7 +3,7 @@ import { BaseContentBlock, Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
-import { LazyImage } from './lazy-image'
+import NextImage from 'next/image'
 
 const isServer = typeof window === 'undefined'
 
@@ -25,7 +25,8 @@ const types = [
 export const Asset: React.FC<{
   block: BaseContentBlock
   children: any
-}> = ({ block, children }) => {
+  darkMode: boolean
+}> = ({ block, children, darkMode }) => {
   const { recordMap, mapImageUrl, components } = useNotionContext()
 
   if (!block || !types.includes(block.type)) {
@@ -56,12 +57,6 @@ export const Asset: React.FC<{
     } = block.format
 
     if (block_full_width || block_page_width) {
-      if (block_full_width) {
-        style.width = '100vw'
-      } else {
-        style.width = '100%'
-      }
-
       if (block_aspect_ratio && block.type !== 'image') {
         // console.log(block.type, block)
         style.paddingBottom = `${block_aspect_ratio * 100}%`
@@ -217,13 +212,20 @@ export const Asset: React.FC<{
     const caption = getTextContent(block.properties?.caption)
     const alt = caption || 'notion image'
 
+    // Generate RGB-based base64 images for image placeholder while loading
+    const keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+    const triplet = (e1: number, e2: number, e3: number) => keyStr.charAt(e1 >> 2) + keyStr.charAt(((e1 & 3) << 4) | (e2 >> 4)) + keyStr.charAt(((e2 & 15) << 2) | (e3 >> 6)) + keyStr.charAt(e3 & 63)
+    const rgbDataURL = (r: number, g: number, b: number) => `data:image/gif;base64,R0lGODlhAQABAPAA${triplet(0, r, g) + triplet(b, 255, 255)}/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`
+
     content = (
-      <LazyImage
+      <NextImage
         src={src}
         alt={alt}
-        style={assetStyle}
-        zoomable={false}
-        height={style.height as number}
+        height={100000}
+        width={100000}
+        placeholder={"blur"}
+        blurDataURL={darkMode ? rgbDataURL(47,52,55) : rgbDataURL(255,255,255)}
+        objectFit="contain"
       />
     )
   }

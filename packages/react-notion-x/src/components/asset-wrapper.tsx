@@ -9,7 +9,8 @@ import { parsePageId } from 'notion-utils'
 export const AssetWrapper: React.FC<{
   blockId: string
   block: Block
-}> = ({ blockId, block }) => {
+  darkMode: boolean
+}> = ({ blockId, block, darkMode }) => {
   const value = block as BaseContentBlock
   const { components, mapPageUrl } = useNotionContext()
 
@@ -33,7 +34,7 @@ export const AssetWrapper: React.FC<{
         blockId
       )}
     >
-      <Asset block={value}>
+      <Asset block={value} darkMode={darkMode} >
         {value?.properties?.caption && !isURL && (
           <figcaption className='notion-asset-caption'>
             <Text value={value.properties.caption} block={block} />
