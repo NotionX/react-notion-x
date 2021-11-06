@@ -7,7 +7,7 @@ import { cs } from '../utils'
  * Progressive, lazy images modeled after Medium's LQIP technique.
  */
 export const LazyImage: React.FC<{
-  src: string
+  src?: string
   alt?: string
   className?: string
   style?: React.CSSProperties

@@ -12,6 +12,7 @@ export type SearchNotion = (
 
 export interface NotionComponents {
   // TODO: better typing for arbitrary react components
+  image: any
   link: any
   pageLink: any
   checkbox: React.FC<{ isChecked: boolean; blockId: string }>

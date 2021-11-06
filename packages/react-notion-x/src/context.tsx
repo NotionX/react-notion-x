@@ -9,6 +9,7 @@ import {
 } from './types'
 import { defaultMapPageUrl, defaultMapImageUrl } from './utils'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
+import { LazyImage } from './components/lazy-image'
 
 export interface NotionContext {
   recordMap: ExtendedRecordMap
@@ -63,10 +64,13 @@ export interface PartialNotionContext {
   zoom?: any
 }
 
-const DefaultLink: React.SFC = (props) => (
+const DefaultImage: React.FC = (props) =>  {
+  return <LazyImage {...props} />
+}
+const DefaultLink: React.FC = (props) => (
   <a target='_blank' rel='noopener noreferrer' {...props} />
 )
-const DefaultPageLink: React.SFC = (props) => <a {...props} />
+const DefaultPageLink: React.FC = (props) => <a {...props} />
 
 export const dummyLink = ({ href, rel, target, title, ...rest }) => (
   <span {...rest} />
@@ -81,6 +85,7 @@ const dummyComponent = (name: string) => () => {
 }
 
 const defaultComponents: NotionComponents = {
+  image: DefaultImage,
   link: DefaultLink,
   pageLink: DefaultPageLink,
   checkbox: DefaultCheckbox,

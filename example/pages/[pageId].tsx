@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
 
 import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
 import { NotionAPI } from 'notion-client'
@@ -72,8 +73,34 @@ export default function NotionPage({ recordMap }) {
         recordMap={recordMap}
         fullPage={true}
         darkMode={false}
+        vercelImages={true}
         rootDomain='localhost:9090' // used to detect root domain links and open this in the same tab
         components={{
+          image: ({
+            onLoad,
+            src,
+            alt,
+            height,
+            width,
+            objectFit,
+            unoptimized,
+            placeholder,
+            blurDataURL
+          }) => {
+            return (
+              <Image
+                src={src}
+                alt={alt}
+                height={height}
+                width={width}
+                placeholder={placeholder}
+                blurDataURL={blurDataURL}
+                objectFit={objectFit}
+                unoptimized={unoptimized}
+                onLoad={onLoad}
+              />
+            )
+          },
           collection: Collection,
           collectionRow: CollectionRow
         }}
