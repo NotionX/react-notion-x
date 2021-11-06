@@ -531,20 +531,20 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'excalidraw':
     // fallthrough
     case 'image':
-      return <AssetWrapper blockId={blockId} block={block} darkMode={darkMode} />
+    // fallthrough
     case 'gist':
     // fallthrough
     case 'embed':
     // fallthrough
     case 'video':
-      return <AssetWrapper blockId={blockId} block={block} darkMode={darkMode} />
+      return <AssetWrapper blockId={blockId} block={block} />
 
     case 'drive':
       const properties = block.format?.drive_properties
       if (!properties) {
         //check if this drive actually needs to be embeded ex. google sheets.
         if (block.format?.display_source) {
-          return <AssetWrapper blockId={blockId} block={block} darkMode={darkMode} />
+          return <AssetWrapper blockId={blockId} block={block} />
         }
       }
 

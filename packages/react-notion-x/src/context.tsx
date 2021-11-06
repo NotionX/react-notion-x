@@ -24,6 +24,7 @@ export interface NotionContext {
   fullPage: boolean
   darkMode: boolean
   previewImages: boolean
+  vercelImages: boolean
   showCollectionViewDropdown: boolean
   showTableOfContents: boolean
   minTableOfContentsItems: number
@@ -49,6 +50,7 @@ export interface PartialNotionContext {
   fullPage?: boolean
   darkMode?: boolean
   previewImages?: boolean
+  vercelImages?: boolean
   showCollectionViewDropdown?: boolean
 
   showTableOfContents?: boolean
@@ -113,6 +115,7 @@ const defaultNotionContext: NotionContext = {
   fullPage: false,
   darkMode: false,
   previewImages: false,
+  vercelImages: false,
   showCollectionViewDropdown: true,
 
   showTableOfContents: false,

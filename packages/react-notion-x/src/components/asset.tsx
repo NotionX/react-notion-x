@@ -25,9 +25,8 @@ const types = [
 export const Asset: React.FC<{
   block: BaseContentBlock
   children: any
-  darkMode: boolean
-}> = ({ block, children, darkMode }) => {
-  const { recordMap, mapImageUrl, components } = useNotionContext()
+}> = ({ block, children }) => {
+  const { recordMap, mapImageUrl, components, vercelImages, darkMode } = useNotionContext()
 
   if (!block || !types.includes(block.type)) {
     return null
@@ -226,6 +225,7 @@ export const Asset: React.FC<{
         placeholder={"blur"}
         blurDataURL={darkMode ? rgbDataURL(47,52,55) : rgbDataURL(255,255,255)}
         objectFit="contain"
+        unoptimized={!vercelImages}
       />
     )
   }
