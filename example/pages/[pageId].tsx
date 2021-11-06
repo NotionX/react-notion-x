@@ -84,23 +84,17 @@ export default function NotionPage({ recordMap }) {
             width,
             objectFit,
             unoptimized,
-            placeholder,
-            blurDataURL
-          }) => {
-            return (
-              <Image
-                src={src}
-                alt={alt}
-                height={height}
-                width={width}
-                placeholder={placeholder}
-                blurDataURL={blurDataURL}
-                objectFit={objectFit}
-                unoptimized={unoptimized}
-                onLoad={onLoad}
-              />
-            )
-          },
+          }) => (
+            <Image
+              src={src}
+              alt={alt}
+              height={height}
+              width={width}
+              objectFit={objectFit}
+              unoptimized={unoptimized}
+              onLoad={onLoad}
+            />
+          ),
           collection: Collection,
           collectionRow: CollectionRow
         }}
