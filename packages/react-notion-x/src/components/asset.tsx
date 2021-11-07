@@ -3,6 +3,7 @@ import { BaseContentBlock, Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
+import { LazyImage } from './lazy-image'
 
 const isServer = typeof window === 'undefined'
 
@@ -25,7 +26,7 @@ export const Asset: React.FC<{
   block: BaseContentBlock
   children: any
 }> = ({ block, children }) => {
-  const { recordMap, mapImageUrl, components, vercelImages, zoom } = useNotionContext()
+  const { recordMap, mapImageUrl, components } = useNotionContext()
 
   if (!block || !types.includes(block.type)) {
     return null
@@ -210,26 +211,10 @@ export const Asset: React.FC<{
     const caption = getTextContent(block.properties?.caption)
     const alt = caption || 'notion image'
 
-    const zoomRef = React.useRef(zoom ? zoom.clone() : null)
-    const attachZoom = (image: any) =>  {
-      if (zoomRef.current) {
-        ;(zoomRef.current as any).attach(image)
-      }
-    }
-
     content = (
-      <components.image
+      <LazyImage
         src={src}
         alt={alt}
-        height={100000}
-        width={100000}
-        objectFit={"contain"}
-        unoptimized={!vercelImages}
-        onLoad={(e: any) => {
-          if(e.target.srcset) {
-            attachZoom(e.target)
-          }
-        }}
         zoomable={false}
       />
     )

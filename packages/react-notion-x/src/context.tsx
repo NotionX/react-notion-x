@@ -64,9 +64,9 @@ export interface PartialNotionContext {
   zoom?: any
 }
 
-const DefaultImage: React.FC = (props) =>  {
-  return <LazyImage {...props} />
-}
+const DefaultImage: React.FC = (props) =>  (
+  <LazyImage {...props} />
+)
 const DefaultLink: React.FC = (props) => (
   <a target='_blank' rel='noopener noreferrer' {...props} />
 )

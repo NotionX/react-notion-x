@@ -14,7 +14,7 @@ export const LazyImage: React.FC<{
   height?: number
   zoomable?: boolean
 }> = ({ src, alt, className, style, zoomable = false, height, ...rest }) => {
-  const { recordMap, zoom, previewImages } = useNotionContext()
+  const { recordMap, zoom, previewImages, vercelImages, components } = useNotionContext()
 
   const zoomRef = React.useRef(zoom ? zoom.clone() : null)
   const previewImage = previewImages
@@ -91,16 +91,37 @@ export const LazyImage: React.FC<{
   } else {
     // TODO: GracefulImage doesn't seem to support refs, but we'd like to prevent
     // invalid images from loading as error states
+
+    // Render the standard img element for the page cover and when vercelImages flag is disabled (default)
+    if(className == "notion-page-cover" || !vercelImages) {
+      return (
+        <img
+          className={className}
+          style={style}
+          src={src}
+          ref={attachZoomRef}
+          loading='lazy'
+          alt={alt}
+          decoding='async'
+          {...rest}
+        />
+      )
+    }
+    
     return (
-      <img
-        className={className}
-        style={style}
+      <components.image
         src={src}
-        ref={attachZoomRef}
-        loading='lazy'
         alt={alt}
-        decoding='async'
-        {...rest}
+        height={100000}
+        width={100000}
+        objectFit={"contain"}
+        unoptimized={!vercelImages}
+        onLoad={(e: any) => {
+          if(e.target.srcset) {
+            attachZoom(e.target)
+          }
+        }}
+        zoomable={false}
       />
     )
   }
