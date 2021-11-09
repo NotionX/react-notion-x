@@ -122,7 +122,7 @@ export class NotionAPI {
                 type: collectionView?.type,
                 query: this.getQuery(collectionView),
                 groups:
-                  collectionView.type === 'board'
+                  collectionView?.type === 'board'
                     ? collectionView?.format?.board_groups2 ||
                       (collectionView?.format as any)?.board_groups ||
                       collectionView?.format?.board_columns
