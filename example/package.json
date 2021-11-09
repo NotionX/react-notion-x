@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example",
-  "version": "4.11.0",
+  "version": "4.11.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "next": "^11.1.2",
-    "notion-client": "^4.10.0",
+    "notion-client": "^4.11.1",
     "notion-utils": "^4.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
