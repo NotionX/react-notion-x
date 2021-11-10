@@ -117,11 +117,12 @@ export const LazyImage: React.FC<{
         objectFit={"contain"}
         unoptimized={!vercelImages}
         onLoad={(e: any) => {
-          if(e.target.srcset) {
-            attachZoom(e.target)
+          if(e.target.srcset && zoomable) {
+            if (zoomRef.current) {
+              ;(zoomRef.current as any).attach(e.target)
+            }
           }
         }}
-        zoomable={false}
       />
     )
   }
