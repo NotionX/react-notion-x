@@ -19,6 +19,7 @@ export interface NotionComponents {
   // blocks
   code: any
   equation: any
+  callout?:any
 
   // collection
   collection: any
