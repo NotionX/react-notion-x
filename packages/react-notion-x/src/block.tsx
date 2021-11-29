@@ -641,23 +641,28 @@ export const Block: React.FC<BlockProps> = (props) => {
       return <components.collection block={block} className={blockId} />
 
     case 'callout':
-      return (
-        <div
-          className={cs(
-            'notion-callout',
-            block.format?.block_color &&
+      if (components.callout) {
+        return <components.callout block={block} className={blockId} />
+      } else {
+      
+        return (
+          <div
+            className={cs(
+              'notion-callout',
+              block.format?.block_color &&
               `notion-${block.format?.block_color}_co`,
-            blockId
-          )}
-        >
-          <PageIcon block={block} />
+              blockId
+            )}
+          >
+            <PageIcon block={block} />
 
-          <div className='notion-callout-text'>
-            <Text value={block.properties?.title} block={block} />
-            {children}
+            <div className='notion-callout-text'>
+              <Text value={block.properties?.title} block={block} />
+              {children}
+            </div>
           </div>
-        </div>
-      )
+        )
+      }
 
     case 'bookmark':
       if (!block.properties) return null
