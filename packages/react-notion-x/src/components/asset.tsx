@@ -229,9 +229,12 @@ export const Asset: React.FC<{
   }
 
   return (
-    <div style={style}>
-      {content}
-      {children}
-    </div>
+    <>
+      <div style={style}>
+        {content}
+        {block.type === 'image' && children}
+      </div>
+      {block.type !== 'image' && children}
+    </>
   )
 }
