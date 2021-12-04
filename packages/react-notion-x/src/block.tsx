@@ -87,10 +87,6 @@ export const Block: React.FC<BlockProps> = (props) => {
   const blockId = hideBlockId
     ? 'notion-block'
     : `notion-block-${uuidToId(block.id)}`
-
-  function getArrayFirst(arr:any) {
-    return arr[0]
-  }
   
   switch (block.type) {
     case 'collection_view_page':
@@ -572,7 +568,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'code': {
       if (block.properties.title) {
-        const content = block.properties.title.map(getArrayFirst).join('')
+        const content = block.properties.title.map((arr) => { return arr[0] }).join('')
         const language = block.properties.language
           ? block.properties.language[0][0]
           : ''
