@@ -2,6 +2,7 @@ import React from 'react'
 import throttle from 'lodash.throttle'
 import {
   getBlockIcon,
+  getBlockTitle,
   getTextContent,
   getPageTableOfContents,
   getBlockParentPage,
@@ -568,7 +569,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'code': {
       if (block.properties.title) {
-        const content = block.properties.title.map((arr) => { return arr[0] }).join('')
+        const content = getBlockTitle(block)
         const language = block.properties.language
           ? block.properties.language[0][0]
           : ''
