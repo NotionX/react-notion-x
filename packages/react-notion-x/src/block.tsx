@@ -87,7 +87,7 @@ export const Block: React.FC<BlockProps> = (props) => {
   const blockId = hideBlockId
     ? 'notion-block'
     : `notion-block-${uuidToId(block.id)}`
-  
+
   switch (block.type) {
     case 'collection_view_page':
     // fallthrough
