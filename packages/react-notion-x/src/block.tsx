@@ -34,6 +34,7 @@ interface BlockProps {
 
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
+  navigationHeader?: React.ReactNode
   pageFooter?: React.ReactNode
   pageAside?: React.ReactNode
   pageCover?: React.ReactNode
@@ -68,6 +69,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     bodyClassName,
     footer,
     pageHeader,
+    navigationHeader,
     pageFooter,
     pageAside,
     pageCover,
@@ -189,7 +191,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               <div className='notion-viewport' />
 
               <div className='notion-frame'>
-                <PageHeader />
+                <PageHeader navigationHeader={navigationHeader} />
 
                 <div className='notion-page-scroller'>
                   {hasPageCover ? (
@@ -230,7 +232,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                         <PageIcon block={block} defaultIcon={defaultPageIcon} />
                       </div>
                     )}
-
+                    
                     {pageHeader}
 
                     <h1 className='notion-title'>

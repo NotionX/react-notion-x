@@ -8,9 +8,14 @@ import { SearchIcon } from '../icons/search-icon'
 import { cs } from '../utils'
 import { SearchDialog } from './search-dialog'
 
-export const PageHeader: React.FC<{}> = () => {
+interface PageHeaderProps {
+  navigationHeader?: React.ReactNode
+}
+
+export const PageHeader: React.FC<PageHeaderProps> = (props) => {
   const { components, recordMap, rootPageId, mapPageUrl, searchNotion } =
     useNotionContext()
+  const { navigationHeader } = props
 
   const blockMap = recordMap.block
   const blockIds = Object.keys(blockMap)
@@ -127,6 +132,7 @@ export const PageHeader: React.FC<{}> = () => {
         </div>
 
         <div className='rhs'>
+          {navigationHeader}
           {hasSearch && (
             <div
               role='button'

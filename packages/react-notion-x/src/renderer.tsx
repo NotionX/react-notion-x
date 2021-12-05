@@ -38,6 +38,7 @@ export interface NotionRendererProps {
 
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
+  navigationHeader?: React.ReactNode
   pageFooter?: React.ReactNode
   pageAside?: React.ReactNode
   pageCover?: React.ReactNode
