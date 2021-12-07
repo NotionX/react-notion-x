@@ -181,7 +181,6 @@
 .notion-aside-table-of-contents {
   display: flex;
   flex-direction: column;
-  align-items: center;
   max-height: calc(100vh - 148px - 16px);
   overflow: hidden auto;
   min-width: 222px;
