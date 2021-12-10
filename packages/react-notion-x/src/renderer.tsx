@@ -36,6 +36,7 @@ export interface NotionRendererProps {
   className?: string
   bodyClassName?: string
 
+  header?: React.ReactNode
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
@@ -49,6 +50,7 @@ export interface NotionRendererProps {
 interface NotionBlockRendererProps {
   className?: string
   bodyClassName?: string
+  header?: React.ReactNode
   footer?: React.ReactNode
 
   blockId?: string

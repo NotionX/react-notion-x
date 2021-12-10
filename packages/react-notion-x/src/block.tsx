@@ -32,6 +32,7 @@ interface BlockProps {
   className?: string
   bodyClassName?: string
 
+  header?: React.ReactNode
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
@@ -66,6 +67,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     level,
     className,
     bodyClassName,
+    header,
     footer,
     pageHeader,
     pageFooter,
@@ -189,7 +191,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               <div className='notion-viewport' />
 
               <div className='notion-frame'>
-                <PageHeader />
+                {header || <PageHeader />}
 
                 <div className='notion-page-scroller'>
                   {hasPageCover ? (
