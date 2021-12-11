@@ -13,9 +13,9 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
   const { components, recordMap, mapPageUrl } = useNotionContext()
   // console.log('list', { collection, collectionView, collectionData })
 
-  const boardGroups = collectionView.format.collection_groups
+  const isGrouped = collectionView.format.collection_group_by
 
-  if (!boardGroups) {
+  if (!isGrouped) {
     return <List blockIds={collectionData.blockIds} />
   }
 
@@ -84,15 +84,11 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
 
   return (
     <>
-      {boardGroups.map((p) => {
-        if (!(collectionData as any).board_columns.results) {
-          return null
-        }
-        const group = p.value.value
-          ? (collectionData as any)[`list:${p.value.value}`]
-          : (collectionData as any)['results:uncategorized']
+      {collectionView?.format?.collection_groups?.map((p) => {
+        let value = p?.value?.value ||  'uncategorized'  
+        const group =  (collectionData as any)[`results:${p.value.type}:${value}`]
         const schema = collection.schema[p.property]
-
+        
         if (!group || !schema || p.hidden) {
           return null
         }

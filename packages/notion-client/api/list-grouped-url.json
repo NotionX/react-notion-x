@@ -1,0 +1,148 @@
+{
+  "collection": {
+    "id": "e6da389e-260b-4e90-986f-f6fba332f0e4",
+    "spaceId": "4b7f28e5-08e6-4438-916f-2d294ac5b751"
+  },
+  "collectionView": {
+    "id": "5f5617ce-3b1a-48c1-b93c-dae7befe7b74",
+    "spaceId": "4b7f28e5-08e6-4438-916f-2d294ac5b751"
+  },
+  "loader": {
+    "type": "reducer",
+    "reducers": {
+      "list_groups": {
+        "type": "groups",
+        "groupBy": {
+          "property": "KcEG",
+          "type": "url",
+          "groupBy": "alphabet_prefix",
+          "sort": {
+            "type": "ascending"
+          }
+        },
+        "groupSortPreference": [
+          {
+            "type": "url"
+          },
+          {
+            "type": "url",
+            "value": {
+              "type": "alphabet_prefix",
+              "value": "H"
+            }
+          }
+        ],
+        "limit": 10
+      },
+      "group_aggregation:url:uncategorized": {
+        "type": "aggregation",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "KcEG",
+              "filter": {
+                "operator": "is_empty"
+              }
+            }
+          ]
+        },
+        "aggregation": {
+          "aggregator": "count"
+        }
+      },
+      "results:url:uncategorized": {
+        "type": "results",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "KcEG",
+              "filter": {
+                "operator": "is_empty"
+              }
+            }
+          ]
+        },
+        "limit": 25
+      },
+      "group_aggregation:url:H": {
+        "type": "aggregation",
+        "filter": {
+          "operator": "or",
+          "filters": [
+            {
+              "property": "KcEG",
+              "filter": {
+                "operator": "string_starts_with",
+                "value": {
+                  "type": "exact",
+                  "value": "H"
+                }
+              }
+            },
+            {
+              "property": "KcEG",
+              "filter": {
+                "operator": "string_starts_with",
+                "value": {
+                  "type": "exact",
+                  "value": "h"
+                }
+              }
+            }
+          ]
+        },
+        "aggregation": {
+          "aggregator": "count"
+        }
+      },
+      "results:url:H": {
+        "type": "results",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "operator": "or",
+              "filters": [
+                {
+                  "property": "KcEG",
+                  "filter": {
+                    "operator": "string_starts_with",
+                    "value": {
+                      "type": "exact",
+                      "value": "H"
+                    }
+                  }
+                },
+                {
+                  "property": "KcEG",
+                  "filter": {
+                    "operator": "string_starts_with",
+                    "value": {
+                      "type": "exact",
+                      "value": "h"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "limit": 25
+      }
+    },
+    "sort": [
+      {
+        "property": "title",
+        "direction": "ascending"
+      },
+      {
+        "property": "88eedc41-4238-4b13-a27c-17e6404dd3fe",
+        "direction": "ascending"
+      }
+    ],
+    "searchQuery": "",
+    "userTimeZone": "Europe/Madrid"
+  }
+}

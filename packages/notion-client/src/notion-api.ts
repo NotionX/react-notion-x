@@ -114,24 +114,26 @@ export class NotionAPI {
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value
           const groups =
-            collectionView?.format?.collection_groups ||
             collectionView?.format?.board_groups ||
             collectionView?.format?.board_groups2 ||
             collectionView?.format?.board_columns ||
+            collectionView?.format?.collection_groups ||
             []
+
+          // console.log('COLLECTION VIEW FORMAT', JSON.stringify(collectionView))
           try {
             const collectionData = await this.getCollectionData(
               collectionId,
               collectionViewId,
               {
                 type: collectionView?.type,
-                query: this.getQuery(collectionView),
+                // query: this.getQuery(collectionView),
                 groups,
-                gotOptions
+                // gotOptions,
+                groupBy: collectionView?.format?.collection_group_by
               }
             )
 
-            console.log(collectionView.format)
             // await fs.writeFile(
             //   `${collectionId}-${collectionViewId}.json`,
             //   JSON.stringify(collectionData.result, null, 2)
@@ -159,10 +161,7 @@ export class NotionAPI {
 
             recordMap.collection_query![collectionId] = {
               ...recordMap.collection_query![collectionId],
-              [collectionViewId]:
-                (collectionData.result as any)?.reducerResults
-                  ?.collection_group_results ??
-                (collectionData.result as any)?.reducerResults
+              [collectionViewId]: (collectionData.result as any)?.reducerResults
             }
           } catch (err) {
             // It's possible for public pages to link to private collections, in which case
@@ -284,17 +283,18 @@ export class NotionAPI {
     collectionId: string,
     collectionViewId: string,
     {
-      type = 'table',
-      query,
+      type,
+      // query,
       groups = undefined,
-      limit = 999999,
+      limit = 9999,
       searchQuery = '',
       userTimeZone = this._userTimeZone,
       loadContentCover = true,
-      gotOptions
+      gotOptions,
+      groupBy = false
     }: {
       type?: notion.CollectionViewType
-      query?: any
+      // query?: any
       groups?: any
       limit?: number
       searchQuery?: string
@@ -302,143 +302,104 @@ export class NotionAPI {
       userLocale?: string
       loadContentCover?: boolean
       gotOptions?: OptionsOfJSONResponseBody
+      groupBy?: any
     } = {}
   ) {
-    // TODO: All other collection types queries fail with 400 errors.
-    // My guess is that they require slightly different query params, but since
-    // their results are the same AFAICT, there's not much point in supporting
-    // them.
+    let loader: any = {}
 
-    const loader: any = {
-      type: 'reducer',
-      reducers: {
-        collection_group_results: {
-          type: 'results',
-          limit,
-          loadContentCover
+    if (!groupBy) {
+      loader = {
+        type: 'reducer',
+        reducers: {
+          collection_group_results: {
+            type: 'results',
+            limit,
+            loadContentCover
+          }
         },
-        'table:uncategorized:title:count': {
-          type: 'aggregation',
-          aggregation: {
-            property: 'title',
-            aggregator: 'count'
-          }
-        }
-      },
-      ...query, //add the filters
-      searchQuery,
-      userTimeZone
-    }
+        // ...query, //add the filters
+        searchQuery,
+        userTimeZone
+      }
+    } else {
+      const iterators = ['group_aggregation', 'results']
+      const operators = {
+        checkbox: 'checkbox_is',
+        url: 'string_starts_with',
+        text: 'string_starts_with',
+        select: 'enum_is',
+        created_time: 'date_is_within',
+        ['undefined']: 'is_empty'
+      }
 
-    console.log(loader)
-    if (groups && groups.length > 0) {
-      // used for 'board' collection view queries
+      //  "uncategorized" group is always sent, but not registered
+      const groupByGroups = [
+        // {
+        //   value: {
+        //     type: groups?.[0].value?.type || 'select',
+        //     value: 'uncategorized'
+        //   }
+        // },
+        ...groups
+      ]
 
-      const groupReducers = {}
+      const reducersQuery = {}
+      for (const group of groupByGroups) {
+        const {
+          property,
+          value: { value, type }
+        } = group
+        for (const iterator of iterators) {
+          const iteratorProps =
+            iterator === 'results'
+              ? {
+                  type: iterator,
+                  limit
+                }
+              : {
+                  type: 'aggregation',
+                  aggregation: {
+                    aggregator: 'count'
+                  }
+                }
 
-      for (const group of groups) {
-        if (!group.value.value) {
-          groupReducers[`${type}:uncategorized`] = {
-            type: 'aggregation',
+          reducersQuery[`${iterator}:${type}:${value || 'uncategorized'}`] = {
+            ...iteratorProps,
             filter: {
               operator: 'and',
               filters: [
                 {
-                  property: group.property,
+                  property,
                   filter: {
-                    operator: 'is_empty'
+                    operator: value ? operators[type] : 'is_empty',
+                    ...(value && {
+                      value: {
+                        type: 'exact',
+                        value
+                      }
+                    })
                   }
                 }
               ]
-            },
-            aggregation: {
-              aggregator: 'count'
             }
-          }
-          groupReducers['results:uncategorized'] = {
-            type: 'results',
-            filter: {
-              operator: 'and',
-              filters: [
-                {
-                  property: group.property,
-                  filter: {
-                    operator: 'is_empty'
-                  }
-                }
-              ]
-            },
-            limit
-          }
-        } else {
-          groupReducers[`${type}:${group.value.value}`] = {
-            type: 'aggregation',
-            filter: {
-              operator: 'and',
-              filters: [
-                {
-                  property: group.property,
-                  filter: {
-                    operator: 'enum_is',
-                    value: {
-                      type: 'exact',
-                      value: group.value.value
-                    }
-                  }
-                }
-              ]
-            },
-            aggregation: {
-              aggregator: 'count'
-            }
-          }
-
-          groupReducers[`${type}:${group.value.value}`] = {
-            type: 'results',
-            filter: {
-              operator: 'and',
-              filters: [
-                {
-                  property: group.property,
-                  filter: {
-                    operator: 'enum_is',
-                    value: {
-                      type: 'exact',
-                      value: group.value.value
-                    }
-                  }
-                }
-              ]
-            },
-            limit
           }
         }
       }
 
-      loader.reducers = {
-        ...groupReducers,
-        [`${type}_groups`]: {
-          type: 'groups',
-          groupBy: {
-            sort: {
-              type: 'manual'
-            },
-            type: groups[0].value.type,
-            property: groups[0].property
+      loader = {
+        type: 'reducer',
+        reducers: {
+          [`${type}_groups`]: {
+            type: 'groups',
+            groupBy,
+            groupSortPreference: groups.map((group) => group?.value),
+            limit
           },
-          groupSortPreference: groups.map((group) => {
-            if (group.value) {
-              return {
-                type: 'select',
-                value: group.value
-              }
-            }
-            return {
-              type: 'select'
-            }
-          }),
-          limit: 10
-        }
+          ...reducersQuery
+        },
+        // ...query, //add the filters
+        searchQuery,
+        userTimeZone
       }
     }
 
@@ -447,6 +408,8 @@ export class NotionAPI {
     //   'queryCollection',
     //   JSON.stringify({ collectionId, collectionViewId, query, loader }, null, 2)
     // )
+
+    // console.log(loader)
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
@@ -464,18 +427,19 @@ export class NotionAPI {
   }
 
   //handle setting group_by for the query if it isn't already
-  private getQuery(collectionView: notion.CollectionView | undefined) {
-    let query = collectionView?.query2 || collectionView?.query
-    if (!query) return undefined
+  // private getQuery(collectionView: notion.CollectionView | undefined) {
+  //   let query = collectionView?.query2 || collectionView?.query
+  //   if (!query) return undefined
+  //   const groupBy = collectionView?.format?.board_columns_by
+  //     ? collectionView?.format?.board_columns_by?.property
+  //     : undefined
+  //   if (groupBy) {
+  //     query.group_by = groupBy
+  //   }
 
-    const groupBy = collectionView?.format?.board_columns_by
-      ? collectionView?.format?.board_columns_by?.property
-      : undefined
-    if (groupBy) {
-      query.group_by = groupBy
-    }
-    return query
-  }
+  //   console.log('QUERY', query)
+  //   return query
+  // }
 
   public async getUsers(
     userIds: string[],
