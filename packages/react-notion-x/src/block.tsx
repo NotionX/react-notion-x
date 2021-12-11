@@ -12,7 +12,7 @@ import * as types from 'notion-types'
 import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
 import { LinkIcon } from './icons/link-icon'
-import { PageHeader } from './components/page-header'
+import { Header } from './components/header'
 import { GoogleDrive } from './components/google-drive'
 import { Audio } from './components/audio'
 import { File } from './components/file'
@@ -32,7 +32,7 @@ interface BlockProps {
   className?: string
   bodyClassName?: string
 
-  header?: React.ReactNode
+  header?: React.ElementType
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
@@ -191,7 +191,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               <div className='notion-viewport' />
 
               <div className='notion-frame'>
-                {header || <PageHeader />}
+                {<Header header={header} />}
 
                 <div className='notion-page-scroller'>
                   {hasPageCover ? (
@@ -646,13 +646,12 @@ export const Block: React.FC<BlockProps> = (props) => {
       if (components.callout) {
         return <components.callout block={block} className={blockId} />
       } else {
-      
         return (
           <div
             className={cs(
               'notion-callout',
               block.format?.block_color &&
-              `notion-${block.format?.block_color}_co`,
+                `notion-${block.format?.block_color}_co`,
               blockId
             )}
           >

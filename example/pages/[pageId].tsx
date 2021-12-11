@@ -58,6 +58,10 @@ export default function NotionPage({ recordMap }) {
     return null
   }
 
+  function Test({ children }) {
+    return <div style={{ height: 200, background: 'red' }}>{children}</div>
+  }
+
   const title = getPageTitle(recordMap)
   console.log(title, recordMap)
 
@@ -69,6 +73,7 @@ export default function NotionPage({ recordMap }) {
       </Head>
 
       <NotionRenderer
+        header={Test}
         recordMap={recordMap}
         fullPage={true}
         darkMode={false}
