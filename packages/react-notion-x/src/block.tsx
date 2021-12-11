@@ -40,6 +40,7 @@ interface BlockProps {
   pageCover?: React.ReactNode
 
   hideBlockId?: boolean
+  disableHeader?: boolean
 }
 
 const tocIndentLevelCache: {
@@ -73,7 +74,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     pageFooter,
     pageAside,
     pageCover,
-    hideBlockId
+    hideBlockId,
+    disableHeader
   } = props
 
   if (!block) {
@@ -191,7 +193,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               <div className='notion-viewport' />
 
               <div className='notion-frame'>
-                {<Header header={header} />}
+                {!disableHeader && <Header header={header} />}
 
                 <div className='notion-page-scroller'>
                   {hasPageCover ? (
