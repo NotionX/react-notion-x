@@ -113,7 +113,12 @@ export class NotionAPI {
           const { collectionId, collectionViewId } = collectionInstance
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value
-
+          const groups =
+            collectionView?.format?.collection_groups ||
+            collectionView?.format?.board_groups ||
+            collectionView?.format?.board_groups2 ||
+            collectionView?.format?.board_columns ||
+            []
           try {
             const collectionData = await this.getCollectionData(
               collectionId,
@@ -121,16 +126,12 @@ export class NotionAPI {
               {
                 type: collectionView?.type,
                 query: this.getQuery(collectionView),
-                groups:
-                  collectionView?.type === 'board'
-                    ? collectionView?.format?.board_groups2 ||
-                      (collectionView?.format as any)?.board_groups ||
-                      collectionView?.format?.board_columns
-                    : [],
+                groups,
                 gotOptions
               }
             )
 
+            console.log(collectionView.format)
             // await fs.writeFile(
             //   `${collectionId}-${collectionViewId}.json`,
             //   JSON.stringify(collectionData.result, null, 2)
@@ -155,6 +156,7 @@ export class NotionAPI {
               ...recordMap.notion_user,
               ...collectionData.recordMap.notion_user
             }
+
             recordMap.collection_query![collectionId] = {
               ...recordMap.collection_query![collectionId],
               [collectionViewId]:
@@ -306,9 +308,6 @@ export class NotionAPI {
     // My guess is that they require slightly different query params, but since
     // their results are the same AFAICT, there's not much point in supporting
     // them.
-    if (type !== 'table' && type !== 'board') {
-      type = 'table'
-    }
 
     const loader: any = {
       type: 'reducer',
@@ -331,16 +330,100 @@ export class NotionAPI {
       userTimeZone
     }
 
+    console.log(loader)
     if (groups && groups.length > 0) {
       // used for 'board' collection view queries
-      const boardReducers = {
-        board_columns: {
+
+      const groupReducers = {}
+
+      for (const group of groups) {
+        if (!group.value.value) {
+          groupReducers[`${type}:uncategorized`] = {
+            type: 'aggregation',
+            filter: {
+              operator: 'and',
+              filters: [
+                {
+                  property: group.property,
+                  filter: {
+                    operator: 'is_empty'
+                  }
+                }
+              ]
+            },
+            aggregation: {
+              aggregator: 'count'
+            }
+          }
+          groupReducers['results:uncategorized'] = {
+            type: 'results',
+            filter: {
+              operator: 'and',
+              filters: [
+                {
+                  property: group.property,
+                  filter: {
+                    operator: 'is_empty'
+                  }
+                }
+              ]
+            },
+            limit
+          }
+        } else {
+          groupReducers[`${type}:${group.value.value}`] = {
+            type: 'aggregation',
+            filter: {
+              operator: 'and',
+              filters: [
+                {
+                  property: group.property,
+                  filter: {
+                    operator: 'enum_is',
+                    value: {
+                      type: 'exact',
+                      value: group.value.value
+                    }
+                  }
+                }
+              ]
+            },
+            aggregation: {
+              aggregator: 'count'
+            }
+          }
+
+          groupReducers[`${type}:${group.value.value}`] = {
+            type: 'results',
+            filter: {
+              operator: 'and',
+              filters: [
+                {
+                  property: group.property,
+                  filter: {
+                    operator: 'enum_is',
+                    value: {
+                      type: 'exact',
+                      value: group.value.value
+                    }
+                  }
+                }
+              ]
+            },
+            limit
+          }
+        }
+      }
+
+      loader.reducers = {
+        ...groupReducers,
+        [`${type}_groups`]: {
           type: 'groups',
           groupBy: {
             sort: {
               type: 'manual'
             },
-            type: 'select',
+            type: groups[0].value.type,
             property: groups[0].property
           },
           groupSortPreference: groups.map((group) => {
@@ -357,90 +440,13 @@ export class NotionAPI {
           limit: 10
         }
       }
-
-      for (const group of groups) {
-        if (!group.value.value) {
-          boardReducers['board:uncategorized'] = {
-            type: 'aggregation',
-            filter: {
-              operator: 'and',
-              filters: [
-                {
-                  property: group.property,
-                  filter: {
-                    operator: 'is_empty'
-                  }
-                }
-              ]
-            },
-            aggregation: {
-              aggregator: 'count'
-            }
-          }
-          boardReducers['results:uncategorized'] = {
-            type: 'results',
-            filter: {
-              operator: 'and',
-              filters: [
-                {
-                  property: group.property,
-                  filter: {
-                    operator: 'is_empty'
-                  }
-                }
-              ]
-            },
-            limit
-          }
-        } else {
-          boardReducers[`board:${group.value.value}`] = {
-            type: 'aggregation',
-            filter: {
-              operator: 'and',
-              filters: [
-                {
-                  property: group.property,
-                  filter: {
-                    operator: 'enum_is',
-                    value: {
-                      type: 'exact',
-                      value: group.value.value
-                    }
-                  }
-                }
-              ]
-            },
-            aggregation: {
-              aggregator: 'count'
-            }
-          }
-
-          boardReducers[`board:${group.value.value}`] = {
-            type: 'results',
-            filter: {
-              operator: 'and',
-              filters: [
-                {
-                  property: group.property,
-                  filter: {
-                    operator: 'enum_is',
-                    value: {
-                      type: 'exact',
-                      value: group.value.value
-                    }
-                  }
-                }
-              ]
-            },
-            limit
-          }
-        }
-      }
-      loader.reducers = boardReducers
     }
 
     //useful for debugging collection queries
-    //console.log('queryCollection', JSON.stringify( { collectionId, collectionViewId, query, loader}, null, 2))
+    // console.log(
+    //   'queryCollection',
+    //   JSON.stringify({ collectionId, collectionViewId, query, loader }, null, 2)
+    // )
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',

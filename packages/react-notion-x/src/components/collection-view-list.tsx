@@ -13,64 +13,107 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
   const { components, recordMap, mapPageUrl } = useNotionContext()
   // console.log('list', { collection, collectionView, collectionData })
 
-  return (
-    <div className='notion-list-collection'>
-      <div className='notion-list-view'>
-        <div className='notion-list-body'>
-          {collectionData.blockIds.map((blockId) => {
-            const block = recordMap.block[blockId]?.value as PageBlock
-            if (!block) return null
+  const boardGroups = collectionView.format.collection_groups
 
-            const titleSchema = collection.schema.title
-            const titleData = block?.properties?.title
+  if (!boardGroups) {
+    return <List blockIds={collectionData.blockIds} />
+  }
 
-            return (
-              <components.pageLink
-                className='notion-list-item notion-page-link'
-                href={mapPageUrl(block.id)}
-                key={blockId}
-              >
-                <div className='notion-list-item-title'>
-                  <Property
-                    schema={titleSchema}
-                    data={titleData}
-                    block={block}
-                    collection={collection}
-                  />
-                </div>
+  function List({ blockIds }) {
+    return (
+      <div className='notion-list-collection'>
+        <div className='notion-list-view'>
+          <div className='notion-list-body'>
+            {blockIds.map((blockId) => {
+              const block = recordMap.block[blockId]?.value as PageBlock
+              if (!block) return null
 
-                <div className='notion-list-item-body'>
-                  {collectionView.format?.list_properties
-                    ?.filter((p) => p.visible)
-                    .map((p) => {
-                      const schema = collection.schema[p.property]
-                      const data = block && block.properties?.[p.property]
+              const titleSchema = collection.schema.title
+              const titleData = block?.properties?.title
 
-                      // console.log('list item body', p, schema, data)
-                      if (!schema) {
-                        return null
-                      }
+              return (
+                <components.pageLink
+                  className='notion-list-item notion-page-link'
+                  href={mapPageUrl(block.id)}
+                  key={blockId}
+                >
+                  <div className='notion-list-item-title'>
+                    <Property
+                      schema={titleSchema}
+                      data={titleData}
+                      block={block}
+                      collection={collection}
+                    />
+                  </div>
 
-                      return (
-                        <div
-                          className='notion-list-item-property'
-                          key={p.property}
-                        >
-                          <Property
-                            schema={schema}
-                            data={data}
-                            block={block}
-                            collection={collection}
-                          />
-                        </div>
-                      )
-                    })}
-                </div>
-              </components.pageLink>
-            )
-          })}
+                  <div className='notion-list-item-body'>
+                    {collectionView.format?.list_properties
+                      ?.filter((p) => p.visible)
+                      .map((p) => {
+                        const schema = collection.schema[p.property]
+                        const data = block && block.properties?.[p.property]
+
+                        // console.log('list item body', p, schema, data)
+                        if (!schema) {
+                          return null
+                        }
+
+                        return (
+                          <div
+                            className='notion-list-item-property'
+                            key={p.property}
+                          >
+                            <Property
+                              schema={schema}
+                              data={data}
+                              block={block}
+                              collection={collection}
+                            />
+                          </div>
+                        )
+                      })}
+                  </div>
+                </components.pageLink>
+              )
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    )
+  }
+
+  return (
+    <>
+      {boardGroups.map((p) => {
+        if (!(collectionData as any).board_columns.results) {
+          return null
+        }
+        const group = p.value.value
+          ? (collectionData as any)[`list:${p.value.value}`]
+          : (collectionData as any)['results:uncategorized']
+        const schema = collection.schema[p.property]
+
+        if (!group || !schema || p.hidden) {
+          return null
+        }
+
+        return (
+          <div>
+            {group ? (
+              <Property
+                schema={schema}
+                data={[[p.value?.value]]}
+                collection={collection}
+              />
+            ) : (
+              <span>No group</span>
+            )}
+
+            <List blockIds={group.blockIds} />
+            <span className='notion-board-th-count'>{group.total}</span>
+          </div>
+        )
+      })}
+    </>
   )
 }
