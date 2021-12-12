@@ -1,5 +1,6 @@
 import { Block, BlockMap } from 'notion-types'
 import isUrl from 'is-url-superb'
+import { format } from 'date-fns'
 
 export const cs = (...classes: Array<string | undefined | false>) =>
   classes.filter((a) => !!a).join(' ')
@@ -118,31 +119,50 @@ export const isBrowser = typeof window !== 'undefined'
 export function getCollectionGroups(
   collection: any,
   collectionView: any,
-  collectionData: any
+  collectionData: any,
+  ...rest
 ) {
-  return collectionView?.format?.collection_groups?.map(
-    ({ property, hidden, value: { value, type } }) => {
-      const queryLabel = !value
-        ? 'uncategorized'
-        : typeof value === 'string'
-        ? value
-        : value?.range?.start_date
+  const elems = collectionView?.format?.collection_groups || []
+  return elems?.map(({ property, hidden, value: { value, type } }) => {
+    const isUncategorizedValue = typeof value === 'undefined'
+    const isDateValue = value?.range
+    // TODO: review dates reducers
+    const queryLabel = isUncategorizedValue
+      ? 'uncategorized'
+      : isDateValue
+      ? value.range?.start_date || value.range?.end_date
+      : value?.value || value
 
-      const queryValue = value && (value['range'] || value)
-      const collectionGroup = collectionData[`results:${type}:${queryLabel}`]
-      const schema = collection.schema[property]
+    const collectionGroup = collectionData[`results:${type}:${queryLabel}`]
+    let queryValue =
+      !isUncategorizedValue && (isDateValue || value?.value || value)
+    let schema = collection.schema[property]
 
-      if (!collectionGroup) return null
-
-      return {
-        collectionGroup,
-        schema,
-        value: queryValue,
-        hidden,
-        collection,
-        collectionView,
-        collectionData
-      }
+    // Checkbox boolen value must be Yes||No
+    if (type === 'checkbox' && value) {
+      queryValue = 'Yes'
     }
-  )
+
+    if (isDateValue) {
+      schema = {
+        type: 'text',
+        name: 'text'
+      }
+
+      // TODO: review dates format based on value.type ('week'|'month'|'year')
+      queryValue = format(new Date(queryLabel), 'MMM d, YYY hh:mm aa')
+    }
+
+    return {
+      collectionGroup,
+      schema,
+      value: queryValue || 'No description',
+      hidden,
+      collection,
+      collectionView,
+      collectionData,
+      blockIds: collectionGroup.blockIds,
+      ...rest
+    }
+  })
 }
