@@ -114,3 +114,35 @@ export const formatDate = (input: string) => {
 }
 
 export const isBrowser = typeof window !== 'undefined'
+
+export function getCollectionGroups(
+  collection: any,
+  collectionView: any,
+  collectionData: any
+) {
+  return collectionView?.format?.collection_groups?.map(
+    ({ property, hidden, value: { value, type } }) => {
+      const queryLabel = !value
+        ? 'uncategorized'
+        : typeof value === 'string'
+        ? value
+        : value?.range?.start_date
+
+      const queryValue = value && (value['range'] || value)
+      const collectionGroup = collectionData[`results:${type}:${queryLabel}`]
+      const schema = collection.schema[property]
+
+      if (!collectionGroup) return null
+
+      return {
+        collectionGroup,
+        schema,
+        value: queryValue,
+        hidden,
+        collection,
+        collectionView,
+        collectionData
+      }
+    }
+  )
+}

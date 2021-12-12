@@ -2377,3 +2377,12 @@ svg.notion-page-icon {
 .notion-sync-block {
   width: 100%;
 }
+
+.notion-collection-group {
+  margin-bottom: 2em;
+}
+
+.notion-collection-group > summary > div {
+  display: inline-flex;
+  align-items: center;
+}

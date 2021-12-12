@@ -113,24 +113,14 @@ export class NotionAPI {
           const { collectionId, collectionViewId } = collectionInstance
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value
-          const groups =
-            collectionView?.format?.board_groups ||
-            collectionView?.format?.board_groups2 ||
-            collectionView?.format?.board_columns ||
-            collectionView?.format?.collection_groups ||
-            []
 
-          // console.log('COLLECTION VIEW FORMAT', JSON.stringify(collectionView))
           try {
             const collectionData = await this.getCollectionData(
               collectionId,
               collectionViewId,
+              collectionView,
               {
-                type: collectionView?.type,
-                // query: this.getQuery(collectionView),
-                groups,
-                // gotOptions,
-                groupBy: collectionView?.format?.collection_group_by
+                gotOptions
               }
             )
 
@@ -282,46 +272,44 @@ export class NotionAPI {
   public async getCollectionData(
     collectionId: string,
     collectionViewId: string,
+    collectionView: any,
     {
-      type,
-      // query,
-      groups = undefined,
       limit = 9999,
       searchQuery = '',
       userTimeZone = this._userTimeZone,
       loadContentCover = true,
-      gotOptions,
-      groupBy = false
+      gotOptions
     }: {
       type?: notion.CollectionViewType
-      // query?: any
-      groups?: any
       limit?: number
       searchQuery?: string
       userTimeZone?: string
       userLocale?: string
       loadContentCover?: boolean
       gotOptions?: OptionsOfJSONResponseBody
-      groupBy?: any
     } = {}
   ) {
-    let loader: any = {}
+    const type = collectionView?.type
+    const groupBy = collectionView?.format?.collection_group_by
+    let loader: any = {
+      type: 'reducer',
+      reducers: {
+        collection_group_results: {
+          type: 'results',
+          limit,
+          loadContentCover
+        }
+      },
+      searchQuery,
+      userTimeZone
+    }
 
-    if (!groupBy) {
-      loader = {
-        type: 'reducer',
-        reducers: {
-          collection_group_results: {
-            type: 'results',
-            limit,
-            loadContentCover
-          }
-        },
-        // ...query, //add the filters
-        searchQuery,
-        userTimeZone
-      }
-    } else {
+    if (groupBy) {
+      const groups =
+        // collectionView?.format?.board_groups ||
+        // collectionView?.format?.board_groups2 ||
+        // collectionView?.format?.board_columns ||
+        collectionView?.format?.collection_groups || []
       const iterators = ['group_aggregation', 'results']
       const operators = {
         checkbox: 'checkbox_is',
@@ -332,19 +320,8 @@ export class NotionAPI {
         ['undefined']: 'is_empty'
       }
 
-      //  "uncategorized" group is always sent, but not registered
-      const groupByGroups = [
-        // {
-        //   value: {
-        //     type: groups?.[0].value?.type || 'select',
-        //     value: 'uncategorized'
-        //   }
-        // },
-        ...groups
-      ]
-
       const reducersQuery = {}
-      for (const group of groupByGroups) {
+      for (const group of groups) {
         const {
           property,
           value: { value, type }
@@ -363,7 +340,16 @@ export class NotionAPI {
                   }
                 }
 
-          reducersQuery[`${iterator}:${type}:${value || 'uncategorized'}`] = {
+          // TODO: review dates reducers
+          const queryLabel = !value
+            ? 'uncategorized'
+            : typeof value === 'string'
+            ? value
+            : value?.range?.start_date
+
+          const queryValue = value && (value['range'] || value)
+
+          reducersQuery[`${iterator}:${type}:${queryLabel}`] = {
             ...iteratorProps,
             filter: {
               operator: 'and',
@@ -375,7 +361,7 @@ export class NotionAPI {
                     ...(value && {
                       value: {
                         type: 'exact',
-                        value
+                        value: queryValue
                       }
                     })
                   }
@@ -406,10 +392,8 @@ export class NotionAPI {
     //useful for debugging collection queries
     // console.log(
     //   'queryCollection',
-    //   JSON.stringify({ collectionId, collectionViewId, query, loader }, null, 2)
+    //   JSON.stringify({ collectionId, collectionViewId, loader })
     // )
-
-    // console.log(loader)
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
@@ -425,21 +409,6 @@ export class NotionAPI {
       gotOptions
     })
   }
-
-  //handle setting group_by for the query if it isn't already
-  // private getQuery(collectionView: notion.CollectionView | undefined) {
-  //   let query = collectionView?.query2 || collectionView?.query
-  //   if (!query) return undefined
-  //   const groupBy = collectionView?.format?.board_columns_by
-  //     ? collectionView?.format?.board_columns_by?.property
-  //     : undefined
-  //   if (groupBy) {
-  //     query.group_by = groupBy
-  //   }
-
-  //   console.log('QUERY', query)
-  //   return query
-  // }
 
   public async getUsers(
     userIds: string[],
