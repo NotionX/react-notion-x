@@ -644,13 +644,12 @@ export const Block: React.FC<BlockProps> = (props) => {
       if (components.callout) {
         return <components.callout block={block} className={blockId} />
       } else {
-      
         return (
           <div
             className={cs(
               'notion-callout',
               block.format?.block_color &&
-              `notion-${block.format?.block_color}_co`,
+                `notion-${block.format?.block_color}_co`,
               blockId
             )}
           >
