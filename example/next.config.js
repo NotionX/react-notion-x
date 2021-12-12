@@ -10,7 +10,7 @@ module.exports = withBundleAnalyzer({
       // redirect the index page to our notion test suite
       {
         source: '/',
-        destination: '/d856b307cd704490bc923ef4255dd9f9',
+        destination: '/067dd719a912471ea9a3ac10710e7fdf',
         // don't set permanent to true because it will get cached by the browser
         // while developing on localhost
         permanent: false

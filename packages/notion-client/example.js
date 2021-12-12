@@ -1,7 +1,6 @@
 const { NotionAPI } = require('./build/cjs')
 
 async function main() {
-  console.log('Fetching page...')
   const api = new NotionAPI()
 
   // page example
@@ -9,12 +8,9 @@ async function main() {
   // const output = await api.getPage('139ac7d730d54b5e93937a282d8ff635')
   // const output = await api.getPage('8a586d253f984b85b48254da84465d23')
   // const output = await api.getPage('b21b2ed02ad446b2af74ee6e262e2124')
-  // const output = await api.getPage('d856b307cd704490bc923ef4255dd9f9')
+  // const output = await api.getPage('3f759cf9d8fe44a5988e0c3b6903e224')
   try {
-    // const output = await api.getCollectionData(
-    //   'e6da389e-260b-4e90-986f-f6fba332f0e4',
-    //   '5f5617ce-3b1a-48c1-b93c-dae7befe7b74'
-    // )
+    const output = await api.getPage('067dd719a912471ea9a3ac10710e7fdf')
 
     // collection example
     // const collectionId = '2d8aec23-8281-4a94-9090-caaf823dd21a'
@@ -32,7 +28,7 @@ async function main() {
     // }
     // const output = await api.getSignedFileUrls([file])
 
-    // console.log(JSON.stringify(output, null, 4))
+    console.log(JSON.stringify(output, null, 2))
   } catch (err) {
     console.error(err)
   }

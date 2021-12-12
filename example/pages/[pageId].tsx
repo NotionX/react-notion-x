@@ -29,7 +29,7 @@ export async function getStaticPaths() {
     }
   }
 
-  const rootNotionPageId = 'd856b307cd704490bc923ef4255dd9f9'
+  const rootNotionPageId = '067dd719a912471ea9a3ac10710e7fdf'
   const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
 
   // This crawls all public pages starting from the given root page in order
@@ -59,7 +59,7 @@ export default function NotionPage({ recordMap }) {
   }
 
   const title = getPageTitle(recordMap)
-  // console.log(title, recordMap)
+  console.log(title, recordMap)
 
   return (
     <>
