@@ -1,0 +1,285 @@
+{
+  "collection": {
+    "id": "e6da389e-260b-4e90-986f-f6fba332f0e4",
+    "spaceId": "4b7f28e5-08e6-4438-916f-2d294ac5b751"
+  },
+  "collectionView": {
+    "id": "411e05fd-da5c-4e95-8446-c7cd90b9d285",
+    "spaceId": "4b7f28e5-08e6-4438-916f-2d294ac5b751"
+  },
+  "loader": {
+    "type": "reducer",
+    "reducers": {
+      "board_columns": {
+        "type": "groups",
+        "groupBy": {
+          "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+          "type": "select",
+          "sort": {
+            "type": "manual"
+          }
+        },
+        "groupSortPreference": [
+          {
+            "type": "select"
+          },
+          {
+            "type": "select",
+            "value": "Motivational"
+          },
+          {
+            "type": "select",
+            "value": "Work"
+          },
+          {
+            "type": "select",
+            "value": "Sports"
+          },
+          {
+            "type": "select",
+            "value": "Life Advise"
+          },
+          {
+            "type": "select",
+            "value": "Productivity"
+          }
+        ],
+        "limit": 10
+      },
+      "board:select:uncategorized": {
+        "type": "aggregation",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "is_empty"
+              }
+            }
+          ]
+        },
+        "aggregation": {
+          "aggregator": "count"
+        }
+      },
+      "board:select:Motivational": {
+        "type": "aggregation",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Motivational"
+                }
+              }
+            }
+          ]
+        },
+        "aggregation": {
+          "aggregator": "count"
+        }
+      },
+      "board:select:Work": {
+        "type": "aggregation",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Work"
+                }
+              }
+            }
+          ]
+        },
+        "aggregation": {
+          "aggregator": "count"
+        }
+      },
+      "board:select:Sports": {
+        "type": "aggregation",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Sports"
+                }
+              }
+            }
+          ]
+        },
+        "aggregation": {
+          "aggregator": "count"
+        }
+      },
+      "board:select:Life Advise": {
+        "type": "aggregation",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Life Advise"
+                }
+              }
+            }
+          ]
+        },
+        "aggregation": {
+          "aggregator": "count"
+        }
+      },
+      "board:select:Productivity": {
+        "type": "aggregation",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Productivity"
+                }
+              }
+            }
+          ]
+        },
+        "aggregation": {
+          "aggregator": "count"
+        }
+      },
+      "results:select:uncategorized": {
+        "type": "results",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "is_empty"
+              }
+            }
+          ]
+        },
+        "limit": 50
+      },
+      "results:select:Motivational": {
+        "type": "results",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Motivational"
+                }
+              }
+            }
+          ]
+        },
+        "limit": 50
+      },
+      "results:select:Work": {
+        "type": "results",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Work"
+                }
+              }
+            }
+          ]
+        },
+        "limit": 50
+      },
+      "results:select:Sports": {
+        "type": "results",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Sports"
+                }
+              }
+            }
+          ]
+        },
+        "limit": 50
+      },
+      "results:select:Life Advise": {
+        "type": "results",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Life Advise"
+                }
+              }
+            }
+          ]
+        },
+        "limit": 50
+      },
+      "results:select:Productivity": {
+        "type": "results",
+        "filter": {
+          "operator": "and",
+          "filters": [
+            {
+              "property": "2d195eef-5beb-432d-aeb2-d89a3bbbfec1",
+              "filter": {
+                "operator": "enum_is",
+                "value": {
+                  "type": "exact",
+                  "value": "Productivity"
+                }
+              }
+            }
+          ]
+        },
+        "limit": 50
+      }
+    },
+    "searchQuery": "",
+    "userTimeZone": "Europe/Madrid"
+  }
+}
