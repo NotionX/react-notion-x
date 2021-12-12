@@ -3,12 +3,19 @@ import React from 'react'
 import { Property } from './property'
 
 export const CollectionGroup: React.FC<{
-  component: React.ElementType
+  collection: any
   collectionGroup: any
+  collectionViewComponent: React.ElementType
   schema: any
   value: any
-  collection: any
-}> = ({ component: Component, collectionGroup, schema, value, collection }) => {
+}> = ({
+  collectionViewComponent: CollectionViewComponent,
+  collection,
+  collectionGroup,
+  schema,
+  value,
+  ...rest
+}) => {
   return (
     <details open className='notion-collection-group'>
       <summary className='notion-collection-group-title'>
@@ -18,7 +25,11 @@ export const CollectionGroup: React.FC<{
         </div>
       </summary>
 
-      <Component blockIds={collectionGroup.blockIds} />
+      <CollectionViewComponent
+        collection={collection}
+        collectionGroup={collectionGroup}
+        {...rest}
+      />
     </details>
   )
 }

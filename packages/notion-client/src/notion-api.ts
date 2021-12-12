@@ -290,7 +290,11 @@ export class NotionAPI {
     } = {}
   ) {
     const type = collectionView?.type
-    const groupBy = collectionView?.format?.collection_group_by
+    const isBoardType = type === 'board'
+    const groupBy =
+      collectionView?.format?.board_columns_by ||
+      collectionView?.format?.collection_group_by
+
     let loader: any = {
       type: 'reducer',
       reducers: {
@@ -306,11 +310,10 @@ export class NotionAPI {
 
     if (groupBy) {
       const groups =
-        // collectionView?.format?.board_groups ||
-        // collectionView?.format?.board_groups2 ||
-        // collectionView?.format?.board_columns ||
-        collectionView?.format?.collection_groups || []
-      const iterators = ['group_aggregation', 'results']
+        collectionView?.format?.board_columns ||
+        collectionView?.format?.collection_groups ||
+        []
+      const iterators = [isBoardType ? 'board' : 'group_aggregation', 'results']
       const operators = {
         checkbox: 'checkbox_is',
         url: 'string_starts_with',
@@ -340,14 +343,17 @@ export class NotionAPI {
                   }
                 }
 
+          const isUncategorizedValue = typeof value === 'undefined'
+          const isDateValue = value?.range
           // TODO: review dates reducers
-          const queryLabel = !value
+          const queryLabel = isUncategorizedValue
             ? 'uncategorized'
-            : typeof value === 'string'
-            ? value
-            : value?.range?.start_date
+            : isDateValue
+            ? value.range?.start_date || value.range?.end_date
+            : value?.value || value
 
-          const queryValue = value && (value['range'] || value)
+          const queryValue =
+            !isUncategorizedValue && (isDateValue || value?.value || value)
 
           reducersQuery[`${iterator}:${type}:${queryLabel}`] = {
             ...iteratorProps,
@@ -357,8 +363,10 @@ export class NotionAPI {
                 {
                   property,
                   filter: {
-                    operator: value ? operators[type] : 'is_empty',
-                    ...(value && {
+                    operator: !isUncategorizedValue
+                      ? operators[type]
+                      : 'is_empty',
+                    ...(!isUncategorizedValue && {
                       value: {
                         type: 'exact',
                         value: queryValue
@@ -372,10 +380,11 @@ export class NotionAPI {
         }
       }
 
+      const reducerLabel = isBoardType ? 'board_columns' : `${type}_groups`
       loader = {
         type: 'reducer',
         reducers: {
-          [`${type}_groups`]: {
+          [reducerLabel]: {
             type: 'groups',
             groupBy,
             groupSortPreference: groups.map((group) => group?.value),
@@ -383,17 +392,10 @@ export class NotionAPI {
           },
           ...reducersQuery
         },
-        // ...query, //add the filters
         searchQuery,
         userTimeZone
       }
     }
-
-    //useful for debugging collection queries
-    // console.log(
-    //   'queryCollection',
-    //   JSON.stringify({ collectionId, collectionViewId, loader })
-    // )
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
