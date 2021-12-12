@@ -4,6 +4,8 @@ import { PageBlock } from 'notion-types'
 import { CollectionViewProps } from '../types'
 import { Property } from './property'
 import { useNotionContext } from '../context'
+import { CollectionGroup } from './collection-group'
+import { getCollectionGroups } from '../utils'
 
 export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collection,
@@ -11,12 +13,21 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collectionData
 }) => {
   const { components, recordMap, mapPageUrl } = useNotionContext()
-  // console.log('list', { collection, collectionView, collectionData })
+  // console.log(JSON.stringify({ collection, collectionView, collectionData }))
 
   const isGrouped = collectionView.format.collection_group_by
 
   if (!isGrouped) {
-    return <List blockIds={collectionData.blockIds} />
+    console.log('NOT GROUPED', collectionData)
+    return <List blockIds={collectionData['collection_group_results'].blockIds} />
+  } else {
+    const collectionGroups = getCollectionGroups(
+      collection,
+      collectionView,
+      collectionData
+    )
+
+    return collectionGroups.map(group => <CollectionGroup {...group} component={List} />)
   }
 
   function List({ blockIds }) {
@@ -81,35 +92,4 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
       </div>
     )
   }
-
-  return (
-    <>
-      {collectionView?.format?.collection_groups?.map((p) => {
-        let value = p?.value?.value ||  'uncategorized'  
-        const group =  (collectionData as any)[`results:${p.value.type}:${value}`]
-        const schema = collection.schema[p.property]
-        
-        if (!group || !schema || p.hidden) {
-          return null
-        }
-
-        return (
-          <div>
-            {group ? (
-              <Property
-                schema={schema}
-                data={[[p.value?.value]]}
-                collection={collection}
-              />
-            ) : (
-              <span>No group</span>
-            )}
-
-            <List blockIds={group.blockIds} />
-            <span className='notion-board-th-count'>{group.total}</span>
-          </div>
-        )
-      })}
-    </>
-  )
 }
