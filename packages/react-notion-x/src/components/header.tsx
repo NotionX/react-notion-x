@@ -123,6 +123,7 @@ export const Header: React.FC<{
         className={'notion-header'}
         components={components}
         hasSearch={hasSearch}
+        headerComponents={headerComponents}
         isSearchOpen={isSearchOpen}
         mapPageUrl={mapPageUrl}
         onCloseSearch={onCloseSearch}
@@ -132,9 +133,7 @@ export const Header: React.FC<{
         searchNotion={searchNotion}
         setIsSearchOpen={setIsSearchOpen}
         {...restOfContext}
-      >
-        {headerComponents}
-      </CustomHeader>
+      />
     )
   }
 
