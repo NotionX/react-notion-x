@@ -28,12 +28,14 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
     return collectionGroups.map((group) => (
       <CollectionGroup
         {...group}
-        collectionViewComponent={Table}
-        style={{
-          width,
-          maxWidth: width,
-          paddingLeft: padding,
-          paddingRight: padding
+        collectionViewComponent={(props) => (
+          <Table {...props} padding={padding} width={width} />
+        )}
+        summaryProps={{
+          style: {
+            paddingLeft: padding,
+            paddingRight: padding
+          }
         }}
       />
     ))

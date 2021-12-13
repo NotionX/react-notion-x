@@ -51,3 +51,13 @@ export interface CollectionCardProps {
   }>
   className?: string
 }
+export interface CollectionGroupProps {
+  collection: types.Collection
+  collectionViewComponent: React.ElementType
+  collectionGroup: any
+  hidden: boolean
+  schema: any
+  value: any
+  summaryProps: any
+  detailsProps: any
+}

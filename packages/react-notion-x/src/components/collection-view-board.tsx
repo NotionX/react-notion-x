@@ -28,8 +28,16 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
     return collectionGroups.map((group) => (
       <CollectionGroup
         {...group}
-        collectionViewComponent={Board}
-        style={{ paddingLeft: padding }}
+        collectionViewComponent={(props) => (
+          <Board
+            {...props}
+            summaryProps={{
+              style: {
+                paddingLeft: padding
+              }
+            }}
+          />
+        )}
       />
     ))
   }

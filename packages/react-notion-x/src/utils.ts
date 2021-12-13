@@ -161,7 +161,7 @@ export function getCollectionGroups(
       collection,
       collectionView,
       collectionData,
-      blockIds: collectionGroup.blockIds,
+      blockIds: collectionGroup?.blockIds,
       ...rest
     }
   })
