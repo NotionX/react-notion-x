@@ -12,17 +12,9 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
   collectionView,
   collectionData
 }) => {
-  const isGroupedCollection = collectionView.format.collection_group_by
+  const isGroupedCollection = collectionView?.format?.collection_group_by
 
-  if (!isGroupedCollection) {
-    return (
-      <Gallery
-        collectionView={collectionView}
-        collection={collection}
-        blockIds={collectionData['collection_group_results'].blockIds}
-      />
-    )
-  } else {
+  if (isGroupedCollection) {
     const collectionGroups = getCollectionGroups(
       collection,
       collectionView,
@@ -33,6 +25,14 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
       <CollectionGroup {...group} collectionViewComponent={Gallery} />
     ))
   }
+
+  return (
+    <Gallery
+      collectionView={collectionView}
+      collection={collection}
+      blockIds={collectionData['collection_group_results'].blockIds}
+    />
+  )
 }
 
 function Gallery({ blockIds, collectionView, collection }) {

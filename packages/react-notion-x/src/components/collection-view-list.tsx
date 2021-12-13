@@ -12,17 +12,9 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collectionView,
   collectionData
 }) => {
-  const isGroupedCollection = collectionView.format.collection_group_by
+  const isGroupedCollection = collectionView?.format?.collection_group_by
 
-  if (!isGroupedCollection) {
-    return (
-      <List
-        blockIds={collectionData['collection_group_results'].blockIds}
-        collection={collection}
-        collectionView={collectionView}
-      />
-    )
-  } else {
+  if (isGroupedCollection) {
     const collectionGroups = getCollectionGroups(
       collection,
       collectionView,
@@ -33,6 +25,14 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
       <CollectionGroup {...group} collectionViewComponent={List} />
     ))
   }
+
+  return (
+    <List
+      blockIds={collectionData['collection_group_results'].blockIds}
+      collection={collection}
+      collectionView={collectionView}
+    />
+  )
 }
 
 function List({ blockIds, collection, collectionView }) {

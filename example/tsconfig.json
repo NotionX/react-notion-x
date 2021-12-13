@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "strict": false,
@@ -15,6 +18,12 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

@@ -15,18 +15,9 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
   collectionData,
   padding
 }) => {
-  const isGroupedCollection = collectionView.format.collection_group_by
+  const isGroupedCollection = collectionView?.format?.collection_group_by
 
-  if (!isGroupedCollection) {
-    return (
-      <Board
-        padding={padding}
-        collectionView={collectionView}
-        collection={collection}
-        collectionData={collectionData}
-      />
-    )
-  } else {
+  if (isGroupedCollection) {
     const collectionGroups = getCollectionGroups(
       collection,
       collectionView,
@@ -42,6 +33,15 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
       />
     ))
   }
+
+  return (
+    <Board
+      padding={padding}
+      collectionView={collectionView}
+      collection={collection}
+      collectionData={collectionData}
+    />
+  )
 }
 
 function Board({ collectionView, collectionData, collection, padding }) {

@@ -14,19 +14,9 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   padding,
   width
 }) => {
-  const isGroupedCollection = collectionView.format.collection_group_by
+  const isGroupedCollection = collectionView?.format?.collection_group_by
 
-  if (!isGroupedCollection) {
-    return (
-      <Table
-        blockIds={collectionData['collection_group_results'].blockIds}
-        collection={collection}
-        collectionView={collectionView}
-        padding={padding}
-        width={width}
-      />
-    )
-  } else {
+  if (isGroupedCollection) {
     const collectionGroups = getCollectionGroups(
       collection,
       collectionView,
@@ -48,6 +38,16 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
       />
     ))
   }
+
+  return (
+    <Table
+      blockIds={collectionData['collection_group_results'].blockIds}
+      collection={collection}
+      collectionView={collectionView}
+      padding={padding}
+      width={width}
+    />
+  )
 }
 
 function Table({ blockIds, collection, collectionView, width, padding }) {
