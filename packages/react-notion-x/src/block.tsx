@@ -2,6 +2,7 @@ import React from 'react'
 import throttle from 'lodash.throttle'
 import {
   getBlockIcon,
+  getBlockTitle,
   getTextContent,
   getPageTableOfContents,
   getBlockParentPage,
@@ -568,7 +569,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'code': {
       if (block.properties.title) {
-        const content = block.properties.title[0][0]
+        const content = getBlockTitle(block, recordMap)
         const language = block.properties.language
           ? block.properties.language[0][0]
           : ''
@@ -641,23 +642,28 @@ export const Block: React.FC<BlockProps> = (props) => {
       return <components.collection block={block} className={blockId} />
 
     case 'callout':
-      return (
-        <div
-          className={cs(
-            'notion-callout',
-            block.format?.block_color &&
+      if (components.callout) {
+        return <components.callout block={block} className={blockId} />
+      } else {
+      
+        return (
+          <div
+            className={cs(
+              'notion-callout',
+              block.format?.block_color &&
               `notion-${block.format?.block_color}_co`,
-            blockId
-          )}
-        >
-          <PageIcon block={block} />
+              blockId
+            )}
+          >
+            <PageIcon block={block} />
 
-          <div className='notion-callout-text'>
-            <Text value={block.properties?.title} block={block} />
-            {children}
+            <div className='notion-callout-text'>
+              <Text value={block.properties?.title} block={block} />
+              {children}
+            </div>
           </div>
-        </div>
-      )
+        )
+      }
 
     case 'bookmark':
       if (!block.properties) return null
