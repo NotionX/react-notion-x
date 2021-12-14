@@ -25,7 +25,7 @@ export interface NotionContext {
   fullPage: boolean
   darkMode: boolean
   previewImages: boolean
-  vercelImages: boolean
+  customImages: boolean
   showCollectionViewDropdown: boolean
   showTableOfContents: boolean
   minTableOfContentsItems: number
@@ -51,7 +51,7 @@ export interface PartialNotionContext {
   fullPage?: boolean
   darkMode?: boolean
   previewImages?: boolean
-  vercelImages?: boolean
+  customImages?: boolean
   showCollectionViewDropdown?: boolean
 
   showTableOfContents?: boolean
@@ -64,7 +64,7 @@ export interface PartialNotionContext {
   zoom?: any
 }
 
-const DefaultImage: React.FC = (props) =>  (
+const DefaultImage: React.FC = (props) => (
   <LazyImage {...props} />
 )
 const DefaultLink: React.FC = (props) => (
@@ -120,7 +120,7 @@ const defaultNotionContext: NotionContext = {
   fullPage: false,
   darkMode: false,
   previewImages: false,
-  vercelImages: false,
+  customImages: false,
   showCollectionViewDropdown: true,
 
   showTableOfContents: false,
