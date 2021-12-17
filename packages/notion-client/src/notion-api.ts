@@ -392,6 +392,7 @@ export class NotionAPI {
           },
           ...reducersQuery
         },
+        ...collectionView?.query2,
         searchQuery,
         userTimeZone
       }
