@@ -79,6 +79,9 @@ export default function NotionPage({ recordMap }) {
             src,
             alt,
 
+            height,
+            width,
+
             className,
             style,
             loading,
@@ -92,6 +95,8 @@ export default function NotionPage({ recordMap }) {
             style={style}
             src={src}
             ref={ref}
+            width={width}
+            height={height}
             loading='lazy'
             alt={alt}
             decoding='async'

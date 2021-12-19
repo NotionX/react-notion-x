@@ -128,7 +128,7 @@ export const LazyImage: React.FC<{
           loading='lazy'
           decoding='async'
           width={null}
-          height={null}
+          height={height || null}
           ref={attachZoomRef}
           onLoad={(e: any) => {
             if (e.target.srcset && zoomable) {
