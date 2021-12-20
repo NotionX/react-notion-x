@@ -304,6 +304,7 @@ export class NotionAPI {
           loadContentCover
         }
       },
+      ...collectionView?.query2,
       searchQuery,
       userTimeZone
     }
