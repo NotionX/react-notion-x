@@ -319,6 +319,7 @@ export class NotionAPI {
         url: 'string_starts_with',
         text: 'string_starts_with',
         select: 'enum_is',
+        multi_select: 'enum_contains',
         created_time: 'date_is_within',
         ['undefined']: 'is_empty'
       }
@@ -512,6 +513,7 @@ export class NotionAPI {
     }
 
     const url = `${this._apiBaseUrl}/${endpoint}`
+    console.log('BODY', JSON.stringify(body))
 
     return got
       .post(url, {
