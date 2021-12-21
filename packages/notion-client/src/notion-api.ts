@@ -515,7 +515,6 @@ export class NotionAPI {
     }
 
     const url = `${this._apiBaseUrl}/${endpoint}`
-    console.log('BODY', JSON.stringify(body))
 
     return got
       .post(url, {
