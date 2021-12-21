@@ -56,6 +56,12 @@ export const Asset: React.FC<{
     } = block.format
 
     if (block_full_width || block_page_width) {
+      if (block_full_width) {
+         style.width = '100vw'
+       } else {
+         style.width = '100%'
+       }
+      
       if (block_aspect_ratio && block.type !== 'image') {
         // console.log(block.type, block)
         style.paddingBottom = `${block_aspect_ratio * 100}%`
