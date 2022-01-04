@@ -119,7 +119,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
 
             const schema = collection.schema[p.property]
             const group = (collectionData as any)[
-              `results:select:${p?.value?.value || ' uncategorized'}`
+              `results:select:${p?.value?.value || 'uncategorized'}`
             ]
 
             if (!group || !schema || p.hidden) {
