@@ -19,7 +19,7 @@ export interface NotionComponents {
   // blocks
   code: any
   equation: any
-  callout?:any
+  callout?: any
 
   // collection
   collection: any
@@ -50,4 +50,14 @@ export interface CollectionCardProps {
     visible: boolean
   }>
   className?: string
+}
+export interface CollectionGroupProps {
+  collection: types.Collection
+  collectionViewComponent: React.ElementType
+  collectionGroup: any
+  hidden: boolean
+  schema: any
+  value: any
+  summaryProps: any
+  detailsProps: any
 }

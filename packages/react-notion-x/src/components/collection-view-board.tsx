@@ -1,9 +1,10 @@
 import React from 'react'
 import { PageBlock } from 'notion-types'
 
-import { CollectionViewProps } from '../types'
-import { cs } from '../utils'
 import { CollectionCard } from './collection-card'
+import { CollectionGroup } from './collection-group'
+import { CollectionViewProps } from '../types'
+import { cs, getCollectionGroups } from '../utils'
 import { EmptyIcon } from '../icons/empty-icon'
 import { Property } from './property'
 import { useNotionContext } from '../context'
@@ -14,18 +15,49 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
   collectionData,
   padding
 }) => {
+  const isGroupedCollection = collectionView?.format?.collection_group_by
+
+  if (isGroupedCollection) {
+    const collectionGroups = getCollectionGroups(
+      collection,
+      collectionView,
+      collectionData,
+      padding
+    )
+
+    return collectionGroups.map((group) => (
+      <CollectionGroup
+        {...group}
+        summaryProps={{
+          style: {
+            paddingLeft: padding
+          }
+        }}
+        collectionViewComponent={(props) => (
+          <Board padding={padding} {...props} />
+        )}
+      />
+    ))
+  }
+
+  return (
+    <Board
+      padding={padding}
+      collectionView={collectionView}
+      collection={collection}
+      collectionData={collectionData}
+    />
+  )
+}
+
+function Board({ collectionView, collectionData, collection, padding }) {
   const { recordMap } = useNotionContext()
   const {
     board_cover = { type: 'none' },
     board_cover_size = 'medium',
     board_cover_aspect = 'cover'
-  } = collectionView.format || {}
-
-  //console.log('board', { collection, collectionView, collectionData })
-
-  const boardGroups =
-    collectionView.format.board_groups2 || collectionView.format.board_columns
-
+  } = collectionView?.format || {}
+  const boardGroups = collectionView?.format?.board_columns || []
   return (
     <div className='notion-board'>
       <div
@@ -84,10 +116,11 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
             if (!(collectionData as any).board_columns.results) {
               return null
             }
-            const group = p.value.value
-              ? (collectionData as any)[`board:${p.value.value}`]
-              : (collectionData as any)['results:uncategorized']
+
             const schema = collection.schema[p.property]
+            const group = (collectionData as any)[
+              `results:select:${p?.value?.value || ' uncategorized'}`
+            ]
 
             if (!group || !schema || p.hidden) {
               return null
