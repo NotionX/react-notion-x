@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example",
-  "version": "4.12.0",
+  "version": "4.13.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,12 +12,12 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
-    "next": "^12.0.3",
-    "notion-client": "^4.12.0",
+    "next": "^11.1.2",
+    "notion-client": "^4.13.0",
     "notion-utils": "^4.12.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^4.12.0"
+    "react-notion-x": "^4.13.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^11.1.2",

@@ -4,20 +4,45 @@ import { PageBlock } from 'notion-types'
 import { CollectionViewProps } from '../types'
 import { Property } from './property'
 import { useNotionContext } from '../context'
+import { CollectionGroup } from './collection-group'
+import { getCollectionGroups } from '../utils'
 
 export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData
 }) => {
+  const isGroupedCollection = collectionView?.format?.collection_group_by
+
+  if (isGroupedCollection) {
+    const collectionGroups = getCollectionGroups(
+      collection,
+      collectionView,
+      collectionData
+    )
+
+    return collectionGroups.map((group) => (
+      <CollectionGroup {...group} collectionViewComponent={List} />
+    ))
+  }
+
+  return (
+    <List
+      blockIds={collectionData['collection_group_results'].blockIds}
+      collection={collection}
+      collectionView={collectionView}
+    />
+  )
+}
+
+function List({ blockIds, collection, collectionView }) {
   const { components, recordMap, mapPageUrl } = useNotionContext()
-  // console.log('list', { collection, collectionView, collectionData })
 
   return (
     <div className='notion-list-collection'>
       <div className='notion-list-view'>
         <div className='notion-list-body'>
-          {collectionData.blockIds.map((blockId) => {
+          {blockIds.map((blockId) => {
             const block = recordMap.block[blockId]?.value as PageBlock
             if (!block) return null
 
@@ -46,7 +71,6 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
                       const schema = collection.schema[p.property]
                       const data = block && block.properties?.[p.property]
 
-                      // console.log('list item body', p, schema, data)
                       if (!schema) {
                         return null
                       }

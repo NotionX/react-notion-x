@@ -239,12 +239,12 @@ export const Property: React.FC<{
           break
 
         case 'created_time':
-          content = format(new Date(block.created_time), 'MMM d, YYY hh:mm aa')
+          content = format(new Date(block?.created_time), 'MMM d, YYY hh:mm aa')
           break
 
         case 'last_edited_time':
           content = format(
-            new Date(block.last_edited_time),
+            new Date(block?.last_edited_time),
             'MMM d, YYY hh:mm aa'
           )
           break

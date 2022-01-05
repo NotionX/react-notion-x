@@ -1,9 +1,10 @@
 import React from 'react'
 
-import { CollectionViewProps } from '../types'
-import { cs } from '../utils'
-import { Property } from './property'
 import { CollectionColumnTitle } from './collection-column-title'
+import { CollectionGroup } from './collection-group'
+import { CollectionViewProps } from '../types'
+import { cs, getCollectionGroups } from '../utils'
+import { Property } from './property'
 import { useNotionContext } from '../context'
 
 export const CollectionViewTable: React.FC<CollectionViewProps> = ({
@@ -13,8 +14,46 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   padding,
   width
 }) => {
+  const isGroupedCollection = collectionView?.format?.collection_group_by
+
+  if (isGroupedCollection) {
+    const collectionGroups = getCollectionGroups(
+      collection,
+      collectionView,
+      collectionData,
+      padding,
+      width
+    )
+
+    return collectionGroups.map((group) => (
+      <CollectionGroup
+        {...group}
+        collectionViewComponent={(props) => (
+          <Table {...props} padding={padding} width={width} />
+        )}
+        summaryProps={{
+          style: {
+            paddingLeft: padding,
+            paddingRight: padding
+          }
+        }}
+      />
+    ))
+  }
+
+  return (
+    <Table
+      blockIds={collectionData['collection_group_results'].blockIds}
+      collection={collection}
+      collectionView={collectionView}
+      padding={padding}
+      width={width}
+    />
+  )
+}
+
+function Table({ blockIds, collection, collectionView, width, padding }) {
   const { recordMap } = useNotionContext()
-  // console.log('table', { collection, collectionView, collectionData })
 
   let properties = []
 
@@ -29,8 +68,6 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
         .map((property) => ({ property }))
     )
   }
-
-  // const hasFullWidths = properties.every((p) => p.width >= 0)
 
   return (
     <div
@@ -84,7 +121,7 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
             <div className='notion-table-header-placeholder'></div>
 
             <div className='notion-table-body'>
-              {collectionData.blockIds.map((blockId) => (
+              {blockIds.map((blockId) => (
                 <div className='notion-table-row' key={blockId}>
                   {properties.map((p) => {
                     const schema = collection.schema?.[p.property]
