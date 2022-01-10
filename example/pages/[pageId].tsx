@@ -72,8 +72,36 @@ export default function NotionPage({ recordMap }) {
         recordMap={recordMap}
         fullPage={true}
         darkMode={false}
+        customImages={true}
         rootDomain='localhost:9090' // used to detect root domain links and open this in the same tab
         components={{
+          image: ({
+            src,
+            alt,
+
+            height,
+            width,
+
+            className,
+            style,
+            loading,
+            decoding,
+            
+            ref,
+            onLoad
+          }) => (
+            <img
+            className={className}
+            style={style}
+            src={src}
+            ref={ref}
+            width={width}
+            height={height}
+            loading='lazy'
+            alt={alt}
+            decoding='async'
+          />
+          ),
           collection: Collection,
           collectionRow: CollectionRow
         }}

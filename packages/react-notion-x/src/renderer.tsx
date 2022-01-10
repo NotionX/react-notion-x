@@ -24,6 +24,7 @@ export interface NotionRendererProps {
   fullPage?: boolean
   darkMode?: boolean
   previewImages?: boolean
+  customImages?: boolean
   showCollectionViewDropdown?: boolean
 
   showTableOfContents?: boolean
@@ -72,6 +73,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   rootDomain,
   darkMode,
   previewImages,
+  customImages,
   showCollectionViewDropdown,
   showTableOfContents,
   minTableOfContentsItems,
@@ -100,6 +102,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
       rootDomain={rootDomain}
       darkMode={darkMode}
       previewImages={previewImages}
+      customImages={customImages}
       showCollectionViewDropdown={showCollectionViewDropdown}
       showTableOfContents={showTableOfContents}
       minTableOfContentsItems={minTableOfContentsItems}

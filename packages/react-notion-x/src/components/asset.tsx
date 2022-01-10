@@ -57,11 +57,11 @@ export const Asset: React.FC<{
 
     if (block_full_width || block_page_width) {
       if (block_full_width) {
-        style.width = '100vw'
-      } else {
-        style.width = '100%'
-      }
-
+         style.width = '100vw'
+       } else {
+         style.width = '100%'
+       }
+      
       if (block_aspect_ratio && block.type !== 'image') {
         // console.log(block.type, block)
         style.paddingBottom = `${block_aspect_ratio * 100}%`
@@ -221,9 +221,9 @@ export const Asset: React.FC<{
       <LazyImage
         src={src}
         alt={alt}
-        style={assetStyle}
         zoomable={false}
         height={style.height as number}
+        style={assetStyle}
       />
     )
   }
