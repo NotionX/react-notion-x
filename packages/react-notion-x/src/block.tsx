@@ -815,6 +815,23 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'transclusion_reference':
       return <SyncPointerBlock block={block} level={level + 1} {...props} />
 
+    case 'alias':
+      let blockPointerId = block?.format?.alias_pointer?.id
+      const linkedBlock = recordMap.block[blockPointerId]?.value
+      if (!linkedBlock) {
+        console.log('"p" missing block', blockPointerId)
+        return null
+      }
+
+      return (
+        <components.pageLink
+          className={cs('notion-page-link', blockPointerId)}
+          href={mapPageUrl(blockPointerId)}
+        >
+          <PageTitle block={linkedBlock} />
+        </components.pageLink>
+      )
+
     default:
       if (process.env.NODE_ENV !== 'production') {
         console.log(
