@@ -57,7 +57,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
     board_cover_size = 'medium',
     board_cover_aspect = 'cover'
   } = collectionView?.format || {}
-  const boardGroups = collectionView?.format?.board_columns || []
+  const boardGroups = collectionView?.format?.board_columns || collectionView?.format?.board_groups2 || []
   return (
     <div className='notion-board'>
       <div
@@ -72,7 +72,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
         <div className='notion-board-header'>
           <div className='notion-board-header-inner'>
             {boardGroups.map((p, index) => {
-              if (!(collectionData as any).board_columns.results) {
+              if (!(collectionData as any).board_columns?.results) {
                 //no groupResults in the data when collection is in a toggle
                 return null
               }
@@ -113,7 +113,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
 
         <div className='notion-board-body'>
           {boardGroups.map((p, index) => {
-            if (!(collectionData as any).board_columns.results) {
+            if (!(collectionData as any).board_columns?.results) {
               return null
             }
 
