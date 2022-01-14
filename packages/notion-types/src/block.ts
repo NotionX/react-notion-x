@@ -37,6 +37,7 @@ export type BlockType =
   | 'collection_view_page'
   | 'transclusion_container'
   | 'transclusion_reference'
+  | 'alias'
   // fallback for unknown blocks
   | string
 
@@ -78,6 +79,7 @@ export type Block =
   | CollectionViewPageBlock
   | SyncBlock
   | SyncPointerBlock
+  | PageLink
 
 /**
  * Base properties shared by all blocks.
@@ -370,6 +372,15 @@ export interface SyncPointerBlock extends BaseBlock {
     transclusion_reference_pointer: {
       id: string
       spaceId: string
+    }
+  }
+}
+
+export interface PageLink extends BaseBlock {
+  type: 'alias'
+  format: {
+    alias_pointer: {
+      id: string
     }
   }
 }
