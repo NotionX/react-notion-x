@@ -816,7 +816,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       return <SyncPointerBlock block={block} level={level + 1} {...props} />
 
     case 'alias':
-      let blockPointerId = block?.format?.alias_pointer?.id
+      const blockPointerId = block?.format?.alias_pointer?.id
       const linkedBlock = recordMap.block[blockPointerId]?.value
       if (!linkedBlock) {
         console.log('"p" missing block', blockPointerId)
