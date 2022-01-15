@@ -847,8 +847,13 @@ export const Block: React.FC<BlockProps> = (props) => {
       return (
         <tr className='notion-simple-table-row'>
           {order.map((column) => {
+            const color = formatMap[column].color
             return (
-              <td key={column} style={{ width: formatMap[column].width }}>
+              <td
+                key={column}
+                className={color ? `notion-${color}` : ''}
+                style={{ width: formatMap[column].width }}
+              >
                 <div className='notion-simple-table-cell'>
                   {block.properties[column]}
                 </div>
