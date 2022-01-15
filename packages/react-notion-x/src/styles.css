@@ -2391,3 +2391,19 @@ svg.notion-page-icon {
   display: inline-flex;
   align-items: center;
 }
+
+.notion-simple-table {
+  border: 1px solid var(--fg-color-5);
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.notion-simple-table tr:first-child td {
+  background: var(--bg-color-0);
+}
+
+.notion-simple-table td {
+  border: 1px solid var(--fg-color-5);
+  padding: 8px 8px;
+}
