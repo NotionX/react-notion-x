@@ -232,6 +232,7 @@
 
 .notion-viewport {
   position: relative;
+  padding: 0px;
   top: 0;
   left: 0;
   right: 0;
