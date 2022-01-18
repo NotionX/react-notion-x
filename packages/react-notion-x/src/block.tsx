@@ -834,7 +834,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'table':
       return (
-        <table className='notion-simple-table'>
+        <table className={cs('notion-simple-table', blockId)}>
           <tbody>{children}</tbody>
         </table>
       )
@@ -845,7 +845,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       const formatMap = tableBlock.format.table_block_column_format
 
       return (
-        <tr className='notion-simple-table-row'>
+        <tr className={cs('notion-simple-table-row', blockId)}>
           {order.map((column) => {
             const color = formatMap[column].color
             return (
