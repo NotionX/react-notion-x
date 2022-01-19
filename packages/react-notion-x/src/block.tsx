@@ -855,7 +855,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                 style={{ width: formatMap[column].width }}
               >
                 <div className='notion-simple-table-cell'>
-                  {block.properties[column]}
+                  <Text value={block.properties[column]} block={block} />
                 </div>
               </td>
             )
