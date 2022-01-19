@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "4.13.2",
+  "version": "4.14.0",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "got": "^11.8.1",
-    "notion-types": "^4.13.2",
-    "notion-utils": "^4.13.2",
+    "notion-types": "^4.14.0",
+    "notion-utils": "^4.14.0",
     "p-map": "^4.0.0"
   },
   "devDependencies": {
