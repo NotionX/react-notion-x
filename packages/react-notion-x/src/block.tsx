@@ -861,7 +861,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                 }}
               >
                 <div className='notion-simple-table-cell'>
-                  <Text value={block.properties[column]} block={block} />
+                  <Text value={block.properties ? block.properties[column] : [['ㅤ']]} block={block} />
                 </div>
               </td>
             )
