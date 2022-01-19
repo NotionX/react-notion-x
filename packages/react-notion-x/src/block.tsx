@@ -832,6 +832,37 @@ export const Block: React.FC<BlockProps> = (props) => {
         </components.pageLink>
       )
 
+    case 'table':
+      return (
+        <table className={cs('notion-simple-table', blockId)}>
+          <tbody>{children}</tbody>
+        </table>
+      )
+    case 'table_row':
+      const tableBlock = recordMap.block[block.parent_id]
+        .value as types.TableBlock
+      const order = tableBlock.format.table_block_column_order
+      const formatMap = tableBlock.format.table_block_column_format
+
+      return (
+        <tr className={cs('notion-simple-table-row', blockId)}>
+          {order.map((column) => {
+            const color = formatMap[column].color
+            return (
+              <td
+                key={column}
+                className={color ? `notion-${color}` : ''}
+                style={{ width: formatMap[column].width }}
+              >
+                <div className='notion-simple-table-cell'>
+                  {block.properties[column]}
+                </div>
+              </td>
+            )
+          })}
+        </tr>
+      )
+
     default:
       if (process.env.NODE_ENV !== 'production') {
         console.log(

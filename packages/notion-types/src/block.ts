@@ -38,6 +38,8 @@ export type BlockType =
   | 'transclusion_container'
   | 'transclusion_reference'
   | 'alias'
+  | 'table'
+  | 'table_row'
   // fallback for unknown blocks
   | string
 
@@ -80,6 +82,8 @@ export type Block =
   | SyncBlock
   | SyncPointerBlock
   | PageLink
+  | TableBlock
+  | TableRowBlock
 
 /**
  * Base properties shared by all blocks.
@@ -382,5 +386,30 @@ export interface PageLink extends BaseBlock {
     alias_pointer: {
       id: string
     }
+  }
+}
+
+export interface TableBlock extends BaseBlock {
+  type: 'table'
+  collection_id: ID
+  format: {
+    collection_pointer: {
+      id: ID
+      table: string
+      spaceId: ID
+    }
+    table_block_column_format: {
+      [column: string]: { width: number; color?: Color }
+    }
+    table_block_column_header: boolean
+    table_block_column_order: string[]
+  }
+  view_ids: ID[]
+}
+
+export interface TableRowBlock extends BaseBlock {
+  type: 'table_row'
+  properties: {
+    [column: string]: Decoration[]
   }
 }
