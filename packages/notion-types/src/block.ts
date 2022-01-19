@@ -398,8 +398,8 @@ export interface TableBlock extends BaseBlock {
       table: string
       spaceId: ID
     }
-    table_block_column_format: {
-      [column: string]: { width: number; color?: Color }
+    table_block_column_format?: {
+      [column: string]: { width?: number; color?: Color }
     }
     table_block_column_header: boolean
     table_block_column_order: string[]
