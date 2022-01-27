@@ -87,10 +87,13 @@ export type ExternalLinkFormat = ['‣', [string, string]]
 export type DateFormat = ['d', FormattedDate]
 
 export interface FormattedDate {
-  type: 'date' | 'daterange'
+  type: 'date' | 'daterange' | 'datetime' | 'datetimerange'
   start_date: string
+  start_time?: string
   end_date?: string
+  end_time?: string
   date_format?: string
+  time_zone?: string
 }
 
 export type SubDecoration =
