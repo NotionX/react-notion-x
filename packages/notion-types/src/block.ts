@@ -187,14 +187,26 @@ export interface NumberedListBlock extends BaseTextBlock {
 
 export interface HeaderBlock extends BaseTextBlock {
   type: 'header'
+  format?: {
+    block_color: Color,
+    toggleable?: boolean
+  }
 }
 
 export interface SubHeaderBlock extends BaseTextBlock {
   type: 'sub_header'
+  format?: {
+    block_color: Color,
+    toggleable?: boolean
+  }
 }
 
 export interface SubSubHeaderBlock extends BaseTextBlock {
   type: 'sub_sub_header'
+  format?: {
+    block_color: Color,
+    toggleable?: boolean
+  }
 }
 
 export interface QuoteBlock extends BaseTextBlock {
