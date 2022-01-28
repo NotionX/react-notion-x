@@ -1,5 +1,6 @@
 import React from 'react'
 import { ExtendedRecordMap } from 'notion-types'
+import { Text } from "../src/components/text";
 
 import {
   MapPageUrl,
@@ -89,6 +90,7 @@ const defaultComponents: NotionComponents = {
   link: DefaultLink,
   pageLink: DefaultPageLink,
   checkbox: DefaultCheckbox,
+  text: Text,
 
   code: dummyComponent('code'),
   equation: dummyComponent('equation'),

@@ -16,6 +16,7 @@ export interface NotionComponents {
   link: any
   pageLink: any
   checkbox: React.FC<{ isChecked: boolean; blockId: string }>
+  text: any
 
   // blocks
   code: any

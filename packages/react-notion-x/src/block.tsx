@@ -86,7 +86,7 @@ export const Block: React.FC<BlockProps> = (props) => {
   // ugly hack to make viewing raw collection views work properly
   // e.g., 6d886ca87ab94c21a16e3b82b43a57fb
   if (level === 0 && block.type === 'collection_view') {
-    ;(block as any).type = 'collection_view_page'
+    ; (block as any).type = 'collection_view_page'
   }
 
   const blockId = hideBlockId
@@ -111,8 +111,8 @@ export const Block: React.FC<BlockProps> = (props) => {
             block.type === 'page'
               ? block.properties
               : {
-                  title: recordMap.collection[block.collection_id]?.value?.name
-                }
+                title: recordMap.collection[block.collection_id]?.value?.name
+              }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
 
@@ -201,15 +201,15 @@ export const Block: React.FC<BlockProps> = (props) => {
                     pageCover ? (
                       pageCover
                     ) : (
-                      <LazyImage
-                        src={mapImageUrl(page_cover, block)}
-                        alt={getTextContent(properties?.title)}
-                        className='notion-page-cover'
-                        style={{
-                          objectPosition: `center ${coverPosition}%`
-                        }}
-                      />
-                    )
+                        <LazyImage
+                          src={mapImageUrl(page_cover, block)}
+                          alt={getTextContent(properties?.title)}
+                          className='notion-page-cover'
+                          style={{
+                            objectPosition: `center ${coverPosition}%`
+                          }}
+                        />
+                      )
                   ) : null}
 
                   <main
@@ -287,7 +287,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                                         'notion-table-of-contents-item',
                                         `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
                                         activeSection === id &&
-                                          'notion-table-of-contents-active-item'
+                                        'notion-table-of-contents-active-item'
                                       )}
                                     >
                                       <span
@@ -470,7 +470,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           )}
         >
           {block.properties?.title && (
-            <Text value={block.properties.title} block={block} />
+            <components.text value={block.properties.title} block={block} />
           )}
 
           {children && <div className='notion-text-children'>{children}</div>}
@@ -486,13 +486,13 @@ export const Block: React.FC<BlockProps> = (props) => {
             {content}
           </ul>
         ) : (
-          <ol
-            start={start}
-            className={cs('notion-list', 'notion-list-numbered', blockId)}
-          >
-            {content}
-          </ol>
-        )
+            <ol
+              start={start}
+              className={cs('notion-list', 'notion-list-numbered', blockId)}
+            >
+              {content}
+            </ol>
+          )
 
       let output: JSX.Element | null = null
 
@@ -611,7 +611,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       const width = `calc((100% - (${
         columns - 1
-      } * ${spacerWidth})) * ${ratio})`
+        } * ${spacerWidth})) * ${ratio})`
       const style = { width }
 
       return (
@@ -654,7 +654,7 @@ export const Block: React.FC<BlockProps> = (props) => {
             className={cs(
               'notion-callout',
               block.format?.block_color &&
-                `notion-${block.format?.block_color}_co`,
+              `notion-${block.format?.block_color}_co`,
               blockId
             )}
           >
