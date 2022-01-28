@@ -418,36 +418,46 @@ export const Block: React.FC<BlockProps> = (props) => {
       const innerHeader = (
         <span>
           <div id={id} className='notion-header-anchor' />
-
-          <a className='notion-hash-link' href={`#${id}`} title={title}>
-            <LinkIcon />
-          </a>
+          {!block.format?.toggleable && (
+            <a className='notion-hash-link' href={`#${id}`} title={title}>
+              <LinkIcon />
+            </a>
+          )}
 
           <span className='notion-h-title'>
             <Text value={block.properties.title} block={block} />
           </span>
         </span>
       )
-
+      let headerBlock = (
+        <h4 className={classNameStr} data-id={id}>
+          {innerHeader}
+        </h4>
+      )
       //page title takes the h1 so all header blocks are greater
       if (isH1) {
-        return (
+        headerBlock = (
           <h2 className={classNameStr} data-id={id}>
             {innerHeader}
           </h2>
         )
       } else if (isH2) {
-        return (
+        headerBlock = (
           <h3 className={classNameStr} data-id={id}>
             {innerHeader}
           </h3>
         )
-      } else {
+      }
+
+      if (block.format?.toggleable) {
         return (
-          <h4 className={classNameStr} data-id={id}>
-            {innerHeader}
-          </h4>
+          <details className={cs('notion-toggle', blockId)}>
+            <summary>{headerBlock}</summary>
+            <div>{children}</div>
+          </details>
         )
+      } else {
+        return headerBlock
       }
     }
 
@@ -861,7 +871,12 @@ export const Block: React.FC<BlockProps> = (props) => {
                 }}
               >
                 <div className='notion-simple-table-cell'>
-                  <Text value={block.properties ? block.properties[column] : [['ㅤ']]} block={block} />
+                  <Text
+                    value={
+                      block.properties ? block.properties[column] : [['ㅤ']]
+                    }
+                    block={block}
+                  />
                 </div>
               </td>
             )
