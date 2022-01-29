@@ -14,6 +14,9 @@ import { getTextContent } from './get-text-content'
  *  4. checkbox property return `boolean`
  * @todo complete all no-text property type
  */
+export function getPageProperty<
+  T = string | number | boolean | string[] | number[]
+>(propertyName: string, block: Block, recordMap: ExtendedRecordMap): T
 export function getPageProperty(
   propertyName: string,
   block: Block,
