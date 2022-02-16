@@ -390,6 +390,7 @@ export class NotionAPI {
           [reducerLabel]: {
             type: 'groups',
             groupBy,
+            ...(collectionView?.query2?.filter && {filter: collectionView?.query2?.filter}),
             groupSortPreference: groups.map((group) => group?.value),
             limit
           },
