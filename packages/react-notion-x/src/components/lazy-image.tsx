@@ -12,8 +12,18 @@ export const LazyImage: React.FC<{
   className?: string
   style?: React.CSSProperties
   height?: number
+  width?: number
   zoomable?: boolean
-}> = ({ src, alt, className, style, zoomable = false, height, ...rest }) => {
+}> = ({
+  src,
+  alt,
+  className,
+  style,
+  zoomable = false,
+  height,
+  width,
+  ...rest
+}) => {
   const { recordMap, zoom, previewImages, customImages, components } =
     useNotionContext()
 
@@ -117,6 +127,10 @@ export const LazyImage: React.FC<{
     // TODO: GracefulImage doesn't seem to support refs, but we'd like to prevent
     // invalid images from loading as error states
 
+    if (width) {
+      src += `&width=${width}`
+    }
+
     // Render when customImages flag is enabled
     if (customImages) {
       return (
@@ -127,7 +141,6 @@ export const LazyImage: React.FC<{
           style={style}
           loading='lazy'
           decoding='async'
-          width={null}
           height={height || null}
           ref={attachZoomRef}
           onLoad={(e: any) => {

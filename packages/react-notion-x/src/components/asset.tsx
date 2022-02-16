@@ -223,6 +223,7 @@ export const Asset: React.FC<{
         alt={alt}
         zoomable={false}
         height={style.height as number}
+        width={block?.format?.block_width}
         style={assetStyle}
       />
     )
