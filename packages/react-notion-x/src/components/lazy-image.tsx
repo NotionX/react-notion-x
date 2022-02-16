@@ -141,6 +141,7 @@ export const LazyImage: React.FC<{
           style={style}
           loading='lazy'
           decoding='async'
+          width={null}
           height={height || null}
           ref={attachZoomRef}
           onLoad={(e: any) => {
