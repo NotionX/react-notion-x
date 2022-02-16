@@ -93,6 +93,10 @@ export const defaultMapPageUrl = (rootPageId?: string) => (pageId: string) => {
   }
 }
 
+export const getHashFragmentValue = (url: string) => {
+  return url.includes('#') ? url.replace(/^.+(#.+)$/, '$1') : ''
+}
+
 const months = [
   'Jan',
   'Feb',

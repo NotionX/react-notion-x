@@ -3,7 +3,7 @@ import { Block, Decoration } from 'notion-types'
 import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '../context'
-import { formatDate } from '../utils'
+import { formatDate, getHashFragmentValue } from '../utils'
 import { Equation } from './equation'
 import { PageTitle } from './page-title'
 import { GracefulImage } from './graceful-image'
@@ -145,12 +145,14 @@ export const Text: React.FC<{
               const id = parsePageId(pathname, { uuid: true })
 
               if ((v[0] === '/' || v.includes(rootDomain)) && id) {
-                // console.log('a', id)
+                const href = v.includes(rootDomain)
+                  ? v
+                  : `${mapPageUrl(id)}${getHashFragmentValue(v)}`
 
                 return (
                   <components.pageLink
                     className='notion-link'
-                    href={v.includes(rootDomain) ? v : mapPageUrl(id)}
+                    href={href}
                     {...linkProps}
                   >
                     {element}
