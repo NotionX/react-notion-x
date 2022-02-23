@@ -25,6 +25,7 @@ import { cs, getListNumber, isUrl } from './utils'
 import { Text } from './components/text'
 import { SyncPointerBlock } from './components/sync-pointer-block'
 import { AssetWrapper } from './components/asset-wrapper'
+import { ExternalComponentGithub } from './components/external-component-github'
 
 interface BlockProps {
   block: types.Block
@@ -883,6 +884,27 @@ export const Block: React.FC<BlockProps> = (props) => {
           })}
         </tr>
       )
+
+    case 'external_object_instance':
+      switch (block.format.domain) {
+        case 'github.com':
+          return (
+            <ExternalComponentGithub
+              block={block as types.ExternalObjectInstance}
+              className={blockId}
+            />
+          )
+        default:
+          if (process.env.NODE_ENV !== 'production') {
+            console.log(
+              `Unsupported external_object_instance domain ${block.format.domain}: ` +
+                (block as any).type,
+              JSON.stringify(block, null, 2)
+            )
+          }
+
+          return <div />
+      }
 
     default:
       if (process.env.NODE_ENV !== 'production') {

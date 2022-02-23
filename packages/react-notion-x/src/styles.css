@@ -2408,3 +2408,40 @@ svg.notion-page-icon {
   border: 1px solid var(--fg-color-5);
   padding: 8px 8px;
 }
+
+.notion-external-block {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid var(--fg-color-3);
+  border-radius: 3px;
+  padding: 6px 6px;
+  text-decoration: none;
+  display: flex;
+  transition: background 120ms ease-in 0s;
+}
+
+.notion-external-block:hover {
+  background: var(--bg-color-0);
+}
+
+.notion-external-image {
+  width: 32px;
+  height: 32px;
+  margin: 3px 12px 3px 4px;
+}
+
+.notion-external-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.notion-external-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg-color-4)
+}
+
+.notion-external-subtitle {
+  font-size: 12px;
+  color: var(--fg-color-3)
+}
