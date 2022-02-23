@@ -2412,7 +2412,7 @@ svg.notion-page-icon {
 .notion-external-block {
   width: 100%;
   margin-top: 4px;
-  border: 1px solid var(--fg-color-3);
+  border: 1px solid var(--fg-color-1);
   border-radius: 3px;
   padding: 6px 6px;
   text-decoration: none;
