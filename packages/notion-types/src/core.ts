@@ -78,6 +78,7 @@ export type StrikeFormat = ['s']
 export type CodeFormat = ['c']
 export type UnderlineFormat = ['_']
 export type LinkFormat = ['a', string]
+export type ExternalObjectInstanceFormat = ['eoi', string]
 export type ColorFormat = ['h', Color]
 export type UserFormat = ['u', string]
 export type PageFormat = ['p', string]
@@ -110,6 +111,7 @@ export type SubDecoration =
   | PageFormat
   | ExternalLinkFormat
   | DiscussionFormat
+  | ExternalObjectInstanceFormat
 
 export type BaseDecoration = [string]
 export type AdditionalDecoration = [string, SubDecoration[]]

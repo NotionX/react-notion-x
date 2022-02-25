@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { ExternalObjectInstance } from 'notion-types'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
-import { Text } from './text'
 import SvgTypeGitHub from '../icons/type-github'
 
 interface GitHubRepo {
@@ -16,11 +14,12 @@ interface GitHubRepo {
 }
 
 export const ExternalComponentGithub: React.FC<{
-  block: ExternalObjectInstance
+  original_url: string
+  block?: boolean
   className?: string
-}> = ({ block, className }) => {
+}> = ({ original_url, block, className }) => {
   const { components } = useNotionContext()
-  const url = new URL(block.format.original_url)
+  const url = new URL(original_url)
   const [name, setName] = useState<string>(url.pathname.substring(1))
   const [githubRepo, setGithubRepo] = useState<GitHubRepo>()
 
@@ -42,37 +41,30 @@ export const ExternalComponentGithub: React.FC<{
   }, [])
 
   return (
-    <div className='notion-row'>
-      <components.link
-        target='_blank'
-        rel='noopener noreferrer'
-        className={cs('notion-external-block', className)}
-        href={block.format.original_url}
-      >
-        <div className='notion-external-image'>
-          <SvgTypeGitHub />
-        </div>
-        <div className='notion-external-description'>
-          <div className='notion-external-title'>
-            <Text value={[[name]]} block={block} />
-          </div>
+    <components.link
+      target='_blank'
+      rel='noopener noreferrer'
+      href={original_url}
+      className={cs(
+        'notion-external',
+        block ? 'notion-external-block notion-row' : 'notion-external-mention',
+        className
+      )}
+    >
+      <div className='notion-external-image'>
+        <SvgTypeGitHub />
+      </div>
+      <div className='notion-external-description'>
+        <div className='notion-external-title'>{name}</div>
 
-          {githubRepo && (
-            <div className='notion-external-subtitle'>
-              <Text
-                value={[
-                  [
-                    `${
-                      githubRepo.owner.login
-                    } • Updated on ${githubRepo.updated_at.substring(0, 10)}`
-                  ]
-                ]}
-                block={block}
-              />
-            </div>
-          )}
-        </div>
-      </components.link>
-    </div>
+        {githubRepo && (
+          <div className='notion-external-subtitle'>
+            {`${
+              githubRepo.owner.login
+            } • Updated on ${githubRepo.updated_at.substring(0, 10)}`}
+          </div>
+        )}
+      </div>
+    </components.link>
   )
 }

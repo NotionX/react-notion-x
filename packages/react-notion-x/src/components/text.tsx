@@ -1,5 +1,5 @@
 import React from 'react'
-import { Block, Decoration } from 'notion-types'
+import { Block, Decoration, ExternalObjectInstance } from 'notion-types'
 import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '../context'
@@ -7,6 +7,7 @@ import { formatDate, getHashFragmentValue } from '../utils'
 import { Equation } from './equation'
 import { PageTitle } from './page-title'
 import { GracefulImage } from './graceful-image'
+import { ExternalComponentGithub } from './external-component-github'
 
 /**
  * Renders a single piece of Notion text, including basic rich text formatting.
@@ -215,6 +216,31 @@ export const Text: React.FC<{
                   alt={name}
                 />
               )
+            }
+
+            case 'eoi': {
+              const blockId = decorator[1]
+              const externalObjectInstance = recordMap.block[blockId]
+                ?.value as ExternalObjectInstance
+              switch (externalObjectInstance.format.domain) {
+                case 'github.com':
+                  return (
+                    <ExternalComponentGithub
+                      original_url={externalObjectInstance.format.original_url}
+                      className={blockId}
+                    />
+                  )
+                default:
+                  if (process.env.NODE_ENV !== 'production') {
+                    console.log(
+                      `Unsupported external_object_instance domain ${externalObjectInstance.format.domain}: ` +
+                        (block as any).type,
+                      JSON.stringify(block, null, 2)
+                    )
+                  }
+
+                  return <div />
+              }
             }
 
             default:

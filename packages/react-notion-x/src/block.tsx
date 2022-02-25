@@ -890,7 +890,8 @@ export const Block: React.FC<BlockProps> = (props) => {
         case 'github.com':
           return (
             <ExternalComponentGithub
-              block={block as types.ExternalObjectInstance}
+              original_url={block.format.original_url}
+              block
               className={blockId}
             />
           )
