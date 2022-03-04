@@ -78,14 +78,14 @@ export function evalFormula(
           }
 
         case 'date': {
-          // console.log('date', text, value)
-
           const v = getDateValue(value)
           if (v) {
             if (endDate && v.end_date) {
-              return new Date(v.end_date)
+              let date = new Date(v.end_date)
+              return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
             } else {
-              return new Date(v.start_date)
+              let date = new Date(v.start_date)
+              return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
             }
           } else {
             return new Date(text)
