@@ -78,6 +78,8 @@ export function evalFormula(
           }
 
         case 'date': {
+          // console.log('date', text, value)
+
           const v = getDateValue(value)
           if (v) {
             if (endDate && v.end_date) {
