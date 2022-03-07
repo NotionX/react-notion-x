@@ -1975,11 +1975,6 @@ svg.notion-page-icon {
 }
 
 @media only screen and (max-width: 730px) {
-  .notion-page {
-    padding-left: 2vw;
-    padding-right: 2vw;
-  }
-
   .notion-asset-wrapper {
     max-width: 100%;
   }
