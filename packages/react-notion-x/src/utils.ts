@@ -115,7 +115,7 @@ const months = [
 export const formatDate = (input: string) => {
   const date = new Date(input)
   const month = date.getMonth()
-  return `${months[month]} ${date.getDate()}, ${date.getFullYear()}`
+  return `${months[month]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`
 }
 
 export const isBrowser = typeof window !== 'undefined'
