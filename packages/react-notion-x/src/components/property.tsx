@@ -143,7 +143,9 @@ export const Property: React.FC<{
         case 'checkbox':
           const isChecked = data && data[0][0] === 'Yes'
 
-          return <Checkbox isChecked={isChecked} blockId={undefined} />
+          return <div className='notion-property-checkbox-container'>
+            <Checkbox isChecked={isChecked} blockId={undefined} />
+            <span className='notion-property-checkbox-text'>{schema.name}</span></div>
 
         case 'url':
           // TODO: refactor to less hackyh solution
