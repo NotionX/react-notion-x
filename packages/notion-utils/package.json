@@ -2,8 +2,11 @@
   "name": "notion-utils",
   "version": "4.16.0",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
-  "repository": "NotionX/react-notion-x",
-  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uduakabaci/baby.git"
+  },
+  "author": "uduakabaci udofe <uduakbaciudofe@gmail.com>",
   "license": "MIT",
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
