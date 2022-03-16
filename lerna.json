@@ -5,5 +5,10 @@
   "packages": [
     "packages/*",
     "example/"
-  ]
+  ],
+  "command": {
+    "publish": {
+      "registry": "https://npm.pkg.github.com/uduakabaci"
+    }
+  }
 }
