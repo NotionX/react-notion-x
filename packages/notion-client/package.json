@@ -1,6 +1,6 @@
 {
   "name": "@uduakabaci/notion-client",
-  "version": "4.16.1",
+  "version": "4.16.4",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": {
     "type": "git",
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "got": "^11.8.1",
-    "notion-types": "^4.16.0",
-    "notion-utils": "^4.16.0",
+    "notion-types": "^4.16.4",
+    "notion-utils": "^4.16.4",
     "p-map": "^4.0.0"
   },
   "devDependencies": {

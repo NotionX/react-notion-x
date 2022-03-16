@@ -1,6 +1,6 @@
 {
   "name": "notion-types",
-  "version": "4.16.0",
+  "version": "4.16.4",
   "description": "TypeScript types for core Notion data structures.",
   "repository": {
     "type": "git",
