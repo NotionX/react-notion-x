@@ -40,6 +40,7 @@ export type BlockType =
   | 'alias'
   | 'table'
   | 'table_row'
+  | 'external_object_instance'
   // fallback for unknown blocks
   | string
 
@@ -84,6 +85,7 @@ export type Block =
   | PageLink
   | TableBlock
   | TableRowBlock
+  | ExternalObjectInstance
 
 /**
  * Base properties shared by all blocks.
@@ -423,5 +425,13 @@ export interface TableRowBlock extends BaseBlock {
   type: 'table_row'
   properties: {
     [column: string]: Decoration[]
+  }
+}
+
+export interface ExternalObjectInstance extends BaseBlock {
+  type: 'external_object_instance'
+  format: {
+    domain: string
+    original_url: string
   }
 }

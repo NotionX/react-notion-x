@@ -2416,3 +2416,71 @@ svg.notion-page-icon {
   border: 1px solid var(--fg-color-5);
   padding: 8px 8px;
 }
+
+.notion-external {
+  border-radius: 3px;
+  transition: background 120ms ease-in 0s;
+  text-decoration: none;
+}
+
+.notion-external:hover {
+  background: var(--bg-color-0);
+}
+
+.notion-external-block {
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid var(--fg-color-1);
+  padding: 6px 6px;
+  display: flex;  
+}
+
+.notion-external-mention {
+  display: inline;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.notion-external-image {
+  width: 32px;
+  height: 32px;
+  margin: 3px 12px 3px 4px;
+}
+
+.notion-external-mention .notion-external-image {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  margin-right: 0.3em;
+}
+
+.notion-external-description {
+  display: flex;
+  flex-direction: column;
+}
+
+.notion-external-mention .notion-external-description {
+  display: inline;
+}
+
+.notion-external-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg-color-4)
+}
+
+.notion-external-mention .notion-external-title {
+  display: inline;
+  font-size: 16px;
+  border-bottom: 0.05em solid var(--fg-color-1);
+}
+
+.notion-external-subtitle {
+  font-size: 12px;
+  color: var(--fg-color-3)
+}
+
+.notion-external-mention .notion-external-subtitle {
+  display: none;
+}
