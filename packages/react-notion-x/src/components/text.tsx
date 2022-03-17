@@ -222,7 +222,8 @@ export const Text: React.FC<{
               const blockId = decorator[1]
               const externalObjectInstance = recordMap.block[blockId]
                 ?.value as ExternalObjectInstance
-              switch (externalObjectInstance.format?.domain) {
+
+              switch (externalObjectInstance?.format?.domain) {
                 case 'github.com':
                   return (
                     <ExternalComponentGithub
@@ -230,10 +231,11 @@ export const Text: React.FC<{
                       className={blockId}
                     />
                   )
+
                 default:
                   if (process.env.NODE_ENV !== 'production') {
                     console.log(
-                      `Unsupported external_object_instance domain ${externalObjectInstance.format?.domain}: ` +
+                      `Unsupported external_object_instance domain ${externalObjectInstance?.format?.domain}: ` +
                         (block as any).type,
                       JSON.stringify(block, null, 2)
                     )
