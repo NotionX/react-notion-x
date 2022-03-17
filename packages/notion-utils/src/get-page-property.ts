@@ -34,6 +34,10 @@ export function getPageProperty(
     const propertyId = Object.keys(collection.schema).find(
       (key) => collection.schema[key]?.name === propertyName
     )
+    
+    if (!propertyId) {
+      return null
+    }
 
     const { type } = collection.schema[propertyId]
     const content = getTextContent(block.properties[propertyId])
