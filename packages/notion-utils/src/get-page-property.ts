@@ -34,7 +34,7 @@ export function getPageProperty(
     const propertyId = Object.keys(collection.schema).find(
       (key) => collection.schema[key]?.name === propertyName
     )
-    
+
     if (!propertyId) {
       return null
     }
