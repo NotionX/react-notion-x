@@ -1247,6 +1247,19 @@ svg.notion-page-icon {
   max-height: 100%;
 }
 
+.notion-collection-card .notion-property-checkbox-container {
+  display: flex;
+}
+
+.notion-property-checkbox-text {
+  display: none;
+}
+
+.notion-collection-card .notion-property-checkbox-text {
+  display: inline-block;
+  margin-left: 6px;
+}
+
 .notion-property-checkbox {
   width: 16px;
   height: 16px;
