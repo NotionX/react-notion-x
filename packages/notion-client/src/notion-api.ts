@@ -203,7 +203,10 @@ export class NotionAPI {
           block.type === 'file' ||
           block.type === 'page')
       ) {
-        const source = block.type === 'page' ? block.format?.page_cover : block.properties?.source?.[0]?.[0]
+        const source =
+          block.type === 'page'
+            ? block.format?.page_cover
+            : block.properties?.source?.[0]?.[0]
         // console.log(block, source)
 
         if (source) {
@@ -390,7 +393,9 @@ export class NotionAPI {
           [reducerLabel]: {
             type: 'groups',
             groupBy,
-            ...(collectionView?.query2?.filter && {filter: collectionView?.query2?.filter}),
+            ...(collectionView?.query2?.filter && {
+              filter: collectionView?.query2?.filter
+            }),
             groupSortPreference: groups.map((group) => group?.value),
             limit
           },

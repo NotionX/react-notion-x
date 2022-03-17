@@ -86,21 +86,21 @@ export default function NotionPage({ recordMap }) {
             style,
             loading,
             decoding,
-            
+
             ref,
             onLoad
           }) => (
             <img
-            className={className}
-            style={style}
-            src={src}
-            ref={ref}
-            width={width}
-            height={height}
-            loading='lazy'
-            alt={alt}
-            decoding='async'
-          />
+              className={className}
+              style={style}
+              src={src}
+              ref={ref}
+              width={width}
+              height={height}
+              loading='lazy'
+              alt={alt}
+              decoding='async'
+            />
           ),
           collection: Collection,
           collectionRow: CollectionRow

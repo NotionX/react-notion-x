@@ -6,7 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   images: {
-    domains: ["www.notion.so", "images.unsplash.com"]
+    domains: ['www.notion.so', 'images.unsplash.com']
   },
   async redirects() {
     return [

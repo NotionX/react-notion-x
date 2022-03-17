@@ -57,7 +57,10 @@ function Board({ collectionView, collectionData, collection, padding }) {
     board_cover_size = 'medium',
     board_cover_aspect = 'cover'
   } = collectionView?.format || {}
-  const boardGroups = collectionView?.format?.board_columns || collectionView?.format?.board_groups2 || []
+  const boardGroups =
+    collectionView?.format?.board_columns ||
+    collectionView?.format?.board_groups2 ||
+    []
   return (
     <div className='notion-board'>
       <div
