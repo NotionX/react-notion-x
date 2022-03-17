@@ -886,11 +886,11 @@ export const Block: React.FC<BlockProps> = (props) => {
       )
 
     case 'external_object_instance':
-      switch (block.format.domain) {
+      switch (block.format?.domain) {
         case 'github.com':
           return (
             <ExternalComponentGithub
-              original_url={block.format.original_url}
+              original_url={block.format?.original_url}
               block
               className={blockId}
             />
@@ -898,7 +898,7 @@ export const Block: React.FC<BlockProps> = (props) => {
         default:
           if (process.env.NODE_ENV !== 'production') {
             console.log(
-              `Unsupported external_object_instance domain ${block.format.domain}: ` +
+              `Unsupported external_object_instance domain ${block.format?.domain}: ` +
                 (block as any).type,
               JSON.stringify(block, null, 2)
             )

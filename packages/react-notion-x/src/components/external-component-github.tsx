@@ -33,7 +33,6 @@ export const ExternalComponentGithub: React.FC<{
         return response.json()
       })
       .then((data) => {
-        console.log(data)
         setGithubRepo(data)
         setName(data.name)
       })
