@@ -557,8 +557,8 @@
 
 .notion-page {
   width: var(--notion-max-width);
-  padding-left: calc(min(12px, 8vw));
-  padding-right: calc(min(12px, 8vw));
+  padding-left: calc(min(16px, 8vw));
+  padding-right: calc(min(16px, 8vw));
 }
 
 .notion-full-width {
@@ -1988,11 +1988,6 @@ svg.notion-page-icon {
 }
 
 @media only screen and (max-width: 730px) {
-  .notion-page {
-    padding-left: 2vw;
-    padding-right: 2vw;
-  }
-
   .notion-asset-wrapper {
     max-width: 100%;
   }
