@@ -40,6 +40,7 @@ interface BlockProps {
   pageFooter?: React.ReactNode
   pageAside?: React.ReactNode
   pageCover?: React.ReactNode
+  pageContentOnly?: boolean
 
   hideBlockId?: boolean
   disableHeader?: boolean
@@ -76,6 +77,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     pageFooter,
     pageAside,
     pageCover,
+    pageContentOnly,
     hideBlockId,
     disableHeader
   } = props
@@ -99,6 +101,15 @@ export const Block: React.FC<BlockProps> = (props) => {
     // fallthrough
     case 'page':
       if (level === 0) {
+        if (pageContentOnly) {
+          // only render child blocks
+          return (
+            <article className='notion-page-content-inner'>
+              {children}
+            </article>
+          )
+        }
+
         const {
           page_icon = defaultPageIcon,
           page_cover = defaultPageCover,

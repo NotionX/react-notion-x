@@ -43,6 +43,7 @@ export interface NotionRendererProps {
   pageFooter?: React.ReactNode
   pageAside?: React.ReactNode
   pageCover?: React.ReactNode
+  pageContentOnly?: boolean
 
   blockId?: string
   hideBlockId?: boolean
@@ -119,6 +120,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
 export const NotionBlockRenderer: React.FC<NotionBlockRendererProps> = ({
   level = 0,
   blockId,
+  pageContentOnly = false,
   ...props
 }) => {
   const { recordMap } = useNotionContext()
@@ -134,7 +136,7 @@ export const NotionBlockRenderer: React.FC<NotionBlockRendererProps> = ({
   }
 
   return (
-    <Block key={id} level={level} block={block} {...props}>
+    <Block key={id} level={level} block={block} pageContentOnly={pageContentOnly} {...props}>
       {block?.content?.map((contentBlockId) => (
         <NotionBlockRenderer
           key={contentBlockId}
