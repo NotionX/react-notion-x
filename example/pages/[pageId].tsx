@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
 
 import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
 import { NotionAPI } from 'notion-client'
@@ -79,26 +80,18 @@ export default function NotionPage({ recordMap }) {
             src,
             alt,
 
-            height,
             width,
+            height,
 
-            className,
-            style,
-            loading,
-            decoding,
-
-            ref,
-            onLoad
+            className
           }) => (
-            <img
+            <Image
               className={className}
-              style={style}
               src={src}
-              ref={ref}
               width={width}
               height={height}
-              loading='lazy'
               alt={alt}
+              loading='lazy'
               decoding='async'
             />
           ),
