@@ -43,7 +43,7 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
 
   return (
     <Table
-      blockIds={collectionData['collection_group_results'].blockIds}
+      blockIds={collectionData.blockIds}
       collection={collection}
       collectionView={collectionView}
       padding={padding}

@@ -30,7 +30,7 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
     <Gallery
       collectionView={collectionView}
       collection={collection}
-      blockIds={collectionData['collection_group_results'].blockIds}
+      blockIds={collectionData.blockIds}
     />
   )
 }
