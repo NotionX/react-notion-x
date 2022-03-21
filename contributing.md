@@ -33,6 +33,6 @@ Running `yarn dev` from the `example` directory will start the example project's
 
 You should now be able to open `http://localhost:3000` to view and debug the example project.
 
-Whenever you make a change to one of the packages, the `yarn dev` from the project root will re-compile that package, and the `yarn dev` from the example project's Next.js dev server should hot-reload it into the page.
+Whenever you make a change to one of the packages, the `yarn dev` from the project root will re-compile that package, and the `yarn dev` from the example project's Next.js dev server should hot-reload it in the browser.
 
 Sometimes, this process gets a little out of whack, and if you're not sure what's going on, I usually just quit one or both of the `yarn dev` commands and restart them.
