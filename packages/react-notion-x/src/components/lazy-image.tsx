@@ -63,8 +63,8 @@ export const LazyImage: React.FC<{
         <components.image
           src={src}
           alt={alt}
-          className={className}
           style={style}
+          className={className}
           width={previewImage.originalWidth}
           height={previewImage.originalHeight}
           blurDataURL={previewImage.dataURIBase64}
