@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "4.17.0",
+  "version": "4.18.0",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
@@ -20,8 +20,8 @@
     "katex": "^0.13.18",
     "lodash.throttle": "^4.1.1",
     "medium-zoom": "^1.0.6",
-    "notion-types": "^4.17.0",
-    "notion-utils": "^4.17.0",
+    "notion-types": "^4.18.0",
+    "notion-utils": "^4.18.0",
     "prismjs": "^1.20.0",
     "rc-dropdown": "^3.1.2",
     "rc-menu": "^9.0.14",
