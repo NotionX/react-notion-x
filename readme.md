@@ -76,7 +76,9 @@ Here's a full [Next.js example project](https://github.com/NotionX/react-notion-
 
 You can check out this [example hosted live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
 
-If you're interested in a more robust service built around `react-notion-x` that features a bunch of additional goodies and optimizations, check out the equivalent [Notion X Demo](https://react-notion-x-demo.transitivebullsh.it).
+This example shows how to use [next/image](https://nextjs.org/docs/api-reference/next/image) with `react-notion-x` along with preview images generated using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern).
+
+For a more full-featured example, check out the [Next.js template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which uses `react-notion-x` under the hood.
 
 ## Packages
 
@@ -167,17 +169,15 @@ Another major factor for perf comes from images hosted by Notion. They're genera
   - Includes all collection views
   - Covers most formatting options
   - More edge cases and feature coverage will be added over time
-- [react-notion](https://github.com/splitbee/react-notion) - Original React renderer for Notion.
-  - `react-notion-x` is a fork of `react-notion` with better support for different types of Notion content (especially collections).
-  - I'm also a maintainer and contributor to `react-notion`.
-  - It's my hope that the two projects will be merged together incrementally going forwards.
-  - => Use [react-notion-x](./packages/react-notion-x) instead.
-- [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker.
+- [react-notion](https://github.com/splitbee/react-notion) - Original React renderer for Notion
+  - `react-notion-x` is a fork of `react-notion` with better support for different types of Notion content (especially collections)
+  - I'm also a maintainer and contributor to `react-notion`
+- [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker
   - `notion-types` and `notion-client` are a refactored fork of `notion-api-worker`.
-  - One of the main use cases for `react-notion` is server-side rendering via Next.js, in which case the CF worker is unnecessary.
-  - => Use [notion-client](./packages/notion-client) instead.
-- [notion-api-agent](https://github.com/dragonman225/notionapi-agent) - Alternative Notion API client.
-- [notion-py](https://github.com/jamalex/notion-py) - Excellent Python wrapper around the Notion API.
+  - One of the main use cases for `react-notion` is server-side rendering via Next.js, in which case the CF worker is unnecessary
+  - We recommend that you use [notion-client](./packages/notion-client) instead
+- [notion-api-agent](https://github.com/dragonman225/notionapi-agent) - Alternative Notion API client
+- [notion-py](https://github.com/jamalex/notion-py) - Excellent Python wrapper around the Notion API
 
 ## License
 
@@ -191,7 +191,7 @@ Support my OSS work by <a href="https://twitter.com/transitive_bs">following me 
 
 ## Sponsor
 
-[Super.so](https://s.super.so/x) has been kind enough to sponsor this project! If you're looking for a hosted solution that takes a very similar approach to `react-notion-x` but handles all of the details for you, then definitely check them out.
+[Super.so](https://s.super.so/x) has been kind enough to sponsor this project. If you're looking for a hosted solution that takes a very similar approach to `react-notion-x` but handles all of the details for you, then definitely check them out.
 
 <p align="center">
   <a href="https://s.super.so/x" title="Super.so">
