@@ -159,6 +159,10 @@ Another major factor for perf comes from images hosted by Notion. They're genera
   <i>Google Lighthouse scores for an <a href="https://react-notion-x-demo.transitivebullsh.it/checklists-38fa73d49b8f40aab1f3f8c82332e518">example page</a> hosted by Notion X.</i>
 </p>
 
+## Contributing
+
+Read the [contribution guide](contributing.md) and join the [contributors](https://github.com/refined-github/refined-github/graphs/contributors)!
+
 ## Related
 
 - [Next.js Template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit) - The easiest way to deploy a self-hosted Notion site with Next.js and Vercel.
