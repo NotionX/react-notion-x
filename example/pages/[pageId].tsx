@@ -2,17 +2,24 @@ import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
 import { NotionAPI } from 'notion-client'
+import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
 import { Collection, CollectionRow, NotionRenderer } from 'react-notion-x'
 
-const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+import { getPreviewImages } from '../lib/preview-images'
 
+const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const notion = new NotionAPI()
+
+const previewImagesEnabled = true
 
 export const getStaticProps = async (context) => {
   const pageId = context.params.pageId as string
   const recordMap = await notion.getPage(pageId)
+
+  if (previewImagesEnabled) {
+    await getPreviewImages(recordMap)
+  }
 
   return {
     props: {
@@ -62,10 +69,13 @@ export default function NotionPage({ recordMap }) {
   const title = getPageTitle(recordMap)
   console.log(title, recordMap)
 
+  const port = process.env.PORT || 3000
+  const rootDomain = isDev ? `localhost:${port}` : null
+
   return (
     <>
       <Head>
-        <meta name='description' content='React Notion X demo renderer.' />
+        <meta name='description' content='React Notion X demo' />
         <title>{title}</title>
       </Head>
 
@@ -73,9 +83,10 @@ export default function NotionPage({ recordMap }) {
         recordMap={recordMap}
         fullPage={true}
         darkMode={false}
-        customImages={true}
-        rootDomain='localhost:9090' // used to detect root domain links and open this in the same tab
+        rootDomain={rootDomain}
+        previewImages={previewImagesEnabled}
         components={{
+          // remove this if you don't want to use next/image
           image: ({
             src,
             alt,
@@ -83,18 +94,26 @@ export default function NotionPage({ recordMap }) {
             width,
             height,
 
-            className
-          }) => (
-            <Image
-              className={className}
-              src={src}
-              width={width}
-              height={height}
-              alt={alt}
-              loading='lazy'
-              decoding='async'
-            />
-          ),
+            className,
+            style,
+
+            ...rest
+          }) => {
+            const layout = width && height ? 'intrinsic' : 'fill'
+            return (
+              <Image
+                {...rest}
+                className={className}
+                src={src}
+                alt={alt}
+                width={layout === 'intrinsic' && width}
+                height={layout === 'intrinsic' && height}
+                objectFit={style?.objectFit}
+                objectPosition={style?.objectPosition}
+                layout={layout}
+              />
+            )
+          },
           collection: Collection,
           collectionRow: CollectionRow
         }}

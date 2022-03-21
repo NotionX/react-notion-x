@@ -2050,10 +2050,12 @@ svg.notion-page-icon {
   opacity: 1;
 }
 
-/* NOTE: if we hide the preview image, there's a weird bug with react hydration where
-   the image will sometimes flicker to show the background during initial page load.
-   So I'm removing this `opacity: 0` for now, but it will cause issues if the real
-   image is transparent. */
+/*
+  NOTE: if we hide the preview image, there's a weird bug with react hydration where
+  the image will sometimes flicker to show the background during initial page load.
+  So I'm removing this `opacity: 0` for now, but it will cause issues if the real
+  image is transparent.
+ */
 .lazy-image-loaded .lazy-image-preview {
   opacity: 0;
 }
@@ -2432,7 +2434,7 @@ svg.notion-page-icon {
   margin-top: 4px;
   border: 1px solid var(--fg-color-1);
   padding: 6px 6px;
-  display: flex;  
+  display: flex;
 }
 
 .notion-external-mention {
@@ -2467,7 +2469,7 @@ svg.notion-page-icon {
 .notion-external-title {
   font-size: 14px;
   font-weight: 500;
-  color: var(--fg-color-4)
+  color: var(--fg-color-4);
 }
 
 .notion-external-mention .notion-external-title {
@@ -2478,7 +2480,7 @@ svg.notion-page-icon {
 
 .notion-external-subtitle {
   font-size: 12px;
-  color: var(--fg-color-3)
+  color: var(--fg-color-3);
 }
 
 .notion-external-mention .notion-external-subtitle {

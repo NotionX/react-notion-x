@@ -18,6 +18,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
+## Preview Images
+
+This demo uses [next/image](https://nextjs.org/docs/api-reference/next/image) as a custom image component. It also generates preview images at page build time using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern).
+
+Note that preview image generation can be very slow, so it's recommended that you either cache the results in a key-value database or disable it by setting `previewImagesEnabled` to `false` in [%5BpageId%5D.tsx](./pages/%5BpageId%5D.tsx)
+
+Note that custom images will only be enabled if either the image has a valid preview image defined for its URL, or if you set `forceCustomImages` to `true`.
+
 ## License
 
 MIT © [Travis Fischer](https://transitivebullsh.it)

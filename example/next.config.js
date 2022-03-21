@@ -5,8 +5,15 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 module.exports = withBundleAnalyzer({
+  staticPageGenerationTimeout: 300,
   images: {
-    domains: ['www.notion.so', 'images.unsplash.com']
+    domains: [
+      'www.notion.so',
+      'notion.so',
+      'images.unsplash.com',
+      'pbs.twimg.com'
+    ],
+    formats: ['image/avif', 'image/webp']
   },
   async redirects() {
     return [

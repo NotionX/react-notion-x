@@ -9,7 +9,6 @@ import {
 } from './types'
 import { defaultMapPageUrl, defaultMapImageUrl } from './utils'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
-import { LazyImage } from './components/lazy-image'
 
 export interface NotionContext {
   recordMap: ExtendedRecordMap
@@ -25,7 +24,7 @@ export interface NotionContext {
   fullPage: boolean
   darkMode: boolean
   previewImages: boolean
-  customImages: boolean
+  forceCustomImages: boolean
   showCollectionViewDropdown: boolean
   showTableOfContents: boolean
   minTableOfContentsItems: number
@@ -51,7 +50,7 @@ export interface PartialNotionContext {
   fullPage?: boolean
   darkMode?: boolean
   previewImages?: boolean
-  customImages?: boolean
+  forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
 
   showTableOfContents?: boolean
@@ -64,7 +63,6 @@ export interface PartialNotionContext {
   zoom?: any
 }
 
-const DefaultImage: React.FC = (props) => <LazyImage {...props} />
 const DefaultLink: React.FC = (props) => (
   <a target='_blank' rel='noopener noreferrer' {...props} />
 )
@@ -83,7 +81,7 @@ const dummyComponent = (name: string) => () => {
 }
 
 const defaultComponents: NotionComponents = {
-  image: DefaultImage,
+  image: null, // disable custom images by default
   link: DefaultLink,
   pageLink: DefaultPageLink,
   checkbox: DefaultCheckbox,
@@ -118,7 +116,7 @@ const defaultNotionContext: NotionContext = {
   fullPage: false,
   darkMode: false,
   previewImages: false,
-  customImages: false,
+  forceCustomImages: false,
   showCollectionViewDropdown: true,
 
   showTableOfContents: false,

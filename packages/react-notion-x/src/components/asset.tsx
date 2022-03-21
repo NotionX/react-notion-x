@@ -91,7 +91,9 @@ export const Asset: React.FC<{
       }
     }
 
-    if (block_preserve_scale || block.type === 'image') {
+    if (block.type === 'image') {
+      assetStyle.objectFit = 'cover'
+    } else if (block_preserve_scale) {
       assetStyle.objectFit = 'contain'
     }
   }
@@ -212,6 +214,7 @@ export const Asset: React.FC<{
     }
   } else if (block.type === 'image') {
     // console.log('image', block)
+
     const signedUrl = recordMap.signed_urls?.[block.id]
     const src = mapImageUrl(signedUrl || source, block as Block)
     const caption = getTextContent(block.properties?.caption)
@@ -221,7 +224,7 @@ export const Asset: React.FC<{
       <LazyImage
         src={src}
         alt={alt}
-        zoomable={false}
+        zoomable={true}
         height={style.height as number}
         style={assetStyle}
       />
@@ -234,6 +237,7 @@ export const Asset: React.FC<{
         {content}
         {block.type === 'image' && children}
       </div>
+
       {block.type !== 'image' && children}
     </>
   )

@@ -21,10 +21,14 @@ export interface NotionRendererProps {
 
   rootPageId?: string
   rootDomain?: string
+
+  // set fullPage to false to render page content only
+  // this will remove the header, cover image, and footer
   fullPage?: boolean
+
   darkMode?: boolean
   previewImages?: boolean
-  customImages?: boolean
+  forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
 
   showTableOfContents?: boolean
@@ -73,7 +77,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   rootDomain,
   darkMode,
   previewImages,
-  customImages,
+  forceCustomImages,
   showCollectionViewDropdown,
   showTableOfContents,
   minTableOfContentsItems,
@@ -85,7 +89,6 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   const zoom =
     typeof window !== 'undefined' &&
     mediumZoom({
-      container: '.notion-viewport',
       background: 'rgba(0, 0, 0, 0.8)',
       margin: getMediumZoomMargin()
     })
@@ -102,7 +105,7 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
       rootDomain={rootDomain}
       darkMode={darkMode}
       previewImages={previewImages}
-      customImages={customImages}
+      forceCustomImages={forceCustomImages}
       showCollectionViewDropdown={showCollectionViewDropdown}
       showTableOfContents={showTableOfContents}
       minTableOfContentsItems={minTableOfContentsItems}
