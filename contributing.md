@@ -14,7 +14,7 @@ cd react-notion-x
 yarn
 ```
 
-This will install dependencies and link all of the local packages together using `lerna`. This includes the `example` project which will now be pointed to the local version of your packages.
+This will install dependencies and link all of the local packages together using `lerna`. This includes the `example` project which will now point to the local version of your packages.
 
 ```bash
 yarn dev
