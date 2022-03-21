@@ -54,7 +54,6 @@ export async function getPreviewImages(recordMap: ExtendedRecordMap) {
 }
 
 async function createPreviewImage(url: string): Promise<PreviewImage | null> {
-  console.log('createPreviewImage', url)
   try {
     const { body } = await got(url, { responseType: 'buffer' })
     const result = await lqip(body)

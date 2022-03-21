@@ -248,6 +248,9 @@
 }
 
 .medium-zoom-image--opened {
+  margin: unset !important;
+  min-width: unset !important;
+  min-height: unset !important;
   z-index: 301;
 }
 
