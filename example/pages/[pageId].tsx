@@ -7,6 +7,7 @@ import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
 import { Collection, CollectionRow, NotionRenderer } from 'react-notion-x'
 
 import { getPreviewImages } from '../lib/preview-images'
+import { ExtendedRecordMap } from 'notion-types'
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const notion = new NotionAPI()
@@ -61,7 +62,11 @@ export async function getStaticPaths() {
   }
 }
 
-export default function NotionPage({ recordMap }) {
+export default function NotionPage({
+  recordMap
+}: {
+  recordMap: ExtendedRecordMap
+}) {
   if (!recordMap) {
     return null
   }
@@ -71,6 +76,15 @@ export default function NotionPage({ recordMap }) {
 
   const port = process.env.PORT || 3000
   const rootDomain = isDev ? `localhost:${port}` : null
+
+  // useful for debugging from the dev console
+  if (typeof window !== 'undefined') {
+    const keys = Object.keys(recordMap?.block || {})
+    const block = recordMap?.block?.[keys[0]]?.value
+    const g = window as any
+    g.recordMap = recordMap
+    g.block = block
+  }
 
   return (
     <>
