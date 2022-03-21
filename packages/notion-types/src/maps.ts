@@ -51,6 +51,9 @@ export interface ExtendedRecordMap extends RecordMap {
   signed_urls: {
     [blockId: string]: string
   }
+
+  // optional map of preview images
+  preview_images?: PreviewImageMap
 }
 
 export interface PageChunk {
@@ -91,4 +94,14 @@ export interface AggregationResult {
 
 export interface PageMap {
   [pageId: string]: ExtendedRecordMap | null
+}
+
+export interface PreviewImage {
+  originalWidth: number
+  originalHeight: number
+  dataURIBase64: string
+}
+
+export interface PreviewImageMap {
+  [url: string]: PreviewImage
 }

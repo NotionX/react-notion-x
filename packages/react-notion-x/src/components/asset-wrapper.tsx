@@ -43,17 +43,21 @@ export const AssetWrapper: React.FC<{
     </figure>
   )
 
-  //allows for an image to be a link
+  // allows for an image to be a link
   if (isURL) {
     const caption: string = value?.properties?.caption[0][0]
     const id = parsePageId(caption, { uuid: true })
     const isPage = caption.charAt(0) === '/' && id
+    const captionHostname = extractHostname(caption)
+
     return (
       <components.pageLink
         style={{ width: '100%' }}
         href={isPage ? mapPageUrl(id) : caption}
         target={
-          extractHostname(caption) != rootDomain && !caption.startsWith('/')
+          captionHostname &&
+          captionHostname !== rootDomain &&
+          !caption.startsWith('/')
             ? 'blank_'
             : null
         }
@@ -80,19 +84,10 @@ function validURL(str) {
 }
 
 function extractHostname(url) {
-  var hostname
-  //find & remove protocol (http, ftp, etc.) and get hostname
-
-  if (url.indexOf('//') > -1) {
-    hostname = url.split('/')[2]
-  } else {
-    hostname = url.split('/')[0]
+  try {
+    var hostname = new URL(url).hostname
+    return hostname
+  } catch (err) {
+    return ''
   }
-
-  //find & remove port number
-  hostname = hostname.split(':')[0]
-  //find & remove "?"
-  hostname = hostname.split('?')[0]
-
-  return hostname
 }

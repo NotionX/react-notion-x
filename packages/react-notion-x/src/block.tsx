@@ -205,6 +205,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                       <LazyImage
                         src={mapImageUrl(page_cover, block)}
                         alt={getTextContent(properties?.title)}
+                        priority={true}
                         className='notion-page-cover'
                         style={{
                           objectPosition: `center ${coverPosition}%`

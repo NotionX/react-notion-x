@@ -13,31 +13,72 @@ export const LazyImage: React.FC<{
   style?: React.CSSProperties
   height?: number
   zoomable?: boolean
-}> = ({ src, alt, className, style, zoomable = false, height, ...rest }) => {
-  const { recordMap, zoom, previewImages, customImages, components } =
+  priority?: boolean
+}> = ({
+  src,
+  alt,
+  className,
+  style,
+  zoomable = false,
+  priority = false,
+  height,
+  ...rest
+}) => {
+  const { recordMap, zoom, previewImages, forceCustomImages, components } =
     useNotionContext()
 
   const zoomRef = React.useRef(zoom ? zoom.clone() : null)
-  const previewImage = previewImages
-    ? (recordMap as any)?.preview_images?.[src]
-    : null
+  const previewImage = previewImages ? recordMap?.preview_images?.[src] : null
 
-  function attachZoom(image: any) {
-    if (zoomRef.current) {
-      ;(zoomRef.current as any).attach(image)
-    }
-  }
+  const onLoad = React.useCallback(
+    (e: any) => {
+      if (zoomable && (e.target.src || e.target.srcset)) {
+        if (zoomRef.current) {
+          ;(zoomRef.current as any).attach(e.target)
+        }
+      }
+    },
+    [zoomRef]
+  )
 
-  const attachZoomRef = zoomable ? attachZoom : undefined
+  const attachZoom = React.useCallback(
+    (image: any) => {
+      if (zoomRef.current && image) {
+        ;(zoomRef.current as any).attach(image)
+      }
+    },
+    [zoomRef]
+  )
+
+  const attachZoomRef = React.useMemo(
+    () => (zoomable ? attachZoom : undefined),
+    [zoomable, attachZoom]
+  )
 
   if (previewImage) {
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
 
+    if (components.image) {
+      return (
+        <components.image
+          src={src}
+          alt={alt}
+          className={className}
+          style={style}
+          width={previewImage.originalWidth}
+          height={previewImage.originalHeight}
+          blurDataURL={previewImage.dataURIBase64}
+          placeholder='blur'
+          priority={priority}
+          onLoad={onLoad}
+        />
+      )
+    }
+
     return (
-      <LazyImageFull src={src} {...rest}>
+      <LazyImageFull src={src} {...rest} experimentalDecode={true}>
         {({ imageState, ref }) => {
           const isLoaded = imageState === ImageState.LoadSuccess
-
           const wrapperStyle: React.CSSProperties = {
             width: '100%'
           }
@@ -60,54 +101,28 @@ export const LazyImage: React.FC<{
               style={wrapperStyle}
             >
               <img
+                className='lazy-image-preview'
                 src={previewImage.dataURIBase64}
                 alt={alt}
                 ref={ref}
-                className='lazy-image-preview'
                 style={style}
-                width={previewImage.originalWidth}
-                height={previewImage.originalHeight}
                 decoding='async'
               />
 
-              {customImages ? (
-                <components.image
-                  src={src}
-                  alt={alt}
-                  className='lazy-image-real'
-                  style={{
-                    ...style,
-                    ...imgStyle
-                  }}
-                  width={previewImage.originalWidth}
-                  height={previewImage.originalHeight}
-                  loading='lazy'
-                  decoding='async'
-                  ref={attachZoomRef}
-                  onLoad={(e: any) => {
-                    if (e.target.srcset && zoomable) {
-                      if (zoomRef.current) {
-                        ;(zoomRef.current as any).attach(e.target)
-                      }
-                    }
-                  }}
-                />
-              ) : (
-                <img
-                  src={src}
-                  alt={alt}
-                  ref={attachZoomRef}
-                  className='lazy-image-real'
-                  style={{
-                    ...style,
-                    ...imgStyle
-                  }}
-                  width={previewImage.originalWidth}
-                  height={previewImage.originalHeight}
-                  decoding='async'
-                  loading='lazy'
-                />
-              )}
+              <img
+                className='lazy-image-real'
+                src={src}
+                alt={alt}
+                ref={attachZoomRef}
+                style={{
+                  ...style,
+                  ...imgStyle
+                }}
+                width={previewImage.originalWidth}
+                height={previewImage.originalHeight}
+                decoding='async'
+                loading='lazy'
+              />
             </div>
           )
         }}
@@ -117,26 +132,28 @@ export const LazyImage: React.FC<{
     // TODO: GracefulImage doesn't seem to support refs, but we'd like to prevent
     // invalid images from loading as error states
 
-    // Render when customImages flag is enabled
-    if (customImages) {
+    /*
+      NOTE: Using next/image without a pre-defined width/height is a huge pain in
+      the ass. If we have a preview image, then this works fine since we know the
+      dimensions ahead of time, but if we don't, then next/image won't display
+      anything.
+      
+      Since next/image is the most common use case for using custom images, and this 
+      is likely to trip people up, we're disabling non-preview custom images for now.
+
+      If you have a use case that is affected by this, please open an issue on github.
+    */
+    if (components.image && forceCustomImages) {
       return (
         <components.image
           src={src}
           alt={alt}
           className={className}
           style={style}
-          loading='lazy'
-          decoding='async'
           width={null}
           height={height || null}
-          ref={attachZoomRef}
-          onLoad={(e: any) => {
-            if (e.target.srcset && zoomable) {
-              if (zoomRef.current) {
-                ;(zoomRef.current as any).attach(e.target)
-              }
-            }
-          }}
+          priority={priority}
+          onLoad={onLoad}
         />
       )
     }
@@ -147,9 +164,9 @@ export const LazyImage: React.FC<{
         className={className}
         style={style}
         src={src}
+        alt={alt}
         ref={attachZoomRef}
         loading='lazy'
-        alt={alt}
         decoding='async'
         {...rest}
       />
