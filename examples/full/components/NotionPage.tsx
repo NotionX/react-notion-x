@@ -7,8 +7,6 @@ import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
 
-import socialImage from '../public/social.jpg'
-
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
@@ -67,6 +65,7 @@ export const NotionPage = ({
   }
 
   const socialDescription = 'React Notion X Full Demo'
+  const socialImage = '/social.jpg'
 
   return (
     <>
@@ -82,8 +81,8 @@ export const NotionPage = ({
         {socialImage ? (
           <>
             <meta name='twitter:card' content='summary_large_image' />
-            <meta name='twitter:image' content={socialImage.src} />
-            <meta property='og:image' content={socialImage.src} />
+            <meta name='twitter:image' content={socialImage} />
+            <meta property='og:image' content={socialImage} />
           </>
         ) : (
           <meta name='twitter:card' content='summary' />
