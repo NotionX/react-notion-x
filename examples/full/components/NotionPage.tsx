@@ -66,10 +66,18 @@ export const NotionPage = ({
     g.block = block
   }
 
+  const socialDescription = 'React Notion X Full Demo'
+
   return (
     <>
       <Head>
-        <meta name='description' content='React Notion X Full Demo' />
+        {socialDescription && (
+          <>
+            <meta name='description' content={socialDescription} />
+            <meta property='og:description' content={socialDescription} />
+            <meta name='twitter:description' content={socialDescription} />
+          </>
+        )}
 
         {socialImage ? (
           <>
@@ -82,6 +90,9 @@ export const NotionPage = ({
         )}
 
         <title>{title}</title>
+        <meta property='og:title' content={title} />
+        <meta name='twitter:title' content={title} />
+        <meta name='twitter:creator' content='@transitive_bs' />
       </Head>
 
       <NotionRenderer
