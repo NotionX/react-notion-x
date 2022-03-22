@@ -72,9 +72,9 @@ import 'katex/dist/katex.min.css'
 
 ## Next.js Examples
 
-Here's a minimal [Next.js example project](./examples/minimal) with the most important code in [`pages/[pageId]`.tsx](./examples/minimal/pages/%5BpageId%5D.tsx). You can view this example [live on Vercel](https://react-notion-x-minimal-demo.transitivebullsh.it).
+Here's a [minimal Next.js example project](./examples/minimal) with the most important code in [`pages/[pageId].tsx`](./examples/minimal/pages/%5BpageId%5D.tsx) and [`components/NotionPage.tsx`](./examples/minimal/components/NotionPage.tsx). You can view this example [live on Vercel](https://react-notion-x-minimal-demo.transitivebullsh.it).
 
-Here's a more full-featured [Next.js example project](./examples/full) with the most important code in [`pages/[pageId]`.tsx](./examples/full/pages/%5BpageId%5D.tsx). You can view this example [live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
+Here's a more [full-featured Next.js example project](./examples/full) with the most important code in [`pages/[pageId].tsx`](./examples/full/pages/%5BpageId%5D.tsx) and [`components/NotionPage.tsx`](./examples/full/components/NotionPage.tsx). You can view this example [live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
 
 The full demo adds a few nice features:
 

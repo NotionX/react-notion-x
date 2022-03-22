@@ -6,7 +6,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Intro
 
-This is a minimal Next.js example project using `react-notion-x`, with the most important code in [`pages/[pageId]`.tsx](./pages/%5BpageId%5D.tsx). You can view this example [live on Vercel](https://react-notion-x-minimal-demo.transitivebullsh.it).
+This is a minimal Next.js example project using `react-notion-x`, with the most important code in [`pages/[pageId].tsx`](./pages/%5BpageId%5D.tsx) and [`components/NotionPage.tsx`](./components/NotionPage.tsx). You can view this example [live on Vercel](https://react-notion-x-minimal-demo.transitivebullsh.it).
+
+Config can be found in [`lib/config.ts`](./lib/config.ts)
 
 ## Getting Started
 
