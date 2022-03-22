@@ -10,6 +10,18 @@ import { NotionRenderer } from 'react-notion-x'
 import { getPreviewImages } from '../lib/preview-images'
 import { ExtendedRecordMap } from 'notion-types'
 
+const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+const notion = new NotionAPI()
+
+// NOTE: having this enabled can be pretty expensive as it re-generates preview
+// images each time a page is built. In a production setting, we recommend that
+// you cache the preview image results in a key-value database.
+const previewImagesEnabled = true
+
+// -----------------------------------------------------------------------------
+// dynamic imports for optional components
+// -----------------------------------------------------------------------------
+
 const Code = dynamic(() =>
   import('react-notion-x').then((notion) => notion.Code)
 )
@@ -28,18 +40,13 @@ const CollectionRow = dynamic(
 // NOTE: PDF support via "react-pdf" can sometimes cause errors depending on your
 // build setup. If you're running into issues, just disable PDF support altogether.
 const Pdf = dynamic(
-  () => import('react-notion-x').then((notion) => notion.Pdf),
+  () => import('react-notion-x').then((notion) => (notion as any).Pdf),
   { ssr: false }
 )
 
 const Equation = dynamic(() =>
   import('react-notion-x').then((notion) => notion.Equation)
 )
-
-const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
-const notion = new NotionAPI()
-
-const previewImagesEnabled = true
 
 export const getStaticProps = async (context) => {
   const pageId = context.params.pageId as string

@@ -10,7 +10,7 @@
   },
   "workspaces": [
     "packages/*",
-    "example/"
+    "examples/*"
   ],
   "scripts": {
     "build": "tsc --build tsconfig.json",
@@ -24,7 +24,7 @@
     "test:unit": "lerna run test",
     "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
     "docs": "run-s docs:extract docs:generate",
-    "docs:extract": "lerna exec --ignore react-notion-x --ignore notion-x-example api-extractor run",
+    "docs:extract": "lerna exec --ignore react-notion-x --ignore notion-x-example-minimal notion-x-example-full api-extractor run",
     "docs:generate": "api-documenter markdown -i build -o docs",
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish",

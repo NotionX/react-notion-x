@@ -70,15 +70,23 @@ import 'rc-dropdown/assets/index.css'
 import 'katex/dist/katex.min.css'
 ```
 
-## Next.js Example
+## Next.js Examples
 
-Here's a full [Next.js example project](https://github.com/NotionX/react-notion-x/tree/master/example) with the most important code in [`pages/[pageId]`.tsx](https://github.com/NotionX/react-notion-x/blob/master/example/pages/%5BpageId%5D.tsx).
+Here's a minimal [Next.js example project](./examples/minimal) with the most important code in [`pages/[pageId]`.tsx](./examples/minimal/pages/%5BpageId%5D.tsx).
 
-You can check out this [example hosted live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
+Here's a more full-featured [Next.js example project](./examples/full) with the most important code in [`pages/[pageId]`.tsx](./examples/full/pages/%5BpageId%5D.tsx). You can view this example [example hosted live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
 
-This example shows how to use [next/image](https://nextjs.org/docs/api-reference/next/image) with `react-notion-x` along with preview images generated using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern).
+The full demo adds a few nice features:
 
-For a more full-featured example, check out the [Next.js template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which uses `react-notion-x` under the hood.
+- uses [next/image](https://nextjs.org/docs/api-reference/next/image) to serve optimal images
+- uses preview images generated using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
+- includes larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
+  - Collection, CollectionRow
+  - Code
+  - Equation
+  - Pdf
+
+For a production example, check out the [Next.js Notion Starter Kit](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which uses `react-notion-x` under the hood.
 
 ## Packages
 
@@ -159,10 +167,6 @@ Another major factor for perf comes from images hosted by Notion. They're genera
   <i>Google Lighthouse scores for an <a href="https://react-notion-x-demo.transitivebullsh.it/checklists-38fa73d49b8f40aab1f3f8c82332e518">example page</a> hosted by Notion X.</i>
 </p>
 
-## Contributing
-
-Read the [contribution guide](contributing.md) and join the [contributors](https://github.com/refined-github/refined-github/graphs/contributors)!
-
 ## Related
 
 - [Next.js Template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit) - The easiest way to deploy a self-hosted Notion site with Next.js and Vercel.
@@ -182,6 +186,10 @@ Read the [contribution guide](contributing.md) and join the [contributors](https
   - We recommend that you use [notion-client](./packages/notion-client) instead
 - [notion-api-agent](https://github.com/dragonman225/notionapi-agent) - Alternative Notion API client
 - [notion-py](https://github.com/jamalex/notion-py) - Excellent Python wrapper around the Notion API
+
+## Contributing
+
+Read the [contribution guide](contributing.md) and join the [contributors](https://github.com/refined-github/refined-github/graphs/contributors)!
 
 ## License
 
