@@ -25,6 +25,7 @@ export const NotionPage = ({
     <>
       <Head>
         <meta name='description' content='React Notion X Minimal Demo' />
+
         <title>{title}</title>
       </Head>
 
