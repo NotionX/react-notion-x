@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-full",
-  "version": "4.19.0",
+  "version": "4.19.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,13 +15,13 @@
     "got": "^12.0.2",
     "lqip-modern": "^1.2.0",
     "next": "^12.1.0",
-    "notion-client": "^4.18.0",
-    "notion-utils": "^4.18.0",
+    "notion-client": "^4.19.1",
+    "notion-utils": "^4.19.1",
     "p-map": "^5.3.0",
     "p-memoize": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^4.19.0"
+    "react-notion-x": "^4.19.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^11.1.2",
