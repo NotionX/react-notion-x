@@ -5,18 +5,24 @@ import dynamic from 'next/dynamic'
 
 import { NotionAPI } from 'notion-client'
 import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
-import { NotionRenderer } from 'react-notion-x'
+import { NotionRenderer, defaultMapPageUrl } from 'react-notion-x'
 
 import { getPreviewImages } from '../lib/preview-images'
 import { ExtendedRecordMap } from 'notion-types'
 
-const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
-const notion = new NotionAPI()
+// TODO: change these to your own values
+// NOTE: rootNotionSpaceId is optional; set it to undefined if you don't want to
+// use it.
+const rootNotionPageId = '067dd719a912471ea9a3ac10710e7fdf'
+const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
 
 // NOTE: having this enabled can be pretty expensive as it re-generates preview
 // images each time a page is built. In a production setting, we recommend that
 // you cache the preview image results in a key-value database.
 const previewImagesEnabled = true
+
+const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+const notion = new NotionAPI()
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -72,8 +78,7 @@ export async function getStaticPaths() {
     }
   }
 
-  const rootNotionPageId = '067dd719a912471ea9a3ac10710e7fdf'
-  const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
+  const mapPageUrl = defaultMapPageUrl(rootNotionPageId)
 
   // This crawls all public pages starting from the given root page in order
   // for next.js to pre-generate all pages via static site generation (SSG).
@@ -132,9 +137,12 @@ export default function NotionPage({
         fullPage={true}
         darkMode={false}
         rootDomain={rootDomain}
+        rootPageId={rootNotionPageId}
         previewImages={previewImagesEnabled}
         components={{
           // remove this if you don't want to use next/image
+          // NOTE: custom images will only take effect if previewImages is true and
+          // if the image has a valid preview image defined in recordMap.preview_images[src]
           image: ({
             src,
             alt,
@@ -148,6 +156,7 @@ export default function NotionPage({
             ...rest
           }) => {
             const layout = width && height ? 'intrinsic' : 'fill'
+
             return (
               <Image
                 {...rest}

@@ -3,7 +3,10 @@ import Head from 'next/head'
 
 import { NotionAPI } from 'notion-client'
 import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
-import { NotionRenderer } from 'react-notion-x'
+import { NotionRenderer, defaultMapPageUrl } from 'react-notion-x'
+
+const rootNotionPageId = '067dd719a912471ea9a3ac10710e7fdf'
+const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
 
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const notion = new NotionAPI()
@@ -28,8 +31,7 @@ export async function getStaticPaths() {
     }
   }
 
-  const rootNotionPageId = '067dd719a912471ea9a3ac10710e7fdf'
-  const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
+  const mapPageUrl = defaultMapPageUrl(rootNotionPageId)
 
   // This crawls all public pages starting from the given root page in order
   // for next.js to pre-generate all pages via static site generation (SSG).
@@ -44,7 +46,7 @@ export async function getStaticPaths() {
     }
   )
 
-  const paths = Object.keys(pages).map((pageId) => `/${pageId}`)
+  const paths = Object.keys(pages).map((pageId) => mapPageUrl(pageId))
 
   return {
     paths,
@@ -67,7 +69,12 @@ export default function NotionPage({ recordMap }) {
         <title>{title}</title>
       </Head>
 
-      <NotionRenderer recordMap={recordMap} fullPage={true} darkMode={false} />
+      <NotionRenderer
+        recordMap={recordMap}
+        fullPage={true}
+        darkMode={false}
+        rootPageId={rootNotionPageId}
+      />
     </>
   )
 }
