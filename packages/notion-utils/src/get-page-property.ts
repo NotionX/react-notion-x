@@ -45,9 +45,11 @@ export function getPageProperty(
     switch (type) {
       case 'created_time':
         return block.created_time
+
       case 'multi_select':
         return content.split(',')
-      case 'date':
+
+      case 'date': {
         const property = block.properties[propertyId] as [['‣', [DateFormat]]]
         const formatDate = property[0][1][0][1]
         if (formatDate.type == 'datetime') {
@@ -66,10 +68,14 @@ export function getPageProperty(
           const endTime = new Date(formatDate.end_date).getTime()
           return [startTime, endTime]
         }
+      }
+
       case 'checkbox':
         return content == 'Yes'
+
       case 'last_edited_time':
         return block.last_edited_time
+
       default:
         return content
     }

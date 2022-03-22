@@ -21,8 +21,12 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
       collectionData
     )
 
-    return collectionGroups.map((group) => (
-      <CollectionGroup {...group} collectionViewComponent={Gallery} />
+    return collectionGroups.map((group, index) => (
+      <CollectionGroup
+        key={index}
+        {...group}
+        collectionViewComponent={Gallery}
+      />
     ))
   }
 

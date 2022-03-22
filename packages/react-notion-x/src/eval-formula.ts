@@ -83,14 +83,14 @@ export function evalFormula(
           const v = getDateValue(value)
           if (v) {
             if (endDate && v.end_date) {
-              let date = new Date(v.end_date)
+              const date = new Date(v.end_date)
               return new Date(
                 date.getUTCFullYear(),
                 date.getUTCMonth(),
                 date.getUTCDate()
               )
             } else {
-              let date = new Date(v.start_date)
+              const date = new Date(v.start_date)
               return new Date(
                 date.getUTCFullYear(),
                 date.getUTCMonth(),

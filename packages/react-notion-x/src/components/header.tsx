@@ -25,10 +25,6 @@ export const Header: React.FC<{
   const activePageId = blockIds[0]
   const hasSearch = !!searchNotion
 
-  if (!activePageId) {
-    return null
-  }
-
   const breadcrumbs = getPageBreadcrumbs(recordMap, activePageId)
 
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
@@ -52,8 +48,12 @@ export const Header: React.FC<{
     event.stopPropagation()
   })
 
+  if (!activePageId) {
+    return null
+  }
+
   const headerComponents = [
-    <div className='breadcrumbs'>
+    <div className='breadcrumbs' key='breadcrumbs'>
       {breadcrumbs.map((breadcrumb, index) => {
         const pageLinkProps: any = {}
         const componentMap = {
@@ -88,7 +88,8 @@ export const Header: React.FC<{
         )
       })}
     </div>,
-    <div className='rhs'>
+
+    <div className='rhs' key='rhs'>
       {hasSearch && (
         <div
           role='button'
@@ -101,7 +102,8 @@ export const Header: React.FC<{
         </div>
       )}
     </div>,
-    <React.Fragment key={'search'}>
+
+    <React.Fragment key='search'>
       {isSearchOpen && hasSearch && (
         <SearchDialog
           isOpen={isSearchOpen}

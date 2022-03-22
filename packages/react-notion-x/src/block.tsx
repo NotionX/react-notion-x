@@ -64,6 +64,9 @@ export const Block: React.FC<BlockProps> = (props) => {
     defaultPageCoverPosition
   } = useNotionContext()
 
+  const [activeSection, setActiveSection] = React.useState(null)
+  const [hasToc, setHasToc] = React.useState(false)
+
   const {
     block,
     children,
@@ -79,6 +82,55 @@ export const Block: React.FC<BlockProps> = (props) => {
     hideBlockId,
     disableHeader
   } = props
+
+  React.useEffect(() => {
+    if (!hasToc) {
+      return
+    }
+
+    const throttleMs = 100
+
+    const actionSectionScrollSpy = throttle(() => {
+      const sections = document.getElementsByClassName('notion-h')
+
+      let prevBBox: DOMRect = null
+      let currentSectionId = activeSection
+
+      for (let i = 0; i < sections.length; ++i) {
+        const section = sections[i]
+        if (!section || !(section instanceof Element)) continue
+
+        if (!currentSectionId) {
+          currentSectionId = section.getAttribute('data-id')
+        }
+
+        const bbox = section.getBoundingClientRect()
+        const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
+        const offset = Math.max(150, prevHeight / 4)
+
+        // GetBoundingClientRect returns values relative to the viewport
+        if (bbox.top - offset < 0) {
+          currentSectionId = section.getAttribute('data-id')
+
+          prevBBox = bbox
+          continue
+        }
+
+        // No need to continue loop, if last element has been detected
+        break
+      }
+
+      setActiveSection(currentSectionId)
+    }, throttleMs)
+
+    window.addEventListener('scroll', actionSectionScrollSpy)
+
+    actionSectionScrollSpy()
+
+    return () => {
+      window.removeEventListener('scroll', actionSectionScrollSpy)
+    }
+  }, [hasToc, activeSection])
 
   if (!block) {
     return null
@@ -125,60 +177,10 @@ export const Block: React.FC<BlockProps> = (props) => {
             recordMap
           )
 
-          const hasToc =
+          setHasToc(
             showTableOfContents && toc.length >= minTableOfContentsItems
+          )
           const hasAside = (hasToc || pageAside) && !page_full_width
-
-          const [activeSection, setActiveSection] = React.useState(null)
-
-          const throttleMs = 100
-
-          // this scrollspy logic was originally based on
-          // https://github.com/Purii/react-use-scrollspy
-          const actionSectionScrollSpy = throttle(() => {
-            const sections = document.getElementsByClassName('notion-h')
-
-            let prevBBox: DOMRect = null
-            let currentSectionId = activeSection
-
-            for (let i = 0; i < sections.length; ++i) {
-              const section = sections[i]
-              if (!section || !(section instanceof Element)) continue
-
-              if (!currentSectionId) {
-                currentSectionId = section.getAttribute('data-id')
-              }
-
-              const bbox = section.getBoundingClientRect()
-              const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
-              const offset = Math.max(150, prevHeight / 4)
-
-              // GetBoundingClientRect returns values relative to viewport
-              if (bbox.top - offset < 0) {
-                currentSectionId = section.getAttribute('data-id')
-
-                prevBBox = bbox
-                continue
-              }
-
-              // No need to continue loop, if last element has been detected
-              break
-            }
-
-            setActiveSection(currentSectionId)
-          }, throttleMs)
-
-          if (hasToc) {
-            React.useEffect(() => {
-              window.addEventListener('scroll', actionSectionScrollSpy)
-
-              actionSectionScrollSpy()
-
-              return () => {
-                window.removeEventListener('scroll', actionSectionScrollSpy)
-              }
-            }, [])
-          }
 
           const hasPageCover = pageCover || page_cover
 
@@ -468,7 +470,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'divider':
       return <hr className={cs('notion-hr', blockId)} />
 
-    case 'text':
+    case 'text': {
       if (!block.properties && !block.content?.length) {
         return <div className={cs('notion-blank', blockId)}>&nbsp;</div>
       }
@@ -490,10 +492,11 @@ export const Block: React.FC<BlockProps> = (props) => {
           {children && <div className='notion-text-children'>{children}</div>}
         </div>
       )
+    }
 
     case 'bulleted_list':
     // fallthrough
-    case 'numbered_list':
+    case 'numbered_list': {
       const wrapList = (content: React.ReactNode, start?: number) =>
         block.type === 'bulleted_list' ? (
           <ul className={cs('notion-list', 'notion-list-disc', blockId)}>
@@ -534,6 +537,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       const start = getListNumber(block.id, recordMap.block)
 
       return isTopLevel ? wrapList(output, start) : output
+    }
 
     case 'tweet':
     // fallthrough
@@ -558,7 +562,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'video':
       return <AssetWrapper blockId={blockId} block={block} />
 
-    case 'drive':
+    case 'drive': {
       const properties = block.format?.drive_properties
       if (!properties) {
         //check if this drive actually needs to be embeded ex. google sheets.
@@ -573,6 +577,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           className={blockId}
         />
       )
+    }
 
     case 'audio':
       return <Audio block={block as types.AudioBlock} className={blockId} />
@@ -580,10 +585,11 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'file':
       return <File block={block as types.FileBlock} className={blockId} />
 
-    case 'equation':
+    case 'equation': {
       const math = block.properties.title[0][0]
       if (!math) return null
       return <Equation math={math} block className={blockId} />
+    }
 
     case 'code': {
       if (block.properties.title) {
@@ -615,7 +621,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'column_list':
       return <div className={cs('notion-row', blockId)}>{children}</div>
 
-    case 'column':
+    case 'column': {
       // note: notion uses 46px
       const spacerWidth = `min(32px, 4vw)`
       const ratio = block.format?.column_ratio || 0.5
@@ -637,6 +643,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           <div className='notion-spacer' />
         </>
       )
+    }
 
     case 'quote': {
       if (!block.properties) return null
@@ -682,7 +689,7 @@ export const Block: React.FC<BlockProps> = (props) => {
         )
       }
 
-    case 'bookmark':
+    case 'bookmark': {
       if (!block.properties) return null
 
       let title = getTextContent(block.properties?.title)
@@ -753,6 +760,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           </components.link>
         </div>
       )
+    }
 
     case 'toggle':
       return (
@@ -801,7 +809,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       )
     }
 
-    case 'to_do':
+    case 'to_do': {
       const isChecked = block.properties?.checked?.[0]?.[0] === 'Yes'
 
       return (
@@ -822,6 +830,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           <div className='notion-to-do-children'>{children}</div>
         </div>
       )
+    }
 
     case 'transclusion_container':
       return <div className={cs('notion-sync-block', blockId)}>{children}</div>
@@ -829,11 +838,11 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'transclusion_reference':
       return <SyncPointerBlock block={block} level={level + 1} {...props} />
 
-    case 'alias':
+    case 'alias': {
       const blockPointerId = block?.format?.alias_pointer?.id
       const linkedBlock = recordMap.block[blockPointerId]?.value
       if (!linkedBlock) {
-        console.log('"p" missing block', blockPointerId)
+        console.log('"alias" missing block', blockPointerId)
         return null
       }
 
@@ -845,6 +854,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           <PageTitle block={linkedBlock} />
         </components.pageLink>
       )
+    }
 
     case 'table':
       return (
@@ -852,7 +862,8 @@ export const Block: React.FC<BlockProps> = (props) => {
           <tbody>{children}</tbody>
         </table>
       )
-    case 'table_row':
+
+    case 'table_row': {
       const tableBlock = recordMap.block[block.parent_id]
         .value as types.TableBlock
       const order = tableBlock.format.table_block_column_order
@@ -887,6 +898,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           })}
         </tr>
       )
+    }
 
     case 'external_object_instance':
       switch (block.format?.domain) {

@@ -19,7 +19,7 @@ export const AssetWrapper: React.FC<{
     const id = parsePageId(caption, { uuid: true })
 
     const isPage = caption.charAt(0) === '/' && id
-    if ((block.type == 'image' && validURL(caption)) || isPage) {
+    if ((block.type == 'image' && isValidURL(caption)) || isPage) {
       isURL = true
     }
   }
@@ -70,8 +70,9 @@ export const AssetWrapper: React.FC<{
   return <>{figure}</>
 }
 
-function validURL(str) {
-  var pattern = new RegExp(
+function isValidURL(str) {
+  // TODO: replace this with a more well-tested package
+  const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
       '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -79,13 +80,13 @@ function validURL(str) {
       '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
       '(\\#[-a-z\\d_]*)?$',
     'i'
-  ) // fragment locator
+  )
   return !!pattern.test(str)
 }
 
 function extractHostname(url) {
   try {
-    var hostname = new URL(url).hostname
+    const hostname = new URL(url).hostname
     return hostname
   } catch (err) {
     return ''

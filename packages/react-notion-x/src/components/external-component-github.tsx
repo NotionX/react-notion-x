@@ -37,7 +37,7 @@ export const ExternalComponentGithub: React.FC<{
         setName(data.name)
       })
       .catch((err) => console.error(err))
-  }, [])
+  }, [name])
 
   return (
     <components.link

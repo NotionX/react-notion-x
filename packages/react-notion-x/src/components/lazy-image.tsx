@@ -38,7 +38,7 @@ export const LazyImage: React.FC<{
         }
       }
     },
-    [zoomRef]
+    [zoomRef, zoomable]
   )
 
   const attachZoom = React.useCallback(
