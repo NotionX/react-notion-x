@@ -65,7 +65,8 @@ export const NotionPage = ({
   }
 
   const socialDescription = 'React Notion X Full Demo'
-  const socialImage = '/social.jpg'
+  const socialImage =
+    'https://react-notion-x-demo.transitivebullsh.it/social.jpg'
 
   return (
     <>
@@ -87,20 +88,6 @@ export const NotionPage = ({
         ) : (
           <meta name='twitter:card' content='summary' />
         )}
-
-        <meta
-          property='twitter:domain'
-          content='react-notion-x-demo.transitivebullsh.it'
-        />
-        <meta
-          property='twitter:url'
-          content='https://react-notion-x-demo.transitivebullsh.it/'
-        />
-        <meta property='og:type' content='website' />
-        <meta
-          property='og:url'
-          content='https://react-notion-x-demo.transitivebullsh.it/'
-        />
 
         <title>{title}</title>
         <meta property='og:title' content={title} />
