@@ -20,7 +20,7 @@
     "clean": "del packages/*/build",
     "dev": "run-s start",
     "pretest": "run-s build",
-    "test": "run-s test:*",
+    "test": "run-p test:*",
     "test:unit": "lerna run test",
     "test:lint": "eslint '**/*.{ts,tsx}'",
     "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
