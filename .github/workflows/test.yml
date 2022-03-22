@@ -7,20 +7,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v2
         with:
           node-version: 16
           cache: yarn
-      - run: npm install
+
+      - run: yarn install --frozen-lockfile
       - run: yarn test
 
   Build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v2
         with:
           node-version: 16
           cache: yarn
-      - run: yarn 
+
+      - run: yarn install --frozen-lockfile
       - run: yarn build
