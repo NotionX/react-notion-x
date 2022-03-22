@@ -1,11 +1,10 @@
 import React from 'react'
 
-import { NotionAPI } from 'notion-client'
 import { getAllPagesInSpace } from 'notion-utils'
 import { defaultMapPageUrl } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
 
-import { getPreviewImages } from '../lib/preview-images'
+import * as notion from '../lib/notion'
 import { NotionPage } from '../components/NotionPage'
 import {
   rootNotionPageId,
@@ -15,15 +14,9 @@ import {
   previewImagesEnabled
 } from '../lib/config'
 
-export const notion = new NotionAPI()
-
 export const getStaticProps = async (context) => {
   const pageId = context.params.pageId as string
   const recordMap = await notion.getPage(pageId)
-
-  if (previewImagesEnabled) {
-    await getPreviewImages(recordMap)
-  }
 
   return {
     props: {

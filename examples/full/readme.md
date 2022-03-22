@@ -14,6 +14,7 @@ This demo adds a few nice features:
 
 - Uses [next/image](https://nextjs.org/docs/api-reference/next/image) to serve optimal images
 - Uses preview images generated using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
+- Embeds tweets via [react-static-tweets](https://github.com/transitive-bullshit/react-static-tweets)
 - Includes larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
   - Collection, CollectionRow
   - Code

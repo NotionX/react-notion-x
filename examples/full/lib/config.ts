@@ -9,6 +9,10 @@ export const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
 // you cache the preview image results in a key-value database.
 export const previewImagesEnabled = true
 
+// whether we should enable static tweet embeds (requires fetching extra info at
+// build time)
+export const tweetEmbedsEnabled = true
+
 export const isDev =
   process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 

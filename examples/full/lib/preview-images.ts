@@ -3,7 +3,7 @@ import lqip from 'lqip-modern'
 import pMap from 'p-map'
 import pMemoize from 'p-memoize'
 
-import { ExtendedRecordMap, PreviewImage } from 'notion-types'
+import { ExtendedRecordMap, PreviewImage, PreviewImageMap } from 'notion-types'
 import { defaultMapImageUrl } from 'react-notion-x'
 
 // NOTE: this is just an example of how to pre-compute preview images.
@@ -12,10 +12,9 @@ import { defaultMapImageUrl } from 'react-notion-x'
 // the preview image results in a key-value database of your choosing.
 // If you're not sure where to start, check out https://github.com/jaredwray/keyv
 
-// const exampleBlurPlaceholderUrl =
-//   'data:image/gif;base64,R0lGODlhAQABAPAAAO21Bv///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
-
-export async function getPreviewImages(recordMap: ExtendedRecordMap) {
+export async function getPreviewImageMap(
+  recordMap: ExtendedRecordMap
+): Promise<PreviewImageMap> {
   const blockIds = Object.keys(recordMap.block)
   const imageUrls: string[] = blockIds
     .map((blockId) => {
@@ -56,7 +55,8 @@ export async function getPreviewImages(recordMap: ExtendedRecordMap) {
       concurrency: 8
     })
   )
-  recordMap.preview_images = previewImagesMap
+
+  return previewImagesMap
 }
 
 async function createPreviewImage(url: string): Promise<PreviewImage | null> {

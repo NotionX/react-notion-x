@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
+import { Tweet, TwitterContextProvider } from 'react-static-tweets'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -69,7 +70,15 @@ export const NotionPage = ({
     'https://react-notion-x-demo.transitivebullsh.it/social.jpg'
 
   return (
-    <>
+    <TwitterContextProvider
+      value={{
+        tweetAstMap: (recordMap as any).tweetAstMap || {},
+        swrOptions: {
+          fetcher: (id: string) =>
+            fetch(`/api/get-tweet-ast/${id}`).then((r) => r.json())
+        }
+      }}
+    >
       <Head>
         {socialDescription && (
           <>
@@ -139,9 +148,10 @@ export const NotionPage = ({
           collection: Collection,
           collectionRow: CollectionRow,
           equation: Equation,
-          pdf: Pdf
+          pdf: Pdf,
+          tweet: Tweet
         }}
       />
-    </>
+    </TwitterContextProvider>
   )
 }

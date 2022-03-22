@@ -9,7 +9,7 @@
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
-    "deploy": "vercel --prod"
+    "deploy": "vercel deploy"
   },
   "dependencies": {
     "got": "^12.0.2",
@@ -21,7 +21,9 @@
     "p-memoize": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^4.19.2"
+    "react-notion-x": "^4.19.2",
+    "react-static-tweets": "^0.6.0",
+    "static-tweets": "^0.6.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^11.1.2",
