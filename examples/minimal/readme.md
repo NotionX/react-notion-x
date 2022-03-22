@@ -4,6 +4,10 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Intro
+
+This is a minimal Next.js example project using `react-notion-x`, with the most important code in [`pages/[pageId]`.tsx](./pages/%5BpageId%5D.tsx). You can view this example [live on Vercel](https://react-notion-x-minimal-demo.transitivebullsh.it).
+
 ## Getting Started
 
 First, run the development server:

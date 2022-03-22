@@ -72,15 +72,15 @@ import 'katex/dist/katex.min.css'
 
 ## Next.js Examples
 
-Here's a minimal [Next.js example project](./examples/minimal) with the most important code in [`pages/[pageId]`.tsx](./examples/minimal/pages/%5BpageId%5D.tsx).
+Here's a minimal [Next.js example project](./examples/minimal) with the most important code in [`pages/[pageId]`.tsx](./examples/minimal/pages/%5BpageId%5D.tsx). You can view this example [live on Vercel](https://react-notion-x-minimal-demo.transitivebullsh.it).
 
-Here's a more full-featured [Next.js example project](./examples/full) with the most important code in [`pages/[pageId]`.tsx](./examples/full/pages/%5BpageId%5D.tsx). You can view this example [example hosted live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
+Here's a more full-featured [Next.js example project](./examples/full) with the most important code in [`pages/[pageId]`.tsx](./examples/full/pages/%5BpageId%5D.tsx). You can view this example [live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
 
 The full demo adds a few nice features:
 
-- uses [next/image](https://nextjs.org/docs/api-reference/next/image) to serve optimal images
-- uses preview images generated using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
-- includes larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
+- Uses [next/image](https://nextjs.org/docs/api-reference/next/image) to serve optimal images
+- Uses preview images generated using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
+- Includes larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
   - Collection, CollectionRow
   - Code
   - Equation

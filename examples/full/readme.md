@@ -4,6 +4,20 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Intro
+
+This is a more full-featured Next.js example project using `react-notion-x`, with the most important code in [`pages/[pageId]`.tsx](./examples/full/pages/%5BpageId%5D.tsx). You can view this example [live on Vercel](https://react-notion-x-demo.transitivebullsh.it).
+
+This demo adds a few nice features:
+
+- Uses [next/image](https://nextjs.org/docs/api-reference/next/image) to serve optimal images
+- Uses preview images generated using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
+- Includes larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
+  - Collection, CollectionRow
+  - Code
+  - Equation
+  - Pdf
+
 ## Getting Started
 
 First, run the development server:
