@@ -21,8 +21,8 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
       collectionData
     )
 
-    return collectionGroups.map((group) => (
-      <CollectionGroup {...group} collectionViewComponent={List} />
+    return collectionGroups.map((group, key) => (
+      <CollectionGroup key={key} {...group} collectionViewComponent={List} />
     ))
   }
 

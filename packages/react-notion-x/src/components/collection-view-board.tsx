@@ -25,8 +25,9 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
       padding
     )
 
-    return collectionGroups.map((group) => (
+    return collectionGroups.map((group, index) => (
       <CollectionGroup
+        key={index}
         {...group}
         summaryProps={{
           style: {

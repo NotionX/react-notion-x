@@ -38,7 +38,7 @@ export const Collection: React.FC<{
         collectionViewId
       })
     },
-    [collectionState]
+    [collectionState, setCollectionState]
   )
 
   let { width } = useWindowSize()

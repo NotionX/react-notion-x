@@ -72,7 +72,7 @@ export const Text: React.FC<{
               const id = decorator[1][1]
 
               switch (linkType) {
-                case 'u':
+                case 'u': {
                   const user = recordMap.notion_user[id]?.value
 
                   if (!user) {
@@ -91,6 +91,7 @@ export const Text: React.FC<{
                       alt={name}
                     />
                   )
+                }
 
                 default: {
                   const linkedBlock = recordMap.block[id]?.value

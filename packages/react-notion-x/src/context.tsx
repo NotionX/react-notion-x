@@ -68,6 +68,7 @@ const DefaultLink: React.FC = (props) => (
 )
 const DefaultPageLink: React.FC = (props) => <a {...props} />
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const dummyLink = ({ href, rel, target, title, ...rest }) => (
   <span {...rest} />
 )

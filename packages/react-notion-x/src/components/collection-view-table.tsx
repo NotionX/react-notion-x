@@ -25,8 +25,9 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
       width
     )
 
-    return collectionGroups.map((group) => (
+    return collectionGroups.map((group, index) => (
       <CollectionGroup
+        key={index}
         {...group}
         collectionViewComponent={(props) => (
           <Table {...props} padding={padding} width={width} />

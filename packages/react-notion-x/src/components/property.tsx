@@ -88,7 +88,7 @@ export const Property: React.FC<{
 
         case 'select':
         // intentional fallthrough
-        case 'multi_select':
+        case 'multi_select': {
           const values = (data[0][0] || '').split(',')
 
           content = values.map((value, index) => {
@@ -110,13 +110,14 @@ export const Property: React.FC<{
             )
           })
           break
+        }
 
         case 'person':
           // console.log('person', schema, data)
           content = <Text value={data} block={block} />
           break
 
-        case 'file':
+        case 'file': {
           // TODO: assets should be previewable via image-zoom
           const files = data
             .filter((v) => v.length === 2)
@@ -139,8 +140,9 @@ export const Property: React.FC<{
           ))
 
           break
+        }
 
-        case 'checkbox':
+        case 'checkbox': {
           const isChecked = data && data[0][0] === 'Yes'
 
           return (
@@ -151,8 +153,9 @@ export const Property: React.FC<{
               </span>
             </div>
           )
+        }
 
-        case 'url':
+        case 'url': {
           // TODO: refactor to less hackyh solution
           const d = JSON.parse(JSON.stringify(data))
 
@@ -177,6 +180,7 @@ export const Property: React.FC<{
             />
           )
           break
+        }
 
         case 'email':
           content = <Text value={data} linkProtocol='mailto' block={block} />
@@ -186,7 +190,7 @@ export const Property: React.FC<{
           content = <Text value={data} linkProtocol='tel' block={block} />
           break
 
-        case 'number':
+        case 'number': {
           const value = parseFloat(data[0][0] || '0')
           let breakEarly = false
           let output = ''
@@ -244,6 +248,7 @@ export const Property: React.FC<{
           }
 
           break
+        }
 
         case 'created_time':
           content = format(new Date(block?.created_time), 'MMM d, YYY hh:mm aa')
