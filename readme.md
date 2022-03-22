@@ -12,7 +12,7 @@
 
 If you just want to publish a website using Notion, then we highly recommend using [Super.so](https://s.super.so/x) — a hosted solution with great perf that takes care of all the details for you.
 
-If you want want more control over your website via React, we recommend using this amazing [Next.js template](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which is free and uses `react-notion-x` under the hood.
+If you want more control over your website via React, we recommend using either `react-notion-x` or the accompanying [Next.js starter kit](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which is free and uses `react-notion-x` under the hood.
 
 And if you want even more control, then you're in the right place! 👇👇
 
@@ -24,6 +24,7 @@ And if you want even more control, then you're in the right place! 👇👇
   - Heavier components like PDFs and collection views can be loaded lazily via `next/dynamic`.
 - 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality.
 - 🔥 **Solid** - Used in production by [Potion](https://www.potion.so) and thousands of websites.
+- Supports next/image along with preview image support
 
 ## Usage
 
