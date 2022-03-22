@@ -1,15 +1,19 @@
 import React from 'react'
-import Head from 'next/head'
 
 import { NotionAPI } from 'notion-client'
-import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
-import { NotionRenderer, defaultMapPageUrl } from 'react-notion-x'
+import { getAllPagesInSpace } from 'notion-utils'
+import { defaultMapPageUrl } from 'react-notion-x'
+import { ExtendedRecordMap } from 'notion-types'
 
-const rootNotionPageId = '067dd719a912471ea9a3ac10710e7fdf'
-const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
+import { NotionPage } from '../components/NotionPage'
+import {
+  rootNotionPageId,
+  rootNotionSpaceId,
+  rootDomain,
+  isDev
+} from '../lib/config'
 
-const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
-const notion = new NotionAPI()
+export const notion = new NotionAPI()
 
 export const getStaticProps = async (context) => {
   const pageId = (context.params.pageId as string) || rootNotionPageId
@@ -54,27 +58,12 @@ export async function getStaticPaths() {
   }
 }
 
-export default function NotionPage({ recordMap }) {
-  if (!recordMap) {
-    return null
-  }
-
-  const title = getPageTitle(recordMap)
-  console.log(title, recordMap)
-
+export default function Page({ recordMap }: { recordMap: ExtendedRecordMap }) {
   return (
-    <>
-      <Head>
-        <meta name='description' content='React Notion X demo' />
-        <title>{title}</title>
-      </Head>
-
-      <NotionRenderer
-        recordMap={recordMap}
-        fullPage={true}
-        darkMode={false}
-        rootPageId={rootNotionPageId}
-      />
-    </>
+    <NotionPage
+      recordMap={recordMap}
+      rootPageId={rootNotionPageId}
+      rootDomain={rootDomain}
+    />
   )
 }
