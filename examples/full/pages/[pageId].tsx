@@ -55,7 +55,7 @@ const Equation = dynamic(() =>
 )
 
 export const getStaticProps = async (context) => {
-  const pageId = context.params.pageId as string
+  const pageId = (context.params.pageId as string) || rootNotionPageId
   const recordMap = await notion.getPage(pageId)
 
   if (previewImagesEnabled) {
@@ -93,7 +93,7 @@ export async function getStaticPaths() {
     }
   )
 
-  const paths = Object.keys(pages).map((pageId) => `/${pageId}`)
+  const paths = Object.keys(pages).map((pageId) => mapPageUrl(pageId))
 
   return {
     paths,
