@@ -65,8 +65,7 @@ export const NotionPage = ({
   }
 
   const socialDescription = 'React Notion X Full Demo'
-  const socialImage =
-    'https://react-notion-x-demo.transitivebullsh.it/social.jpg'
+  const socialImage = '/social.jpg'
 
   return (
     <>
@@ -81,7 +80,7 @@ export const NotionPage = ({
 
         {socialImage ? (
           <>
-            <meta name='twitter:card' content='summary_large_image' />
+            <meta name='twitter:card' content='summary' />
             <meta name='twitter:image' content={socialImage} />
             <meta property='og:image' content={socialImage} />
           </>
