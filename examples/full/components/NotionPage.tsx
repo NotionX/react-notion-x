@@ -64,7 +64,7 @@ export const NotionPage = ({
     g.block = block
   }
 
-  const socialDescription = 'React Notion X Full Demo'
+  const socialDescription = 'React Notion X Demo'
   const socialImage =
     'https://react-notion-x-demo.transitivebullsh.it/social.jpg'
 
