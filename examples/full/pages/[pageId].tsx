@@ -58,7 +58,7 @@ export async function getStaticPaths() {
 
   const paths = Object.keys(pages)
     .map((pageId) => mapPageUrl(pageId))
-    .filter((path) => path !== '/')
+    .filter((path) => path && path !== '/')
 
   return {
     paths,
