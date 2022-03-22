@@ -7,7 +7,7 @@ import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
 
-import socialImage from '../../public/social.jpg'
+import socialImage from '../public/social.jpg'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
