@@ -1,5 +1,5 @@
 import React from 'react'
-import throttle from 'lodash.throttle'
+// import throttle from 'lodash.throttle'
 import {
   getBlockIcon,
   getBlockTitle,
@@ -64,8 +64,8 @@ export const Block: React.FC<BlockProps> = (props) => {
     defaultPageCoverPosition
   } = useNotionContext()
 
-  const [activeSection, setActiveSection] = React.useState(null)
-  const [hasToc, setHasToc] = React.useState(false)
+  // const [activeSection, setActiveSection] = React.useState(null)
+  // const [hasToc, setHasToc] = React.useState(false)
 
   const {
     block,
@@ -83,54 +83,55 @@ export const Block: React.FC<BlockProps> = (props) => {
     disableHeader
   } = props
 
-  React.useEffect(() => {
-    if (!hasToc) {
-      return
-    }
+  // TODO
+  // React.useEffect(() => {
+  //   if (!hasToc) {
+  //     return
+  //   }
 
-    const throttleMs = 100
+  //   const throttleMs = 100
 
-    const actionSectionScrollSpy = throttle(() => {
-      const sections = document.getElementsByClassName('notion-h')
+  //   const actionSectionScrollSpy = throttle(() => {
+  //     const sections = document.getElementsByClassName('notion-h')
 
-      let prevBBox: DOMRect = null
-      let currentSectionId = activeSection
+  //     let prevBBox: DOMRect = null
+  //     let currentSectionId = activeSection
 
-      for (let i = 0; i < sections.length; ++i) {
-        const section = sections[i]
-        if (!section || !(section instanceof Element)) continue
+  //     for (let i = 0; i < sections.length; ++i) {
+  //       const section = sections[i]
+  //       if (!section || !(section instanceof Element)) continue
 
-        if (!currentSectionId) {
-          currentSectionId = section.getAttribute('data-id')
-        }
+  //       if (!currentSectionId) {
+  //         currentSectionId = section.getAttribute('data-id')
+  //       }
 
-        const bbox = section.getBoundingClientRect()
-        const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
-        const offset = Math.max(150, prevHeight / 4)
+  //       const bbox = section.getBoundingClientRect()
+  //       const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
+  //       const offset = Math.max(150, prevHeight / 4)
 
-        // GetBoundingClientRect returns values relative to the viewport
-        if (bbox.top - offset < 0) {
-          currentSectionId = section.getAttribute('data-id')
+  //       // GetBoundingClientRect returns values relative to the viewport
+  //       if (bbox.top - offset < 0) {
+  //         currentSectionId = section.getAttribute('data-id')
 
-          prevBBox = bbox
-          continue
-        }
+  //         prevBBox = bbox
+  //         continue
+  //       }
 
-        // No need to continue loop, if last element has been detected
-        break
-      }
+  //       // No need to continue loop, if last element has been detected
+  //       break
+  //     }
 
-      setActiveSection(currentSectionId)
-    }, throttleMs)
+  //     setActiveSection(currentSectionId)
+  //   }, throttleMs)
 
-    window.addEventListener('scroll', actionSectionScrollSpy)
+  //   window.addEventListener('scroll', actionSectionScrollSpy)
 
-    actionSectionScrollSpy()
+  //   actionSectionScrollSpy()
 
-    return () => {
-      window.removeEventListener('scroll', actionSectionScrollSpy)
-    }
-  }, [hasToc, activeSection])
+  //   return () => {
+  //     window.removeEventListener('scroll', actionSectionScrollSpy)
+  //   }
+  // }, [hasToc, activeSection])
 
   if (!block) {
     return null
@@ -177,12 +178,14 @@ export const Block: React.FC<BlockProps> = (props) => {
             recordMap
           )
 
-          setHasToc(
+          const hasToc =
             showTableOfContents && toc.length >= minTableOfContentsItems
-          )
           const hasAside = (hasToc || pageAside) && !page_full_width
 
           const hasPageCover = pageCover || page_cover
+
+          // TODO
+          const activeSection = null
 
           return (
             <div
