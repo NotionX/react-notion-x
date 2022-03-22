@@ -1,18 +1,45 @@
 import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 
 import { NotionAPI } from 'notion-client'
 import { getPageTitle, getAllPagesInSpace } from 'notion-utils'
-import { Collection, CollectionRow, NotionRenderer } from 'react-notion-x'
+import { NotionRenderer } from 'react-notion-x'
 
 import { getPreviewImages } from '../lib/preview-images'
 import { ExtendedRecordMap } from 'notion-types'
 
+const Code = dynamic(() =>
+  import('react-notion-x').then((notion) => notion.Code)
+)
+
+const Collection = dynamic(() =>
+  import('react-notion-x').then((notion) => notion.Collection)
+)
+
+const CollectionRow = dynamic(
+  () => import('react-notion-x').then((notion) => notion.CollectionRow),
+  {
+    ssr: false
+  }
+)
+
+// TODO: PDF support via "react-pdf" package has numerous troubles building
+// with next.js
+const Pdf = dynamic(
+  () => import('react-notion-x').then((notion) => notion.Pdf),
+  { ssr: false }
+)
+
+const Equation = dynamic(() =>
+  import('react-notion-x').then((notion) => notion.Equation)
+)
+
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const notion = new NotionAPI()
 
-const previewImagesEnabled = true
+const previewImagesEnabled = false
 
 export const getStaticProps = async (context) => {
   const pageId = context.params.pageId as string
@@ -128,8 +155,11 @@ export default function NotionPage({
               />
             )
           },
+          code: Code,
           collection: Collection,
-          collectionRow: CollectionRow
+          collectionRow: CollectionRow,
+          equation: Equation,
+          pdf: Pdf
         }}
       />
     </>
