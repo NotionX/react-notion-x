@@ -67,7 +67,6 @@ export const NotionPage = ({
   return (
     <>
       <Head>
-        <meta name='description' content='React Notion X Full Demo' />
         <title>{title}</title>
       </Head>
 
