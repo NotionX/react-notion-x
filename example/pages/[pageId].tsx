@@ -25,8 +25,8 @@ const CollectionRow = dynamic(
   }
 )
 
-// TODO: PDF support via "react-pdf" package has numerous troubles building
-// with next.js
+// NOTE: PDF support via "react-pdf" can sometimes cause errors depending on your
+// build setup. If you're running into issues, just disable PDF support altogether.
 const Pdf = dynamic(
   () => import('react-notion-x').then((notion) => notion.Pdf),
   { ssr: false }
