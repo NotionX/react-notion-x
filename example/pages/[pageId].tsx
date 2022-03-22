@@ -39,7 +39,7 @@ const Equation = dynamic(() =>
 const isDev = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 const notion = new NotionAPI()
 
-const previewImagesEnabled = false
+const previewImagesEnabled = true
 
 export const getStaticProps = async (context) => {
   const pageId = context.params.pageId as string
