@@ -6,9 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "analyze": "cross-env ANALYZE=true next build",
-    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
     "deploy": "vercel deploy"
   },
   "dependencies": {
@@ -20,9 +17,7 @@
     "react-notion-x": "^4.19.2"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^11.1.2",
     "@types/node": "^16.11.2",
-    "cross-env": "^7.0.3",
     "typescript": "^4.6.2"
   }
 }

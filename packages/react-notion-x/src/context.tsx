@@ -75,7 +75,7 @@ export const dummyLink = ({ href, rel, target, title, ...rest }) => (
 
 const dummyComponent = (name: string) => () => {
   console.warn(
-    `Error using empty component: ${name}\nYou should override this in NotionRenderer.components`
+    `Warning: using empty component "${name}" (you should override this in NotionRenderer.components)`
   )
 
   return null
