@@ -489,7 +489,7 @@
 
 .notion-collection-card-cover span,
 .notion-collection-card-cover img {
-  height: 100%;
+  height: 100% !important;
 }
 
 .notion-page-cover-wrapper span,
