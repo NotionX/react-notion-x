@@ -483,6 +483,15 @@
   align-items: center;
 }
 
+.notion-collection-card-cover {
+  overflow: hidden;
+}
+
+.notion-collection-card-cover span,
+.notion-collection-card-cover img {
+  height: 100%;
+}
+
 .notion-page-cover-wrapper span,
 .notion-page-cover-wrapper img {
   width: 100% !important;
