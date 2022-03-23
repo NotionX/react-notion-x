@@ -23,9 +23,10 @@ export function getPageProperty(
   recordMap: ExtendedRecordMap
 ) {
   if (!block.properties || !Object.keys(recordMap.collection)) {
-    throw new Error(
-      `this block ${block.id} has not properties or this recordMap has no collection record`
-    )
+    // console.warn(
+    //   `block ${block.id} has no properties or this recordMap has no collection record`
+    // )
+    return null
   }
 
   const collection = recordMap.collection[block.parent_id]?.value
