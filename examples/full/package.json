@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-full",
-  "version": "4.19.2",
+  "version": "4.19.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,7 +21,7 @@
     "p-memoize": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^4.19.2",
+    "react-notion-x": "^4.19.3",
     "react-static-tweets": "^0.7.1",
     "static-tweets": "^0.7.1"
   },
