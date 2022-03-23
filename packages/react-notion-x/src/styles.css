@@ -478,6 +478,9 @@
   height: 30vh;
   min-height: 30vh;
   max-height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .notion-page-cover-wrapper span,
