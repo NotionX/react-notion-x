@@ -3,7 +3,7 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
 import { NotionRenderer } from 'react-notion-x'
-import { Image, PageLink } from 'react-notion-x/third-party/next'
+import { Image, PageLink } from 'react-notion-x/build/esm/third-party/next'
 import { ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 import { Tweet, TwitterContextProvider } from 'react-static-tweets'
@@ -13,22 +13,27 @@ import { Tweet, TwitterContextProvider } from 'react-static-tweets'
 // -----------------------------------------------------------------------------
 
 const Code = dynamic(() =>
-  import('react-notion-x/third-party/code').then((m) => m.Code)
+  import('react-notion-x/build/esm/third-party/code').then((m) => m.Code)
 )
 const Collection = dynamic(() =>
-  import('react-notion-x/third-party/collection').then((m) => m.Collection)
+  import('react-notion-x/build/esm/third-party/collection').then(
+    (m) => m.Collection
+  )
 )
 const Equation = dynamic(() =>
-  import('react-notion-x/third-party/equation').then((m) => m.Equation)
+  import('react-notion-x/build/esm/third-party/equation').then(
+    (m) => m.Equation
+  )
 )
 const Pdf = dynamic(
-  () => import('react-notion-x/third-party/pdf').then((m) => m.Pdf),
+  () => import('react-notion-x/build/esm/third-party/pdf').then((m) => m.Pdf),
   {
     ssr: false
   }
 )
 const Modal = dynamic(
-  () => import('react-notion-x/third-party/modal').then((m) => m.Modal),
+  () =>
+    import('react-notion-x/build/esm/third-party/modal').then((m) => m.Modal),
   {
     ssr: false
   }
