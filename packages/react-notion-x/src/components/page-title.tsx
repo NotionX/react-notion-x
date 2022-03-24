@@ -6,7 +6,7 @@ import { useNotionContext } from '../context'
 import { Text } from './text'
 import { PageIcon } from './page-icon'
 
-export const PageTitle: React.FC<{
+export const PageTitle: React.VFC<{
   block: Block
   className?: string
   defaultIcon?: string

@@ -17,7 +17,7 @@ import { GracefulImage } from '../components/graceful-image'
  * This corresponds to rendering the content of a single cell in a table.
  * Property rendering is re-used across all the different types of collection views.
  */
-export const Property: React.FC<{
+export const Property: React.VFC<{
   schema?: types.CollectionPropertySchema
   data?: types.Decoration[]
   block?: types.Block

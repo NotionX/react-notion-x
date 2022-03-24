@@ -6,7 +6,7 @@ import { useNotionContext } from '../context'
 import { cs } from '../utils'
 import { GracefulImage } from './graceful-image'
 
-export const GoogleDrive: React.FC<{
+export const GoogleDrive: React.VFC<{
   block: GoogleDriveBlock
   className?: string
 }> = ({ block, className }) => {

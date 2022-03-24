@@ -7,7 +7,7 @@ import { cs, getCollectionGroups } from '../utils'
 import { Property } from './property'
 import { useNotionContext } from '../context'
 
-export const CollectionViewTable: React.FC<CollectionViewProps> = ({
+export const CollectionViewTable: React.VFC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData,

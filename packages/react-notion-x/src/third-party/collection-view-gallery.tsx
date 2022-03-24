@@ -7,7 +7,7 @@ import { useNotionContext } from '../context'
 import { CollectionCard } from './collection-card'
 import { CollectionGroup } from './collection-group'
 
-export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
+export const CollectionViewGallery: React.VFC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData

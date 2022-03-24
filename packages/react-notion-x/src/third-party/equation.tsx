@@ -11,7 +11,7 @@ const katexSettings = {
   strict: false
 }
 
-export const Equation: React.FC<{
+export const Equation: React.VFC<{
   block: EquationBlock
   math?: string
   inline?: boolean

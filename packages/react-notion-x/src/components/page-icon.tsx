@@ -16,7 +16,7 @@ const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
   )
 }
 
-export const PageIcon: React.FC<{
+export const PageIcon: React.VFC<{
   block: Block
   className?: string
   hideDefaultIcon?: boolean

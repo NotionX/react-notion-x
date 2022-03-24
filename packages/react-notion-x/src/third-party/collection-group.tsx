@@ -3,7 +3,7 @@ import React from 'react'
 import { CollectionGroupProps } from '../types'
 import { Property } from './property'
 
-export const CollectionGroup: React.FC<CollectionGroupProps> = ({
+export const CollectionGroup: React.VFC<CollectionGroupProps> = ({
   collectionViewComponent: CollectionViewComponent,
   collection,
   collectionGroup,

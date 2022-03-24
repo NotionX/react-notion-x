@@ -44,7 +44,7 @@ const iconMap = {
   last_edited_by: Person2Icon
 }
 
-export const PropertyIcon: React.FC<PropertyIconProps> = ({
+export const PropertyIcon: React.VFC<PropertyIconProps> = ({
   type,
   ...rest
 }) => {

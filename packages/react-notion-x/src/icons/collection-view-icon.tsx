@@ -20,7 +20,7 @@ const iconMap = {
   calendar: CollectionViewCalendarIcon
 }
 
-export const CollectionViewIcon: React.FC<CollectionViewIconProps> = ({
+export const CollectionViewIcon: React.VFC<CollectionViewIconProps> = ({
   type,
   ...rest
 }) => {

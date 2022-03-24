@@ -6,7 +6,7 @@ import { Text } from './text'
 import { useNotionContext } from '..'
 import { parsePageId } from 'notion-utils'
 
-export const AssetWrapper: React.FC<{
+export const AssetWrapper: React.VFC<{
   blockId: string
   block: Block
 }> = ({ blockId, block }) => {

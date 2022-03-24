@@ -3,7 +3,7 @@ import { CollectionPropertySchema } from 'notion-types'
 
 import { PropertyIcon } from '../icons/property-icon'
 
-export const CollectionColumnTitle: React.FC<{
+export const CollectionColumnTitle: React.VFC<{
   schema: CollectionPropertySchema
 }> = ({ schema }) => {
   return (

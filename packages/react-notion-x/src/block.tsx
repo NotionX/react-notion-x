@@ -41,6 +41,8 @@ interface BlockProps {
 
   hideBlockId?: boolean
   disableHeader?: boolean
+
+  children?: React.ReactNode
 }
 
 // TODO: use react state instead of a global for this
@@ -48,7 +50,7 @@ const tocIndentLevelCache: {
   [blockId: string]: number
 } = {}
 
-export const Block: React.FC<BlockProps> = (props) => {
+export const Block: React.VFC<BlockProps> = (props) => {
   const {
     components,
     fullPage,
