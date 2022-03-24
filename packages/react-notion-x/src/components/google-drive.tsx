@@ -24,7 +24,7 @@ export const GoogleDrive: React.FC<{
 
   return (
     <div className={cs('notion-google-drive', className)}>
-      <components.link
+      <components.Link
         className='notion-google-drive-link'
         href={properties.url}
         target='_blank'
@@ -76,7 +76,7 @@ export const GoogleDrive: React.FC<{
             </div>
           )}
         </div>
-      </components.link>
+      </components.Link>
     </div>
   )
 }

@@ -50,7 +50,7 @@ function List({ blockIds, collection, collectionView }) {
             const titleData = block?.properties?.title
 
             return (
-              <components.pageLink
+              <components.PageLink
                 className='notion-list-item notion-page-link'
                 href={mapPageUrl(block.id)}
                 key={blockId}
@@ -90,7 +90,7 @@ function List({ blockIds, collection, collectionView }) {
                       )
                     })}
                 </div>
-              </components.pageLink>
+              </components.PageLink>
             )
           })}
         </div>

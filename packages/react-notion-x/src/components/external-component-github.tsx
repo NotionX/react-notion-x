@@ -40,7 +40,7 @@ export const ExternalComponentGithub: React.FC<{
   }, [name])
 
   return (
-    <components.link
+    <components.Link
       target='_blank'
       rel='noopener noreferrer'
       href={original_url}
@@ -64,6 +64,6 @@ export const ExternalComponentGithub: React.FC<{
           </div>
         )}
       </div>
-    </components.link>
+    </components.Link>
   )
 }

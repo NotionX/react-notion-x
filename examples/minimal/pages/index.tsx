@@ -4,7 +4,7 @@ import { NotionAPI } from 'notion-client'
 import { ExtendedRecordMap } from 'notion-types'
 
 import { NotionPage } from '../components/NotionPage'
-import { rootNotionPageId, rootDomain } from '../lib/config'
+import { rootNotionPageId } from '../lib/config'
 
 export const notion = new NotionAPI()
 
@@ -21,11 +21,5 @@ export const getStaticProps = async () => {
 }
 
 export default function Page({ recordMap }: { recordMap: ExtendedRecordMap }) {
-  return (
-    <NotionPage
-      recordMap={recordMap}
-      rootDomain={rootDomain}
-      rootPageId={rootNotionPageId}
-    />
-  )
+  return <NotionPage recordMap={recordMap} rootPageId={rootNotionPageId} />
 }

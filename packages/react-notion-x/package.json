@@ -22,7 +22,7 @@
     "medium-zoom": "^1.0.6",
     "notion-types": "^4.19.8",
     "notion-utils": "^4.19.8",
-    "prismjs": "^1.20.0",
+    "prismjs": "^1.27.0",
     "rc-dropdown": "^3.1.2",
     "rc-menu": "^9.0.14",
     "react-hotkeys-hook": "^3.0.3",
@@ -40,7 +40,13 @@
     "react-dom": "^17.0.2"
   },
   "peerDependencies": {
+    "next": ">=10",
     "react": ">=16",
     "react-dom": ">=16"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
   }
 }

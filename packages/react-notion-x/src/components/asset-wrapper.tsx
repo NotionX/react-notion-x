@@ -51,7 +51,7 @@ export const AssetWrapper: React.FC<{
     const captionHostname = extractHostname(caption)
 
     return (
-      <components.pageLink
+      <components.PageLink
         style={{ width: '100%' }}
         href={isPage ? mapPageUrl(id) : caption}
         target={
@@ -63,7 +63,7 @@ export const AssetWrapper: React.FC<{
         }
       >
         {figure}
-      </components.pageLink>
+      </components.PageLink>
     )
   }
 

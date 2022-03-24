@@ -58,11 +58,11 @@ export const LazyImage: React.FC<{
   if (previewImage) {
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
 
-    if (components.image) {
+    if (components.Image) {
       // TODO: could try using next/image onLoadComplete to replace LazyImageFull
       // while retaining our blur implementation
       return (
-        <components.image
+        <components.Image
           src={src}
           alt={alt}
           style={style}
@@ -145,9 +145,9 @@ export const LazyImage: React.FC<{
 
       If you have a use case that is affected by this, please open an issue on github.
     */
-    if (components.image && forceCustomImages) {
+    if (components.Image && forceCustomImages) {
       return (
-        <components.image
+        <components.Image
           src={src}
           alt={alt}
           className={className}

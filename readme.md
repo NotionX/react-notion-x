@@ -8,6 +8,22 @@
 
 [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
+## Contents
+
+- [Advice](#advice)
+- [Features](#features)
+- [Usage](#usage)
+- [Styles](#styles)
+- [Optional Components](#optional-components)
+- [Next.js Examples](#nextjs-examples)
+- [Packages](#packages)
+- [Supported Blocks](#supported-blocks)
+- [Performance](#performance)
+- [Related](#related)
+- [Contributing](#contributing)
+- [License](#license)
+- [Sponsor](#sponsor)
+
 ## Advice
 
 If you just want to publish a website using Notion, then we highly recommend using [Super.so](https://s.super.so/x) — a hosted solution with great perf that takes care of all the details for you.
@@ -18,13 +34,14 @@ And if you want even more control, then you're in the right place! 👇👇
 
 ## Features
 
-- 🚀 **Simple** - TypeScript + React.
-- ⚡ **Fast** - 10-100x faster than Notion.
-  - 95-100% Lighthouse scores.
-  - Heavier components like PDFs and collection views can be loaded lazily via `next/dynamic`.
-- 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality.
-- 🔥 **Solid** - Used in production by [Potion](https://www.potion.so) and thousands of websites.
-- Supports next/image along with preview image support
+- 🚀 **Simple** - TypeScript + React
+- ⚡ **Fast** - 10-100x faster than Notion
+  - 95-100% Lighthouse scores
+  - Heavier components can be loaded lazily via `next/dynamic`
+- 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality
+- 🔥 **Solid** - Used in production by [Potion](https://www.potion.so) and thousands of websites
+- 💪 **Smooth** - Supports `next/image` along with LQIP preview images ([demo](https://react-notion-x-demo.transitivebullsh.it/image-sizing-3492bd6dbaf44fe7a5cac62c5d402f06))
+- Framework agnostic - Use with next.js, create-react-app, gatsby, etc
 
 ## Usage
 
@@ -69,7 +86,78 @@ import 'rc-dropdown/assets/index.css'
 
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
+
+// used for tweet embeds (optional)
+import 'react-static-tweets/styles.css'
 ```
+
+## Optional Components
+
+The default imports from `react-notion-x` strive to be as lightweight as possible. Most blocks will render just fine, but some larger blocks like PDFs and collection views (database views) are not included by default.
+
+To use them, you'll need to import the ones you want from `react-notion-x/build/esm/third-party/*`:
+
+```tsx
+import { Code } from 'react-notion-x/build/esm/third-party/code'
+import { Collection } from 'react-notion-x/build/esm/third-party/collection'
+import { Equation } from 'react-notion-x/build/esm/third-party/equation'
+import { Modal } from 'react-notion-x/build/esm/third-party/modal'
+import { Pdf } from 'react-notion-x/build/esm/third-party/pdf'
+```
+
+Note that we strongly recommend lazy-loading these components unless you know you'll need them up front for your use case.
+
+If you're using Next.js, you can use [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) to lazily load them. If your notion content doesn't use one of these heavyweight components, then it wont't get loaded into your page. This keeps the initial page bundle small and your website feeling snappy.
+
+```tsx
+import dynamic from 'next/dynamic'
+
+const Collection = dynamic(() =>
+  import('react-notion-x/build/esm/third-party/collection').then(
+    (m) => m.Collection
+  )
+)
+const Code = dynamic(() =>
+  import('react-notion-x/build/esm/third-party/code').then((m) => m.Code)
+)
+const Equation = dynamic(() =>
+  import('react-notion-x/build/esm/third-party/equation').then(
+    (m) => m.Equation
+  )
+)
+const Pdf = dynamic(
+  () => import('react-notion-x/build/esm/third-party/pdf').then((m) => m.Pdf),
+  {
+    ssr: false
+  }
+)
+const Modal = dynamic(
+  () =>
+    import('react-notion-x/build/esm/third-party/modal').then((m) => m.Modal),
+  {
+    ssr: false
+  }
+)
+```
+
+You'll need to enable them by passing them to the `components` prop of `NotionRenderer`.
+
+```tsx
+export default ({ recordMap }) => (
+  <NotionRenderer
+    recordMap={recordMap}
+    components={{
+      Code,
+      Collection,
+      Equation,
+      Modal,
+      Pdf
+    }}
+  />
+)
+```
+
+For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
 
 ## Next.js Examples
 
@@ -83,10 +171,11 @@ The full-featured demo adds a few nice features:
 - Uses preview images generated via [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
 - Embeds tweets via [react-static-tweets](https://github.com/transitive-bullshit/react-static-tweets)
 - Lazily bundles larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
-  - Collection, CollectionRow
   - Code
   - Equation
   - Pdf
+  - Modal
+  - Collection (e.g., notion databases including table and gallery views)
 
 For a production example, check out the [Next.js Notion Starter Kit](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which uses `react-notion-x` under the hood.
 
@@ -175,16 +264,12 @@ Another major factor for perf comes from images hosted by Notion. They're genera
   - Only takes a few minutes to setup!
   - Uses `react-notion-x` under the hood
 - [Notion Test Suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) - Comprehensive suite of Notion test pages
-  - Includes all individual blocks
-  - Includes all collection views
-  - Covers most formatting options
-  - More edge cases and feature coverage will be added over time
-- [react-notion](https://github.com/splitbee/react-notion) - Original React renderer for Notion
-  - `react-notion-x` is a fork of `react-notion` with better support for different types of Notion content (especially collections)
-  - I'm also a maintainer and contributor to `react-notion`
+- [react-notion](https://github.com/splitbee/react-notion) - Original react renderer for notion
+  - `react-notion-x` started as a fork of `react-notion` with better support for different types of Notion content (especially collections) and grew into something much more comprehensive
+  - `react-notion` is no longer actively maintained
 - [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker
   - `notion-types` and `notion-client` are a refactored fork of `notion-api-worker`.
-  - One of the main use cases for `react-notion` is server-side rendering via Next.js, in which case the CF worker is unnecessary
+  - One of the main use cases for `react-notion-x` is server-side rendering via Next.js, in which case the CF worker is unnecessary
   - We recommend that you use [notion-client](./packages/notion-client) instead
 - [notion-api-agent](https://github.com/dragonman225/notionapi-agent) - Alternative Notion API client
 - [notion-py](https://github.com/jamalex/notion-py) - Excellent Python wrapper around the Notion API

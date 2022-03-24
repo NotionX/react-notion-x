@@ -4,7 +4,6 @@ import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { formatDate, getHashFragmentValue } from '../utils'
-import { Equation } from './equation'
 import { PageTitle } from './page-title'
 import { GracefulImage } from './graceful-image'
 import { ExternalComponentGithub } from './external-component-github'
@@ -57,12 +56,12 @@ export const Text: React.FC<{
               // console.log('p', blockId)
 
               return (
-                <components.pageLink
+                <components.PageLink
                   className='notion-link'
                   href={mapPageUrl(blockId)}
                 >
                   <PageTitle block={linkedBlock} />
-                </components.pageLink>
+                </components.PageLink>
               )
             }
 
@@ -102,7 +101,7 @@ export const Text: React.FC<{
                   }
 
                   return (
-                    <components.pageLink
+                    <components.PageLink
                       className='notion-link'
                       href={mapPageUrl(id)}
                       {...linkProps}
@@ -110,7 +109,7 @@ export const Text: React.FC<{
                       rel='noopener noreferrer'
                     >
                       <PageTitle block={linkedBlock} />
-                    </components.pageLink>
+                    </components.PageLink>
                   )
                 }
               }
@@ -135,7 +134,7 @@ export const Text: React.FC<{
               return <span className='notion-inline-underscore'>{element}</span>
 
             case 'e':
-              return <Equation math={decorator[1]} />
+              return <components.Equation math={decorator[1]} inline />
 
             case 'm':
               // comment / discussion
@@ -152,17 +151,17 @@ export const Text: React.FC<{
                   : `${mapPageUrl(id)}${getHashFragmentValue(v)}`
 
                 return (
-                  <components.pageLink
+                  <components.PageLink
                     className='notion-link'
                     href={href}
                     {...linkProps}
                   >
                     {element}
-                  </components.pageLink>
+                  </components.PageLink>
                 )
               } else {
                 return (
-                  <components.link
+                  <components.Link
                     className='notion-link'
                     href={
                       linkProtocol
@@ -172,7 +171,7 @@ export const Text: React.FC<{
                     {...linkProps}
                   >
                     {element}
-                  </components.link>
+                  </components.Link>
                 )
               }
             }

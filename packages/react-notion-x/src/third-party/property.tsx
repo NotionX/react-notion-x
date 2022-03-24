@@ -4,12 +4,12 @@ import formatNumber from 'format-number'
 import { format } from 'date-fns'
 
 import { cs } from '../utils'
-import { Checkbox } from './checkbox'
 import { useNotionContext } from '../context'
-import { Text } from './text'
 import { evalFormula } from '../eval-formula'
-import { PageTitle } from './page-title'
-import { GracefulImage } from './graceful-image'
+import { Checkbox } from '../components/checkbox'
+import { Text } from '../components/text'
+import { PageTitle } from '../components/page-title'
+import { GracefulImage } from '../components/graceful-image'
 
 /**
  * Renders a single value of structured Notion data according to its schema.
@@ -74,12 +74,12 @@ export const Property: React.FC<{
         case 'title':
           if (block) {
             content = (
-              <components.pageLink
+              <components.PageLink
                 className={cs('notion-page-link')}
                 href={mapPageUrl(block.id)}
               >
                 <PageTitle block={block} />
-              </components.pageLink>
+              </components.PageLink>
             )
           } else {
             content = <Text value={data} block={block} />
@@ -124,7 +124,7 @@ export const Property: React.FC<{
             .map((f) => f.flat().flat())
 
           content = files.map((file, i) => (
-            <components.link
+            <components.Link
               key={i}
               className='notion-property-file'
               href={mapImageUrl(file[2] as string, block)}
@@ -136,7 +136,7 @@ export const Property: React.FC<{
                 src={mapImageUrl(file[2] as string, block)}
                 loading='lazy'
               />
-            </components.link>
+            </components.Link>
           ))
 
           break

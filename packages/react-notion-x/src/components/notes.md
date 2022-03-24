@@ -20,8 +20,8 @@ const dummyLink = ({ href, rel, target, ...rest }) => <span {...rest} />
     <NotionComponentsProvider
       components={{
         ...components,
-        link: dummyLink,
-        pageLink: dummyLink
+        Link: dummyLink,
+        PageLink: dummyLink
       }}
     >
 

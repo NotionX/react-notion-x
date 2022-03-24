@@ -49,7 +49,7 @@ export class SearchDialog extends React.Component<{
           const { components, defaultPageIcon, mapPageUrl } = ctx
 
           return (
-            <components.modal
+            <components.Modal
               isOpen={isOpen}
               contentLabel='Search'
               className='notion-search'
@@ -95,7 +95,7 @@ export class SearchDialog extends React.Component<{
                       >
                         <div className='resultsPane'>
                           {searchResult.results.map((result) => (
-                            <components.pageLink
+                            <components.PageLink
                               key={result.id}
                               className={cs('result', 'notion-page-link')}
                               href={mapPageUrl(
@@ -107,7 +107,7 @@ export class SearchDialog extends React.Component<{
                                 block={result.block}
                                 defaultIcon={defaultPageIcon}
                               />
-                            </components.pageLink>
+                            </components.PageLink>
                           ))}
                         </div>
 
@@ -138,7 +138,7 @@ export class SearchDialog extends React.Component<{
                   </div>
                 )}
               </div>
-            </components.modal>
+            </components.Modal>
           )
         }}
       </NotionContextConsumer>

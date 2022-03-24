@@ -15,7 +15,7 @@ export const File: React.FC<{
 
   return (
     <div className={cs('notion-file', className)}>
-      <components.link
+      <components.Link
         className='notion-file-link'
         href={signedUrl}
         target='_blank'
@@ -34,7 +34,7 @@ export const File: React.FC<{
             </div>
           )}
         </div>
-      </components.link>
+      </components.Link>
     </div>
   )
 }

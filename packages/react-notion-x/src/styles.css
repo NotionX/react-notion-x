@@ -1611,7 +1611,10 @@ svg.notion-page-icon {
 }
 
 .notion-table-of-contents-item {
-  color: inherit;
+  color: var(--fg-color);
+  opacity: 0.7;
+  transition: background 100ms ease-in, opacity 100ms ease-in;
+
   text-decoration: none;
   user-select: none;
   transition: background 20ms ease-in 0s;
@@ -1631,6 +1634,7 @@ svg.notion-page-icon {
 
 .notion-table-of-contents-item:hover {
   background: var(--bg-color-0);
+  opacity: 1;
 }
 
 .notion-table-of-contents-item-body {

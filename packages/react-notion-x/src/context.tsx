@@ -82,20 +82,19 @@ const dummyComponent = (name: string) => () => {
 }
 
 const defaultComponents: NotionComponents = {
-  image: null, // disable custom images by default
-  link: DefaultLink,
-  pageLink: DefaultPageLink,
-  checkbox: DefaultCheckbox,
+  Image: null, // disable custom images by default
+  Link: DefaultLink,
+  PageLink: DefaultPageLink,
+  Checkbox: DefaultCheckbox,
 
-  code: dummyComponent('code'),
-  equation: dummyComponent('equation'),
+  Code: dummyComponent('code'),
+  Equation: dummyComponent('equation'),
 
-  collection: dummyComponent('collection'),
-  collectionRow: dummyComponent('collectionRow'),
+  Collection: dummyComponent('collection'),
 
-  pdf: dummyComponent('pdf'),
-  tweet: dummyComponent('tweet'),
-  modal: dummyComponent('modal')
+  Pdf: dummyComponent('pdf'),
+  Tweet: dummyComponent('tweet'),
+  Modal: dummyComponent('modal')
 }
 
 const defaultNotionContext: NotionContext = {
