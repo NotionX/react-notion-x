@@ -16,7 +16,7 @@ import { ExternalComponentGithub } from './external-component-github'
  * TODO: I think this implementation would be more correct if the reduce just added
  * attributes to the final element's style.
  */
-export const Text: React.VFC<{
+export const Text: React.FC<{
   value: Decoration[]
   block: Block
   linkProps?: any

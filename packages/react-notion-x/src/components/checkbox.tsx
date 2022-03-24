@@ -2,7 +2,7 @@ import React from 'react'
 
 import CheckIcon from '../icons/check'
 
-export const Checkbox: React.VFC<{
+export const Checkbox: React.FC<{
   isChecked: boolean
   blockId: string | undefined
 }> = ({ isChecked }) => {

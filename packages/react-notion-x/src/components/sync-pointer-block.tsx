@@ -6,7 +6,7 @@ import React from 'react'
 
 import { NotionBlockRenderer } from '../renderer'
 
-export const SyncPointerBlock: React.VFC<{
+export const SyncPointerBlock: React.FC<{
   block: BlockType
   level: number
 }> = (props) => {

@@ -4,7 +4,7 @@ import { AudioBlock } from 'notion-types'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 
-export const Audio: React.VFC<{
+export const Audio: React.FC<{
   block: AudioBlock
   className?: string
 }> = ({ block, className }) => {

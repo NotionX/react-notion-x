@@ -6,7 +6,7 @@ import { useNotionContext } from '../context'
 import { cs } from '../utils'
 import { Text } from './text'
 
-export const File: React.VFC<{
+export const File: React.FC<{
   block: FileBlock
   className?: string
 }> = ({ block, className }) => {

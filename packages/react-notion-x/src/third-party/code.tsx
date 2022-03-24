@@ -48,7 +48,7 @@ import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-wasm'
 import 'prismjs/components/prism-yaml'
 
-export const Code: React.VFC<{
+export const Code: React.FC<{
   block: CodeBlock
   defaultLanguage?: string
   className?: string

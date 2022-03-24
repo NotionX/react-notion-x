@@ -13,7 +13,7 @@ interface GitHubRepo {
   updated_at: string
 }
 
-export const ExternalComponentGithub: React.VFC<{
+export const ExternalComponentGithub: React.FC<{
   original_url: string
   block?: boolean
   className?: string

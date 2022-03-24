@@ -8,7 +8,7 @@ import { SearchIcon } from '../icons/search-icon'
 import { cs } from '../utils'
 import { SearchDialog } from './search-dialog'
 
-export const Header: React.VFC<{
+export const Header: React.FC<{
   header: React.ElementType
 }> = ({ header: CustomHeader }) => {
   const {

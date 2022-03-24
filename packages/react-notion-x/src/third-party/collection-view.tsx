@@ -6,7 +6,7 @@ import { CollectionViewGallery } from './collection-view-gallery'
 import { CollectionViewList } from './collection-view-list'
 import { CollectionViewBoard } from './collection-view-board'
 
-export const CollectionView: React.VFC<CollectionViewProps> = (props) => {
+export const CollectionView: React.FC<CollectionViewProps> = (props) => {
   const { collectionView } = props
 
   switch (collectionView.type) {

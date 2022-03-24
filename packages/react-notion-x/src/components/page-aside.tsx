@@ -5,7 +5,7 @@ import { TableOfContentsEntry, uuidToId } from 'notion-utils'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 
-export const PageAside: React.VFC<{
+export const PageAside: React.FC<{
   toc: Array<TableOfContentsEntry>
   activeSection: string | null
   setActiveSection: (activeSection: string | null) => unknown

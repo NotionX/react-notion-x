@@ -8,7 +8,7 @@ import { cs } from '../utils'
 import { useNotionContext, dummyLink, NotionContextProvider } from '../context'
 import { LazyImage } from '../components/lazy-image'
 
-export const CollectionCard: React.VFC<CollectionCardProps> = ({
+export const CollectionCard: React.FC<CollectionCardProps> = ({
   collection,
   block,
   cover,

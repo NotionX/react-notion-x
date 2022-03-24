@@ -9,7 +9,7 @@ import { EmptyIcon } from '../icons/empty-icon'
 import { Property } from './property'
 import { useNotionContext } from '../context'
 
-export const CollectionViewBoard: React.VFC<CollectionViewProps> = ({
+export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData,

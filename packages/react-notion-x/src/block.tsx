@@ -50,7 +50,7 @@ const tocIndentLevelCache: {
   [blockId: string]: number
 } = {}
 
-export const Block: React.VFC<BlockProps> = (props) => {
+export const Block: React.FC<BlockProps> = (props) => {
   const {
     components,
     fullPage,

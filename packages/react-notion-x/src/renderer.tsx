@@ -66,7 +66,7 @@ interface NotionBlockRendererProps {
   zoom?: any
 }
 
-export const NotionRenderer: React.VFC<NotionRendererProps> = ({
+export const NotionRenderer: React.FC<NotionRendererProps> = ({
   components,
   recordMap,
   mapPageUrl,
@@ -119,7 +119,7 @@ export const NotionRenderer: React.VFC<NotionRendererProps> = ({
   )
 }
 
-export const NotionBlockRenderer: React.VFC<NotionBlockRendererProps> = ({
+export const NotionBlockRenderer: React.FC<NotionBlockRendererProps> = ({
   level = 0,
   blockId,
   ...props

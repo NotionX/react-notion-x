@@ -16,7 +16,7 @@ import { cs } from '../utils'
 const isServer = typeof window === 'undefined'
 const triggers = ['click']
 
-export const Collection: React.VFC<{
+export const Collection: React.FC<{
   block:
     | types.CollectionViewBlock
     | types.CollectionViewPageBlock
@@ -36,7 +36,7 @@ export const Collection: React.VFC<{
   }
 }
 
-const CollectionViewBlock: React.VFC<{
+const CollectionViewBlock: React.FC<{
   block: types.CollectionViewBlock | types.CollectionViewPageBlock
   className?: string
 }> = ({ block, className }) => {
@@ -164,7 +164,7 @@ const CollectionViewBlock: React.VFC<{
   )
 }
 
-const CollectionViewColumnDesc: React.VFC<{
+const CollectionViewColumnDesc: React.FC<{
   collectionView: types.CollectionView
   className?: string
   children?: React.ReactNode

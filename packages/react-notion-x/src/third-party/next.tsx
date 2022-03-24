@@ -2,7 +2,7 @@ import React from 'react'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
 
-export const Image = ({
+export const Image: React.FC<any> = ({
   src,
   alt,
 
@@ -31,7 +31,7 @@ export const Image = ({
   )
 }
 
-export const PageLink = ({
+export const PageLink: React.FC<any> = ({
   href,
   as,
   passHref,

@@ -48,6 +48,31 @@
     "./styles.css": "./src/styles.css",
     "./src/styles.css": "./src/styles.css"
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "build/esm/index.d.ts"
+      ],
+      "third-party/code": [
+        "build/esm/third-party/code.d.ts"
+      ],
+      "third-party/collection": [
+        "build/esm/third-party/collection.d.ts"
+      ],
+      "third-party/equation": [
+        "build/esm/third-party/equation.d.ts"
+      ],
+      "third-party/modal": [
+        "build/esm/third-party/modal.d.ts"
+      ],
+      "third-party/pdf": [
+        "build/esm/third-party/pdf.d.ts"
+      ],
+      "third-party/next": [
+        "build/esm/third-party/next.d.ts"
+      ]
+    }
+  },
   "engines": {
     "node": ">=12"
   },

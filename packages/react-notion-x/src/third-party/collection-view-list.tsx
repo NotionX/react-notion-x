@@ -7,7 +7,7 @@ import { useNotionContext } from '../context'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from '../utils'
 
-export const CollectionViewList: React.VFC<CollectionViewProps> = ({
+export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
   collectionData
