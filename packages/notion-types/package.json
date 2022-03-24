@@ -1,6 +1,6 @@
 {
   "name": "notion-types",
-  "version": "4.19.8",
+  "version": "5.0.0",
   "description": "TypeScript types for core Notion data structures.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
