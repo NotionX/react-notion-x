@@ -3,7 +3,7 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
 import { NotionRenderer } from 'react-notion-x'
-import { Image, PageLink } from 'react-notion-x/third-party/next'
+// import { Image, PageLink } from 'react-notion-x/third-party/next'
 import { ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 import { Tweet, TwitterContextProvider } from 'react-static-tweets'
@@ -111,8 +111,8 @@ export const NotionPage = ({
         components={{
           // NOTE: custom images will only take effect if previewImages is true and
           // if the image has a valid preview image defined in recordMap.preview_images[src]
-          Image,
-          PageLink,
+          // Image,
+          // PageLink,
           Code,
           Collection,
           Equation,
