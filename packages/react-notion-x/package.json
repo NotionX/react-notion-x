@@ -8,7 +8,7 @@
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
   "typings": "build/esm/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [ "*.css" ],
   "engines": {
     "node": ">=12"
   },
