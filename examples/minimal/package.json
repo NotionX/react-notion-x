@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-minimal",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "next": "^12.1.0",
-    "notion-client": "^5.0.0",
-    "notion-utils": "^5.0.0",
+    "notion-client": "^5.0.1",
+    "notion-utils": "^5.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^5.0.0"
+    "react-notion-x": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^16.11.2",

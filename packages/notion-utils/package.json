@@ -1,6 +1,6 @@
 {
   "name": "notion-utils",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "type": "module",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
   "repository": "NotionX/react-notion-x",
@@ -17,7 +17,7 @@
     "test": "ava -v 'build/cjs/**/*.test.js'"
   },
   "dependencies": {
-    "notion-types": "^5.0.0",
+    "notion-types": "^5.0.1",
     "p-queue": "6"
   },
   "devDependencies": {
