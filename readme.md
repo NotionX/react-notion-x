@@ -142,11 +142,11 @@ export default ({ recordMap }) => (
   <NotionRenderer
     recordMap={recordMap}
     components={{
-      code: Code,
-      collection: Collection,
-      equation: Equation,
-      modal: Modal,
-      pdf: Pdf
+      Code,
+      Collection,
+      Equation,
+      Modal,
+      Pdf
     }}
   />
 )

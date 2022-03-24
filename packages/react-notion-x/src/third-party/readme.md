@@ -53,11 +53,11 @@ function MyComponent() {
   return (
     <NotionRenderer
       components={{
-        code: Code,
-        collection: Collection,
-        equation: Equation,
-        modal: Modal,
-        pdf: Pdf
+        Code,
+        Collection,
+        Equation,
+        Modal,
+        Pdf
       }}
     />
   )

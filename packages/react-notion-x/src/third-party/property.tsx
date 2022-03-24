@@ -74,12 +74,12 @@ export const Property: React.VFC<{
         case 'title':
           if (block) {
             content = (
-              <components.pageLink
+              <components.PageLink
                 className={cs('notion-page-link')}
                 href={mapPageUrl(block.id)}
               >
                 <PageTitle block={block} />
-              </components.pageLink>
+              </components.PageLink>
             )
           } else {
             content = <Text value={data} block={block} />
@@ -124,7 +124,7 @@ export const Property: React.VFC<{
             .map((f) => f.flat().flat())
 
           content = files.map((file, i) => (
-            <components.link
+            <components.Link
               key={i}
               className='notion-property-file'
               href={mapImageUrl(file[2] as string, block)}
@@ -136,7 +136,7 @@ export const Property: React.VFC<{
                 src={mapImageUrl(file[2] as string, block)}
                 loading='lazy'
               />
-            </components.link>
+            </components.Link>
           ))
 
           break

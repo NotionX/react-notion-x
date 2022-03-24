@@ -200,7 +200,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
                     {(block.type === 'collection_view_page' ||
                       (block.type === 'page' &&
                         block.parent_table === 'collection')) && (
-                      <components.collection block={block} />
+                      <components.Collection block={block} />
                     )}
 
                     <div
@@ -254,7 +254,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
               {(block.type === 'collection_view_page' ||
                 (block.type === 'page' &&
                   block.parent_table === 'collection')) && (
-                <components.collection block={block} />
+                <components.Collection block={block} />
               )}
 
               {children}
@@ -267,7 +267,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
         const blockColor = block.format?.block_color
 
         return (
-          <components.pageLink
+          <components.PageLink
             className={cs(
               'notion-page-link',
               blockColor && `notion-${blockColor}`,
@@ -276,7 +276,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
             href={mapPageUrl(block.id)}
           >
             <PageTitle block={block} />
-          </components.pageLink>
+          </components.PageLink>
         )
       }
 
@@ -493,7 +493,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
 
     case 'equation':
       return (
-        <components.equation
+        <components.Equation
           block={block as types.EquationBlock}
           inline={false}
           className={blockId}
@@ -501,7 +501,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
       )
 
     case 'code':
-      return <components.code block={block as types.CodeBlock} />
+      return <components.Code block={block as types.CodeBlock} />
 
     case 'column_list':
       return <div className={cs('notion-row', blockId)}>{children}</div>
@@ -549,11 +549,11 @@ export const Block: React.VFC<BlockProps> = (props) => {
     }
 
     case 'collection_view':
-      return <components.collection block={block} className={blockId} />
+      return <components.Collection block={block} className={blockId} />
 
     case 'callout':
-      if (components.callout) {
-        return <components.callout block={block} className={blockId} />
+      if (components.Callout) {
+        return <components.Callout block={block} className={blockId} />
       } else {
         return (
           <div
@@ -595,7 +595,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
 
       return (
         <div className='notion-row'>
-          <components.link
+          <components.Link
             target='_blank'
             rel='noopener noreferrer'
             className={cs(
@@ -642,7 +642,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
                 />
               </div>
             )}
-          </components.link>
+          </components.Link>
         </div>
       )
     }
@@ -700,7 +700,7 @@ export const Block: React.VFC<BlockProps> = (props) => {
       return (
         <div className={cs('notion-to-do', blockId)}>
           <div className='notion-to-do-item'>
-            <components.checkbox blockId={blockId} isChecked={isChecked} />
+            <components.Checkbox blockId={blockId} isChecked={isChecked} />
 
             <div
               className={cs(
@@ -732,12 +732,12 @@ export const Block: React.VFC<BlockProps> = (props) => {
       }
 
       return (
-        <components.pageLink
+        <components.PageLink
           className={cs('notion-page-link', blockPointerId)}
           href={mapPageUrl(blockPointerId)}
         >
           <PageTitle block={linkedBlock} />
-        </components.pageLink>
+        </components.PageLink>
       )
     }
 

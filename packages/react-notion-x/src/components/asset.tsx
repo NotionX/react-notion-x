@@ -118,7 +118,7 @@ export const Asset: React.FC<{
           marginRight: 'auto'
         }}
       >
-        <components.tweet id={id} />
+        <components.Tweet id={id} />
       </div>
     )
   } else if (block.type === 'pdf') {
@@ -131,7 +131,7 @@ export const Asset: React.FC<{
       if (!signedUrl) return null
       // console.log('pdf', block, signedUrl)
 
-      content = <components.pdf file={signedUrl} />
+      content = <components.Pdf file={signedUrl} />
     }
   } else if (
     block.type === 'embed' ||

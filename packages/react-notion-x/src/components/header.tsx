@@ -57,7 +57,7 @@ export const Header: React.VFC<{
       {breadcrumbs.map((breadcrumb, index) => {
         const pageLinkProps: any = {}
         const componentMap = {
-          pageLink: components.pageLink
+          pageLink: components.PageLink
         }
 
         if (breadcrumb.active) {

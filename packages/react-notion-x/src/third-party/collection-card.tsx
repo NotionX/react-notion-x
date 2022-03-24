@@ -116,11 +116,11 @@ export const CollectionCard: React.VFC<CollectionCardProps> = ({
         ...ctx.components,
         // Disable <a> tabs in all child components so we don't create invalid DOM
         // trees with stacked <a> tags.
-        link: dummyLink,
-        pageLink: dummyLink
+        Link: dummyLink,
+        PageLink: dummyLink
       }}
     >
-      <components.pageLink
+      <components.PageLink
         className={cs(
           'notion-collection-card',
           `notion-collection-card-size-${coverSize}`,
@@ -171,7 +171,7 @@ export const CollectionCard: React.VFC<CollectionCardProps> = ({
               )
             })}
         </div>
-      </components.pageLink>
+      </components.PageLink>
     </NotionContextProvider>
   )
 }

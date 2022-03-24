@@ -12,23 +12,23 @@ export type SearchNotion = (
 
 export interface NotionComponents {
   // TODO: better typing for arbitrary react components
-  image: any
-  link: any
-  pageLink: any
-  checkbox: React.VFC<{ isChecked: boolean; blockId: string }>
+  Image: any
+  Link: any
+  PageLink: any
+  Checkbox: React.VFC<{ isChecked: boolean; blockId: string }>
 
   // blocks
-  code: any
-  equation: any
-  callout?: any
+  Code: any
+  Equation: any
+  Callout?: any
 
   // collection
-  collection: any
+  Collection: any
 
   // assets
-  pdf: any
-  tweet: any
-  modal: any
+  Pdf: any
+  Tweet: any
+  Modal: any
 }
 
 export interface CollectionViewProps {

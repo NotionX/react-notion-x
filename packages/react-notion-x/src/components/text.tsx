@@ -56,12 +56,12 @@ export const Text: React.VFC<{
               // console.log('p', blockId)
 
               return (
-                <components.pageLink
+                <components.PageLink
                   className='notion-link'
                   href={mapPageUrl(blockId)}
                 >
                   <PageTitle block={linkedBlock} />
-                </components.pageLink>
+                </components.PageLink>
               )
             }
 
@@ -101,7 +101,7 @@ export const Text: React.VFC<{
                   }
 
                   return (
-                    <components.pageLink
+                    <components.PageLink
                       className='notion-link'
                       href={mapPageUrl(id)}
                       {...linkProps}
@@ -109,7 +109,7 @@ export const Text: React.VFC<{
                       rel='noopener noreferrer'
                     >
                       <PageTitle block={linkedBlock} />
-                    </components.pageLink>
+                    </components.PageLink>
                   )
                 }
               }
@@ -134,7 +134,7 @@ export const Text: React.VFC<{
               return <span className='notion-inline-underscore'>{element}</span>
 
             case 'e':
-              return <components.equation math={decorator[1]} inline />
+              return <components.Equation math={decorator[1]} inline />
 
             case 'm':
               // comment / discussion
@@ -151,17 +151,17 @@ export const Text: React.VFC<{
                   : `${mapPageUrl(id)}${getHashFragmentValue(v)}`
 
                 return (
-                  <components.pageLink
+                  <components.PageLink
                     className='notion-link'
                     href={href}
                     {...linkProps}
                   >
                     {element}
-                  </components.pageLink>
+                  </components.PageLink>
                 )
               } else {
                 return (
-                  <components.link
+                  <components.Link
                     className='notion-link'
                     href={
                       linkProtocol
@@ -171,7 +171,7 @@ export const Text: React.VFC<{
                     {...linkProps}
                   >
                     {element}
-                  </components.link>
+                  </components.Link>
                 )
               }
             }

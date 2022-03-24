@@ -1,8 +1,8 @@
 import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
+import NextImage from 'next/image'
+import NextLink from 'next/link'
 
-export const image = ({
+export const Image = ({
   src,
   alt,
 
@@ -17,7 +17,7 @@ export const image = ({
   const layout = width && height ? 'intrinsic' : 'fill'
 
   return (
-    <Image
+    <NextImage
       {...rest}
       className={className}
       src={src}
@@ -31,7 +31,7 @@ export const image = ({
   )
 }
 
-export const pageLink = ({
+export const PageLink = ({
   href,
   as,
   passHref,
@@ -42,7 +42,7 @@ export const pageLink = ({
   locale,
   ...props
 }) => (
-  <Link
+  <NextLink
     href={href}
     as={as}
     passHref={passHref}
@@ -53,5 +53,5 @@ export const pageLink = ({
     locale={locale}
   >
     <a {...props} />
-  </Link>
+  </NextLink>
 )

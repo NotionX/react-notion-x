@@ -40,6 +40,11 @@
       "types": "./build/esm/third-party/pdf.d.ts",
       "default": "./build/esm/third-party/pdf.js"
     },
+    "./third-party/next": {
+      "requires": "./build/cjs/third-party/next.js",
+      "types": "./build/esm/third-party/next.d.ts",
+      "default": "./build/esm/third-party/next.js"
+    },
     "./styles.css": "./src/styles.css",
     "./src/styles.css": "./src/styles.css"
   },
@@ -74,7 +79,13 @@
     "react-dom": "^17.0.2"
   },
   "peerDependencies": {
+    "next": ">=10",
     "react": ">=16",
     "react-dom": ">=16"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    }
   }
 }
