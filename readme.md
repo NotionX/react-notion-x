@@ -34,13 +34,14 @@ And if you want even more control, then you're in the right place! 👇👇
 
 ## Features
 
-- 🚀 **Simple** - TypeScript + React.
-- ⚡ **Fast** - 10-100x faster than Notion.
-  - 95-100% Lighthouse scores.
-  - Heavier components like PDFs and collection views can be loaded lazily via `next/dynamic`.
-- 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality.
-- 🔥 **Solid** - Used in production by [Potion](https://www.potion.so) and thousands of websites.
-- Supports next/image along with preview image support
+- 🚀 **Simple** - TypeScript + React
+- ⚡ **Fast** - 10-100x faster than Notion
+  - 95-100% Lighthouse scores
+  - Heavier components can be loaded lazily via `next/dynamic`
+- 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality
+- 🔥 **Solid** - Used in production by [Potion](https://www.potion.so) and thousands of websites
+- 💪 **Smooth** - Supports `next/image` along with LQIP preview images ([demo](https://react-notion-x-demo.transitivebullsh.it/image-sizing-3492bd6dbaf44fe7a5cac62c5d402f06))
+- Framework agnostic - Use with next.js, create-react-app, gatsby, etc
 
 ## Usage
 
@@ -94,9 +95,7 @@ import 'react-static-tweets/styles.css'
 
 The default imports from `react-notion-x` strive to be as lightweight as possible. Most blocks will render just fine, but some larger blocks like PDFs and collection views (database views) are not included by default.
 
-To enable these larger, optional components, you'll need to import each one individually from `react-notion-x/third-party/*`.
-
-Here's an example showing how to import each of the optional components:
+To use them, you'll need to import the ones you want from `react-notion-x/third-party/*`:
 
 ```tsx
 import { Code } from 'react-notion-x/third-party/code'
@@ -108,7 +107,7 @@ import { Pdf } from 'react-notion-x/third-party/pdf'
 
 Note that we strongly recommend lazy-loading these components unless you know you'll need them up front for your use case.
 
-If you're using Next.js, you can use [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) to lazy load these components.
+If you're using Next.js, you can use [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) to lazily load them only if the notion content actually uses them. This keeps the initial page bundle small and your web vitals score happy.
 
 ```tsx
 import dynamic from 'next/dynamic'
@@ -167,10 +166,11 @@ The full-featured demo adds a few nice features:
 - Uses preview images generated via [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
 - Embeds tweets via [react-static-tweets](https://github.com/transitive-bullshit/react-static-tweets)
 - Lazily bundles larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
-  - Collection, CollectionRow
   - Code
   - Equation
   - Pdf
+  - Modal
+  - Collection (e.g., notion databases including table and gallery views)
 
 For a production example, check out the [Next.js Notion Starter Kit](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which uses `react-notion-x` under the hood.
 
