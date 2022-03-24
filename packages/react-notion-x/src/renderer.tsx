@@ -11,7 +11,7 @@ import {
 import { Block } from './block'
 import { useNotionContext, NotionContextProvider } from './context'
 
-export interface NotionRendererProps {
+export const NotionRenderer: React.FC<{
   recordMap: ExtendedRecordMap
   components?: Partial<NotionComponents>
 
@@ -51,22 +51,7 @@ export interface NotionRendererProps {
   blockId?: string
   hideBlockId?: boolean
   disableHeader?: boolean
-}
-
-interface NotionBlockRendererProps {
-  className?: string
-  bodyClassName?: string
-  header?: React.ElementType
-  footer?: React.ReactNode
-  disableHeader?: boolean
-
-  blockId?: string
-  hideBlockId?: boolean
-  level?: number
-  zoom?: any
-}
-
-export const NotionRenderer: React.FC<NotionRendererProps> = ({
+}> = ({
   components,
   recordMap,
   mapPageUrl,
@@ -119,11 +104,18 @@ export const NotionRenderer: React.FC<NotionRendererProps> = ({
   )
 }
 
-export const NotionBlockRenderer: React.FC<NotionBlockRendererProps> = ({
-  level = 0,
-  blockId,
-  ...props
-}) => {
+export const NotionBlockRenderer: React.FC<{
+  className?: string
+  bodyClassName?: string
+  header?: React.ElementType
+  footer?: React.ReactNode
+  disableHeader?: boolean
+
+  blockId?: string
+  hideBlockId?: boolean
+  level?: number
+  zoom?: any
+}> = ({ level = 0, blockId, ...props }) => {
   const { recordMap } = useNotionContext()
   const id = blockId || Object.keys(recordMap.block)[0]
   const block = recordMap.block[id]?.value

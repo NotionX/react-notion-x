@@ -2,9 +2,7 @@
   "extends": "../../tsconfig.base",
   "compilerOptions": {
     "composite": true,
-    "rootDir": "src",
-    "outDir": "build/esm",
-    "tsBuildInfoFile": "build/esm/index.tsbuildinfo"
+    "rootDir": "src"
   },
   "include": ["src"]
 }

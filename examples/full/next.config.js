@@ -14,5 +14,8 @@ module.exports = withBundleAnalyzer({
       'pbs.twimg.com'
     ],
     formats: ['image/avif', 'image/webp']
+  },
+  experimental: {
+    esmExternals: true
   }
 })

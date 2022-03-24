@@ -9,25 +9,13 @@
       "path": "./packages/notion-types/tsconfig.json"
     },
     {
-      "path": "./packages/notion-types/tsconfig.cjs.json"
-    },
-    {
       "path": "./packages/notion-utils/tsconfig.json"
-    },
-    {
-      "path": "./packages/notion-utils/tsconfig.cjs.json"
     },
     {
       "path": "./packages/notion-client/tsconfig.json"
     },
     {
-      "path": "./packages/notion-client/tsconfig.cjs.json"
-    },
-    {
       "path": "./packages/react-notion-x/tsconfig.json"
-    },
-    {
-      "path": "./packages/react-notion-x/tsconfig.cjs.json"
     }
   ]
 }

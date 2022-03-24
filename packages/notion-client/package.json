@@ -1,27 +1,31 @@
 {
   "name": "notion-client",
   "version": "5.0.1",
+  "type": "module",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "typings": "build/esm/index.d.ts",
+  "main": "./build/index.cjs",
+  "module": "./build/index.module.js",
+  "typings": "./build/index.d.ts",
   "sideEffects": false,
   "engines": {
     "node": ">=12"
   },
   "scripts": {
+    "build": "microbundle -f cjs,esm --no-compress --target node",
+    "watch": "microbundle -f cjs,esm --no-compress --watch",
     "test": "ava -v 'build/cjs/**/*.test.js'"
   },
   "dependencies": {
     "got": "^11.8.1",
     "notion-types": "^5.0.1",
     "notion-utils": "^5.0.1",
-    "p-map": "^4.0.0"
+    "p-map": "^5.3.0"
   },
   "devDependencies": {
-    "ava": "^3.15.0"
+    "ava": "^3.15.0",
+    "microbundle": "^0.14.2"
   }
 }

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "incremental": true,
-    // "target": "ES6",
+    "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -22,7 +22,7 @@
     "listFiles": false,
     "pretty": true,
 
-    "lib": ["ESNext", "ES2019", "ESNext.Array", "DOM"],
+    "lib": ["ESNext", "ESNext.Array", "DOM"],
 
     "baseUrl": ".",
     "paths": {

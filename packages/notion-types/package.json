@@ -1,15 +1,23 @@
 {
   "name": "notion-types",
   "version": "5.0.1",
+  "type": "module",
   "description": "TypeScript types for core Notion data structures.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
-  "typings": "build/esm/index.d.ts",
+  "main": "./build/index.cjs",
+  "module": "./build/index.module.js",
+  "typings": "./build/index.d.ts",
   "sideEffects": false,
   "engines": {
     "node": ">=12"
+  },
+  "scripts": {
+    "build": "microbundle -f cjs,esm --no-compress --target node",
+    "watch": "microbundle -f cjs,esm --no-compress --watch"
+  },
+  "devDependencies": {
+    "microbundle": "^0.14.2"
   }
 }
