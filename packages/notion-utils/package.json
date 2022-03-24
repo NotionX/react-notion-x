@@ -1,7 +1,6 @@
 {
   "name": "notion-utils",
   "version": "5.0.1",
-  "type": "module",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
