@@ -24,7 +24,6 @@ export interface NotionComponents {
 
   // collection
   collection: any
-  collectionRow: any
 
   // assets
   pdf: any

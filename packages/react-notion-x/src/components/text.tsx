@@ -4,7 +4,6 @@ import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { formatDate, getHashFragmentValue } from '../utils'
-import { Equation } from './equation'
 import { PageTitle } from './page-title'
 import { GracefulImage } from './graceful-image'
 import { ExternalComponentGithub } from './external-component-github'
@@ -135,7 +134,7 @@ export const Text: React.FC<{
               return <span className='notion-inline-underscore'>{element}</span>
 
             case 'e':
-              return <Equation math={decorator[1]} />
+              return <components.equation math={decorator[1]} inline />
 
             case 'm':
               // comment / discussion

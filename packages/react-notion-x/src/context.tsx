@@ -91,7 +91,6 @@ const defaultComponents: NotionComponents = {
   equation: dummyComponent('equation'),
 
   collection: dummyComponent('collection'),
-  collectionRow: dummyComponent('collectionRow'),
 
   pdf: dummyComponent('pdf'),
   tweet: dummyComponent('tweet'),

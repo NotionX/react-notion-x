@@ -5,10 +5,11 @@ import { useLocalStorage, useWindowSize } from 'react-use'
 import Dropdown from 'rc-dropdown'
 import Menu, { Item as MenuItem } from 'rc-menu'
 
+import { CollectionRow } from './collection-row'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
-import { PageIcon } from './page-icon'
+import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 
@@ -16,6 +17,26 @@ const isServer = typeof window === 'undefined'
 const triggers = ['click']
 
 export const Collection: React.FC<{
+  block:
+    | types.CollectionViewBlock
+    | types.CollectionViewPageBlock
+    | types.PageBlock
+  className?: string
+}> = ({ block, className }) => {
+  if (block.type === 'page') {
+    if (block.parent_table !== 'collection') {
+      return null
+    }
+
+    return (
+      <CollectionRow block={block as types.PageBlock} className={className} />
+    )
+  } else {
+    return <CollectionViewBlock block={block} className={className} />
+  }
+}
+
+const CollectionViewBlock: React.FC<{
   block: types.CollectionViewBlock | types.CollectionViewPageBlock
   className?: string
 }> = ({ block, className }) => {

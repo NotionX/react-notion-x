@@ -1,18 +1,16 @@
 import React from 'react'
 import Head from 'next/head'
 
-import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
+import { getPageTitle } from 'notion-utils'
 
 export const NotionPage = ({
   recordMap,
-  rootPageId,
-  rootDomain
+  rootPageId
 }: {
   recordMap: ExtendedRecordMap
   rootPageId?: string
-  rootDomain?: string
 }) => {
   if (!recordMap) {
     return null
@@ -33,7 +31,6 @@ export const NotionPage = ({
         recordMap={recordMap}
         fullPage={true}
         darkMode={false}
-        rootDomain={rootDomain}
         rootPageId={rootPageId}
       />
     </>

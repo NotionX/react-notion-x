@@ -3,39 +3,35 @@ import Head from 'next/head'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 
-import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
+import { getPageTitle } from 'notion-utils'
 import { Tweet, TwitterContextProvider } from 'react-static-tweets'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
 // -----------------------------------------------------------------------------
 
-const Code = dynamic(() =>
-  import('react-notion-x').then((notion) => notion.Code)
-)
-
 const Collection = dynamic(() =>
-  import('react-notion-x').then((notion) => notion.Collection)
+  import('react-notion-x/third-party/collection').then((m) => m.Collection)
 )
-
-const CollectionRow = dynamic(
-  () => import('react-notion-x').then((notion) => notion.CollectionRow),
+const Code = dynamic(() =>
+  import('react-notion-x/third-party/code').then((m) => m.Code)
+)
+const Equation = dynamic(() =>
+  import('react-notion-x/third-party/equation').then((m) => m.Equation)
+)
+const Pdf = dynamic(
+  () => import('react-notion-x/third-party/pdf').then((m) => m.Pdf),
   {
     ssr: false
   }
 )
-
-// NOTE: PDF support via "react-pdf" can sometimes cause errors depending on your
-// build setup. If you're running into issues, just disable PDF support altogether.
-const Pdf = dynamic(
-  () => import('react-notion-x').then((notion) => (notion as any).Pdf),
-  { ssr: false }
-)
-
-const Equation = dynamic(() =>
-  import('react-notion-x').then((notion) => notion.Equation)
+const Modal = dynamic(
+  () => import('react-notion-x/third-party/modal').then((m) => m.Modal),
+  {
+    ssr: false
+  }
 )
 
 export const NotionPage = ({
@@ -146,9 +142,9 @@ export const NotionPage = ({
           },
           code: Code,
           collection: Collection,
-          collectionRow: CollectionRow,
           equation: Equation,
           pdf: Pdf,
+          modal: Modal,
           tweet: Tweet
         }}
       />

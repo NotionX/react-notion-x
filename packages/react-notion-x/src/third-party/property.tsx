@@ -4,12 +4,12 @@ import formatNumber from 'format-number'
 import { format } from 'date-fns'
 
 import { cs } from '../utils'
-import { Checkbox } from './checkbox'
 import { useNotionContext } from '../context'
-import { Text } from './text'
 import { evalFormula } from '../eval-formula'
-import { PageTitle } from './page-title'
-import { GracefulImage } from './graceful-image'
+import { Checkbox } from '../components/checkbox'
+import { Text } from '../components/text'
+import { PageTitle } from '../components/page-title'
+import { GracefulImage } from '../components/graceful-image'
 
 /**
  * Renders a single value of structured Notion data according to its schema.

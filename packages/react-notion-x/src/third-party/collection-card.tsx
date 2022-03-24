@@ -6,7 +6,7 @@ import { CollectionCardProps } from '../types'
 import { Property } from './property'
 import { cs } from '../utils'
 import { useNotionContext, dummyLink, NotionContextProvider } from '../context'
-import { LazyImage } from './lazy-image'
+import { LazyImage } from '../components/lazy-image'
 
 export const CollectionCard: React.FC<CollectionCardProps> = ({
   collection,

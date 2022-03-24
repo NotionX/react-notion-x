@@ -1,8 +1,6 @@
 import React from 'react'
-// import throttle from 'lodash.throttle'
 import {
   getBlockIcon,
-  getBlockTitle,
   getTextContent,
   getPageTableOfContents,
   getBlockParentPage,
@@ -12,12 +10,12 @@ import * as types from 'notion-types'
 
 import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
+import { PageAside } from './components/page-aside'
 import { LinkIcon } from './icons/link-icon'
 import { Header } from './components/header'
 import { GoogleDrive } from './components/google-drive'
 import { Audio } from './components/audio'
 import { File } from './components/file'
-import { Equation } from './components/equation'
 import { GracefulImage } from './components/graceful-image'
 import { LazyImage } from './components/lazy-image'
 import { useNotionContext } from './context'
@@ -45,6 +43,7 @@ interface BlockProps {
   disableHeader?: boolean
 }
 
+// TODO: use react state instead of a global for this
 const tocIndentLevelCache: {
   [blockId: string]: number
 } = {}
@@ -64,8 +63,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     defaultPageCoverPosition
   } = useNotionContext()
 
-  // const [activeSection, setActiveSection] = React.useState(null)
-  // const [hasToc, setHasToc] = React.useState(false)
+  const [activeSection, setActiveSection] = React.useState(null)
 
   const {
     block,
@@ -82,56 +80,6 @@ export const Block: React.FC<BlockProps> = (props) => {
     hideBlockId,
     disableHeader
   } = props
-
-  // TODO
-  // React.useEffect(() => {
-  //   if (!hasToc) {
-  //     return
-  //   }
-
-  //   const throttleMs = 100
-
-  //   const actionSectionScrollSpy = throttle(() => {
-  //     const sections = document.getElementsByClassName('notion-h')
-
-  //     let prevBBox: DOMRect = null
-  //     let currentSectionId = activeSection
-
-  //     for (let i = 0; i < sections.length; ++i) {
-  //       const section = sections[i]
-  //       if (!section || !(section instanceof Element)) continue
-
-  //       if (!currentSectionId) {
-  //         currentSectionId = section.getAttribute('data-id')
-  //       }
-
-  //       const bbox = section.getBoundingClientRect()
-  //       const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
-  //       const offset = Math.max(150, prevHeight / 4)
-
-  //       // GetBoundingClientRect returns values relative to the viewport
-  //       if (bbox.top - offset < 0) {
-  //         currentSectionId = section.getAttribute('data-id')
-
-  //         prevBBox = bbox
-  //         continue
-  //       }
-
-  //       // No need to continue loop, if last element has been detected
-  //       break
-  //     }
-
-  //     setActiveSection(currentSectionId)
-  //   }, throttleMs)
-
-  //   window.addEventListener('scroll', actionSectionScrollSpy)
-
-  //   actionSectionScrollSpy()
-
-  //   return () => {
-  //     window.removeEventListener('scroll', actionSectionScrollSpy)
-  //   }
-  // }, [hasToc, activeSection])
 
   if (!block) {
     return null
@@ -181,11 +129,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           const hasToc =
             showTableOfContents && toc.length >= minTableOfContentsItems
           const hasAside = (hasToc || pageAside) && !page_full_width
-
           const hasPageCover = pageCover || page_cover
-
-          // TODO
-          const activeSection = null
 
           return (
             <div
@@ -251,12 +195,9 @@ export const Block: React.FC<BlockProps> = (props) => {
                       <Text value={properties?.title} block={block} />
                     </h1>
 
-                    {block.type === 'page' &&
-                      block.parent_table === 'collection' && (
-                        <components.collectionRow block={block} />
-                      )}
-
-                    {block.type === 'collection_view_page' && (
+                    {(block.type === 'collection_view_page' ||
+                      (block.type === 'page' &&
+                        block.parent_table === 'collection')) && (
                       <components.collection block={block} />
                     )}
 
@@ -272,51 +213,13 @@ export const Block: React.FC<BlockProps> = (props) => {
                       </article>
 
                       {hasAside && (
-                        <aside className='notion-aside'>
-                          {hasToc && (
-                            <div className='notion-aside-table-of-contents'>
-                              <div className='notion-aside-table-of-contents-header'>
-                                Table of Contents
-                              </div>
-
-                              <nav
-                                className={cs(
-                                  'notion-table-of-contents',
-                                  !darkMode && 'notion-gray'
-                                )}
-                              >
-                                {toc.map((tocItem) => {
-                                  const id = uuidToId(tocItem.id)
-
-                                  return (
-                                    <a
-                                      key={id}
-                                      href={`#${id}`}
-                                      className={cs(
-                                        'notion-table-of-contents-item',
-                                        `notion-table-of-contents-item-indent-level-${tocItem.indentLevel}`,
-                                        activeSection === id &&
-                                          'notion-table-of-contents-active-item'
-                                      )}
-                                    >
-                                      <span
-                                        className='notion-table-of-contents-item-body'
-                                        style={{
-                                          display: 'inline-block',
-                                          marginLeft: tocItem.indentLevel * 16
-                                        }}
-                                      >
-                                        {tocItem.text}
-                                      </span>
-                                    </a>
-                                  )
-                                })}
-                              </nav>
-                            </div>
-                          )}
-
-                          {pageAside}
-                        </aside>
+                        <PageAside
+                          toc={toc}
+                          activeSection={activeSection}
+                          setActiveSection={setActiveSection}
+                          hasToc={hasToc}
+                          pageAside={pageAside}
+                        />
                       )}
                     </div>
 
@@ -346,11 +249,9 @@ export const Block: React.FC<BlockProps> = (props) => {
 
               {pageHeader}
 
-              {block.type === 'page' && block.parent_table === 'collection' && (
-                <components.collectionRow block={block} />
-              )}
-
-              {block.type === 'collection_view_page' && (
+              {(block.type === 'collection_view_page' ||
+                (block.type === 'page' &&
+                  block.parent_table === 'collection')) && (
                 <components.collection block={block} />
               )}
 
@@ -588,38 +489,17 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'file':
       return <File block={block as types.FileBlock} className={blockId} />
 
-    case 'equation': {
-      const math = block.properties.title[0][0]
-      if (!math) return null
-      return <Equation math={math} block className={blockId} />
-    }
+    case 'equation':
+      return (
+        <components.equation
+          block={block as types.EquationBlock}
+          inline={false}
+          className={blockId}
+        />
+      )
 
-    case 'code': {
-      if (block.properties.title) {
-        const content = getBlockTitle(block, recordMap)
-        const language = block.properties.language
-          ? block.properties.language[0][0]
-          : ''
-        const caption = block.properties.caption
-
-        // TODO: add className
-        return (
-          <>
-            <components.code
-              key={block.id}
-              language={language || ''}
-              code={content}
-            />
-            {caption && (
-              <figcaption className='notion-asset-caption'>
-                <Text value={caption} block={block} />
-              </figcaption>
-            )}
-          </>
-        )
-      }
-      break
-    }
+    case 'code':
+      return <components.code block={block as types.CodeBlock} />
 
     case 'column_list':
       return <div className={cs('notion-row', blockId)}>{children}</div>
