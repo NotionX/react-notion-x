@@ -107,7 +107,7 @@ import { Pdf } from 'react-notion-x/build/esm/third-party/pdf'
 
 Note that we strongly recommend lazy-loading these components unless you know you'll need them up front for your use case.
 
-If you're using Next.js, you can use [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) to lazily load them only if the notion content actually uses them. This keeps the initial page bundle small and your web vitals score happy.
+If you're using Next.js, you can use [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) to lazily load them. If your notion content doesn't use one of these heavyweight components, then it wont't get loaded into your page. This keeps the initial page bundle small and your website feeling snappy.
 
 ```tsx
 import dynamic from 'next/dynamic'
@@ -140,7 +140,7 @@ const Modal = dynamic(
 )
 ```
 
-By default, all of the optional components don't render anything, so you'll need to enable them by passing them to the `components` prop of `NotionRenderer`.
+You'll need to enable them by passing them to the `components` prop of `NotionRenderer`.
 
 ```tsx
 export default ({ recordMap }) => (
