@@ -133,26 +133,26 @@ const Modal = dynamic(
     ssr: false
   }
 )
-
-// ...
-
-function Example() {
-  return (
-    <NotionRenderer
-      components={{
-        code: Code,
-        collection: Collection,
-        equation: Equation,
-        modal: Modal,
-        pdf: Pdf
-      }}
-      recordMap={/* TODO */}
-    />
-  )
-}
 ```
 
-If you're using one of these optional components, make sure you're also importing any related third-party CSS (see [above](#Styles)).
+By default, all of the optional components don't render anything, so you'll need to enable them by passing them to the `components` prop of `NotionRenderer`.
+
+```tsx
+export default ({ recordMap }) => (
+  <NotionRenderer
+    recordMap={recordMap}
+    components={{
+      code: Code,
+      collection: Collection,
+      equation: Equation,
+      modal: Modal,
+      pdf: Pdf
+    }}
+  />
+)
+```
+
+For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
 
 ## Next.js Examples
 
