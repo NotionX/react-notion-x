@@ -95,14 +95,14 @@ import 'react-static-tweets/styles.css'
 
 The default imports from `react-notion-x` strive to be as lightweight as possible. Most blocks will render just fine, but some larger blocks like PDFs and collection views (database views) are not included by default.
 
-To use them, you'll need to import the ones you want from `react-notion-x/build/third-party/*`:
+To use them, you'll need to import the ones you want from `react-notion-x/build/esm/third-party/*`:
 
 ```tsx
-import { Code } from 'react-notion-x/build/third-party/code'
-import { Collection } from 'react-notion-x/build/third-party/collection'
-import { Equation } from 'react-notion-x/build/third-party/equation'
-import { Modal } from 'react-notion-x/build/third-party/modal'
-import { Pdf } from 'react-notion-x/build/third-party/pdf'
+import { Code } from 'react-notion-x/build/esm/third-party/code'
+import { Collection } from 'react-notion-x/build/esm/third-party/collection'
+import { Equation } from 'react-notion-x/build/esm/third-party/equation'
+import { Modal } from 'react-notion-x/build/esm/third-party/modal'
+import { Pdf } from 'react-notion-x/build/esm/third-party/pdf'
 ```
 
 Note that we strongly recommend lazy-loading these components unless you know you'll need them up front for your use case.
@@ -113,24 +113,27 @@ If you're using Next.js, you can use [next/dynamic](https://nextjs.org/docs/adva
 import dynamic from 'next/dynamic'
 
 const Collection = dynamic(() =>
-  import('react-notion-x/build/third-party/collection').then(
+  import('react-notion-x/build/esm/third-party/collection').then(
     (m) => m.Collection
   )
 )
 const Code = dynamic(() =>
-  import('react-notion-x/build/third-party/code').then((m) => m.Code)
+  import('react-notion-x/build/esm/third-party/code').then((m) => m.Code)
 )
 const Equation = dynamic(() =>
-  import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
+  import('react-notion-x/build/esm/third-party/equation').then(
+    (m) => m.Equation
+  )
 )
 const Pdf = dynamic(
-  () => import('react-notion-x/build/third-party/pdf').then((m) => m.Pdf),
+  () => import('react-notion-x/build/esm/third-party/pdf').then((m) => m.Pdf),
   {
     ssr: false
   }
 )
 const Modal = dynamic(
-  () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
+  () =>
+    import('react-notion-x/build/esm/third-party/modal').then((m) => m.Modal),
   {
     ssr: false
   }
