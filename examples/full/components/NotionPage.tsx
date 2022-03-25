@@ -3,11 +3,14 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 import { Tweet, TwitterContextProvider } from 'react-static-tweets'
+
+import { Loading } from './Loading'
 
 // -----------------------------------------------------------------------------
 // dynamic imports for optional components
@@ -48,6 +51,12 @@ export const NotionPage = ({
   rootPageId?: string
   rootDomain?: string
 }) => {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <Loading />
+  }
+
   if (!recordMap) {
     return null
   }
