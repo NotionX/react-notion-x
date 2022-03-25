@@ -6,18 +6,10 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "main": "./build/index.cjs",
-  "module": "./build/index.module.js",
-  "typings": "./build/index.d.ts",
+  "module": "./build/esm/index.js",
+  "typings": "./build/esm/index.d.ts",
   "sideEffects": false,
   "engines": {
     "node": ">=12"
-  },
-  "scripts": {
-    "build": "microbundle -f cjs,esm --no-compress --target node",
-    "watch": "microbundle -f cjs,esm --no-compress --watch"
-  },
-  "devDependencies": {
-    "microbundle": "^0.14.2"
   }
 }

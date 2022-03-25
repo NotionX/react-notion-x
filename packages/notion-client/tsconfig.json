@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.base",
   "compilerOptions": {
     "composite": true,
-    "rootDir": "src"
+    "rootDir": "src",
+    "outDir": "build/esm"
   },
   "include": ["src"],
   "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]

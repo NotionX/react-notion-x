@@ -13,8 +13,8 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "lerna run build --parallel --no-private",
-    "start": "lerna run watch --parallel --no-private",
+    "build": "tsc --build tsconfig.json",
+    "start": "tsc --build tsconfig.json --watch",
     "prebuild": "run-s clean",
     "prestart": "run-s clean",
     "clean": "del packages/*/build",

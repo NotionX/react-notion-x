@@ -3,6 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
+    "outDir": "build/esm",
     "lib": ["DOM", "ESNext"],
     "noImplicitReturns": false,
     "skipLibCheck": true,

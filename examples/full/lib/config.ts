@@ -7,11 +7,11 @@ export const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
 // NOTE: having this enabled can be pretty expensive as it re-generates preview
 // images each time a page is built. In a production setting, we recommend that
 // you cache the preview image results in a key-value database.
-export const previewImagesEnabled = false
+export const previewImagesEnabled = true
 
 // whether we should enable static tweet embeds (requires fetching extra info at
 // build time)
-export const tweetEmbedsEnabled = false
+export const tweetEmbedsEnabled = true
 
 export const isDev =
   process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
