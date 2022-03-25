@@ -23,8 +23,6 @@
     "notion-types": "^5.0.1",
     "notion-utils": "^5.0.1",
     "prismjs": "^1.27.0",
-    "rc-dropdown": "^3.1.2",
-    "rc-menu": "^9.0.14",
     "react-hotkeys-hook": "^3.0.3",
     "react-image": "^4.0.3",
     "react-lazy-images": "^1.1.0",
@@ -40,7 +38,17 @@
     "react-dom": "^17.0.2"
   },
   "peerDependencies": {
+    "rc-dropdown": "^3.3.3",
+    "rc-menu": "^9.5.1",
     "react": ">=16",
     "react-dom": ">=16"
+  },
+  "peerDependenciesMeta": {
+    "rc-dropdown": {
+      "optional": true
+    },
+    "rc-menu": {
+      "optional": true
+    }
   }
 }
