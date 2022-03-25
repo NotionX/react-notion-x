@@ -7,8 +7,7 @@
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "source": "./src/index.tsx",
-  "main": "./build/index.js",
-  "module": "./build/index.modern.js",
+  "module": "./build/index.js",
   "typings": "./build/index.d.ts",
   "sideEffects": false,
   "engines": {
@@ -16,7 +15,7 @@
   },
   "scripts": {
     "build": "run-s build:*",
-    "build:index": "microbundle -f cjs,esm --no-compress",
+    "build:index": "microbundle -f esm --no-compress",
     "build:code": "microbundle -f esm --no-compress -i src/third-party/code.tsx -o build/third-party/code.js --no-pkg-main",
     "build:collection": "microbundle -f esm --no-compress -i src/third-party/collection.tsx -o build/third-party/collection.js --no-pkg-main",
     "build:equation": "microbundle -f esm --no-compress -i src/third-party/equation.tsx -o build/third-party/equation.js --no-pkg-main",

@@ -7,13 +7,12 @@
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "source": "./src/index.ts",
-  "main": "./build/index.js",
-  "module": "./build/index.modern.js",
+  "module": "./build/index.js",
   "typings": "./build/index.d.ts",
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
-      "default": "./build/index.modern.js"
+      "default": "./build/index.js"
     }
   },
   "sideEffects": false,

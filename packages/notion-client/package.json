@@ -7,15 +7,14 @@
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "source": "./src/index.ts",
-  "main": "./build/index.js",
-  "module": "./build/index.modern.js",
+  "module": "./build/index.js",
   "typings": "./build/index.d.ts",
   "sideEffects": false,
   "engines": {
     "node": ">=12"
   },
   "scripts": {
-    "build": "microbundle -f cjs,esm --no-compress",
+    "build": "microbundle -f esm --no-compress",
     "test": "ava 'build/**/*.test.js'"
   },
   "dependencies": {
