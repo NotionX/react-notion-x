@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsup",
     "watch": "tsup --watch --silent",
-    "test": "ava 'build/**/*.test.js'"
+    "test": "ava"
   },
   "dependencies": {
     "got": "^11.8.1",
@@ -25,7 +25,12 @@
   },
   "ava": {
     "snapshotDir": ".snapshots",
+    "extensions": {
+      "ts": "module"
+    },
     "nodeArguments": [
+      "--loader=ts-node/esm",
+      "--no-warnings",
       "--experimental-specifier-resolution=node"
     ]
   }
