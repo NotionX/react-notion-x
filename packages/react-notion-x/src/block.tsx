@@ -51,6 +51,7 @@ const tocIndentLevelCache: {
 } = {}
 
 export const Block: React.FC<BlockProps> = (props) => {
+  const ctx = useNotionContext()
   const {
     components,
     fullPage,
@@ -63,7 +64,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     defaultPageIcon,
     defaultPageCover,
     defaultPageCoverPosition
-  } = useNotionContext()
+  } = ctx
 
   const [activeSection, setActiveSection] = React.useState(null)
 
@@ -200,7 +201,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                     {(block.type === 'collection_view_page' ||
                       (block.type === 'page' &&
                         block.parent_table === 'collection')) && (
-                      <components.Collection block={block} />
+                      <components.Collection block={block} ctx={ctx} />
                     )}
 
                     <div
@@ -255,7 +256,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               {(block.type === 'collection_view_page' ||
                 (block.type === 'page' &&
                   block.parent_table === 'collection')) && (
-                <components.Collection block={block} />
+                <components.Collection block={block} ctx={ctx} />
               )}
 
               {children}
@@ -550,7 +551,9 @@ export const Block: React.FC<BlockProps> = (props) => {
     }
 
     case 'collection_view':
-      return <components.Collection block={block} className={blockId} />
+      return (
+        <components.Collection block={block} className={blockId} ctx={ctx} />
+      )
 
     case 'callout':
       if (components.Callout) {

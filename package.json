@@ -14,16 +14,20 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "start": "tsc --build tsconfig.json --watch",
+    "build": "run-s build:*",
+    "build:tsc": "tsc --build",
+    "build:tsup": "lerna run build --no-private",
+    "watch": "run-p watch:* --continue-on-error",
+    "watch:tsc": "tsc --build --watch  --preserveWatchOutput",
+    "watch:tsup": "lerna run watch --no-private --parallel",
+    "dev": "run-s watch",
     "prebuild": "run-s clean",
-    "prestart": "run-s clean",
+    "prewatch": "run-s clean",
     "clean": "del packages/*/build",
-    "dev": "run-s start",
     "pretest": "run-s build",
     "test": "run-p test:*",
     "test:unit": "lerna run test",
-    "test:lint": "eslint '**/*.{ts,tsx}'",
+    "test:eslint": "eslint '**/*.{ts,tsx}'",
     "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
     "bootstrap": "lerna bootstrap",
     "publish": "run-s build publish:lerna",
@@ -48,6 +52,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.0",
     "ts-node": "^10.7.0",
+    "tsup": "^5.12.1",
     "typescript": "^4.6.2"
   },
   "lint-staged": {

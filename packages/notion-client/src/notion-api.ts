@@ -1,3 +1,4 @@
+// import { promises as fs } from 'fs'
 import got, { OptionsOfJSONResponseBody } from 'got'
 import pMap from 'p-map'
 
@@ -158,6 +159,7 @@ export class NotionAPI {
             // It's possible for public pages to link to private collections, in which case
             // Notion returns a 400 error
             console.warn('NotionAPI collectionQuery error', err.message)
+            console.error(err)
           }
         },
         {
@@ -309,6 +311,7 @@ export class NotionAPI {
           loadContentCover
         }
       },
+      sort: [],
       ...collectionView?.query2,
       searchQuery,
       userTimeZone
@@ -336,6 +339,7 @@ export class NotionAPI {
           property,
           value: { value, type }
         } = group
+
         for (const iterator of iterators) {
           const iteratorProps =
             iterator === 'results'
@@ -407,6 +411,20 @@ export class NotionAPI {
         userTimeZone
       }
     }
+
+    // console.log(
+    //   JSON.stringify(
+    //     {
+    //       collectionId,
+    //       collectionViewId,
+    //       loader,
+    //       groupBy: groupBy || 'NONE',
+    //       collectionViewQuery: collectionView.query2 || 'NONE'
+    //     },
+    //     null,
+    //     2
+    //   )
+    // )
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',

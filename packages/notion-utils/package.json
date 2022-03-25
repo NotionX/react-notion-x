@@ -6,19 +6,21 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "module": "./build/esm/index.js",
-  "typings": "./build/esm/index.d.ts",
-  "sideEffects": false,
+  "module": "./build/index.js",
+  "typings": "./build/index.d.ts",
   "exports": {
     ".": {
-      "types": "./build/esm/index.d.ts",
-      "default": "./build/esm/index.js"
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
     }
   },
+  "sideEffects": false,
   "engines": {
     "node": ">=12"
   },
   "scripts": {
+    "build": "tsup",
+    "watch": "tsup --watch --silent",
     "test": "ava"
   },
   "dependencies": {
