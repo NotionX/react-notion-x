@@ -220,6 +220,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                           activeSection={activeSection}
                           setActiveSection={setActiveSection}
                           hasToc={hasToc}
+                          hasAside={hasAside}
                           pageAside={pageAside}
                         />
                       )}

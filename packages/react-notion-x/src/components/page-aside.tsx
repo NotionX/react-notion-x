@@ -9,9 +9,9 @@ export const PageAside: React.FC<{
   toc: Array<TableOfContentsEntry>
   activeSection: string | null
   setActiveSection: (activeSection: string | null) => unknown
+  hasToc: boolean
+  hasAside: boolean
   pageAside?: React.ReactNode
-  hasToc?: boolean
-  hasAside?: boolean
   className?: string
 }> = ({
   toc,
