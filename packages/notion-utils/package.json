@@ -9,17 +9,31 @@
   "module": "./build/esm/index.js",
   "typings": "./build/esm/index.d.ts",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./build/esm/index.d.ts",
+      "default": "./build/esm/index.js"
+    }
+  },
   "engines": {
     "node": ">=12"
   },
   "scripts": {
-    "test": "ava -v 'build/cjs/**/*.test.js'"
+    "test": "ava"
   },
   "dependencies": {
     "notion-types": "^5.0.1",
     "p-queue": "^7.2.0"
   },
-  "devDependencies": {
-    "ava": "^3.15.0"
+  "ava": {
+    "snapshotDir": ".snapshots",
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm",
+      "--no-warnings",
+      "--experimental-specifier-resolution=node"
+    ]
   }
 }

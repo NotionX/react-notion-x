@@ -13,7 +13,7 @@
     "node": ">=12"
   },
   "scripts": {
-    "test": "ava -v 'build/cjs/**/*.test.js'"
+    "test": "ava 'build/esm/**/*.test.js'"
   },
   "dependencies": {
     "got": "^11.8.1",
@@ -21,7 +21,10 @@
     "notion-utils": "^5.0.1",
     "p-map": "^5.3.0"
   },
-  "devDependencies": {
-    "ava": "^3.15.0"
+  "ava": {
+    "snapshotDir": ".snapshots",
+    "nodeArguments": [
+      "--experimental-specifier-resolution=node"
+    ]
   }
 }
