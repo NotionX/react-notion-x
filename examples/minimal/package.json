@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-minimal",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "private": true,
   "type": "commonjs",
   "scripts": {
