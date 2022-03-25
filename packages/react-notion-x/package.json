@@ -6,11 +6,22 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "module": "./build/esm/index.js",
-  "typings": "./build/esm/index.d.ts",
+  "source": "./src/index.tsx",
+  "main": "./build/index.js",
+  "module": "./build/index.modern.js",
+  "typings": "./build/index.d.ts",
   "sideEffects": false,
   "engines": {
     "node": ">=12"
+  },
+  "scripts": {
+    "build": "run-s build:*",
+    "build:index": "microbundle -f cjs,esm --no-compress",
+    "build:code": "microbundle -f esm --no-compress -i src/third-party/code.tsx -o build/third-party/code.js --no-pkg-main",
+    "build:collection": "microbundle -f esm --no-compress -i src/third-party/collection.tsx -o build/third-party/collection.js --no-pkg-main",
+    "build:equation": "microbundle -f esm --no-compress -i src/third-party/equation.tsx -o build/third-party/equation.js --no-pkg-main",
+    "build:modal": "microbundle -f esm --no-compress -i src/third-party/modal.tsx -o build/third-party/modal.js --no-pkg-main",
+    "build:pdf": "microbundle -f esm --no-compress -i src/third-party/pdf.tsx -o build/third-party/pdf.js --no-pkg-main"
   },
   "dependencies": {
     "@matejmazur/react-katex": "^3.1.3",

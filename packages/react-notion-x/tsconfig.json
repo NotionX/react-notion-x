@@ -3,11 +3,13 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
-    "outDir": "build/esm",
+    "outDir": "build",
     "lib": ["DOM", "ESNext"],
     "noImplicitReturns": false,
     "skipLibCheck": true,
-    "jsx": "react"
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment"
   },
   "include": ["src"],
   "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]

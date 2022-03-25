@@ -3,7 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
-    "outDir": "build/esm"
+    "outDir": "build"
   },
   "include": ["src"],
   "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]
