@@ -20,7 +20,7 @@
     "node": ">=12"
   },
   "scripts": {
-    "build": "microbundle -f cjs,esm --no-compress",
+    "build": "microbundle -f esm --no-compress -i src/index.ts -o build/index.js --no-pkg-main",
     "test": "ava"
   },
   "dependencies": {

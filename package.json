@@ -38,6 +38,7 @@
     "@typescript-eslint/parser": "^5.15.0",
     "ava": "^4.1.0",
     "del-cli": "^4.0.1",
+    "esbuild": "^0.14.27",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react": "^7.29.4",
