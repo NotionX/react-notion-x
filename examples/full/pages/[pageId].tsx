@@ -27,7 +27,8 @@ export const getStaticProps = async (context) => {
 }
 
 export async function getStaticPaths() {
-  if (isDev) {
+  const no = true
+  if (isDev || no) {
     return {
       paths: [],
       fallback: true

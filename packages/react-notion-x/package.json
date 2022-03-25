@@ -6,7 +6,6 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "source": "./src/index.tsx",
   "module": "./build/index.js",
   "typings": "./build/index.d.ts",
   "sideEffects": false,
@@ -14,13 +13,13 @@
     "node": ">=12"
   },
   "scripts": {
-    "build": "run-s build:*",
-    "build:index": "microbundle -f esm --no-compress -i src/index.tsx -o build/index.js --no-pkg-main",
-    "build:code": "microbundle -f esm --no-compress -i src/third-party/code.tsx -o build/third-party/code.js --no-pkg-main",
-    "build:collection": "microbundle -f esm --no-compress -i src/third-party/collection.tsx -o build/third-party/collection.js --no-pkg-main",
-    "build:equation": "microbundle -f esm --no-compress -i src/third-party/equation.tsx -o build/third-party/equation.js --no-pkg-main",
-    "build:modal": "microbundle -f esm --no-compress -i src/third-party/modal.tsx -o build/third-party/modal.js --no-pkg-main",
-    "build:pdf": "microbundle -f esm --no-compress -i src/third-party/pdf.tsx -o build/third-party/pdf.js --no-pkg-main"
+    "bundle": "run-s bundle:*",
+    "bundle:index": "esbuild src/index.tsx --bundle --outdir=build --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
+    "bundle:code": "esbuild src/third-party/code.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
+    "bundle:collection": "esbuild src/third-party/collection.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
+    "bundle:equation": "esbuild src/third-party/equation.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
+    "bundle:modal": "esbuild src/third-party/modal.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
+    "bundle:pdf": "esbuild src/third-party/pdf.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*"
   },
   "dependencies": {
     "@matejmazur/react-katex": "^3.1.3",

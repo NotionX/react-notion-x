@@ -4,9 +4,8 @@
     "composite": true,
     "rootDir": "src",
     "outDir": "build",
-    "paths": {
-      "notion-types": ["../notion-types"]
-    }
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "emitDeclarationOnly": true
   },
   "include": ["src"],
   "references": [{ "path": "../notion-types" }]

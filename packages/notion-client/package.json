@@ -6,7 +6,6 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "source": "./src/index.ts",
   "module": "./build/index.js",
   "typings": "./build/index.d.ts",
   "sideEffects": false,
@@ -14,7 +13,7 @@
     "node": ">=12"
   },
   "scripts": {
-    "build": "microbundle -f esm --no-compress -i src/index.ts -o build/index.js --no-pkg-main",
+    "bundle": "esbuild src/index.ts --bundle --outdir=build --format=esm --sourcemap --target=node12 --platform=node --external:./node_modules/*",
     "test": "ava 'build/**/*.test.js'"
   },
   "dependencies": {

@@ -4,6 +4,8 @@
     "composite": true,
     "rootDir": "src",
     "outDir": "build",
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "emitDeclarationOnly": true,
     "lib": ["DOM", "ESNext"],
     "noImplicitReturns": false,
     "skipLibCheck": true,
