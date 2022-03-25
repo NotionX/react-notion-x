@@ -1,3 +1,4 @@
+// import { promises as fs } from 'fs'
 import got, { OptionsOfJSONResponseBody } from 'got'
 import pMap from 'p-map'
 
@@ -310,6 +311,7 @@ export class NotionAPI {
           loadContentCover
         }
       },
+      sort: [],
       ...collectionView?.query2,
       searchQuery,
       userTimeZone
@@ -409,6 +411,20 @@ export class NotionAPI {
         userTimeZone
       }
     }
+
+    // console.log(
+    //   JSON.stringify(
+    //     {
+    //       collectionId,
+    //       collectionViewId,
+    //       loader,
+    //       groupBy: groupBy || 'NONE',
+    //       collectionViewQuery: collectionView.query2 || 'NONE'
+    //     },
+    //     null,
+    //     2
+    //   )
+    // )
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',

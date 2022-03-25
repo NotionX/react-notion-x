@@ -10,7 +10,11 @@ import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
 import { PageIcon } from '../components/page-icon'
-import { useNotionContext } from '../context'
+import {
+  NotionContext,
+  NotionContextProvider,
+  useNotionContext
+} from '../context'
 import { cs } from '../utils'
 
 const isServer = typeof window === 'undefined'
@@ -22,17 +26,37 @@ export const Collection: React.FC<{
     | types.CollectionViewPageBlock
     | types.PageBlock
   className?: string
-}> = ({ block, className }) => {
+  ctx: NotionContext
+}> = ({ block, className, ctx }) => {
+  /**
+   * NOTE: there is a weird oddity of us using multiple bundles for collections,
+   * where `useNotionContext` returns a *different* context than for the main
+   * bundle.
+   *
+   * This is due to `React.createContext` being called in each bundle which includes
+   * `../context.ts`.
+   *
+   * To circumvent this issue, we're passing the context value directly to
+   * `Collection` so all children have the correct context values.
+   */
+  // console.log('Collection', Object.keys(recordMap.block).length)
+
   if (block.type === 'page') {
     if (block.parent_table !== 'collection') {
       return null
     }
 
     return (
-      <CollectionRow block={block as types.PageBlock} className={className} />
+      <NotionContextProvider {...ctx}>
+        <CollectionRow block={block as types.PageBlock} className={className} />
+      </NotionContextProvider>
     )
   } else {
-    return <CollectionViewBlock block={block} className={className} />
+    return (
+      <NotionContextProvider {...ctx}>
+        <CollectionViewBlock block={block} className={className} />
+      </NotionContextProvider>
+    )
   }
 }
 
@@ -90,7 +114,13 @@ const CollectionViewBlock: React.FC<{
     recordMap.collection_query[collectionId]?.[collectionViewId]
 
   if (!(collection && collectionView && collectionData)) {
-    console.log('skipping missing collection view for block', block.id)
+    console.warn('skipping missing collection view for block', block.id, {
+      collectionId,
+      collectionViewId,
+      collectionView,
+      collectionData,
+      recordMap
+    })
     return null
   }
 
