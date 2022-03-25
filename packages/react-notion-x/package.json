@@ -13,13 +13,8 @@
     "node": ">=12"
   },
   "scripts": {
-    "bundle": "run-s bundle:*",
-    "bundle:index": "esbuild src/index.tsx --bundle --outdir=build --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
-    "bundle:code": "esbuild src/third-party/code.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
-    "bundle:collection": "esbuild src/third-party/collection.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
-    "bundle:equation": "esbuild src/third-party/equation.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
-    "bundle:modal": "esbuild src/third-party/modal.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*",
-    "bundle:pdf": "esbuild src/third-party/pdf.tsx --bundle --outdir=build/third-party --format=esm --sourcemap --target=es2015 --external:./node_modules/*"
+    "build": "tsup",
+    "watch": "tsup --watch --silent"
   },
   "dependencies": {
     "@matejmazur/react-katex": "^3.1.3",

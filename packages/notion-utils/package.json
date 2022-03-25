@@ -19,7 +19,8 @@
     "node": ">=12"
   },
   "scripts": {
-    "bundle": "esbuild src/index.ts --bundle --outdir=build --format=esm --sourcemap --external:./node_modules/*",
+    "build": "tsup",
+    "watch": "tsup --watch --silent",
     "test": "ava"
   },
   "dependencies": {
