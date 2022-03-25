@@ -1,6 +1,7 @@
 {
   "name": "notion",
   "private": true,
+  "type": "module",
   "description": "Fast and accurate React renderer for Notion. TS batteries included.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
@@ -15,13 +16,8 @@
   "scripts": {
     "build": "tsc --build tsconfig.json",
     "start": "tsc --build tsconfig.json --watch",
-    "prebuild": "run-s clean cp",
-    "prestart": "run-s clean cp",
-    "cp": "run-p cp:*",
-    "cp:react-notion-x": "mkdir -p packages/react-notion-x/build/esm && echo '{ \"type\": \"module\" }' > packages/react-notion-x/build/esm/package.json",
-    "cp:notion-utils": "mkdir -p packages/notion-utils/build/esm && echo '{ \"type\": \"module\" }' > packages/notion-utils/build/esm/package.json",
-    "cp:notion-types": "mkdir -p packages/notion-types/build/esm && echo '{ \"type\": \"module\" }' > packages/notion-types/build/esm/package.json",
-    "cp:notion-client": "mkdir -p packages/notion-client/build/esm && echo '{ \"type\": \"module\" }' > packages/notion-client/build/esm/package.json",
+    "prebuild": "run-s clean",
+    "prestart": "run-s clean",
     "clean": "del packages/*/build",
     "dev": "run-s start",
     "pretest": "run-s build",
@@ -29,9 +25,6 @@
     "test:unit": "lerna run test",
     "test:lint": "eslint '**/*.{ts,tsx}'",
     "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
-    "docs": "run-s docs:extract docs:generate",
-    "docs:extract": "lerna exec --ignore react-notion-x --ignore notion-x-example-minimal notion-x-example-full api-extractor run",
-    "docs:generate": "api-documenter markdown -i build -o docs",
     "bootstrap": "lerna bootstrap",
     "publish": "run-s build publish:lerna",
     "publish:lerna": "lerna publish",
@@ -41,10 +34,9 @@
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "^7.13.63",
-    "@microsoft/api-extractor": "^7.18.16",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
+    "ava": "^4.1.0",
     "del-cli": "^4.0.1",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
@@ -55,6 +47,7 @@
     "lint-staged": "^12.3.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.0",
+    "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
   },
   "lint-staged": {

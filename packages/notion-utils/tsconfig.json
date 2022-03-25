@@ -4,7 +4,6 @@
     "composite": true,
     "rootDir": "src",
     "outDir": "build/esm",
-    "tsBuildInfoFile": "build/esm/index.tsbuildinfo",
     "paths": {
       "notion-types": ["../notion-types"]
     }

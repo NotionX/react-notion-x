@@ -1,5 +1,6 @@
 import React from 'react'
 import { ExtendedRecordMap } from 'notion-types'
+import { wrapNextImage, wrapNextLink } from './next'
 
 import {
   MapPageUrl,
@@ -87,14 +88,14 @@ const defaultComponents: NotionComponents = {
   PageLink: DefaultPageLink,
   Checkbox: DefaultCheckbox,
 
-  Code: dummyComponent('code'),
-  Equation: dummyComponent('equation'),
+  Code: dummyComponent('Code'),
+  Equation: dummyComponent('Equation'),
 
-  Collection: dummyComponent('collection'),
+  Collection: dummyComponent('Collection'),
 
-  Pdf: dummyComponent('pdf'),
-  Tweet: dummyComponent('tweet'),
-  Modal: dummyComponent('modal')
+  Pdf: dummyComponent('Pdf'),
+  Tweet: dummyComponent('Tweet'),
+  Modal: dummyComponent('Modal')
 }
 
 const defaultNotionContext: NotionContext = {
@@ -145,6 +146,26 @@ export const NotionContextProvider: React.SFC<PartialNotionContext> = ({
     }
   }
 
+  const wrappedThemeComponents = {
+    ...themeComponents
+  }
+
+  if (wrappedThemeComponents.nextImage) {
+    wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
+  }
+
+  if (wrappedThemeComponents.nextLink) {
+    wrappedThemeComponents.nextLink = wrapNextLink(themeComponents.nextLink)
+  }
+
+  // ensure the user can't override default components with falsy values
+  // since it would result in very difficult-to-debug react errors
+  for (const key of Object.keys(wrappedThemeComponents)) {
+    if (!wrappedThemeComponents[key]) {
+      delete wrappedThemeComponents[key]
+    }
+  }
+
   return (
     <ctx.Provider
       value={{
@@ -153,7 +174,7 @@ export const NotionContextProvider: React.SFC<PartialNotionContext> = ({
         rootPageId,
         mapPageUrl: mapPageUrl ?? defaultMapPageUrl(rootPageId),
         mapImageUrl: mapImageUrl ?? defaultMapImageUrl,
-        components: { ...defaultComponents, ...themeComponents }
+        components: { ...defaultComponents, ...wrappedThemeComponents }
       }}
     >
       {children}

@@ -1,9 +1,10 @@
 import React from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
+import Image from 'next/image'
 import dynamic from 'next/dynamic'
 
 import { NotionRenderer } from 'react-notion-x'
-import { Image, PageLink } from 'react-notion-x/build/esm/third-party/next'
 import { ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 import { Tweet, TwitterContextProvider } from 'react-static-tweets'
@@ -114,10 +115,8 @@ export const NotionPage = ({
         rootPageId={rootPageId}
         previewImages={previewImagesEnabled}
         components={{
-          // NOTE: custom images will only take effect if previewImages is true and
-          // if the image has a valid preview image defined in recordMap.preview_images[src]
-          Image,
-          PageLink,
+          nextImage: Image,
+          nextLink: Link,
           Code,
           Collection,
           Equation,
@@ -125,6 +124,9 @@ export const NotionPage = ({
           Modal,
           Tweet
         }}
+
+        // NOTE: custom images will only take effect if previewImages is true and
+        // if the image has a valid preview image defined in recordMap.preview_images[src]
       />
     </TwitterContextProvider>
   )

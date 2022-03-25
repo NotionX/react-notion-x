@@ -3,9 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
-    "outDir": "build/esm",
-    "tsBuildInfoFile": "build/esm/index.tsbuildinfo",
-    "lib": ["ESNext"]
+    "outDir": "build/esm"
   },
   "include": ["src"],
   "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]

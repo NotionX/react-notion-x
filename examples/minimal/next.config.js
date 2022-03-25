@@ -1,6 +1,8 @@
-'use strict'
+import withBundleAnalyzer from '@next/bundle-analyzer'
 
-module.exports = {
+export default withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true'
+})({
   staticPageGenerationTimeout: 300,
   images: {
     domains: [
@@ -11,4 +13,4 @@ module.exports = {
     ],
     formats: ['image/avif', 'image/webp']
   }
-}
+})

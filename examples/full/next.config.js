@@ -1,10 +1,8 @@
-'use strict'
+import withBundleAnalyzer from '@next/bundle-analyzer'
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+export default withBundleAnalyzer({
   enabled: process.env.ANALYZE === 'true'
-})
-
-module.exports = withBundleAnalyzer({
+})({
   staticPageGenerationTimeout: 300,
   images: {
     domains: [

@@ -108,6 +108,20 @@ const CollectionViewBlock: React.FC<{
     }
   }
 
+  /**
+    TODO: this is hacky and really shouldn't be necessary, but when imported by
+    next.js 12 (webpack 5), the default exports from rc-dropdown and rc-menu are
+    replaced with commonjs equivalents `{ default: Dropdown }` instead of `Dropdown`
+    directly.
+
+    The safest fix would be to bundle the react-notion-x exports to prevent to
+    guarantee that all of its imports are handled as expected a library build tima,
+    but that will need to come in a later revision.
+  */
+  const DropdownSafe = (Dropdown as any).default ?? Dropdown
+  const MenuSafe = (Menu as any).default ?? Menu
+  // console.log('Collection', { Dropdown, Menu, MenuItem, DropdownSafe, MenuSafe })
+
   return (
     <div className={cs('notion-collection', className)}>
       <div className='notion-collection-header' style={style}>
@@ -119,16 +133,17 @@ const CollectionViewBlock: React.FC<{
                 className='notion-page-title-icon'
                 hideDefaultIcon
               />
+
               {title}
             </>
           </div>
         )}
 
         {viewIds.length > 1 && showCollectionViewDropdown && (
-          <Dropdown
+          <DropdownSafe
             trigger={triggers}
             overlay={
-              <Menu onSelect={onChangeView}>
+              <MenuSafe onSelect={onChangeView}>
                 {viewIds.map((viewId) => (
                   <MenuItem
                     key={viewId}
@@ -139,7 +154,7 @@ const CollectionViewBlock: React.FC<{
                     />
                   </MenuItem>
                 ))}
-              </Menu>
+              </MenuSafe>
             }
             animation='slide-up'
           >
@@ -149,7 +164,7 @@ const CollectionViewBlock: React.FC<{
             >
               <ChevronDownIcon className='notion-collection-view-dropdown-icon' />
             </CollectionViewColumnDesc>
-          </Dropdown>
+          </DropdownSafe>
         )}
       </div>
 

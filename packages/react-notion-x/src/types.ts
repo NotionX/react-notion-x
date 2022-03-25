@@ -29,6 +29,10 @@ export interface NotionComponents {
   Pdf: any
   Tweet: any
   Modal: any
+
+  // optional next.js-specific overrides
+  nextImage?: any
+  nextLink?: any
 }
 
 export interface CollectionViewProps {
