@@ -2,6 +2,7 @@
   "name": "notion-x-example-full",
   "version": "6.0.2",
   "private": true,
+  "type": "commonjs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
