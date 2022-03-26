@@ -26,9 +26,13 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
     ))
   }
 
+  const blockIds =
+    collectionData['collection_group_results']?.blockIds ??
+    collectionData.blockIds
+
   return (
     <List
-      blockIds={collectionData['collection_group_results'].blockIds}
+      blockIds={blockIds}
       collection={collection}
       collectionView={collectionView}
     />
