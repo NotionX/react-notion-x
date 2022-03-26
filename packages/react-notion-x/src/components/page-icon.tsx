@@ -5,7 +5,8 @@ import { Block, PageBlock, CalloutBlock } from 'notion-types'
 import { cs, isUrl } from '../utils'
 import { DefaultPageIcon } from '../icons/default-page-icon'
 import { useNotionContext } from '../context'
-import { GracefulImage } from './graceful-image'
+// import { GracefulImage } from './graceful-image'
+import { LazyImage } from './lazy-image'
 
 const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
   return (
@@ -19,53 +20,71 @@ const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
 export const PageIcon: React.FC<{
   block: Block
   className?: string
+  inline?: boolean
   hideDefaultIcon?: boolean
   defaultIcon?: string
-}> = ({ block, className, hideDefaultIcon = false, defaultIcon }) => {
+}> = ({
+  block,
+  className,
+  inline = true,
+  hideDefaultIcon = false,
+  defaultIcon
+}) => {
   const { mapImageUrl, recordMap } = useNotionContext()
+  let isImage = false
+  let content: any = null
 
-  if (!isIconBlock(block)) {
+  if (isIconBlock(block)) {
+    const icon = getBlockIcon(block, recordMap)?.trim() || defaultIcon
+    const title = getBlockTitle(block, recordMap)
+
+    if (icon && isUrl(icon)) {
+      const url = mapImageUrl(icon, block)
+      isImage = true
+
+      content = (
+        <LazyImage
+          src={url}
+          alt={title || 'page icon'}
+          className={cs(className, 'notion-page-icon')}
+        />
+      )
+    } else if (!icon) {
+      if (!hideDefaultIcon) {
+        isImage = true
+        content = (
+          <DefaultPageIcon
+            className={cs(className, 'notion-page-icon')}
+            alt={title ? title : 'page icon'}
+          />
+        )
+      }
+    } else {
+      isImage = false
+      content = (
+        <span
+          className={cs(className, 'notion-page-icon')}
+          role='img'
+          aria-label={icon}
+        >
+          {icon}
+        </span>
+      )
+    }
+  }
+
+  if (!content) {
     return null
   }
 
-  const icon = getBlockIcon(block, recordMap) ?? defaultIcon
-  const title = getBlockTitle(block, recordMap)
-
-  if (icon && isUrl(icon)) {
-    const url = mapImageUrl(icon, block)
-
-    return (
-      <GracefulImage
-        className={cs(className, 'notion-page-icon')}
-        src={url}
-        alt={title ? title : 'Icon'}
-        loading='lazy'
-      />
-    )
-  } else {
-    const iconValue = icon?.trim()
-
-    if (!iconValue) {
-      if (hideDefaultIcon) {
-        return null
-      }
-
-      return (
-        <DefaultPageIcon
-          className={cs(className, 'notion-page-icon')}
-          alt={title ? title : 'Page'}
-        />
-      )
-    }
-
-    return (
-      <span
-        className={cs(className, 'notion-page-icon')}
-        role='img'
-        aria-label={icon}
-      >
-        {iconValue}
-      </span>
-    )
-  }
+  return (
+    <div
+      className={cs(
+        inline ? 'notion-page-icon-inline' : 'notion-page-icon-hero',
+        isImage ? 'notion-page-icon-image' : 'notion-page-icon-span'
+      )}
+    >
+      {content}
+    </div>
+  )
 }

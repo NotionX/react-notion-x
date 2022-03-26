@@ -150,8 +150,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                 {!disableHeader && <Header header={header} />}
 
                 <div className='notion-page-scroller'>
-                  {hasPageCover ? (
-                    pageCover ? (
+                  {hasPageCover &&
+                    (pageCover ? (
                       pageCover
                     ) : (
                       <div className='notion-page-cover-wrapper'>
@@ -165,8 +165,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                           }}
                         />
                       </div>
-                    )
-                  ) : null}
+                    ))}
 
                   <main
                     className={cs(
@@ -187,9 +186,11 @@ export const Block: React.FC<BlockProps> = (props) => {
                     )}
                   >
                     {page_icon && (
-                      <div className='notion-page-icon-wrapper'>
-                        <PageIcon block={block} defaultIcon={defaultPageIcon} />
-                      </div>
+                      <PageIcon
+                        block={block}
+                        defaultIcon={defaultPageIcon}
+                        inline={false}
+                      />
                     )}
 
                     {pageHeader}
