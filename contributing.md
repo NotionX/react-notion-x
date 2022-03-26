@@ -39,4 +39,4 @@ Whenever you make a change to one of the packages, the `yarn dev` from the proje
 
 Sometimes, this process gets a little out of whack, and if you're not sure what's going on, I usually just quit one or both of the `yarn dev` commands and restart them.
 
-If you're seeing something unexpected while debugging one of the Next.js demos, try `rm -rf .next` to refresh the Next.js cache before running `yarn dev` again.
+If you're seeing something unexpected while debugging one of the Next.js demos, try running `rm -rf .next` to refresh the Next.js cache before running `yarn dev` again.

@@ -273,7 +273,7 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 
 ## Contributing
 
-Read the [contribution guide](contributing.md) and join the [contributors](https://github.com/refined-github/refined-github/graphs/contributors)!
+If you want to contribute to the project, see the [contribution guide](contributing.md) and join our amazing list of [contributors](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/graphs/contributors)!
 
 ## License
 
