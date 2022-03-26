@@ -2,9 +2,11 @@ import React from 'react'
 import { highlightElement } from 'prismjs'
 import { CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
+import copyToClipboard from 'clipboard-copy'
 
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
+import CopyIcon from '../icons/copy'
 import { cs } from '../utils'
 
 import 'prismjs/components/prism-markup-templating'
@@ -71,9 +73,17 @@ export const Code: React.FC<{
     }
   }, [codeRef])
 
+  const onClickCopyToClipboard = React.useCallback(() => {
+    copyToClipboard(content)
+  }, [content])
+
   return (
     <>
       <pre className={cs('notion-code', className)}>
+        <div className='notion-code-copy' onClick={onClickCopyToClipboard}>
+          <CopyIcon />
+        </div>
+
         <code className={`language-${language}`} ref={codeRef}>
           {content}
         </code>
