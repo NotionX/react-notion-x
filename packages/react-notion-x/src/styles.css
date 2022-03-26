@@ -845,16 +845,20 @@ svg.notion-page-icon {
   position: absolute;
   top: 1em;
   right: 1em;
+  user-select: none;
+  transition: opacity 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+}
+
+.notion-code-copy-button {
+  display: inline-block;
   padding: 0.6em;
   font-size: 1.25em;
   line-height: 1em;
   cursor: pointer;
-  user-select: none;
 
   transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1),
     color 0.2s cubic-bezier(0.3, 0, 0.5, 1),
-    border-color 0.2s cubic-bezier(0.3, 0, 0.5, 1),
-    opacity 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    border-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
   box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
   background-color: #f6f8fa;
@@ -864,13 +868,13 @@ svg.notion-page-icon {
   border-radius: 6px;
 }
 
-.notion-code-copy:hover {
+.notion-code-copy-button:hover {
   background-color: #f3f4f6;
   border-color: rgba(27, 31, 36, 0.15);
   transition-duration: 0.1s;
 }
 
-.notion-code-copy:active {
+.notion-code-copy-button:active {
   background: hsla(220, 14%, 93%, 1);
   border-color: rgba(27, 31, 36, 0.15);
   transition: none;
@@ -884,8 +888,28 @@ svg.notion-page-icon {
   opacity: 1;
 }
 
-.notion-code-copy svg {
+.notion-code-copy-button svg {
   display: block;
+}
+
+.notion-code-copy-tooltip {
+  pointer-events: none;
+  position: absolute;
+  bottom: -38px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 99;
+  font-size: 14px;
+}
+
+.notion-code-copy-tooltip > div {
+  padding: 6px 8px;
+  background: #222;
+  color: #fff;
+  border-radius: 6px;
 }
 
 .notion-column {

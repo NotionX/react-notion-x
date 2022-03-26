@@ -55,6 +55,8 @@ export const Code: React.FC<{
   defaultLanguage?: string
   className?: string
 }> = ({ block, defaultLanguage = 'typescript', className }) => {
+  const [isCopied, setIsCopied] = React.useState(false)
+  const copyTimeout = React.useRef<number>()
   const { recordMap } = useNotionContext()
   const content = getBlockTitle(block, recordMap)
   const language = (
@@ -75,13 +77,35 @@ export const Code: React.FC<{
 
   const onClickCopyToClipboard = React.useCallback(() => {
     copyToClipboard(content)
-  }, [content])
+    setIsCopied(true)
+
+    if (copyTimeout.current) {
+      clearTimeout(copyTimeout.current)
+      copyTimeout.current = null
+    }
+
+    copyTimeout.current = setTimeout(() => {
+      setIsCopied(false)
+    }, 1200) as unknown as number
+  }, [content, copyTimeout])
+
+  const copyButton = (
+    <div className='notion-code-copy-button' onClick={onClickCopyToClipboard}>
+      <CopyIcon />
+    </div>
+  )
 
   return (
     <>
       <pre className={cs('notion-code', className)}>
-        <div className='notion-code-copy' onClick={onClickCopyToClipboard}>
-          <CopyIcon />
+        <div className='notion-code-copy'>
+          {copyButton}
+
+          {isCopied && (
+            <div className='notion-code-copy-tooltip'>
+              <div>{isCopied ? 'Copied' : 'Copy'}</div>
+            </div>
+          )}
         </div>
 
         <code className={`language-${language}`} ref={codeRef}>
