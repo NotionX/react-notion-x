@@ -5,6 +5,7 @@ import pMemoize from 'p-memoize'
 
 import { ExtendedRecordMap, PreviewImage, PreviewImageMap } from 'notion-types'
 import { defaultMapImageUrl } from 'react-notion-x'
+import { getPageImageUrls } from 'notion-utils'
 
 // NOTE: this is just an example of how to pre-compute preview images.
 // Depending on how many images you're working with, this can potentially be
@@ -15,41 +16,7 @@ import { defaultMapImageUrl } from 'react-notion-x'
 export async function getPreviewImageMap(
   recordMap: ExtendedRecordMap
 ): Promise<PreviewImageMap> {
-  const blockIds = Object.keys(recordMap.block)
-  const imageUrls: string[] = blockIds
-    .map((blockId) => {
-      const block = recordMap.block[blockId]?.value
-
-      if (block) {
-        if (block.type === 'image') {
-          const signedUrl = recordMap.signed_urls?.[block.id]
-          const source = signedUrl || block.properties?.source?.[0]?.[0]
-
-          if (source) {
-            return {
-              block,
-              url: source
-            }
-          }
-        }
-
-        if ((block.format as any)?.page_cover) {
-          const source = (block.format as any).page_cover
-
-          return {
-            block,
-            url: source
-          }
-        }
-      }
-
-      return null
-    })
-    .filter(Boolean)
-    .map(({ block, url }) => defaultMapImageUrl(url, block))
-    .filter(Boolean)
-
-  const urls = Array.from(new Set(imageUrls))
+  const urls = getPageImageUrls(recordMap, { mapImageUrl: defaultMapImageUrl })
   const previewImagesMap = Object.fromEntries(
     await pMap(urls, async (url) => [url, await getPreviewImage(url)], {
       concurrency: 8
