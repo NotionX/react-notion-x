@@ -1,7 +1,7 @@
 import React from 'react'
 import * as types from 'notion-types'
 import throttle from 'lodash.throttle'
-import { getBlockTitle } from 'notion-utils'
+import { getBlockTitle, getBlockParentPage } from 'notion-utils'
 
 import { SearchIcon } from '../icons/search-icon'
 import { ClearIcon } from '../icons/clear-icon'
@@ -99,14 +99,23 @@ export class SearchDialog extends React.Component<{
                               key={result.id}
                               className={cs('result', 'notion-page-link')}
                               href={mapPageUrl(
-                                result.block.id,
+                                result.page.id,
                                 searchResult.recordMap
                               )}
                             >
                               <PageTitle
-                                block={result.block}
+                                block={result.page}
                                 defaultIcon={defaultPageIcon}
                               />
+
+                              {result.highlight?.html && (
+                                <div
+                                  className='notion-search-result-highlight'
+                                  dangerouslySetInnerHTML={{
+                                    __html: result.highlight.html
+                                  }}
+                                />
+                              )}
                             </components.PageLink>
                           ))}
                         </div>
@@ -190,11 +199,10 @@ export class SearchDialog extends React.Component<{
     if (result.error || result.errorId) {
       searchError = result
     } else {
-      searchResult = result
+      searchResult = { ...result }
 
       searchResult.results = searchResult.results
         .map((result: any) => {
-          if (!result.isNavigable) return
           const block = searchResult.recordMap.block[result.id]?.value
           if (!block) return
 
@@ -205,7 +213,17 @@ export class SearchDialog extends React.Component<{
 
           result.title = title
           result.block = block
+          result.page =
+            getBlockParentPage(block, searchResult.recordMap, {
+              inclusive: true
+            }) || block
           result.recordMap = searchResult.recordMap
+
+          if (result.highlight?.text) {
+            result.highlight.html = result.highlight.text
+              .replace(/<gzkNfoUU>/gi, '<b>')
+              .replace(/<\/gzkNfoUU>/gi, '</b>')
+          }
 
           return result
         })

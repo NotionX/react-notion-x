@@ -17,6 +17,7 @@ export interface SearchParams {
     requireEditPermissions: boolean
   }
   limit?: number
+  searchSessionId?: string
 }
 
 export interface SearchResults {

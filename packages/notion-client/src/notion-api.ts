@@ -489,28 +489,30 @@ export class NotionAPI {
     params: notion.SearchParams,
     gotOptions?: OptionsOfJSONResponseBody
   ) {
+    const body = {
+      type: 'BlocksInAncestor',
+      source: 'quick_find_public',
+      ancestorId: parsePageId(params.ancestorId),
+      sort: 'Relevance',
+      limit: params.limit || 20,
+      query: params.query,
+      filters: {
+        isDeletedOnly: false,
+        isNavigableOnly: false,
+        excludeTemplates: true,
+        requireEditPermissions: false,
+        ancestors: [],
+        createdBy: [],
+        editedBy: [],
+        lastEditedTime: {},
+        createdTime: {},
+        ...params.filters
+      }
+    }
+
     return this.fetch<notion.SearchResults>({
       endpoint: 'search',
-      body: {
-        type: 'BlocksInAncestor',
-        source: 'quick_find_public',
-        ancestorId: parsePageId(params.ancestorId),
-        sort: 'Relevance',
-        limit: params.limit || 20,
-        query: params.query,
-        filters: {
-          isDeletedOnly: false,
-          excludeTemplates: true,
-          isNavigableOnly: true,
-          requireEditPermissions: false,
-          ancestors: [],
-          createdBy: [],
-          editedBy: [],
-          lastEditedTime: {},
-          createdTime: {},
-          ...params.filters
-        }
-      },
+      body,
       gotOptions
     })
   }

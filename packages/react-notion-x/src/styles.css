@@ -601,11 +601,18 @@
   color: var(--fg-color-icon);
 }
 
+.notion-search .notion-page-icon {
+  fill: rgba(55, 53, 47, 0.8);
+  color: rgb(55, 53, 47);
+}
+
 img.notion-page-icon,
 svg.notion-page-icon {
   display: block;
   object-fit: fill;
   border-radius: 3px;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .notion-page-icon-inline {
@@ -1897,6 +1904,9 @@ svg.notion-page-icon {
   width: 22px;
   border-radius: 3px;
   flex-shrink: 0;
+}
+
+.notion-page-title .notion-page-icon-inline {
   margin-left: 2px;
   margin-right: 6px;
 }
@@ -2308,7 +2318,7 @@ svg.notion-page-icon {
   box-shadow: rgba(55, 53, 47, 0.09) 0px 1px 0px;
   font-size: 18px;
   line-height: 27px;
-  padding: 0 16px;
+  padding: 16px;
 }
 
 .notion-search .searchInput {
@@ -2405,16 +2415,14 @@ svg.notion-page-icon {
   overflow: auto;
 }
 
-.notion-search .result {
+.notion-search .resultsPane .result {
   padding: 8px 14px;
   border-bottom: 1px solid rgba(55, 53, 47, 0.06);
-  min-height: 36px;
   font-size: 14px;
   user-select: none;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: stretch;
   color: rgb(55, 53, 47);
   text-decoration: none;
 }
@@ -2425,6 +2433,20 @@ svg.notion-page-icon {
 
 .notion-search .resultsPane .result:active {
   background: rgba(55, 53, 47, 0.16) !important;
+}
+
+.notion-search .resultsPane .result {
+  min-height: unset;
+  height: unset;
+}
+
+.notion-search .resultsPane .result .notion-page-title {
+  display: flex;
+}
+
+.notion-search .resultsPane .result .notion-search-result-highlight {
+  font-size: 90%;
+  margin: 4px 0 0 30px;
 }
 
 .notion-sync-block {

@@ -8,13 +8,26 @@ import * as types from 'notion-types'
  */
 export const getBlockParentPage = (
   block: types.Block,
-  recordMap: types.ExtendedRecordMap
+  recordMap: types.ExtendedRecordMap,
+  {
+    inclusive = false
+  }: {
+    inclusive?: boolean
+  } = {}
 ): types.PageBlock | null => {
   let currentRecord: types.Block | types.Collection = block
 
   while (currentRecord != null) {
+    if (inclusive && (currentRecord as types.Block)?.type === 'page') {
+      return currentRecord as types.PageBlock
+    }
+
     const parentId: string = currentRecord.parent_id
     const parentTable = currentRecord.parent_table
+
+    if (!parentId) {
+      break
+    }
 
     if (parentTable === 'collection') {
       currentRecord = recordMap.collection[parentId]?.value
