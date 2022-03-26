@@ -16,7 +16,10 @@ import { getPageImageUrls } from 'notion-utils'
 export async function getPreviewImageMap(
   recordMap: ExtendedRecordMap
 ): Promise<PreviewImageMap> {
-  const urls = getPageImageUrls(recordMap, { mapImageUrl: defaultMapImageUrl })
+  const urls: string[] = getPageImageUrls(recordMap, {
+    mapImageUrl: defaultMapImageUrl
+  })
+
   const previewImagesMap = Object.fromEntries(
     await pMap(urls, async (url) => [url, await getPreviewImage(url)], {
       concurrency: 8
