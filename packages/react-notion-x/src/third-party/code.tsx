@@ -2,9 +2,11 @@ import React from 'react'
 import { highlightElement } from 'prismjs'
 import { CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
+import copyToClipboard from 'clipboard-copy'
 
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
+import CopyIcon from '../icons/copy'
 import { cs } from '../utils'
 
 import 'prismjs/components/prism-markup-templating'
@@ -53,6 +55,8 @@ export const Code: React.FC<{
   defaultLanguage?: string
   className?: string
 }> = ({ block, defaultLanguage = 'typescript', className }) => {
+  const [isCopied, setIsCopied] = React.useState(false)
+  const copyTimeout = React.useRef<number>()
   const { recordMap } = useNotionContext()
   const content = getBlockTitle(block, recordMap)
   const language = (
@@ -71,9 +75,39 @@ export const Code: React.FC<{
     }
   }, [codeRef])
 
+  const onClickCopyToClipboard = React.useCallback(() => {
+    copyToClipboard(content)
+    setIsCopied(true)
+
+    if (copyTimeout.current) {
+      clearTimeout(copyTimeout.current)
+      copyTimeout.current = null
+    }
+
+    copyTimeout.current = setTimeout(() => {
+      setIsCopied(false)
+    }, 1200) as unknown as number
+  }, [content, copyTimeout])
+
+  const copyButton = (
+    <div className='notion-code-copy-button' onClick={onClickCopyToClipboard}>
+      <CopyIcon />
+    </div>
+  )
+
   return (
     <>
       <pre className={cs('notion-code', className)}>
+        <div className='notion-code-copy'>
+          {copyButton}
+
+          {isCopied && (
+            <div className='notion-code-copy-tooltip'>
+              <div>{isCopied ? 'Copied' : 'Copy'}</div>
+            </div>
+          )}
+        </div>
+
         <code className={`language-${language}`} ref={codeRef}>
           {content}
         </code>
