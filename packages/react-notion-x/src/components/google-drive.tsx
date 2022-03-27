@@ -1,6 +1,6 @@
 import React from 'react'
 import { GoogleDriveBlock } from 'notion-types'
-import { formatDistance } from 'date-fns'
+import { format as timeago } from 'timeago.js'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
@@ -49,11 +49,7 @@ export const GoogleDrive: React.FC<{
             <div className='notion-google-drive-body-modified-time'>
               Last modified{' '}
               {properties.user_name ? `by ${properties.user_name} ` : ''}
-              {formatDistance(
-                new Date(properties.modified_time),
-                new Date()
-              )}{' '}
-              ago
+              {timeago(properties.modified_time)}
             </div>
           )}
 

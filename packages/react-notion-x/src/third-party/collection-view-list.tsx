@@ -5,7 +5,7 @@ import { CollectionViewProps } from '../types'
 import { Property } from './property'
 import { useNotionContext } from '../context'
 import { CollectionGroup } from './collection-group'
-import { getCollectionGroups } from '../utils'
+import { getCollectionGroups } from './collection-utils'
 
 export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collection,

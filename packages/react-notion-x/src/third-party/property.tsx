@@ -1,15 +1,15 @@
 import React from 'react'
 import * as types from 'notion-types'
 import formatNumber from 'format-number'
-import { format } from 'date-fns'
+import format from 'date-fns/format'
 
 import { cs } from '../utils'
 import { useNotionContext } from '../context'
-import { evalFormula } from '../eval-formula'
 import { Checkbox } from '../components/checkbox'
 import { Text } from '../components/text'
 import { PageTitle } from '../components/page-title'
 import { GracefulImage } from '../components/graceful-image'
+import { evalFormula } from './eval-formula'
 
 /**
  * Renders a single value of structured Notion data according to its schema.
