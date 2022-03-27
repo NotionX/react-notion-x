@@ -6,7 +6,7 @@
 
 > Fast and accurate React renderer for Notion. TS batteries included. ⚡️
 
-[![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io) [![NPM](https://badgen.net/bundlephobia/minzip/react-notion-x)](https://bundlephobia.com/package/react-notion-x)
 
 ## Contents
 
@@ -178,12 +178,12 @@ For a production example, check out the [Next.js Notion Starter Kit](https://git
 
 ## Packages
 
-| Package                                     | NPM                                                                                                     | Docs                              | Environment   | Description                                    |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------- | ------------- | ---------------------------------------------- |
-| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | [docs](./packages/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                |
-| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | [docs](./docs/notion-client.md)   | Server-side\* | Robust TypeScript client for the Notion API.   |
-| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | [docs](./docs/notion-types.md)    | Universal     | Core Notion TypeScript types.                  |
-| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | [docs](./docs/notion-utils.md)    | Universal     | Useful utilities for working with Notion data. |
+| Package                                     | NPM                                                                                                     | Size                                                                                                             | Environment   | Description                                    |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------- |
+| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | [![NPM](https://badgen.net/bundlephobia/minzip/react-notion-x)](https://bundlephobia.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                |
+| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   |                                                                                                                  | Server-side\* | Robust TypeScript client for the Notion API.   |
+| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     |                                                                                                                  | Universal     | Core Notion TypeScript types.                  |
+| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     |                                                                                                                  | Universal     | Useful utilities for working with Notion data. |
 
 \* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js and Deno.
 
@@ -243,11 +243,32 @@ All known blocks and most known configuration settings can be found in our [test
 
 Out of the box, `react-notion-x` is pretty fast and relatively lightweight, but there are a few key factors to be aware of.
 
-Bundlephobia reports a [~27.5kb gzip bundle size](https://bundlephobia.com/result?p=react-notion-x@0.1.0), but about 80% of this opaque bundle is loaded lazily via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) for heavier features like PDF and collection support _only if a page needs them_. For most pages, the total gzip bundle size for `react-notion-x` will be ~10kb.
+[![NPM](https://badgen.net/bundlephobia/minzip/react-notion-x)](https://bundlephobia.com/package/react-notion-x)
+
+Bundlephobia reports a [~25kb gzip bundle size](https://bundlephobia.com/result?p=react-notion-x) for the main `react-notion-x` bundle. This doesn't include the optional `third-party` components which we recommend lazy loading via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) _only if a page needs them_.
 
 Another major factor for perf comes from images hosted by Notion. They're generally unoptimized, improperly sized, and not cacheable because Notion has to deal with fine-grained access control that users can change at any time. You can override the default `mapImageUrl` function on `NotionRenderer` to add caching via a CDN like Cloudflare Workers, which is what Notion X does for optimal page load speeds.
 
 `NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://react-notion-x-demo.transitivebullsh.it/3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
+
+If you're using Next.js, we recommend passing `next/image` and `next/link` to the renderer as follows:
+
+```tsx
+import Image from 'next/image'
+import Link from 'next/link'
+
+export default ({ recordMap }) => (
+  <NotionRenderer
+    recordMap={recordMap}
+    components={{
+      nextImage: Image,
+      nextLink: Link
+    }}
+  />
+)
+```
+
+This wraps these next.js components in a compatability layer so `NotionRenderer` can use them the same as their non-next.js equivalents `<img>` and `<a>`.
 
 <p align="center">
   <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="600" />
