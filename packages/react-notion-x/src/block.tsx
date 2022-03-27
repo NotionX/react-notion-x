@@ -261,7 +261,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                 <components.Collection block={block} ctx={ctx} />
               )}
 
-              {block.type !== 'collection_view_page' && { children }}
+              {block.type !== 'collection_view_page' && children}
 
               {pageFooter}
             </main>
