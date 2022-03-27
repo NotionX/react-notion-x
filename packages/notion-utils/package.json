@@ -15,6 +15,9 @@
     }
   },
   "sideEffects": false,
+  "files": [
+    "./build"
+  ],
   "engines": {
     "node": ">=12"
   },

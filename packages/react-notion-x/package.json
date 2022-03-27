@@ -9,6 +9,10 @@
   "module": "./build/index.js",
   "typings": "./build/index.d.ts",
   "sideEffects": false,
+  "files": [
+    "./build",
+    "./src/styles.css"
+  ],
   "engines": {
     "node": ">=12"
   },

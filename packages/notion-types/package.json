@@ -8,6 +8,9 @@
   "license": "MIT",
   "typings": "./build/index.d.ts",
   "sideEffects": false,
+  "files": [
+    "./build"
+  ],
   "engines": {
     "node": ">=12"
   }
