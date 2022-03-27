@@ -16,7 +16,6 @@ import { Header } from './components/header'
 import { GoogleDrive } from './components/google-drive'
 import { Audio } from './components/audio'
 import { File } from './components/file'
-import { GracefulImage } from './components/graceful-image'
 import { LazyImage } from './components/lazy-image'
 import { useNotionContext } from './context'
 import { cs, getListNumber, isUrl } from './utils'
@@ -627,14 +626,15 @@ export const Block: React.FC<BlockProps> = (props) => {
 
               <div className='notion-bookmark-link'>
                 {block.format?.bookmark_icon && (
-                  <GracefulImage
-                    src={block.format?.bookmark_icon}
-                    alt={title}
-                    loading='lazy'
-                  />
+                  <div className='notion-bookmark-link-icon'>
+                    <LazyImage
+                      src={mapImageUrl(block.format?.bookmark_icon, block)}
+                      alt={title}
+                    />
+                  </div>
                 )}
 
-                <div>
+                <div className='notion-bookmark-link-text'>
                   <Text value={block.properties?.link} block={block} />
                 </div>
               </div>
@@ -642,10 +642,12 @@ export const Block: React.FC<BlockProps> = (props) => {
 
             {block.format?.bookmark_cover && (
               <div className='notion-bookmark-image'>
-                <GracefulImage
-                  src={block.format?.bookmark_cover}
+                <LazyImage
+                  src={mapImageUrl(block.format?.bookmark_cover, block)}
                   alt={getTextContent(block.properties?.title)}
-                  loading='lazy'
+                  style={{
+                    objectFit: 'cover'
+                  }}
                 />
               </div>
             )}

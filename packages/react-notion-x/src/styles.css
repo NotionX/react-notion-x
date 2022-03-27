@@ -999,14 +999,14 @@ svg.notion-page-icon {
   margin-top: 6px;
 }
 
-.notion-bookmark-link > img {
+.notion-bookmark-link-icon {
   width: 16px;
   height: 16px;
   min-width: 16px;
   margin-right: 6px;
 }
 
-.notion-bookmark-link > div {
+.notion-bookmark-link-text {
   font-size: 12px;
   line-height: 16px;
   color: var(--fg-color);
@@ -1015,16 +1015,20 @@ svg.notion-page-icon {
   text-overflow: ellipsis;
 }
 
+.notion-bookmark-link-icon img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .notion-bookmark-image {
   flex: 1 1 180px;
   position: relative;
 }
 
-.notion-bookmark-image img {
-  object-fit: cover;
+.notion-bookmark-image > * {
+  position: absolute !important;
   width: 100%;
   height: 100%;
-  position: absolute;
 }
 
 .notion-column .notion-bookmark-image {

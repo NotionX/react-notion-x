@@ -41,6 +41,24 @@ export const getPageImageUrls = (
           })
         }
 
+        if ((block.format as any)?.bookmark_cover) {
+          const source = (block.format as any).bookmark_cover
+
+          images.push({
+            block,
+            url: source
+          })
+        }
+
+        if ((block.format as any)?.bookmark_icon) {
+          const source = (block.format as any).bookmark_icon
+
+          images.push({
+            block,
+            url: source
+          })
+        }
+
         const pageIcon = getBlockIcon(block, recordMap)
         if (pageIcon && isUrl(pageIcon)) {
           images.push({
