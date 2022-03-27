@@ -1696,6 +1696,12 @@ svg.notion-page-icon {
   height: 180px;
 }
 
+.notion-collection-page-properties {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .notion-table-of-contents {
   width: 100%;
   margin: 4px 0;

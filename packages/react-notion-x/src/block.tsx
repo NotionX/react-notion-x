@@ -205,28 +205,30 @@ export const Block: React.FC<BlockProps> = (props) => {
                       <components.Collection block={block} ctx={ctx} />
                     )}
 
-                    <div
-                      className={cs(
-                        'notion-page-content',
-                        hasAside && 'notion-page-content-has-aside',
-                        hasToc && 'notion-page-content-has-toc'
-                      )}
-                    >
-                      <article className='notion-page-content-inner'>
-                        {children}
-                      </article>
+                    {block.type !== 'collection_view_page' && (
+                      <div
+                        className={cs(
+                          'notion-page-content',
+                          hasAside && 'notion-page-content-has-aside',
+                          hasToc && 'notion-page-content-has-toc'
+                        )}
+                      >
+                        <article className='notion-page-content-inner'>
+                          {children}
+                        </article>
 
-                      {hasAside && (
-                        <PageAside
-                          toc={toc}
-                          activeSection={activeSection}
-                          setActiveSection={setActiveSection}
-                          hasToc={hasToc}
-                          hasAside={hasAside}
-                          pageAside={pageAside}
-                        />
-                      )}
-                    </div>
+                        {hasAside && (
+                          <PageAside
+                            toc={toc}
+                            activeSection={activeSection}
+                            setActiveSection={setActiveSection}
+                            hasToc={hasToc}
+                            hasAside={hasAside}
+                            pageAside={pageAside}
+                          />
+                        )}
+                      </div>
+                    )}
 
                     {pageFooter}
                   </main>
@@ -260,7 +262,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                 <components.Collection block={block} ctx={ctx} />
               )}
 
-              {children}
+              {block.type !== 'collection_view_page' && { children }}
 
               {pageFooter}
             </main>

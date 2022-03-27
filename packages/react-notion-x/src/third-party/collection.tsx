@@ -48,7 +48,12 @@ export const Collection: React.FC<{
 
     return (
       <NotionContextProvider {...ctx}>
-        <CollectionRow block={block as types.PageBlock} className={className} />
+        <div className='notion-collection-page-properties'>
+          <CollectionRow
+            block={block as types.PageBlock}
+            className={className}
+          />
+        </div>
       </NotionContextProvider>
     )
   } else {
