@@ -800,6 +800,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               className={blockId}
             />
           )
+
         default:
           if (process.env.NODE_ENV !== 'production') {
             console.log(

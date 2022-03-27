@@ -53,6 +53,7 @@ export const ExternalComponentGithub: React.FC<{
       <div className='notion-external-image'>
         <SvgTypeGitHub />
       </div>
+
       <div className='notion-external-description'>
         <div className='notion-external-title'>{name}</div>
 
