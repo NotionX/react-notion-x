@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "is-url-superb": "^6.1.0",
+    "mem": "^9.0.2",
+    "normalize-url": "^7.0.3",
     "notion-types": "^6.0.6",
     "p-queue": "^7.2.0"
   },

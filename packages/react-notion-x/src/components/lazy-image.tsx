@@ -1,5 +1,6 @@
 import React from 'react'
 import { LazyImageFull, ImageState } from 'react-lazy-images'
+import { normalizeUrl } from 'notion-utils'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 
@@ -28,7 +29,10 @@ export const LazyImage: React.FC<{
     useNotionContext()
 
   const zoomRef = React.useRef(zoom ? zoom.clone() : null)
-  const previewImage = previewImages ? recordMap?.preview_images?.[src] : null
+  const previewImage = previewImages
+    ? recordMap?.preview_images?.[src] ??
+      recordMap?.preview_images?.[normalizeUrl(src)]
+    : null
 
   const onLoad = React.useCallback(
     (e: any) => {
