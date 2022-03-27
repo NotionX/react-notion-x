@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "6.0.10",
+  "version": "6.0.11",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
@@ -26,7 +26,7 @@
     "lodash.throttle": "^4.1.1",
     "medium-zoom": "^1.0.6",
     "notion-types": "^6.0.6",
-    "notion-utils": "^6.0.8",
+    "notion-utils": "^6.0.11",
     "prismjs": "^1.27.0",
     "rc-dropdown": "^3.3.3",
     "rc-menu": "^9.5.1",
