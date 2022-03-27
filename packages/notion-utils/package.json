@@ -16,7 +16,7 @@
   },
   "sideEffects": false,
   "files": [
-    "./build"
+    "build"
   ],
   "engines": {
     "node": ">=12"

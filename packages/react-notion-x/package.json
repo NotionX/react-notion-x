@@ -10,8 +10,8 @@
   "typings": "./build/index.d.ts",
   "sideEffects": false,
   "files": [
-    "./build",
-    "./src/styles.css"
+    "build",
+    "src/styles.css"
   ],
   "engines": {
     "node": ">=12"
