@@ -178,12 +178,12 @@ For a production example, check out the [Next.js Notion Starter Kit](https://git
 
 ## Packages
 
-| Package                                     | NPM                                                                                                     | Size                                                                                                             | Environment   | Description                                    |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------- |
-| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | [![NPM](https://badgen.net/bundlephobia/minzip/react-notion-x)](https://bundlephobia.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                |
-| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   |                                                                                                                  | Server-side\* | Robust TypeScript client for the Notion API.   |
-| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     |                                                                                                                  | Universal     | Core Notion TypeScript types.                  |
-| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     |                                                                                                                  | Universal     | Useful utilities for working with Notion data. |
+| Package                                     | NPM                                                                                                     | Environment   | Description                                    |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------- |
+| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                |
+| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | Server-side\* | Robust TypeScript client for the Notion API.   |
+| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | Universal     | Core Notion TypeScript types.                  |
+| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | Universal     | Useful utilities for working with Notion data. |
 
 \* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js and Deno.
 
