@@ -97,7 +97,8 @@ export class NotionAPI {
         if (
           block &&
           (block.type === 'collection_view' ||
-            block.type === 'collection_view_page')
+            block.type === 'collection_view_page') &&
+          block.collection_id
         ) {
           return block.view_ids.map((collectionViewId) => ({
             collectionId: block.collection_id,
@@ -158,7 +159,7 @@ export class NotionAPI {
           } catch (err) {
             // It's possible for public pages to link to private collections, in which case
             // Notion returns a 400 error
-            console.warn('NotionAPI collectionQuery error', err.message)
+            console.warn('NotionAPI collectionQuery error', pageId, err.message)
             console.error(err)
           }
         },
