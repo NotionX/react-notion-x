@@ -449,6 +449,8 @@ export const Block: React.FC<BlockProps> = (props) => {
       return isTopLevel ? wrapList(output, start) : output
     }
 
+    case 'embed':
+      return <components.Embed blockId={blockId} block={block} />
     case 'tweet':
     // fallthrough
     case 'maps':
@@ -466,8 +468,6 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'image':
     // fallthrough
     case 'gist':
-    // fallthrough
-    case 'embed':
     // fallthrough
     case 'video':
       return <AssetWrapper blockId={blockId} block={block} />
