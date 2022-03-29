@@ -858,6 +858,7 @@ svg.notion-page-icon {
   top: 1em;
   right: 1em;
   user-select: none;
+  z-index: 9;
   transition: opacity 0.2s cubic-bezier(0.3, 0, 0.5, 1);
 }
 
