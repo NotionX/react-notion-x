@@ -4,6 +4,8 @@ import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { LazyImage } from './lazy-image'
+import { LiteYouTubeEmbed } from './lite-youtube-embed'
+import { getYoutubeId } from '../utils'
 
 const isServer = typeof window === 'undefined'
 
@@ -62,7 +64,15 @@ export const Asset: React.FC<{
         style.width = '100%'
       }
 
-      if (block_aspect_ratio && block.type !== 'image') {
+      if (block.type === 'video') {
+        if (block_height) {
+          style.height = block_height
+        } else if (block_aspect_ratio) {
+          style.paddingBottom = `${block_aspect_ratio * 100}%`
+        } else if (block_preserve_scale) {
+          style.objectFit = 'contain'
+        }
+      } else if (block_aspect_ratio && block.type !== 'image') {
         // console.log(block.type, block)
         style.paddingBottom = `${block_aspect_ratio * 100}%`
       } else if (block_height) {
@@ -171,11 +181,24 @@ export const Asset: React.FC<{
       let src = block.format?.display_source ?? source
 
       if (src) {
-        if (block.type === 'gist' && !src.endsWith('.pibb')) {
-          src = `${src}.pibb`
-        }
+        const youtubeVideoId: string | null =
+          block.type === 'video' ? getYoutubeId(src) : null
 
-        if (block.type === 'gist') {
+        console.log({ youtubeVideoId, src, format: block.format, style })
+
+        if (youtubeVideoId) {
+          content = (
+            <LiteYouTubeEmbed
+              id={youtubeVideoId}
+              style={assetStyle}
+              className='notion-asset-object-fit'
+            />
+          )
+        } else if (block.type === 'gist') {
+          if (!src.endsWith('.pibb')) {
+            src = `${src}.pibb`
+          }
+
           assetStyle.width = '100%'
           style.paddingBottom = '50%'
 
