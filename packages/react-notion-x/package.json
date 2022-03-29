@@ -14,6 +14,52 @@
     "build",
     "src/styles.css"
   ],
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": {
+        "development": "./build/dev/index.js",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/third-party/code": {
+      "types": "./build/third-party/code.d.ts",
+      "default": {
+        "development": "./build/dev/third-party/code.js",
+        "default": "./build/third-party/code.js"
+      }
+    },
+    "./build/third-party/collection": {
+      "types": "./build/third-party/collection.d.ts",
+      "default": {
+        "development": "./build/dev/third-party/collection.js",
+        "default": "./build/third-party/collection.js"
+      }
+    },
+    "./build/third-party/equation": {
+      "types": "./build/third-party/equation.d.ts",
+      "default": {
+        "development": "./build/dev/third-party/equation.js",
+        "default": "./build/third-party/equation.js"
+      }
+    },
+    "./build/third-party/modal": {
+      "types": "./build/third-party/modal.d.ts",
+      "default": {
+        "development": "./build/dev/third-party/modal.js",
+        "default": "./build/third-party/modal.js"
+      }
+    },
+    "./build/third-party/pdf": {
+      "types": "./build/third-party/pdf.d.ts",
+      "default": {
+        "development": "./build/dev/third-party/pdf.js",
+        "default": "./build/third-party/pdf.js"
+      }
+    },
+    "./styles.css": "./src/styles.css",
+    "./src/styles.css": "./src/styles.css"
+  },
   "engines": {
     "node": ">=12"
   },
