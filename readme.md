@@ -241,11 +241,11 @@ All known blocks and most known configuration settings can be found in our [test
 
 ## Performance
 
-Out of the box, `react-notion-x` is pretty fast and relatively lightweight, but there are a few key factors to be aware of.
-
 [![NPM](https://badgen.net/bundlephobia/minzip/react-notion-x)](https://bundlephobia.com/package/react-notion-x)
 
-Bundlephobia reports a [~25kb gzip bundle size](https://bundlephobia.com/result?p=react-notion-x) for the main `react-notion-x` bundle. This doesn't include the optional `third-party` components which we recommend lazy loading via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) _only if a page needs them_.
+Out of the box, `react-notion-x` is pretty fast and relatively lightweight, but there are a few key factors to be aware of.
+
+Bundlephobia reports a [~25kb gzip bundle size](https://bundlephobia.com/result?p=react-notion-x) for the main `react-notion-x` bundle. This doesn't include the optional `third-party` components which we recommend lazy loading via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) only if a page needs them.
 
 Another major factor for perf comes from images hosted by Notion. They're generally unoptimized, improperly sized, and not cacheable because Notion has to deal with fine-grained access control that users can change at any time. You can override the default `mapImageUrl` function on `NotionRenderer` to add caching via a CDN like Cloudflare Workers, which is what Notion X does for optimal page load speeds.
 
