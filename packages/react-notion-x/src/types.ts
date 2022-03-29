@@ -33,6 +33,9 @@ export interface NotionComponents {
   // optional next.js-specific overrides
   nextImage?: any
   nextLink?: any
+
+  // optional embed block component overrides
+  Embed?: any
 }
 
 export interface CollectionViewProps {

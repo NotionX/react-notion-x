@@ -1,6 +1,7 @@
 import React from 'react'
 import { ExtendedRecordMap } from 'notion-types'
 import { wrapNextImage, wrapNextLink } from './next'
+import { AssetWrapper } from './components/asset-wrapper'
 
 import {
   MapPageUrl,
@@ -69,6 +70,8 @@ const DefaultLink: React.FC = (props) => (
 )
 const DefaultPageLink: React.FC = (props) => <a {...props} />
 
+const DefaultEmbed = AssetWrapper
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const dummyLink = ({ href, rel, target, title, ...rest }) => (
   <span {...rest} />
@@ -95,7 +98,9 @@ const defaultComponents: NotionComponents = {
 
   Pdf: dummyComponent('Pdf'),
   Tweet: dummyComponent('Tweet'),
-  Modal: dummyComponent('Modal')
+  Modal: dummyComponent('Modal'),
+
+  Embed: DefaultEmbed
 }
 
 const defaultNotionContext: NotionContext = {
