@@ -18,7 +18,6 @@
       "types": "./build/index.d.ts",
       "default": {
         "development": "./build/dev/index.js",
-        "production": "./build/index.js",
         "default": "./build/index.js"
       }
     },
@@ -26,7 +25,6 @@
       "types": "./build/third-party/code.d.ts",
       "default": {
         "development": "./build/dev/third-party/code.js",
-        "production": "./build/third-party/code.js",
         "default": "./build/third-party/code.js"
       }
     },
@@ -34,7 +32,6 @@
       "types": "./build/third-party/collection.d.ts",
       "default": {
         "development": "./build/dev/third-party/collection.js",
-        "production": "./build/third-party/collection.js",
         "default": "./build/third-party/collection.js"
       }
     },
@@ -42,7 +39,6 @@
       "types": "./build/third-party/equation.d.ts",
       "default": {
         "development": "./build/dev/third-party/equation.js",
-        "production": "./build/third-party/equation.js",
         "default": "./build/third-party/equation.js"
       }
     },
@@ -50,7 +46,6 @@
       "types": "./build/third-party/modal.d.ts",
       "default": {
         "development": "./build/dev/third-party/modal.js",
-        "production": "./build/third-party/modal.js",
         "default": "./build/third-party/modal.js"
       }
     },
@@ -58,7 +53,6 @@
       "types": "./build/third-party/pdf.d.ts",
       "default": {
         "development": "./build/dev/third-party/pdf.js",
-        "production": "./build/third-party/pdf.js",
         "default": "./build/third-party/pdf.js"
       }
     },

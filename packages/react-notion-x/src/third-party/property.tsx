@@ -1,7 +1,7 @@
 import React from 'react'
 import * as types from 'notion-types'
 import formatNumber from 'format-number'
-import format from 'date-fns/format'
+import format from 'date-fns/format/index.js'
 
 import { cs } from '../utils'
 import { useNotionContext } from '../context'
