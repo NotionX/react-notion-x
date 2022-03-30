@@ -4,7 +4,8 @@ import {
   getTextContent,
   getPageTableOfContents,
   getBlockParentPage,
-  uuidToId
+  uuidToId,
+  getBlockCollectionId
 } from 'notion-utils'
 import * as types from 'notion-types'
 
@@ -115,7 +116,9 @@ export const Block: React.FC<BlockProps> = (props) => {
             block.type === 'page'
               ? block.properties
               : {
-                  title: recordMap.collection[block.collection_id]?.value?.name
+                  title:
+                    recordMap.collection[getBlockCollectionId(block)]?.value
+                      ?.name
                 }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100

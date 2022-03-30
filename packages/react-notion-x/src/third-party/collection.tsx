@@ -1,6 +1,10 @@
 import React from 'react'
 import * as types from 'notion-types'
-import { getBlockParentPage, getTextContent } from 'notion-utils'
+import {
+  getBlockCollectionId,
+  getBlockParentPage,
+  getTextContent
+} from 'notion-utils'
 import { useLocalStorage, useWindowSize } from 'react-use'
 import Dropdown from 'rc-dropdown'
 import Menu, { Item as MenuItem } from 'rc-menu'
@@ -70,7 +74,8 @@ const CollectionViewBlock: React.FC<{
   className?: string
 }> = ({ block, className }) => {
   const { recordMap, showCollectionViewDropdown } = useNotionContext()
-  const { collection_id: collectionId, view_ids: viewIds } = block
+  const { view_ids: viewIds } = block
+  const collectionId = getBlockCollectionId(block)
 
   const [collectionState, setCollectionState] = useLocalStorage(block.id, {
     collectionViewId: viewIds[0]

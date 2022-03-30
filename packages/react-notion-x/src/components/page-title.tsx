@@ -5,6 +5,7 @@ import { cs } from '../utils'
 import { useNotionContext } from '../context'
 import { Text } from './text'
 import { PageIcon } from './page-icon'
+import { getBlockCollectionId } from 'notion-utils'
 
 export const PageTitle: React.FC<{
   block: Block
@@ -20,7 +21,7 @@ export const PageTitle: React.FC<{
     block.type === 'collection_view_page' ||
     block.type === 'collection_view'
   ) {
-    const collection = recordMap.collection[block.collection_id]?.value
+    const collection = recordMap.collection[getBlockCollectionId(block)]?.value
 
     if (collection) {
       block.properties = {

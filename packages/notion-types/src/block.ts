@@ -366,14 +366,28 @@ export interface CodeBlock extends BaseBlock {
 
 export interface CollectionViewBlock extends BaseContentBlock {
   type: 'collection_view'
-  collection_id: ID
+  collection_id?: ID
   view_ids: ID[]
+  format?: BaseContentBlock['format'] & {
+    collection_pointer?: {
+      id: ID
+      spaceId: ID
+      table: string
+    }
+  }
 }
 
 export interface CollectionViewPageBlock extends BasePageBlock {
   type: 'collection_view_page'
-  collection_id: ID
+  collection_id?: ID
   view_ids: ID[]
+  format: BasePageBlock['format'] & {
+    collection_pointer?: {
+      id: ID
+      spaceId: ID
+      table: string
+    }
+  }
 }
 
 export interface SyncBlock extends BaseBlock {
