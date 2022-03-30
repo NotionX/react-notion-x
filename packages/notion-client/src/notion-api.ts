@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs'
+// import { promises as fs } from 'fs'
 import got, { OptionsOfJSONResponseBody } from 'got'
 import pMap from 'p-map'
 
@@ -132,10 +132,10 @@ export class NotionAPI {
               }
             )
 
-            await fs.writeFile(
-              `${collectionId}-${collectionViewId}.json`,
-              JSON.stringify(collectionData.result, null, 2)
-            )
+            // await fs.writeFile(
+            //   `${collectionId}-${collectionViewId}.json`,
+            //   JSON.stringify(collectionData.result, null, 2)
+            // )
 
             recordMap.block = {
               ...recordMap.block,
@@ -418,21 +418,21 @@ export class NotionAPI {
       }
     }
 
-    if (isBoardType) {
-      console.log(
-        JSON.stringify(
-          {
-            collectionId,
-            collectionViewId,
-            loader,
-            groupBy: groupBy || 'NONE',
-            collectionViewQuery: collectionView.query2 || 'NONE'
-          },
-          null,
-          2
-        )
-      )
-    }
+    // if (isBoardType) {
+    //   console.log(
+    //     JSON.stringify(
+    //       {
+    //         collectionId,
+    //         collectionViewId,
+    //         loader,
+    //         groupBy: groupBy || 'NONE',
+    //         collectionViewQuery: collectionView.query2 || 'NONE'
+    //       },
+    //       null,
+    //       2
+    //     )
+    //   )
+    // }
 
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
