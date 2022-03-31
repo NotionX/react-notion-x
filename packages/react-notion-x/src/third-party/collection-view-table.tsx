@@ -59,7 +59,7 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
 }
 
 function Table({ blockIds, collection, collectionView, width, padding }) {
-  const { recordMap } = useNotionContext()
+  const { recordMap, linkTableTitleProperties } = useNotionContext()
 
   let properties = []
 
@@ -159,6 +159,7 @@ function Table({ blockIds, collection, collectionView, width, padding }) {
                           data={data}
                           block={block}
                           collection={collection}
+                          linkToTitlePage={linkTableTitleProperties}
                         />
                       </div>
                     )

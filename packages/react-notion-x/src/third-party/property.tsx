@@ -23,7 +23,15 @@ export const Property: React.FC<{
   block?: types.Block
   collection?: types.Collection
   inline?: boolean
-}> = ({ schema, data, block, collection, inline = false }) => {
+  linkToTitlePage?: boolean
+}> = ({
+  schema,
+  data,
+  block,
+  collection,
+  inline = false,
+  linkToTitlePage = true
+}) => {
   const { components, mapImageUrl, mapPageUrl } = useNotionContext()
 
   if (schema) {
@@ -72,7 +80,7 @@ export const Property: React.FC<{
           break
 
         case 'title':
-          if (block) {
+          if (block && linkToTitlePage) {
             content = (
               <components.PageLink
                 className={cs('notion-page-link')}

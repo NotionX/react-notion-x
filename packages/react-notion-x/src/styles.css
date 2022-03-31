@@ -168,6 +168,7 @@
 .notion-aside {
   position: sticky;
   top: 148px;
+  z-index: 101;
   /* top: calc((100vh - 48px - 100%) / 2); */
 
   align-self: flex-start;
@@ -183,9 +184,10 @@
   flex-direction: column;
   align-items: center;
   max-height: calc(100vh - 148px - 16px);
-  overflow: hidden auto;
   min-width: 222px;
   overflow: auto;
+  background: var(--bg-color);
+  border-radius: 4px;
 }
 
 .notion-aside-table-of-contents-header {

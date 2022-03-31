@@ -30,6 +30,7 @@ export const NotionRenderer: React.FC<{
   previewImages?: boolean
   forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
+  linkTableTitleProperties?: boolean
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
@@ -64,6 +65,7 @@ export const NotionRenderer: React.FC<{
   previewImages,
   forceCustomImages,
   showCollectionViewDropdown,
+  linkTableTitleProperties,
   showTableOfContents,
   minTableOfContentsItems,
   defaultPageIcon,
@@ -92,6 +94,7 @@ export const NotionRenderer: React.FC<{
       previewImages={previewImages}
       forceCustomImages={forceCustomImages}
       showCollectionViewDropdown={showCollectionViewDropdown}
+      linkTableTitleProperties={linkTableTitleProperties}
       showTableOfContents={showTableOfContents}
       minTableOfContentsItems={minTableOfContentsItems}
       defaultPageIcon={defaultPageIcon}
