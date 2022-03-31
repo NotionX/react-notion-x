@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "6.0.26",
+  "version": "6.1.0",
   "type": "module",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "NotionX/react-notion-x",
@@ -24,7 +24,7 @@
   "dependencies": {
     "got": "^11.8.1",
     "notion-types": "^6.0.26",
-    "notion-utils": "^6.0.26",
+    "notion-utils": "^6.1.0",
     "p-map": "^5.3.0"
   },
   "ava": {
