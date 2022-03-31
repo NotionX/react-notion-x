@@ -1343,6 +1343,7 @@ svg.notion-page-icon {
 .notion-property-multi_select {
   display: flex;
   flex-wrap: wrap;
+  gap: 6px;
 }
 
 .notion-property-select-item,
@@ -1356,14 +1357,6 @@ svg.notion-page-icon {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 120%;
-}
-
-.notion-property-multi_select-item {
-  margin: 0 6px 6px 0;
-}
-
-.notion-collection-card .notion-property-multi_select-item {
-  margin: 0 6px 0 0;
 }
 
 .notion-property-file {
