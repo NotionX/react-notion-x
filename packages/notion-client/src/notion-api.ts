@@ -543,7 +543,7 @@ export class NotionAPI {
     }
 
     if (this._authToken) {
-      headers.cookie = `token_v2=${this._authToken}`
+      headers['Authorization'] = `Bearer ${this._authToken}`
     }
 
     if (this._activeUser) {
