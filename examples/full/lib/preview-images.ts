@@ -41,7 +41,7 @@ async function createPreviewImage(url: string): Promise<PreviewImage | null> {
       dataURIBase64: result.metadata.dataURIBase64
     }
   } catch (err) {
-    console.warn('error creating preview image', url, err)
+    console.warn('failed to create preview image', url, err.message)
     return null
   }
 }

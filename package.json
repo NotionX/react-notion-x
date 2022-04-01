@@ -15,9 +15,11 @@
   "scripts": {
     "build": "run-s build:*",
     "build:tsc": "tsc --build",
+    "build:css": "lerna run css --no-private",
     "build:tsup": "lerna run build --no-private",
     "watch": "run-p watch:* --continue-on-error",
     "watch:tsc": "tsc --build --watch  --preserveWatchOutput",
+    "watch:css": "lerna run css --no-private --parallel",
     "watch:tsup": "lerna run watch --no-private --parallel",
     "dev": "run-s watch",
     "prebuild": "run-s clean",
