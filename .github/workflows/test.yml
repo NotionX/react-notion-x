@@ -1,9 +1,9 @@
-name: Test
+name: CI
 
 on: [push, pull_request]
 
 jobs:
-  Test:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,7 +16,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn test
 
-  Build:
+  build minimal example:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,3 +28,26 @@ jobs:
 
       - run: yarn install --frozen-lockfile
       - run: yarn build
+
+      - name: Build minimal example
+        run: |
+          cd examples/minimal
+          yarn build
+
+  build full example:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+
+      - name: Build full example
+        run: |
+          cd examples/full
+          yarn build
