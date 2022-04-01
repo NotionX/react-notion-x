@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "dev": "GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "GENERATE_SOURCEMAP=false react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "eject": "GENERATE_SOURCEMAP=false react-scripts eject"
   },
   "dependencies": {
     "@types/node": "^16.11.26",
