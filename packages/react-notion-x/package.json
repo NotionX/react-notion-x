@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "6.4.1-alpha.2",
+  "version": "6.4.1-alpha.3",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
@@ -30,8 +30,8 @@
     "@types/lodash.throttle": "^4.1.6",
     "@types/node": "^16.11.2",
     "@types/react": "^17.0.31",
-    "date-fns": "^2.28.0",
     "clipboard-copy": "^4.0.1",
+    "date-fns": "^2.28.0",
     "format-number": "^3.0.0",
     "is-url-superb": "4",
     "katex": "^0.13.18",
