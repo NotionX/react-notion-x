@@ -2,8 +2,5 @@
   "version": "6.2.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "packages": [
-    "packages/*",
-    "examples/*"
-  ]
+  "packages": ["packages/*", "examples/*"]
 }
