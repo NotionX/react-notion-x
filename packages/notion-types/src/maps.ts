@@ -82,6 +82,12 @@ export interface CollectionQueryResult {
     total: number
     aggregationResult: AggregationResult
   }>
+
+  collection_group_results?: {
+    type: string
+    blockIds: ID[]
+    hasMore: boolean
+  }
 }
 
 export interface AggregationResult {

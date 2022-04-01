@@ -10,6 +10,11 @@ export type SearchNotion = (
   params: types.SearchParams
 ) => Promise<types.SearchResults>
 
+export type ComponentOverrideFn = (
+  props: any,
+  defaultValueFn: () => React.ReactNode
+) => any
+
 export interface NotionComponents {
   // TODO: better typing for arbitrary react components
   Image: any
@@ -24,18 +29,18 @@ export interface NotionComponents {
 
   // collection
   Collection: any
+  Property?: any
+  propertySelectValue: ComponentOverrideFn
 
   // assets
   Pdf: any
   Tweet: any
   Modal: any
+  Embed: any
 
   // optional next.js-specific overrides
   nextImage?: any
   nextLink?: any
-
-  // optional embed block component overrides
-  Embed?: any
 }
 
 export interface CollectionViewProps {

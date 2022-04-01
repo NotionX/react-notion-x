@@ -8,8 +8,9 @@ import { cs } from '../utils'
 
 export const CollectionRow: React.FC<{
   block: PageBlock
+  pageHeader?: boolean
   className?: string
-}> = ({ block, className }) => {
+}> = ({ block, pageHeader = false, className }) => {
   const { recordMap } = useNotionContext()
   const collectionId = block.parent_id
   const collection = recordMap.collection[collectionId]?.value
@@ -64,6 +65,7 @@ export const CollectionRow: React.FC<{
                   data={block.properties?.[id]}
                   block={block}
                   collection={collection}
+                  pageHeader={pageHeader}
                 />
               </div>
             </div>

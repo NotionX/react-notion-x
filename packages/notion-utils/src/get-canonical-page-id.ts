@@ -2,6 +2,7 @@ import { ExtendedRecordMap } from 'notion-types'
 import { uuidToId } from './uuid-to-id'
 import { getBlockTitle } from './get-block-title'
 import { getPageProperty } from './get-page-property'
+import { normalizeTitle } from './normalize-title'
 
 /**
  * Gets the canonical, display-friendly version of a page's ID for use in URLs.
@@ -32,15 +33,4 @@ export const getCanonicalPageId = (
   }
 
   return id
-}
-
-export const normalizeTitle = (title: string | null): string => {
-  return (title || '')
-    .replace(/ /g, '-')
-    .replace(/[^a-zA-Z0-9-\u4e00-\u9fa5]/g, '')
-    .replace(/--/g, '-')
-    .replace(/-$/, '')
-    .replace(/^-/, '')
-    .trim()
-    .toLowerCase()
 }
