@@ -16,7 +16,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn test
 
-  build minimal example:
+  build-minimal:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,7 +34,7 @@ jobs:
           cd examples/minimal
           yarn build
 
-  build full example:
+  build-full:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
