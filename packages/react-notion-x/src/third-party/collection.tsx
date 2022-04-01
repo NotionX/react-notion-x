@@ -5,7 +5,7 @@ import {
   getBlockParentPage,
   getTextContent
 } from 'notion-utils'
-import * as reactUse from 'react-use'
+import reactUse from 'react-use'
 import Dropdown from 'rc-dropdown'
 import Menu from 'rc-menu'
 
