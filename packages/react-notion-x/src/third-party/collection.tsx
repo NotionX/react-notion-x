@@ -13,6 +13,7 @@ import { CollectionRow } from './collection-row'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
+import { Property } from './property'
 import { PageIcon } from '../components/page-icon'
 import {
   NotionContext,
@@ -33,9 +34,9 @@ export const Collection: React.FC<{
   ctx: NotionContext
 }> = ({ block, className, ctx }) => {
   /**
-   * NOTE: there is a weird oddity of us using multiple bundles for collections,
-   * where `useNotionContext` returns a *different* context than for the main
-   * bundle.
+   * NOTE: there is a weird side effect of us using multiple bundles for
+   * collections, where `useNotionContext` returns a *different* context than for
+   * the main bundle.
    *
    * This is due to `React.createContext` being called in each bundle which includes
    * `../context.ts`.
@@ -45,13 +46,21 @@ export const Collection: React.FC<{
    */
   // console.log('Collection', Object.keys(recordMap.block).length)
 
+  const context: NotionContext = {
+    ...ctx,
+    components: {
+      Property,
+      ...ctx.components
+    }
+  }
+
   if (block.type === 'page') {
     if (block.parent_table !== 'collection') {
       return null
     }
 
     return (
-      <NotionContextProvider {...ctx}>
+      <NotionContextProvider {...context}>
         <div className='notion-collection-page-properties'>
           <CollectionRow
             block={block as types.PageBlock}
@@ -62,7 +71,7 @@ export const Collection: React.FC<{
     )
   } else {
     return (
-      <NotionContextProvider {...ctx}>
+      <NotionContextProvider {...context}>
         <CollectionViewBlock block={block} className={className} />
       </NotionContextProvider>
     )
@@ -241,3 +250,5 @@ const CollectionViewColumnDesc: React.FC<{
     </div>
   )
 }
+
+export { Property }

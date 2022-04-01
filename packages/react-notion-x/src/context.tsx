@@ -92,11 +92,13 @@ const defaultComponents: NotionComponents = {
   Link: DefaultLink,
   PageLink: DefaultPageLink,
   Checkbox: DefaultCheckbox,
+  Callout: undefined, // use the built-in callout rendering by default
 
   Code: dummyComponent('Code'),
   Equation: dummyComponent('Equation'),
 
   Collection: dummyComponent('Collection'),
+  Property: undefined, // use the built-in property rendering by default
 
   Pdf: dummyComponent('Pdf'),
   Tweet: dummyComponent('Tweet'),

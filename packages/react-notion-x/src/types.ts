@@ -20,22 +20,21 @@ export interface NotionComponents {
   // blocks
   Code: any
   Equation: any
-  Callout?: any
+  Callout: any
 
   // collection
   Collection: any
+  Property: any
 
   // assets
   Pdf: any
   Tweet: any
   Modal: any
+  Embed: any
 
   // optional next.js-specific overrides
   nextImage?: any
   nextLink?: any
-
-  // optional embed block component overrides
-  Embed?: any
 }
 
 export interface CollectionViewProps {
