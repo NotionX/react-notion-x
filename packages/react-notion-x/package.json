@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "6.4.1-alpha.0",
+  "version": "6.4.1-alpha.1",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
