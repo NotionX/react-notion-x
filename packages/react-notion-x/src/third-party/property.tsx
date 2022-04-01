@@ -11,28 +11,42 @@ import { PageTitle } from '../components/page-title'
 import { GracefulImage } from '../components/graceful-image'
 import { evalFormula } from './eval-formula'
 
-/**
- * Renders a single value of structured Notion data according to its schema.
- *
- * This corresponds to rendering the content of a single cell in a table.
- * Property rendering is re-used across all the different types of collection views.
- */
-export const Property: React.FC<{
+export interface IPropertyProps {
   schema?: types.CollectionPropertySchema
   data?: types.Decoration[]
   block?: types.Block
   collection?: types.Collection
   inline?: boolean
   linkToTitlePage?: boolean
-}> = ({
-  schema,
-  data,
-  block,
-  collection,
-  inline = false,
-  linkToTitlePage = true
-}) => {
+  pageHeader?: boolean
+}
+
+/**
+ * Renders a single value of structured Notion data according to its schema.
+ *
+ * This corresponds to rendering the content of a single cell in a table.
+ * Property rendering is re-used across all the different types of collection views.
+ */
+export const Property: React.FC<IPropertyProps> = (props) => {
+  const { components } = useNotionContext()
+
+  if (components.Property) {
+    return <components.Property {...props} />
+  } else {
+    return <PropertyImpl {...props} />
+  }
+}
+
+export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const { components, mapImageUrl, mapPageUrl } = useNotionContext()
+  const {
+    schema,
+    data,
+    block,
+    collection,
+    inline = false,
+    linkToTitlePage = true
+  } = props
 
   if (schema) {
     let content = null
@@ -105,16 +119,25 @@ export const Property: React.FC<{
             )
             const color = option?.color
 
-            return (
-              <div
-                key={index}
-                className={cs(
-                  `notion-property-${schema.type}-item`,
-                  color && `notion-item-${color}`
-                )}
-              >
-                {value}
-              </div>
+            return components.propertySelectValue(
+              {
+                ...props,
+                key: index,
+                value,
+                option,
+                color
+              },
+              () => (
+                <div
+                  key={index}
+                  className={cs(
+                    `notion-property-${schema.type}-item`,
+                    color && `notion-item-${color}`
+                  )}
+                >
+                  {value}
+                </div>
+              )
             )
           })
           break

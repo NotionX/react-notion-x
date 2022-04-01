@@ -87,6 +87,11 @@ const dummyComponent = (name: string) => () => {
   return null
 }
 
+// TODO: should we use React.memo here?
+// https://reactjs.org/docs/react-api.html#reactmemo
+const dummyOverrideFn = (_: any, defaultValueFn: () => React.ReactNode) =>
+  defaultValueFn()
+
 const defaultComponents: NotionComponents = {
   Image: null, // disable custom images by default
   Link: DefaultLink,
@@ -99,6 +104,7 @@ const defaultComponents: NotionComponents = {
 
   Collection: dummyComponent('Collection'),
   Property: undefined, // use the built-in property rendering by default
+  propertySelectValue: dummyOverrideFn,
 
   Pdf: dummyComponent('Pdf'),
   Tweet: dummyComponent('Tweet'),
@@ -142,7 +148,7 @@ const defaultNotionContext: NotionContext = {
 
 const ctx = React.createContext<NotionContext>(defaultNotionContext)
 
-export const NotionContextProvider: React.SFC<PartialNotionContext> = ({
+export const NotionContextProvider: React.FC<PartialNotionContext> = ({
   components: themeComponents = {},
   children,
   mapPageUrl,

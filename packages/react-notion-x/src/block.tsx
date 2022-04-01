@@ -36,6 +36,7 @@ interface BlockProps {
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
+  pageTitle?: React.ReactNode
   pageAside?: React.ReactNode
   pageCover?: React.ReactNode
 
@@ -78,6 +79,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     footer,
     pageHeader,
     pageFooter,
+    pageTitle,
     pageAside,
     pageCover,
     hideBlockId,
@@ -198,7 +200,9 @@ export const Block: React.FC<BlockProps> = (props) => {
                     {pageHeader}
 
                     <h1 className='notion-title'>
-                      <Text value={properties?.title} block={block} />
+                      {pageTitle ?? (
+                        <Text value={properties?.title} block={block} />
+                      )}
                     </h1>
 
                     {(block.type === 'collection_view_page' ||

@@ -13,7 +13,7 @@ import { CollectionRow } from './collection-row'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
-import { Property } from './property'
+import { PropertyImpl } from './property'
 import { PageIcon } from '../components/page-icon'
 import {
   NotionContext,
@@ -47,11 +47,7 @@ export const Collection: React.FC<{
   // console.log('Collection', Object.keys(recordMap.block).length)
 
   const context: NotionContext = {
-    ...ctx,
-    components: {
-      Property,
-      ...ctx.components
-    }
+    ...ctx
   }
 
   if (block.type === 'page') {
@@ -64,6 +60,7 @@ export const Collection: React.FC<{
         <div className='notion-collection-page-properties'>
           <CollectionRow
             block={block as types.PageBlock}
+            pageHeader={true}
             className={className}
           />
         </div>
@@ -251,4 +248,4 @@ const CollectionViewColumnDesc: React.FC<{
   )
 }
 
-export { Property }
+export { PropertyImpl as Property }
