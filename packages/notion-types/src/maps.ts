@@ -103,5 +103,5 @@ export interface PreviewImage {
 }
 
 export interface PreviewImageMap {
-  [url: string]: PreviewImage
+  [url: string]: PreviewImage | null
 }

@@ -6,7 +6,7 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "typings": "./build/index.d.ts",
+  "types": "./build/index.d.ts",
   "sideEffects": false,
   "files": [
     "build"

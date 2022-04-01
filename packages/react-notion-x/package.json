@@ -8,7 +8,7 @@
   "license": "MIT",
   "main": "./build/index.js",
   "module": "./build/index.js",
-  "typings": "./build/index.d.ts",
+  "types": "./build/index.d.ts",
   "sideEffects": false,
   "files": [
     "build",
@@ -40,8 +40,7 @@
     "react-lazy-images": "^1.1.0",
     "react-modal": "^3.14.3",
     "react-pdf": "^5.7.1",
-    "react-use": "^17.3.1",
-    "timeago.js": "^4.0.2"
+    "react-use": "^17.3.1"
   },
   "devDependencies": {
     "@types/lodash.throttle": "^4.1.6",

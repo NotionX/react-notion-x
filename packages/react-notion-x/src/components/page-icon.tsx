@@ -5,7 +5,6 @@ import { Block, PageBlock, CalloutBlock } from 'notion-types'
 import { cs, isUrl } from '../utils'
 import { DefaultPageIcon } from '../icons/default-page-icon'
 import { useNotionContext } from '../context'
-// import { GracefulImage } from './graceful-image'
 import { LazyImage } from './lazy-image'
 
 const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {

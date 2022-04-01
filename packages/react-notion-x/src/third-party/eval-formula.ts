@@ -1,16 +1,16 @@
 import * as types from 'notion-types'
 import { getTextContent, getDateValue } from 'notion-utils'
 
-import format from 'date-fns/format'
-import getDate from 'date-fns/getDate'
-import getDay from 'date-fns/getDay'
-import getHours from 'date-fns/getHours'
-import getMinutes from 'date-fns/getMinutes'
-import getMonth from 'date-fns/getMonth'
-import getYear from 'date-fns/getYear'
-import add from 'date-fns/add'
-import sub from 'date-fns/sub'
-import intervalToDuration from 'date-fns/intervalToDuration'
+import format from 'date-fns/format/index.js'
+import getDate from 'date-fns/getDate/index.js'
+import getDay from 'date-fns/getDay/index.js'
+import getHours from 'date-fns/getHours/index.js'
+import getMinutes from 'date-fns/getMinutes/index.js'
+import getMonth from 'date-fns/getMonth/index.js'
+import getYear from 'date-fns/getYear/index.js'
+import add from 'date-fns/add/index.js'
+import sub from 'date-fns/sub/index.js'
+import intervalToDuration from 'date-fns/intervalToDuration/index.js'
 
 export interface EvalFormulaContext {
   properties: types.PropertyMap
