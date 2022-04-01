@@ -1,5 +1,5 @@
 import React from 'react'
-import { highlightElement } from 'prismjs'
+import * as prismjs from 'prismjs'
 import { CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
 import copyToClipboard from 'clipboard-copy'
@@ -49,6 +49,8 @@ import 'prismjs/components/prism-tsx.js'
 import 'prismjs/components/prism-typescript.js'
 import 'prismjs/components/prism-wasm.js'
 import 'prismjs/components/prism-yaml.js'
+
+const { highlightElement } = prismjs
 
 export const Code: React.FC<{
   block: CodeBlock
