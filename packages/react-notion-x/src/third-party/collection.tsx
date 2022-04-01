@@ -5,9 +5,9 @@ import {
   getBlockParentPage,
   getTextContent
 } from 'notion-utils'
-import { useLocalStorage, useWindowSize } from 'react-use'
+import * as reactUse from 'react-use'
 import Dropdown from 'rc-dropdown'
-import Menu, { Item as MenuItem } from 'rc-menu'
+import Menu from 'rc-menu'
 
 import { CollectionRow } from './collection-row'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
@@ -21,6 +21,8 @@ import {
   useNotionContext
 } from '../context'
 import { cs } from '../utils'
+
+const { useLocalStorage, useWindowSize } = reactUse
 
 const isServer = typeof window === 'undefined'
 const triggers = ['click']
@@ -166,6 +168,7 @@ const CollectionViewBlock: React.FC<{
   */
   const DropdownSafe = (Dropdown as any).default ?? Dropdown
   const MenuSafe = (Menu as any).default ?? Menu
+  const MenuItem = MenuSafe.Item
   // console.log('Collection', { Dropdown, Menu, MenuItem, DropdownSafe, MenuSafe })
 
   return (
