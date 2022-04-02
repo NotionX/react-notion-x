@@ -116,30 +116,33 @@ const CollectionViewBlock: React.FC<{
 
   const { style, width, padding } = React.useMemo(() => {
     const style: React.CSSProperties = {}
-    let width = 0
-    let padding = 0
 
-    if (collectionView.type === 'table' || collectionView.type === 'board') {
-      width = windowWidth
-      // TODO: customize for mobile?
-      const maxNotionBodyWidth = 708
-      let notionBodyWidth = maxNotionBodyWidth
-
-      const parentPage = getBlockParentPage(block, recordMap)
-      if (parentPage?.format?.page_full_width) {
-        notionBodyWidth = (width - 2 * Math.min(96, width * 0.08)) | 0
-      } else {
-        notionBodyWidth =
-          width < maxNotionBodyWidth
-            ? (width - width * 0.02) | 0 // 2vw
-            : maxNotionBodyWidth
+    if (collectionView?.type !== 'table' && collectionView?.type !== 'board') {
+      return {
+        style,
+        width: 0,
+        padding: 0
       }
-
-      padding = isServer ? 96 : ((width - notionBodyWidth) / 2) | 0
-      style.paddingLeft = padding
-      style.paddingRight = padding
     }
 
+    const width = windowWidth
+    // TODO: customize for mobile?
+    const maxNotionBodyWidth = 708
+    let notionBodyWidth = maxNotionBodyWidth
+
+    const parentPage = getBlockParentPage(block, recordMap)
+    if (parentPage?.format?.page_full_width) {
+      notionBodyWidth = (width - 2 * Math.min(96, width * 0.08)) | 0
+    } else {
+      notionBodyWidth =
+        width < maxNotionBodyWidth
+          ? (width - width * 0.02) | 0 // 2vw
+          : maxNotionBodyWidth
+    }
+
+    const padding = isServer ? 96 : ((width - notionBodyWidth) / 2) | 0
+    style.paddingLeft = padding
+    style.paddingRight = padding
     return {
       style,
       width,
