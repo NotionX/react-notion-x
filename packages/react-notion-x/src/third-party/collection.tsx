@@ -6,11 +6,11 @@ import {
   getTextContent
 } from 'notion-utils'
 import { useLocalStorage, useWindowSize } from 'react-use'
-import Dropdown from 'rc-dropdown'
-import Menu, { Item as MenuItem } from 'rc-menu'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import { CollectionRow } from './collection-row'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
+import CheckIcon from '../icons/check'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
 import { PropertyImpl } from './property'
@@ -23,7 +23,6 @@ import {
 import { cs } from '../utils'
 
 const isServer = typeof window === 'undefined'
-const triggers = ['click']
 
 export const Collection: React.FC<{
   block:
@@ -91,7 +90,7 @@ const CollectionViewBlock: React.FC<{
     viewIds.find((id) => id === collectionState.collectionViewId) || viewIds[0]
 
   const onChangeView = React.useCallback(
-    ({ key: collectionViewId }) => {
+    (collectionViewId: string) => {
       console.log('change collection view', collectionViewId)
 
       setCollectionState({
@@ -154,20 +153,6 @@ const CollectionViewBlock: React.FC<{
     }
   }
 
-  /**
-    TODO: this is hacky and really shouldn't be necessary, but when imported by
-    next.js 12 (webpack 5), the default exports from rc-dropdown and rc-menu are
-    replaced with commonjs equivalents `{ default: Dropdown }` instead of `Dropdown`
-    directly.
-
-    The safest fix would be to bundle the react-notion-x exports to prevent to
-    guarantee that all of its imports are handled as expected a library build tima,
-    but that will need to come in a later revision.
-  */
-  const DropdownSafe = (Dropdown as any).default ?? Dropdown
-  const MenuSafe = (Menu as any).default ?? Menu
-  // console.log('Collection', { Dropdown, Menu, MenuItem, DropdownSafe, MenuSafe })
-
   return (
     <div className={cs('notion-collection', className)}>
       <div className='notion-collection-header' style={style}>
@@ -186,31 +171,42 @@ const CollectionViewBlock: React.FC<{
         )}
 
         {viewIds.length > 1 && showCollectionViewDropdown && (
-          <DropdownSafe
-            trigger={triggers}
-            overlay={
-              <MenuSafe onSelect={onChangeView}>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger className='notion-collection-view-dropdown'>
+              <CollectionViewColumnDesc collectionView={collectionView}>
+                <ChevronDownIcon className='notion-collection-view-dropdown-icon' />
+              </CollectionViewColumnDesc>
+            </DropdownMenu.Trigger>
+
+            <DropdownMenu.Content className='notion-collection-view-dropdown-content'>
+              <DropdownMenu.RadioGroup
+                value={collectionViewId}
+                onValueChange={onChangeView}
+              >
                 {viewIds.map((viewId) => (
-                  <MenuItem
+                  <DropdownMenu.RadioItem
                     key={viewId}
-                    className='notion-collection-view-type-menu-item'
+                    value={viewId}
+                    className={cs(
+                      'notion-collection-view-dropdown-content-item',
+                      collectionViewId === viewId &&
+                        'notion-collection-view-dropdown-content-item-active'
+                    )}
                   >
+                    {collectionViewId === viewId && (
+                      <div className='notion-collection-view-dropdown-content-item-active-icon'>
+                        <CheckIcon />
+                      </div>
+                    )}
+
                     <CollectionViewColumnDesc
                       collectionView={recordMap.collection_view[viewId]?.value}
                     />
-                  </MenuItem>
+                  </DropdownMenu.RadioItem>
                 ))}
-              </MenuSafe>
-            }
-            animation='slide-up'
-          >
-            <CollectionViewColumnDesc
-              className='notion-collection-view-dropdown'
-              collectionView={collectionView}
-            >
-              <ChevronDownIcon className='notion-collection-view-dropdown-icon' />
-            </CollectionViewColumnDesc>
-          </DropdownSafe>
+              </DropdownMenu.RadioGroup>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
         )}
       </div>
 
