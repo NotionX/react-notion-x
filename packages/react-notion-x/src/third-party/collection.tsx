@@ -148,7 +148,7 @@ const CollectionViewBlock: React.FC<{
       width,
       padding
     }
-  }, [windowWidth, block, recordMap, collectionView.type])
+  }, [windowWidth, block, recordMap, collectionView?.type])
 
   // console.log({
   //   width,
