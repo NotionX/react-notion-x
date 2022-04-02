@@ -61,6 +61,22 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
 function Table({ blockIds, collection, collectionView, width, padding }) {
   const { recordMap, linkTableTitleProperties } = useNotionContext()
 
+  const tableStyle = React.useMemo(
+    () => ({
+      width,
+      maxWidth: width
+    }),
+    [width]
+  )
+
+  const tableViewStyle = React.useMemo(
+    () => ({
+      paddingLeft: padding,
+      paddingRight: padding
+    }),
+    [padding]
+  )
+
   let properties = []
 
   if (collectionView.format?.table_properties) {
@@ -76,20 +92,8 @@ function Table({ blockIds, collection, collectionView, width, padding }) {
   }
 
   return (
-    <div
-      className='notion-table'
-      style={{
-        width,
-        maxWidth: width
-      }}
-    >
-      <div
-        className='notion-table-view'
-        style={{
-          paddingLeft: padding,
-          paddingRight: padding
-        }}
-      >
+    <div className='notion-table' style={tableStyle}>
+      <div className='notion-table-view' style={tableViewStyle}>
         {!!properties.length && (
           <>
             <div className='notion-table-header'>

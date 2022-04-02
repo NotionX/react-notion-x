@@ -47,8 +47,8 @@ export interface CollectionViewProps {
   collection: types.Collection
   collectionView: types.CollectionView
   collectionData: types.CollectionQueryResult
-  padding: number
-  width: number
+  padding?: number
+  width?: number
 }
 
 export interface CollectionCardProps {

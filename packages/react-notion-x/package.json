@@ -20,7 +20,8 @@
   "scripts": {
     "build": "tsup",
     "watch": "tsup --watch --silent",
-    "css": "run-p css:*",
+    "css": "run-s css:*",
+    "css:pre": "mkdir -p build/third-party",
     "css:default": "cp -f src/styles.css build",
     "css:katex": "cp -f ../../node_modules/katex/dist/katex.min.css build/third-party/equation.css",
     "css:katex-fonts": "cp -rf ../../node_modules/katex/dist/fonts build/third-party"
@@ -33,6 +34,7 @@
     "notion-types": "^6.5.0",
     "notion-utils": "^6.5.0",
     "prismjs": "^1.27.0",
+    "react-fast-compare": "^3.2.0",
     "react-hotkeys-hook": "^3.0.3",
     "react-image": "^4.0.3",
     "react-lazy-images": "^1.1.0",

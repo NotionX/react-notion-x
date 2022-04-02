@@ -65,6 +65,13 @@ function Board({ collectionView, collectionData, collection, padding }) {
     collectionView?.format?.board_groups2 ||
     []
 
+  const boardStyle = React.useMemo(
+    () => ({
+      paddingLeft: padding
+    }),
+    [padding]
+  )
+
   return (
     <div className='notion-board'>
       <div
@@ -72,9 +79,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
           'notion-board-view',
           `notion-board-view-size-${board_cover_size}`
         )}
-        style={{
-          paddingLeft: padding
-        }}
+        style={boardStyle}
       >
         <div className='notion-board-header'>
           <div className='notion-board-header-inner'>
@@ -135,7 +140,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
 
             return (
               <div className='notion-board-group' key={index}>
-                {group.blockIds.map((blockId) => {
+                {group.blockIds.map((blockId: string) => {
                   const block = recordMap.block[blockId]?.value as PageBlock
                   if (!block) return null
 
