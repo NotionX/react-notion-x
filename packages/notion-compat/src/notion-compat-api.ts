@@ -197,8 +197,8 @@ export class NotionCompatAPI {
   }
 
   async getAllBlockChildren(blockId: string) {
-    let cursor = undefined
     let blocks: types.BlockChildren = []
+    let cursor: string
 
     do {
       console.log('blocks.children.list', { blockId, cursor })

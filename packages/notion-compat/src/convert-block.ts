@@ -363,6 +363,7 @@ export function convertBlock({
           switch (u.hostname) {
             case 'twitter.com':
               compatBlock.type = 'tweet'
+              delete compatBlock.format
               break
 
             case 'maps.google.com':

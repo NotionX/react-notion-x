@@ -71,11 +71,11 @@ export function convertRichTextItem(
 
           case 'page':
             subdecorations.push(['p', mention.page.id])
-            break
+            return ['‣', subdecorations]
 
           case 'database':
             subdecorations.push(['p', mention.database.id])
-            break
+            return ['‣', subdecorations]
 
           case 'date':
             subdecorations.unshift([
@@ -104,8 +104,7 @@ export function convertRichTextItem(
         }
       }
 
-      return ['‣', subdecorations]
-      // return [richTextItem.plain_text, subdecorations]
+      return [richTextItem.plain_text, subdecorations]
     }
 
     default:
