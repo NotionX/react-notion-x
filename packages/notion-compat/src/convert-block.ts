@@ -15,8 +15,11 @@ export function convertBlock({
   pageMap: types.PageMap
 }): notion.Block {
   const compatBlock: Partial<notion.BaseBlock> = {
-    id: partialBlock.id,
-    content: children
+    id: partialBlock.id
+  }
+
+  if (children && children.length) {
+    compatBlock.content = children
   }
 
   const block = partialBlock as types.Block
@@ -43,6 +46,22 @@ export function convertBlock({
 
     if (blockDetails.color) {
       compatBlock.format.block_color = convertColor(blockDetails.color)
+    }
+
+    if (blockDetails.icon) {
+      switch (blockDetails.icon.type) {
+        case 'emoji':
+          compatBlock.format.page_icon = blockDetails.icon.emoji
+          break
+
+        case 'external':
+          compatBlock.format.page_icon = blockDetails.icon.external.url
+          break
+
+        case 'file':
+          compatBlock.format.page_icon = blockDetails.icon.file.url
+          break
+      }
     }
   }
 
