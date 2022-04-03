@@ -50,20 +50,24 @@ export function convertBlock({
     if (parentId) {
       compatBlock.parent_id = parentId
 
-      if (blockMap) {
-        const parentBlock = blockMap[parentId] as types.Block
-        if (parentBlock) {
-          switch (parentBlock.type) {
-            case 'child_database':
-              compatBlock.parent_table = 'table'
-              break
+      const parentBlock = blockMap?.[parentId] as types.Block
+      if (parentBlock) {
+        switch (parentBlock.type) {
+          case 'child_database':
+            compatBlock.parent_table = 'table'
+            break
 
-            case 'child_page':
-            // fallthrough
-            default:
-              compatBlock.parent_table = 'block'
-              break
-          }
+          case 'child_page':
+          // fallthrough
+          default:
+            compatBlock.parent_table = 'block'
+            break
+        }
+      } else {
+        const parentPage = pageMap?.[parentId] as types.Page
+
+        if (parentPage) {
+          compatBlock.parent_table = 'block'
         }
       }
     }

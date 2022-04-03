@@ -57,7 +57,10 @@ export class NotionCompatAPI {
     const pendingBlockIds = new Set<string>()
     const queue = new PQueue({ concurrency })
 
-    const processBlock = async (blockId: string) => {
+    const processBlock = async (
+      blockId: string,
+      { shallow = false }: { shallow?: boolean } = {}
+    ) => {
       if (!blockId || pendingBlockIds.has(blockId)) {
         return
       }
@@ -81,12 +84,37 @@ export class NotionCompatAPI {
               })
 
               pageMap[blockId] = partialPage
+
+              const page = partialPage as types.Page
+              switch (page.parent?.type) {
+                case 'page_id':
+                  processBlock(page.parent.page_id, {
+                    shallow: true
+                  })
+                  if (!parentMap[blockId]) {
+                    parentMap[blockId] = page.parent.page_id
+                  }
+                  break
+
+                case 'database_id':
+                  processBlock(page.parent.database_id, {
+                    shallow: true
+                  })
+                  if (!parentMap[blockId]) {
+                    parentMap[blockId] = page.parent.database_id
+                  }
+                  break
+              }
             }
 
             if (blockId !== rootBlockId) {
               // don't fetch children or recurse on subpages
               return
             }
+          }
+
+          if (shallow) {
+            return
           }
 
           const children = await this.getAllBlockChildren(blockId)
