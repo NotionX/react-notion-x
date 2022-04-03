@@ -5,11 +5,6 @@ import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 
-import dynamic from 'next/dynamic'
-const Code = dynamic(() =>
-  import('react-notion-x/build/third-party/code').then((m) => m.Code)
-)
-
 export const NotionPage = ({
   recordMap,
   rootPageId
@@ -37,9 +32,6 @@ export const NotionPage = ({
         fullPage={true}
         darkMode={false}
         rootPageId={rootPageId}
-        components={{
-          Code
-        }}
       />
     </>
   )

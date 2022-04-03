@@ -100,8 +100,8 @@ export function convertRichTextItem(
         }
       }
 
-      // return ['‣', subdecorations]
-      return [richTextItem.plain_text, subdecorations]
+      return ['‣', subdecorations]
+      // return [richTextItem.plain_text, subdecorations]
     }
   }
 

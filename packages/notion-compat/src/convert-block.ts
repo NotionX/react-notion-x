@@ -98,6 +98,18 @@ export function convertBlock({
           break
       }
     }
+
+    if (blockDetails.type) {
+      switch (blockDetails.type) {
+        case 'external':
+          compatBlock.properties.source = [[blockDetails.external.url]]
+          break
+
+        case 'file':
+          compatBlock.properties.source = [[blockDetails.file.url]]
+          break
+      }
+    }
   }
 
   switch (block.type) {
@@ -138,9 +150,11 @@ export function convertBlock({
       break
 
     case 'template':
+      // TODO
       break
 
     case 'synced_block':
+      // TODO
       break
 
     case 'child_page': {
@@ -214,9 +228,11 @@ export function convertBlock({
     }
 
     case 'child_database':
+      // TODO
       break
 
     case 'equation':
+      // TODO
       break
 
     case 'code':
@@ -229,12 +245,14 @@ export function convertBlock({
       break
 
     case 'file':
+      // TODO
       break
 
     case 'divider':
       break
 
     case 'breadcrumb':
+      // TODO
       break
 
     case 'table_of_contents':
@@ -247,15 +265,34 @@ export function convertBlock({
       break
 
     case 'link_to_page':
+      compatBlock.type = 'alias'
+      switch (block.link_to_page?.type) {
+        case 'page_id':
+          compatBlock.format.alias_pointer = {
+            id: block.link_to_page.page_id,
+            table: 'block'
+          }
+          break
+
+        case 'database_id':
+          compatBlock.format.alias_pointer = {
+            id: block.link_to_page.database_id,
+            table: 'table'
+          }
+          break
+      }
       break
 
     case 'table':
+      // TODO
       break
 
     case 'table_row':
+      // TODO
       break
 
     case 'embed':
+      // TODO
       break
 
     case 'bookmark':
@@ -271,29 +308,25 @@ export function convertBlock({
       break
 
     case 'image':
-      if (block.image) {
-        switch (block.image.type) {
-          case 'external':
-            compatBlock.properties.source = [[block.image.external.url]]
-            break
-
-          case 'file':
-            compatBlock.properties.source = [[block.image.file.url]]
-            break
-        }
-      }
+      // TODO
       break
 
     case 'video':
+      // TODO: formatting
+      compatBlock.format.block_page_width = true
+      compatBlock.format.block_aspect_ratio = 0.5620608899297423
       break
 
     case 'pdf':
+      // TODO
       break
 
     case 'audio':
+      // TODO
       break
 
     case 'link_preview':
+      // TODO
       break
 
     case 'unsupported':

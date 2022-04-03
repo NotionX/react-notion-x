@@ -130,6 +130,45 @@ export class NotionCompatAPI {
               blockMap[child.id] = childBlock
               parentMap[child.id] = blockId
 
+              const details = childBlock[childBlock.type]
+              if (details?.rich_text) {
+                const richTextMentions = details.rich_text.filter(
+                  (richTextItem) => richTextItem.type === 'mention'
+                )
+
+                for (const richTextMention of richTextMentions) {
+                  switch (richTextMention.mention?.type) {
+                    case 'page': {
+                      const pageId = richTextMention.mention.page.id
+                      processBlock(pageId, { shallow: true })
+                      break
+                    }
+
+                    case 'database': {
+                      const databaseId = richTextMention.mention.database.id
+                      processBlock(databaseId, { shallow: true })
+                      break
+                    }
+                  }
+                }
+              }
+
+              if (childBlock.type === 'link_to_page') {
+                switch (childBlock.link_to_page?.type) {
+                  case 'page_id':
+                    processBlock(childBlock.link_to_page.page_id, {
+                      shallow: true
+                    })
+                    break
+
+                  case 'database_id':
+                    processBlock(childBlock.link_to_page.database_id, {
+                      shallow: true
+                    })
+                    break
+                }
+              }
+
               if (
                 childBlock.has_children &&
                 childBlock.type !== 'child_database'
@@ -139,7 +178,7 @@ export class NotionCompatAPI {
             }
           }
         } catch (err) {
-          console.warn('error resolving child blocks', blockId, err.message)
+          console.warn('failed resolving block', blockId, err.message)
         } finally {
           pendingBlockIds.delete(blockId)
         }

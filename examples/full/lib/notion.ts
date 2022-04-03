@@ -1,11 +1,18 @@
-import { NotionAPI } from 'notion-client'
+import { Client } from '@notionhq/client'
+import { NotionCompatAPI } from 'notion-compat'
+
+// import { NotionAPI } from 'notion-client'
 import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
 
 import { getPreviewImageMap } from './preview-images'
 import { getTweetAstMap } from './tweet-embeds'
 import { previewImagesEnabled, tweetEmbedsEnabled } from './config'
 
-export const notion = new NotionAPI()
+// export const notion = new NotionAPI()
+
+const notion = new NotionCompatAPI(
+  new Client({ auth: process.env.NOTION_TOKEN })
+)
 
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   const recordMap = await notion.getPage(pageId)
