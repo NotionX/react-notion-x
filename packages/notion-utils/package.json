@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "watch": "tsup --watch --silent",
+    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
     "test": "ava"
   },
   "dependencies": {

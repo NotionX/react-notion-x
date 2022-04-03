@@ -33,10 +33,6 @@ parsePageId('About-d9ae0c6e7cad49a78e21d240cf2e3d04', { uuid: false })
 // 'd9ae0c6e7cad49a78e21d240cf2e3d04'
 ```
 
-## Docs
-
-See the [auto-generated docs](https://github.com/NotionX/react-notion-x/blob/master/docs/notion-utils.md).
-
 ## License
 
 MIT © [Travis Fischer](https://transitivebullsh.it)

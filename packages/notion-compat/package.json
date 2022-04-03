@@ -1,8 +1,8 @@
 {
-  "name": "notion-client",
-  "version": "6.5.0",
+  "name": "notion-compat",
+  "version": "0.1.0",
   "type": "module",
-  "description": "Robust TypeScript client for the unofficial Notion API.",
+  "description": "Compatibility layer between the official Notion API and unofficial private API.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
@@ -22,10 +22,13 @@
     "test": "ava"
   },
   "dependencies": {
-    "got": "^11.8.1",
+    "@notionhq/client": "^1.0.4",
     "notion-types": "^6.5.0",
     "notion-utils": "^6.5.0",
-    "p-map": "^5.3.0"
+    "p-queue": "^7.2.0"
+  },
+  "devDependencies": {
+    "notion-client": "^6.5.0"
   },
   "ava": {
     "snapshotDir": ".snapshots",

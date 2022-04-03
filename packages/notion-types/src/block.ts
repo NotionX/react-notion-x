@@ -94,7 +94,7 @@ export interface BaseBlock {
   id: ID
   type: BlockType
   properties?: any
-  format?: object
+  format?: any
   content?: ID[]
 
   space_id?: ID

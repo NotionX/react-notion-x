@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "watch": "tsup --watch --silent",
+    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
     "css": "run-s css:*",
     "css:pre": "mkdir -p build/third-party",
     "css:default": "cp -f src/styles.css build",

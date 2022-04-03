@@ -96,7 +96,10 @@ export class NotionAPI {
     // Notion page is readily available for use cases involving server-side rendering
     // and edge caching.
     if (fetchCollections) {
-      const allCollectionInstances = contentBlockIds.flatMap((blockId) => {
+      const allCollectionInstances: Array<{
+        collectionId: string
+        collectionViewId: string
+      }> = contentBlockIds.flatMap((blockId) => {
         const block = recordMap.block[blockId].value
         const collectionId =
           block &&
