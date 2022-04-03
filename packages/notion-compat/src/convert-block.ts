@@ -321,7 +321,8 @@ export function convertBlock({
       break
 
     case 'pdf':
-      // TODO
+      compatBlock.format.block_page_width = true
+      compatBlock.format.block_height = '80vh'
       break
 
     case 'audio':
