@@ -51,3 +51,26 @@ jobs:
         run: |
           cd examples/full
           yarn build
+
+  build-full-official-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+
+      - name: Build full example using the official Notion API
+
+        env:
+          USE_OFFICIAL_NOTION_API: true
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+
+        run: |
+          cd examples/full
+          yarn build
