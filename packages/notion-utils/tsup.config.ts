@@ -8,6 +8,6 @@ export default defineConfig({
   format: ['esm'],
   splitting: false,
   sourcemap: true,
-  minify: false,
+  minify: true,
   shims: false
 })

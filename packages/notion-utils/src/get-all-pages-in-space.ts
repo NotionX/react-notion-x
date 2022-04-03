@@ -63,10 +63,12 @@ export async function getAllPagesInSpace(
 
           const spaceId = page.block[pageId]?.value?.space_id
 
-          if (!rootSpaceId) {
-            rootSpaceId = spaceId
-          } else if (rootSpaceId !== spaceId) {
-            return
+          if (spaceId) {
+            if (!rootSpaceId) {
+              rootSpaceId = spaceId
+            } else if (rootSpaceId !== spaceId) {
+              return
+            }
           }
 
           Object.keys(page.block)
@@ -74,12 +76,24 @@ export async function getAllPagesInSpace(
               const block = page.block[key]?.value
               if (!block) return false
 
-              const isPage =
-                block.type === 'page' || block.type === 'collection_view_page'
+              if (
+                block.type !== 'page' &&
+                block.type !== 'collection_view_page'
+              ) {
+                return false
+              }
 
               // the space id check is important to limit traversal because pages
               // can reference pages in other spaces
-              return isPage && block.space_id === rootSpaceId
+              if (
+                rootSpaceId &&
+                block.space_id &&
+                block.space_id !== rootSpaceId
+              ) {
+                return false
+              }
+
+              return true
             })
             .forEach((subPageId) => processPage(subPageId))
 
