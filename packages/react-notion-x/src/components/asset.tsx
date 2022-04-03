@@ -233,6 +233,7 @@ export const Asset: React.FC<{
               allowFullScreen
               // this is important for perf but react's TS definitions don't seem to like it
               loading='lazy'
+              scrolling='auto'
             />
           )
         }

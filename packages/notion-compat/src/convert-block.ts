@@ -141,6 +141,7 @@ export function convertBlock({
       break
 
     case 'quote':
+      // no-op
       break
 
     case 'to_do':
@@ -150,14 +151,72 @@ export function convertBlock({
       break
 
     case 'toggle':
+      // no-op
       break
 
-    case 'template':
+    case 'code':
+      if (block.code.language) {
+        compatBlock.properties.language = [[block.code.language]]
+      }
+      break
+
+    case 'callout':
+      // no-op
+      break
+
+    case 'file':
+      // no-op
+      break
+
+    case 'divider':
+      // no-op
+      break
+
+    case 'breadcrumb':
       // TODO
       break
 
-    case 'synced_block':
-      // TODO
+    case 'table_of_contents':
+      // no-op
+      break
+
+    case 'column_list':
+      // no-op
+      break
+
+    case 'column':
+      // no-op
+      break
+
+    case 'bookmark':
+      if (block.bookmark.url) {
+        compatBlock.properties.link = [[block.bookmark.url]]
+      }
+
+      if (block.bookmark.caption) {
+        compatBlock.properties.description = convertRichText(
+          block.bookmark.caption
+        )
+      }
+      break
+
+    case 'link_to_page':
+      compatBlock.type = 'alias'
+      switch (block.link_to_page?.type) {
+        case 'page_id':
+          compatBlock.format.alias_pointer = {
+            id: block.link_to_page.page_id,
+            table: 'block'
+          }
+          break
+
+        case 'database_id':
+          compatBlock.format.alias_pointer = {
+            id: block.link_to_page.database_id,
+            table: 'table'
+          }
+          break
+      }
       break
 
     case 'child_page': {
@@ -230,7 +289,11 @@ export function convertBlock({
       break
     }
 
-    case 'child_database':
+    case 'template':
+      // TODO
+      break
+
+    case 'synced_block':
       // TODO
       break
 
@@ -238,52 +301,8 @@ export function convertBlock({
       // TODO
       break
 
-    case 'code':
-      if (block.code.language) {
-        compatBlock.properties.language = [[block.code.language]]
-      }
-      break
-
-    case 'callout':
-      break
-
-    case 'file':
+    case 'child_database':
       // TODO
-      break
-
-    case 'divider':
-      break
-
-    case 'breadcrumb':
-      // TODO
-      break
-
-    case 'table_of_contents':
-      break
-
-    case 'column_list':
-      break
-
-    case 'column':
-      break
-
-    case 'link_to_page':
-      compatBlock.type = 'alias'
-      switch (block.link_to_page?.type) {
-        case 'page_id':
-          compatBlock.format.alias_pointer = {
-            id: block.link_to_page.page_id,
-            table: 'block'
-          }
-          break
-
-        case 'database_id':
-          compatBlock.format.alias_pointer = {
-            id: block.link_to_page.database_id,
-            table: 'table'
-          }
-          break
-      }
       break
 
     case 'table':
@@ -294,39 +313,114 @@ export function convertBlock({
       // TODO
       break
 
-    case 'embed':
-      // TODO
-      break
-
-    case 'bookmark':
-      if (block.bookmark.url) {
-        compatBlock.properties.link = [[block.bookmark.url]]
-      }
-
-      if (block.bookmark.caption) {
-        compatBlock.properties.description = convertRichText(
-          block.bookmark.caption
-        )
-      }
-      break
-
-    case 'image':
-      // TODO
-      break
-
-    case 'video':
+    case 'video': {
       // TODO: formatting
       compatBlock.format.block_page_width = true
       compatBlock.format.block_aspect_ratio = 0.5620608899297423
+
+      try {
+        const url = compatBlock.properties.source?.[0]?.[0]
+
+        if (!url) break
+        const u = new URL(url)
+
+        switch (u.hostname) {
+          case 'loom.com':
+          case 'www.loom.com':
+            u.pathname = u.pathname.replace(/^\/share\//i, '/embed/')
+            compatBlock.format.display_source = u.toString()
+            break
+        }
+      } catch {
+        // ignore invalid urls
+      }
       break
+    }
 
     case 'pdf':
+      // TODO: formatting
       compatBlock.format.block_page_width = true
       compatBlock.format.block_height = '80vh'
       break
 
+    case 'embed': {
+      // TODO: embedding really needs to use some sort of externaly embed API like
+      // embedly or microlinkhq
+      const url = block.embed?.url
+
+      // TODO: formatting
+      compatBlock.format.block_page_width = true
+      compatBlock.format.block_height = '30vh'
+
+      if (url) {
+        compatBlock.properties.source = [[url]]
+
+        try {
+          const u = new URL(url)
+
+          switch (u.hostname) {
+            case 'twitter.com':
+              compatBlock.type = 'tweet'
+              break
+
+            case 'maps.google.com':
+              compatBlock.type = 'maps'
+              break
+
+            case 'excalidraw.com':
+              compatBlock.type = 'excalidraw'
+              break
+
+            case 'codepen.io':
+              compatBlock.type = 'codepen'
+              break
+
+            case 'docs.google.com':
+            // fallthrough
+            case 'drive.google.com':
+              compatBlock.type = 'drive'
+              break
+
+            case 'figma.com':
+              compatBlock.type = 'figma'
+              break
+
+            case 'open.spotify.com':
+              if (
+                u.pathname.includes('/embed/') ||
+                u.pathname.includes('/embed-podcast/')
+              ) {
+                break
+              }
+
+              if (u.pathname.startsWith('/playlist/')) {
+                u.pathname = `/embed${u.pathname}`
+              } else if (u.pathname.startsWith('/episode/')) {
+                u.pathname = `/embed-podcast${u.pathname}`
+              }
+
+              u.search = ''
+              compatBlock.format.display_source = u.toString()
+              break
+
+            case 'soundcloud.com':
+              // TODO
+              break
+          }
+        } catch {
+          // ignore invalid urls
+        }
+      }
+      break
+    }
+
+    case 'image':
+      // no-op
+      // TODO: handle formatting
+      break
+
     case 'audio':
-      // TODO
+      // no-op
       break
 
     case 'link_preview':
@@ -334,6 +428,7 @@ export function convertBlock({
       break
 
     case 'unsupported':
+      // no-op
       break
   }
 
