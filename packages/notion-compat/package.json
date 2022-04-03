@@ -22,13 +22,16 @@
     "test": "ava"
   },
   "dependencies": {
-    "@notionhq/client": "^1.0.4",
     "notion-types": "^6.5.0",
     "notion-utils": "^6.5.0",
     "p-queue": "^7.2.0"
   },
   "devDependencies": {
+    "@notionhq/client": "^1.0.4",
     "notion-client": "^6.5.0"
+  },
+  "peerDependencies": {
+    "@notionhq/client": "^1.0.4"
   },
   "ava": {
     "snapshotDir": ".snapshots",

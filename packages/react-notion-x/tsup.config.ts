@@ -27,7 +27,7 @@ export default defineConfig([
   {
     ...baseConfig,
     outDir: 'build',
-    minify: false,
-    sourcemap: true
+    minify: true,
+    sourcemap: false
   }
 ])
