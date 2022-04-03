@@ -294,7 +294,16 @@ export function convertBlock({
       break
 
     case 'synced_block':
-      // TODO
+      if (block.synced_block.synced_from) {
+        // TODO: handle block.synced_block.synced_from.type for non-block types
+        compatBlock.type = 'transclusion_reference'
+        compatBlock.format.transclusion_reference_pointer = {
+          id: block.synced_block.synced_from.block_id,
+          table: 'block'
+        }
+      } else {
+        compatBlock.type = 'transclusion_container'
+      }
       break
 
     case 'equation':
@@ -313,6 +322,12 @@ export function convertBlock({
 
     case 'table_row':
       // TODO
+      break
+
+    case 'pdf':
+      // TODO: formatting
+      compatBlock.format.block_page_width = true
+      compatBlock.format.block_height = '80vh'
       break
 
     case 'video': {
@@ -339,15 +354,10 @@ export function convertBlock({
       break
     }
 
-    case 'pdf':
-      // TODO: formatting
-      compatBlock.format.block_page_width = true
-      compatBlock.format.block_height = '80vh'
-      break
-
     case 'embed': {
       // TODO: embedding really needs to use some sort of externaly embed API like
-      // embedly or microlinkhq
+      // embedly or microlinkhq. Currently, many embed use cases will not work or
+      // display properly.
       const url = block.embed?.url
 
       // TODO: formatting
