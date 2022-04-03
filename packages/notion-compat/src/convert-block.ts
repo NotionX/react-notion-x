@@ -298,7 +298,9 @@ export function convertBlock({
       break
 
     case 'equation':
-      // TODO
+      if (block.equation?.expression) {
+        compatBlock.properties.title = [[block.equation.expression]]
+      }
       break
 
     case 'child_database':
@@ -379,6 +381,8 @@ export function convertBlock({
             // fallthrough
             case 'drive.google.com':
               compatBlock.type = 'drive'
+
+              // TODO: fetch drive_properties
               break
 
             case 'figma.com':
@@ -401,6 +405,13 @@ export function convertBlock({
 
               u.search = ''
               compatBlock.format.display_source = u.toString()
+              break
+
+            case 'airtable.com':
+              if (!u.pathname.startsWith('/embed/')) {
+                u.pathname = `/embed${u.pathname}`
+                compatBlock.format.display_source = u.toString()
+              }
               break
 
             case 'soundcloud.com':

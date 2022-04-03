@@ -9,7 +9,7 @@ export function convertRichText(richText: types.RichText): notion.Decoration[] {
 
 export function convertRichTextItem(
   richTextItem: types.RichTextItem
-): notion.Decoration | null {
+): notion.Decoration {
   const subdecorations: notion.SubDecoration[] = []
 
   if (richTextItem.annotations.bold) {
@@ -53,11 +53,15 @@ export function convertRichTextItem(
     }
 
     case 'equation':
-      // TODO
-      break
+      if (richTextItem.equation?.expression) {
+        subdecorations.unshift(['e', richTextItem.equation.expression])
+      }
+
+      return ['⁍', subdecorations]
 
     case 'mention': {
       const { mention } = richTextItem
+
       if (mention) {
         switch (mention.type) {
           case 'link_preview':
@@ -74,7 +78,7 @@ export function convertRichTextItem(
             break
 
           case 'date':
-            subdecorations.push([
+            subdecorations.unshift([
               'd',
               {
                 type: 'date', // TODO
@@ -103,7 +107,8 @@ export function convertRichTextItem(
       return ['‣', subdecorations]
       // return [richTextItem.plain_text, subdecorations]
     }
-  }
 
-  return null
+    default:
+      return ['']
+  }
 }
