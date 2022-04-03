@@ -31,3 +31,5 @@ export type RichTextItem = ArrayElement<RichText>
 export type PageMap = Record<string, PartialPage>
 export type BlockMap = Record<string, PartialBlock>
 export type BlockChildrenMap = Record<string, Array<string>>
+
+export type ParentMap = Record<string, string>

@@ -1,6 +1,9 @@
 import { Block, BlockMap } from 'notion-types'
 import isUrl from 'is-url-superb'
 
+// https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2531b0be-14aa-4667-9e49-1e3b66564e52/notion-ts.png
+// https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2531b0be-14aa-4667-9e49-1e3b66564e52/notion-ts.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220403%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220403T152006Z&X-Amz-Expires=3600&X-Amz-Signature=b9be057385554b5b371f1b472b1943eec8a58b55545b7c2a183609f964250c36&X-Amz-SignedHeaders=host&x-id=GetObject
+
 export const defaultMapImageUrl = (url: string, block: Block) => {
   if (!url) {
     return null
@@ -13,6 +16,26 @@ export const defaultMapImageUrl = (url: string, block: Block) => {
   // more recent versions of notion don't proxy unsplash images
   if (url.startsWith('https://images.unsplash.com')) {
     return url
+  }
+
+  try {
+    const u = new URL(url)
+
+    if (
+      u.pathname.startsWith('/secure.notion-static.com') &&
+      u.hostname.endsWith('.amazonaws.com')
+    ) {
+      if (
+        u.searchParams.has('X-Amz-Credential') &&
+        u.searchParams.has('X-Amz-Signature') &&
+        u.searchParams.has('X-Amz-Algorithm')
+      ) {
+        // if the URL is already signed, then use it as-is
+        return url
+      }
+    }
+  } catch {
+    // ignore invalid urls
   }
 
   if (url.startsWith('/images')) {

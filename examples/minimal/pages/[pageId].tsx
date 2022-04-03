@@ -1,12 +1,10 @@
 import React from 'react'
 
-import { NotionAPI } from 'notion-client'
 import { ExtendedRecordMap } from 'notion-types'
 
 import { NotionPage } from '../components/NotionPage'
 import { rootNotionPageId } from '../lib/config'
-
-export const notion = new NotionAPI()
+import notion from '../lib/notion'
 
 export const getStaticProps = async (context) => {
   const pageId = (context.params.pageId as string) || rootNotionPageId

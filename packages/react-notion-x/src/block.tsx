@@ -590,9 +590,12 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'bookmark': {
       if (!block.properties) return null
 
-      let title = getTextContent(block.properties?.title)
+      const link = block.properties.link
+      if (!link || !link[0]?.[0]) return null
+
+      let title = getTextContent(block.properties.title)
       if (!title) {
-        title = getTextContent(block.properties?.link)
+        title = getTextContent(link)
       }
 
       if (title) {
@@ -616,7 +619,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               block.format?.block_color && `notion-${block.format.block_color}`,
               blockId
             )}
-            href={block.properties.link[0][0]}
+            href={link[0][0]}
           >
             <div>
               {title && (
@@ -642,7 +645,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                 )}
 
                 <div className='notion-bookmark-link-text'>
-                  <Text value={block.properties?.link} block={block} />
+                  <Text value={link} block={block} />
                 </div>
               </div>
             </div>

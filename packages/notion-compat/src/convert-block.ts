@@ -8,11 +8,15 @@ import { convertRichText } from './convert-rich-text'
 export function convertBlock({
   block: partialBlock,
   children = [],
-  pageMap
+  pageMap,
+  blockMap,
+  parentMap
 }: {
   block: types.PartialBlock
   children?: string[]
-  pageMap: types.PageMap
+  pageMap?: types.PageMap
+  blockMap?: types.BlockMap
+  parentMap?: types.ParentMap
 }): notion.Block {
   const compatBlock: Partial<notion.BaseBlock> = {
     id: partialBlock.id
@@ -32,11 +36,38 @@ export function convertBlock({
   compatBlock.type = block.type
   compatBlock.created_time = convertTime(block.created_time)
   compatBlock.last_edited_time = convertTime(block.last_edited_time)
-  compatBlock.created_by_table = block.created_by?.object
-  compatBlock.created_by_id = block.created_by?.id
+  if (block.created_by) {
+    compatBlock.created_by_table = `notion_${block.created_by.object}`
+    compatBlock.created_by_id = block.created_by.id
+  }
   compatBlock.last_edited_by_table = block.last_edited_by?.object
   compatBlock.last_edited_by_id = block.last_edited_by?.id
   compatBlock.alive = block.archived !== true
+
+  if (parentMap) {
+    const parentId = parentMap[block.id]
+
+    if (parentId) {
+      compatBlock.parent_id = parentId
+
+      if (blockMap) {
+        const parentBlock = blockMap[parentId] as types.Block
+        if (parentBlock) {
+          switch (parentBlock.type) {
+            case 'child_database':
+              compatBlock.parent_table = 'table'
+              break
+
+            case 'child_page':
+            // fallthrough
+            default:
+              compatBlock.parent_table = 'block'
+              break
+          }
+        }
+      }
+    }
+  }
 
   const blockDetails = block[block.type]
   if (blockDetails) {
@@ -68,6 +99,9 @@ export function convertBlock({
   switch (block.type) {
     case 'paragraph':
       compatBlock.type = 'text'
+      if (!block.paragraph?.rich_text?.length) {
+        delete compatBlock.properties
+      }
       break
 
     case 'heading_1':
@@ -87,6 +121,7 @@ export function convertBlock({
       break
 
     case 'numbered_list_item':
+      compatBlock.type = 'numbered_list'
       break
 
     case 'quote':
@@ -107,62 +142,62 @@ export function convertBlock({
     case 'child_page': {
       compatBlock.type = 'page'
 
-      const page = pageMap[block.id] as types.Page
-      if (page) {
-        if (page.properties.title) {
-          compatBlock.properties.title = convertRichText(
-            (page.properties.title as any).title
-          )
-        }
-
-        if (page.cover) {
-          switch (page.cover.type) {
-            case 'external':
-              compatBlock.format.page_cover = page.cover.external.url
-              break
-
-            case 'file':
-              compatBlock.format.page_cover = page.cover.file.url
-              break
+      if (pageMap) {
+        const page = pageMap[block.id] as types.Page
+        if (page) {
+          if (page.properties.title) {
+            compatBlock.properties.title = convertRichText(
+              (page.properties.title as any).title
+            )
           }
 
-          // TODO
-          compatBlock.format.page_cover_position = 0.5
-        }
+          if (page.cover) {
+            switch (page.cover.type) {
+              case 'external':
+                compatBlock.format.page_cover = page.cover.external.url
+                break
 
-        if (page.icon) {
-          switch (page.icon.type) {
-            case 'emoji':
-              compatBlock.format.page_icon = page.icon.emoji
-              break
+              case 'file':
+                compatBlock.format.page_cover = page.cover.file.url
+                break
+            }
 
-            case 'external':
-              compatBlock.format.page_icon = page.icon.external.url
-              break
+            // TODO
+            compatBlock.format.page_cover_position = 0.5
+          }
 
-            case 'file':
-              compatBlock.format.page_icon = page.icon.file.url
-              break
+          if (page.icon) {
+            switch (page.icon.type) {
+              case 'emoji':
+                compatBlock.format.page_icon = page.icon.emoji
+                break
+
+              case 'external':
+                compatBlock.format.page_icon = page.icon.external.url
+                break
+
+              case 'file':
+                compatBlock.format.page_icon = page.icon.file.url
+                break
+            }
+          }
+
+          if (page.parent) {
+            switch (page.parent.type) {
+              case 'workspace':
+                compatBlock.parent_table = 'space'
+                break
+
+              case 'database_id':
+                compatBlock.parent_table = 'table'
+                break
+
+              case 'page_id':
+                compatBlock.parent_table = 'block'
+                break
+            }
           }
         }
-
-        if (page.parent) {
-          switch (page.parent.type) {
-            case 'workspace':
-              compatBlock.parent_table = 'space'
-              break
-
-            case 'database_id':
-              compatBlock.parent_table = 'table'
-              break
-
-            case 'page_id':
-              compatBlock.parent_table = 'block'
-              break
-          }
-        }
-
-        // TODO: componentPageBlock.parent_id
       }
 
       if (block.child_page) {
@@ -181,6 +216,9 @@ export function convertBlock({
       break
 
     case 'code':
+      if (block.code.language) {
+        compatBlock.properties.language = [[block.code.language]]
+      }
       break
 
     case 'callout':
@@ -217,9 +255,29 @@ export function convertBlock({
       break
 
     case 'bookmark':
+      if (block.bookmark.url) {
+        compatBlock.properties.link = [[block.bookmark.url]]
+      }
+
+      if (block.bookmark.caption) {
+        compatBlock.properties.description = convertRichText(
+          block.bookmark.caption
+        )
+      }
       break
 
     case 'image':
+      if (block.image) {
+        switch (block.image.type) {
+          case 'external':
+            compatBlock.properties.source = [[block.image.external.url]]
+            break
+
+          case 'file':
+            compatBlock.properties.source = [[block.image.file.url]]
+            break
+        }
+      }
       break
 
     case 'video':

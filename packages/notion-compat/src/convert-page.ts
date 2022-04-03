@@ -7,15 +7,23 @@ export function convertPage({
   pageId,
   blockMap,
   blockChildrenMap,
-  pageMap
+  pageMap,
+  parentMap
 }: {
   pageId: string
   blockMap: types.BlockMap
   blockChildrenMap: types.BlockChildrenMap
   pageMap: types.PageMap
+  parentMap: types.ParentMap
 }): notion.ExtendedRecordMap {
   const compatBlocks = Object.values(blockMap).map((block) =>
-    convertBlock({ block, children: blockChildrenMap[block.id], pageMap })
+    convertBlock({
+      block,
+      children: blockChildrenMap[block.id],
+      pageMap,
+      blockMap,
+      parentMap
+    })
   )
 
   const partialPage = pageMap[pageId]
@@ -24,7 +32,9 @@ export function convertPage({
   const compatPageBlock = convertBlock({
     block: { ...page, type: 'child_page' } as unknown as types.Block,
     children: blockChildrenMap[page.id],
-    pageMap
+    pageMap,
+    blockMap,
+    parentMap
   })
 
   const compatBlockMap = [compatPageBlock, ...compatBlocks].reduce(

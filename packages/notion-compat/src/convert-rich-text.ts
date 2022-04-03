@@ -45,7 +45,11 @@ export function convertRichTextItem(
 
   switch (richTextItem.type) {
     case 'text': {
-      return [richTextItem.text.content, subdecorations]
+      if (subdecorations.length) {
+        return [richTextItem.text.content, subdecorations]
+      } else {
+        return [richTextItem.text.content]
+      }
     }
 
     case 'equation':

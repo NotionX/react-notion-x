@@ -17,18 +17,20 @@ export class NotionCompatAPI {
   public async getPage(rawPageId: string): Promise<notion.ExtendedRecordMap> {
     const pageId = parsePageId(rawPageId)
 
-    const page = await this.client.pages.retrieve({ page_id: pageId })
-    const block = await this.client.blocks.retrieve({ block_id: pageId })
-    const children = await this.getAllBlockChildren(pageId)
-    const { blockMap, blockChildrenMap, pageMap } = await this.resolvePage(
-      pageId
-    )
+    const [page, block, children] = await Promise.all([
+      this.client.pages.retrieve({ page_id: pageId }),
+      this.client.blocks.retrieve({ block_id: pageId }),
+      this.getAllBlockChildren(pageId)
+    ])
+    const { blockMap, blockChildrenMap, pageMap, parentMap } =
+      await this.resolvePage(pageId)
 
     const recordMap = convertPage({
       pageId,
       blockMap,
       blockChildrenMap,
-      pageMap
+      pageMap,
+      parentMap
     })
 
     ;(recordMap as any).raw = {
@@ -50,6 +52,7 @@ export class NotionCompatAPI {
   ) {
     const blockMap: types.BlockMap = {}
     const pageMap: types.PageMap = {}
+    const parentMap: types.ParentMap = {}
     const blockChildrenMap: types.BlockChildrenMap = {}
     const pendingBlockIds = new Set<string>()
     const queue = new PQueue({ concurrency })
@@ -97,6 +100,7 @@ export class NotionCompatAPI {
               (!mappedChildBlock.type && childBlock.type)
             ) {
               blockMap[child.id] = childBlock
+              parentMap[child.id] = blockId
 
               if (
                 childBlock.has_children &&
@@ -120,7 +124,8 @@ export class NotionCompatAPI {
     return {
       blockMap,
       blockChildrenMap,
-      pageMap
+      pageMap,
+      parentMap
     }
   }
 
