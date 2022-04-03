@@ -144,6 +144,9 @@ export function convertBlock({
       break
 
     case 'to_do':
+      if (block.to_do?.checked) {
+        compatBlock.properties.checked = [['Yes']]
+      }
       break
 
     case 'toggle':
