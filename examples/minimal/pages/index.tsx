@@ -8,7 +8,6 @@ import notion from '../lib/notion'
 
 export const getStaticProps = async () => {
   const pageId = rootNotionPageId
-  // const recordMap = await notion.getPage(pageId)
   const recordMap = await notion.getPage(pageId)
 
   return {
