@@ -85,12 +85,20 @@ const CollectionViewBlock: React.FC<{
   const { view_ids: viewIds } = block
   const collectionId = getBlockCollectionId(block)
 
+  const [isMounted, setIsMounted] = React.useState(false)
+  React.useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  const defaultCollectionViewId = viewIds[0]
   const [collectionState, setCollectionState] = useLocalStorage(block.id, {
-    collectionViewId: viewIds[0]
+    collectionViewId: defaultCollectionViewId
   })
 
   const collectionViewId =
-    viewIds.find((id) => id === collectionState.collectionViewId) || viewIds[0]
+    (isMounted &&
+      viewIds.find((id) => id === collectionState.collectionViewId)) ||
+    defaultCollectionViewId
 
   const onChangeView = React.useCallback(
     (collectionViewId: string) => {
@@ -113,6 +121,7 @@ const CollectionViewBlock: React.FC<{
   const collectionView = recordMap.collection_view[collectionViewId]?.value
   const collectionData =
     recordMap.collection_query[collectionId]?.[collectionViewId]
+  const parentPage = getBlockParentPage(block, recordMap)
 
   const { style, width, padding } = React.useMemo(() => {
     const style: React.CSSProperties = {}
@@ -130,7 +139,6 @@ const CollectionViewBlock: React.FC<{
     const maxNotionBodyWidth = 708
     let notionBodyWidth = maxNotionBodyWidth
 
-    const parentPage = getBlockParentPage(block, recordMap)
     if (parentPage?.format?.page_full_width) {
       notionBodyWidth = (width - 2 * Math.min(96, width * 0.08)) | 0
     } else {
@@ -140,15 +148,17 @@ const CollectionViewBlock: React.FC<{
           : maxNotionBodyWidth
     }
 
-    const padding = isServer ? 96 : ((width - notionBodyWidth) / 2) | 0
+    const padding =
+      isServer && !isMounted ? 96 : ((width - notionBodyWidth) / 2) | 0
     style.paddingLeft = padding
     style.paddingRight = padding
+
     return {
       style,
       width,
       padding
     }
-  }, [windowWidth, block, recordMap, collectionView?.type])
+  }, [windowWidth, parentPage, collectionView?.type, isMounted])
 
   // console.log({
   //   width,
