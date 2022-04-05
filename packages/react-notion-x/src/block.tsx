@@ -590,9 +590,12 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'bookmark': {
       if (!block.properties) return null
 
-      let title = getTextContent(block.properties?.title)
+      const link = block.properties.link
+      if (!link || !link[0]?.[0]) return null
+
+      let title = getTextContent(block.properties.title)
       if (!title) {
-        title = getTextContent(block.properties?.link)
+        title = getTextContent(link)
       }
 
       if (title) {
@@ -616,7 +619,7 @@ export const Block: React.FC<BlockProps> = (props) => {
               block.format?.block_color && `notion-${block.format.block_color}`,
               blockId
             )}
-            href={block.properties.link[0][0]}
+            href={link[0][0]}
           >
             <div>
               {title && (
@@ -642,7 +645,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                 )}
 
                 <div className='notion-bookmark-link-text'>
-                  <Text value={block.properties?.link} block={block} />
+                  <Text value={link} block={block} />
                 </div>
               </div>
             </div>
@@ -766,31 +769,30 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'table_row': {
       const tableBlock = recordMap.block[block.parent_id]
-        .value as types.TableBlock
-      const order = tableBlock.format.table_block_column_order
-      const formatMap = tableBlock.format.table_block_column_format
+        ?.value as types.TableBlock
+      const order = tableBlock.format?.table_block_column_order
+      const formatMap = tableBlock.format?.table_block_column_format
+
+      if (!tableBlock || !order) {
+        return null
+      }
 
       return (
         <tr className={cs('notion-simple-table-row', blockId)}>
           {order.map((column) => {
-            const color =
-              formatMap && formatMap[column] ? formatMap[column]?.color : null
+            const color = formatMap?.[column]?.color
+
             return (
               <td
                 key={column}
                 className={color ? `notion-${color}` : ''}
                 style={{
-                  width:
-                    formatMap && formatMap[column] && formatMap[column]?.width
-                      ? formatMap[column].width
-                      : 120
+                  width: formatMap?.[column]?.width || 120
                 }}
               >
                 <div className='notion-simple-table-cell'>
                   <Text
-                    value={
-                      block.properties ? block.properties[column] : [['ㅤ']]
-                    }
+                    value={block.properties?.[column] || [['ㅤ']]}
                     block={block}
                   />
                 </div>

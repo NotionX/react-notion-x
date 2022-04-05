@@ -36,10 +36,6 @@ const colectionData = await api.getCollectionData(
 )
 ```
 
-## Docs
-
-See the [auto-generated docs](https://github.com/NotionX/react-notion-x/blob/master/docs/notion-client.md).
-
 ## License
 
 MIT © [Travis Fischer](https://transitivebullsh.it)

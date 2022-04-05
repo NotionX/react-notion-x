@@ -54,6 +54,7 @@ export function getPageProperty(
         case 'date': {
           const property = block.properties[propertyId] as [['‣', [DateFormat]]]
           const formatDate = property[0][1][0][1]
+
           if (formatDate.type == 'datetime') {
             return new Date(
               `${formatDate.start_date} ${formatDate.start_time}`

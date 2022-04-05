@@ -1,20 +1,14 @@
 {
-  "name": "notion-utils",
+  "name": "notion-compat",
   "version": "6.7.0-alpha.2",
   "type": "module",
-  "description": "Useful utilities for working with Notion data. Isomorphic.",
+  "description": "Compatibility layer between the official Notion API and unofficial private API.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "main": "./build/index.js",
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./build/index.d.ts",
-      "default": "./build/index.js"
-    }
-  },
   "sideEffects": false,
   "files": [
     "build"
@@ -28,11 +22,16 @@
     "test": "ava"
   },
   "dependencies": {
-    "is-url-superb": "^6.1.0",
-    "mem": "^9.0.2",
-    "normalize-url": "^7.0.3",
     "notion-types": "^6.7.0-alpha.0",
+    "notion-utils": "^6.7.0-alpha.2",
     "p-queue": "^7.2.0"
+  },
+  "devDependencies": {
+    "@notionhq/client": "^1.0.4",
+    "notion-client": "^6.7.0-alpha.2"
+  },
+  "peerDependencies": {
+    "@notionhq/client": "^1.0.4"
   },
   "ava": {
     "snapshotDir": ".snapshots",

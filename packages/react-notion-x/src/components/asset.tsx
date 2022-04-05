@@ -9,7 +9,7 @@ import { getYoutubeId } from '../utils'
 
 const isServer = typeof window === 'undefined'
 
-const types = [
+const supportedAssetTypes = [
   'video',
   'image',
   'embed',
@@ -30,7 +30,7 @@ export const Asset: React.FC<{
 }> = ({ block, children }) => {
   const { recordMap, mapImageUrl, components } = useNotionContext()
 
-  if (!block || !types.includes(block.type)) {
+  if (!block || !supportedAssetTypes.includes(block.type)) {
     return null
   }
 
@@ -73,7 +73,6 @@ export const Asset: React.FC<{
           style.objectFit = 'contain'
         }
       } else if (block_aspect_ratio && block.type !== 'image') {
-        // console.log(block.type, block)
         style.paddingBottom = `${block_aspect_ratio * 100}%`
       } else if (block_height) {
         style.height = block_height
@@ -108,8 +107,13 @@ export const Asset: React.FC<{
     }
   }
 
-  const source = block.properties?.source?.[0]?.[0]
+  const source =
+    recordMap.signed_urls?.[block.id] || block.properties?.source?.[0]?.[0]
   let content = null
+
+  if (!source) {
+    return null
+  }
 
   if (block.type === 'tweet') {
     const src = source
@@ -133,15 +137,15 @@ export const Asset: React.FC<{
     )
   } else if (block.type === 'pdf') {
     style.overflow = 'auto'
-    style.padding = '8px 16px'
     style.background = 'rgb(226, 226, 226)'
 
-    if (!isServer) {
-      const signedUrl = recordMap.signed_urls?.[block.id]
-      if (!signedUrl) return null
-      // console.log('pdf', block, signedUrl)
+    if (!style.padding) {
+      style.padding = '8px 16px'
+    }
 
-      content = <components.Pdf file={signedUrl} />
+    if (!isServer) {
+      // console.log('pdf', block, signedUrl)
+      content = <components.Pdf file={source} />
     }
   } else if (
     block.type === 'embed' ||
@@ -154,37 +158,36 @@ export const Asset: React.FC<{
     block.type === 'codepen' ||
     block.type === 'drive'
   ) {
-    const signedUrl = recordMap.signed_urls[block.id]
-
     if (
       block.type === 'video' &&
-      signedUrl &&
-      signedUrl.indexOf('youtube') < 0 &&
-      signedUrl.indexOf('youtu.be') < 0 &&
-      signedUrl.indexOf('vimeo') < 0 &&
-      signedUrl.indexOf('wistia') < 0 &&
-      signedUrl.indexOf('loom') < 0 &&
-      signedUrl.indexOf('videoask') < 0 &&
-      signedUrl.indexOf('getcloudapp') < 0
+      source &&
+      source.indexOf('youtube') < 0 &&
+      source.indexOf('youtu.be') < 0 &&
+      source.indexOf('vimeo') < 0 &&
+      source.indexOf('wistia') < 0 &&
+      source.indexOf('loom') < 0 &&
+      source.indexOf('videoask') < 0 &&
+      source.indexOf('getcloudapp') < 0
     ) {
+      style.paddingBottom = undefined
+
       content = (
         <video
           playsInline
           controls
           preload='metadata'
           style={assetStyle}
-          src={signedUrl}
+          src={source}
           title={block.type}
         />
       )
     } else {
-      let src = block.format?.display_source ?? source
+      let src = block.format?.display_source || source
 
       if (src) {
         const youtubeVideoId: string | null =
           block.type === 'video' ? getYoutubeId(src) : null
-
-        console.log({ youtubeVideoId, src, format: block.format, style })
+        // console.log({ youtubeVideoId, src, format: block.format, style })
 
         if (youtubeVideoId) {
           content = (
@@ -230,6 +233,7 @@ export const Asset: React.FC<{
               allowFullScreen
               // this is important for perf but react's TS definitions don't seem to like it
               loading='lazy'
+              scrolling='auto'
             />
           )
         }
@@ -238,8 +242,7 @@ export const Asset: React.FC<{
   } else if (block.type === 'image') {
     // console.log('image', block)
 
-    const signedUrl = recordMap.signed_urls?.[block.id]
-    const src = mapImageUrl(signedUrl || source, block as Block)
+    const src = mapImageUrl(source, block as Block)
     const caption = getTextContent(block.properties?.caption)
     const alt = caption || 'notion image'
 

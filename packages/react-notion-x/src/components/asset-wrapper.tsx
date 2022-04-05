@@ -67,7 +67,7 @@ export const AssetWrapper: React.FC<{
     )
   }
 
-  return <>{figure}</>
+  return figure
 }
 
 function isValidURL(str) {

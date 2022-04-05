@@ -1,5 +1,5 @@
 import { Block, BlockMap } from 'notion-types'
-import isUrl from 'is-url-superb'
+import { isUrl } from 'notion-utils'
 
 export const defaultMapImageUrl = (url: string, block: Block) => {
   if (!url) {
@@ -13,6 +13,26 @@ export const defaultMapImageUrl = (url: string, block: Block) => {
   // more recent versions of notion don't proxy unsplash images
   if (url.startsWith('https://images.unsplash.com')) {
     return url
+  }
+
+  try {
+    const u = new URL(url)
+
+    if (
+      u.pathname.startsWith('/secure.notion-static.com') &&
+      u.hostname.endsWith('.amazonaws.com')
+    ) {
+      if (
+        u.searchParams.has('X-Amz-Credential') &&
+        u.searchParams.has('X-Amz-Signature') &&
+        u.searchParams.has('X-Amz-Algorithm')
+      ) {
+        // if the URL is already signed, then use it as-is
+        return url
+      }
+    }
+  } catch {
+    // ignore invalid urls
   }
 
   if (url.startsWith('/images')) {

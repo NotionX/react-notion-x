@@ -2342,8 +2342,7 @@ svg.notion-page-icon {
 }
 
 .notion-header .button {
-  height: 28px;
-  padding: 0 8px;
+  padding: 12px;
 }
 
 .notion-search-overlay {

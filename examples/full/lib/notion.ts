@@ -1,11 +1,25 @@
+import { Client } from '@notionhq/client'
+import { NotionCompatAPI } from 'notion-compat'
 import { NotionAPI } from 'notion-client'
 import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
 
 import { getPreviewImageMap } from './preview-images'
 import { getTweetAstMap } from './tweet-embeds'
-import { previewImagesEnabled, tweetEmbedsEnabled } from './config'
+import {
+  useOfficialNotionAPI,
+  previewImagesEnabled,
+  tweetEmbedsEnabled
+} from './config'
 
-export const notion = new NotionAPI()
+const notion = useOfficialNotionAPI
+  ? new NotionCompatAPI(new Client({ auth: process.env.NOTION_TOKEN }))
+  : new NotionAPI()
+
+if (useOfficialNotionAPI) {
+  console.warn(
+    'Using the official Notion API. Note that many blocks only include partial support for formatting and layout. Use at your own risk.'
+  )
+}
 
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
   const recordMap = await notion.getPage(pageId)

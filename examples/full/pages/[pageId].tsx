@@ -43,7 +43,7 @@ export async function getStaticPaths() {
   const pages = await getAllPagesInSpace(
     rootNotionPageId,
     rootNotionSpaceId,
-    notion.getPage.bind(notion),
+    notion.getPage,
     {
       traverseCollections: false
     }
