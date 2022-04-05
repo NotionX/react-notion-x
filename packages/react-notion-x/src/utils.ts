@@ -1,5 +1,5 @@
 import { Block, BlockMap } from 'notion-types'
-import isUrl from 'is-url-superb'
+import { isUrl } from 'notion-utils'
 
 export const defaultMapImageUrl = (url: string, block: Block) => {
   if (!url) {

@@ -1,5 +1,5 @@
-import isUrl from 'is-url-superb'
 import * as types from 'notion-types'
+import { isUrl } from './is-url'
 import { getBlockIcon } from './get-block-icon'
 
 /**
