@@ -7,7 +7,7 @@ import { Text } from './text'
 import { PageIcon } from './page-icon'
 import { getBlockCollectionId } from 'notion-utils'
 
-export const PageTitle: React.FC<{
+export const PageTitleImpl: React.FC<{
   block: Block
   className?: string
   defaultIcon?: string
@@ -54,3 +54,5 @@ export const PageTitle: React.FC<{
     </span>
   )
 }
+
+export const PageTitle = React.memo(PageTitleImpl)

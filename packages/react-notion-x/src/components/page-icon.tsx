@@ -16,7 +16,7 @@ const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
   )
 }
 
-export const PageIcon: React.FC<{
+export const PageIconImpl: React.FC<{
   block: Block
   className?: string
   inline?: boolean
@@ -87,3 +87,5 @@ export const PageIcon: React.FC<{
     </div>
   )
 }
+
+export const PageIcon = React.memo(PageIconImpl)

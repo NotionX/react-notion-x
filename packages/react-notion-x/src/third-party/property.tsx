@@ -33,7 +33,7 @@ export const Property: React.FC<IPropertyProps> = (props) => {
   if (components.Property) {
     return <components.Property {...props} />
   } else {
-    return <PropertyImpl {...props} />
+    return <PropertyMemo {...props} />
   }
 }
 
@@ -315,3 +315,5 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
 
   return null
 }
+
+export const PropertyMemo = React.memo(PropertyImpl)

@@ -70,7 +70,9 @@ export interface PartialNotionContext {
 const DefaultLink: React.FC = (props) => (
   <a target='_blank' rel='noopener noreferrer' {...props} />
 )
+const DefaultLinkMemo = React.memo(DefaultLink)
 const DefaultPageLink: React.FC = (props) => <a {...props} />
+const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
 const DefaultEmbed = AssetWrapper
 
@@ -94,8 +96,8 @@ const dummyOverrideFn = (_: any, defaultValueFn: () => React.ReactNode) =>
 
 const defaultComponents: NotionComponents = {
   Image: null, // disable custom images by default
-  Link: DefaultLink,
-  PageLink: DefaultPageLink,
+  Link: DefaultLinkMemo,
+  PageLink: DefaultPageLinkMemo,
   Checkbox: DefaultCheckbox,
   Callout: undefined, // use the built-in callout rendering by default
 

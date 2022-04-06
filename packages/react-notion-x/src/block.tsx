@@ -51,6 +51,8 @@ const tocIndentLevelCache: {
   [blockId: string]: number
 } = {}
 
+const pageCoverStyleCache: Record<string, object> = {}
+
 export const Block: React.FC<BlockProps> = (props) => {
   const ctx = useNotionContext()
   const {
@@ -124,6 +126,13 @@ export const Block: React.FC<BlockProps> = (props) => {
                 }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
+          const pageCoverObjectPosition = `center ${coverPosition}%`
+          let pageCoverStyle = pageCoverStyleCache[pageCoverObjectPosition]
+          if (!pageCoverStyle) {
+            pageCoverStyle = pageCoverStyleCache[pageCoverObjectPosition] = {
+              objectPosition: pageCoverObjectPosition
+            }
+          }
 
           const pageIcon = getBlockIcon(block, recordMap) ?? defaultPageIcon
           const isPageIconUrl = pageIcon && isUrl(pageIcon)
@@ -164,9 +173,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                           alt={getTextContent(properties?.title)}
                           priority={true}
                           className='notion-page-cover'
-                          style={{
-                            objectPosition: `center ${coverPosition}%`
-                          }}
+                          style={pageCoverStyle}
                         />
                       </div>
                     ))}
