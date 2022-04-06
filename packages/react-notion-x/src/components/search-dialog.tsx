@@ -35,6 +35,7 @@ export class SearchDialog extends React.Component<{
 
   componentDidMount() {
     this._search = throttle(this._searchImpl.bind(this), 1000)
+    this._warmupSearch()
   }
 
   render() {
@@ -176,8 +177,20 @@ export class SearchDialog extends React.Component<{
     this._onChangeQuery({ target: { value: '' } })
   }
 
+  _warmupSearch = async () => {
+    const { searchNotion, rootBlockId } = this.props
+
+    // search is generally implemented as a serverless function wrapping the notion
+    // private API, upon opening the search dialog, so we eagerly invoke an empty
+    // search in order to warm up the serverless lambda
+    await searchNotion({
+      query: '',
+      ancestorId: rootBlockId
+    })
+  }
+
   _searchImpl = async () => {
-    const { searchNotion } = this.props
+    const { searchNotion, rootBlockId } = this.props
     const { query } = this.state
 
     if (!query.trim()) {
@@ -188,7 +201,7 @@ export class SearchDialog extends React.Component<{
     this.setState({ isLoading: true })
     const result: any = await searchNotion({
       query,
-      ancestorId: this.props.rootBlockId
+      ancestorId: rootBlockId
     })
 
     console.log('search', query, result)
@@ -201,7 +214,7 @@ export class SearchDialog extends React.Component<{
     } else {
       searchResult = { ...result }
 
-      searchResult.results = searchResult.results
+      const results = searchResult.results
         .map((result: any) => {
           const block = searchResult.recordMap.block[result.id]?.value
           if (!block) return
@@ -213,11 +226,15 @@ export class SearchDialog extends React.Component<{
 
           result.title = title
           result.block = block
+          result.recordMap = searchResult.recordMap
           result.page =
             getBlockParentPage(block, searchResult.recordMap, {
               inclusive: true
             }) || block
-          result.recordMap = searchResult.recordMap
+
+          if (!result.page.id) {
+            return
+          }
 
           if (result.highlight?.text) {
             result.highlight.html = result.highlight.text
@@ -228,6 +245,16 @@ export class SearchDialog extends React.Component<{
           return result
         })
         .filter(Boolean)
+
+      // dedupe results by page id
+      const searchResultsMap = results.reduce(
+        (map, result) => ({
+          ...map,
+          [result.page.id]: result
+        }),
+        {}
+      )
+      searchResult.results = Object.values(searchResultsMap)
     }
 
     if (this.state.query === query) {
