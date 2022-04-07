@@ -66,7 +66,7 @@ export const EOI: React.FC<{
           <div className='notion-external-subtitle'>
             {owner && <span>{owner}</span>}
             {owner && lastUpdated && <span> • </span>}
-            {lastUpdated && `Updated ${lastUpdated}`}
+            {lastUpdated && <span>Updated {lastUpdated}</span>}
           </div>
         )}
       </div>
