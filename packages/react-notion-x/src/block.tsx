@@ -794,7 +794,8 @@ export const Block: React.FC<BlockProps> = (props) => {
                 key={column}
                 className={color ? `notion-${color}` : ''}
                 style={{
-                  width: formatMap?.[column]?.width || 120
+                  minWidth: 120,
+                  maxWidth: 240
                 }}
               >
                 <div className='notion-simple-table-cell'>
