@@ -46,18 +46,24 @@ export class NotionAPI {
       fetchMissingBlocks = true,
       fetchCollections = true,
       signFileUrls = true,
-      additionalBlockIds = [],
+      chunkLimit = 100,
+      chunkNumber = 0,
       gotOptions
     }: {
       concurrency?: number
       fetchMissingBlocks?: boolean
       fetchCollections?: boolean
       signFileUrls?: boolean
-      additionalBlockIds?: string[]
+      chunkLimit?: number
+      chunkNumber?: number
       gotOptions?: OptionsOfJSONResponseBody
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
-    const page = await this.getPageRaw(pageId, gotOptions)
+    const page = await this.getPageRaw(pageId, {
+      chunkLimit,
+      chunkNumber,
+      gotOptions
+    })
     const recordMap = page?.recordMap as notion.ExtendedRecordMap
 
     if (!recordMap?.block) {
@@ -78,9 +84,9 @@ export class NotionAPI {
       // eslint-disable-next-line no-constant-condition
       while (true) {
         // fetch any missing content blocks
-        const pendingBlockIds = getPageContentBlockIds(recordMap)
-          .filter((id) => !recordMap.block[id])
-          .concat(additionalBlockIds || [])
+        const pendingBlockIds = getPageContentBlockIds(recordMap).filter(
+          (id) => !recordMap.block[id]
+        )
 
         if (!pendingBlockIds.length) {
           break
@@ -269,7 +275,15 @@ export class NotionAPI {
 
   public async getPageRaw(
     pageId: string,
-    gotOptions?: OptionsOfJSONResponseBody
+    {
+      gotOptions,
+      chunkLimit = 100,
+      chunkNumber = 0
+    }: {
+      chunkLimit?: number
+      chunkNumber?: number
+      gotOptions?: OptionsOfJSONResponseBody
+    } = {}
   ) {
     const parsedPageId = parsePageId(pageId)
 
@@ -279,9 +293,9 @@ export class NotionAPI {
 
     const body = {
       pageId: parsedPageId,
-      limit: 100,
+      limit: chunkLimit,
+      chunkNumber: chunkNumber,
       cursor: { stack: [] },
-      chunkNumber: 0,
       verticalColumns: false
     }
 

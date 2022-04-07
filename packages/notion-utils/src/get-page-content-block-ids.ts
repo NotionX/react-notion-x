@@ -51,12 +51,12 @@ export const getPageContentBlockIds = (
       return
     }
 
-    if (type === 'page' && blockId !== rootBlockId) {
-      // ignore other pages
-      return
+    if (blockId !== rootBlockId) {
+      if (type === 'page' || type === 'collection_view_page') {
+        // ignore the content of other pages and collections
+        return
+      }
     }
-
-    // TODO: ignore other collection pages?
 
     for (const blockId of content) {
       addContentBlocks(blockId)
