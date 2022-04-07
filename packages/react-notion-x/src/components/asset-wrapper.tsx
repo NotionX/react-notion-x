@@ -6,6 +6,8 @@ import { Text } from './text'
 import { useNotionContext } from '..'
 import { parsePageId } from 'notion-utils'
 
+const urlStyle = { width: '100%' }
+
 export const AssetWrapper: React.FC<{
   blockId: string
   block: Block
@@ -52,7 +54,7 @@ export const AssetWrapper: React.FC<{
 
     return (
       <components.PageLink
-        style={{ width: '100%' }}
+        style={urlStyle}
         href={isPage ? mapPageUrl(id) : caption}
         target={
           captionHostname &&

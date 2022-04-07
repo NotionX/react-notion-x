@@ -74,12 +74,15 @@ export const NotionRenderer: React.FC<{
   defaultPageCoverPosition,
   ...rest
 }) => {
-  const zoom =
-    typeof window !== 'undefined' &&
-    mediumZoom({
-      background: 'rgba(0, 0, 0, 0.8)',
-      margin: getMediumZoomMargin()
-    })
+  const zoom = React.useMemo(
+    () =>
+      typeof window !== 'undefined' &&
+      mediumZoom({
+        background: 'rgba(0, 0, 0, 0.8)',
+        margin: getMediumZoomMargin()
+      }),
+    []
+  )
 
   return (
     <NotionContextProvider

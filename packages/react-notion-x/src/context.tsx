@@ -167,9 +167,12 @@ export const NotionContextProvider: React.FC<PartialNotionContext> = ({
     }
   }
 
-  const wrappedThemeComponents = {
-    ...themeComponents
-  }
+  const wrappedThemeComponents = React.useMemo(
+    () => ({
+      ...themeComponents
+    }),
+    [themeComponents]
+  )
 
   if (wrappedThemeComponents.nextImage) {
     wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
@@ -187,20 +190,19 @@ export const NotionContextProvider: React.FC<PartialNotionContext> = ({
     }
   }
 
-  return (
-    <ctx.Provider
-      value={{
-        ...defaultNotionContext,
-        ...rest,
-        rootPageId,
-        mapPageUrl: mapPageUrl ?? defaultMapPageUrl(rootPageId),
-        mapImageUrl: mapImageUrl ?? defaultMapImageUrl,
-        components: { ...defaultComponents, ...wrappedThemeComponents }
-      }}
-    >
-      {children}
-    </ctx.Provider>
+  const value = React.useMemo(
+    () => ({
+      ...defaultNotionContext,
+      ...rest,
+      rootPageId,
+      mapPageUrl: mapPageUrl ?? defaultMapPageUrl(rootPageId),
+      mapImageUrl: mapImageUrl ?? defaultMapImageUrl,
+      components: { ...defaultComponents, ...wrappedThemeComponents }
+    }),
+    [mapImageUrl, mapPageUrl, wrappedThemeComponents, rootPageId, rest]
   )
+
+  return <ctx.Provider value={value}>{children}</ctx.Provider>
 }
 
 export const NotionContextConsumer = ctx.Consumer

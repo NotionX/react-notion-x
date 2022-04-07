@@ -2275,6 +2275,7 @@ svg.notion-page-icon {
   line-height: 1.5;
   line-height: 1.2;
   font-size: 14px;
+  gap: 12px;
 }
 
 .notion-header .breadcrumbs {
@@ -2284,7 +2285,6 @@ svg.notion-page-icon {
   height: 100%;
   flex-grow: 0;
   min-width: 0;
-  margin-right: 8px;
 }
 
 .notion-header .breadcrumb {
@@ -2320,9 +2320,12 @@ svg.notion-page-icon {
 .notion-header .searchIcon {
   width: 14px;
   height: 14px;
-  margin-right: 6px;
   color: var(--fg-color);
   fill: var(--fg-color);
+}
+
+.notion-search-button {
+  gap: 8px;
 }
 
 .notion-header .breadcrumb:not(.active):hover {

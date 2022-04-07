@@ -81,7 +81,8 @@ export const Breadcrumbs: React.FC<{
 export const Search: React.FC<{
   block: types.Block
   search?: SearchNotionFn
-}> = ({ block, search }) => {
+  title?: React.ReactNode
+}> = ({ block, search, title = 'Search' }) => {
   const { searchNotion, rootPageId } = useNotionContext()
   const onSearchNotion = search || searchNotion
 
@@ -110,19 +111,17 @@ export const Search: React.FC<{
 
   return (
     <>
-      <div className='rhs'>
-        {hasSearch && (
-          <div
-            role='button'
-            className={cs('breadcrumb', 'button', 'notion-search-button')}
-            onClick={onOpenSearch}
-          >
-            <SearchIcon className='searchIcon' />
+      {hasSearch && (
+        <div
+          role='button'
+          className={cs('breadcrumb', 'button', 'notion-search-button')}
+          onClick={onOpenSearch}
+        >
+          <SearchIcon className='searchIcon' />
 
-            <span className='title'>Search</span>
-          </div>
-        )}
-      </div>
+          {title && <span className='title'>{title}</span>}
+        </div>
+      )}
 
       {isSearchOpen && hasSearch && (
         <SearchDialog
