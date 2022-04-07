@@ -1,6 +1,7 @@
 :root {
-  --notion-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
-    'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --notion-font: ui-sans-serif, system-ui, apple-system, BlinkMacSystemFont,
+    'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
+    'Segoe UI Emoji', 'Segoe UI Symbol';
   --fg-color: rgb(55, 53, 47);
   --fg-color-0: rgba(55, 53, 47, 0.09);
   --fg-color-1: rgba(55, 53, 47, 0.16);
@@ -24,7 +25,7 @@
   --notion-pink: rgb(173, 26, 114);
   --notion-blue: rgb(11, 110, 153);
   --notion-purple: rgb(105, 64, 165);
-  --notion-teal: rgb(15, 123, 108);
+  --notion-teal: rgb(77, 100, 97);
   --notion-yellow: rgb(223, 171, 1);
   --notion-orange: rgb(217, 115, 13);
   --notion-brown: rgb(100, 71, 58);
@@ -2583,9 +2584,11 @@ svg.notion-page-icon {
 }
 
 .notion-external-mention {
-  display: inline;
-  margin-left: 2px;
-  margin-right: 2px;
+  display: inline-flex;
+  padding: 0 4px;
+  align-items: center;
+  position: relative;
+  top: 3px;
 }
 
 .notion-external-image {
@@ -2595,7 +2598,8 @@ svg.notion-page-icon {
 }
 
 .notion-external-mention .notion-external-image {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   width: 16px;
   height: 16px;
   margin: 0;
@@ -2608,7 +2612,9 @@ svg.notion-page-icon {
 }
 
 .notion-external-mention .notion-external-description {
-  display: inline;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .notion-external-title {

@@ -23,7 +23,7 @@ import { cs, getListNumber, isUrl } from './utils'
 import { Text } from './components/text'
 import { SyncPointerBlock } from './components/sync-pointer-block'
 import { AssetWrapper } from './components/asset-wrapper'
-import { ExternalComponentGithub } from './components/external-component-github'
+import { EOI } from './components/eoi'
 
 interface BlockProps {
   block: types.Block
@@ -359,11 +359,8 @@ export const Block: React.FC<BlockProps> = (props) => {
           </span>
         </span>
       )
-      let headerBlock = (
-        <h4 className={classNameStr} data-id={id}>
-          {innerHeader}
-        </h4>
-      )
+      let headerBlock
+
       //page title takes the h1 so all header blocks are greater
       if (isH1) {
         headerBlock = (
@@ -376,6 +373,12 @@ export const Block: React.FC<BlockProps> = (props) => {
           <h3 className={classNameStr} data-id={id}>
             {innerHeader}
           </h3>
+        )
+      } else {
+        headerBlock = (
+          <h4 className={classNameStr} data-id={id}>
+            {innerHeader}
+          </h4>
         )
       }
 
@@ -811,27 +814,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     }
 
     case 'external_object_instance':
-      switch (block.format?.domain) {
-        case 'github.com':
-          return (
-            <ExternalComponentGithub
-              original_url={block.format?.original_url}
-              block
-              className={blockId}
-            />
-          )
-
-        default:
-          if (process.env.NODE_ENV !== 'production') {
-            console.log(
-              `Unsupported external_object_instance domain ${block.format?.domain}: ` +
-                (block as any).type,
-              JSON.stringify(block, null, 2)
-            )
-          }
-
-          return <div />
-      }
+      return <EOI block={block} className={blockId} />
 
     default:
       if (process.env.NODE_ENV !== 'production') {

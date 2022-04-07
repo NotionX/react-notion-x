@@ -33,7 +33,7 @@ export const Property: React.FC<IPropertyProps> = (props) => {
   if (components.Property) {
     return <components.Property {...props} />
   } else {
-    return <PropertyMemo {...props} />
+    return <PropertyImplMemo {...props} />
   }
 }
 
@@ -293,10 +293,12 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
           break
 
         case 'created_by':
+          // TODO
           // console.log('created_by', schema, data)
           break
 
         case 'last_edited_by':
+          // TODO
           // console.log('last_edited_by', schema, data)
           break
 
@@ -316,4 +318,4 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   return null
 }
 
-export const PropertyMemo = React.memo(PropertyImpl)
+export const PropertyImplMemo = React.memo(PropertyImpl)
