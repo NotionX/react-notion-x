@@ -39,10 +39,6 @@ export const getPageContentBlockIds = (
       }
     }
 
-    if (blockId === '41f43794-d110-4006-a17d-7caaa4583d83') {
-      console.log('BLOCK', block)
-    }
-
     if (format) {
       const referenceId = format.transclusion_reference_pointer?.id
       if (referenceId) {
