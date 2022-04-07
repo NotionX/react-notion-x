@@ -5,6 +5,8 @@ import { promises as fs } from 'fs'
 
 import { NotionCompatAPI } from './notion-compat-api'
 
+const debug = false
+
 test('TODO', async (t) => {
   // const pageId = '067dd719a912471ea9a3ac10710e7fdf'
   const pageId = '8bcd65801a5d450fb7218d8890a38c29'
@@ -21,9 +23,11 @@ test('TODO', async (t) => {
   t.truthy(page)
   t.truthy(compatPage)
 
-  await fs.writeFile(`${pageId}.json`, JSON.stringify(page, null, 2))
-  await fs.writeFile(
-    `${pageId}.compat.json`,
-    JSON.stringify(compatPage, null, 2)
-  )
+  if (debug) {
+    await fs.writeFile(`${pageId}.json`, JSON.stringify(page, null, 2))
+    await fs.writeFile(
+      `${pageId}.compat.json`,
+      JSON.stringify(compatPage, null, 2)
+    )
+  }
 })
