@@ -238,6 +238,12 @@ All known blocks and most known configuration settings can be found in our [test
 
 ## Performance
 
+<p align="center">
+  <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="600" />
+  <br>
+  <i>Google Lighthouse scores for an <a href="https://react-notion-x-demo.transitivebullsh.it/38fa73d49b8f40aab1f3f8c82332e518">example page</a> rendered by `react-notion-x` on Vercel.</i>
+</p>
+
 [![NPM](https://badgen.net/bundlephobia/minzip/react-notion-x)](https://bundlephobia.com/package/react-notion-x)
 
 Out of the box, `react-notion-x` is pretty fast and relatively lightweight, but there are a few key factors to be aware of.
@@ -266,12 +272,6 @@ export default ({ recordMap }) => (
 ```
 
 This wraps these next.js components in a compatability layer so `NotionRenderer` can use them the same as their non-next.js equivalents `<img>` and `<a>`.
-
-<p align="center">
-  <img alt="Google Lighthouse Scores" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/react-notion-x-perf.png" width="600" />
-  <br>
-  <i>Google Lighthouse scores for an <a href="https://react-notion-x-demo.transitivebullsh.it/38fa73d49b8f40aab1f3f8c82332e518">example page</a> rendered by `react-notion-x` on Vercel.</i>
-</p>
 
 ## Related
 
