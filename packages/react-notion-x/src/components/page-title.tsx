@@ -1,11 +1,11 @@
 import React from 'react'
-import { Block } from 'notion-types'
+import { Block, Decoration } from 'notion-types'
+import { getBlockTitle } from 'notion-utils'
 
 import { cs } from '../utils'
 import { useNotionContext } from '../context'
 import { Text } from './text'
 import { PageIcon } from './page-icon'
-import { getBlockCollectionId } from 'notion-utils'
 
 export const PageTitleImpl: React.FC<{
   block: Block
@@ -16,24 +16,30 @@ export const PageTitleImpl: React.FC<{
 
   if (!block) return null
 
-  // TODO: replace with getBlockTitle
   if (
     block.type === 'collection_view_page' ||
     block.type === 'collection_view'
   ) {
-    const collection = recordMap.collection[getBlockCollectionId(block)]?.value
-
-    if (collection) {
-      block.properties = {
-        ...block.properties,
-        title: collection.name
-      }
-
-      block.format = {
-        ...block.format,
-        page_icon: collection.icon
-      }
+    const title = getBlockTitle(block, recordMap)
+    if (!title) {
+      return null
     }
+
+    const titleDecoration: Decoration[] = [[title]]
+
+    return (
+      <span className={cs('notion-page-title', className)} {...rest}>
+        <PageIcon
+          block={block}
+          defaultIcon={defaultIcon}
+          className='notion-page-title-icon'
+        />
+
+        <span className='notion-page-title-text'>
+          <Text value={titleDecoration} block={block} />
+        </span>
+      </span>
+    )
   }
 
   if (!block.properties?.title) {
