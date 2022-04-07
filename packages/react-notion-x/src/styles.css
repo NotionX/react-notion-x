@@ -2260,7 +2260,7 @@ svg.notion-page-icon {
   background: var(--bg-color);
 }
 
-.notion-header .nav-header {
+.notion-header .notion-nav-header {
   position: absolute;
   top: 0;
   left: 0;

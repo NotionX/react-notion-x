@@ -3,9 +3,9 @@ import mediumZoom from 'medium-zoom'
 import { ExtendedRecordMap } from 'notion-types'
 
 import {
-  MapPageUrl,
-  MapImageUrl,
-  SearchNotion,
+  MapPageUrlFn,
+  MapImageUrlFn,
+  SearchNotionFn,
   NotionComponents
 } from './types'
 import { Block } from './block'
@@ -15,9 +15,9 @@ export const NotionRenderer: React.FC<{
   recordMap: ExtendedRecordMap
   components?: Partial<NotionComponents>
 
-  mapPageUrl?: MapPageUrl
-  mapImageUrl?: MapImageUrl
-  searchNotion?: SearchNotion
+  mapPageUrl?: MapPageUrlFn
+  mapImageUrl?: MapImageUrlFn
+  searchNotion?: SearchNotionFn
 
   rootPageId?: string
   rootDomain?: string
@@ -42,7 +42,7 @@ export const NotionRenderer: React.FC<{
   className?: string
   bodyClassName?: string
 
-  header?: React.ElementType
+  header?: React.ReactNode
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
@@ -111,7 +111,7 @@ export const NotionRenderer: React.FC<{
 export const NotionBlockRenderer: React.FC<{
   className?: string
   bodyClassName?: string
-  header?: React.ElementType
+  header?: React.ReactNode
   footer?: React.ReactNode
   disableHeader?: boolean
 

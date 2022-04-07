@@ -2,11 +2,12 @@ import React from 'react'
 import { ExtendedRecordMap } from 'notion-types'
 import { wrapNextImage, wrapNextLink } from './next'
 import { AssetWrapper } from './components/asset-wrapper'
+import { Header } from './components/header'
 
 import {
-  MapPageUrl,
-  MapImageUrl,
-  SearchNotion,
+  MapPageUrlFn,
+  MapImageUrlFn,
+  SearchNotionFn,
   NotionComponents
 } from './types'
 import { defaultMapPageUrl, defaultMapImageUrl } from './utils'
@@ -16,9 +17,9 @@ export interface NotionContext {
   recordMap: ExtendedRecordMap
   components: NotionComponents
 
-  mapPageUrl: MapPageUrl
-  mapImageUrl: MapImageUrl
-  searchNotion?: SearchNotion
+  mapPageUrl: MapPageUrlFn
+  mapImageUrl: MapImageUrlFn
+  searchNotion?: SearchNotionFn
 
   rootPageId?: string
   rootDomain?: string
@@ -43,9 +44,9 @@ export interface PartialNotionContext {
   recordMap?: ExtendedRecordMap
   components?: Partial<NotionComponents>
 
-  mapPageUrl?: MapPageUrl
-  mapImageUrl?: MapImageUrl
-  searchNotion?: SearchNotion
+  mapPageUrl?: MapPageUrlFn
+  mapImageUrl?: MapImageUrlFn
+  searchNotion?: SearchNotionFn
 
   rootPageId?: string
   rootDomain?: string
@@ -75,6 +76,7 @@ const DefaultPageLink: React.FC = (props) => <a {...props} />
 const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
 const DefaultEmbed = AssetWrapper
+const DefaultHeader = Header
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const dummyLink = ({ href, rel, target, title, ...rest }) => (
@@ -112,6 +114,7 @@ const defaultComponents: NotionComponents = {
   Tweet: dummyComponent('Tweet'),
   Modal: dummyComponent('Modal'),
 
+  Header: DefaultHeader,
   Embed: DefaultEmbed
 }
 
