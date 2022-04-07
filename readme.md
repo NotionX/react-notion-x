@@ -243,8 +243,8 @@ All known blocks and most known configuration settings can be found in our [test
   <br>
   <i>Google Lighthouse scores for an <a href="https://react-notion-x-demo.transitivebullsh.it/38fa73d49b8f40aab1f3f8c82332e518">example page</a> rendered by `react-notion-x` on Vercel.</i>
   <br>
-  <a href="https://badgen.net/bundlephobia/minzip/react-notion-x" title="Bundlephobia">
-    <img alt="Bundlephobia" src="https://bundlephobia.com/package/react-notion-x" />
+  <a href="https://bundlephobia.com/package/react-notion-x" title="Bundlephobia">
+    <img alt="Bundlephobia" src="https://badgen.net/bundlephobia/minzip/react-notion-x" />
   </a>
 </p>
 
