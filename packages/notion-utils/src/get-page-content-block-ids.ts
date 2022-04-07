@@ -17,27 +17,7 @@ export const getPageContentBlockIds = (
     const block = recordMap.block[blockId]?.value
     if (!block) return
 
-    const { content, type } = block
-    if (!content) return
-
-    if (type === 'page' && blockId !== rootBlockId) {
-      // ignore subpages
-      return
-    }
-
-    for (const blockId of content) {
-      addContentBlocks(blockId)
-    }
-  }
-
-  addContentBlocks(rootBlockId)
-
-  for (const blockId of Object.keys(recordMap.block)) {
-    const block = recordMap.block[blockId]?.value
-    if (!block) continue
-
-    const { properties } = block
-
+    const { content, type, properties, format } = block
     if (properties) {
       // TODO: this needs some love, especially for resolving relation properties
       // see this collection_view_page for an example: 8a586d253f984b85b48254da84465d23
@@ -46,7 +26,7 @@ export const getPageContentBlockIds = (
         p.map((d: any) => {
           const value = d?.[0]?.[1]?.[0]
           if (value?.[0] === 'p' && value[1]) {
-            contentBlockIds.add(value[1])
+            addContentBlocks(value[1])
           }
         })
 
@@ -54,11 +34,39 @@ export const getPageContentBlockIds = (
         const value = p?.[0]?.[1]?.[0]
 
         if (value?.[0] === 'p' && value[1]) {
-          contentBlockIds.add(value[1])
+          addContentBlocks(value[1])
         }
       }
     }
+
+    if (blockId === '41f43794-d110-4006-a17d-7caaa4583d83') {
+      console.log('BLOCK', block)
+    }
+
+    if (format) {
+      const referenceId = format.transclusion_reference_pointer?.id
+      if (referenceId) {
+        addContentBlocks(referenceId)
+      }
+    }
+
+    if (!content || !Array.isArray(content)) {
+      // no child content blocks to recurse on
+      return
+    }
+
+    if (type === 'page' && blockId !== rootBlockId) {
+      // ignore other pages
+      return
+    }
+
+    // TODO: ignore other collection pages?
+
+    for (const blockId of content) {
+      addContentBlocks(blockId)
+    }
   }
 
+  addContentBlocks(rootBlockId)
   return Array.from(contentBlockIds)
 }
