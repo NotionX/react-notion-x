@@ -1,12 +1,12 @@
 import * as types from 'notion-types'
 import React from 'react'
 
-export type MapPageUrl = (
+export type MapPageUrlFn = (
   pageId: string,
   recordMap?: types.ExtendedRecordMap | undefined
 ) => string
-export type MapImageUrl = (url: string, block: types.Block) => string
-export type SearchNotion = (
+export type MapImageUrlFn = (url: string, block: types.Block) => string
+export type SearchNotionFn = (
   params: types.SearchParams
 ) => Promise<types.SearchResults>
 
@@ -37,6 +37,9 @@ export interface NotionComponents {
   Tweet: any
   Modal: any
   Embed: any
+
+  // page navigation
+  Header: any
 
   // optional next.js-specific overrides
   nextImage?: any

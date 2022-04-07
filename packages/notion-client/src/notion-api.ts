@@ -43,13 +43,17 @@ export class NotionAPI {
     pageId: string,
     {
       concurrency = 3,
+      fetchMissingBlocks = true,
       fetchCollections = true,
       signFileUrls = true,
+      additionalBlockIds = [],
       gotOptions
     }: {
       concurrency?: number
+      fetchMissingBlocks?: boolean
       fetchCollections?: boolean
       signFileUrls?: boolean
+      additionalBlockIds?: string[]
       gotOptions?: OptionsOfJSONResponseBody
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
@@ -70,22 +74,25 @@ export class NotionAPI {
     recordMap.collection_query = {}
     recordMap.signed_urls = {}
 
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      // fetch any missing content blocks
-      const pendingBlockIds = getPageContentBlockIds(recordMap).filter(
-        (id) => !recordMap.block[id]
-      )
+    if (fetchMissingBlocks) {
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        // fetch any missing content blocks
+        const pendingBlockIds = getPageContentBlockIds(recordMap)
+          .filter((id) => !recordMap.block[id])
+          .concat(additionalBlockIds || [])
 
-      if (!pendingBlockIds.length) {
-        break
+        if (!pendingBlockIds.length) {
+          break
+        }
+
+        const newBlocks = await this.getBlocks(
+          pendingBlockIds,
+          gotOptions
+        ).then((res) => res.recordMap.block)
+
+        recordMap.block = { ...recordMap.block, ...newBlocks }
       }
-
-      const newBlocks = await this.getBlocks(pendingBlockIds, gotOptions).then(
-        (res) => res.recordMap.block
-      )
-
-      recordMap.block = { ...recordMap.block, ...newBlocks }
     }
 
     const contentBlockIds = getPageContentBlockIds(recordMap)

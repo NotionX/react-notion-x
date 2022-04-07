@@ -13,7 +13,6 @@ import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
 import { PageAside } from './components/page-aside'
 import { LinkIcon } from './icons/link-icon'
-import { Header } from './components/header'
 import { GoogleDrive } from './components/google-drive'
 import { Audio } from './components/audio'
 import { File } from './components/file'
@@ -32,7 +31,7 @@ interface BlockProps {
   className?: string
   bodyClassName?: string
 
-  header?: React.ElementType
+  header?: React.ReactNode
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
   pageFooter?: React.ReactNode
@@ -160,7 +159,8 @@ export const Block: React.FC<BlockProps> = (props) => {
               <div className='notion-viewport' />
 
               <div className='notion-frame'>
-                {!disableHeader && <Header header={header} />}
+                {!disableHeader && <components.Header block={block} />}
+                {header}
 
                 <div className='notion-page-scroller'>
                   {hasPageCover &&
