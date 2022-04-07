@@ -52,25 +52,27 @@ jobs:
           cd examples/full
           yarn build
 
-  build-full-official-api:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  # TODO: using the official API with GitHub Actions results in too much rate
+  # limiting and false negative build failures, so we're disabling it for now.
+  # build-full-official-api:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          cache: yarn
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 16
+  #         cache: yarn
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+  #     - run: yarn install --frozen-lockfile
+  #     - run: yarn build
 
-      - name: Build full example using the official Notion API
+  #     - name: Build full example using the official Notion API
 
-        env:
-          USE_OFFICIAL_NOTION_API: true
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+  #       env:
+  #         USE_OFFICIAL_NOTION_API: true
+  #         NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
 
-        run: |
-          cd examples/full
-          yarn build
+  #       run: |
+  #         cd examples/full
+  #         yarn build
