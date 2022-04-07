@@ -33,7 +33,7 @@ export const Breadcrumbs: React.FC<{
   const breadcrumbs = React.useMemo(() => {
     const breadcrumbs = getPageBreadcrumbs(recordMap, block.id)
     if (rootOnly) {
-      return [breadcrumbs[0]]
+      return [breadcrumbs[0]].filter(Boolean)
     }
 
     return breadcrumbs
@@ -42,6 +42,10 @@ export const Breadcrumbs: React.FC<{
   return (
     <div className='breadcrumbs' key='breadcrumbs'>
       {breadcrumbs.map((breadcrumb, index: number) => {
+        if (!breadcrumb) {
+          return null
+        }
+
         const pageLinkProps: any = {}
         const componentMap = {
           pageLink: components.PageLink
