@@ -18,7 +18,8 @@ export const tweetEmbedsEnabled = true
 // and is currently not as well-supported.
 // If you want to use the official API, you must provide a NOTION_TOKEN env var.
 export const useOfficialNotionAPI =
-  false || (process.env.USE_OFFICIAL_NOTION_API && process.env.NOTION_TOKEN)
+  false ||
+  (process.env.USE_OFFICIAL_NOTION_API === 'true' && process.env.NOTION_TOKEN)
 
 export const isDev =
   process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
