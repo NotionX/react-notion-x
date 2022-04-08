@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "6.9.1",
+  "version": "6.9.2",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
@@ -32,7 +32,7 @@
     "katex": "^0.13.18",
     "medium-zoom": "^1.0.6",
     "notion-types": "^6.7.0",
-    "notion-utils": "^6.9.1",
+    "notion-utils": "^6.9.2",
     "prismjs": "^1.27.0",
     "react-fast-compare": "^3.2.0",
     "react-hotkeys-hook": "^3.0.3",
