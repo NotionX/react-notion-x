@@ -153,6 +153,8 @@ export default ({ recordMap }) => (
 
 For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
 
+The `Code` component uses [Prism]() under the hood. It comes bundled with support for JavaScript, TypeScript, and CSS by default. To add support for additional language syntaxes, follow the example in [`components/NotionPage.tsx`](./examples/full/components/NotionPage.tsx) which lazily loads Prism components at runtime.
+
 ## Next.js Examples
 
 Here's a [minimal Next.js example project](./examples/minimal) with the most important code in [`pages/[pageId].tsx`](./examples/minimal/pages/%5BpageId%5D.tsx) and [`components/NotionPage.tsx`](./examples/minimal/components/NotionPage.tsx). You can view this example [live on Vercel](https://react-notion-x-minimal-demo.transitivebullsh.it).
