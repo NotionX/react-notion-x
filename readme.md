@@ -82,7 +82,7 @@ import 'react-notion-x/src/styles.css'
 import 'prismjs/themes/prism-tomorrow.css'
 
 // used for rendering equations (optional)
-import 'react-notion-x/build/third-party/equation.css'
+import 'katex/dist/katex.min.css'
 
 // used for tweet embeds (optional)
 import 'react-static-tweets/styles.css'
@@ -151,9 +151,11 @@ export default ({ recordMap }) => (
 )
 ```
 
-For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
-
 The `Code` component uses [Prism]() under the hood. It comes bundled with support for JavaScript, TypeScript, and CSS by default. To add support for additional language syntaxes, follow the example in [`components/NotionPage.tsx`](./examples/full/components/NotionPage.tsx) which lazily loads Prism components at runtime.
+
+For `Equation` support, you need to manually add `katex` as a dependency to your project (`yarn add katex` or `npm install katex`). You'll also need to import the katex CSS styles.
+
+For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
 
 ## Next.js Examples
 

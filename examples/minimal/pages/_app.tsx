@@ -9,7 +9,7 @@ import 'react-notion-x/src/styles.css'
 // import 'prismjs/themes/prism-tomorrow.css'
 
 // used for rendering equations (optional)
-// import 'react-notion-x/build/third-party/equation.css'
+// import 'katex/dist/katex.min.css'
 
 // used for tweet embeds (optional)
 // import 'react-static-tweets/styles.css'
