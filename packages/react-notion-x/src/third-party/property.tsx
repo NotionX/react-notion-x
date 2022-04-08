@@ -48,274 +48,391 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
     linkToTitlePage = true
   } = props
 
-  if (schema) {
-    let content = null
+  const renderTextValue = React.useMemo(
+    () =>
+      function TextProperty() {
+        return <Text value={data} block={block} />
+      },
+    [block, data]
+  )
 
-    if (
-      data ||
-      schema.type === 'checkbox' ||
-      schema.type === 'title' ||
-      schema.type === 'formula' ||
-      schema.type === 'created_by' ||
-      schema.type === 'last_edited_by' ||
-      schema.type === 'created_time' ||
-      schema.type === 'last_edited_time'
-    ) {
-      switch (schema.type) {
-        case 'relation':
-          // console.log('relation', schema, data)
-          content = <Text value={data} block={block} />
-          break
+  const renderDateValue = React.useMemo(
+    () =>
+      function DateProperty() {
+        return <Text value={data} block={block} />
+      },
+    [block, data]
+  )
 
-        case 'formula':
-          // TODO
-          // console.log('formula', schema.formula, {
-          //   schema: collection?.schema,
-          //   properties: block?.properties
-          // })
+  const renderRelationValue = React.useMemo(
+    () =>
+      function RelationProperty() {
+        return <Text value={data} block={block} />
+      },
+    [block, data]
+  )
 
-          try {
-            content = evalFormula(schema.formula, {
-              schema: collection?.schema,
-              properties: block?.properties
-            })
+  const renderFormulaValue = React.useMemo(
+    () =>
+      function FormulaProperty() {
+        let content: string
 
-            if (isNaN(content)) {
-              // console.log('NaN', schema.formula)
-            }
-
-            if (content instanceof Date) {
-              content = format(content, 'MMM d, YYY hh:mm aa')
-            }
-          } catch (err) {
-            // console.log('error evaluating formula', schema.formula, err)
-            content = null
-          }
-          break
-
-        case 'title':
-          if (block && linkToTitlePage) {
-            content = (
-              <components.PageLink
-                className={cs('notion-page-link')}
-                href={mapPageUrl(block.id)}
-              >
-                <PageTitle block={block} />
-              </components.PageLink>
-            )
-          } else {
-            content = <Text value={data} block={block} />
-          }
-          break
-
-        case 'select':
-        // intentional fallthrough
-        case 'multi_select': {
-          const values = (data[0][0] || '').split(',')
-
-          content = values.map((value, index) => {
-            const option = schema.options?.find(
-              (option) => value === option.value
-            )
-            const color = option?.color
-
-            return components.propertySelectValue(
-              {
-                ...props,
-                key: index,
-                value,
-                option,
-                color
-              },
-              () => (
-                <div
-                  key={index}
-                  className={cs(
-                    `notion-property-${schema.type}-item`,
-                    color && `notion-item-${color}`
-                  )}
-                >
-                  {value}
-                </div>
-              )
-            )
+        try {
+          let content = evalFormula(schema.formula, {
+            schema: collection?.schema,
+            properties: block?.properties
           })
-          break
+
+          if (isNaN(content as number)) {
+            // console.log('NaN', schema.formula)
+          }
+
+          if (content instanceof Date) {
+            content = format(content, 'MMM d, YYY hh:mm aa')
+          }
+        } catch (err) {
+          // console.log('error evaluating formula', schema.formula, err)
+          content = null
         }
 
-        case 'person':
-          // console.log('person', schema, data)
-          content = <Text value={data} block={block} />
-          break
+        return content
+      },
+    [block?.properties, collection?.schema, schema]
+  )
 
-        case 'file': {
-          // TODO: assets should be previewable via image-zoom
-          const files = data
-            .filter((v) => v.length === 2)
-            .map((f) => f.flat().flat())
-
-          content = files.map((file, i) => (
-            <components.Link
-              key={i}
-              className='notion-property-file'
-              href={mapImageUrl(file[2] as string, block)}
-              target='_blank'
-              rel='noreferrer noopener'
-            >
-              <GracefulImage
-                alt={file[0] as string}
-                src={mapImageUrl(file[2] as string, block)}
-                loading='lazy'
-              />
-            </components.Link>
-          ))
-
-          break
-        }
-
-        case 'checkbox': {
-          const isChecked = data && data[0][0] === 'Yes'
-
+  const renderTitleValue = React.useMemo(
+    () =>
+      function FormulaTitle() {
+        if (block && linkToTitlePage) {
           return (
-            <div className='notion-property-checkbox-container'>
-              <Checkbox isChecked={isChecked} blockId={undefined} />
-              <span className='notion-property-checkbox-text'>
-                {schema.name}
-              </span>
-            </div>
+            <components.PageLink
+              className={cs('notion-page-link')}
+              href={mapPageUrl(block.id)}
+            >
+              <PageTitle block={block} />
+            </components.PageLink>
           )
+        } else {
+          return <Text value={data} block={block} />
         }
+      },
+    [block, components, data, linkToTitlePage, mapPageUrl]
+  )
 
-        case 'url': {
-          // TODO: refactor to less hackyh solution
-          const d = JSON.parse(JSON.stringify(data))
+  const renderPersonValue = React.useMemo(
+    () =>
+      function PersonProperty() {
+        // console.log('person', schema, data)
+        return <Text value={data} block={block} />
+      },
+    [block, data]
+  )
 
-          if (inline) {
-            try {
-              const url = new URL(d[0][0])
-              d[0][0] = url.hostname.replace(/^www\./, '')
-            } catch (err) {
-              // ignore invalid urls
-            }
-          }
+  const renderFileValue = React.useMemo(
+    () =>
+      function FileProperty() {
+        // TODO: assets should be previewable via image-zoom
+        const files = data
+          .filter((v) => v.length === 2)
+          .map((f) => f.flat().flat())
 
-          content = (
-            <Text
-              value={d}
-              block={block}
-              inline={inline}
-              linkProps={{
-                target: '_blank',
-                rel: 'noreferrer noopener'
-              }}
+        return files.map((file, i) => (
+          <components.Link
+            key={i}
+            className='notion-property-file'
+            href={mapImageUrl(file[2] as string, block)}
+            target='_blank'
+            rel='noreferrer noopener'
+          >
+            <GracefulImage
+              alt={file[0] as string}
+              src={mapImageUrl(file[2] as string, block)}
+              loading='lazy'
             />
-          )
-          break
+          </components.Link>
+        ))
+      },
+    [block, components, data, mapImageUrl]
+  )
+
+  const renderCheckboxValue = React.useMemo(
+    () =>
+      function CheckboxProperty() {
+        const isChecked = data && data[0][0] === 'Yes'
+
+        return (
+          <div className='notion-property-checkbox-container'>
+            <Checkbox isChecked={isChecked} blockId={undefined} />
+            <span className='notion-property-checkbox-text'>{schema.name}</span>
+          </div>
+        )
+      },
+    [data, schema]
+  )
+
+  const renderUrlValue = React.useMemo(
+    () =>
+      function UrlProperty() {
+        // TODO: refactor to less hacky solution
+        const d = JSON.parse(JSON.stringify(data))
+
+        if (inline) {
+          try {
+            const url = new URL(d[0][0])
+            d[0][0] = url.hostname.replace(/^www\./, '')
+          } catch (err) {
+            // ignore invalid urls
+          }
         }
 
-        case 'email':
-          content = <Text value={data} linkProtocol='mailto' block={block} />
-          break
+        return (
+          <Text
+            value={d}
+            block={block}
+            inline={inline}
+            linkProps={{
+              target: '_blank',
+              rel: 'noreferrer noopener'
+            }}
+          />
+        )
+      },
+    [block, data, inline]
+  )
 
-        case 'phone_number':
-          content = <Text value={data} linkProtocol='tel' block={block} />
-          break
+  const renderEmailValue = React.useMemo(
+    () =>
+      function EmailProperty() {
+        return <Text value={data} linkProtocol='mailto' block={block} />
+      },
+    [block, data]
+  )
 
-        case 'number': {
-          const value = parseFloat(data[0][0] || '0')
-          let breakEarly = false
-          let output = ''
+  const renderPhoneNumberValue = React.useMemo(
+    () =>
+      function PhoneNumberProperty() {
+        return <Text value={data} linkProtocol='tel' block={block} />
+      },
+    [block, data]
+  )
 
-          if (isNaN(value)) {
-            content = <Text value={data} block={block} />
-          } else {
-            switch (schema.number_format) {
-              case 'number_with_commas':
-                output = formatNumber()(value)
-                break
-              case 'percent':
-                output = formatNumber({ suffix: '%' })(value * 100)
-                break
-              case 'dollar':
-                output = formatNumber({ prefix: '$', round: 2, padRight: 2 })(
-                  value
-                )
-                break
-              case 'euro':
-                output = formatNumber({ prefix: '€', round: 2, padRight: 2 })(
-                  value
-                )
-                break
-              case 'pound':
-                output = formatNumber({ prefix: '£', round: 2, padRight: 2 })(
-                  value
-                )
-                break
-              case 'yen':
-                output = formatNumber({ prefix: '¥', round: 0 })(value)
-                break
-              case 'rupee':
-                output = formatNumber({ prefix: '₹', round: 2, padRight: 2 })(
-                  value
-                )
-                break
-              case 'won':
-                output = formatNumber({ prefix: '₩', round: 0 })(value)
-                break
-              case 'yuan':
-                output = formatNumber({ prefix: 'CN¥', round: 2, padRight: 2 })(
-                  value
-                )
-                break
-              default:
-                content = <Text value={data} block={block} />
-                breakEarly = true
-                break
-            }
+  const renderNumberValue = React.useMemo(
+    () =>
+      function NumberProperty() {
+        const value = parseFloat(data[0][0] || '0')
+        let output = ''
 
-            if (!breakEarly) {
-              content = <Text value={[[output]]} block={block} />
-            }
+        if (isNaN(value)) {
+          return <Text value={data} block={block} />
+        } else {
+          switch (schema.number_format) {
+            case 'number_with_commas':
+              output = formatNumber()(value)
+              break
+            case 'percent':
+              output = formatNumber({ suffix: '%' })(value * 100)
+              break
+            case 'dollar':
+              output = formatNumber({ prefix: '$', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'euro':
+              output = formatNumber({ prefix: '€', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'pound':
+              output = formatNumber({ prefix: '£', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'yen':
+              output = formatNumber({ prefix: '¥', round: 0 })(value)
+              break
+            case 'rupee':
+              output = formatNumber({ prefix: '₹', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'won':
+              output = formatNumber({ prefix: '₩', round: 0 })(value)
+              break
+            case 'yuan':
+              output = formatNumber({ prefix: 'CN¥', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            default:
+              return <Text value={data} block={block} />
           }
 
-          break
+          return <Text value={[[output]]} block={block} />
         }
+      },
+    [block, data, schema]
+  )
 
-        case 'created_time':
-          content = format(new Date(block?.created_time), 'MMM d, YYY hh:mm aa')
-          break
+  const renderCreatedTimeValue = React.useMemo(
+    () =>
+      function CreatedTimeProperty() {
+        return format(new Date(block?.created_time), 'MMM d, YYY hh:mm aa')
+      },
+    [block?.created_time]
+  )
 
-        case 'last_edited_time':
-          content = format(
-            new Date(block?.last_edited_time),
-            'MMM d, YYY hh:mm aa'
-          )
-          break
+  const renderLastEditedTimeValue = React.useMemo(
+    () =>
+      function LastEditedTimeProperty() {
+        return format(new Date(block?.last_edited_time), 'MMM d, YYY hh:mm aa')
+      },
+    [block?.last_edited_time]
+  )
 
-        case 'created_by':
-          // TODO
-          // console.log('created_by', schema, data)
-          break
-
-        case 'last_edited_by':
-          // TODO
-          // console.log('last_edited_by', schema, data)
-          break
-
-        default:
-          content = <Text value={data} block={block} />
-          break
-      }
-    }
-
-    return (
-      <span className={`notion-property notion-property-${schema.type}`}>
-        {content}
-      </span>
-    )
+  if (!schema) {
+    return null
   }
 
-  return null
+  let content = null
+
+  if (
+    data ||
+    schema.type === 'checkbox' ||
+    schema.type === 'title' ||
+    schema.type === 'formula' ||
+    schema.type === 'created_by' ||
+    schema.type === 'last_edited_by' ||
+    schema.type === 'created_time' ||
+    schema.type === 'last_edited_time'
+  ) {
+    switch (schema.type) {
+      case 'relation':
+        content = components.propertyRelationValue(props, renderRelationValue)
+        break
+
+      case 'formula':
+        // TODO
+        // console.log('formula', schema.formula, {
+        //   schema: collection?.schema,
+        //   properties: block?.properties
+        // })
+
+        content = components.propertyFormulaValue(props, renderFormulaValue)
+        break
+
+      case 'title':
+        content = components.propertyTitleValue(props, renderTitleValue)
+        break
+
+      case 'select':
+      // intentional fallthrough
+      case 'multi_select': {
+        const values = (data[0][0] || '').split(',')
+
+        content = values.map((value, index) => {
+          const option = schema.options?.find(
+            (option) => value === option.value
+          )
+          const color = option?.color
+
+          return components.propertySelectValue(
+            {
+              ...props,
+              key: index,
+              value,
+              option,
+              color
+            },
+            () => (
+              <div
+                key={index}
+                className={cs(
+                  `notion-property-${schema.type}-item`,
+                  color && `notion-item-${color}`
+                )}
+              >
+                {value}
+              </div>
+            )
+          )
+        })
+        break
+      }
+
+      case 'person':
+        content = components.propertyPersonValue(props, renderPersonValue)
+        break
+
+      case 'file':
+        content = components.propertyFileValue(props, renderFileValue)
+        break
+
+      case 'checkbox':
+        content = components.propertyCheckboxValue(props, renderCheckboxValue)
+        break
+
+      case 'url':
+        content = components.propertyUrlValue(props, renderUrlValue)
+        break
+
+      case 'email':
+        content = components.propertyEmailValue(props, renderEmailValue)
+        break
+
+      case 'phone_number':
+        content = components.propertyPhoneNumberValue(
+          props,
+          renderPhoneNumberValue
+        )
+        break
+
+      case 'number':
+        content = components.propertyNumberValue(props, renderNumberValue)
+        break
+
+      case 'created_time':
+        content = components.propertyCreatedTimeValue(
+          props,
+          renderCreatedTimeValue
+        )
+        break
+
+      case 'last_edited_time':
+        content = components.propertyLastEditedTimeValue(
+          props,
+          renderLastEditedTimeValue
+        )
+        break
+
+      case 'created_by':
+        // TODO
+        // console.log('created_by', schema, data)
+        break
+
+      case 'last_edited_by':
+        // TODO
+        // console.log('last_edited_by', schema, data)
+        break
+
+      case 'text':
+        content = components.propertyTextValue(props, renderTextValue)
+        break
+
+      case 'date':
+        content = components.propertyDateValue(props, renderDateValue)
+        break
+
+      default:
+        content = <Text value={data} block={block} />
+        break
+    }
+  }
+
+  return (
+    <span className={`notion-property notion-property-${schema.type}`}>
+      {content}
+    </span>
+  )
 }
 
 export const PropertyImplMemo = React.memo(PropertyImpl)

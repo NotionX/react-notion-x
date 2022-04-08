@@ -116,25 +116,13 @@ export const getHashFragmentValue = (url: string) => {
   return url.includes('#') ? url.replace(/^.+(#.+)$/, '$1') : ''
 }
 
-const months = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
-]
-
-export const formatDate = (input: string) => {
+export const formatDate = (
+  input: string,
+  { month = 'short' }: { month?: 'long' | 'short' } = {}
+) => {
   const date = new Date(input)
-  const month = date.getMonth()
-  return `${months[month]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`
+  const monthLocale = date.toLocaleString('en-US', { month })
+  return `${monthLocale} ${date.getUTCDate()}, ${date.getUTCFullYear()}`
 }
 
 export interface NotionDateTime {

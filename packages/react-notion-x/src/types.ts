@@ -30,7 +30,22 @@ export interface NotionComponents {
   // collection
   Collection: any
   Property?: any
+
+  propertyTextValue: ComponentOverrideFn
   propertySelectValue: ComponentOverrideFn
+  propertyRelationValue: ComponentOverrideFn
+  propertyFormulaValue: ComponentOverrideFn
+  propertyTitleValue: ComponentOverrideFn
+  propertyPersonValue: ComponentOverrideFn
+  propertyFileValue: ComponentOverrideFn
+  propertyCheckboxValue: ComponentOverrideFn
+  propertyUrlValue: ComponentOverrideFn
+  propertyEmailValue: ComponentOverrideFn
+  propertyPhoneNumberValue: ComponentOverrideFn
+  propertyNumberValue: ComponentOverrideFn
+  propertyLastEditedTimeValue: ComponentOverrideFn
+  propertyCreatedTimeValue: ComponentOverrideFn
+  propertyDateValue: ComponentOverrideFn
 
   // assets
   Pdf: any

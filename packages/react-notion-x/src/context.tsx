@@ -108,7 +108,22 @@ const defaultComponents: NotionComponents = {
 
   Collection: dummyComponent('Collection'),
   Property: undefined, // use the built-in property rendering by default
+
+  propertyTextValue: dummyOverrideFn,
   propertySelectValue: dummyOverrideFn,
+  propertyRelationValue: dummyOverrideFn,
+  propertyFormulaValue: dummyOverrideFn,
+  propertyTitleValue: dummyOverrideFn,
+  propertyPersonValue: dummyOverrideFn,
+  propertyFileValue: dummyOverrideFn,
+  propertyCheckboxValue: dummyOverrideFn,
+  propertyUrlValue: dummyOverrideFn,
+  propertyEmailValue: dummyOverrideFn,
+  propertyPhoneNumberValue: dummyOverrideFn,
+  propertyNumberValue: dummyOverrideFn,
+  propertyLastEditedTimeValue: dummyOverrideFn,
+  propertyCreatedTimeValue: dummyOverrideFn,
+  propertyDateValue: dummyOverrideFn,
 
   Pdf: dummyComponent('Pdf'),
   Tweet: dummyComponent('Tweet'),

@@ -2049,12 +2049,12 @@ svg.notion-page-icon {
 .notion-collection-row-body {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 .notion-collection-row-property {
   display: flex;
   align-items: center;
-  margin-bottom: 4px;
 }
 
 .notion-collection-row-value {
