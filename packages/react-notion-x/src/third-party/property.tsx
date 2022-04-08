@@ -12,6 +12,7 @@ import { GracefulImage } from '../components/graceful-image'
 import { evalFormula } from './eval-formula'
 
 export interface IPropertyProps {
+  propertyId?: string
   schema?: types.CollectionPropertySchema
   data?: types.Decoration[]
   block?: types.Block

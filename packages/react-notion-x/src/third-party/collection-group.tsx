@@ -21,6 +21,7 @@ export const CollectionGroup: React.FC<CollectionGroupProps> = ({
       <summary className='notion-collection-group-title' {...summaryProps}>
         <div>
           <Property schema={schema} data={[[value]]} collection={collection} />
+
           <span className='notion-board-th-count'>
             {collectionGroup?.total}
           </span>

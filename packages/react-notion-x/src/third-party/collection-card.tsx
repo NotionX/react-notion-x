@@ -104,7 +104,9 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
           )
         }
       } else {
-        coverContent = <Property schema={schema} data={data} />
+        coverContent = (
+          <Property propertyId={property} schema={schema} data={data} />
+        )
       }
     }
   }

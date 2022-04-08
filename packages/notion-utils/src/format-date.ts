@@ -1,5 +1,5 @@
 export const formatDate = (
-  input: string,
+  input: string | number,
   { month = 'short' }: { month?: 'long' | 'short' } = {}
 ) => {
   const date = new Date(input)

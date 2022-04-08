@@ -52,17 +52,18 @@ export const CollectionRow: React.FC<{
   return (
     <div className={cs('notion-collection-row', className)}>
       <div className='notion-collection-row-body'>
-        {propertyIds.map((id) => {
-          const schema = schemas[id]
+        {propertyIds.map((propertyId) => {
+          const schema = schemas[propertyId]
 
           return (
-            <div className='notion-collection-row-property' key={id}>
+            <div className='notion-collection-row-property' key={propertyId}>
               <CollectionColumnTitle schema={schema} />
 
               <div className='notion-collection-row-value'>
                 <Property
                   schema={schema}
-                  data={block.properties?.[id]}
+                  data={block.properties?.[propertyId]}
+                  propertyId={propertyId}
                   block={block}
                   collection={collection}
                   pageHeader={pageHeader}
