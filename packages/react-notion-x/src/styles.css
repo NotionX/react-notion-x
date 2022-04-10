@@ -2036,7 +2036,7 @@ svg.notion-page-icon {
 
 /* removes double underline with links */
 .notion-link .notion-page-title-text {
-  border-bottom: 0px;
+  border-bottom: 0 none;
 }
 
 .notion-collection-row {
