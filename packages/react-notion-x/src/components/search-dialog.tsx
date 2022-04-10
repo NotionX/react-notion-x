@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import * as types from 'notion-types'
 import throttle from 'lodash.throttle'
 import { getBlockTitle, getBlockParentPage } from 'notion-utils'

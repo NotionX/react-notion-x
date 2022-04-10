@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { CollectionColumnTitle } from './collection-column-title'
 import { CollectionGroup } from './collection-group'

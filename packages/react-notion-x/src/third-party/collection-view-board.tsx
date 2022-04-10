@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { PageBlock } from 'notion-types'
 
 import { CollectionCard } from './collection-card'

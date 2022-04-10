@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import * as types from 'notion-types'
 import formatNumber from 'format-number'
 import format from 'date-fns/format/index.js'

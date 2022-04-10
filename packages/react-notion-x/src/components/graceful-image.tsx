@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Img, ImgProps } from 'react-image'
 import { isBrowser } from '../utils'
 

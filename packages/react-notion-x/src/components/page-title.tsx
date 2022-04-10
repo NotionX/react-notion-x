@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Block, Decoration } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
 

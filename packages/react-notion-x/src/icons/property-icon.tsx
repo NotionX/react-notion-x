@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { PropertyType } from 'notion-types'
 
 import TitleIcon from './type-title'

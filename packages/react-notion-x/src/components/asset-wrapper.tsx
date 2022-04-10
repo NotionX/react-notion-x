@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { BaseContentBlock, Block } from 'notion-types'
 import { Asset } from './asset'
 import { cs } from '../utils'

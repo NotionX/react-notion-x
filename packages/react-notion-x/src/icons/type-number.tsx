@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 function SvgTypeNumber(props: React.SVGProps<SVGSVGElement>) {
   return (

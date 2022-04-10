@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import isEqual from 'react-fast-compare'
 
 export const wrapNextImage = (NextImage: any): React.FC<any> => {

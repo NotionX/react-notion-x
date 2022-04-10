@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import throttle from 'lodash.throttle'
 import { TableOfContentsEntry, uuidToId } from 'notion-utils'
 

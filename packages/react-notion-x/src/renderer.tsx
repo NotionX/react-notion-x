@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import mediumZoom from 'medium-zoom'
 import { ExtendedRecordMap } from 'notion-types'
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 function SvgCollectionViewGallery(props: React.SVGProps<SVGSVGElement>) {
   return (

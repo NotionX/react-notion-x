@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { ImageBlock } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 

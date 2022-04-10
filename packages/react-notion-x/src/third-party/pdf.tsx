@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { pdfjs, Page, Document } from 'react-pdf'
 
 // ensure pdfjs can find its worker script regardless of how react-notion-x is bundled

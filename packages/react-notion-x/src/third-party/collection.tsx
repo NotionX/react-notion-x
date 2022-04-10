@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import * as types from 'notion-types'
 import {
   getBlockCollectionId,
@@ -13,7 +13,7 @@ import { CollectionViewIcon } from '../icons/collection-view-icon'
 import CheckIcon from '../icons/check'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
-import { PropertyImpl } from './property'
+import { PropertyImplMemo } from './property'
 import { PageIcon } from '../components/page-icon'
 import {
   NotionContext,
@@ -291,4 +291,4 @@ const CollectionViewColumnDesc: React.FC<{
   )
 }
 
-export { PropertyImpl as Property }
+export { PropertyImplMemo as Property }

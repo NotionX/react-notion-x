@@ -30,7 +30,7 @@ const recordMap = await api.getPage('067dd719a912471ea9a3ac10710e7fdf')
 Once you have the data for a Notion page, you can render it:
 
 ```tsx
-import React from 'react'
+import * as React from 'react'
 import { NotionRenderer } from 'react-notion-x'
 
 export default ExampleNotionPage({ recordMap }) => (

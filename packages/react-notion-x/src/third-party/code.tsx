@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { highlightElement } from 'prismjs'
 import { CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { getAllPagesInSpace } from 'notion-utils'
 import { defaultMapPageUrl } from 'react-notion-x'

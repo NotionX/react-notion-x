@@ -1,5 +1,5 @@
 import * as types from 'notion-types'
-import React from 'react'
+import * as React from 'react'
 
 export type MapPageUrlFn = (
   pageId: string,

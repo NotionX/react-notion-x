@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { LazyImageFull, ImageState } from 'react-lazy-images'
 import { normalizeUrl } from 'notion-utils'
 import { useNotionContext } from '../context'
