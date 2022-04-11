@@ -125,6 +125,21 @@ export class NotionAPI {
             collectionId,
             collectionViewId
           }))
+        } else if (block && (block as any).view_ids) {
+          return (block as any).view_ids.map((collectionViewId) => {
+            if (recordMap.collection_view[collectionViewId]) {
+              const viewBlock =
+                recordMap.collection_view[collectionViewId].value
+              const collectionId = viewBlock.format?.collection_pointer?.id
+              if (collectionId) {
+                return {
+                  collectionId,
+                  collectionViewId
+                }
+              }
+            }
+            return null
+          })
         } else {
           return []
         }
@@ -421,6 +436,16 @@ export class NotionAPI {
         }
       }
 
+      //TODO: started working on the filters. This doens't seem to quite work yet.
+      // let filters = collectionView.format?.property_filters.map(filterObj => {
+      //   console.log('map filter', filterObj)
+      //   //get the inner filter
+      //   return {
+      //     filter: filterObj.filter.filter,
+      //     property: filterObj.filter.property
+      //   }
+      // })
+
       const reducerLabel = isBoardType ? 'board_columns' : `${type}_groups`
       loader = {
         type: 'reducer',
@@ -439,6 +464,11 @@ export class NotionAPI {
         ...collectionView?.query2,
         searchQuery,
         userTimeZone
+        //TODO: add filters here
+        // filter: {
+        //   filters: filters,
+        //   operator: 'and'
+        // }
       }
     }
 
