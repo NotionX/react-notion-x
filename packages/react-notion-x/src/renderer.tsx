@@ -1,5 +1,5 @@
 import * as React from 'react'
-import mediumZoom from 'medium-zoom'
+import mediumZoom from '@fisch0920/medium-zoom'
 import { ExtendedRecordMap } from 'notion-types'
 
 import {
@@ -79,6 +79,7 @@ export const NotionRenderer: React.FC<{
       typeof window !== 'undefined' &&
       mediumZoom({
         background: 'rgba(0, 0, 0, 0.8)',
+        minZoomScale: 2.0,
         margin: getMediumZoomMargin()
       }),
     []
@@ -121,7 +122,6 @@ export const NotionBlockRenderer: React.FC<{
   blockId?: string
   hideBlockId?: boolean
   level?: number
-  zoom?: any
 }> = ({ level = 0, blockId, ...props }) => {
   const { recordMap } = useNotionContext()
   const id = blockId || Object.keys(recordMap.block)[0]
