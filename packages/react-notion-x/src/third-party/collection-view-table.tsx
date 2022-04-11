@@ -8,6 +8,8 @@ import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
 import { useNotionContext } from '../context'
 
+const defaultBlockIds = []
+
 export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
@@ -44,8 +46,9 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   }
 
   const blockIds =
-    collectionData['collection_group_results']?.blockIds ??
-    collectionData.blockIds
+    (collectionData['collection_group_results']?.blockIds ??
+      collectionData.blockIds) ||
+    defaultBlockIds
 
   return (
     <Table
@@ -58,7 +61,7 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   )
 }
 
-function Table({ blockIds, collection, collectionView, width, padding }) {
+function Table({ blockIds = [], collection, collectionView, width, padding }) {
   const { recordMap, linkTableTitleProperties } = useNotionContext()
 
   const tableStyle = React.useMemo(
@@ -80,7 +83,7 @@ function Table({ blockIds, collection, collectionView, width, padding }) {
   let properties = []
 
   if (collectionView.format?.table_properties) {
-    properties = collectionView.format?.table_properties.filter(
+    properties = collectionView.format.table_properties.filter(
       (p) => p.visible && collection.schema[p.property]
     )
   } else {
@@ -131,7 +134,7 @@ function Table({ blockIds, collection, collectionView, width, padding }) {
             <div className='notion-table-header-placeholder'></div>
 
             <div className='notion-table-body'>
-              {blockIds.map((blockId) => (
+              {blockIds?.map((blockId) => (
                 <div className='notion-table-row' key={blockId}>
                   {properties.map((p) => {
                     const schema = collection.schema?.[p.property]

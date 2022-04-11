@@ -8,6 +8,8 @@ import { useNotionContext } from '../context'
 import { CollectionCard } from './collection-card'
 import { CollectionGroup } from './collection-group'
 
+const defaultBlockIds = []
+
 export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
@@ -32,8 +34,9 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
   }
 
   const blockIds =
-    collectionData['collection_group_results']?.blockIds ??
-    collectionData.blockIds
+    (collectionData['collection_group_results']?.blockIds ??
+      collectionData.blockIds) ||
+    defaultBlockIds
 
   return (
     <Gallery
@@ -61,7 +64,7 @@ function Gallery({ blockIds, collectionView, collection }) {
             `notion-gallery-grid-size-${gallery_cover_size}`
           )}
         >
-          {blockIds.map((blockId) => {
+          {blockIds?.map((blockId) => {
             const block = recordMap.block[blockId]?.value as PageBlock
             if (!block) return null
 
