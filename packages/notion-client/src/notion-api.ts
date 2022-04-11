@@ -121,7 +121,7 @@ export class NotionAPI {
           getBlockCollectionId(block)
 
         if (collectionId) {
-          return block.view_ids.map((collectionViewId) => ({
+          return block.view_ids?.map((collectionViewId) => ({
             collectionId,
             collectionViewId
           }))

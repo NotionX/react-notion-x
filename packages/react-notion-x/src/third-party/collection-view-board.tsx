@@ -140,7 +140,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
 
             return (
               <div className='notion-board-group' key={index}>
-                {group.blockIds.map((blockId: string) => {
+                {group.blockIds?.map((blockId: string) => {
                   const block = recordMap.block[blockId]?.value as PageBlock
                   if (!block) return null
 

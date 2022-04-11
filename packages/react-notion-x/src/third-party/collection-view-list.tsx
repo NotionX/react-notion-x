@@ -7,6 +7,8 @@ import { useNotionContext } from '../context'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 
+const defaultBlockIds = []
+
 export const CollectionViewList: React.FC<CollectionViewProps> = ({
   collection,
   collectionView,
@@ -27,8 +29,9 @@ export const CollectionViewList: React.FC<CollectionViewProps> = ({
   }
 
   const blockIds =
-    collectionData['collection_group_results']?.blockIds ??
-    collectionData.blockIds
+    (collectionData['collection_group_results']?.blockIds ??
+      collectionData.blockIds) ||
+    defaultBlockIds
 
   return (
     <List
@@ -46,7 +49,7 @@ function List({ blockIds, collection, collectionView }) {
     <div className='notion-list-collection'>
       <div className='notion-list-view'>
         <div className='notion-list-body'>
-          {blockIds.map((blockId) => {
+          {blockIds?.map((blockId) => {
             const block = recordMap.block[blockId]?.value as PageBlock
             if (!block) return null
 
