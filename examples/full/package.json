@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-full",
-  "version": "6.9.5",
+  "version": "6.10.0",
   "private": true,
   "type": "commonjs",
   "scripts": {
@@ -18,14 +18,14 @@
     "katex": "^0.15.3",
     "lqip-modern": "^1.2.0",
     "next": "^12.1.0",
-    "notion-client": "^6.9.5",
-    "notion-compat": "^6.9.5",
-    "notion-utils": "^6.9.4",
+    "notion-client": "^6.10.0",
+    "notion-compat": "^6.10.0",
+    "notion-utils": "^6.10.0",
     "p-map": "^5.3.0",
     "p-memoize": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^6.9.5",
+    "react-notion-x": "^6.10.0",
     "react-static-tweets": "^0.7.1",
     "static-tweets": "^0.7.1"
   },
