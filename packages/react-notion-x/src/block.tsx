@@ -120,8 +120,8 @@ export const Block: React.FC<BlockProps> = (props) => {
               ? block.properties
               : {
                   title:
-                    recordMap.collection[getBlockCollectionId(block)]?.value
-                      ?.name
+                    recordMap.collection[getBlockCollectionId(block, recordMap)]
+                      ?.value?.name
                 }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100

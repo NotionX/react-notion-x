@@ -83,7 +83,7 @@ const CollectionViewBlock: React.FC<{
 }> = ({ block, className }) => {
   const { recordMap, showCollectionViewDropdown } = useNotionContext()
   const { view_ids: viewIds } = block
-  const collectionId = getBlockCollectionId(block)
+  const collectionId = getBlockCollectionId(block, recordMap)
 
   const [isMounted, setIsMounted] = React.useState(false)
   React.useEffect(() => {

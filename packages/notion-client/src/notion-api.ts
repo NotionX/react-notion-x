@@ -118,7 +118,7 @@ export class NotionAPI {
           block &&
           (block.type === 'collection_view' ||
             block.type === 'collection_view_page') &&
-          getBlockCollectionId(block)
+          getBlockCollectionId(block, recordMap)
 
         if (collectionId) {
           return block.view_ids?.map((collectionViewId) => ({
@@ -421,6 +421,16 @@ export class NotionAPI {
         }
       }
 
+      //TODO: started working on the filters. This doens't seem to quite work yet.
+      // let filters = collectionView.format?.property_filters.map(filterObj => {
+      //   console.log('map filter', filterObj)
+      //   //get the inner filter
+      //   return {
+      //     filter: filterObj.filter.filter,
+      //     property: filterObj.filter.property
+      //   }
+      // })
+
       const reducerLabel = isBoardType ? 'board_columns' : `${type}_groups`
       loader = {
         type: 'reducer',
@@ -439,6 +449,11 @@ export class NotionAPI {
         ...collectionView?.query2,
         searchQuery,
         userTimeZone
+        //TODO: add filters here
+        // filter: {
+        //   filters: filters,
+        //   operator: 'and'
+        // }
       }
     }
 

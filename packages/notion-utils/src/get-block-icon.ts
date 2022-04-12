@@ -10,7 +10,7 @@ export function getBlockIcon(block: Block, recordMap: ExtendedRecordMap) {
     block.type === 'collection_view_page' ||
     block.type === 'collection_view'
   ) {
-    const collectionId = getBlockCollectionId(block)
+    const collectionId = getBlockCollectionId(block, recordMap)
     if (collectionId) {
       const collection = recordMap.collection[collectionId]?.value
 
