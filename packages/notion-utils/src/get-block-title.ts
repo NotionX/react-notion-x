@@ -11,10 +11,14 @@ export function getBlockTitle(block: Block, recordMap: ExtendedRecordMap) {
     block.type === 'collection_view_page' ||
     block.type === 'collection_view'
   ) {
-    const collection = recordMap.collection[getBlockCollectionId(block)]?.value
+    const collectionId = getBlockCollectionId(block, recordMap)
 
-    if (collection) {
-      return getTextContent(collection.name)
+    if (collectionId) {
+      const collection = recordMap.collection[collectionId]?.value
+
+      if (collection) {
+        return getTextContent(collection.name)
+      }
     }
   }
 

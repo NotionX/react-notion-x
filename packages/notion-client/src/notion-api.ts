@@ -118,28 +118,13 @@ export class NotionAPI {
           block &&
           (block.type === 'collection_view' ||
             block.type === 'collection_view_page') &&
-          getBlockCollectionId(block)
+          getBlockCollectionId(block, recordMap)
 
         if (collectionId) {
           return block.view_ids?.map((collectionViewId) => ({
             collectionId,
             collectionViewId
           }))
-        } else if (block && (block as any).view_ids) {
-          return (block as any).view_ids.map((collectionViewId) => {
-            if (recordMap.collection_view[collectionViewId]) {
-              const viewBlock =
-                recordMap.collection_view[collectionViewId].value
-              const collectionId = viewBlock.format?.collection_pointer?.id
-              if (collectionId) {
-                return {
-                  collectionId,
-                  collectionViewId
-                }
-              }
-            }
-            return null
-          })
         } else {
           return []
         }

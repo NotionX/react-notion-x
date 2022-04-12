@@ -2,7 +2,6 @@ import * as React from 'react'
 import * as types from 'notion-types'
 import {
   getBlockCollectionId,
-  getBlockCollectionPointerId,
   getBlockParentPage,
   getTextContent
 } from 'notion-utils'
@@ -84,8 +83,7 @@ const CollectionViewBlock: React.FC<{
 }> = ({ block, className }) => {
   const { recordMap, showCollectionViewDropdown } = useNotionContext()
   const { view_ids: viewIds } = block
-  const collectionId =
-    getBlockCollectionId(block) ?? getBlockCollectionPointerId(recordMap, block)
+  const collectionId = getBlockCollectionId(block, recordMap)
 
   const [isMounted, setIsMounted] = React.useState(false)
   React.useEffect(() => {
