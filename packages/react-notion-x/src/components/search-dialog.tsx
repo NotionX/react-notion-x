@@ -12,12 +12,26 @@ import { NotionContextConsumer, NotionContextProvider } from '../context'
 
 // TODO: modal.default.setAppElement('.notion-viewport')
 
+const strings = {
+  placeholder: 'Search',
+  noResultsTitle: 'No results',
+  noResultsDescription: 'Try different search terms',
+  errorText: 'Search error'
+}
+
 export class SearchDialog extends React.Component<{
   isOpen: boolean
   rootBlockId: string
   onClose: () => void
   searchNotion: (params: types.SearchParams) => Promise<types.SearchResults>
+  placeholder?: string
+  noResultsTitle?: string
+  noResultsDescription?: string
+  errorText?: string
 }> {
+  static defaultProps = {
+    ...strings
+  }
   constructor(props) {
     super(props)
     this._inputRef = React.createRef()
@@ -52,7 +66,7 @@ export class SearchDialog extends React.Component<{
           return (
             <components.Modal
               isOpen={isOpen}
-              contentLabel='Search'
+              contentLabel={this.props.placeholder}
               className='notion-search'
               overlayClassName='notion-search-overlay'
               onRequestClose={onClose}
@@ -70,7 +84,7 @@ export class SearchDialog extends React.Component<{
 
                   <input
                     className='searchInput'
-                    placeholder='Search'
+                    placeholder={this.props.placeholder}
                     value={query}
                     ref={this._inputRef}
                     onChange={this._onChangeQuery}
@@ -133,9 +147,11 @@ export class SearchDialog extends React.Component<{
                       </NotionContextProvider>
                     ) : (
                       <div className='noResultsPane'>
-                        <div className='noResults'>No results</div>
+                        <div className='noResults'>
+                          {this.props.noResultsTitle}
+                        </div>
                         <div className='noResultsDetail'>
-                          Try different search terms
+                          {this.props.noResultsDescription}
                         </div>
                       </div>
                     )}
@@ -144,7 +160,7 @@ export class SearchDialog extends React.Component<{
 
                 {hasQuery && !searchResult && searchError && (
                   <div className='noResultsPane'>
-                    <div className='noResults'>Search error</div>
+                    <div className='noResults'>{this.props.errorText}</div>
                   </div>
                 )}
               </div>
