@@ -22,6 +22,10 @@ This package only exports types and is compatible with both Node.js and browsers
 import * as notion from 'notion-types'
 ```
 
+## Docs
+
+See the [full docs](https://github.com/NotionX/react-notion-x).
+
 ## License
 
 MIT © [Travis Fischer](https://transitivebullsh.it)

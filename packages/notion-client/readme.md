@@ -36,6 +36,10 @@ const colectionData = await api.getCollectionData(
 )
 ```
 
+## Docs
+
+See the [full docs](https://github.com/NotionX/react-notion-x).
+
 ## License
 
 MIT © [Travis Fischer](https://transitivebullsh.it)
