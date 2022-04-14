@@ -19,7 +19,7 @@ const strings = {
   errorText: 'Search error'
 }
 
-export class SearchDialog extends React.Component<{
+export type SearchDialogProps = {
   isOpen: boolean
   rootBlockId: string
   onClose: () => void
@@ -28,8 +28,10 @@ export class SearchDialog extends React.Component<{
   noResultsTitle?: string
   noResultsDescription?: string
   errorText?: string
-}> {
-  static defaultProps = {
+}
+
+export class SearchDialog extends React.Component<SearchDialogProps> {
+  static defaultProps: Partial<SearchDialogProps> = {
     ...strings
   }
   constructor(props) {

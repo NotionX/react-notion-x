@@ -8,17 +8,25 @@ import { useNotionContext } from '../context'
 import { PageIcon } from './page-icon'
 import { SearchIcon } from '../icons/search-icon'
 import { cs } from '../utils'
-import { SearchDialog } from './search-dialog'
+import { SearchDialog, SearchDialogProps } from './search-dialog'
 import { SearchNotionFn } from '../types'
+
+type SearchProps = {
+  block: types.Block
+  search?: SearchNotionFn
+  title?: React.ReactNode
+  dialogProps?: Partial<SearchDialogProps>
+}
 
 export const Header: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock
-}> = ({ block }) => {
+  searchProps?: Partial<SearchProps>
+}> = ({ block, searchProps }) => {
   return (
     <header className='notion-header'>
       <div className='notion-nav-header'>
         <Breadcrumbs block={block} />
-        <Search block={block} />
+        <Search block={block} {...searchProps} />
       </div>
     </header>
   )
@@ -82,11 +90,12 @@ export const Breadcrumbs: React.FC<{
   )
 }
 
-export const Search: React.FC<{
-  block: types.Block
-  search?: SearchNotionFn
-  title?: React.ReactNode
-}> = ({ block, search, title = 'Search' }) => {
+export const Search: React.FC<SearchProps> = ({
+  block,
+  search,
+  title = 'Search',
+  dialogProps
+}) => {
   const { searchNotion, rootPageId } = useNotionContext()
   const onSearchNotion = search || searchNotion
 
@@ -133,6 +142,7 @@ export const Search: React.FC<{
           rootBlockId={rootPageId || block?.id}
           onClose={onCloseSearch}
           searchNotion={onSearchNotion}
+          {...dialogProps}
         />
       )}
     </>
