@@ -67,7 +67,7 @@ export default ({ recordMap }) => (
 )
 ```
 
-Note: for heavier blocks, you'll have to opt into using them via `NotionRenderer.components`. These are not included in the default `NotionRenderer` export because they're too heavyweight for a lot of use cases.
+Note: for heavier blocks, you'll have to opt into using them via `NotionRenderer.components`. These are not included in the default `NotionRenderer` export because they're too heavyweight for many use cases.
 
 ## Styles
 
@@ -159,6 +159,8 @@ For each of these optional components, make sure you're also importing the relev
 ## Private Pages
 
 You may optionally pass an `authToken` and `activeUser` to the API if you want to access private Notion pages. Both can be retrieved from your web browser. Once you are viewing your workpace, open your Development Tools > Application > Cookie > and Copy the `token_v2` and `notion_user_id`. Respectively, activeUser: notion_user_id, authToken: token_v2.
+
+We recommend storing these as environment variables and passing them into the `NotionAPI` constructor as follows:
 
 ```tsx
 const notion = new NotionAPI({
