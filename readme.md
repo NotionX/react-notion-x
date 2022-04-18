@@ -15,6 +15,7 @@
 - [Usage](#usage)
 - [Styles](#styles)
 - [Optional Components](#optional-components)
+- [Private Pages](#private-pages)
 - [Next.js Examples](#nextjs-examples)
 - [Packages](#packages)
 - [Supported Blocks](#supported-blocks)
@@ -67,19 +68,6 @@ export default ({ recordMap }) => (
 ```
 
 Note: for heavier blocks, you'll have to opt into using them via `NotionRenderer.components`. These are not included in the default `NotionRenderer` export because they're too heavyweight for a lot of use cases.
-
-## Private Pages
-
-You may optionally pass an `authToken` and `activeUser` to the API if you want to access private Notion pages. Both can be retrieved from your web browser. Once you are viewing your workpace, open your Development Tools > Application > Cookie > and Copy/Paste the `token_v2` and `notion_user_id`. Respectively, activeUser: notion_user_id, authToken: token_v2.
-
-Here's a quick code snippet for the client usage when implementing process env for tokens:
-```tsx
-const notion = new NotionAPI({
-  activeUser: process.env.NOTION_ACTIVE_USER, 
-  authToken: process.env.NOTION_TOKEN_V2
-  })
-```
-If issue arises where the pageId is not found, restart your local host instance.
 
 ## Styles
 
@@ -167,6 +155,19 @@ The `Code` component uses [Prism]() under the hood. It comes bundled with suppor
 For `Equation` support, you'll need to import the katex CSS styles.
 
 For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
+
+## Private Pages
+
+You may optionally pass an `authToken` and `activeUser` to the API if you want to access private Notion pages. Both can be retrieved from your web browser. Once you are viewing your workpace, open your Development Tools > Application > Cookie > and Copy the `token_v2` and `notion_user_id`. Respectively, activeUser: notion_user_id, authToken: token_v2.
+
+```tsx
+const notion = new NotionAPI({
+  activeUser: process.env.NOTION_ACTIVE_USER,
+  authToken: process.env.NOTION_TOKEN_V2
+})
+```
+
+Note that this is not the same as the API token provided by the official Notion API since `notion-client` uses the unofficial Notion API (which is what all Notion apps use).
 
 ## Next.js Examples
 
