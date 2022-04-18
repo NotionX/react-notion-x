@@ -17,5 +17,19 @@
     {
       "path": "./packages/react-notion-x/tsconfig.json"
     }
-  ]
+  ],
+  "typedocOptions": {
+    "entryPointStrategy": "packages",
+    "entryPoints": [
+      "./packages/react-notion-x",
+      "./packages/notion-client",
+      "./packages/notion-compat",
+      "./packages/notion-types",
+      "./packages/notion-utils"
+    ],
+    "out": "docs",
+    "plugin": "typedoc-plugin-markdown",
+    "readme": "none",
+    "name": "Docs"
+  }
 }

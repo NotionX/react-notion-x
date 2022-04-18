@@ -43,5 +43,6 @@
       "--no-warnings",
       "--experimental-specifier-resolution=node"
     ]
-  }
+  },
+  "typedocMain": "src/index.ts"
 }
