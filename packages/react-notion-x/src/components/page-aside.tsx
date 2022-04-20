@@ -2,7 +2,6 @@ import * as React from 'react'
 import throttle from 'lodash.throttle'
 import { TableOfContentsEntry, uuidToId } from 'notion-utils'
 
-import { useNotionContext } from '../context'
 import { cs } from '../utils'
 
 export const PageAside: React.FC<{
@@ -22,8 +21,6 @@ export const PageAside: React.FC<{
   hasAside,
   className
 }) => {
-  const { darkMode } = useNotionContext()
-
   const throttleMs = 100
   const actionSectionScrollSpy = React.useMemo(
     () =>
@@ -92,12 +89,7 @@ export const PageAside: React.FC<{
             Table of Contents
           </div>
 
-          <nav
-            className={cs(
-              'notion-table-of-contents',
-              !darkMode && 'notion-gray'
-            )}
-          >
+          <nav className='notion-table-of-contents'>
             {toc.map((tocItem) => {
               const id = uuidToId(tocItem.id)
 
