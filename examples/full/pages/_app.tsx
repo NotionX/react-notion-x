@@ -11,9 +11,6 @@ import 'prismjs/themes/prism-tomorrow.css'
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
 
-// used for tweet embeds (optional)
-import 'react-static-tweets/styles.css'
-
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
