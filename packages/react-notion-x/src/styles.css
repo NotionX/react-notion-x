@@ -1048,6 +1048,10 @@ svg.notion-page-icon {
   height: 100%;
 }
 
+.notion-bookmark-image span {
+  max-height: 100%;
+}
+
 .notion-column .notion-bookmark-image {
   display: none;
 }

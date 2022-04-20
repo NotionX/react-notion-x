@@ -33,7 +33,7 @@ async function createPreviewImage(url: string): Promise<PreviewImage | null> {
   try {
     const { body } = await got(url, { responseType: 'buffer' })
     const result = await lqip(body)
-    console.log('lqip', result.metadata)
+    console.log('lqip', { originalUrl: url, ...result.metadata })
 
     return {
       originalWidth: result.metadata.originalWidth,
@@ -41,6 +41,10 @@ async function createPreviewImage(url: string): Promise<PreviewImage | null> {
       dataURIBase64: result.metadata.dataURIBase64
     }
   } catch (err) {
+    if (err.message === 'Input buffer contains unsupported image format') {
+      return null
+    }
+
     console.warn('failed to create preview image', url, err.message)
     return null
   }
