@@ -26,6 +26,8 @@ const pageIdFixturesFailure = [
 
 for (const pageId of pageIdFixturesSuccess) {
   test(`NotionAPI.getPage success ${pageId}`, async (t) => {
+    t.timeout(60000) // one minute timeout
+
     const api = new NotionAPI()
     const page = await api.getPage(pageId)
 
