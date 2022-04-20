@@ -82,9 +82,6 @@ import 'prismjs/themes/prism-tomorrow.css'
 
 // used for rendering equations (optional)
 import 'katex/dist/katex.min.css'
-
-// used for tweet embeds (optional)
-import 'react-static-tweets/styles.css'
 ```
 
 ## Optional Components
@@ -181,7 +178,6 @@ The full-featured demo adds a few nice features:
 
 - Uses [next/image](https://nextjs.org/docs/api-reference/next/image) to serve optimal images
 - Uses preview images generated via [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
-- Embeds tweets via [react-static-tweets](https://github.com/transitive-bullshit/react-static-tweets)
 - Lazily bundles larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
   - Code
   - Equation

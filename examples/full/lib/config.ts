@@ -9,10 +9,6 @@ export const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
 // you cache the preview image results in a key-value database.
 export const previewImagesEnabled = true
 
-// whether we should enable static tweet embeds (requires fetching extra info at
-// build time)
-export const tweetEmbedsEnabled = true
-
 // Whether to use the official public Notion API or the unofficial private API.
 // Note that the official API doesn't expose formatting options for many blocks
 // and is currently not as well-supported.

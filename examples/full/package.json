@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@notionhq/client": "^1.0.4",
+    "classnames": "^2.3.1",
     "got": "^12.0.2",
     "lqip-modern": "^1.2.0",
     "next": "^12.1.0",
@@ -25,8 +26,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-notion-x": "^6.11.0",
-    "react-static-tweets": "^0.7.1",
-    "static-tweets": "^0.7.1"
+    "react-tweet-embed": "^2.0.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.1.0",

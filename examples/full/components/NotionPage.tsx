@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
-import { Tweet, TwitterContextProvider } from 'react-static-tweets'
+import TweetEmbed from 'react-tweet-embed'
 
 import { Loading } from './Loading'
 
@@ -76,6 +76,10 @@ const Modal = dynamic(
   }
 )
 
+const Tweet = ({ id }: { id: string }) => {
+  return <TweetEmbed tweetId={id} />
+}
+
 export const NotionPage = ({
   recordMap,
   previewImagesEnabled,
@@ -114,15 +118,7 @@ export const NotionPage = ({
     'https://react-notion-x-demo.transitivebullsh.it/social.jpg'
 
   return (
-    <TwitterContextProvider
-      value={{
-        tweetAstMap: (recordMap as any).tweetAstMap || {},
-        swrOptions: {
-          fetcher: (id: string) =>
-            fetch(`/api/get-tweet-ast/${id}`).then((r) => r.json())
-        }
-      }}
-    >
+    <>
       <Head>
         {socialDescription && (
           <>
@@ -170,6 +166,6 @@ export const NotionPage = ({
         // NOTE: custom images will only take effect if previewImages is true and
         // if the image has a valid preview image defined in recordMap.preview_images[src]
       />
-    </TwitterContextProvider>
+    </>
   )
 }
