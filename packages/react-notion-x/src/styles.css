@@ -1049,6 +1049,8 @@ svg.notion-page-icon {
 }
 
 .notion-bookmark-image span {
+  width: 100% !important;
+  height: 100% !important;
   max-height: 100%;
 }
 
