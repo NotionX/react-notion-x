@@ -32,13 +32,13 @@ You can preview `react-notion-x` using the official client and compatibility lay
 
 ## Status
 
-The main feature missing from `notion-compat` right now is collection (database) support.
-
 Many blocks aren't displayed properly (sometimes in subtle ways) because Notion's official API doesn't contain enough formatting info for us to faithfully render blocks in all cases. See the block-by-block compatibility notes below for more info.
 
 I recommend checking out [the notion-compat demo](https://react-notion-x-official-api-demo.transitivebullsh.it/) side-by-side with the [normal react-notion-x demo](https://react-notion-x-demo.transitivebullsh.it/) (which uses the unofficial Notion API via `notion-client`) and the [equivalent public notion page](https://transitive-bs.notion.site/Notion-Kit-Test-Suite-067dd719a912471ea9a3ac10710e7fdf).
 
 Note that using the official API with `notion-compat` is quite a bit slower than using the unofficial API via `notion-client` because of [reasons](https://github.com/NotionX/react-notion-x/issues/269#issuecomment-1100648873).
+
+The main feature missing from `notion-compat` right now is collection (database) support. PRs welcome 😃
 
 ## Block Compatibility
 
