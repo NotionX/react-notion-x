@@ -41,6 +41,7 @@ export type BlockType =
   | 'table'
   | 'table_row'
   | 'external_object_instance'
+  | 'breadcrumb'
   // fallback for unknown blocks
   | string
 
@@ -86,6 +87,7 @@ export type Block =
   | TableBlock
   | TableRowBlock
   | ExternalObjectInstance
+  | BreadcrumbInstance
 
 /**
  * Base properties shared by all blocks.
@@ -448,4 +450,8 @@ export interface ExternalObjectInstance extends BaseBlock {
     domain: string
     original_url: string
   }
+}
+
+export interface BreadcrumbInstance extends BaseBlock {
+  type: 'breadcrumb'
 }
