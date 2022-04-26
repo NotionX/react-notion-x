@@ -42,6 +42,7 @@ export type BlockType =
   | 'table_row'
   | 'external_object_instance'
   | 'breadcrumb'
+  | 'miro'
   // fallback for unknown blocks
   | string
 
@@ -316,6 +317,10 @@ export interface PdfBlock extends BaseContentBlock {
 
 export interface AudioBlock extends BaseContentBlock {
   type: 'audio'
+}
+
+export interface MiroBlock extends BaseContentBlock {
+  type: 'miro'
 }
 
 export interface FileBlock extends BaseBlock {
