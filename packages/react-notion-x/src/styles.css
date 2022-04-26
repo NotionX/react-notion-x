@@ -834,10 +834,6 @@ svg.notion-page-icon {
   flex-direction: column;
 }
 
-.notion-block {
-  padding: 3px 2px;
-}
-
 .notion .notion-code {
   font-size: 85%;
 }
