@@ -16,13 +16,15 @@ export const AssetWrapper: React.FC<{
   const { components, mapPageUrl, rootDomain } = useNotionContext()
 
   let isURL = false
-  if (value?.properties?.caption?.length > 0) {
-    const caption: string = value?.properties?.caption[0][0]
-    const id = parsePageId(caption, { uuid: true })
+  if (block.type === 'image') {
+    const caption: string = value?.properties?.caption?.[0]?.[0]
+    if (caption) {
+      const id = parsePageId(caption, { uuid: true })
 
-    const isPage = caption.charAt(0) === '/' && id
-    if ((block.type == 'image' && isValidURL(caption)) || isPage) {
-      isURL = true
+      const isPage = caption.charAt(0) === '/' && id
+      if (isPage || isValidURL(caption)) {
+        isURL = true
+      }
     }
   }
 
@@ -35,7 +37,7 @@ export const AssetWrapper: React.FC<{
         blockId
       )}
     >
-      <Asset block={value}>
+      <Asset block={value} zoomable={!isURL}>
         {value?.properties?.caption && !isURL && (
           <figcaption className='notion-asset-caption'>
             <Text value={value.properties.caption} block={block} />

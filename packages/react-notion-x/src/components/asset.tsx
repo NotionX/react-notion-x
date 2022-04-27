@@ -27,7 +27,8 @@ const supportedAssetTypes = [
 export const Asset: React.FC<{
   block: BaseContentBlock
   children: any
-}> = ({ block, children }) => {
+  zoomable?: boolean
+}> = ({ block, zoomable = true, children }) => {
   const { recordMap, mapImageUrl, components } = useNotionContext()
 
   if (!block || !supportedAssetTypes.includes(block.type)) {
@@ -250,7 +251,7 @@ export const Asset: React.FC<{
       <LazyImage
         src={src}
         alt={alt}
-        zoomable={true}
+        zoomable={zoomable}
         height={style.height as number}
         style={assetStyle}
       />
