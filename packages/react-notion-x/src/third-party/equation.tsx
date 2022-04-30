@@ -7,6 +7,7 @@ import { useNotionContext } from '../context'
 import { cs } from '../utils'
 
 const katexSettings = {
+  displayMode: false,
   throwOnError: false,
   strict: false
 }
@@ -20,7 +21,7 @@ export const Equation: React.FC<{
   const { recordMap } = useNotionContext()
   math = math || getBlockTitle(block, recordMap)
   if (!math) return null
-
+  katexSettings.displayMode = !inline;
   return (
     <span
       role='button'
