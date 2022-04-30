@@ -21,7 +21,7 @@ export const Equation: React.FC<{
   const { recordMap } = useNotionContext()
   math = math || getBlockTitle(block, recordMap)
   if (!math) return null
-  katexSettings.displayMode = !inline;
+  katexSettings.displayMode = !inline
   return (
     <span
       role='button'
