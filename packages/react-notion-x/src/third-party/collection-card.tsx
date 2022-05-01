@@ -42,7 +42,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
         contentBlock.format?.display_source
 
       if (source) {
-        const src = mapImageUrl(source, contentBlock)
+        const src = mapImageUrl(source, contentBlock, recordMap)
         const caption = contentBlock.properties?.caption?.[0]?.[0]
 
         coverContent = (
@@ -66,9 +66,11 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
     if (page_cover) {
       const coverPosition = (1 - page_cover_position) * 100
 
+      // Private UGC requires a Signed URL; thus, check if there's a Signed URL
+      //   for this block and fallback to the `page_cover` value if not.
       coverContent = (
         <LazyImage
-          src={mapImageUrl(page_cover, block)}
+          src={mapImageUrl(page_cover, block, recordMap)}
           alt={getTextContent(block.properties?.title)}
           style={{
             objectFit: coverAspect,

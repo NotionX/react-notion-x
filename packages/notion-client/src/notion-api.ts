@@ -6,7 +6,8 @@ import {
   parsePageId,
   getPageContentBlockIds,
   uuidToId,
-  getBlockCollectionId
+  getBlockCollectionId,
+  isUrl
 } from 'notion-utils'
 import * as notion from 'notion-types'
 
@@ -195,7 +196,13 @@ export class NotionAPI {
     // because it is preferable for many use cases as opposed to making these API calls
     // lazily from the client-side.
     if (signFileUrls) {
-      await this.addSignedUrls({ recordMap, contentBlockIds, gotOptions })
+      // await this.addSignedUrls({ recordMap, contentBlockIds, gotOptions })
+      const blockIDsToSign: string[] = Object.keys(recordMap.block)
+      await this.addSignedUrls({
+        recordMap,
+        contentBlockIds: blockIDsToSign,
+        gotOptions
+      })
     }
 
     return recordMap
@@ -216,37 +223,64 @@ export class NotionAPI {
       contentBlockIds = getPageContentBlockIds(recordMap)
     }
 
+    const blockUrlMap: {
+      [blockUrl: string]: {
+        url: string
+        sourceID: string
+      }
+    } = {}
+
     const allFileInstances = contentBlockIds.flatMap((blockId) => {
       const block = recordMap.block[blockId].value
 
-      if (
-        block &&
-        (block.type === 'pdf' ||
-          block.type === 'audio' ||
-          (block.type === 'image' && block.file_ids?.length) ||
-          block.type === 'video' ||
-          block.type === 'file' ||
-          block.type === 'page')
-      ) {
-        const source =
-          block.type === 'page'
-            ? block.format?.page_cover
-            : block.properties?.source?.[0]?.[0]
-        // console.log(block, source)
+      if (!block) {
+        return []
+      }
 
-        if (source) {
-          if (source.indexOf('youtube') >= 0 || source.indexOf('vimeo') >= 0) {
-            return []
+      let source, records, sourceID
+      const pageSources = []
+      switch (block.type) {
+        case 'pdf':
+        case 'audio':
+        case 'video':
+        case 'file':
+        case 'image':
+          source = block.properties?.source?.[0]?.[0]
+          records = permRecordWithAcceptableSrc(block.id, source)
+          if (records) {
+            blockUrlMap[`${source}-${block.id}`] = {
+              url: source,
+              sourceID: block.id
+            }
+            return records
+          }
+          break
+        case 'page':
+          source = block.format?.page_cover
+          // Parse the "block" UUID that refers to the Page Cover
+          sourceID = parsePageId(source, { uuid: true })
+          records = permRecordWithAcceptableSrc(block.id, source)
+          if (sourceID && records) {
+            blockUrlMap[`${source}-${block.id}`] = {
+              url: source,
+              sourceID
+            }
+            pageSources.push(records)
           }
 
-          return {
-            permissionRecord: {
-              table: 'block',
-              id: block.id
-            },
-            url: source
+          source = block.format?.page_icon
+          // Parse the "block" UUID that refers to the Page Icon
+          sourceID = parsePageId(source, { uuid: true })
+          records = permRecordWithAcceptableSrc(block.id, source)
+
+          if (sourceID && records) {
+            blockUrlMap[`${source}-${block.id}`] = {
+              url: source,
+              sourceID
+            }
+            pageSources.push(records)
           }
-        }
+          return pageSources
       }
 
       return []
@@ -264,7 +298,10 @@ export class NotionAPI {
             const file = allFileInstances[i]
             const signedUrl = signedUrls[i]
 
-            recordMap.signed_urls[file.permissionRecord.id] = signedUrl
+            const key = `${file.url}-${file.permissionRecord.id}`
+            const { url, sourceID } = blockUrlMap[key]
+            recordMap.signed_urls[url] = signedUrl
+            recordMap.signed_urls[sourceID] = signedUrl
           }
         }
       } catch (err) {
@@ -608,4 +645,20 @@ export class NotionAPI {
     //   return res.json()
     // })
   }
+}
+
+const permRecordWithAcceptableSrc = (
+  blockID: string,
+  source: string | undefined
+): types.SignedUrlRequest | null => {
+  if (
+    !source ||
+    !isUrl(source) ||
+    source.includes('youtube') ||
+    source.includes('vimeo')
+  ) {
+    return null
+  }
+
+  return { permissionRecord: { table: 'block', id: blockID }, url: source }
 }

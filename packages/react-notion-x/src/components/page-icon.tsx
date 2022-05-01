@@ -38,12 +38,11 @@ export const PageIconImpl: React.FC<{
     const title = getBlockTitle(block, recordMap)
 
     if (icon && isUrl(icon)) {
-      const url = mapImageUrl(icon, block)
       isImage = true
 
       content = (
         <LazyImage
-          src={url}
+          src={mapImageUrl(icon, block, recordMap)}
           alt={title || 'page icon'}
           className={cs(className, 'notion-page-icon')}
         />

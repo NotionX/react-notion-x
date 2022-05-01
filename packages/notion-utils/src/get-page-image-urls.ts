@@ -1,6 +1,7 @@
 import * as types from 'notion-types'
 import { isUrl } from './is-url'
 import { getBlockIcon } from './get-block-icon'
+import { ExtendedRecordMap } from 'notion-types'
 
 /**
  * Gets URLs of all images contained on the given page.
@@ -10,7 +11,11 @@ export const getPageImageUrls = (
   {
     mapImageUrl
   }: {
-    mapImageUrl: (url: string, block: types.Block) => string | null
+    mapImageUrl: (
+      url: string,
+      block: types.Block,
+      recordMap?: ExtendedRecordMap
+    ) => string | null
   }
 ): string[] => {
   const blockIds = Object.keys(recordMap.block)
@@ -71,7 +76,7 @@ export const getPageImageUrls = (
       return images
     })
     .filter(Boolean)
-    .map(({ block, url }) => mapImageUrl(url, block))
+    .map(({ block, url }) => mapImageUrl(url, block, recordMap))
     .filter(Boolean)
 
   return Array.from(new Set(imageUrls))
