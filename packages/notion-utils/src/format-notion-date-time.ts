@@ -1,3 +1,4 @@
+import { getNotionDateTime } from './get-notion-date-time'
 import { formatDate } from './format-date'
 
 export interface NotionDateTime {
@@ -8,8 +9,11 @@ export interface NotionDateTime {
 }
 
 export const formatNotionDateTime = (datetime: NotionDateTime) => {
-  const dateString = `${datetime.start_time || ''} ${datetime.start_date} ${
-    datetime.time_zone || ''
-  }`
-  return formatDate(dateString)
+  const date = getNotionDateTime(
+    datetime.start_date,
+    datetime.start_time,
+    datetime.time_zone
+  )
+
+  return formatDate(date)
 }
