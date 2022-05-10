@@ -1,9 +1,13 @@
-import { Block, BlockMap } from 'notion-types'
+import { Block, BlockMap, ExtendedRecordMap } from 'notion-types'
 import { isUrl, formatDate, formatNotionDateTime } from 'notion-utils'
 
 export { isUrl, formatDate, formatNotionDateTime }
 
-export const defaultMapImageUrl = (url: string, block: Block) => {
+export const defaultMapImageUrl = (
+  url: string,
+  block: Block,
+  recordMap?: ExtendedRecordMap
+) => {
   if (!url) {
     return null
   }
@@ -16,6 +20,8 @@ export const defaultMapImageUrl = (url: string, block: Block) => {
   if (url.startsWith('https://images.unsplash.com')) {
     return url
   }
+
+  url = recordMap?.signed_urls[url] ?? url
 
   try {
     const u = new URL(url)

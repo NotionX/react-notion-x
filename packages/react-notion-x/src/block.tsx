@@ -169,7 +169,7 @@ export const Block: React.FC<BlockProps> = (props) => {
                     ) : (
                       <div className='notion-page-cover-wrapper'>
                         <LazyImage
-                          src={mapImageUrl(page_cover, block)}
+                          src={mapImageUrl(page_cover, block, recordMap)}
                           alt={getTextContent(properties?.title)}
                           priority={true}
                           className='notion-page-cover'

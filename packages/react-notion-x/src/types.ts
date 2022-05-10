@@ -5,7 +5,11 @@ export type MapPageUrlFn = (
   pageId: string,
   recordMap?: types.ExtendedRecordMap | undefined
 ) => string
-export type MapImageUrlFn = (url: string, block: types.Block) => string
+export type MapImageUrlFn = (
+  url: string,
+  block: types.Block,
+  recordMap?: types.ExtendedRecordMap
+) => string
 export type SearchNotionFn = (
   params: types.SearchParams
 ) => Promise<types.SearchResults>
