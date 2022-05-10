@@ -317,11 +317,36 @@ export function convertBlock({
       break
 
     case 'table':
-      // TODO
+      if (blockDetails.table_width && blockDetails.table_width > 0) {
+        // There is no API to get the column ID. Used the index instead.
+        compatBlock.format.table_block_column_order = Array.from(
+          { length: blockDetails.table_width },
+          (_, i) => '' + i
+        )
+        compatBlock.format.table_block_column_format =
+          compatBlock.format.table_block_column_order.map((order) => {
+            return {
+              [order]: {
+                // TODO: The SimpleTable column has no width and color. API is not supported.
+                // width: 155,
+                // color:
+              }
+            }
+          })
+      }
+      if (blockDetails.has_column_header) {
+        compatBlock.format.table_block_column_header =
+          blockDetails.has_column_header
+      }
+      if (blockDetails.has_row_header) {
+        compatBlock.format.table_block_row_header = blockDetails.has_row_header
+      }
       break
 
     case 'table_row':
-      // TODO
+      compatBlock.properties = {
+        ...block.table_row?.cells?.map((cell) => convertRichText(cell))
+      }
       break
 
     case 'pdf':
