@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-cra",
-  "version": "6.12.7",
+  "version": "6.12.9",
   "private": true,
   "scripts": {
     "dev": "GENERATE_SOURCEMAP=false react-scripts start",
@@ -15,7 +15,7 @@
     "notion-types": "^6.12.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^6.12.7",
+    "react-notion-x": "^6.12.9",
     "react-scripts": "5.0.0",
     "typescript": "^4.6.3"
   },
