@@ -19,6 +19,7 @@
     "watch": "run-p watch:* --continue-on-error",
     "watch:tsc": "tsc --build --watch  --preserveWatchOutput",
     "watch:tsup": "lerna run watch --no-private --parallel",
+    "link": "lerna exec \"yarn link\" --no-private",
     "dev": "run-s watch",
     "prebuild": "run-s clean",
     "prewatch": "run-s clean",

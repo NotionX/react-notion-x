@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "6.12.7",
+  "version": "6.12.9",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
@@ -27,7 +27,7 @@
     "@radix-ui/react-dropdown-menu": "^0.1.6",
     "katex": "^0.15.3",
     "notion-types": "^6.12.6",
-    "notion-utils": "^6.12.6",
+    "notion-utils": "^6.12.9",
     "prismjs": "^1.27.0",
     "react-fast-compare": "^3.2.0",
     "react-hotkeys-hook": "^3.0.3",
