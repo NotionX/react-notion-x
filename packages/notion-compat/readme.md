@@ -36,7 +36,7 @@ Currently, ~20 blocks have full compatibility and 8 have partial compatibility (
 
 I recommend checking out [the notion-compat demo](https://react-notion-x-official-api-demo.transitivebullsh.it/) side-by-side with the [normal react-notion-x demo](https://react-notion-x-demo.transitivebullsh.it/) (which uses the unofficial Notion API via `notion-client`) and the [equivalent public notion page](https://transitive-bs.notion.site/Notion-Kit-Test-Suite-067dd719a912471ea9a3ac10710e7fdf).
 
-Note that using the official API with `notion-compat` is quite a bit slower than using the unofficial API via `notion-client` because of [reasons](https://github.com/NotionX/react-notion-x/issues/269#issuecomment-1100648873).
+Note that using the official API with `notion-compat` is **significantly slower** than using the unofficial API via `notion-client` because of [reasons](https://github.com/NotionX/react-notion-x/issues/269#issuecomment-1100648873).
 
 The main feature missing from `notion-compat` right now is collection (database) support. PRs welcome 😃
 
@@ -130,11 +130,12 @@ The main feature missing from `notion-compat` right now is collection (database)
   - 034119d20132420abe8e9863bbe91e9d
 - pdf
   - missing format so sizing and layout aren't handled properly
+- table and table_row (simple table blocks)
+  - missing some formatting info
 
 ### Blocks that are WIP 🚧
 
 - child_database (`collection_view` and `collection_view_page` blocks)
-- table and table_row (simple table blocks)
 
 ### Blocks that are Not Supported 🔴
 
