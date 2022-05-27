@@ -3,7 +3,7 @@
   "version": "6.12.9-2",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion..",
-  "repository": "NotionX/react-notion-x",
+  "repository": "getmicro/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "main": "./build/index.js",
@@ -54,5 +54,6 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
-  }
+  },
+  "gitHead": "2f6247e70bcacab9166eb0305aede6ea70fca702"
 }
