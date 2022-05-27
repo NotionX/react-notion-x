@@ -2,6 +2,25 @@
   <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/notion-ts.png" width="689">
 </p>
 
+# SyncWith notes
+
+This is a fork with very minimal changes. Its purpose is to include
+non-default modules (like `Collection` and `Code`) in the default
+exports.
+
+See https://github.com/NotionX/react-notion-x/commit/e4716caf2f43187db722fa9604e9aa4a6fcf07b1 for the relevant change.
+
+This is necessary for Remix's ESM to CJS magic to work: see
+https://remix.run/docs/en/v1/pages/gotchas#importing-esm-packages
+for more details.
+
+To pull in future changes, merge them from upstream, then
+run:
+
+```
+yarn deploy --registry https://npm.pkg.github.com/
+```
+
 # React Notion X
 
 > Fast and accurate React renderer for Notion. TS batteries included. ⚡️
