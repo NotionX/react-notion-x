@@ -1,5 +1,5 @@
 {
-  "name": "react-notion-x",
+  "name": "@getmicro/react-notion-x",
   "version": "6.12.9",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion.",
@@ -51,5 +51,8 @@
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

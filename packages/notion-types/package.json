@@ -2,6 +2,7 @@
   "name": "notion-types",
   "version": "6.12.6",
   "type": "module",
+  "private": true,
   "description": "TypeScript types for core Notion data structures.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
