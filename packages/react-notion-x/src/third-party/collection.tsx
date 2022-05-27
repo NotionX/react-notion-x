@@ -8,7 +8,6 @@ import {
 import { useLocalStorage, useWindowSize } from 'react-use'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
-import { CollectionRow } from './collection-row'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
 import CheckIcon from '../icons/check'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
@@ -57,6 +56,9 @@ export const Collection: React.FC<{
       return null
     }
 
+    // Hide properties when rendering
+    return null
+    /*
     return (
       <NotionContextProvider {...context}>
         <div className='notion-collection-page-properties'>
@@ -68,6 +70,7 @@ export const Collection: React.FC<{
         </div>
       </NotionContextProvider>
     )
+     */
   } else {
     return (
       <NotionContextProvider {...context}>
