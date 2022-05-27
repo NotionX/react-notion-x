@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "6.12.9",
+  "version": "6.12.9-1",
   "private": true,
   "type": "module",
   "description": "Robust TypeScript client for the unofficial Notion API.",
@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "got": "^11.8.1",
-    "notion-types": "^6.12.6",
-    "notion-utils": "^6.12.9",
+    "notion-types": "^6.12.9-1",
+    "notion-utils": "^6.12.9-1",
     "p-map": "^5.3.0"
   },
   "ava": {
