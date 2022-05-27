@@ -1,6 +1,6 @@
 {
   "name": "@getmicro/react-notion-x",
-  "version": "6.12.9-2",
+  "version": "6.12.9-3",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion..",
   "repository": "getmicro/react-notion-x",
