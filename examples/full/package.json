@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-full",
-  "version": "6.12.9",
+  "version": "6.12.10",
   "private": true,
   "type": "commonjs",
   "scripts": {
@@ -19,13 +19,13 @@
     "lqip-modern": "^1.2.0",
     "next": "^12.1.0",
     "notion-client": "^6.12.9",
-    "notion-compat": "^6.12.9",
+    "notion-compat": "^6.12.10",
     "notion-utils": "^6.12.9",
     "p-map": "^5.3.0",
     "p-memoize": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^6.12.9",
+    "react-notion-x": "^6.12.10",
     "react-tweet-embed": "^2.0.0"
   },
   "devDependencies": {
