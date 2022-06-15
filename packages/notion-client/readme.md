@@ -30,7 +30,7 @@ const page = await api.getPage('067dd719-a912-471e-a9a3-ac10710e7fdf')
 // fetch the data for a specific collection instance
 const collectionId = '2d8aec23-8281-4a94-9090-caaf823dd21a'
 const collectionViewId = 'ab639a5a-853e-45e1-9ef7-133b486c0acf'
-const colectionData = await api.getCollectionData(
+const collectionData = await api.getCollectionData(
   collectionId,
   collectionViewId
 )
