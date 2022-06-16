@@ -1,6 +1,6 @@
 import * as React from 'react'
 import mediumZoom from '@fisch0920/medium-zoom'
-import { ExtendedRecordMap } from 'notion-types'
+import { Block as BlockType, ExtendedRecordMap } from 'notion-types'
 
 import {
   MapPageUrlFn,
@@ -10,6 +10,7 @@ import {
 } from './types'
 import { Block } from './block'
 import { useNotionContext, NotionContextProvider } from './context'
+import { cs } from './utils'
 
 export const NotionRenderer: React.FC<{
   recordMap: ExtendedRecordMap
@@ -137,16 +138,77 @@ export const NotionBlockRenderer: React.FC<{
 
   return (
     <Block key={id} level={level} block={block} {...props}>
-      {block?.content?.map((contentBlockId) => (
-        <NotionBlockRenderer
-          key={contentBlockId}
-          blockId={contentBlockId}
-          level={level + 1}
-          {...props}
-        />
-      ))}
+      <BlockChildrenRenderer level={level} block={block} {...props} />
     </Block>
   )
+}
+
+const BlockChildrenRenderer: React.FC<{
+  className?: string
+  bodyClassName?: string
+  header?: React.ReactNode
+  footer?: React.ReactNode
+  disableHeader?: boolean
+
+  block: BlockType
+  hideBlockId?: boolean
+  level?: number
+}> = ({ level, block, ...props }) => {
+  const { recordMap } = useNotionContext()
+  const contentNodes = []
+
+  if (!block.content) {
+    return <></>
+  }
+
+  const wrapList = (content: React.ReactElement[]) =>
+    block.type === 'bulleted_list' ? (
+      <ul className={cs('notion-list', 'notion-list-disc')}>{content}</ul>
+    ) : (
+      <ol className={cs('notion-list', 'notion-list-numbered')}>{content}</ol>
+    )
+
+  for (let i = 0; i < block.content.length; ) {
+    const nextChildBlock = recordMap.block[block.content[i]]?.value
+    const nextChildBlockType = nextChildBlock?.type
+
+    let nextChildGroup = [block.content[i]]
+    if (
+      nextChildBlockType === 'bulleted_list' ||
+      nextChildBlockType === 'numbered_list'
+    ) {
+      let j = i
+      while (
+        j < block.content.length &&
+        recordMap.block[block.content[j]]?.value?.type === nextChildBlockType
+      ) {
+        j++
+      }
+      nextChildGroup = block.content.slice(i, j)
+    }
+
+    const nextRenderedGroup = nextChildGroup.map((nextChildId) => (
+      <NotionBlockRenderer
+        key={nextChildId}
+        blockId={nextChildId}
+        level={level + 1}
+        {...props}
+      />
+    ))
+
+    if (
+      nextChildBlockType === 'bulleted_list' ||
+      nextChildBlockType === 'numbered_list'
+    ) {
+      contentNodes.push(wrapList(nextRenderedGroup))
+    } else {
+      contentNodes.push(...nextRenderedGroup)
+    }
+
+    i += nextChildGroup.length
+  }
+
+  return <>{contentNodes}</>
 }
 
 function getMediumZoomMargin() {
