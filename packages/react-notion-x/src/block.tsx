@@ -424,14 +424,10 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'bulleted_list':
     // fallthrough
     case 'numbered_list': {
-      const listTypeCls =
-        block.type === 'bulleted_list'
-          ? 'notion-list-disc'
-          : 'notion-list-numbered'
       return (
         <>
           {block.properties && (
-            <li className={cs('notion-list', listTypeCls, blockId)}>
+            <li className={cs(blockId)}>
               <Text value={block.properties.title} block={block} />
               {children}
             </li>
