@@ -433,9 +433,9 @@ export const Block: React.FC<BlockProps> = (props) => {
           {block.properties && (
             <li className={cs('notion-list', listTypeCls, blockId)}>
               <Text value={block.properties.title} block={block} />
+              {children}
             </li>
           )}
-          {children}
         </>
       )
     }
