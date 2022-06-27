@@ -12,6 +12,8 @@ import * as notion from 'notion-types'
 
 import * as types from './types'
 
+type Fetch = typeof fetch | typeof import('node-fetch').default
+
 /**
  * Main Notion API client.
  */
@@ -20,7 +22,7 @@ export class NotionAPI {
   private readonly _authToken?: string
   private readonly _activeUser?: string
   private readonly _userTimeZone: string
-  private fetchImplementation: typeof fetch
+  private fetchImplementation: Fetch
 
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
@@ -587,10 +589,10 @@ export class NotionAPI {
       this.fetchImplementation =
         typeof fetch === 'function'
           ? fetch
-          : ((await import('undici')).fetch as typeof fetch)
+          : (await import('node-fetch')).default
     }
 
-    return this.fetchImplementation(url, {
+    return await this.fetchImplementation(url, {
       ...fetchOptions,
       body: JSON.stringify(body),
       method: 'POST',
