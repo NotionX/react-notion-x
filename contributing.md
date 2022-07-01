@@ -14,7 +14,7 @@ cd react-notion-x
 yarn
 ```
 
-This will install dependencies and link all of the local packages together using `lerna`. This includes the `examples` projects which will now point to the local version of your packages.
+This will install dependencies and link all of the local packages together using `lerna`. This includes the example projects which will now point to the local version of your packages.
 
 ```bash
 yarn dev
@@ -35,8 +35,7 @@ You should now be able to open `http://localhost:3000` to view and debug the exa
 
 ### Gotchas
 
-Whenever you make a change to one of the packages, the `yarn dev` from the project root will re-compile that package, and the `yarn dev` from the 
-project's Next.js dev server should hot-reload it in the browser.
+Whenever you make a change to one of the packages, the `yarn dev` from the project root will re-compile that package, and the `yarn dev` from the example project's Next.js dev server should hot-reload it in the browser.
 
 Sometimes, this process gets a little out of whack, and if you're not sure what's going on, I usually just quit one or both of the `yarn dev` commands and restart them.
 
