@@ -217,7 +217,7 @@ export class NotionAPI {
     }
 
     const allFileInstances = contentBlockIds.flatMap((blockId) => {
-      const block = recordMap.block[blockId].value
+      const block = recordMap.block[blockId]?.value
 
       if (
         block &&
