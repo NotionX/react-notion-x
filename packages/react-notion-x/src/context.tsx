@@ -12,6 +12,7 @@ import {
 } from './types'
 import { defaultMapPageUrl, defaultMapImageUrl } from './utils'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
+import { useWindowSize } from 'react-use'
 
 export interface NotionContext {
   recordMap: ExtendedRecordMap
@@ -38,6 +39,8 @@ export interface NotionContext {
   defaultPageCoverPosition?: number
 
   zoom: any
+  windowWidth?: number
+  hasOnlyHDVideos?: boolean
 }
 
 export interface PartialNotionContext {
@@ -66,6 +69,8 @@ export interface PartialNotionContext {
   defaultPageCoverPosition?: number
 
   zoom?: any
+  windowWidth?: number
+  hasOnlyHDVideos?: boolean
 }
 
 const DefaultLink: React.FC = (props) => (
@@ -163,7 +168,9 @@ const defaultNotionContext: NotionContext = {
   defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
 
-  zoom: null
+  zoom: null,
+  windowWidth: 1920,
+  hasOnlyHDVideos: false
 }
 
 const ctx = React.createContext<NotionContext>(defaultNotionContext)
@@ -176,6 +183,8 @@ export const NotionContextProvider: React.FC<PartialNotionContext> = ({
   rootPageId,
   ...rest
 }) => {
+  const { width } = useWindowSize()
+
   for (const key of Object.keys(rest)) {
     if (rest[key] === undefined) {
       delete rest[key]
@@ -212,9 +221,10 @@ export const NotionContextProvider: React.FC<PartialNotionContext> = ({
       rootPageId,
       mapPageUrl: mapPageUrl ?? defaultMapPageUrl(rootPageId),
       mapImageUrl: mapImageUrl ?? defaultMapImageUrl,
-      components: { ...defaultComponents, ...wrappedThemeComponents }
+      components: { ...defaultComponents, ...wrappedThemeComponents },
+      windowWidth: width
     }),
-    [mapImageUrl, mapPageUrl, wrappedThemeComponents, rootPageId, rest]
+    [mapImageUrl, mapPageUrl, wrappedThemeComponents, rootPageId, width, rest]
   )
 
   return <ctx.Provider value={value}>{children}</ctx.Provider>
