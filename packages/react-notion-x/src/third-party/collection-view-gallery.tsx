@@ -35,6 +35,7 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
 
   const blockIds =
     (collectionData['collection_group_results']?.blockIds ??
+      collectionData['results:relation:uncategorized']?.blockIds ??
       collectionData.blockIds) ||
     defaultBlockIds
 
