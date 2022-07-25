@@ -235,7 +235,7 @@ export class NotionAPI {
         // console.log(block, source)
 
         if (source) {
-          if (source.indexOf('youtube') >= 0 || source.indexOf('vimeo') >= 0) {
+          if (!source.includes('secure.notion-static.com')) {
             return []
           }
 
