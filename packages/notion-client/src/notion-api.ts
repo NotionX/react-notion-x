@@ -332,6 +332,18 @@ export class NotionAPI {
       collectionView?.format?.board_columns_by ||
       collectionView?.format?.collection_group_by
 
+    let filters = []
+    if (collectionView.format?.property_filters) {
+      filters = collectionView.format?.property_filters.map((filterObj) => {
+        // console.log('map filter', filterObj)
+        //get the inner filter
+        return {
+          filter: filterObj.filter.filter,
+          property: filterObj.filter.property
+        }
+      })
+    }
+
     let loader: any = {
       type: 'reducer',
       reducers: {
@@ -343,6 +355,10 @@ export class NotionAPI {
       },
       sort: [],
       ...collectionView?.query2,
+      filter: {
+        filters: filters,
+        operator: 'and'
+      },
       searchQuery,
       userTimeZone
     }
@@ -421,16 +437,6 @@ export class NotionAPI {
         }
       }
 
-      //TODO: started working on the filters. This doens't seem to quite work yet.
-      // let filters = collectionView.format?.property_filters.map(filterObj => {
-      //   console.log('map filter', filterObj)
-      //   //get the inner filter
-      //   return {
-      //     filter: filterObj.filter.filter,
-      //     property: filterObj.filter.property
-      //   }
-      // })
-
       const reducerLabel = isBoardType ? 'board_columns' : `${type}_groups`
       loader = {
         type: 'reducer',
@@ -448,12 +454,12 @@ export class NotionAPI {
         },
         ...collectionView?.query2,
         searchQuery,
-        userTimeZone
+        userTimeZone,
         //TODO: add filters here
-        // filter: {
-        //   filters: filters,
-        //   operator: 'and'
-        // }
+        filter: {
+          filters: filters,
+          operator: 'and'
+        }
       }
     }
 
