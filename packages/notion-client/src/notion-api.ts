@@ -227,10 +227,7 @@ export class NotionAPI {
           block.type === 'video' ||
           block.type === 'file')
       ) {
-        const source =
-          block.type === 'page'
-            ? block.format?.page_cover
-            : block.properties?.source?.[0]?.[0]
+        const source = block.properties?.source?.[0]?.[0]
         // console.log(block, source)
 
         if (source) {
