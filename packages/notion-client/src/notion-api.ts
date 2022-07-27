@@ -338,8 +338,8 @@ export class NotionAPI {
         // console.log('map filter', filterObj)
         //get the inner filter
         return {
-          filter: filterObj.filter.filter,
-          property: filterObj.filter.property
+          filter: filterObj?.filter?.filter,
+          property: filterObj?.filter?.property
         }
       })
     }
