@@ -225,8 +225,7 @@ export class NotionAPI {
           block.type === 'audio' ||
           (block.type === 'image' && block.file_ids?.length) ||
           block.type === 'video' ||
-          block.type === 'file' ||
-          block.type === 'page')
+          block.type === 'file')
       ) {
         const source =
           block.type === 'page'
