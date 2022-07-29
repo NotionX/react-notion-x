@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-minimal",
-  "version": "6.12.11",
+  "version": "6.12.12",
   "private": true,
   "type": "commonjs",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "next": "^12.1.0",
-    "notion-client": "^6.12.11",
+    "notion-client": "^6.12.12",
     "notion-utils": "^6.12.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
