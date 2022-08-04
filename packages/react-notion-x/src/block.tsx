@@ -405,7 +405,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       const blockColor = block.format?.block_color
 
       return (
-        <div
+        <p
           className={cs(
             'notion-text',
             blockColor && `notion-${blockColor}`,
@@ -416,8 +416,8 @@ export const Block: React.FC<BlockProps> = (props) => {
             <Text value={block.properties.title} block={block} />
           )}
 
-          {children && <div className='notion-text-children'>{children}</div>}
-        </div>
+          {children && <p className='notion-text-children'>{children}</p>}
+        </p>
       )
     }
 
