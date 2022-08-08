@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useNotionContext } from '../context'
 import { cs } from '../utils'
 
 const qs = (params: Record<string, string>) => {
@@ -32,15 +33,19 @@ export const LiteYouTubeEmbed: React.FC<{
   style,
   className
 }) => {
+  const { windowWidth, hasOnlyHDVideos } = useNotionContext()
+
   const muteParam = mute || defaultPlay ? '1' : '0' // Default play must be muted
   const queryString = React.useMemo(
     () => qs({ autoplay: '1', mute: muteParam, ...params }),
     [muteParam, params]
   )
-  // const mobileResolution = 'hqdefault'
-  // const desktopResolution = 'maxresdefault'
-  const resolution = 'hqdefault'
-  const posterUrl = `https://i.ytimg.com/vi/${id}/${resolution}.jpg`
+
+  const posterUrl = React.useMemo(() => {
+    return `https://img.youtube.com/vi/${id}/${
+      !hasOnlyHDVideos || windowWidth < 480 ? 'hqdefault' : 'maxresdefault'
+    }.jpg`
+  }, [hasOnlyHDVideos, id, windowWidth]) // Switch to maxresdefault in any device that isn't mobile
   const ytUrl = 'https://www.youtube-nocookie.com'
   const iframeSrc = `${ytUrl}/embed/${id}?${queryString}`
 

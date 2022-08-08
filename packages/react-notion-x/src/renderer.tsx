@@ -53,6 +53,8 @@ export const NotionRenderer: React.FC<{
   blockId?: string
   hideBlockId?: boolean
   disableHeader?: boolean
+
+  hasOnlyHDVideos?: boolean // Enables the use of better looking placeholder images (youtube)
 }> = ({
   components,
   recordMap,
@@ -72,6 +74,7 @@ export const NotionRenderer: React.FC<{
   defaultPageIcon,
   defaultPageCover,
   defaultPageCoverPosition,
+  hasOnlyHDVideos,
   ...rest
 }) => {
   const zoom = React.useMemo(
@@ -106,6 +109,7 @@ export const NotionRenderer: React.FC<{
       defaultPageCover={defaultPageCover}
       defaultPageCoverPosition={defaultPageCoverPosition}
       zoom={zoom}
+      hasOnlyHDVideos={hasOnlyHDVideos}
     >
       <NotionBlockRenderer {...rest} />
     </NotionContextProvider>
