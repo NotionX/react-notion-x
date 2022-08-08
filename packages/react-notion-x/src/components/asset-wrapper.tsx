@@ -13,7 +13,7 @@ export const AssetWrapper: React.FC<{
   block: Block
 }> = ({ blockId, block }) => {
   const value = block as BaseContentBlock
-  const { components, mapPageUrl, rootDomain } = useNotionContext()
+  const { components, mapPageUrl, rootDomain, zoom } = useNotionContext()
 
   let isURL = false
   if (block.type === 'image') {
@@ -37,7 +37,7 @@ export const AssetWrapper: React.FC<{
         blockId
       )}
     >
-      <Asset block={value} zoomable={!isURL}>
+      <Asset block={value} zoomable={zoom && !isURL}>
         {value?.properties?.caption && !isURL && (
           <figcaption className='notion-asset-caption'>
             <Text value={value.properties.caption} block={block} />

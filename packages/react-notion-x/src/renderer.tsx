@@ -31,6 +31,7 @@ export const NotionRenderer: React.FC<{
   forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
   linkTableTitleProperties?: boolean
+  isImageZoomable?: boolean
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
@@ -67,6 +68,7 @@ export const NotionRenderer: React.FC<{
   forceCustomImages,
   showCollectionViewDropdown,
   linkTableTitleProperties,
+  isImageZoomable = true,
   showTableOfContents,
   minTableOfContentsItems,
   defaultPageIcon,
@@ -105,7 +107,7 @@ export const NotionRenderer: React.FC<{
       defaultPageIcon={defaultPageIcon}
       defaultPageCover={defaultPageCover}
       defaultPageCoverPosition={defaultPageCoverPosition}
-      zoom={zoom}
+      zoom={isImageZoomable ? zoom : null}
     >
       <NotionBlockRenderer {...rest} />
     </NotionContextProvider>
