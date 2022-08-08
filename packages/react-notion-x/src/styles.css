@@ -2578,6 +2578,7 @@ svg.notion-page-icon {
 .notion-simple-table td {
   border: 1px solid var(--fg-color-5);
   padding: 8px 8px;
+  white-space: pre-wrap;
 }
 
 .notion-external {
