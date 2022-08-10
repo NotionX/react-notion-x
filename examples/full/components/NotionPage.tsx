@@ -147,7 +147,7 @@ export const NotionPage = ({
 
       <NotionRenderer
         recordMap={recordMap}
-        fullPage={true}
+        fullPage={false}
         darkMode={false}
         rootDomain={rootDomain}
         rootPageId={rootPageId}
