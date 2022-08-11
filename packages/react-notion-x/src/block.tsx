@@ -564,7 +564,8 @@ export const Block: React.FC<BlockProps> = (props) => {
             blockId
           )}
         >
-          <Text value={block.properties.title} block={block} />
+          <div><Text value={block.properties.title} block={block} /></div>
+          {children}
         </blockquote>
       )
     }
