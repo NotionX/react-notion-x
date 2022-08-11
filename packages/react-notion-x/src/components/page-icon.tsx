@@ -50,7 +50,10 @@ export const PageIconImpl: React.FC<{
       )
     } else if (icon && icon.startsWith('/icons/')) {
       const url =
-        'http://www.notion.so' + icon + '?mode=' + (darkMode ? 'dark' : 'light')
+        'https://www.notion.so' +
+        icon +
+        '?mode=' +
+        (darkMode ? 'dark' : 'light')
 
       content = (
         <LazyImage
