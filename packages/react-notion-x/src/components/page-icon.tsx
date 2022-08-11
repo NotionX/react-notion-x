@@ -29,7 +29,7 @@ export const PageIconImpl: React.FC<{
   hideDefaultIcon = false,
   defaultIcon
 }) => {
-  const { mapImageUrl, recordMap } = useNotionContext()
+  const { mapImageUrl, recordMap, darkMode } = useNotionContext()
   let isImage = false
   let content: any = null
 
@@ -40,6 +40,17 @@ export const PageIconImpl: React.FC<{
     if (icon && isUrl(icon)) {
       const url = mapImageUrl(icon, block)
       isImage = true
+
+      content = (
+        <LazyImage
+          src={url}
+          alt={title || 'page icon'}
+          className={cs(className, 'notion-page-icon')}
+        />
+      )
+    } else if (icon && icon.startsWith('/icons/')) {
+      const url =
+        'http://www.notion.so' + icon + '?mode=' + (darkMode ? 'dark' : 'light')
 
       content = (
         <LazyImage
