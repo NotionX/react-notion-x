@@ -74,7 +74,7 @@ export const AssetWrapper: React.FC<{
   return figure
 }
 
-function isValidURL(str) {
+function isValidURL(str: string) {
   // TODO: replace this with a more well-tested package
   const pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
@@ -88,7 +88,7 @@ function isValidURL(str) {
   return !!pattern.test(str)
 }
 
-function extractHostname(url) {
+function extractHostname(url: string) {
   try {
     const hostname = new URL(url).hostname
     return hostname
