@@ -10,7 +10,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import { CollectionRow } from './collection-row'
 import { CollectionViewIcon } from '../icons/collection-view-icon'
-import CheckIcon from '../icons/check'
+import { CheckIcon } from '../icons/check'
 import { ChevronDownIcon } from '../icons/chevron-down-icon'
 import { CollectionView } from './collection-view'
 import { PropertyImplMemo } from './property'
