@@ -125,13 +125,13 @@ function Board({ collectionView, collectionData, collection, padding }) {
 
         <div className='notion-board-body'>
           {boardGroups.map((p, index) => {
-            if (!(collectionData as any).board_columns?.results) {
-              return null
-            }
+            const boardResults = (collectionData as any).board_columns?.results
+            if (!boardResults) return null
+            if (!p?.value?.type) return null
 
             const schema = collection.schema[p.property]
             const group = (collectionData as any)[
-              `results:select:${p?.value?.value || 'uncategorized'}`
+              `results:${p?.value?.type}:${p?.value?.value || 'uncategorized'}`
             ]
 
             if (!group || !schema || p.hidden) {
