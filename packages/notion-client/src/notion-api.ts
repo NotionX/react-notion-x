@@ -328,9 +328,9 @@ export class NotionAPI {
   ) {
     const type = collectionView?.type
     const isBoardType = type === 'board'
-    const groupBy =
-      collectionView?.format?.board_columns_by ||
-      collectionView?.format?.collection_group_by
+    const groupBy = isBoardType
+      ? collectionView?.format?.board_columns_by
+      : collectionView?.format?.collection_group_by
 
     let filters = []
     if (collectionView.format?.property_filters) {
@@ -342,6 +342,10 @@ export class NotionAPI {
           property: filterObj?.filter?.property
         }
       })
+    }
+
+    if (collectionView?.query2?.filter?.filters) {
+      filters.push(...collectionView.query2.filter.filters)
     }
 
     let loader: any = {
