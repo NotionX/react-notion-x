@@ -344,6 +344,10 @@ export class NotionAPI {
       })
     }
 
+    if (collectionView?.query2?.filter?.filters) {
+      filters.push(...collectionView.query2.filter.filters)
+    }
+
     let loader: any = {
       type: 'reducer',
       reducers: {
