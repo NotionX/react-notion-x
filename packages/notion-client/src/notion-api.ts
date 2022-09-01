@@ -328,9 +328,9 @@ export class NotionAPI {
   ) {
     const type = collectionView?.type
     const isBoardType = type === 'board'
-    const groupBy =
-      collectionView?.format?.board_columns_by ||
-      collectionView?.format?.collection_group_by
+    const groupBy = isBoardType
+      ? collectionView?.format?.board_columns_by
+      : collectionView?.format?.collection_group_by
 
     let filters = []
     if (collectionView.format?.property_filters) {
