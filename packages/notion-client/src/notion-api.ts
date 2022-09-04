@@ -335,7 +335,6 @@ export class NotionAPI {
     let filters = []
     if (collectionView.format?.property_filters) {
       filters = collectionView.format?.property_filters.map((filterObj) => {
-        // console.log('map filter', filterObj)
         //get the inner filter
         return {
           filter: filterObj?.filter?.filter,
