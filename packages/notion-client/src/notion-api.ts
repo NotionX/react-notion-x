@@ -343,6 +343,7 @@ export class NotionAPI {
       })
     }
 
+    //Fixes formula filters from not working
     if (collectionView?.query2?.filter?.filters) {
       filters.push(...collectionView.query2.filter.filters)
     }
