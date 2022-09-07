@@ -5,7 +5,8 @@ import {
   getBlockParentPage,
   getTextContent
 } from 'notion-utils'
-import { useLocalStorage, useWindowSize } from 'react-use'
+import reactUse from 'react-use'
+const { useLocalStorage, useWindowSize } = reactUse
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import { CollectionRow } from './collection-row'
@@ -26,9 +27,9 @@ const isServer = typeof window === 'undefined'
 
 export const Collection: React.FC<{
   block:
-    | types.CollectionViewBlock
-    | types.CollectionViewPageBlock
-    | types.PageBlock
+  | types.CollectionViewBlock
+  | types.CollectionViewPageBlock
+  | types.PageBlock
   className?: string
   ctx: NotionContext
 }> = ({ block, className, ctx }) => {
@@ -248,7 +249,7 @@ const CollectionViewDropdownMenu: React.FC<{
               className={cs(
                 'notion-collection-view-dropdown-content-item',
                 collectionViewId === viewId &&
-                  'notion-collection-view-dropdown-content-item-active'
+                'notion-collection-view-dropdown-content-item-active'
               )}
             >
               {collectionViewId === viewId && (
