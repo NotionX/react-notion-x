@@ -82,3 +82,65 @@ export const getYoutubeId = (url: string): string | null => {
 
   return null
 }
+
+export const getWeeksInMonth = (year: number, month: number) => {
+  const weeks = []
+
+  const firstDate = new Date(year, month, 1)
+  const lastDate = new Date(year, month + 1, 0)
+  const numDays = lastDate.getDate()
+  let dayOfWeekCounter = firstDate.getDay()
+
+  for (let date = 1; date <= numDays; date++) {
+    if (dayOfWeekCounter === 0 || weeks.length === 0) {
+      weeks.push([])
+    }
+    weeks[weeks.length - 1].push(date)
+    dayOfWeekCounter = (dayOfWeekCounter + 1) % 7
+  }
+
+  // This is to add the last week of the previous month to the first week of the current month.
+  if (weeks[0].length < 7) {
+    const beforeIndex1 = addMonth(year, month - 1, 1)
+    const indexRefactor = [...beforeIndex1, ...weeks[0]]
+    weeks[0] = indexRefactor
+  }
+
+  // This is to add the first week of the next month to the last week of the current month
+  if (weeks[weeks.length - 1].length < 7) {
+    const afterIndex1 = addMonth(year, month + 1, 0)
+    const indexRefactor = [...weeks[weeks.length - 1], ...afterIndex1]
+    weeks[weeks.length - 1] = indexRefactor
+  }
+
+  return weeks
+    .filter((w) => !!w.length)
+    .map((w) => ({
+      start: w[0],
+      end: w[w.length - 1],
+      dates: w
+    }))
+}
+
+const addMonth = (year: number, month: number, flag: 0 | 1) => {
+  const weeks = []
+  const firstDate = new Date(year, month, 1)
+  const lastDate = new Date(year, month + 1, 0)
+  const numDays = lastDate.getDate()
+  let dayOfWeekCounter = firstDate.getDay()
+
+  for (let date = 1; date <= numDays; date++) {
+    if (dayOfWeekCounter === 0 || weeks.length === 0) {
+      weeks.push([])
+    }
+    weeks[weeks.length - 1].push(date)
+    dayOfWeekCounter = (dayOfWeekCounter + 1) % 7
+  }
+  if (flag == 0) {
+    return weeks[0]
+  } else if (flag == 1) {
+    return weeks[weeks.length - 1]
+  }
+
+  return []
+}
