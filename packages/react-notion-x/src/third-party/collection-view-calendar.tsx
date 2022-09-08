@@ -4,9 +4,9 @@ import * as React from 'react'
 import { useNotionContext } from '../context'
 import { CollectionViewProps } from '../types'
 import { getWeeksInMonth } from '../utils'
-import { CollectionCard } from './collection-card'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
+import { Property } from './property'
 
 const defaultBlockIds = []
 const currentYear = new Date(Date.now())
@@ -50,13 +50,7 @@ export const CollectionViewCalendar: React.FC<CollectionViewProps> = ({
 }
 
 function Calendar({ blockIds, collectionView, collection }) {
-  const { recordMap } = useNotionContext()
-
-  const {
-    gallery_cover = { type: 'none' },
-    gallery_cover_size = 'medium',
-    gallery_cover_aspect = 'cover'
-  } = collectionView.format || {}
+  const { components, recordMap, mapPageUrl } = useNotionContext()
 
   const weeksArr = getWeeksInMonth(
     currentYear.getFullYear(),
@@ -79,13 +73,20 @@ function Calendar({ blockIds, collectionView, collection }) {
     currentYear.setMonth(new Date().getMonth())
   }
 
-  console.log({
-    blockIds,
-    collectionView,
-    collection,
-    weeksArr,
-    dateNow: new Date(Date.now()).getDate()
-  })
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
 
   return (
     <div style={{ position: 'relative', paddingLeft: '1px' }}>
@@ -108,7 +109,7 @@ function Calendar({ blockIds, collectionView, collection }) {
               fontSize: '14px'
             }}
           >
-            {currentYear.getMonth() + ' ' + currentYear.getFullYear()}
+            {months[currentYear.getMonth()] + ' ' + currentYear.getFullYear()}
           </div>
           <div
             style={{
@@ -334,7 +335,11 @@ function Calendar({ blockIds, collectionView, collection }) {
             style={{
               position: 'relative',
               display: 'flex',
-              height: '124px'
+              height: `${
+                Object.keys(collectionView.format?.calendar_properties).length *
+                  20 +
+                64
+              }px`
             }}
             key={i}
           >
@@ -394,6 +399,8 @@ function Calendar({ blockIds, collectionView, collection }) {
                   if (!block) return null
 
                   const blockDate = getPageProperty('Date', block, recordMap)
+                  const titleSchema = collection.schema.title
+                  const titleData = block?.properties?.title
 
                   if (
                     new Date(blockDate as number).getDate() ==
@@ -401,32 +408,150 @@ function Calendar({ blockIds, collectionView, collection }) {
                     new Date(blockDate as number).getMonth() ==
                       currentYear.getMonth()
                   ) {
-                    const rest = {
-                      style: {
-                        width: 'calc(14.2857%)',
-                        left: `calc(${
-                          new Date(blockDate as number).getDay() == 0
-                            ? 0
-                            : new Date(blockDate as number).getDay() * 14.2857
-                        }%)`,
-                        position: 'absolute',
-                        padding: '3px 6px',
-                        height: '70px',
-                        top: '30px'
-                      }
-                    }
-
                     return (
-                      <CollectionCard
-                        collection={collection}
-                        block={block}
-                        cover={gallery_cover}
-                        coverSize={gallery_cover_size}
-                        coverAspect={gallery_cover_aspect}
-                        properties={collectionView.format?.calendar_properties}
+                      <div
+                        style={{
+                          width: 'calc(14.2857%)',
+                          left: `calc(${
+                            new Date(blockDate as number).getDay() == 0
+                              ? 0
+                              : new Date(blockDate as number).getDay() * 14.2857
+                          }%)`,
+                          position: 'absolute',
+                          padding: '3px 6px',
+                          height: `${
+                            Object.keys(
+                              collectionView.format?.calendar_properties
+                            ).length *
+                              20 +
+                            30
+                          }px`,
+                          top: '30px'
+                        }}
                         key={blockId}
-                        {...rest}
-                      />
+                      >
+                        <components.PageLink
+                          href={mapPageUrl(block.id)}
+                          style={{
+                            display: 'block',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            height: '100%',
+                            background: 'white',
+                            borderRadius: '3px',
+                            boxShadow:
+                              'rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px'
+                          }}
+                        >
+                          <div
+                            style={{
+                              userSelect: 'none',
+                              transition: 'background 20ms ease-in 0s',
+                              cursor: 'pointer',
+                              width: '100%',
+                              display: 'flex',
+                              position: 'relative',
+                              paddingTop: '2px',
+                              paddingBottom: '2px',
+                              height: '100%',
+                              alignItems: 'flex-start',
+                              flexDirection: 'column'
+                            }}
+                            onMouseEnter={(e) =>
+                              (e.currentTarget.style.background =
+                                'rgba(55,53,47,0.08)')
+                            }
+                            onMouseLeave={(e) =>
+                              (e.currentTarget.style.background = '')
+                            }
+                          >
+                            <div
+                              style={{
+                                paddingLeft: '6px',
+                                paddingRight: '6px',
+                                overflow: 'hidden',
+                                width: '100%',
+                                fontSize: '12px'
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  height: '20px'
+                                }}
+                              >
+                                <Property
+                                  schema={titleSchema}
+                                  data={titleData}
+                                  block={block}
+                                  collection={collection}
+                                />
+                              </div>
+                            </div>
+                            <div
+                              style={{
+                                paddingLeft: '6px',
+                                paddingRight: '6px',
+                                overflow: 'hidden',
+                                width: '100%'
+                              }}
+                            >
+                              {collectionView.format?.calendar_properties
+                                ?.filter((p) => p.visible)
+                                .map((p, z) => {
+                                  const schema = collection.schema[p.property]
+                                  const data =
+                                    block && block.properties?.[p.property]
+
+                                  if (!schema) {
+                                    return null
+                                  }
+
+                                  return (
+                                    <div
+                                      style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        fontSize: '12px',
+                                        height: '20px',
+                                        whiteSpace: 'nowrap'
+                                      }}
+                                      key={z}
+                                    >
+                                      <Property
+                                        schema={schema}
+                                        data={data}
+                                        block={block}
+                                        collection={collection}
+                                      />
+                                    </div>
+                                  )
+                                })}
+                            </div>
+                            <div
+                              style={{
+                                position: 'absolute',
+                                top: '0px',
+                                left: '-4px',
+                                height: '100%',
+                                width: '12px',
+                                cursor: 'col-resize'
+                              }}
+                            ></div>
+                            <div
+                              style={{
+                                position: 'absolute',
+                                top: '0px',
+                                right: '-4px',
+                                height: '100%',
+                                width: '12px',
+                                cursor: 'col-resize'
+                              }}
+                            ></div>
+                          </div>
+                        </components.PageLink>
+                      </div>
                     )
                   }
 
