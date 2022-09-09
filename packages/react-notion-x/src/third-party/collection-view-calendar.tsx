@@ -2,6 +2,7 @@ import { PageBlock } from 'notion-types'
 import { getPageProperty } from 'notion-utils'
 import * as React from 'react'
 import { useNotionContext } from '../context'
+import { DefaultPageIcon } from '../icons/default-page-icon'
 import { CollectionViewProps } from '../types'
 import { getWeeksInMonth } from '../utils'
 import { CollectionGroup } from './collection-group'
@@ -481,12 +482,50 @@ function Calendar({ blockIds, collectionView, collection }) {
                                   height: '20px'
                                 }}
                               >
-                                <Property
-                                  schema={titleSchema}
-                                  data={titleData}
-                                  block={block}
-                                  collection={collection}
-                                />
+                                <div
+                                  style={{
+                                    userSelect: 'none',
+                                    transition: 'background 20ms ease-in 0s',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    height: '12px',
+                                    width: '12px',
+                                    borderRadius: '0.25em',
+                                    flexShrink: 0,
+                                    marginRight: '4px',
+                                    marginTop: '2px'
+                                  }}
+                                >
+                                  <DefaultPageIcon
+                                    style={{
+                                      width: '10.8px',
+                                      height: '10.8px',
+                                      display: 'block',
+                                      fill: 'rgba(55, 53, 47, 0.85)',
+                                      flexShrink: 0,
+                                      backfaceVisibility: 'hidden'
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  style={{
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    flexGrow: 1,
+                                    fontSize: '12px',
+                                    fontWeight: 600
+                                  }}
+                                >
+                                  <Property
+                                    schema={titleSchema}
+                                    data={titleData}
+                                    block={block}
+                                    collection={collection}
+                                    linkToTitlePage={false}
+                                  />
+                                </div>
                               </div>
                             </div>
                             <div
