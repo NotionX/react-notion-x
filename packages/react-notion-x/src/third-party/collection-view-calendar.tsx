@@ -81,7 +81,8 @@ export const CollectionViewCalendar: React.FC<CollectionViewProps> = ({
 }
 
 function Calendar({ blockIds, collectionView, collection }) {
-  const { components, recordMap, mapPageUrl } = useNotionContext()
+  const { showCalendarControls, components, recordMap, mapPageUrl } =
+    useNotionContext()
   const [weeksArr, setWeeksArr] = React.useState(
     getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
   )
@@ -148,117 +149,125 @@ function Calendar({ blockIds, collectionView, collection }) {
           >
             {months[currentYear.getMonth()] + ' ' + currentYear.getFullYear()}
           </div>
+
           <div
             style={{
               flexGrow: 1
             }}
           ></div>
-          <div
-            className='notion-focusable'
-            role='button'
-            tabIndex={0}
-            style={{
-              userSelect: 'none',
-              transition: 'background 20ms ease-in 0s',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              borderRadius: '3px',
-              height: '24px',
-              width: '24px',
-              padding: '0px'
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
-            }
-            onMouseLeave={(e) => (e.currentTarget.style.background = '')}
-            onClick={prevMonth}
-          >
-            <svg
-              viewBox='0 0 30 30'
-              className='chevronLeft'
-              style={{
-                width: '14px',
-                height: '14px',
-                display: 'block',
-                fill: 'rgba(55, 53, 47, 0.45)',
-                flexShrink: 0,
-                backfaceVisibility: 'hidden'
-              }}
-            >
-              <polygon points='12.6 15 23 25.2 20.2 28 7 15 20.2 2 23 4.8'></polygon>
-            </svg>
-          </div>
-          <div
-            className='notion-focusable'
-            role='button'
-            tabIndex={0}
-            style={{
-              userSelect: 'none',
-              transition: 'background 20ms ease-in 0s',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              flexShrink: 0,
-              whiteSpace: 'nowrap',
-              height: '24px',
-              borderRadius: '3px',
-              fontSize: '14px',
-              lineHeight: '1.2',
-              minWidth: '0px',
-              paddingLeft: '6px',
-              paddingRight: '6px',
-              color: 'rgb(55, 53, 47)'
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
-            }
-            onMouseLeave={(e) => (e.currentTarget.style.background = '')}
-            onClick={nowMonth}
-          >
-            Today
-          </div>
-          <div
-            className='notion-focusable'
-            role='button'
-            tabIndex={0}
-            style={{
-              userSelect: 'none',
-              transition: 'background 20ms ease-in 0s',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              borderRadius: '3px',
-              height: '24px',
-              width: '24px',
-              padding: '0px'
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
-            }
-            onMouseLeave={(e) => (e.currentTarget.style.background = '')}
-            onClick={nextMonth}
-          >
-            <svg
-              viewBox='0 0 30 30'
-              className='chevronRight'
-              style={{
-                width: '14px',
-                height: '14px',
-                display: 'block',
-                fill: 'rgba(55, 53, 47, 0.45)',
-                flexShrink: 0,
-                backfaceVisibility: 'hidden'
-              }}
-            >
-              <polygon points='17.4,15 7,25.2 9.8,28 23,15 9.8,2 7,4.8'></polygon>
-            </svg>
-          </div>
+
+          {showCalendarControls && (
+            <>
+              <div
+                className='notion-focusable'
+                role='button'
+                tabIndex={0}
+                style={{
+                  userSelect: 'none',
+                  transition: 'background 20ms ease-in 0s',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  borderRadius: '3px',
+                  height: '24px',
+                  width: '24px',
+                  padding: '0px'
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
+                }
+                onMouseLeave={(e) => (e.currentTarget.style.background = '')}
+                onClick={prevMonth}
+              >
+                <svg
+                  viewBox='0 0 30 30'
+                  className='chevronLeft'
+                  style={{
+                    width: '14px',
+                    height: '14px',
+                    display: 'block',
+                    fill: 'rgba(55, 53, 47, 0.45)',
+                    flexShrink: 0,
+                    backfaceVisibility: 'hidden'
+                  }}
+                >
+                  <polygon points='12.6 15 23 25.2 20.2 28 7 15 20.2 2 23 4.8'></polygon>
+                </svg>
+              </div>
+
+              <div
+                className='notion-focusable'
+                role='button'
+                tabIndex={0}
+                style={{
+                  userSelect: 'none',
+                  transition: 'background 20ms ease-in 0s',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
+                  height: '24px',
+                  borderRadius: '3px',
+                  fontSize: '14px',
+                  lineHeight: '1.2',
+                  minWidth: '0px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                  color: 'rgb(55, 53, 47)'
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
+                }
+                onMouseLeave={(e) => (e.currentTarget.style.background = '')}
+                onClick={nowMonth}
+              >
+                Today
+              </div>
+              <div
+                className='notion-focusable'
+                role='button'
+                tabIndex={0}
+                style={{
+                  userSelect: 'none',
+                  transition: 'background 20ms ease-in 0s',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  borderRadius: '3px',
+                  height: '24px',
+                  width: '24px',
+                  padding: '0px'
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
+                }
+                onMouseLeave={(e) => (e.currentTarget.style.background = '')}
+                onClick={nextMonth}
+              >
+                <svg
+                  viewBox='0 0 30 30'
+                  className='chevronRight'
+                  style={{
+                    width: '14px',
+                    height: '14px',
+                    display: 'block',
+                    fill: 'rgba(55, 53, 47, 0.45)',
+                    flexShrink: 0,
+                    backfaceVisibility: 'hidden'
+                  }}
+                >
+                  <polygon points='17.4,15 7,25.2 9.8,28 23,15 9.8,2 7,4.8'></polygon>
+                </svg>
+              </div>
+            </>
+          )}
         </div>
+
         <div
           className='notion-calendar-header-days'
           style={{
@@ -378,7 +387,7 @@ function Calendar({ blockIds, collectionView, collection }) {
                 64
               }px`
             }}
-            key={i.dates[indexI]}
+            key={indexI}
           >
             {i.dates.map((day, indexY) => (
               <>
@@ -395,7 +404,7 @@ function Calendar({ blockIds, collectionView, collection }) {
                         ? 'rgb(251, 251, 250)'
                         : 'transparent'
                   }}
-                  key={day}
+                  key={indexY}
                 >
                   <div
                     className='notion-calendar-view-day'

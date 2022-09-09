@@ -29,6 +29,7 @@ export interface NotionContext {
   previewImages: boolean
   forceCustomImages: boolean
   showCollectionViewDropdown: boolean
+  showCalendarControls: boolean
   showTableOfContents: boolean
   minTableOfContentsItems: number
   linkTableTitleProperties: boolean
@@ -59,6 +60,7 @@ export interface PartialNotionContext {
   linkTableTitleProperties?: boolean
 
   showTableOfContents?: boolean
+  showCalendarControls?: boolean
   minTableOfContentsItems?: number
 
   defaultPageIcon?: string
@@ -157,6 +159,7 @@ const defaultNotionContext: NotionContext = {
   linkTableTitleProperties: true,
 
   showTableOfContents: false,
+  showCalendarControls: true,
   minTableOfContentsItems: 3,
 
   defaultPageIcon: null,

@@ -34,6 +34,7 @@ export const NotionRenderer: React.FC<{
   isImageZoomable?: boolean
 
   showTableOfContents?: boolean
+  showCalendarControls?: boolean
   minTableOfContentsItems?: number
 
   defaultPageIcon?: string
@@ -70,6 +71,7 @@ export const NotionRenderer: React.FC<{
   linkTableTitleProperties,
   isImageZoomable = true,
   showTableOfContents,
+  showCalendarControls,
   minTableOfContentsItems,
   defaultPageIcon,
   defaultPageCover,
@@ -103,6 +105,7 @@ export const NotionRenderer: React.FC<{
       showCollectionViewDropdown={showCollectionViewDropdown}
       linkTableTitleProperties={linkTableTitleProperties}
       showTableOfContents={showTableOfContents}
+      showCalendarControls={showCalendarControls}
       minTableOfContentsItems={minTableOfContentsItems}
       defaultPageIcon={defaultPageIcon}
       defaultPageCover={defaultPageCover}
