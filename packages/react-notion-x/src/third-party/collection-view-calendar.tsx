@@ -4,7 +4,7 @@ import * as React from 'react'
 import { useNotionContext } from '../context'
 import { DefaultPageIcon } from '../icons/default-page-icon'
 import { CollectionViewProps } from '../types'
-import { getWeeksInMonth } from '../utils'
+import { cs, getWeeksInMonth } from '../utils'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
@@ -127,26 +127,10 @@ function Calendar({ blockIds, collectionView, collection }) {
   }
 
   return (
-    <div style={{ position: 'relative', paddingLeft: '1px' }}>
-      <div
-        style={{
-          position: 'absolute',
-          left: '0px',
-          right: '0px',
-          background: 'white',
-          zIndex: 83
-        }}
-      >
-        <div style={{ display: 'flex', height: '42px', alignItems: 'center' }}>
-          <div
-            style={{
-              fontWeight: 600,
-              marginLeft: '8px',
-              marginRight: '8px',
-              lineHeight: '1',
-              fontSize: '14px'
-            }}
-          >
+    <div className='notion-calendar-view'>
+      <div className='notion-calendar-header'>
+        <div className='notion-calendar-header-inner'>
+          <div className='notion-calendar-header-inner-date'>
             {months[currentYear.getMonth()] + ' ' + currentYear.getFullYear()}
           </div>
 
@@ -159,22 +143,12 @@ function Calendar({ blockIds, collectionView, collection }) {
           {showCalendarControls && (
             <>
               <div
-                className='notion-focusable'
+                className={cs(
+                  'notion-focusable',
+                  'notion-calendar-header-inner-controls-prev'
+                )}
                 role='button'
                 tabIndex={0}
-                style={{
-                  userSelect: 'none',
-                  transition: 'background 20ms ease-in 0s',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  borderRadius: '3px',
-                  height: '24px',
-                  width: '24px',
-                  padding: '0px'
-                }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
                 }
@@ -198,26 +172,12 @@ function Calendar({ blockIds, collectionView, collection }) {
               </div>
 
               <div
-                className='notion-focusable'
+                className={cs(
+                  'notion-focusable',
+                  'notion-calendar-header-inner-controls-today'
+                )}
                 role='button'
                 tabIndex={0}
-                style={{
-                  userSelect: 'none',
-                  transition: 'background 20ms ease-in 0s',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  flexShrink: 0,
-                  whiteSpace: 'nowrap',
-                  height: '24px',
-                  borderRadius: '3px',
-                  fontSize: '14px',
-                  lineHeight: '1.2',
-                  minWidth: '0px',
-                  paddingLeft: '6px',
-                  paddingRight: '6px',
-                  color: 'rgb(55, 53, 47)'
-                }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
                 }
@@ -227,22 +187,12 @@ function Calendar({ blockIds, collectionView, collection }) {
                 Today
               </div>
               <div
-                className='notion-focusable'
+                className={cs(
+                  'notion-focusable',
+                  'notion-calendar-header-inner-controls-next'
+                )}
                 role='button'
                 tabIndex={0}
-                style={{
-                  userSelect: 'none',
-                  transition: 'background 20ms ease-in 0s',
-                  cursor: 'pointer',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  borderRadius: '3px',
-                  height: '24px',
-                  width: '24px',
-                  padding: '0px'
-                }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
                 }
@@ -268,98 +218,14 @@ function Calendar({ blockIds, collectionView, collection }) {
           )}
         </div>
 
-        <div
-          className='notion-calendar-header-days'
-          style={{
-            display: 'flex',
-            marginTop: '0px',
-            boxShadow: 'rgb(233 233 231) 0px 1px 0px'
-          }}
-        >
-          <div
-            style={{
-              flexGrow: 1,
-              flexBasis: '0px',
-              textAlign: 'center',
-              fontSize: '12px',
-              height: '24px',
-              color: 'rgba(55, 53, 47, 0.5)'
-            }}
-          >
-            Sun
-          </div>
-          <div
-            style={{
-              flexGrow: 1,
-              flexBasis: '0px',
-              textAlign: 'center',
-              fontSize: '12px',
-              height: '24px',
-              color: 'rgba(55, 53, 47, 0.5)'
-            }}
-          >
-            Mon
-          </div>
-          <div
-            style={{
-              flexGrow: 1,
-              flexBasis: '0px',
-              textAlign: 'center',
-              fontSize: '12px',
-              height: '24px',
-              color: 'rgba(55, 53, 47, 0.5)'
-            }}
-          >
-            Tue
-          </div>
-          <div
-            style={{
-              flexGrow: 1,
-              flexBasis: '0px',
-              textAlign: 'center',
-              fontSize: '12px',
-              height: '24px',
-              color: 'rgba(55, 53, 47, 0.5)'
-            }}
-          >
-            Wed
-          </div>
-          <div
-            style={{
-              flexGrow: 1,
-              flexBasis: '0px',
-              textAlign: 'center',
-              fontSize: '12px',
-              height: '24px',
-              color: 'rgba(55, 53, 47, 0.5)'
-            }}
-          >
-            Thu
-          </div>
-          <div
-            style={{
-              flexGrow: 1,
-              flexBasis: '0px',
-              textAlign: 'center',
-              fontSize: '12px',
-              height: '24px',
-              color: 'rgba(55, 53, 47, 0.5)'
-            }}
-          >
-            Fri
-          </div>
-          <div
-            style={{
-              flexGrow: 1,
-              flexBasis: '0px',
-              textAlign: 'center',
-              fontSize: '12px',
-              height: '24px',
-              color: 'rgba(55, 53, 47, 0.5)'
-            }}
-          >
-            Sat
-          </div>
+        <div className='notion-calendar-header-days'>
+          <div className='notion-calendar-header-days-day'>Sun</div>
+          <div className='notion-calendar-header-days-day'>Mon</div>
+          <div className='notion-calendar-header-days-day'>Tue</div>
+          <div className='notion-calendar-header-days-day'>Wed</div>
+          <div className='notion-calendar-header-days-day'>Thu</div>
+          <div className='notion-calendar-header-days-day'>Fri</div>
+          <div className='notion-calendar-header-days-day'>Sat</div>
         </div>
       </div>
 
@@ -369,18 +235,11 @@ function Calendar({ blockIds, collectionView, collection }) {
         }}
       ></div>
 
-      <div
-        style={{
-          boxShadow: 'rgb(233 233 231) -1px 0px 0px',
-          marginTop: '1px',
-          overflow: 'hidden'
-        }}
-      >
+      <div className='notion-calendar-body'>
         {weeksArr.map((i, indexI) => (
           <div
+            className='notion-calendar-body-inner'
             style={{
-              position: 'relative',
-              display: 'flex',
               height: `${
                 Object.keys(collectionView.format?.calendar_properties).length *
                   20 +
@@ -392,13 +251,11 @@ function Calendar({ blockIds, collectionView, collection }) {
             {i.dates.map((day, indexY) => (
               <>
                 <div
-                  className='notion-selectable notion-collection_view-block'
+                  className={cs(
+                    'notion-selectable',
+                    'notion-calendar-body-inner-week'
+                  )}
                   style={{
-                    position: 'relative',
-                    flex: '1 0 0px',
-                    borderRight: '1px solid rgb(233, 233, 231)',
-                    borderBottom: '1px solid rgb(233, 233, 231)',
-                    cursor: 'default',
                     background:
                       indexY == 0 || indexY == 6
                         ? 'rgb(251, 251, 250)'
@@ -407,7 +264,7 @@ function Calendar({ blockIds, collectionView, collection }) {
                   key={indexY}
                 >
                   <div
-                    className='notion-calendar-view-day'
+                    className='notion-calendar-body-inner-day'
                     style={
                       day == new Date(Date.now()).getDate() &&
                       currentYear.getMonth() ==
@@ -415,25 +272,13 @@ function Calendar({ blockIds, collectionView, collection }) {
                       currentYear.getFullYear() ==
                         new Date(Date.now()).getFullYear()
                         ? {
-                            position: 'absolute',
-                            fontSize: '14px',
-                            top: '4px',
-                            right: '4px',
-                            height: '24px',
                             width: '24px',
-                            lineHeight: '24px',
                             borderRadius: '100%',
                             textAlign: 'center',
                             color: 'white',
                             background: 'rgb(235, 87, 87)'
                           }
                         : {
-                            position: 'absolute',
-                            fontSize: '14px',
-                            top: '4px',
-                            right: '10px',
-                            height: '24px',
-                            lineHeight: '24px',
                             textAlign: 'right',
                             transition: 'color 100ms ease-out 0s',
                             color:
@@ -475,53 +320,29 @@ function Calendar({ blockIds, collectionView, collection }) {
                   ) {
                     return (
                       <div
+                        className='notion-calendar-body-inner-card'
                         style={{
-                          width: 'calc(14.2857%)',
                           left: `calc(${
                             new Date(blockDate as number).getDay() == 0
                               ? 0
                               : new Date(blockDate as number).getDay() * 14.2857
                           }%)`,
-                          position: 'absolute',
-                          padding: '3px 6px',
                           height: `${
                             Object.keys(
                               collectionView.format?.calendar_properties
                             ).length *
                               20 +
                             30
-                          }px`,
-                          top: '30px'
+                          }px`
                         }}
                         key={blockId}
                       >
                         <components.PageLink
                           href={mapPageUrl(block.id)}
-                          style={{
-                            display: 'block',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                            height: '100%',
-                            background: 'white',
-                            borderRadius: '3px',
-                            boxShadow:
-                              'rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px'
-                          }}
+                          className='notion-calendar-body-inner-card-inner'
                         >
                           <div
-                            style={{
-                              userSelect: 'none',
-                              transition: 'background 20ms ease-in 0s',
-                              cursor: 'pointer',
-                              width: '100%',
-                              display: 'flex',
-                              position: 'relative',
-                              paddingTop: '2px',
-                              paddingBottom: '2px',
-                              height: '100%',
-                              alignItems: 'flex-start',
-                              flexDirection: 'column'
-                            }}
+                            className='notion-calendar-body-inner-card-inner-box'
                             onMouseEnter={(e) =>
                               (e.currentTarget.style.background =
                                 'rgba(55,53,47,0.08)')
@@ -530,37 +351,9 @@ function Calendar({ blockIds, collectionView, collection }) {
                               (e.currentTarget.style.background = '')
                             }
                           >
-                            <div
-                              style={{
-                                paddingLeft: '6px',
-                                paddingRight: '6px',
-                                overflow: 'hidden',
-                                width: '100%',
-                                fontSize: '12px'
-                              }}
-                            >
-                              <div
-                                style={{
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  height: '20px'
-                                }}
-                              >
-                                <div
-                                  style={{
-                                    userSelect: 'none',
-                                    transition: 'background 20ms ease-in 0s',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    height: '12px',
-                                    width: '12px',
-                                    borderRadius: '0.25em',
-                                    flexShrink: 0,
-                                    marginRight: '4px',
-                                    marginTop: '2px'
-                                  }}
-                                >
+                            <div className='notion-calendar-body-inner-card-inner-box-title'>
+                              <div className='notion-calendar-body-inner-card-inner-box-title-inner'>
+                                <div className='notion-calendar-body-inner-card-inner-box-title-inner-icon'>
                                   <DefaultPageIcon
                                     style={{
                                       width: '10.8px',
@@ -572,16 +365,7 @@ function Calendar({ blockIds, collectionView, collection }) {
                                     }}
                                   />
                                 </div>
-                                <div
-                                  style={{
-                                    whiteSpace: 'nowrap',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    flexGrow: 1,
-                                    fontSize: '12px',
-                                    fontWeight: 600
-                                  }}
-                                >
+                                <div className='notion-calendar-body-inner-card-inner-box-title-inner-text'>
                                   <Property
                                     schema={titleSchema}
                                     data={titleData}
@@ -592,14 +376,7 @@ function Calendar({ blockIds, collectionView, collection }) {
                                 </div>
                               </div>
                             </div>
-                            <div
-                              style={{
-                                paddingLeft: '6px',
-                                paddingRight: '6px',
-                                overflow: 'hidden',
-                                width: '100%'
-                              }}
-                            >
+                            <div className='notion-calendar-body-inner-card-inner-box-properties'>
                               {collectionView.format?.calendar_properties
                                 ?.filter((p) => p.visible)
                                 .map((p, z) => {
@@ -613,13 +390,7 @@ function Calendar({ blockIds, collectionView, collection }) {
 
                                   return (
                                     <div
-                                      style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        fontSize: '12px',
-                                        height: '20px',
-                                        whiteSpace: 'nowrap'
-                                      }}
+                                      className='notion-calendar-body-inner-card-inner-box-properties-property'
                                       key={z}
                                     >
                                       <Property
