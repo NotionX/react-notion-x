@@ -20,6 +20,7 @@ export interface IPropertyProps {
   inline?: boolean
   linkToTitlePage?: boolean
   pageHeader?: boolean
+  longMonth?: boolean
 }
 
 /**
@@ -46,7 +47,8 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
     block,
     collection,
     inline = false,
-    linkToTitlePage = true
+    linkToTitlePage = true,
+    longMonth = false
   } = props
 
   const renderTextValue = React.useMemo(
@@ -60,7 +62,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderDateValue = React.useMemo(
     () =>
       function DateProperty() {
-        return <Text value={data} block={block} />
+        return <Text value={data} block={block} longMonth={longMonth} />
       },
     [block, data]
   )

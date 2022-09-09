@@ -22,7 +22,8 @@ export const Text: React.FC<{
   linkProps?: any
   linkProtocol?: string
   inline?: boolean // TODO: currently unused
-}> = ({ value, block, linkProps, linkProtocol }) => {
+  longMonth?: boolean
+}> = ({ value, block, linkProps, linkProtocol, longMonth }) => {
   const { components, recordMap, mapPageUrl, mapImageUrl, rootDomain } =
     useNotionContext()
 
@@ -189,7 +190,9 @@ export const Text: React.FC<{
                   // Example: Jul 31, 2010
                   const startDate = v.start_date
 
-                  return formatDate(startDate)
+                  return formatDate(startDate, {
+                    month: longMonth ? 'long' : 'short'
+                  })
                 } else if (type === 'daterange') {
                   // Example: Jul 31, 2010 → Jul 31, 2020
                   const startDate = v.start_date

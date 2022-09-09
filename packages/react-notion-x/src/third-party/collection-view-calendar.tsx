@@ -1,5 +1,5 @@
 import { PageBlock } from 'notion-types'
-import { getPageProperty } from 'notion-utils'
+import { getPagePropertyFromId } from 'notion-utils'
 import * as React from 'react'
 import { useNotionContext } from '../context'
 import { DefaultPageIcon } from '../icons/default-page-icon'
@@ -11,6 +11,36 @@ import { Property } from './property'
 
 const defaultBlockIds = []
 const currentYear = new Date(Date.now())
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
+
+const monthsShort = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+]
+let currentMonth = 0
 
 export const CollectionViewCalendar: React.FC<CollectionViewProps> = ({
   collection,
@@ -52,42 +82,48 @@ export const CollectionViewCalendar: React.FC<CollectionViewProps> = ({
 
 function Calendar({ blockIds, collectionView, collection }) {
   const { components, recordMap, mapPageUrl } = useNotionContext()
-
-  const weeksArr = getWeeksInMonth(
-    currentYear.getFullYear(),
-    currentYear.getMonth()
+  const [weeksArr, setWeeksArr] = React.useState(
+    getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
   )
 
   const nextMonth = () => {
     if (currentYear.getMonth() == 11) {
       currentYear.setFullYear(currentYear.getFullYear() + 1)
       currentYear.setMonth(0)
-    } else currentYear.setMonth(currentYear.getMonth() + 1)
+    } else {
+      currentYear.setMonth(currentYear.getMonth() + 1)
+    }
+
+    currentMonth = 0
+
+    setWeeksArr(
+      getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
+    )
   }
   const prevMonth = () => {
     if (currentYear.getMonth() == 0) {
       currentYear.setFullYear(currentYear.getFullYear() - 1)
       currentYear.setMonth(11)
-    } else currentYear.setMonth(currentYear.getMonth() - 1)
+    } else {
+      currentYear.setMonth(currentYear.getMonth() - 1)
+    }
+
+    currentMonth = 0
+
+    setWeeksArr(
+      getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
+    )
   }
   const nowMonth = () => {
     currentYear.setMonth(new Date().getMonth())
-  }
+    currentYear.setFullYear(new Date().getFullYear())
 
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ]
+    currentMonth = 0
+
+    setWeeksArr(
+      getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
+    )
+  }
 
   return (
     <div style={{ position: 'relative', paddingLeft: '1px' }}>
@@ -228,7 +264,7 @@ function Calendar({ blockIds, collectionView, collection }) {
           style={{
             display: 'flex',
             marginTop: '0px',
-            boxShadow: 'rgb(47, 47, 47) 0px 1px 0px'
+            boxShadow: 'rgb(233 233 231) 0px 1px 0px'
           }}
         >
           <div
@@ -238,7 +274,7 @@ function Calendar({ blockIds, collectionView, collection }) {
               textAlign: 'center',
               fontSize: '12px',
               height: '24px',
-              color: 'rgb(55, 53, 47)'
+              color: 'rgba(55, 53, 47, 0.5)'
             }}
           >
             Sun
@@ -250,7 +286,7 @@ function Calendar({ blockIds, collectionView, collection }) {
               textAlign: 'center',
               fontSize: '12px',
               height: '24px',
-              color: 'rgb(55, 53, 47)'
+              color: 'rgba(55, 53, 47, 0.5)'
             }}
           >
             Mon
@@ -262,7 +298,7 @@ function Calendar({ blockIds, collectionView, collection }) {
               textAlign: 'center',
               fontSize: '12px',
               height: '24px',
-              color: 'rgb(55, 53, 47)'
+              color: 'rgba(55, 53, 47, 0.5)'
             }}
           >
             Tue
@@ -274,7 +310,7 @@ function Calendar({ blockIds, collectionView, collection }) {
               textAlign: 'center',
               fontSize: '12px',
               height: '24px',
-              color: 'rgb(55, 53, 47)'
+              color: 'rgba(55, 53, 47, 0.5)'
             }}
           >
             Wed
@@ -286,7 +322,7 @@ function Calendar({ blockIds, collectionView, collection }) {
               textAlign: 'center',
               fontSize: '12px',
               height: '24px',
-              color: 'rgb(55, 53, 47)'
+              color: 'rgba(55, 53, 47, 0.5)'
             }}
           >
             Thu
@@ -298,7 +334,7 @@ function Calendar({ blockIds, collectionView, collection }) {
               textAlign: 'center',
               fontSize: '12px',
               height: '24px',
-              color: 'rgb(55, 53, 47)'
+              color: 'rgba(55, 53, 47, 0.5)'
             }}
           >
             Fri
@@ -310,7 +346,7 @@ function Calendar({ blockIds, collectionView, collection }) {
               textAlign: 'center',
               fontSize: '12px',
               height: '24px',
-              color: 'rgb(55, 53, 47)'
+              color: 'rgba(55, 53, 47, 0.5)'
             }}
           >
             Sat
@@ -331,7 +367,7 @@ function Calendar({ blockIds, collectionView, collection }) {
           overflow: 'hidden'
         }}
       >
-        {[0, 1, 2, 3, 4].map((i) => (
+        {weeksArr.map((i, indexI) => (
           <div
             style={{
               position: 'relative',
@@ -342,9 +378,9 @@ function Calendar({ blockIds, collectionView, collection }) {
                 64
               }px`
             }}
-            key={i}
+            key={i.dates[indexI]}
           >
-            {[0, 1, 2, 3, 4, 5, 6].map((o) => (
+            {i.dates.map((day, indexY) => (
               <>
                 <div
                   className='notion-selectable notion-collection_view-block'
@@ -355,15 +391,20 @@ function Calendar({ blockIds, collectionView, collection }) {
                     borderBottom: '1px solid rgb(233, 233, 231)',
                     cursor: 'default',
                     background:
-                      o == 0 || o == 6 ? 'rgb(251, 251, 250)' : 'transparent'
+                      indexY == 0 || indexY == 6
+                        ? 'rgb(251, 251, 250)'
+                        : 'transparent'
                   }}
-                  key={o}
+                  key={day}
                 >
                   <div
                     className='notion-calendar-view-day'
                     style={
-                      weeksArr[i].dates[o] == new Date(Date.now()).getDate() &&
-                      currentYear.getMonth() == new Date(Date.now()).getMonth()
+                      day == new Date(Date.now()).getDate() &&
+                      currentYear.getMonth() ==
+                        new Date(Date.now()).getMonth() &&
+                      currentYear.getFullYear() ==
+                        new Date(Date.now()).getFullYear()
                         ? {
                             position: 'absolute',
                             fontSize: '14px',
@@ -386,28 +427,42 @@ function Calendar({ blockIds, collectionView, collection }) {
                             lineHeight: '24px',
                             textAlign: 'right',
                             transition: 'color 100ms ease-out 0s',
-                            color: 'rgba(55, 53, 47, 0.5)'
+                            color:
+                              (day == 1 && currentMonth++ == 0) ||
+                              ((day <= 31 || day >= 28) && currentMonth == 1)
+                                ? 'black'
+                                : 'rgba(55, 53, 47, 0.5)'
                           }
                     }
                   >
-                    {weeksArr[i].dates[o]}
+                    {day == 1
+                      ? `${
+                          monthsShort[currentYear.getMonth() + currentMonth - 1]
+                        } ${day}`
+                      : day}
                   </div>
                 </div>
 
                 {blockIds?.map((blockId) => {
-                  // check riga
                   const block = recordMap.block[blockId]?.value as PageBlock
                   if (!block) return null
 
-                  const blockDate = getPageProperty('Date', block, recordMap)
+                  // Get date from calendar view query
+                  const blockDate = getPagePropertyFromId(
+                    collectionView.query2.calendar_by,
+                    block,
+                    recordMap
+                  )
+
                   const titleSchema = collection.schema.title
                   const titleData = block?.properties?.title
 
                   if (
-                    new Date(blockDate as number).getDate() ==
-                      weeksArr[i].dates[o] &&
+                    new Date(blockDate as number).getDate() == day &&
                     new Date(blockDate as number).getMonth() ==
-                      currentYear.getMonth()
+                      currentYear.getMonth() &&
+                    new Date(blockDate as number).getFullYear() ==
+                      currentYear.getFullYear()
                   ) {
                     return (
                       <div
@@ -563,6 +618,7 @@ function Calendar({ blockIds, collectionView, collection }) {
                                         data={data}
                                         block={block}
                                         collection={collection}
+                                        longMonth={true}
                                       />
                                     </div>
                                   )
