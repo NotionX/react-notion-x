@@ -77,7 +77,7 @@
   --fg-color-6: #fff;
   --fg-color-icon: #fff;
 
-  --bg-color: #2f3437;
+  --bg-color: rgb(25, 25, 25);
   --bg-color-0: rgb(71, 76, 80);
   --bg-color-1: rgb(63, 68, 71);
   --bg-color-2: rgba(135, 131, 120, 0.15);
@@ -1641,6 +1641,12 @@ svg.notion-page-icon {
   padding: 0px;
 }
 
+.notion-calendar-header-inner-controls-prev:hover,
+.notion-calendar-header-inner-controls-today:hover,
+.notion-calendar-header-inner-controls-next:hover {
+  background: rgba(55, 53, 47, 0.08);
+}
+
 .notion-calendar-header-inner-controls-today {
   user-select: none;
   transition: background 20ms ease-in 0s;
@@ -1658,6 +1664,7 @@ svg.notion-page-icon {
   padding-right: 6px;
   color: rgb(55, 53, 47);
 }
+
 .notion-calendar-header-inner-controls-next {
   user-select: none;
   transition: background 20ms ease-in 0s;
@@ -1670,6 +1677,16 @@ svg.notion-page-icon {
   height: 24px;
   width: 24px;
   padding: 0px;
+}
+
+.notion-calendar-header-inner-controls-next-svg,
+.notion-calendar-header-inner-controls-prev-svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+  fill: rgba(55, 53, 47, 0.45);
+  flex-shrink: 0;
+  backface-visibility: hidden;
 }
 
 .notion-calendar-header-days {
@@ -1706,6 +1723,10 @@ svg.notion-page-icon {
   cursor: default;
 }
 
+.notion-calendar-body-inner-week-dif {
+  background: rgb(251, 251, 250);
+}
+
 .notion-calendar-body-inner-day {
   position: absolute;
   font-size: 14px;
@@ -1713,6 +1734,27 @@ svg.notion-page-icon {
   right: 10px;
   height: 24px;
   line-height: 24px;
+}
+
+.notion-calendar-body-inner-day-today {
+  width: 24px;
+  border-radius: 100%;
+  text-align: center;
+  color: white;
+  background: rgb(235, 87, 87);
+}
+
+.notion-calendar-body-inner-day-normal {
+  text-align: right;
+  transition: color 100ms ease-out 0s;
+}
+
+.notion-calendar-body-inner-day-this-month {
+  color: black;
+}
+
+.notion-calendar-body-inner-day-other-month {
+  color: rgba(55, 53, 47, 0.5);
 }
 
 .notion-calendar-body-inner-card {
@@ -1747,6 +1789,10 @@ svg.notion-page-icon {
   flex-direction: column;
 }
 
+.notion-calendar-body-inner-card-inner-box:hover {
+  background: rgba(55, 53, 47, 0.08);
+}
+
 .notion-calendar-body-inner-card-inner-box-title {
   padding-left: 6px;
   padding-right: 6px;
@@ -1775,6 +1821,15 @@ svg.notion-page-icon {
   margin-top: 2px;
 }
 
+.notion-calendar-body-inner-card-inner-box-title-inner-icon-svg {
+  width: 10.8px;
+  height: 10.8px;
+  display: block;
+  fill: rgba(55, 53, 47, 0.85);
+  flex-shrink: 0;
+  backface-visibility: hidden;
+}
+
 .notion-calendar-body-inner-card-inner-box-title-inner-text {
   white-space: nowrap;
   overflow: hidden;
@@ -1800,6 +1855,73 @@ svg.notion-page-icon {
 }
 
 /* TODO: add calendar dark mode theme (append .dark-mode) */
+
+.dark-mode .notion-calendar-header {
+  background: rgb(25, 25, 25);
+}
+
+.dark-mode .notion-calendar-header-inner-controls-today {
+  color: rgba(255, 255, 255, 0.81);
+}
+
+.dark-mode .notion-calendar-header-days-day {
+  color: rgba(255, 255, 255, 0.282);
+}
+
+.dark-mode .notion-calendar-body {
+  box-shadow: rgb(47 47 47) -1px 0px 0px;
+}
+
+.dark-mode .notion-calendar-body-inner-week {
+  border-right: 1px solid rgb(47, 47, 47);
+  border-bottom: 1px solid rgb(47, 47, 47);
+}
+
+.dark-mode .notion-calendar-body-inner-day {
+  color: white;
+}
+
+.dark-mode .notion-calendar-body-inner-week-dif {
+  background: rgb(32, 32, 32);
+}
+
+.dark-mode .notion-calendar-body-inner-day-normal,
+.dark-mode .notion-calendar-body-inner-day-this-month {
+  color: white;
+}
+
+.dark-mode .notion-calendar-body-inner-day-other-month {
+  color: rgba(255, 255, 255, 0.282);
+}
+
+.dark-mode .notion-calendar-body-inner-card-inner {
+  background: rgb(47, 47, 47);
+}
+
+.dark-mode .notion-calendar-header-days {
+  box-shadow: rgb(47 47 47) 0px 1px 0px;
+}
+
+.dark-mode .notion-calendar-body-inner-card-inner-box-title-inner-icon-svg {
+  fill: rgba(255, 255, 255, 0.81);
+}
+
+.dark-mode .notion-calendar-header-inner-controls-next-svg,
+.dark-mode .notion-calendar-header-inner-controls-prev-svg {
+  fill: rgba(255, 255, 255, 0.443);
+}
+
+.dark-mode .notion-calendar-header-inner-controls-prev:hover,
+.dark-mode .notion-calendar-header-inner-controls-today:hover,
+.dark-mode .notion-calendar-header-inner-controls-next:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.dark-mode .notion-calendar-body-inner-card-inner-box:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+/**/
 
 .notion-board {
   width: 100vw;

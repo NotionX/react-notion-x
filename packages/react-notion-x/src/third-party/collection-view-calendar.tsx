@@ -149,23 +149,11 @@ function Calendar({ blockIds, collectionView, collection }) {
                 )}
                 role='button'
                 tabIndex={0}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
-                }
-                onMouseLeave={(e) => (e.currentTarget.style.background = '')}
                 onClick={prevMonth}
               >
                 <svg
                   viewBox='0 0 30 30'
-                  className='chevronLeft'
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    display: 'block',
-                    fill: 'rgba(55, 53, 47, 0.45)',
-                    flexShrink: 0,
-                    backfaceVisibility: 'hidden'
-                  }}
+                  className='notion-calendar-header-inner-controls-prev-svg'
                 >
                   <polygon points='12.6 15 23 25.2 20.2 28 7 15 20.2 2 23 4.8'></polygon>
                 </svg>
@@ -178,10 +166,6 @@ function Calendar({ blockIds, collectionView, collection }) {
                 )}
                 role='button'
                 tabIndex={0}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
-                }
-                onMouseLeave={(e) => (e.currentTarget.style.background = '')}
                 onClick={nowMonth}
               >
                 Today
@@ -193,23 +177,11 @@ function Calendar({ blockIds, collectionView, collection }) {
                 )}
                 role='button'
                 tabIndex={0}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = 'rgba(55,53,47,0.08)')
-                }
-                onMouseLeave={(e) => (e.currentTarget.style.background = '')}
                 onClick={nextMonth}
               >
                 <svg
                   viewBox='0 0 30 30'
-                  className='chevronRight'
-                  style={{
-                    width: '14px',
-                    height: '14px',
-                    display: 'block',
-                    fill: 'rgba(55, 53, 47, 0.45)',
-                    flexShrink: 0,
-                    backfaceVisibility: 'hidden'
-                  }}
+                  className='notion-calendar-header-inner-controls-next-svg'
                 >
                   <polygon points='17.4,15 7,25.2 9.8,28 23,15 9.8,2 7,4.8'></polygon>
                 </svg>
@@ -253,41 +225,28 @@ function Calendar({ blockIds, collectionView, collection }) {
                 <div
                   className={cs(
                     'notion-selectable',
-                    'notion-calendar-body-inner-week'
+                    'notion-calendar-body-inner-week',
+                    indexY == 0 || indexY == 6
+                      ? 'notion-calendar-body-inner-week-dif'
+                      : ''
                   )}
-                  style={{
-                    background:
-                      indexY == 0 || indexY == 6
-                        ? 'rgb(251, 251, 250)'
-                        : 'transparent'
-                  }}
                   key={indexY}
                 >
                   <div
-                    className='notion-calendar-body-inner-day'
-                    style={
+                    className={cs(
+                      'notion-calendar-body-inner-day',
                       day == new Date(Date.now()).getDate() &&
-                      currentYear.getMonth() ==
-                        new Date(Date.now()).getMonth() &&
-                      currentYear.getFullYear() ==
-                        new Date(Date.now()).getFullYear()
-                        ? {
-                            width: '24px',
-                            borderRadius: '100%',
-                            textAlign: 'center',
-                            color: 'white',
-                            background: 'rgb(235, 87, 87)'
-                          }
-                        : {
-                            textAlign: 'right',
-                            transition: 'color 100ms ease-out 0s',
-                            color:
-                              (day == 1 && currentMonth++ == 0) ||
-                              ((day <= 31 || day >= 28) && currentMonth == 1)
-                                ? 'black'
-                                : 'rgba(55, 53, 47, 0.5)'
-                          }
-                    }
+                        currentYear.getMonth() ==
+                          new Date(Date.now()).getMonth() &&
+                        currentYear.getFullYear() ==
+                          new Date(Date.now()).getFullYear()
+                        ? 'notion-calendar-body-inner-day-today'
+                        : 'notion-calendar-body-inner-day-normal',
+                      (day == 1 && currentMonth++ == 0) ||
+                        ((day <= 31 || day >= 28) && currentMonth == 1)
+                        ? 'notion-calendar-body-inner-day-this-month'
+                        : 'notion-calendar-body-inner-day-other-month'
+                    )}
                   >
                     {day == 1
                       ? `${
@@ -341,29 +300,11 @@ function Calendar({ blockIds, collectionView, collection }) {
                           href={mapPageUrl(block.id)}
                           className='notion-calendar-body-inner-card-inner'
                         >
-                          <div
-                            className='notion-calendar-body-inner-card-inner-box'
-                            onMouseEnter={(e) =>
-                              (e.currentTarget.style.background =
-                                'rgba(55,53,47,0.08)')
-                            }
-                            onMouseLeave={(e) =>
-                              (e.currentTarget.style.background = '')
-                            }
-                          >
+                          <div className='notion-calendar-body-inner-card-inner-box'>
                             <div className='notion-calendar-body-inner-card-inner-box-title'>
                               <div className='notion-calendar-body-inner-card-inner-box-title-inner'>
                                 <div className='notion-calendar-body-inner-card-inner-box-title-inner-icon'>
-                                  <DefaultPageIcon
-                                    style={{
-                                      width: '10.8px',
-                                      height: '10.8px',
-                                      display: 'block',
-                                      fill: 'rgba(55, 53, 47, 0.85)',
-                                      flexShrink: 0,
-                                      backfaceVisibility: 'hidden'
-                                    }}
-                                  />
+                                  <DefaultPageIcon className='notion-calendar-body-inner-card-inner-box-title-inner-icon-svg' />
                                 </div>
                                 <div className='notion-calendar-body-inner-card-inner-box-title-inner-text'>
                                   <Property
