@@ -213,9 +213,10 @@ function Calendar({ blockIds, collectionView, collection }) {
             className='notion-calendar-body-inner'
             style={{
               height: `${
+                collectionView.format?.calendar_properties &&
                 Object.keys(collectionView.format?.calendar_properties).length *
                   20 +
-                64
+                  64
               }px`
             }}
             key={indexI}
@@ -286,11 +287,12 @@ function Calendar({ blockIds, collectionView, collection }) {
                               : new Date(blockDate as number).getDay() * 14.2857
                           }%)`,
                           height: `${
+                            collectionView.format?.calendar_properties &&
                             Object.keys(
                               collectionView.format?.calendar_properties
                             ).length *
                               20 +
-                            30
+                              30
                           }px`
                         }}
                         key={blockId}
