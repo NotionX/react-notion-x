@@ -241,9 +241,8 @@ function Calendar({ blockIds, collectionView, collection }) {
                         currentYear.getFullYear() ==
                           new Date(Date.now()).getFullYear()
                         ? 'notion-calendar-body-inner-day-today'
-                        : 'notion-calendar-body-inner-day-normal',
-                      (day == 1 && currentMonth++ == 0) ||
-                        ((day <= 31 || day >= 28) && currentMonth == 1)
+                        : (day == 1 && currentMonth++ == 0) ||
+                          ((day <= 31 || day >= 28) && currentMonth == 1)
                         ? 'notion-calendar-body-inner-day-this-month'
                         : 'notion-calendar-body-inner-day-other-month'
                     )}

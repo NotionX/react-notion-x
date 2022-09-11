@@ -1744,17 +1744,16 @@ svg.notion-page-icon {
   background: rgb(235, 87, 87);
 }
 
-.notion-calendar-body-inner-day-normal {
+.notion-calendar-body-inner-day-this-month {
+  color: black;
   text-align: right;
   transition: color 100ms ease-out 0s;
 }
 
-.notion-calendar-body-inner-day-this-month {
-  color: black;
-}
-
 .notion-calendar-body-inner-day-other-month {
   color: rgba(55, 53, 47, 0.5);
+  text-align: right;
+  transition: color 100ms ease-out 0s;
 }
 
 .notion-calendar-body-inner-card {
