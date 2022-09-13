@@ -1882,7 +1882,6 @@ svg.notion-page-icon {
   background: rgb(32, 32, 32);
 }
 
-.dark-mode .notion-calendar-body-inner-day-normal,
 .dark-mode .notion-calendar-body-inner-day-this-month {
   color: white;
 }
