@@ -83,6 +83,11 @@ export const CollectionViewCalendar: React.FC<CollectionViewProps> = ({
 function Calendar({ blockIds, collectionView, collection }) {
   const { showCalendarControls, components, recordMap, mapPageUrl } =
     useNotionContext()
+
+  const isCollectionViewPage =
+    recordMap.block[Object.keys(recordMap.block)[0]].value.type ==
+    'collection_view_page'
+
   const [weeksArr, setWeeksArr] = React.useState(
     getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
   )
@@ -125,6 +130,12 @@ function Calendar({ blockIds, collectionView, collection }) {
       getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
     )
   }
+
+  React.useEffect(() => {
+    if (isCollectionViewPage) {
+      document.querySelector('.notion-page').classList.add('notion-full-width')
+    }
+  }, [])
 
   return (
     <div className='notion-calendar-view'>
@@ -210,7 +221,11 @@ function Calendar({ blockIds, collectionView, collection }) {
       <div className='notion-calendar-body'>
         {weeksArr.map((i, indexI) => (
           <div
-            className='notion-calendar-body-inner'
+            className={cs(
+              'notion-calendar-body-inner',
+              weeksArr.length - 1 == indexI &&
+                'notion-calendar-body-inner-last-week'
+            )}
             style={{
               height: `${
                 collectionView.format?.calendar_properties &&
