@@ -243,7 +243,7 @@ The majority of Notion blocks and collection views are fully supported.
 | Collection View Gallery  | ✅ Yes     | `collection_view`      | `type = "gallery"` (grid view)                                                                                   |
 | Collection View Board    | ✅ Yes     | `collection_view`      | `type = "board"` (kanban view)                                                                                   |
 | Collection View List     | ✅ Yes     | `collection_view`      | `type = "list"` (vertical list view)                                                                             |
-| Collection View Calendar | ❌ Missing | `collection_view`      | `type = "calendar"` (embedded calendar view)                                                                     |
+| Collection View Calendar | ✅ Yes     | `collection_view`      | `type = "calendar"` (embedded calendar view)                                                                     |
 | Collection View Page     | ✅ Yes     | `collection_view_page` | Collection view as a standalone page                                                                             |
 
 Please let us know if you find any issues or missing blocks.
