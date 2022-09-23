@@ -3,6 +3,8 @@ import { getPagePropertyFromId } from 'notion-utils'
 import * as React from 'react'
 import { useNotionContext } from '../context'
 import { DefaultPageIcon } from '../icons/default-page-icon'
+import SvgLeftChevron from '../icons/left-chevron'
+import SvgRightChevron from '../icons/right-chevron'
 import { CollectionViewProps } from '../types'
 import { cs, getWeeksInMonth } from '../utils'
 import { CollectionGroup } from './collection-group'
@@ -81,16 +83,26 @@ export const CollectionViewCalendar: React.FC<CollectionViewProps> = ({
 }
 
 function Calendar({ blockIds, collectionView, collection }) {
-  const { showCalendarControls, components, recordMap, mapPageUrl } =
-    useNotionContext()
+  const {
+    showCalendarControls,
+    startWeekOnMonday,
+    components,
+    recordMap,
+    mapPageUrl
+  } = useNotionContext()
 
+  const [weeksArr, setWeeksArr] = React.useState(
+    getWeeksInMonth(
+      currentYear.getFullYear(),
+      currentYear.getMonth(),
+      startWeekOnMonday
+    )
+  )
+
+  // Check if collection view is a standalone page or not
   const isCollectionViewPage =
     recordMap.block[Object.keys(recordMap.block)[0]].value.type ==
     'collection_view_page'
-
-  const [weeksArr, setWeeksArr] = React.useState(
-    getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
-  )
 
   const nextMonth = () => {
     if (currentYear.getMonth() == 11) {
@@ -103,7 +115,11 @@ function Calendar({ blockIds, collectionView, collection }) {
     currentMonth = 0
 
     setWeeksArr(
-      getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
+      getWeeksInMonth(
+        currentYear.getFullYear(),
+        currentYear.getMonth(),
+        startWeekOnMonday
+      )
     )
   }
   const prevMonth = () => {
@@ -117,7 +133,11 @@ function Calendar({ blockIds, collectionView, collection }) {
     currentMonth = 0
 
     setWeeksArr(
-      getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
+      getWeeksInMonth(
+        currentYear.getFullYear(),
+        currentYear.getMonth(),
+        startWeekOnMonday
+      )
     )
   }
   const nowMonth = () => {
@@ -127,10 +147,15 @@ function Calendar({ blockIds, collectionView, collection }) {
     currentMonth = 0
 
     setWeeksArr(
-      getWeeksInMonth(currentYear.getFullYear(), currentYear.getMonth())
+      getWeeksInMonth(
+        currentYear.getFullYear(),
+        currentYear.getMonth(),
+        startWeekOnMonday
+      )
     )
   }
 
+  // Check on page load if the collection is a page or not
   React.useEffect(() => {
     if (isCollectionViewPage) {
       document.querySelector('.notion-page').classList.add('notion-full-width')
@@ -162,12 +187,7 @@ function Calendar({ blockIds, collectionView, collection }) {
                 tabIndex={0}
                 onClick={prevMonth}
               >
-                <svg
-                  viewBox='0 0 30 30'
-                  className='notion-calendar-header-inner-controls-prev-svg'
-                >
-                  <polygon points='12.6 15 23 25.2 20.2 28 7 15 20.2 2 23 4.8'></polygon>
-                </svg>
+                <SvgLeftChevron className='notion-calendar-header-inner-controls-prev-svg' />
               </div>
 
               <div
@@ -190,25 +210,34 @@ function Calendar({ blockIds, collectionView, collection }) {
                 tabIndex={0}
                 onClick={nextMonth}
               >
-                <svg
-                  viewBox='0 0 30 30'
-                  className='notion-calendar-header-inner-controls-next-svg'
-                >
-                  <polygon points='17.4,15 7,25.2 9.8,28 23,15 9.8,2 7,4.8'></polygon>
-                </svg>
+                <SvgRightChevron className='notion-calendar-header-inner-controls-next-svg' />
               </div>
             </>
           )}
         </div>
 
         <div className='notion-calendar-header-days'>
-          <div className='notion-calendar-header-days-day'>Sun</div>
-          <div className='notion-calendar-header-days-day'>Mon</div>
-          <div className='notion-calendar-header-days-day'>Tue</div>
-          <div className='notion-calendar-header-days-day'>Wed</div>
-          <div className='notion-calendar-header-days-day'>Thu</div>
-          <div className='notion-calendar-header-days-day'>Fri</div>
-          <div className='notion-calendar-header-days-day'>Sat</div>
+          {startWeekOnMonday ? (
+            <>
+              <div className='notion-calendar-header-days-day'>Mon</div>
+              <div className='notion-calendar-header-days-day'>Tue</div>
+              <div className='notion-calendar-header-days-day'>Wed</div>
+              <div className='notion-calendar-header-days-day'>Thu</div>
+              <div className='notion-calendar-header-days-day'>Fri</div>
+              <div className='notion-calendar-header-days-day'>Sat</div>
+              <div className='notion-calendar-header-days-day'>Sun</div>
+            </>
+          ) : (
+            <>
+              <div className='notion-calendar-header-days-day'>Sun</div>
+              <div className='notion-calendar-header-days-day'>Mon</div>
+              <div className='notion-calendar-header-days-day'>Tue</div>
+              <div className='notion-calendar-header-days-day'>Wed</div>
+              <div className='notion-calendar-header-days-day'>Thu</div>
+              <div className='notion-calendar-header-days-day'>Fri</div>
+              <div className='notion-calendar-header-days-day'>Sat</div>
+            </>
+          )}
         </div>
       </div>
 
@@ -242,7 +271,11 @@ function Calendar({ blockIds, collectionView, collection }) {
                   className={cs(
                     'notion-selectable',
                     'notion-calendar-body-inner-week',
-                    indexY == 0 || indexY == 6
+                    startWeekOnMonday
+                      ? indexY == 5 || indexY == 6
+                        ? 'notion-calendar-body-inner-week-dif'
+                        : ''
+                      : indexY == 0 || indexY == 6
                       ? 'notion-calendar-body-inner-week-dif'
                       : ''
                   )}
@@ -281,6 +314,12 @@ function Calendar({ blockIds, collectionView, collection }) {
                     block,
                     recordMap
                   )
+                  const blockDateDATE = new Date(blockDate as number)
+                  const dayBlock = startWeekOnMonday
+                    ? blockDateDATE.getDay() === 0
+                      ? 6
+                      : blockDateDATE.getDay() - 1
+                    : blockDateDATE.getDay()
 
                   const titleSchema = collection.schema.title
                   const titleData = block?.properties?.title
@@ -297,9 +336,7 @@ function Calendar({ blockIds, collectionView, collection }) {
                         className='notion-calendar-body-inner-card'
                         style={{
                           left: `calc(${
-                            new Date(blockDate as number).getDay() == 0
-                              ? 0
-                              : new Date(blockDate as number).getDay() * 14.2857
+                            dayBlock == 0 ? 0 : dayBlock * 14.2857
                           }%)`,
                           height: `${
                             collectionView.format?.calendar_properties &&

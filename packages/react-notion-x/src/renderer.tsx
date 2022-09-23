@@ -35,6 +35,7 @@ export const NotionRenderer: React.FC<{
 
   showTableOfContents?: boolean
   showCalendarControls?: boolean
+  startWeekOnMonday?: boolean
   minTableOfContentsItems?: number
 
   defaultPageIcon?: string
@@ -72,6 +73,7 @@ export const NotionRenderer: React.FC<{
   isImageZoomable = true,
   showTableOfContents,
   showCalendarControls,
+  startWeekOnMonday,
   minTableOfContentsItems,
   defaultPageIcon,
   defaultPageCover,
@@ -106,6 +108,7 @@ export const NotionRenderer: React.FC<{
       linkTableTitleProperties={linkTableTitleProperties}
       showTableOfContents={showTableOfContents}
       showCalendarControls={showCalendarControls}
+      startWeekOnMonday={startWeekOnMonday}
       minTableOfContentsItems={minTableOfContentsItems}
       defaultPageIcon={defaultPageIcon}
       defaultPageCover={defaultPageCover}

@@ -83,13 +83,21 @@ export const getYoutubeId = (url: string): string | null => {
   return null
 }
 
-export const getWeeksInMonth = (year: number, month: number) => {
+export const getWeeksInMonth = (
+  year: number,
+  month: number,
+  startOnMonday?: boolean
+) => {
   const weeks = []
 
   const firstDate = new Date(year, month, 1)
   const lastDate = new Date(year, month + 1, 0)
   const numDays = lastDate.getDate()
-  let dayOfWeekCounter = firstDate.getDay()
+  let dayOfWeekCounter = startOnMonday
+    ? firstDate.getDay() === 0
+      ? 6
+      : firstDate.getDay() - 1
+    : firstDate.getDay()
 
   for (let date = 1; date <= numDays; date++) {
     if (dayOfWeekCounter === 0 || weeks.length === 0) {
@@ -101,14 +109,14 @@ export const getWeeksInMonth = (year: number, month: number) => {
 
   // This is to add the last week of the previous month to the first week of the current month.
   if (weeks[0].length < 7) {
-    const beforeIndex1 = addMonth(year, month - 1, 1)
+    const beforeIndex1 = addMonth(year, month - 1, 1, startOnMonday)
     const indexRefactor = [...beforeIndex1, ...weeks[0]]
     weeks[0] = indexRefactor
   }
 
   // This is to add the first week of the next month to the last week of the current month
   if (weeks[weeks.length - 1].length < 7) {
-    const afterIndex1 = addMonth(year, month + 1, 0)
+    const afterIndex1 = addMonth(year, month + 1, 0, startOnMonday)
     const indexRefactor = [...weeks[weeks.length - 1], ...afterIndex1]
     weeks[weeks.length - 1] = indexRefactor
   }
@@ -122,12 +130,21 @@ export const getWeeksInMonth = (year: number, month: number) => {
     }))
 }
 
-const addMonth = (year: number, month: number, flag: 0 | 1) => {
+const addMonth = (
+  year: number,
+  month: number,
+  flag: 0 | 1,
+  startOnMonday: boolean
+) => {
   const weeks = []
   const firstDate = new Date(year, month, 1)
   const lastDate = new Date(year, month + 1, 0)
   const numDays = lastDate.getDate()
-  let dayOfWeekCounter = firstDate.getDay()
+  let dayOfWeekCounter = startOnMonday
+    ? firstDate.getDay() === 0
+      ? 6
+      : firstDate.getDay() - 1
+    : firstDate.getDay()
 
   for (let date = 1; date <= numDays; date++) {
     if (dayOfWeekCounter === 0 || weeks.length === 0) {
