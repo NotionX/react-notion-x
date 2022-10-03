@@ -333,7 +333,7 @@ export class NotionAPI {
       : collectionView?.format?.collection_group_by
 
     let filters = []
-    if (collectionView.format?.property_filters) {
+    if (collectionView?.format?.property_filters) {
       filters = collectionView.format?.property_filters.map((filterObj) => {
         //get the inner filter
         return {
