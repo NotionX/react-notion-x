@@ -87,10 +87,14 @@ export const Search: React.FC<{
   search?: SearchNotionFn
   title?: React.ReactNode
 }> = ({ block, search, title = 'Search' }) => {
-  const { searchNotion, rootPageId } = useNotionContext()
+  const { searchNotion, rootPageId, isShowingSearch } = useNotionContext()
   const onSearchNotion = search || searchNotion
 
-  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+  const [isSearchOpen, setIsSearchOpen] = React.useState(isShowingSearch)
+  React.useEffect(() => {
+    setIsSearchOpen(isShowingSearch)
+  }, [isShowingSearch])
+
   const onOpenSearch = React.useCallback(() => {
     setIsSearchOpen(true)
   }, [])

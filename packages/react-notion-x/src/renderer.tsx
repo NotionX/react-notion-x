@@ -18,6 +18,7 @@ export const NotionRenderer: React.FC<{
   mapPageUrl?: MapPageUrlFn
   mapImageUrl?: MapImageUrlFn
   searchNotion?: SearchNotionFn
+  isShowingSearch?: boolean
 
   rootPageId?: string
   rootDomain?: string
@@ -60,6 +61,7 @@ export const NotionRenderer: React.FC<{
   mapPageUrl,
   mapImageUrl,
   searchNotion,
+  isShowingSearch,
   fullPage,
   rootPageId,
   rootDomain,
@@ -94,6 +96,7 @@ export const NotionRenderer: React.FC<{
       mapPageUrl={mapPageUrl}
       mapImageUrl={mapImageUrl}
       searchNotion={searchNotion}
+      isShowingSearch={isShowingSearch}
       fullPage={fullPage}
       rootPageId={rootPageId}
       rootDomain={rootDomain}
