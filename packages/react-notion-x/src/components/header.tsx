@@ -87,7 +87,8 @@ export const Search: React.FC<{
   search?: SearchNotionFn
   title?: React.ReactNode
 }> = ({ block, search, title = 'Search' }) => {
-  const { searchNotion, rootPageId, isShowingSearch } = useNotionContext()
+  const { searchNotion, rootPageId, isShowingSearch, onHideSearch } =
+    useNotionContext()
   const onSearchNotion = search || searchNotion
 
   const [isSearchOpen, setIsSearchOpen] = React.useState(isShowingSearch)
@@ -101,6 +102,9 @@ export const Search: React.FC<{
 
   const onCloseSearch = React.useCallback(() => {
     setIsSearchOpen(false)
+    if (onHideSearch) {
+      onHideSearch()
+    }
   }, [])
 
   useHotkeys('cmd+p', (event) => {

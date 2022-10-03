@@ -21,6 +21,7 @@ export interface NotionContext {
   mapImageUrl: MapImageUrlFn
   searchNotion?: SearchNotionFn
   isShowingSearch?: boolean
+  onHideSearch?: () => void
 
   rootPageId?: string
   rootDomain?: string
@@ -49,6 +50,7 @@ export interface PartialNotionContext {
   mapImageUrl?: MapImageUrlFn
   searchNotion?: SearchNotionFn
   isShowingSearch?: boolean
+  onHideSearch?: () => void
 
   rootPageId?: string
   rootDomain?: string
@@ -151,6 +153,7 @@ const defaultNotionContext: NotionContext = {
   mapImageUrl: defaultMapImageUrl,
   searchNotion: null,
   isShowingSearch: false,
+  onHideSearch: null,
 
   fullPage: false,
   darkMode: false,
