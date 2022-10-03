@@ -1399,29 +1399,30 @@ svg.notion-page-icon {
 .notion-property-checkbox {
   width: 16px;
   height: 16px;
+  display: flex;
+  flex-shrink: 0;
+  flex-grow: 0;
+  position: relative;
+  align-items: center;
+  justify-content: center;
 }
-
+ 
 .notion-property-checkbox-checked {
-  width: 16px;
-  height: 16px;
   background: var(--select-color-0);
 }
 
-.notion-property-checkbox-checked svg {
-  position: relative;
+.check-icon{
+  width: 12px;
+  height: 12px;
   display: block;
-  /* top: -3px; */
-  top: 1px;
-  left: 1px;
-  width: 14px;
-  height: 14px;
-  fill: #fff;
+  fill: white;
 }
 
-.notion-property-checkbox-unchecked {
-  width: 16px;
-  height: 16px;
-  border: 1.3px solid var(--fg-color);
+.check-box-suare-icon{
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: inherit;
 }
 
 .notion-gallery {

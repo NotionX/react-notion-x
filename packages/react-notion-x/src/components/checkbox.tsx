@@ -1,6 +1,7 @@
 import * as React from 'react'
 
-import CheckIcon from '../icons/check'
+import { CheckIcon, CheckBoxIcon } from '../icons/check'
+import '../styles.css'
 
 export const Checkbox: React.FC<{
   isChecked: boolean
@@ -10,15 +11,17 @@ export const Checkbox: React.FC<{
 
   if (isChecked) {
     content = (
-      <div className='notion-property-checkbox-checked'>
+      <div className='notion-property-checkbox notion-property-checkbox-checked'>
         <CheckIcon />
       </div>
     )
   } else {
-    content = <div className='notion-property-checkbox-unchecked' />
+    content = (
+      <div className='notion-property-checkbox'>
+        <CheckBoxIcon />
+      </div>
+    )
   }
 
-  return (
-    <span className='notion-property notion-property-checkbox'>{content}</span>
-  )
+  return <span className='notion-property'>{content}</span>
 }
