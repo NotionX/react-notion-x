@@ -2740,43 +2740,41 @@ svg.notion-page-icon {
   will-change: transform, opacity;
 }
 
-.notion-collection-view-dropdown-content-item {
+.notion-collection-view-tabs-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 120%
+}
+
+.notion-collection-view-tabs-content-item {
   all: unset;
   position: relative;
   height: 25px;
-  padding: 7px 96px 7px 10px;
+  padding: 7px 10px 7px 10px;
   line-height: 1;
   display: flex;
   align-items: center;
-  border-radius: 3px;
   user-select: none;
   cursor: pointer;
   color: rgb(55, 53, 47);
   font-size: 14px;
 }
 
-.notion-collection-view-dropdown-content-item[data-disabled] {
-  color: #777;
-  pointer-events: none;
-  cursor: unset;
+.notion-collection-view-tabs-content-item:hover {
+  background-color: var(--fg-color-1);
+  border-radius: 3px;
 }
 
-.notion-collection-view-dropdown-content-item:focus,
-.notion-collection-view-dropdown-content-item-active {
-  background-color: #ebfaff;
+.notion-collection-view-tabs-content-item-active {
+  border-bottom: solid 2px #000;
+  font-weight: bold;
 }
 
-.notion-collection-view-dropdown-content-item-active-icon {
-  position: absolute;
-  right: 0;
-  width: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.notion-collection-view-dropdown-content-item-active-icon > svg {
-  width: 12px;
+@media only screen and (max-width: 730px) {
+  .notion-collection-view-tabs-row {
+    width: 100%;
+  }
 }
 
 @keyframes slideDownAndFade {
