@@ -2792,3 +2792,11 @@ svg.notion-page-icon {
 .notion-collection-view-dropdown-content[data-state='open'] {
   animation-name: slideDownAndFade;
 }
+
+.nested-form-link {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  text-decoration: underline;
+  cursor: pointer;
+}
