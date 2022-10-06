@@ -33,6 +33,7 @@ export const NotionRenderer: React.FC<{
   forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
   linkTableTitleProperties?: boolean
+  isLinkCollectionToUrlProperty?: boolean
   isImageZoomable?: boolean
 
   showTableOfContents?: boolean
@@ -72,6 +73,7 @@ export const NotionRenderer: React.FC<{
   forceCustomImages,
   showCollectionViewDropdown,
   linkTableTitleProperties,
+  isLinkCollectionToUrlProperty,
   isImageZoomable = true,
   showTableOfContents,
   minTableOfContentsItems,
@@ -108,6 +110,7 @@ export const NotionRenderer: React.FC<{
       forceCustomImages={forceCustomImages}
       showCollectionViewDropdown={showCollectionViewDropdown}
       linkTableTitleProperties={linkTableTitleProperties}
+      isLinkCollectionToUrlProperty={isLinkCollectionToUrlProperty}
       showTableOfContents={showTableOfContents}
       minTableOfContentsItems={minTableOfContentsItems}
       defaultPageIcon={defaultPageIcon}
