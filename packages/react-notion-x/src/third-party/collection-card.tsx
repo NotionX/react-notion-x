@@ -118,7 +118,6 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
         ...ctx.components,
         // Disable <a> tabs in all child components so we don't create invalid DOM
         // trees with stacked <a> tags.
-        Link: dummyLink,
         PageLink: dummyLink
       }}
     >
