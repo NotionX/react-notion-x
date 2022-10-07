@@ -125,7 +125,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
           p.visible && p.property !== 'title' && collection.schema[p.property]
       )
       .filter((p) => {
-        if (!block.properties) return null
+        if (!block.properties) return false
         const schema = collection.schema[p.property]
 
         return schema.type == 'url'
@@ -136,6 +136,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
   }
   let url = null
   if (
+    linkProperties &&
     linkProperties.length > 0 &&
     linkProperties[0].length > 0 &&
     linkProperties[0][0].length > 0
