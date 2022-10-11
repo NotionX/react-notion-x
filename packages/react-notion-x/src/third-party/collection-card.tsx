@@ -133,6 +133,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
       .map((p) => {
         return block.properties[p.property]
       })
+      ?.filter((p) => p && p.length > 0 && p[0] != undefined) //case where the url is empty
   }
   let url = null
   if (
