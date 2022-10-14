@@ -105,7 +105,7 @@ export const Search: React.FC<{
     if (onHideSearch) {
       onHideSearch()
     }
-  }, [])
+  }, [onHideSearch])
 
   useHotkeys('cmd+p', (event) => {
     onOpenSearch()
