@@ -1,14 +1,13 @@
 // import { promises as fs } from 'fs'
-import got, { OptionsOfJSONResponseBody } from 'got'
-import pMap from 'p-map'
-
-import {
-  parsePageId,
-  getPageContentBlockIds,
-  uuidToId,
-  getBlockCollectionId
-} from 'notion-utils'
 import * as notion from 'notion-types'
+import got, { OptionsOfJSONResponseBody } from 'got'
+import {
+  getBlockCollectionId,
+  getPageContentBlockIds,
+  parsePageId,
+  uuidToId
+} from 'notion-utils'
+import pMap from 'p-map'
 
 import * as types from './types'
 

@@ -1,14 +1,15 @@
 import * as React from 'react'
+
 import { PageBlock } from 'notion-types'
 
-import { CollectionCard } from './collection-card'
-import { CollectionGroup } from './collection-group'
+import { useNotionContext } from '../context'
+import { EmptyIcon } from '../icons/empty-icon'
 import { CollectionViewProps } from '../types'
 import { cs } from '../utils'
-import { EmptyIcon } from '../icons/empty-icon'
+import { CollectionCard } from './collection-card'
+import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
-import { useNotionContext } from '../context'
 
 export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
   collection,

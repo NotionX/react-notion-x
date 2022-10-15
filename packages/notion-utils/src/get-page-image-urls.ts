@@ -1,6 +1,7 @@
 import * as types from 'notion-types'
-import { isUrl } from './is-url'
+
 import { getBlockIcon } from './get-block-icon'
+import { isUrl } from './is-url'
 
 /**
  * Gets URLs of all images contained on the given page.

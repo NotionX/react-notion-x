@@ -1,5 +1,5 @@
-import normalizeUrlImpl from 'normalize-url'
 import mem from 'mem'
+import normalizeUrlImpl from 'normalize-url'
 
 export const normalizeUrl = mem((url?: string) => {
   if (!url) {

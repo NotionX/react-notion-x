@@ -1,15 +1,15 @@
 import * as React from 'react'
 
-import { useHotkeys } from 'react-hotkeys-hook'
-import { getPageBreadcrumbs } from 'notion-utils'
 import * as types from 'notion-types'
+import { getPageBreadcrumbs } from 'notion-utils'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 import { useNotionContext } from '../context'
-import { PageIcon } from './page-icon'
 import { SearchIcon } from '../icons/search-icon'
-import { cs } from '../utils'
-import { SearchDialog } from './search-dialog'
 import { SearchNotionFn } from '../types'
+import { cs } from '../utils'
+import { PageIcon } from './page-icon'
+import { SearchDialog } from './search-dialog'
 
 export const Header: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock

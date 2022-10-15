@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import { CollectionColumnTitle } from './collection-column-title'
-import { CollectionGroup } from './collection-group'
+import { useNotionContext } from '../context'
 import { CollectionViewProps } from '../types'
 import { cs } from '../utils'
+import { CollectionColumnTitle } from './collection-column-title'
+import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
-import { useNotionContext } from '../context'
 
 const defaultBlockIds = []
 

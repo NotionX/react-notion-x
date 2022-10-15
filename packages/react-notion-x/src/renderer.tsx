@@ -1,15 +1,16 @@
 import * as React from 'react'
+
 import mediumZoom from '@fisch0920/medium-zoom'
 import { ExtendedRecordMap } from 'notion-types'
 
-import {
-  MapPageUrlFn,
-  MapImageUrlFn,
-  SearchNotionFn,
-  NotionComponents
-} from './types'
 import { Block } from './block'
-import { useNotionContext, NotionContextProvider } from './context'
+import { NotionContextProvider, useNotionContext } from './context'
+import {
+  MapImageUrlFn,
+  MapPageUrlFn,
+  NotionComponents,
+  SearchNotionFn
+} from './types'
 
 export const NotionRenderer: React.FC<{
   recordMap: ExtendedRecordMap

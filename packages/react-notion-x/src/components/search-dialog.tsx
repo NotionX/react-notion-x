@@ -1,14 +1,15 @@
 import * as React from 'react'
+
 import * as types from 'notion-types'
 import throttle from 'lodash.throttle'
-import { getBlockTitle, getBlockParentPage } from 'notion-utils'
+import { getBlockParentPage, getBlockTitle } from 'notion-utils'
 
-import { SearchIcon } from '../icons/search-icon'
+import { NotionContextConsumer, NotionContextProvider } from '../context'
 import { ClearIcon } from '../icons/clear-icon'
 import { LoadingIcon } from '../icons/loading-icon'
-import { PageTitle } from './page-title'
+import { SearchIcon } from '../icons/search-icon'
 import { cs } from '../utils'
-import { NotionContextConsumer, NotionContextProvider } from '../context'
+import { PageTitle } from './page-title'
 
 // TODO: modal.default.setAppElement('.notion-viewport')
 
