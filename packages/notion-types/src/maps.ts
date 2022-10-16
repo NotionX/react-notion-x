@@ -1,8 +1,8 @@
-import { ID, Decoration, PropertyType, Role } from './core'
 import { Block } from './block'
-import { User } from './user'
 import { Collection } from './collection'
 import { CollectionView, CollectionViewType } from './collection-view'
+import { Decoration, ID, PropertyType, Role } from './core'
+import { User } from './user'
 
 // Aggregate map types
 // ----------------------------------------------------------------------------

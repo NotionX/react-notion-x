@@ -1,12 +1,13 @@
 import * as React from 'react'
+
 import { ImageBlock } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
-import { CollectionCardProps } from '../types'
-import { Property } from './property'
-import { cs } from '../utils'
-import { useNotionContext, dummyLink, NotionContextProvider } from '../context'
 import { LazyImage } from '../components/lazy-image'
+import { NotionContextProvider, dummyLink, useNotionContext } from '../context'
+import { CollectionCardProps } from '../types'
+import { cs } from '../utils'
+import { Property } from './property'
 
 export const CollectionCard: React.FC<CollectionCardProps> = ({
   collection,

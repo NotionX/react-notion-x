@@ -1,28 +1,29 @@
 import * as React from 'react'
-import {
-  getBlockIcon,
-  getTextContent,
-  getPageTableOfContents,
-  getBlockParentPage,
-  uuidToId,
-  getBlockCollectionId
-} from 'notion-utils'
-import * as types from 'notion-types'
 
+import * as types from 'notion-types'
+import {
+  getBlockCollectionId,
+  getBlockIcon,
+  getBlockParentPage,
+  getPageTableOfContents,
+  getTextContent,
+  uuidToId
+} from 'notion-utils'
+
+import { AssetWrapper } from './components/asset-wrapper'
+import { Audio } from './components/audio'
+import { EOI } from './components/eoi'
+import { File } from './components/file'
+import { GoogleDrive } from './components/google-drive'
+import { LazyImage } from './components/lazy-image'
+import { PageAside } from './components/page-aside'
 import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
-import { PageAside } from './components/page-aside'
-import { LinkIcon } from './icons/link-icon'
-import { GoogleDrive } from './components/google-drive'
-import { Audio } from './components/audio'
-import { File } from './components/file'
-import { LazyImage } from './components/lazy-image'
-import { useNotionContext } from './context'
-import { cs, getListNumber, isUrl } from './utils'
-import { Text } from './components/text'
 import { SyncPointerBlock } from './components/sync-pointer-block'
-import { AssetWrapper } from './components/asset-wrapper'
-import { EOI } from './components/eoi'
+import { Text } from './components/text'
+import { useNotionContext } from './context'
+import { LinkIcon } from './icons/link-icon'
+import { cs, getListNumber, isUrl } from './utils'
 
 interface BlockProps {
   block: types.Block
@@ -359,7 +360,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           </span>
         </span>
       )
-      let headerBlock
+      let headerBlock = null
 
       //page title takes the h1 so all header blocks are greater
       if (isH1) {

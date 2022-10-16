@@ -1,4 +1,5 @@
 import test from 'ava'
+
 import { parsePageId } from './parse-page-id'
 
 const pageIdFixturesSuccess = [

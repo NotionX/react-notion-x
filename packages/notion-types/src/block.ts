@@ -1,4 +1,4 @@
-import { ID, Color, Decoration, Role } from './core'
+import { Color, Decoration, ID, Role } from './core'
 
 export type BlockType =
   | 'page'

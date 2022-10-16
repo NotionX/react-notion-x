@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { getBlockIcon, getBlockTitle } from 'notion-utils'
-import { Block, PageBlock, CalloutBlock } from 'notion-types'
 
-import { cs, isUrl } from '../utils'
-import { DefaultPageIcon } from '../icons/default-page-icon'
+import { Block, CalloutBlock, PageBlock } from 'notion-types'
+import { getBlockIcon, getBlockTitle } from 'notion-utils'
+
 import { useNotionContext } from '../context'
+import { DefaultPageIcon } from '../icons/default-page-icon'
+import { cs, isUrl } from '../utils'
 import { LazyImage } from './lazy-image'
 
 const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {

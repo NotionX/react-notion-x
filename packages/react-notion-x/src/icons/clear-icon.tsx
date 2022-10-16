@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { cs } from '../utils'
 
 export const ClearIcon = (props) => {

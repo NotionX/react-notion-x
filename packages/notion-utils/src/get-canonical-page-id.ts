@@ -1,8 +1,9 @@
 import { ExtendedRecordMap } from 'notion-types'
-import { uuidToId } from './uuid-to-id'
+
 import { getBlockTitle } from './get-block-title'
 import { getPageProperty } from './get-page-property'
 import { normalizeTitle } from './normalize-title'
+import { uuidToId } from './uuid-to-id'
 
 /**
  * Gets the canonical, display-friendly version of a page's ID for use in URLs.

@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import * as types from 'notion-types'
 import {
   getBlockCollectionId,
@@ -7,17 +8,17 @@ import {
 } from 'notion-utils'
 import { useLocalStorage, useWindowSize } from 'react-use'
 
-import { CollectionRow } from './collection-row'
-import { CollectionViewIcon } from '../icons/collection-view-icon'
-import { CollectionView } from './collection-view'
-import { PropertyImplMemo } from './property'
 import { PageIcon } from '../components/page-icon'
 import {
   NotionContext,
   NotionContextProvider,
   useNotionContext
 } from '../context'
+import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { cs } from '../utils'
+import { CollectionRow } from './collection-row'
+import { CollectionView } from './collection-view'
+import { PropertyImplMemo } from './property'
 
 const isServer = typeof window === 'undefined'
 
