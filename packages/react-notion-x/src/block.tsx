@@ -18,7 +18,7 @@ import { Audio } from './components/audio'
 import { File } from './components/file'
 import { LazyImage } from './components/lazy-image'
 import { useNotionContext } from './context'
-import { cs, getListNumber, isUrl } from './utils'
+import { cs, isUrl } from './utils'
 import { Text } from './components/text'
 import { SyncPointerBlock } from './components/sync-pointer-block'
 import { AssetWrapper } from './components/asset-wrapper'
@@ -424,46 +424,16 @@ export const Block: React.FC<BlockProps> = (props) => {
     case 'bulleted_list':
     // fallthrough
     case 'numbered_list': {
-      const wrapList = (content: React.ReactNode, start?: number) =>
-        block.type === 'bulleted_list' ? (
-          <ul className={cs('notion-list', 'notion-list-disc', blockId)}>
-            {content}
-          </ul>
-        ) : (
-          <ol
-            start={start}
-            className={cs('notion-list', 'notion-list-numbered', blockId)}
-          >
-            {content}
-          </ol>
-        )
-
-      let output: JSX.Element | null = null
-
-      if (block.content) {
-        output = (
-          <>
-            {block.properties && (
-              <li>
-                <Text value={block.properties.title} block={block} />
-              </li>
-            )}
-            {wrapList(children)}
-          </>
-        )
-      } else {
-        output = block.properties ? (
-          <li>
-            <Text value={block.properties.title} block={block} />
-          </li>
-        ) : null
-      }
-
-      const isTopLevel =
-        block.type !== recordMap.block[block.parent_id]?.value?.type
-      const start = getListNumber(block.id, recordMap.block)
-
-      return isTopLevel ? wrapList(output, start) : output
+      return (
+        <>
+          {block.properties && (
+            <li className={cs(blockId)}>
+              <Text value={block.properties.title} block={block} />
+              {children}
+            </li>
+          )}
+        </>
+      )
     }
 
     case 'embed':
