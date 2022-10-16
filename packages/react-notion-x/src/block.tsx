@@ -360,7 +360,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           </span>
         </span>
       )
-      let headerBlock
+      let headerBlock = null
 
       //page title takes the h1 so all header blocks are greater
       if (isH1) {

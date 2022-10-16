@@ -82,7 +82,7 @@ const DefaultLinkMemo = React.memo(DefaultLink)
 const DefaultPageLink: React.FC = (props) => <a {...props} />
 const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
-const DefaultEmbed = AssetWrapper
+const DefaultEmbed = (props) => <AssetWrapper {...props} />
 const DefaultHeader = Header
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
