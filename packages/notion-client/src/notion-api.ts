@@ -1,6 +1,7 @@
 // import { promises as fs } from 'fs'
 import * as notion from 'notion-types'
-import got, { OptionsOfJSONResponseBody } from 'got'
+import ky from 'ky'
+import type { Options as KyOptions } from 'ky'
 import {
   getBlockCollectionId,
   getPageContentBlockIds,
@@ -19,23 +20,27 @@ export class NotionAPI {
   private readonly _authToken?: string
   private readonly _activeUser?: string
   private readonly _userTimeZone: string
+  private readonly _kyOptions?: KyOptions
 
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
     activeUser,
-    userTimeZone = 'America/New_York'
+    userTimeZone = 'America/New_York',
+    kyOptions
   }: {
     apiBaseUrl?: string
     authToken?: string
     userLocale?: string
     userTimeZone?: string
     activeUser?: string
+    kyOptions?: KyOptions
   } = {}) {
     this._apiBaseUrl = apiBaseUrl
     this._authToken = authToken
     this._activeUser = activeUser
     this._userTimeZone = userTimeZone
+    this._kyOptions = kyOptions
   }
 
   public async getPage(
@@ -47,7 +52,7 @@ export class NotionAPI {
       signFileUrls = true,
       chunkLimit = 100,
       chunkNumber = 0,
-      gotOptions
+      kyOptions
     }: {
       concurrency?: number
       fetchMissingBlocks?: boolean
@@ -55,13 +60,13 @@ export class NotionAPI {
       signFileUrls?: boolean
       chunkLimit?: number
       chunkNumber?: number
-      gotOptions?: OptionsOfJSONResponseBody
+      kyOptions?: KyOptions
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
     const page = await this.getPageRaw(pageId, {
       chunkLimit,
       chunkNumber,
-      gotOptions
+      kyOptions
     })
     const recordMap = page?.recordMap as notion.ExtendedRecordMap
 
@@ -91,10 +96,9 @@ export class NotionAPI {
           break
         }
 
-        const newBlocks = await this.getBlocks(
-          pendingBlockIds,
-          gotOptions
-        ).then((res) => res.recordMap.block)
+        const newBlocks = await this.getBlocks(pendingBlockIds, kyOptions).then(
+          (res) => res.recordMap.block
+        )
 
         recordMap.block = { ...recordMap.block, ...newBlocks }
       }
@@ -143,7 +147,7 @@ export class NotionAPI {
               collectionViewId,
               collectionView,
               {
-                gotOptions
+                kyOptions
               }
             )
 
@@ -194,7 +198,7 @@ export class NotionAPI {
     // because it is preferable for many use cases as opposed to making these API calls
     // lazily from the client-side.
     if (signFileUrls) {
-      await this.addSignedUrls({ recordMap, contentBlockIds, gotOptions })
+      await this.addSignedUrls({ recordMap, contentBlockIds, kyOptions })
     }
 
     return recordMap
@@ -203,11 +207,11 @@ export class NotionAPI {
   public async addSignedUrls({
     recordMap,
     contentBlockIds,
-    gotOptions = {}
+    kyOptions = {}
   }: {
     recordMap: notion.ExtendedRecordMap
     contentBlockIds?: string[]
-    gotOptions?: OptionsOfJSONResponseBody
+    kyOptions?: KyOptions
   }) {
     recordMap.signed_urls = {}
 
@@ -255,7 +259,7 @@ export class NotionAPI {
       try {
         const { signedUrls } = await this.getSignedFileUrls(
           allFileInstances,
-          gotOptions
+          kyOptions
         )
 
         if (signedUrls.length === allFileInstances.length) {
@@ -275,13 +279,13 @@ export class NotionAPI {
   public async getPageRaw(
     pageId: string,
     {
-      gotOptions,
+      kyOptions,
       chunkLimit = 100,
       chunkNumber = 0
     }: {
       chunkLimit?: number
       chunkNumber?: number
-      gotOptions?: OptionsOfJSONResponseBody
+      kyOptions?: KyOptions
     } = {}
   ) {
     const parsedPageId = parsePageId(pageId)
@@ -301,7 +305,7 @@ export class NotionAPI {
     return this.fetch<notion.PageChunk>({
       endpoint: 'loadPageChunk',
       body,
-      gotOptions
+      kyOptions
     })
   }
 
@@ -314,7 +318,7 @@ export class NotionAPI {
       searchQuery = '',
       userTimeZone = this._userTimeZone,
       loadContentCover = true,
-      gotOptions
+      kyOptions
     }: {
       type?: notion.CollectionViewType
       limit?: number
@@ -322,7 +326,7 @@ export class NotionAPI {
       userTimeZone?: string
       userLocale?: string
       loadContentCover?: boolean
-      gotOptions?: OptionsOfJSONResponseBody
+      kyOptions?: KyOptions
     } = {}
   ) {
     const type = collectionView?.type
@@ -493,27 +497,21 @@ export class NotionAPI {
         },
         loader
       },
-      gotOptions
+      kyOptions
     })
   }
 
-  public async getUsers(
-    userIds: string[],
-    gotOptions?: OptionsOfJSONResponseBody
-  ) {
+  public async getUsers(userIds: string[], kyOptions?: KyOptions) {
     return this.fetch<notion.RecordValues<notion.User>>({
       endpoint: 'getRecordValues',
       body: {
         requests: userIds.map((id) => ({ id, table: 'notion_user' }))
       },
-      gotOptions
+      kyOptions
     })
   }
 
-  public async getBlocks(
-    blockIds: string[],
-    gotOptions?: OptionsOfJSONResponseBody
-  ) {
+  public async getBlocks(blockIds: string[], kyOptions?: KyOptions) {
     return this.fetch<notion.PageChunk>({
       endpoint: 'syncRecordValues',
       body: {
@@ -524,27 +522,24 @@ export class NotionAPI {
           version: -1
         }))
       },
-      gotOptions
+      kyOptions
     })
   }
 
   public async getSignedFileUrls(
     urls: types.SignedUrlRequest[],
-    gotOptions?: OptionsOfJSONResponseBody
+    kyOptions?: KyOptions
   ) {
     return this.fetch<types.SignedUrlResponse>({
       endpoint: 'getSignedFileUrls',
       body: {
         urls
       },
-      gotOptions
+      kyOptions
     })
   }
 
-  public async search(
-    params: notion.SearchParams,
-    gotOptions?: OptionsOfJSONResponseBody
-  ) {
+  public async search(params: notion.SearchParams, kyOptions?: KyOptions) {
     const body = {
       type: 'BlocksInAncestor',
       source: 'quick_find_public',
@@ -569,24 +564,25 @@ export class NotionAPI {
     return this.fetch<notion.SearchResults>({
       endpoint: 'search',
       body,
-      gotOptions
+      kyOptions
     })
   }
 
   public async fetch<T>({
     endpoint,
     body,
-    gotOptions,
+    kyOptions,
     headers: clientHeaders
   }: {
     endpoint: string
     body: object
-    gotOptions?: OptionsOfJSONResponseBody
+    kyOptions?: KyOptions
     headers?: any
   }): Promise<T> {
     const headers: any = {
       ...clientHeaders,
-      ...gotOptions?.headers,
+      ...this._kyOptions?.headers,
+      ...kyOptions?.headers,
       'Content-Type': 'application/json'
     }
 
@@ -600,21 +596,13 @@ export class NotionAPI {
 
     const url = `${this._apiBaseUrl}/${endpoint}`
 
-    return got
+    return ky
       .post(url, {
-        ...gotOptions,
+        ...this._kyOptions,
+        ...kyOptions,
         json: body,
         headers
       })
       .json()
-
-    // return fetch(url, {
-    //   method: 'post',
-    //   body: JSON.stringify(body),
-    //   headers
-    // }).then((res) => {
-    //   console.log(endpoint, res)
-    //   return res.json()
-    // })
   }
 }

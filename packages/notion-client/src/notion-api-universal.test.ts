@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import { NotionAPI } from './notion-api'
+import { NotionAPI } from './notion-api-universal'
 
 const pageIdFixturesSuccess = [
   '067dd719-a912-471e-a9a3-ac10710e7fdf',
