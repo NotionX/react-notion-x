@@ -1,11 +1,12 @@
 import * as React from 'react'
+
 import { BaseContentBlock, Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
+import { getYoutubeId } from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
-import { getYoutubeId } from '../utils'
 
 const isServer = typeof window === 'undefined'
 

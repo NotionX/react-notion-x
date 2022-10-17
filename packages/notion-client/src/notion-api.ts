@@ -1,14 +1,13 @@
 // import { promises as fs } from 'fs'
-import got, { OptionsOfJSONResponseBody } from 'got'
-import pMap from 'p-map'
-
-import {
-  parsePageId,
-  getPageContentBlockIds,
-  uuidToId,
-  getBlockCollectionId
-} from 'notion-utils'
 import * as notion from 'notion-types'
+import got, { OptionsOfJSONResponseBody } from 'got'
+import {
+  getBlockCollectionId,
+  getPageContentBlockIds,
+  parsePageId,
+  uuidToId
+} from 'notion-utils'
+import pMap from 'p-map'
 
 import * as types from './types'
 
@@ -333,7 +332,7 @@ export class NotionAPI {
       : collectionView?.format?.collection_group_by
 
     let filters = []
-    if (collectionView.format?.property_filters) {
+    if (collectionView?.format?.property_filters) {
       filters = collectionView.format?.property_filters.map((filterObj) => {
         //get the inner filter
         return {

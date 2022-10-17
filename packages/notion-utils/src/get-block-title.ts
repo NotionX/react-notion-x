@@ -1,4 +1,5 @@
 import { Block, ExtendedRecordMap } from 'notion-types'
+
 import { getBlockCollectionId } from './get-block-collection-id'
 import { getTextContent } from './get-text-content'
 

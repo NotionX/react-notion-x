@@ -38,23 +38,24 @@
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
-    "@types/node": "^17.0.23",
-    "@typescript-eslint/eslint-plugin": "^5.15.0",
-    "@typescript-eslint/parser": "^5.15.0",
+    "@trivago/prettier-plugin-sort-imports": "^3.3.1",
+    "@types/node": "^18.11.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "ava": "^4.1.0",
     "del-cli": "^4.0.1",
-    "eslint": "^8.11.0",
+    "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "husky": "^7.0.4",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
     "lerna": "^4.0.0",
     "lint-staged": "^12.3.6",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.6.0",
-    "ts-node": "^10.7.0",
-    "tsup": "^5.12.1",
-    "typescript": "^4.6.2"
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1",
+    "tsup": "^6.2.3",
+    "typescript": "^4.8.4"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

@@ -1,10 +1,12 @@
 import * as React from 'react'
+
 import { BaseContentBlock, Block } from 'notion-types'
-import { Asset } from './asset'
-import { cs } from '../utils'
-import { Text } from './text'
-import { useNotionContext } from '..'
 import { parsePageId } from 'notion-utils'
+
+import { useNotionContext } from '..'
+import { cs } from '../utils'
+import { Asset } from './asset'
+import { Text } from './text'
 
 const urlStyle = { width: '100%' }
 

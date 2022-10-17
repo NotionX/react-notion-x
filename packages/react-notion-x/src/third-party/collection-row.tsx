@@ -1,10 +1,11 @@
 import * as React from 'react'
+
 import { PageBlock } from 'notion-types'
 
-import { CollectionColumnTitle } from './collection-column-title'
-import { Property } from './property'
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
+import { CollectionColumnTitle } from './collection-column-title'
+import { Property } from './property'
 
 export const CollectionRow: React.FC<{
   block: PageBlock

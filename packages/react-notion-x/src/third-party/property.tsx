@@ -1,14 +1,15 @@
 import * as React from 'react'
-import * as types from 'notion-types'
-import formatNumber from 'format-number'
-import format from 'date-fns/format/index.js'
 
-import { cs } from '../utils'
-import { useNotionContext } from '../context'
+import * as types from 'notion-types'
+import format from 'date-fns/format/index.js'
+import formatNumber from 'format-number'
+
 import { Checkbox } from '../components/checkbox'
-import { Text } from '../components/text'
-import { PageTitle } from '../components/page-title'
 import { GracefulImage } from '../components/graceful-image'
+import { PageTitle } from '../components/page-title'
+import { Text } from '../components/text'
+import { useNotionContext } from '../context'
+import { cs } from '../utils'
 import { evalFormula } from './eval-formula'
 
 export interface IPropertyProps {

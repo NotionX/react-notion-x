@@ -1,15 +1,16 @@
 import * as React from 'react'
+
 import mediumZoom from '@fisch0920/medium-zoom'
 import { ExtendedRecordMap } from 'notion-types'
 
-import {
-  MapPageUrlFn,
-  MapImageUrlFn,
-  SearchNotionFn,
-  NotionComponents
-} from './types'
 import { Block } from './block'
-import { useNotionContext, NotionContextProvider } from './context'
+import { NotionContextProvider, useNotionContext } from './context'
+import {
+  MapImageUrlFn,
+  MapPageUrlFn,
+  NotionComponents,
+  SearchNotionFn
+} from './types'
 
 export const NotionRenderer: React.FC<{
   recordMap: ExtendedRecordMap
@@ -18,6 +19,8 @@ export const NotionRenderer: React.FC<{
   mapPageUrl?: MapPageUrlFn
   mapImageUrl?: MapImageUrlFn
   searchNotion?: SearchNotionFn
+  isShowingSearch?: boolean
+  onHideSearch?: () => void
 
   rootPageId?: string
   rootDomain?: string
@@ -31,6 +34,7 @@ export const NotionRenderer: React.FC<{
   forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
   linkTableTitleProperties?: boolean
+  isLinkCollectionToUrlProperty?: boolean
   isImageZoomable?: boolean
 
   showTableOfContents?: boolean
@@ -62,6 +66,8 @@ export const NotionRenderer: React.FC<{
   mapPageUrl,
   mapImageUrl,
   searchNotion,
+  isShowingSearch,
+  onHideSearch,
   fullPage,
   rootPageId,
   rootDomain,
@@ -70,6 +76,7 @@ export const NotionRenderer: React.FC<{
   forceCustomImages,
   showCollectionViewDropdown,
   linkTableTitleProperties,
+  isLinkCollectionToUrlProperty,
   isImageZoomable = true,
   showTableOfContents,
   showCalendarControls,
@@ -98,6 +105,8 @@ export const NotionRenderer: React.FC<{
       mapPageUrl={mapPageUrl}
       mapImageUrl={mapImageUrl}
       searchNotion={searchNotion}
+      isShowingSearch={isShowingSearch}
+      onHideSearch={onHideSearch}
       fullPage={fullPage}
       rootPageId={rootPageId}
       rootDomain={rootDomain}
@@ -106,6 +115,7 @@ export const NotionRenderer: React.FC<{
       forceCustomImages={forceCustomImages}
       showCollectionViewDropdown={showCollectionViewDropdown}
       linkTableTitleProperties={linkTableTitleProperties}
+      isLinkCollectionToUrlProperty={isLinkCollectionToUrlProperty}
       showTableOfContents={showTableOfContents}
       showCalendarControls={showCalendarControls}
       startWeekOnMonday={startWeekOnMonday}

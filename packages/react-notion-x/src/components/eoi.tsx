@@ -1,9 +1,10 @@
 import * as React from 'react'
+
 import { Block } from 'notion-types'
 
 import { useNotionContext } from '../context'
-import { cs, formatNotionDateTime } from '../utils'
 import SvgTypeGitHub from '../icons/type-github'
+import { cs, formatNotionDateTime } from '../utils'
 
 // External Object Instance
 export const EOI: React.FC<{
