@@ -155,6 +155,7 @@ export const Asset: React.FC<{
   } else if (block.type === 'pdf') {
     style.overflow = 'auto'
     style.background = 'rgb(226, 226, 226)'
+    style.display = 'block'
 
     if (!style.padding) {
       style.padding = '8px 16px'
