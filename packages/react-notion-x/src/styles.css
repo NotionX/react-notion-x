@@ -1127,6 +1127,7 @@ svg.notion-page-icon {
 }
 
 .notion-toggle {
+  width: 100%;
   padding: 3px 2px;
 }
 .notion-toggle > summary {
