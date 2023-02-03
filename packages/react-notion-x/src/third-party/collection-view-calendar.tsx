@@ -1,6 +1,8 @@
+import * as React from 'react'
+
 import { PageBlock } from 'notion-types'
 import { getPagePropertyFromId } from 'notion-utils'
-import * as React from 'react'
+
 import { useNotionContext } from '../context'
 import { DefaultPageIcon } from '../icons/default-page-icon'
 import SvgLeftChevron from '../icons/left-chevron'
@@ -12,7 +14,7 @@ import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
 
 const defaultBlockIds = []
-const currentYear = new Date(Date.now())
+const currentYear = new Date()
 const months = [
   'January',
   'February',
@@ -42,7 +44,6 @@ const monthsShort = [
   'Nov',
   'Dec'
 ]
-let currentMonth = 0
 
 export const CollectionViewCalendar: React.FC<CollectionViewProps> = ({
   collection,
@@ -91,6 +92,7 @@ function Calendar({ blockIds, collectionView, collection }) {
     mapPageUrl
   } = useNotionContext()
 
+  const [currentMonth, setCurrentMonth] = React.useState(0)
   const [weeksArr, setWeeksArr] = React.useState(
     getWeeksInMonth(
       currentYear.getFullYear(),
@@ -98,11 +100,6 @@ function Calendar({ blockIds, collectionView, collection }) {
       startWeekOnMonday
     )
   )
-
-  // Check if collection view is a standalone page or not
-  const isCollectionViewPage =
-    recordMap.block[Object.keys(recordMap.block)[0]].value.type ==
-    'collection_view_page'
 
   const nextMonth = () => {
     if (currentYear.getMonth() == 11) {
@@ -112,7 +109,7 @@ function Calendar({ blockIds, collectionView, collection }) {
       currentYear.setMonth(currentYear.getMonth() + 1)
     }
 
-    currentMonth = 0
+    setCurrentMonth(0)
 
     setWeeksArr(
       getWeeksInMonth(
@@ -130,7 +127,7 @@ function Calendar({ blockIds, collectionView, collection }) {
       currentYear.setMonth(currentYear.getMonth() - 1)
     }
 
-    currentMonth = 0
+    setCurrentMonth(0)
 
     setWeeksArr(
       getWeeksInMonth(
@@ -144,7 +141,7 @@ function Calendar({ blockIds, collectionView, collection }) {
     currentYear.setMonth(new Date().getMonth())
     currentYear.setFullYear(new Date().getFullYear())
 
-    currentMonth = 0
+    setCurrentMonth(0)
 
     setWeeksArr(
       getWeeksInMonth(
@@ -155,7 +152,49 @@ function Calendar({ blockIds, collectionView, collection }) {
     )
   }
 
-  // Check on page load if the collection is a page or not
+  const checkWeek = (weekNumber: number) => {
+    let max = 0
+
+    for (let i = 0; i < 7; i++) {
+      const newMax = getPagesThisDay(weeksArr[weekNumber][i]).length
+      if (max < newMax) max = newMax
+    }
+
+    return max
+  }
+
+  const getPagesThisDay = (day: { date: number; month: number }) => {
+    const daysTo = []
+
+    blockIds?.map((blockId) => {
+      const block = recordMap.block[blockId]?.value as PageBlock
+      if (!block) return null
+
+      // Get date from calendar view query
+      const blockDate = getPagePropertyFromId(
+        collectionView.query2.calendar_by,
+        block,
+        recordMap
+      )
+      const blockDateDATE = new Date(blockDate as number)
+      if (
+        blockDateDATE.getDate() == day.date &&
+        blockDateDATE.getMonth() == day.month &&
+        blockDateDATE.getFullYear() == currentYear.getFullYear()
+      ) {
+        daysTo.push(block)
+      }
+    })
+
+    return daysTo
+  }
+
+  // Check if collection view is a standalone page or not
+  const isCollectionViewPage =
+    recordMap.block[Object.keys(recordMap.block)[0]].value.type ===
+    'collection_view_page'
+
+  // This is needed because calendar view pages need to be full width (like Notion)
   React.useEffect(() => {
     if (isCollectionViewPage) {
       document.querySelector('.notion-page').classList.add('notion-full-width')
@@ -256,16 +295,19 @@ function Calendar({ blockIds, collectionView, collection }) {
                 'notion-calendar-body-inner-last-week'
             )}
             style={{
-              height: `${
+              /*height: `${
                 collectionView.format?.calendar_properties &&
                 Object.keys(collectionView.format?.calendar_properties).length *
                   20 +
                   64
+              }px`*/
+              height: `${
+                checkWeek(indexI) == 0 ? 143.99 : checkWeek(indexI) * 110 + 34
               }px`
             }}
             key={indexI}
           >
-            {i.dates.map((day, indexY) => (
+            {i.map((day, indexY: number) => (
               <>
                 <div
                   className={cs(
@@ -284,30 +326,26 @@ function Calendar({ blockIds, collectionView, collection }) {
                   <div
                     className={cs(
                       'notion-calendar-body-inner-day',
-                      day == new Date(Date.now()).getDate() &&
-                        currentYear.getMonth() ==
-                          new Date(Date.now()).getMonth() &&
-                        currentYear.getFullYear() ==
-                          new Date(Date.now()).getFullYear()
+
+                      day.date == new Date().getDate() &&
+                        day.month == new Date().getMonth() &&
+                        currentYear.getFullYear() == new Date().getFullYear()
                         ? 'notion-calendar-body-inner-day-today'
-                        : (day == 1 && currentMonth++ == 0) ||
-                          ((day <= 31 || day >= 28) && currentMonth == 1)
+                        : (day.date == 1 &&
+                            currentYear.getMonth() == day.month) ||
+                          ((day.date <= 31 || day.date >= 28) &&
+                            currentYear.getMonth() == day.month)
                         ? 'notion-calendar-body-inner-day-this-month'
                         : 'notion-calendar-body-inner-day-other-month'
                     )}
                   >
-                    {day == 1
-                      ? `${
-                          monthsShort[currentYear.getMonth() + currentMonth - 1]
-                        } ${day}`
-                      : day}
+                    {day.date == 1
+                      ? `${monthsShort[day.month + currentMonth]} ${day.date}`
+                      : day.date}
                   </div>
                 </div>
 
-                {blockIds?.map((blockId) => {
-                  const block = recordMap.block[blockId]?.value as PageBlock
-                  if (!block) return null
-
+                {getPagesThisDay(day).map((block, sum) => {
                   // Get date from calendar view query
                   const blockDate = getPagePropertyFromId(
                     collectionView.query2.calendar_by,
@@ -325,11 +363,9 @@ function Calendar({ blockIds, collectionView, collection }) {
                   const titleData = block?.properties?.title
 
                   if (
-                    new Date(blockDate as number).getDate() == day &&
-                    new Date(blockDate as number).getMonth() ==
-                      currentYear.getMonth() &&
-                    new Date(blockDate as number).getFullYear() ==
-                      currentYear.getFullYear()
+                    blockDateDATE.getDate() == day.date &&
+                    blockDateDATE.getMonth() == day.month &&
+                    blockDateDATE.getFullYear() == currentYear.getFullYear()
                   ) {
                     return (
                       <div
@@ -345,9 +381,12 @@ function Calendar({ blockIds, collectionView, collection }) {
                             ).length *
                               20 +
                               30
+                          }px`,
+                          top: `${
+                            (checkWeek(indexI) != 0 ? sum * 110 : 0) + 30
                           }px`
                         }}
-                        key={blockId}
+                        key={block.id}
                       >
                         <components.PageLink
                           href={mapPageUrl(block.id)}
@@ -398,26 +437,6 @@ function Calendar({ blockIds, collectionView, collection }) {
                                   )
                                 })}
                             </div>
-                            <div
-                              style={{
-                                position: 'absolute',
-                                top: '0px',
-                                left: '-4px',
-                                height: '100%',
-                                width: '12px',
-                                cursor: 'col-resize'
-                              }}
-                            ></div>
-                            <div
-                              style={{
-                                position: 'absolute',
-                                top: '0px',
-                                right: '-4px',
-                                height: '100%',
-                                width: '12px',
-                                cursor: 'col-resize'
-                              }}
-                            ></div>
                           </div>
                         </components.PageLink>
                       </div>

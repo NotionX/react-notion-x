@@ -77,7 +77,7 @@
   --fg-color-6: #fff;
   --fg-color-icon: #fff;
 
-  --bg-color: rgb(25, 25, 25);
+  --bg-color: #2f3437;
   --bg-color-0: rgb(71, 76, 80);
   --bg-color-1: rgb(63, 68, 71);
   --bg-color-2: rgba(135, 131, 120, 0.15);
@@ -1607,8 +1607,8 @@ svg.notion-page-icon {
 
 .notion-calendar-header {
   position: absolute;
-  left: 0px;
-  right: 0px;
+  left: 0;
+  right: 0;
   background: white;
   z-index: 83;
 }
@@ -3058,7 +3058,7 @@ svg.notion-page-icon {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 120%
+  width: 120%;
 }
 
 .notion-collection-view-tabs-content-item {
@@ -3108,9 +3108,9 @@ svg.notion-page-icon {
 }
 
 .nested-form-link {
-  background: none!important;
+  background: none !important;
   border: none;
-  padding: 0!important;
+  padding: 0 !important;
   text-decoration: underline;
   cursor: pointer;
 }

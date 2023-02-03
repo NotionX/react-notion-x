@@ -86,78 +86,73 @@ export const getYoutubeId = (url: string): string | null => {
 export const getWeeksInMonth = (
   year: number,
   month: number,
-  startOnMonday?: boolean
+  startWeekOnMonday?: boolean
 ) => {
-  const weeks = []
+  const weeks = [],
+    firstDate = new Date(year, month, 1),
+    lastDate = new Date(year, month + 1, 0),
+    numDays = lastDate.getDate()
 
-  const firstDate = new Date(year, month, 1)
-  const lastDate = new Date(year, month + 1, 0)
-  const numDays = lastDate.getDate()
-  let dayOfWeekCounter = startOnMonday
-    ? firstDate.getDay() === 0
-      ? 6
-      : firstDate.getDay() - 1
-    : firstDate.getDay()
+  let start = 1
+  let end = -1
 
-  for (let date = 1; date <= numDays; date++) {
-    if (dayOfWeekCounter === 0 || weeks.length === 0) {
-      weeks.push([])
+  if (firstDate.getDay() === 1) {
+    end = 7
+  } else if (firstDate.getDay() === 0) {
+    const preMonthEndDay = new Date(year, month, 0)
+
+    start = preMonthEndDay.getDate() - 6 + 1
+    end = 1
+  } else {
+    const preMonthEndDay = new Date(year, month, 0)
+
+    start =
+      preMonthEndDay.getDate() +
+      1 -
+      firstDate.getDay() +
+      (startWeekOnMonday ? 1 : 0)
+    end = 7 - firstDate.getDay() + (startWeekOnMonday ? 1 : 0)
+
+    weeks.push({
+      start: start,
+      end: end
+    })
+
+    start = end + 1
+    end = end + 7
+  }
+
+  while (start <= numDays) {
+    weeks.push({
+      start: start,
+      end: end
+    })
+
+    start = end + 1
+    end += 7
+    end = start === 1 && end === 8 ? 1 : end
+
+    if (end > numDays && start <= numDays) {
+      end = end - numDays
+
+      weeks.push({
+        start: start,
+        end: end
+      })
+
+      break
     }
-    weeks[weeks.length - 1].push(date)
-    dayOfWeekCounter = (dayOfWeekCounter + 1) % 7
   }
 
-  // This is to add the last week of the previous month to the first week of the current month.
-  if (weeks[0].length < 7) {
-    const beforeIndex1 = addMonth(year, month - 1, 1, startOnMonday)
-    const indexRefactor = [...beforeIndex1, ...weeks[0]]
-    weeks[0] = indexRefactor
-  }
+  return weeks.map(({ start, end }, index) => {
+    const sub = +(start > end && index === 0)
+    return Array.from({ length: 7 }, (_, index) => {
+      const date = new Date(year, month - sub, start + index)
 
-  // This is to add the first week of the next month to the last week of the current month
-  if (weeks[weeks.length - 1].length < 7) {
-    const afterIndex1 = addMonth(year, month + 1, 0, startOnMonday)
-    const indexRefactor = [...weeks[weeks.length - 1], ...afterIndex1]
-    weeks[weeks.length - 1] = indexRefactor
-  }
-
-  return weeks
-    .filter((w) => !!w.length)
-    .map((w) => ({
-      start: w[0],
-      end: w[w.length - 1],
-      dates: w
-    }))
-}
-
-const addMonth = (
-  year: number,
-  month: number,
-  flag: 0 | 1,
-  startOnMonday: boolean
-) => {
-  const weeks = []
-  const firstDate = new Date(year, month, 1)
-  const lastDate = new Date(year, month + 1, 0)
-  const numDays = lastDate.getDate()
-  let dayOfWeekCounter = startOnMonday
-    ? firstDate.getDay() === 0
-      ? 6
-      : firstDate.getDay() - 1
-    : firstDate.getDay()
-
-  for (let date = 1; date <= numDays; date++) {
-    if (dayOfWeekCounter === 0 || weeks.length === 0) {
-      weeks.push([])
-    }
-    weeks[weeks.length - 1].push(date)
-    dayOfWeekCounter = (dayOfWeekCounter + 1) % 7
-  }
-  if (flag == 0) {
-    return weeks[0]
-  } else if (flag == 1) {
-    return weeks[weeks.length - 1]
-  }
-
-  return []
+      return {
+        date: date.getDate(),
+        month: date.getMonth()
+      }
+    })
+  })
 }
