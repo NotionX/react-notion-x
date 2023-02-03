@@ -1,10 +1,10 @@
 import * as React from 'react'
 
 import { PageBlock } from 'notion-types'
-import { getPagePropertyFromId } from 'notion-utils'
+import { getBlockIcon, getPagePropertyFromId } from 'notion-utils'
 
+import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
-import { DefaultPageIcon } from '../icons/default-page-icon'
 import SvgLeftChevron from '../icons/left-chevron'
 import SvgRightChevron from '../icons/right-chevron'
 import { CollectionViewProps } from '../types'
@@ -395,9 +395,14 @@ function Calendar({ blockIds, collectionView, collection }) {
                           <div className='notion-calendar-body-inner-card-inner-box'>
                             <div className='notion-calendar-body-inner-card-inner-box-title'>
                               <div className='notion-calendar-body-inner-card-inner-box-title-inner'>
-                                <div className='notion-calendar-body-inner-card-inner-box-title-inner-icon'>
-                                  <DefaultPageIcon className='notion-calendar-body-inner-card-inner-box-title-inner-icon-svg' />
-                                </div>
+                                {getBlockIcon(block, recordMap) && (
+                                  <div className='notion-calendar-body-inner-card-inner-box-title-inner-icon'>
+                                    <PageIcon
+                                      block={block}
+                                      className='notion-calendar-body-inner-card-inner-box-title-inner-icon-svg'
+                                    />
+                                  </div>
+                                )}
                                 <div className='notion-calendar-body-inner-card-inner-box-title-inner-text'>
                                   <Property
                                     schema={titleSchema}
