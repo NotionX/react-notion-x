@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { PageBlock } from 'notion-types'
+import { Block, CalendarCollectionView, PageBlock } from 'notion-types'
 import { getBlockIcon, getPagePropertyFromId } from 'notion-utils'
 
 import { PageIcon } from '../components/page-icon'
@@ -13,7 +13,7 @@ import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
 
-const defaultBlockIds = []
+const defaultBlockIds: string[] = []
 const currentYear = new Date()
 const months = [
   'January',
@@ -164,9 +164,9 @@ function Calendar({ blockIds, collectionView, collection }) {
   }
 
   const getPagesThisDay = (day: { date: number; month: number }) => {
-    const daysTo = []
+    const daysTo: Block[] = []
 
-    blockIds?.map((blockId) => {
+    blockIds?.map((blockId: string) => {
       const block = recordMap.block[blockId]?.value as PageBlock
       if (!block) return null
 
@@ -295,19 +295,13 @@ function Calendar({ blockIds, collectionView, collection }) {
                 'notion-calendar-body-inner-last-week'
             )}
             style={{
-              /*height: `${
-                collectionView.format?.calendar_properties &&
-                Object.keys(collectionView.format?.calendar_properties).length *
-                  20 +
-                  64
-              }px`*/
               height: `${
                 checkWeek(indexI) == 0 ? 143.99 : checkWeek(indexI) * 110 + 34
               }px`
             }}
             key={indexI}
           >
-            {i.map((day, indexY: number) => (
+            {i.map((day, indexY) => (
               <>
                 <div
                   className={cs(
@@ -416,8 +410,10 @@ function Calendar({ blockIds, collectionView, collection }) {
                             </div>
                             <div className='notion-calendar-body-inner-card-inner-box-properties'>
                               {collectionView.format?.calendar_properties
-                                ?.filter((p) => p.visible)
-                                .map((p, z) => {
+                                ?.filter(
+                                  (p: CalendarCollectionView) => p.visible
+                                )
+                                .map((p: CalendarCollectionView, z) => {
                                   const schema = collection.schema[p.property]
                                   const data =
                                     block && block.properties?.[p.property]

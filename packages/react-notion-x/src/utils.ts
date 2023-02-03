@@ -83,6 +83,13 @@ export const getYoutubeId = (url: string): string | null => {
   return null
 }
 
+/**
+ * Get dates and month in an array of weeks based on the year and on the month
+ * @param year
+ * @param month
+ * @param startWeekOnMonday
+ * @returns An array of objects with month and date number
+ */
 export const getWeeksInMonth = (
   year: number,
   month: number,
