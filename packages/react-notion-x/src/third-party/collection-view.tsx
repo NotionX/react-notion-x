@@ -2,9 +2,9 @@ import * as React from 'react'
 
 import { CollectionViewProps } from '../types'
 import { CollectionViewBoard } from './collection-view-board'
+import { CollectionViewCalendar } from './collection-view-calendar'
 import { CollectionViewGallery } from './collection-view-gallery'
 import { CollectionViewList } from './collection-view-list'
-import { CollectionViewCalendar } from './collection-view-calendar'
 import { CollectionViewTable } from './collection-view-table'
 
 export const CollectionViewImpl: React.FC<CollectionViewProps> = (props) => {
@@ -22,6 +22,7 @@ export const CollectionViewImpl: React.FC<CollectionViewProps> = (props) => {
 
     case 'board':
       return <CollectionViewBoard {...props} />
+
     case 'calendar':
       return <CollectionViewCalendar {...props} />
 

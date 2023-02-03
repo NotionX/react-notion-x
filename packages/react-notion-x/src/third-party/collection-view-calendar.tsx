@@ -199,7 +199,7 @@ function Calendar({ blockIds, collectionView, collection }) {
     if (isCollectionViewPage) {
       document.querySelector('.notion-page').classList.add('notion-full-width')
     }
-  }, [])
+  }, [isCollectionViewPage])
 
   return (
     <div className='notion-calendar-view'>

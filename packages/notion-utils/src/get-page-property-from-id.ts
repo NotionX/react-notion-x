@@ -1,4 +1,5 @@
 import { Block, DateFormat, ExtendedRecordMap } from 'notion-types'
+
 import { getTextContent } from './get-text-content'
 
 /**
