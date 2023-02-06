@@ -158,7 +158,8 @@ export const getWeeksInMonth = (
 
       return {
         date: date.getDate(),
-        month: date.getMonth()
+        month: date.getMonth(),
+        year: date.getFullYear()
       }
     })
   })

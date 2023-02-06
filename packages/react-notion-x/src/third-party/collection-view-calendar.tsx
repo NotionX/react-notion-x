@@ -323,7 +323,7 @@ function Calendar({ blockIds, collectionView, collection }) {
 
                       day.date == new Date().getDate() &&
                         day.month == new Date().getMonth() &&
-                        currentYear.getFullYear() == new Date().getFullYear()
+                        day.year == new Date().getFullYear()
                         ? 'notion-calendar-body-inner-day-today'
                         : (day.date == 1 &&
                             currentYear.getMonth() == day.month) ||
