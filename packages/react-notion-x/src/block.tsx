@@ -786,13 +786,14 @@ export const Block: React.FC<BlockProps> = (props) => {
         ?.value as types.TableBlock
       const order = tableBlock.format?.table_block_column_order
       const formatMap = tableBlock.format?.table_block_column_format
+      const backgroundColor = block.format?.block_color
 
       if (!tableBlock || !order) {
         return null
       }
 
       return (
-        <tr className={cs('notion-simple-table-row', blockId)}>
+        <tr className={cs('notion-simple-table-row', backgroundColor && `notion-${backgroundColor}`, blockId)}>
           {order.map((column) => {
             const color = formatMap?.[column]?.color
 
