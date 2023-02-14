@@ -9602,40 +9602,10 @@ normalize-url@^7.0.3:
   resolved "https://registry.npmjs.org/normalize-url/-/normalize-url-7.0.3.tgz"
   integrity sha512-RiCOdwdPnzvwcBFJE4iI1ss3dMVRIrEzFpn8ftje6iBfzBInqlnRrNhxcLwBEKjPPXQKzm1Ptlxtaiv9wdcj5w==
 
-notion-client@^6.15.6:
-  version "6.15.6"
-  resolved "https://registry.yarnpkg.com/notion-client/-/notion-client-6.15.6.tgz#3dfd0cbd8d2256bdbc93b5549d9cb86e3c33ced3"
-  integrity sha512-/ze9bHNhi09IvSo+loAelGVf2VsrnPaXoGtea/VUQq0adTvgcQhC1u37BwaK5G8bS/crVC277+KWlgdJOBIxeQ==
-  dependencies:
-    got "^11.8.1"
-    notion-types "^6.15.6"
-    notion-utils "^6.15.6"
-    p-map "^5.3.0"
-
-notion-compat@^6.15.6:
-  version "6.15.6"
-  resolved "https://registry.yarnpkg.com/notion-compat/-/notion-compat-6.15.6.tgz#5cf110407a95db45330dd49488d74b76a3506fba"
-  integrity sha512-M5jzca7JiinoTY7xIiLkfsbX6mpK/YiZlHnFUE3WlLxiQRItpgTTMp3BiH3Sq6L2lc28OSUT+y0u2QrFius2Ng==
-  dependencies:
-    notion-types "^6.15.6"
-    notion-utils "^6.15.6"
-    p-queue "^7.2.0"
-
 notion-types@^6.15.6:
   version "6.15.6"
   resolved "https://registry.yarnpkg.com/notion-types/-/notion-types-6.15.6.tgz#eabbb28e1c514f421f0ffbf06ecdecd90e8ec8e3"
   integrity sha512-JgLWDN4oHg/1sNdHDCeKUfdPl1AYsjOTnYkq+Zn7vITPykxbhw7nIxbAJ7owWUTro1cYTPh+GVmdX0mPiZGujg==
-
-notion-utils@^6.15.6:
-  version "6.15.6"
-  resolved "https://registry.yarnpkg.com/notion-utils/-/notion-utils-6.15.6.tgz#d172faa2c29d62eac71b4e17ed01336d5e372d02"
-  integrity sha512-Ys7lQ5KWmrk9ZmpFquomQcVRdQqmZMRAl0aFhoqirVgeyKtq/i5IZoHCw8jCY8732WlaEAUnBid56nN33N2fRQ==
-  dependencies:
-    is-url-superb "^6.1.0"
-    mem "^9.0.2"
-    normalize-url "^7.0.3"
-    notion-types "^6.15.6"
-    p-queue "^7.2.0"
 
 npm-bundled@^1.1.1:
   version "1.1.2"
@@ -11275,25 +11245,6 @@ react-modal@^3.14.3:
     prop-types "^15.7.2"
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
-
-react-notion-x@^6.15.6:
-  version "6.15.6"
-  resolved "https://registry.yarnpkg.com/react-notion-x/-/react-notion-x-6.15.6.tgz#af42e836dce9f5d3ece97f2796c09608c49347de"
-  integrity sha512-s8FVh8bs2vb32VLvPq21V0rjeWtF+U6Fudaxfx9yA6vVvQ5kgF9RRyc7eNlKpLPfq/HMEqLE52hZW+ecQ15PZQ==
-  dependencies:
-    "@fisch0920/medium-zoom" "^1.0.7"
-    "@matejmazur/react-katex" "^3.1.3"
-    katex "^0.15.3"
-    notion-types "^6.15.6"
-    notion-utils "^6.15.6"
-    prismjs "^1.27.0"
-    react-fast-compare "^3.2.0"
-    react-hotkeys-hook "^3.0.3"
-    react-image "^4.0.3"
-    react-lazy-images "^1.1.0"
-    react-modal "^3.14.3"
-    react-pdf "^5.7.1"
-    react-use "^17.3.1"
 
 react-pdf@^5.7.1:
   version "5.7.1"
