@@ -793,7 +793,13 @@ export const Block: React.FC<BlockProps> = (props) => {
       }
 
       return (
-        <tr className={cs('notion-simple-table-row', backgroundColor && `notion-${backgroundColor}`, blockId)}>
+        <tr
+          className={cs(
+            'notion-simple-table-row',
+            backgroundColor && `notion-${backgroundColor}`,
+            blockId
+          )}
+        >
           {order.map((column) => {
             const color = formatMap?.[column]?.color
 
