@@ -32,7 +32,8 @@
     "mem": "^9.0.2",
     "normalize-url": "^7.0.3",
     "notion-types": "^6.15.4",
-    "p-queue": "^7.2.0"
+    "p-queue": "^7.2.0",
+    "transliteration": "^2.3.5"
   },
   "ava": {
     "snapshotDir": ".snapshots",

@@ -1,8 +1,8 @@
 import { ExtendedRecordMap } from 'notion-types'
+import { slugify } from 'transliteration'
 
 import { getBlockTitle } from './get-block-title'
 import { getPageProperty } from './get-page-property'
-import { normalizeTitle } from './normalize-title'
 import { uuidToId } from './uuid-to-id'
 
 /**
@@ -22,7 +22,7 @@ export const getCanonicalPageId = (
     const slug =
       (getPageProperty('slug', block, recordMap) as string | null) ||
       (getPageProperty('Slug', block, recordMap) as string | null) ||
-      normalizeTitle(getBlockTitle(block, recordMap))
+      slugify(getBlockTitle(block, recordMap))
 
     if (slug) {
       if (uuid) {
