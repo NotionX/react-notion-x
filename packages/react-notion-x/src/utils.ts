@@ -46,7 +46,10 @@ export const getListNumber = (blockId: string, blockMap: BlockMap) => {
     return
   }
 
-  return group.indexOf(blockId) + 1
+  return (
+    blockMap[blockId].value.format['list_start_index'] ||
+    group.indexOf(blockId) + 1
+  )
 }
 
 export const getHashFragmentValue = (url: string) => {
