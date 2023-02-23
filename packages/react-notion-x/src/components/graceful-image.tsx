@@ -1,5 +1,7 @@
 import * as React from 'react'
+
 import { Img, ImgProps } from 'react-image'
+
 import { isBrowser } from '../utils'
 
 export const GracefulImage = (props: ImgProps) => {

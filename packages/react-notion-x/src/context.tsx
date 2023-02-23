@@ -1,17 +1,18 @@
 import * as React from 'react'
-import { ExtendedRecordMap } from 'notion-types'
-import { wrapNextImage, wrapNextLink } from './next'
-import { AssetWrapper } from './components/asset-wrapper'
-import { Header } from './components/header'
 
-import {
-  MapPageUrlFn,
-  MapImageUrlFn,
-  SearchNotionFn,
-  NotionComponents
-} from './types'
-import { defaultMapPageUrl, defaultMapImageUrl } from './utils'
+import { ExtendedRecordMap } from 'notion-types'
+
+import { AssetWrapper } from './components/asset-wrapper'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
+import { Header } from './components/header'
+import { wrapNextImage, wrapNextLink } from './next'
+import {
+  MapImageUrlFn,
+  MapPageUrlFn,
+  NotionComponents,
+  SearchNotionFn
+} from './types'
+import { defaultMapImageUrl, defaultMapPageUrl } from './utils'
 
 export interface NotionContext {
   recordMap: ExtendedRecordMap
@@ -20,6 +21,8 @@ export interface NotionContext {
   mapPageUrl: MapPageUrlFn
   mapImageUrl: MapImageUrlFn
   searchNotion?: SearchNotionFn
+  isShowingSearch?: boolean
+  onHideSearch?: () => void
 
   rootPageId?: string
   rootDomain?: string
@@ -32,6 +35,7 @@ export interface NotionContext {
   showTableOfContents: boolean
   minTableOfContentsItems: number
   linkTableTitleProperties: boolean
+  isLinkCollectionToUrlProperty: boolean
 
   defaultPageIcon?: string
   defaultPageCover?: string
@@ -47,6 +51,8 @@ export interface PartialNotionContext {
   mapPageUrl?: MapPageUrlFn
   mapImageUrl?: MapImageUrlFn
   searchNotion?: SearchNotionFn
+  isShowingSearch?: boolean
+  onHideSearch?: () => void
 
   rootPageId?: string
   rootDomain?: string
@@ -57,6 +63,7 @@ export interface PartialNotionContext {
   forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
   linkTableTitleProperties?: boolean
+  isLinkCollectionToUrlProperty?: boolean
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
@@ -75,7 +82,7 @@ const DefaultLinkMemo = React.memo(DefaultLink)
 const DefaultPageLink: React.FC = (props) => <a {...props} />
 const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
-const DefaultEmbed = AssetWrapper
+const DefaultEmbed = (props) => <AssetWrapper {...props} />
 const DefaultHeader = Header
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -148,6 +155,8 @@ const defaultNotionContext: NotionContext = {
   mapPageUrl: defaultMapPageUrl(),
   mapImageUrl: defaultMapImageUrl,
   searchNotion: null,
+  isShowingSearch: false,
+  onHideSearch: null,
 
   fullPage: false,
   darkMode: false,
@@ -155,6 +164,7 @@ const defaultNotionContext: NotionContext = {
   forceCustomImages: false,
   showCollectionViewDropdown: true,
   linkTableTitleProperties: true,
+  isLinkCollectionToUrlProperty: false,
 
   showTableOfContents: false,
   minTableOfContentsItems: 3,

@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import Katex from '@matejmazur/react-katex'
 import { EquationBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'

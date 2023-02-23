@@ -1,12 +1,13 @@
 import * as React from 'react'
+
 import { Block, Decoration, ExternalObjectInstance } from 'notion-types'
 import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { formatDate, getHashFragmentValue } from '../utils'
-import { PageTitle } from './page-title'
-import { GracefulImage } from './graceful-image'
 import { EOI } from './eoi'
+import { GracefulImage } from './graceful-image'
+import { PageTitle } from './page-title'
 
 /**
  * Renders a single piece of Notion text, including basic rich text formatting.

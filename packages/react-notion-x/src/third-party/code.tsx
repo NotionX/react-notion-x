@@ -1,23 +1,23 @@
 import * as React from 'react'
-import { highlightElement } from 'prismjs'
+
+import copyToClipboard from 'clipboard-copy'
 import { CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
-import copyToClipboard from 'clipboard-copy'
+import { highlightElement } from 'prismjs'
+import 'prismjs/components/prism-clike.min.js'
+import 'prismjs/components/prism-css-extras.min.js'
+import 'prismjs/components/prism-css.min.js'
+import 'prismjs/components/prism-javascript.min.js'
+import 'prismjs/components/prism-js-extras.min.js'
+import 'prismjs/components/prism-json.min.js'
+import 'prismjs/components/prism-jsx.min.js'
+import 'prismjs/components/prism-tsx.min.js'
+import 'prismjs/components/prism-typescript.min.js'
 
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
 import CopyIcon from '../icons/copy'
 import { cs } from '../utils'
-
-import 'prismjs/components/prism-clike.min.js'
-import 'prismjs/components/prism-javascript.min.js'
-import 'prismjs/components/prism-js-extras.min.js'
-import 'prismjs/components/prism-typescript.min.js'
-import 'prismjs/components/prism-jsx.min.js'
-import 'prismjs/components/prism-tsx.min.js'
-import 'prismjs/components/prism-json.min.js'
-import 'prismjs/components/prism-css.min.js'
-import 'prismjs/components/prism-css-extras.min.js'
 
 export const Code: React.FC<{
   block: CodeBlock

@@ -1,11 +1,12 @@
 import * as React from 'react'
+
 import { Block, Decoration } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
 
-import { cs } from '../utils'
 import { useNotionContext } from '../context'
-import { Text } from './text'
+import { cs } from '../utils'
 import { PageIcon } from './page-icon'
+import { Text } from './text'
 
 export const PageTitleImpl: React.FC<{
   block: Block

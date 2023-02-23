@@ -1,4 +1,5 @@
 import { ExtendedRecordMap } from 'notion-types'
+
 import { getBlockTitle } from './get-block-title'
 
 export function getPageTitle(recordMap: ExtendedRecordMap) {

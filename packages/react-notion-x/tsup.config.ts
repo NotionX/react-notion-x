@@ -1,4 +1,4 @@
-import { defineConfig, Options } from 'tsup'
+import { Options, defineConfig } from 'tsup'
 
 const baseConfig: Options = {
   entry: [
