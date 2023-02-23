@@ -4,8 +4,8 @@ import { Block } from 'notion-types'
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict'
 
 import { NotionDateTime, getNotionDateTime } from 'notion-utils'
-import { cs, formatNotionDateTime } from '../utils'
 import { useNotionContext } from '../context'
+import { cs } from '../utils'
 import SvgTypeGitHub from '../icons/type-github'
 
 // External Object Instance
