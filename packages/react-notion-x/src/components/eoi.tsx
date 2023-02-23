@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import { Block } from 'notion-types'
 import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict'
-
+import { Block } from 'notion-types'
 import { NotionDateTime, getNotionDateTime } from 'notion-utils'
+
 import { useNotionContext } from '../context'
-import { cs } from '../utils'
 import SvgTypeGitHub from '../icons/type-github'
+import { cs } from '../utils'
 
 // External Object Instance
 export const EOI: React.FC<{
