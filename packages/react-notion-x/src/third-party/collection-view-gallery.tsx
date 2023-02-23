@@ -1,12 +1,13 @@
 import * as React from 'react'
+
 import { PageBlock } from 'notion-types'
 
+import { useNotionContext } from '../context'
 import { CollectionViewProps } from '../types'
 import { cs } from '../utils'
-import { getCollectionGroups } from './collection-utils'
-import { useNotionContext } from '../context'
 import { CollectionCard } from './collection-card'
 import { CollectionGroup } from './collection-group'
+import { getCollectionGroups } from './collection-utils'
 
 const defaultBlockIds = []
 
@@ -35,6 +36,7 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
 
   const blockIds =
     (collectionData['collection_group_results']?.blockIds ??
+      collectionData['results:relation:uncategorized']?.blockIds ??
       collectionData.blockIds) ||
     defaultBlockIds
 

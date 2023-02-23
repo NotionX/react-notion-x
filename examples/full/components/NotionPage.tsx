@@ -1,13 +1,13 @@
 import * as React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { NotionRenderer } from 'react-notion-x'
 import { ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
+import { NotionRenderer } from 'react-notion-x'
 import TweetEmbed from 'react-tweet-embed'
 
 import { Loading } from './Loading'
