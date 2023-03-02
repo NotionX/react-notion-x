@@ -1,7 +1,8 @@
 import * as React from 'react'
+
 import {
-  SyncPointerBlock as SyncPointerBlockType,
-  Block as BlockType
+  Block as BlockType,
+  SyncPointerBlock as SyncPointerBlockType
 } from 'notion-types'
 
 import { NotionBlockRenderer } from '../renderer'

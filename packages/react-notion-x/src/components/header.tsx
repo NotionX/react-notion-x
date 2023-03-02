@@ -1,15 +1,15 @@
 import * as React from 'react'
 
-import { useHotkeys } from 'react-hotkeys-hook'
-import { getPageBreadcrumbs } from 'notion-utils'
 import * as types from 'notion-types'
+import { getPageBreadcrumbs } from 'notion-utils'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 import { useNotionContext } from '../context'
-import { PageIcon } from './page-icon'
 import { SearchIcon } from '../icons/search-icon'
-import { cs } from '../utils'
-import { SearchDialog } from './search-dialog'
 import { SearchNotionFn } from '../types'
+import { cs } from '../utils'
+import { PageIcon } from './page-icon'
+import { SearchDialog } from './search-dialog'
 
 export const Header: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock
@@ -87,17 +87,25 @@ export const Search: React.FC<{
   search?: SearchNotionFn
   title?: React.ReactNode
 }> = ({ block, search, title = 'Search' }) => {
-  const { searchNotion, rootPageId } = useNotionContext()
+  const { searchNotion, rootPageId, isShowingSearch, onHideSearch } =
+    useNotionContext()
   const onSearchNotion = search || searchNotion
 
-  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+  const [isSearchOpen, setIsSearchOpen] = React.useState(isShowingSearch)
+  React.useEffect(() => {
+    setIsSearchOpen(isShowingSearch)
+  }, [isShowingSearch])
+
   const onOpenSearch = React.useCallback(() => {
     setIsSearchOpen(true)
   }, [])
 
   const onCloseSearch = React.useCallback(() => {
     setIsSearchOpen(false)
-  }, [])
+    if (onHideSearch) {
+      onHideSearch()
+    }
+  }, [onHideSearch])
 
   useHotkeys('cmd+p', (event) => {
     onOpenSearch()

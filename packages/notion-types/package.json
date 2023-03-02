@@ -1,6 +1,6 @@
 {
   "name": "notion-types",
-  "version": "6.12.9-1",
+  "version": "6.16.0-1",
   "type": "module",
   "private": true,
   "description": "TypeScript types for core Notion data structures.",

@@ -1,14 +1,13 @@
 // import { promises as fs } from 'fs'
-import got, { OptionsOfJSONResponseBody } from 'got'
-import pMap from 'p-map'
-
-import {
-  parsePageId,
-  getPageContentBlockIds,
-  uuidToId,
-  getBlockCollectionId
-} from 'notion-utils'
 import * as notion from 'notion-types'
+import got, { OptionsOfJSONResponseBody } from 'got'
+import {
+  getBlockCollectionId,
+  getPageContentBlockIds,
+  parsePageId,
+  uuidToId
+} from 'notion-utils'
+import pMap from 'p-map'
 
 import * as types from './types'
 
@@ -217,7 +216,7 @@ export class NotionAPI {
     }
 
     const allFileInstances = contentBlockIds.flatMap((blockId) => {
-      const block = recordMap.block[blockId].value
+      const block = recordMap.block[blockId]?.value
 
       if (
         block &&
@@ -235,7 +234,7 @@ export class NotionAPI {
         // console.log(block, source)
 
         if (source) {
-          if (source.indexOf('youtube') >= 0 || source.indexOf('vimeo') >= 0) {
+          if (!source.includes('secure.notion-static.com')) {
             return []
           }
 
@@ -328,9 +327,25 @@ export class NotionAPI {
   ) {
     const type = collectionView?.type
     const isBoardType = type === 'board'
-    const groupBy =
-      collectionView?.format?.board_columns_by ||
-      collectionView?.format?.collection_group_by
+    const groupBy = isBoardType
+      ? collectionView?.format?.board_columns_by
+      : collectionView?.format?.collection_group_by
+
+    let filters = []
+    if (collectionView?.format?.property_filters) {
+      filters = collectionView.format?.property_filters.map((filterObj) => {
+        //get the inner filter
+        return {
+          filter: filterObj?.filter?.filter,
+          property: filterObj?.filter?.property
+        }
+      })
+    }
+
+    //Fixes formula filters from not working
+    if (collectionView?.query2?.filter?.filters) {
+      filters.push(...collectionView.query2.filter.filters)
+    }
 
     let loader: any = {
       type: 'reducer',
@@ -343,6 +358,10 @@ export class NotionAPI {
       },
       sort: [],
       ...collectionView?.query2,
+      filter: {
+        filters: filters,
+        operator: 'and'
+      },
       searchQuery,
       userTimeZone
     }
@@ -421,16 +440,6 @@ export class NotionAPI {
         }
       }
 
-      //TODO: started working on the filters. This doens't seem to quite work yet.
-      // let filters = collectionView.format?.property_filters.map(filterObj => {
-      //   console.log('map filter', filterObj)
-      //   //get the inner filter
-      //   return {
-      //     filter: filterObj.filter.filter,
-      //     property: filterObj.filter.property
-      //   }
-      // })
-
       const reducerLabel = isBoardType ? 'board_columns' : `${type}_groups`
       loader = {
         type: 'reducer',
@@ -448,12 +457,12 @@ export class NotionAPI {
         },
         ...collectionView?.query2,
         searchQuery,
-        userTimeZone
+        userTimeZone,
         //TODO: add filters here
-        // filter: {
-        //   filters: filters,
-        //   operator: 'and'
-        // }
+        filter: {
+          filters: filters,
+          operator: 'and'
+        }
       }
     }
 

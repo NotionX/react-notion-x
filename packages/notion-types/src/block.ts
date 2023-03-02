@@ -1,4 +1,4 @@
-import { ID, Color, Decoration, Role } from './core'
+import { Color, Decoration, ID, Role } from './core'
 
 export type BlockType =
   | 'page'
@@ -131,6 +131,7 @@ export interface BaseContentBlock extends BaseBlock {
     caption?: Decoration[]
   }
   format?: {
+    block_alignment: 'center' | 'left' | 'right'
     block_width: number
     block_height: number
     display_source: string
@@ -351,6 +352,7 @@ export interface GoogleDriveBlock extends BaseContentBlock {
       user_name: string
       modified_time: number
     }
+    block_alignment: 'center' | 'left' | 'right'
     block_width: number
     block_height: number
     display_source: string

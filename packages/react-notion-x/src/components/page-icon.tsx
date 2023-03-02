@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { getBlockIcon, getBlockTitle } from 'notion-utils'
-import { Block, PageBlock, CalloutBlock } from 'notion-types'
 
-import { cs, isUrl } from '../utils'
-import { DefaultPageIcon } from '../icons/default-page-icon'
+import { Block, CalloutBlock, PageBlock } from 'notion-types'
+import { getBlockIcon, getBlockTitle } from 'notion-utils'
+
 import { useNotionContext } from '../context'
+import { DefaultPageIcon } from '../icons/default-page-icon'
+import { cs, isUrl } from '../utils'
 import { LazyImage } from './lazy-image'
 
 const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
@@ -29,7 +30,7 @@ export const PageIconImpl: React.FC<{
   hideDefaultIcon = false,
   defaultIcon
 }) => {
-  const { mapImageUrl, recordMap } = useNotionContext()
+  const { mapImageUrl, recordMap, darkMode } = useNotionContext()
   let isImage = false
   let content: any = null
 
@@ -40,6 +41,20 @@ export const PageIconImpl: React.FC<{
     if (icon && isUrl(icon)) {
       const url = mapImageUrl(icon, block)
       isImage = true
+
+      content = (
+        <LazyImage
+          src={url}
+          alt={title || 'page icon'}
+          className={cs(className, 'notion-page-icon')}
+        />
+      )
+    } else if (icon && icon.startsWith('/icons/')) {
+      const url =
+        'https://www.notion.so' +
+        icon +
+        '?mode=' +
+        (darkMode ? 'dark' : 'light')
 
       content = (
         <LazyImage

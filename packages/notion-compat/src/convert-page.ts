@@ -1,6 +1,6 @@
 import * as notion from 'notion-types'
-import * as types from './types'
 
+import * as types from './types'
 import { convertBlock } from './convert-block'
 
 export function convertPage({

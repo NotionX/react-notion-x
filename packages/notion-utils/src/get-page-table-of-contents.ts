@@ -1,4 +1,5 @@
 import * as types from 'notion-types'
+
 import { getTextContent } from './get-text-content'
 
 export interface TableOfContentsEntry {

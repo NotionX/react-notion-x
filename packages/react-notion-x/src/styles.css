@@ -111,6 +111,10 @@
   --notion-gray_background_co: rgba(69, 75, 78, 0.3);
 }
 
+.notion * {
+  box-sizing: border-box;
+}
+
 .notion {
   font-size: 16px;
   line-height: 1.5;
@@ -641,12 +645,14 @@ svg.notion-page-icon {
 }
 
 .notion-page {
+  box-sizing: border-box;
   width: var(--notion-max-width);
   padding-left: calc(min(16px, 8vw));
   padding-right: calc(min(16px, 8vw));
 }
 
 .notion-full-width {
+  box-sizing: border-box;
   --notion-max-width: calc(min(1920px, 98vw));
   padding-left: calc(min(96px, 8vw));
   padding-right: calc(min(96px, 8vw));
@@ -1121,6 +1127,7 @@ svg.notion-page-icon {
 }
 
 .notion-toggle {
+  width: 100%;
   padding: 3px 2px;
 }
 .notion-toggle > summary {
@@ -2572,6 +2579,7 @@ svg.notion-page-icon {
 .notion-simple-table td {
   border: 1px solid var(--fg-color-5);
   padding: 8px 8px;
+  white-space: pre-wrap;
 }
 
 .notion-external {
@@ -2733,43 +2741,41 @@ svg.notion-page-icon {
   will-change: transform, opacity;
 }
 
-.notion-collection-view-dropdown-content-item {
+.notion-collection-view-tabs-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 120%
+}
+
+.notion-collection-view-tabs-content-item {
   all: unset;
   position: relative;
   height: 25px;
-  padding: 7px 96px 7px 10px;
+  padding: 7px 10px 7px 10px;
   line-height: 1;
   display: flex;
   align-items: center;
-  border-radius: 3px;
   user-select: none;
   cursor: pointer;
   color: rgb(55, 53, 47);
   font-size: 14px;
 }
 
-.notion-collection-view-dropdown-content-item[data-disabled] {
-  color: #777;
-  pointer-events: none;
-  cursor: unset;
+.notion-collection-view-tabs-content-item:hover {
+  background-color: var(--fg-color-1);
+  border-radius: 3px;
 }
 
-.notion-collection-view-dropdown-content-item:focus,
-.notion-collection-view-dropdown-content-item-active {
-  background-color: #ebfaff;
+.notion-collection-view-tabs-content-item-active {
+  border-bottom: solid 2px #000;
+  font-weight: bold;
 }
 
-.notion-collection-view-dropdown-content-item-active-icon {
-  position: absolute;
-  right: 0;
-  width: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.notion-collection-view-dropdown-content-item-active-icon > svg {
-  width: 12px;
+@media only screen and (max-width: 730px) {
+  .notion-collection-view-tabs-row {
+    width: 100%;
+  }
 }
 
 @keyframes slideDownAndFade {
@@ -2786,4 +2792,12 @@ svg.notion-page-icon {
 
 .notion-collection-view-dropdown-content[data-state='open'] {
   animation-name: slideDownAndFade;
+}
+
+.nested-form-link {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  text-decoration: underline;
+  cursor: pointer;
 }

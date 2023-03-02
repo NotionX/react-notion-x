@@ -1,6 +1,6 @@
+import { ExtendedRecordMap, PageMap } from 'notion-types'
 import PQueue from 'p-queue'
 
-import { ExtendedRecordMap, PageMap } from 'notion-types'
 import { parsePageId } from './parse-page-id'
 
 /**

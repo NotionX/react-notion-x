@@ -47,7 +47,7 @@ export const defaultMapImageUrl = (
 
   const notionImageUrlV2 = new URL(url)
   let table = block.parent_table === 'space' ? 'block' : block.parent_table
-  if (table === 'collection') {
+  if (table === 'collection' || table === 'team') {
     table = 'block'
   }
   notionImageUrlV2.searchParams.set('table', table)
