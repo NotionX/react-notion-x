@@ -45,7 +45,7 @@ export const getListNumber = (blockId: string, blockMap: BlockMap) => {
   if (!group) {
     return
   }
-  console.log(blockMap[blockId].value)
+
   return (
     blockMap[blockId].value.format?.list_start_index ||
     group.indexOf(blockId) + 1
