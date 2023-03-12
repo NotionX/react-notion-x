@@ -20,15 +20,30 @@ const indentLevels = {
  * H1, H2, and H3 elements.
  */
 export const getPageTableOfContents = (
-  page: types.PageBlock,
+  page: types.PageBlock | types.ColumnBlock,
   recordMap: types.ExtendedRecordMap
 ): Array<TableOfContentsEntry> => {
   const toc = (page.content ?? [])
     .map((blockId: string) => {
       const block = recordMap.block[blockId]?.value
-
       if (block) {
         const { type } = block
+
+        if (type === 'column_list') {
+          // loop through its children column
+          const subToc = (block.content ?? [])
+            .map((blockId: string) => {
+              const subBlock = recordMap.block[blockId].value
+              if (subBlock.type === 'column') {
+                return getPageTableOfContents(subBlock, recordMap)
+              }
+              return null
+            })
+            .filter(Boolean)
+            .flat() as Array<TableOfContentsEntry>
+
+          return subToc
+        }
 
         if (
           type === 'header' ||
