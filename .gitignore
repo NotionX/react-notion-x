@@ -6,6 +6,7 @@ node_modules
 # builds
 build
 dist
+types
 
 # misc
 .DS_Store
@@ -24,3 +25,4 @@ yarn-error.log*
 
 .next/
 .vercel/
+.turbo/

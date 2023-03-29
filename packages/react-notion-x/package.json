@@ -19,7 +19,9 @@
   },
   "scripts": {
     "build": "tsup",
-    "watch": "tsup --watch --silent --onSuccess 'echo build successful'"
+    "dev": "npm run build -- --watch",
+    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "types": "tsc --emitDeclarationOnly"
   },
   "dependencies": {
     "@fisch0920/medium-zoom": "^1.0.7",
