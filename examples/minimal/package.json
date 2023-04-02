@@ -4,8 +4,10 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "clean": "rm -rf .next",
+    "dev": "next dev",
+    "lint": "next lint",
     "start": "next start",
     "deploy": "vercel deploy"
   },

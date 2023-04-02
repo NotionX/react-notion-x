@@ -1,16 +1,30 @@
 {
   "extends": "../../tsconfig.base",
   "compilerOptions": {
-    "composite": true,
-    "rootDir": "src",
-    "outDir": "build",
-    "tsBuildInfoFile": "build/.tsbuildinfo",
+    // Tells TypeScript to read JS files, as
+    // normally they are ignored as source files
+    "allowJs": true,
+    // Generate d.ts files
+    "declaration": true,
+      // This compiler run should
+    // only output d.ts files
     "emitDeclarationOnly": true,
+    // Types should go into this directory.
+    // Removing this would place the .d.ts files
+    // next to the .js files
+    "outDir": "build",
+    // go to js file when using IDE functions like
+    // "Go to Definition" in VSCode
+    "declarationMap": true,
+    "composite": false,
+    "rootDir": "src",
+    "tsBuildInfoFile": "build/.tsbuildinfo",
     "lib": ["DOM", "ESNext"],
     "noImplicitReturns": false,
     "skipLibCheck": true,
     "jsx": "react"
   },
-  "include": ["src"],
-  "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]
+  "include": [
+    "src/**/*"
+  ],
 }

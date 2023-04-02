@@ -6,15 +6,17 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "types": "./types/index.d.ts",
+  "types": "./build/index.d.ts",
   "sideEffects": false,
   "files": [
     "build"
   ],
   "scripts": {
-    "build": "tsc --emitDeclarationOnly --declaration",
-    "watch": "tsup --watch --silent --onSuccess 'echo build successful'"
-  },
+    "build": "tsup",
+    "clean": "rm -rf build",
+    "dev": "tsup --watch",
+    "lint": "eslint '**/*.{ts,tsx}'"
+    },
   "engines": {
     "node": ">=12"
   }

@@ -3,6 +3,7 @@ import { defineConfig } from 'tsup'
 export default defineConfig({
   entry: ['src/index.ts'],
   outDir: 'build',
+  dts: true,
   target: 'es2015',
   platform: 'browser',
   format: ['esm'],
