@@ -6,8 +6,7 @@
     "outDir": "build",
     "tsBuildInfoFile": "build/.tsbuildinfo",
     "declarationMap": true, // Allow navigation to definition in VS Code https://stackoverflow.com/questions/54459847/vscode-lerna-typescript-monorepo-code-navigation
-    "emitDeclarationOnly": true,
-    "noUnusedLocals": false, // / won't fail on unused variables
+    "emitDeclarationOnly": true
   },
   "include": [
     "src/**/*"
