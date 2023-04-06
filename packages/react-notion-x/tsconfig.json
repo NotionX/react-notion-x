@@ -1,24 +1,13 @@
 {
   "extends": "../../tsconfig.base",
   "compilerOptions": {
-    // Tells TypeScript to read JS files, as
-    // normally they are ignored as source files
-    "allowJs": true,
-    // Generate d.ts files
-    "declaration": true,
-      // This compiler run should
-    // only output d.ts files
-    "emitDeclarationOnly": true,
-    // Types should go into this directory.
-    // Removing this would place the .d.ts files
-    // next to the .js files
-    "outDir": "build",
-    // go to js file when using IDE functions like
-    // "Go to Definition" in VSCode
-    "declarationMap": true,
     "composite": false,
     "rootDir": "src",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "build",
     "tsBuildInfoFile": "build/.tsbuildinfo",
+    "emitDeclarationOnly": true,
     "lib": ["DOM", "ESNext"],
     "noImplicitReturns": false,
     "skipLibCheck": true,
