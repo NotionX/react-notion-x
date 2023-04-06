@@ -13,8 +13,8 @@
       "dependsOn": ["^build"]
     },
     "test": {
-      "outputs": ["coverage/**"],
-      "dependsOn": []
+      "dependsOn": ["build"],
+      "outputs": []
     },
     "lint": {
       "dependsOn": ["^build"]
