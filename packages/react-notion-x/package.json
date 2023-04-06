@@ -21,8 +21,7 @@
     "build": "tsup --external react",
     "clean": "rm -rf build",
     "dev": "tsup --watch --external react",
-    "lint": "eslint '**/*.{ts,tsx}'",
-    "test": "ava"
+    "lint": "eslint '**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@fisch0920/medium-zoom": "^1.0.7",
