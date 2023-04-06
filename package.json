@@ -22,7 +22,7 @@
     "start": "turbo run start",
     "test": "turbo run test",
     "test-format": "prettier '**/*.{ts,tsx}' --check",
-    "predeploy": "run-s build",
+    "deploy": "turbo deploy",
     "prepare": "husky install",
     "pre-commit": "lint-staged"
   },

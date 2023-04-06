@@ -15,7 +15,8 @@
     "build": "tsup",
     "clean": "rm -rf build",
     "dev": "tsup --watch",
-    "lint": "eslint '**/*.{ts,tsx}'"
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "deploy": "pnpm publish"
     },
   "engines": {
     "node": ">=12"

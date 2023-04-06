@@ -21,6 +21,7 @@
     "clean": "rm -rf build",
     "dev": "tsup --watch",
     "lint": "eslint '**/*.{ts,tsx}'",
+    "deploy": "pnpm publish",
     "test": "ava"
   },
   "dependencies": {
