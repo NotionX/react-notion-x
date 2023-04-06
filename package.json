@@ -19,7 +19,6 @@
     "dev": "turbo run dev --no-cache  --continue",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "pretest": "run-s build",
     "start": "turbo run start",
     "test": "run-p test:*",
     "test:unit": "turbo run test",
