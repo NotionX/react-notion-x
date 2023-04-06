@@ -11,7 +11,7 @@
 ## Install
 
 ```bash
-npm install notion-client
+pnpm install notion-client
 ```
 
 This package is compatible with server-side V8 contexts such as Node.js, Deno, and Cloudflare Workers.
