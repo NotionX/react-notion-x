@@ -23,7 +23,6 @@
     "start": "turbo run start",
     "test": "run-p test:*",
     "test:unit": "turbo run test",
-    "test:eslint": "eslint '**/*.{ts,tsx}'",
     "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
     "predeploy": "run-s build",
     "prepare": "husky install",
