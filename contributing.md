@@ -36,3 +36,9 @@ Whenever you make a change to one of the packages that's being used by the examp
 Sometimes, this process gets a little out of whack, and if you're not sure what's going on, I usually just quit one or both of the `turbo dev` commands and restart it.
 
 If you're seeing something unexpected while debugging one of the Next.js demos, try running `turbo clean` to refresh the cache before running `turbo dev` again.
+
+### Build task
+Simply run the following command from the repository's root
+```
+turbo build
+```
