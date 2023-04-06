@@ -14,7 +14,7 @@ cd react-notion-x
 pnpm i
 ```
 
-This will install dependencies and link all of the local packages together using `pnpm workspaces`. This includes the example projects which point to the local version of your packages.
+This will install dependencies and link all of the local packages together using [pnpm workspaces](https://pnpm.io/workspaces). This includes the example projects which point to the local version of your packages. When publishing, `"foo": "workspace:*"` will be transformed to point to the current version.
 
 ### Running development tasks
 With development tasks, each package will be compiled into their respective `build` folders. Because they run `tsup --watch`, every time you make a change to one of the packages, the build will be updated automatically as long as this command is running.
