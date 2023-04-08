@@ -11,10 +11,8 @@
     },
     "test": {
       "dependsOn": ["build", "lint", "//#test-format"],
-      "outputs": []
     },
     "lint": {
-      "outputs": []
     },
     "//#test-format": {
       "dependsOn": []
