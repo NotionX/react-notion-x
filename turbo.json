@@ -29,6 +29,20 @@
       "cache": false
     },
     "publish-package":{
+    },
+    "notion-types#publish-package":{
+      "dependsOn": ["build", "test", "lint"]
+    },
+    "notion-utils#publish-package":{
+      "dependsOn": ["build", "test", "lint"]
+    },
+    "notion-compat#publish-package":{
+      "dependsOn": ["build", "test", "lint"]
+    },
+    "notion-client#publish-package":{
+      "dependsOn": ["build", "test", "lint"]
+    },
+    "react-notion-x#publish-package":{
       "dependsOn": ["build", "test", "lint"]
     }
   }
