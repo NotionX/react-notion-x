@@ -17,23 +17,27 @@ import * as types from './types'
 export class NotionAPI {
   private readonly _apiBaseUrl: string
   private readonly _authToken?: string
+  private readonly _secret?: string
   private readonly _activeUser?: string
   private readonly _userTimeZone: string
 
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
+    secret,
     activeUser,
     userTimeZone = 'America/New_York'
   }: {
     apiBaseUrl?: string
     authToken?: string
+    secret?: string
     userLocale?: string
     userTimeZone?: string
     activeUser?: string
   } = {}) {
     this._apiBaseUrl = apiBaseUrl
     this._authToken = authToken
+    this._secret = secret
     this._activeUser = activeUser
     this._userTimeZone = userTimeZone
   }
@@ -592,6 +596,9 @@ export class NotionAPI {
 
     if (this._authToken) {
       headers.cookie = `token_v2=${this._authToken}`
+    }
+    if (this._secret) {
+      headers.authorization = `Bearer ${this._secret}`
     }
 
     if (this._activeUser) {
