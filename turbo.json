@@ -28,8 +28,8 @@
     "clean": {
       "cache": false
     },
-    "deploy":{
-      "dependsOn": ["build"]
+    "publish-package":{
+      "dependsOn": ["build", "test", "lint"]
     }
   }
 }
