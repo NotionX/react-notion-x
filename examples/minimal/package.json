@@ -9,7 +9,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "deploy": "vercel deploy"
+    "vercel-deploy": "vercel deploy"
   },
   "dependencies": {
     "next": "^12.1.0",

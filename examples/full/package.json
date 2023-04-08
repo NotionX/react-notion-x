@@ -12,7 +12,7 @@
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
-    "deploy": "vercel deploy"
+    "vercel-deploy": "vercel deploy"
   },
   "dependencies": {
     "@notionhq/client": "^1.0.4",
