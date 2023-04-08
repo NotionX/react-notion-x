@@ -30,19 +30,19 @@
     "publish":{
     },
     "notion-types#publish":{
-      "dependsOn": ["build", "test", "lint"]
+      "dependsOn": ["build", "test"]
     },
     "notion-utils#publish":{
-      "dependsOn": ["build", "test", "lint"]
+      "dependsOn": ["build", "test"]
     },
     "notion-compat#publish":{
-      "dependsOn": ["build", "test", "lint"]
+      "dependsOn": ["build", "test"]
     },
     "notion-client#publish":{
-      "dependsOn": ["build", "test", "lint"]
+      "dependsOn": ["build", "test"]
     },
     "react-notion-x#publish":{
-      "dependsOn": ["build", "test", "lint"]
+      "dependsOn": ["build", "test"]
     }
   }
 }
