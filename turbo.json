@@ -17,8 +17,7 @@
       "outputs": []
     },
     "//#test-format": {
-      "dependsOn": [],
-      "outputs": ["build/**"]
+      "dependsOn": []
     },
     "dev": {
       "dependsOn": ["^build"],
