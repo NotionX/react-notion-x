@@ -22,7 +22,7 @@
     "clean": "rm -rf build",
     "dev": "tsup --watch --external react",
     "lint": "eslint '**/*.{ts,tsx}'",
-    "publish-package": "pnpm publish"
+    "publish": "pnpm publish"
   },
   "dependencies": {
     "@fisch0920/medium-zoom": "^1.0.7",

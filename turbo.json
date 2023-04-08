@@ -28,21 +28,21 @@
     "clean": {
       "cache": false
     },
-    "publish-package":{
+    "publish":{
     },
-    "notion-types#publish-package":{
+    "notion-types#publish":{
       "dependsOn": ["build", "test", "lint"]
     },
-    "notion-utils#publish-package":{
+    "notion-utils#publish":{
       "dependsOn": ["build", "test", "lint"]
     },
-    "notion-compat#publish-package":{
+    "notion-compat#publish":{
       "dependsOn": ["build", "test", "lint"]
     },
-    "notion-client#publish-package":{
+    "notion-client#publish":{
       "dependsOn": ["build", "test", "lint"]
     },
-    "react-notion-x#publish-package":{
+    "react-notion-x#publish":{
       "dependsOn": ["build", "test", "lint"]
     }
   }
