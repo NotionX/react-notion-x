@@ -43,6 +43,7 @@ export type PropertyType =
   | 'text'
   | 'number'
   | 'select'
+  | 'status'
   | 'multi_select'
   | 'date'
   | 'person'
