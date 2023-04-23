@@ -97,7 +97,7 @@ export interface CollectionQueryResult {
     }
   }
 
-  collectionIds: ID[]
+  collectionIds?: ID[]
 
   recordMap?: ExtendedRecordMap
 }
