@@ -124,8 +124,8 @@ export interface CalendarCollectionView extends BaseCollectionView {
   // TODO
 }
 
-export interface ReducerCollectionView {
-  type: 'reducer',
+export interface ReducerCollectionView extends BaseCollectionView {
+  type: 'reducer'
   reducerResults: {
     collection_group_results: object
   }
