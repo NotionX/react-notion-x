@@ -104,7 +104,9 @@ function Board({ collectionView, collectionData, collection, padding }) {
                     {group.value?.value ? (
                       <Property
                         schema={schema}
-                        data={[[group.value?.value]]}
+                        data={[
+                          [group.value?.value?.option || group.value?.value]
+                        ]}
                         collection={collection}
                       />
                     ) : (
