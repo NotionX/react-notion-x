@@ -116,8 +116,8 @@ function Board({ collectionView, collectionData, collection, padding }) {
                       />
                     ) : (
                       <span>
-                        <EmptyIcon className='notion-board-th-empty' /> No
-                        Select
+                        <EmptyIcon className='notion-board-th-empty' />
+                        {`No ${schema.name}` || 'No Select'}
                       </span>
                     )}
 
