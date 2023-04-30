@@ -66,6 +66,8 @@ function Board({ collectionView, collectionData, collection, padding }) {
     collectionView?.format?.board_groups2 ||
     []
 
+  const boardGroupBy = collectionView?.format?.board_columns_by?.groupBy
+
   const boardStyle = React.useMemo(
     () => ({
       paddingLeft: padding
@@ -105,7 +107,10 @@ function Board({ collectionView, collectionData, collection, padding }) {
                       <Property
                         schema={schema}
                         data={[
-                          [group.value?.value?.option || group.value?.value]
+                          [
+                            group.value?.value[boardGroupBy] ||
+                              group.value?.value
+                          ]
                         ]}
                         collection={collection}
                       />
