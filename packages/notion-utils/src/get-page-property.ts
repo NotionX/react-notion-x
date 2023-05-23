@@ -1,5 +1,5 @@
 import { Block, DateFormat, ExtendedRecordMap } from 'notion-types'
-
+import { getNotionDateTime } from './get-notion-date-time'
 import { getTextContent } from './get-text-content'
 
 /**
@@ -57,21 +57,30 @@ export function getPageProperty(
           const property = block.properties[propertyId] as [['‣', [DateFormat]]]
           const formatDate = property[0][1][0][1]
 
-          if (formatDate.type == 'datetime') {
-            return new Date(
-              `${formatDate.start_date} ${formatDate.start_time}`
-            ).getTime()
-          } else if (formatDate.type == 'date') {
-            return new Date(formatDate.start_date).getTime()
-          } else if (formatDate.type == 'datetimerange') {
-            const { start_date, start_time, end_date, end_time } = formatDate
-            const startTime = new Date(`${start_date} ${start_time}`).getTime()
-            const endTime = new Date(`${end_date} ${end_time}`).getTime()
-            return [startTime, endTime]
-          } else {
-            const startTime = new Date(formatDate.start_date).getTime()
-            const endTime = new Date(formatDate.end_date).getTime()
-            return [startTime, endTime]
+          switch (formatDate.type) {
+            case 'date':
+            case 'datetime':
+              return getNotionDateTime(
+                formatDate.start_date,
+                formatDate.start_time,
+                formatDate.time_zone
+              ).getTime()
+
+            case 'datetimerange':
+            case 'daterange':
+            default:
+              return [
+                getNotionDateTime(
+                  formatDate.start_date,
+                  formatDate.start_time,
+                  formatDate.time_zone
+                ).getTime(),
+                getNotionDateTime(
+                  formatDate.end_date,
+                  formatDate.end_time,
+                  formatDate.time_zone
+                ).getTime()
+              ]
           }
         }
 
