@@ -2658,6 +2658,66 @@ svg.notion-page-icon {
 
 .notion-external-mention .notion-external-subtitle {
   display: none;
+  position: absolute;
+  top: 28px;
+  left: 0;
+  width: 260px;
+  background: var(--bg-color);
+  z-index: 999;
+  padding: 8px;
+  box-shadow: rgba(15, 15, 15, 0.1) 0 0 0 1px, rgba(15, 15, 15, 0.1) 0 2px 4px;
+}
+
+.notion-external-mention .notion-external-subtitle-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 1.5;
+  padding: 4px 0;
+}
+
+.notion-external-mention .notion-external-subtitle-item-name{
+  flex: none;
+  width: 70px;
+  font-weight: 500;
+}
+
+.notion-external-mention .notion-external-subtitle-item-desc{
+  flex: 1
+}
+
+.notion-external-description:hover .notion-external-subtitle {
+  display: block;
+}
+
+.notion-preview-card-domain-warp{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.notion-preview-card-domain-warp .notion-preview-card-domain{
+padding-left: 4px;
+
+}
+.notion-preview-card-domain-warp .notion-preview-card-logo{
+  width: 14px;
+  height: 14px;
+}
+
+.notion-preview-card-title{
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 4px 0;
+  font-weight: 500;
+  color: var(--fg-color-4);
+}
+
+.notion-preview-card-github-shields img {
+  margin-right: 4px;
+  padding: 4px 0;
 }
 
 .notion-yt-lite {
