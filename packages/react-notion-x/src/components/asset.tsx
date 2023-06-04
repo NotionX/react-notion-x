@@ -239,6 +239,8 @@ export const Asset: React.FC<{
             />
           )
         } else {
+          src += block.type === 'typeform' ? '&disable-auto-focus=true' : ''
+
           content = (
             <iframe
               className='notion-asset-object-fit'
