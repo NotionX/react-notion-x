@@ -11,8 +11,6 @@ import { SearchIcon } from '../icons/search-icon'
 import { cs } from '../utils'
 import { PageTitle } from './page-title'
 
-// TODO: modal.default.setAppElement('.notion-viewport')
-
 export class SearchDialog extends React.Component<{
   isOpen: boolean
   rootBlockId: string
