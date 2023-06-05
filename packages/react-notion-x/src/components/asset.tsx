@@ -11,6 +11,7 @@ import { LiteYouTubeEmbed } from './lite-youtube-embed'
 const isServer = typeof window === 'undefined'
 
 const supportedAssetTypes = [
+  'replit',
   'video',
   'image',
   'embed',
@@ -174,7 +175,8 @@ export const Asset: React.FC<{
     block.type === 'maps' ||
     block.type === 'excalidraw' ||
     block.type === 'codepen' ||
-    block.type === 'drive'
+    block.type === 'drive' ||
+    block.type === 'replit'
   ) {
     if (
       block.type === 'video' &&
