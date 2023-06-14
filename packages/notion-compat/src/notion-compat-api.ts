@@ -200,7 +200,6 @@ export class NotionCompatAPI {
     let cursor: string
 
     do {
-      console.log('blocks.children.list', { blockId, cursor })
       const res = await this.client.blocks.children.list({
         block_id: blockId,
         start_cursor: cursor
