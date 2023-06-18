@@ -1,6 +1,6 @@
 {
   "name": "notion-compat",
-  "version": "6.17.0",
+  "version": "6.16.0",
   "type": "module",
   "description": "Compatibility layer between the official Notion API and unofficial private API.",
   "repository": "NotionX/react-notion-x",
@@ -22,13 +22,13 @@
     "test": "ava"
   },
   "dependencies": {
-    "notion-types": "^6.17.0",
-    "notion-utils": "^6.17.0",
+    "notion-types": "^6.16.0",
+    "notion-utils": "^6.16.0",
     "p-queue": "^7.2.0"
   },
   "devDependencies": {
     "@notionhq/client": "^1.0.4",
-    "notion-client": "^6.17.0"
+    "notion-client": "^6.16.0"
   },
   "peerDependencies": {
     "@notionhq/client": "^1.0.4"
