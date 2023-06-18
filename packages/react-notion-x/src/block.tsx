@@ -469,6 +469,8 @@ export const Block: React.FC<BlockProps> = (props) => {
 
     case 'embed':
       return <components.Embed blockId={blockId} block={block} />
+    case 'replit':
+    // fallthrough
     case 'tweet':
     // fallthrough
     case 'maps':
