@@ -266,6 +266,149 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
                 value
               )
               break
+            case 'argentine_peso':
+              output = formatNumber({ prefix: 'ARS', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'baht':
+              output = formatNumber({ prefix: 'THB', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'canadian_dollar':
+              output = formatNumber({ prefix: 'CA$', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'chilean_peso':
+              output = formatNumber({ prefix: 'CLP', round: 0 })(value)
+              break
+            case 'colombian_peso':
+              output = formatNumber({ prefix: 'COP', round: 0 })(value)
+              break
+            case 'danish_krone':
+              output = formatNumber({ prefix: 'DKK', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'dirham':
+              output = formatNumber({ prefix: 'AED', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'forint':
+              output = formatNumber({ prefix: 'HUF', round: 0 })(value)
+              break
+            case 'franc':
+              output = formatNumber({ prefix: 'CHF', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'hong_kong_dollar':
+              output = formatNumber({ prefix: 'HK$', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'koruna':
+              output = formatNumber({ prefix: 'CZK', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'krona':
+              output = formatNumber({ prefix: 'SEK', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'leu':
+              output = formatNumber({ prefix: 'RON', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'lira':
+              output = formatNumber({ prefix: 'TRY', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'mexican_peso':
+              output = formatNumber({ prefix: 'MX$', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'new_taiwan_dollar':
+              output = formatNumber({ prefix: 'NT$', round: 0 })(value)
+              break
+            case 'new_zealand_dollar':
+              output = formatNumber({ prefix: 'NZ$', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'norwegian_krone':
+              output = formatNumber({ prefix: 'NOK', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'number':
+              output = formatNumber()(value)
+              break
+            case 'philippine_peso':
+              output = formatNumber({ prefix: '₱', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'peruvian_sol':
+              output = formatNumber({ prefix: 'S/', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'rand':
+              output = formatNumber({ prefix: 'ZAR', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'real':
+              output = formatNumber({ prefix: 'R$', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'ringgit':
+              output = formatNumber({ prefix: 'MYR', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'riyal':
+              output = formatNumber({ prefix: 'SAR', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'ruble':
+              output = formatNumber({ prefix: 'RUB', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'rupiah':
+              output = formatNumber({ prefix: 'IDR', round: 0 })(value)
+              break
+            case 'shekel':
+              output = formatNumber({ prefix: '₪', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'singapore_dollar':
+              output = formatNumber({ prefix: 'SGD', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'uruguayan_peso':
+              output = formatNumber({ prefix: 'UYU', round: 2, padRight: 2 })(
+                value
+              )
+              break
+            case 'zloty':
+              output = formatNumber({ prefix: 'PLN', round: 2, padRight: 2 })(
+                value
+              )
+              break
             default:
               return <Text value={data} block={block} />
           }
