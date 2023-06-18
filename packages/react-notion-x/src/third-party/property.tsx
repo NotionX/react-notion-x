@@ -327,6 +327,45 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
         content = components.propertyTitleValue(props, renderTitleValue)
         break
 
+      case 'status': {
+        const value = data[0][0] || ''
+
+        const option = schema.options?.find((option) => value === option.value)
+
+        const color = option?.color || 'default-inferred'
+
+        content = components.propertySelectValue(
+          {
+            ...props,
+            value,
+            option,
+            color
+          },
+          () => (
+            <div
+              className={cs(
+                `notion-property-${schema.type}-item`,
+                color && `notion-item-${color}`
+              )}
+            >
+              <span
+                className={cs(`notion-item-bullet-${color}`)}
+                style={{
+                  marginRight: '5px',
+                  borderRadius: '100%',
+                  height: '8px',
+                  width: '8px',
+                  display: 'inline-flex',
+                  flexShrink: 0
+                }}
+              />
+              {value}
+            </div>
+          )
+        )
+        break
+      }
+
       case 'select':
       // intentional fallthrough
       case 'multi_select': {
