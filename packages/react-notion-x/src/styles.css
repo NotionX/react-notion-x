@@ -2583,6 +2583,7 @@ svg.notion-page-icon {
 }
 
 .notion-external {
+  color: var(--fg-color);
   border-radius: 3px;
   transition: background 120ms ease-in 0s;
   text-decoration: none;
@@ -2614,11 +2615,11 @@ svg.notion-page-icon {
   margin: 3px 12px 3px 4px;
 }
 
-.notion-external-mention .notion-external-image {
+.notion-external-mention svg {
   display: inline-flex;
   align-items: center;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   margin: 0;
   margin-right: 0.3em;
 }
