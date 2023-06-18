@@ -99,7 +99,7 @@ export type NumberFormat =
   | 'shekel'
   | 'singapore_dollar'
   | 'uruguayan_peso'
-  | 'zloty';
+  | 'zloty'
 
 export type Role = 'editor' | 'reader' | 'none' | 'read_and_write'
 
