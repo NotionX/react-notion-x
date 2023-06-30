@@ -59,10 +59,6 @@ export const Code: React.FC<{
             }
           })
           await mermaid.run({ querySelector: 'code.language-mermaid' })
-          document.querySelectorAll('code.language-mermaid').forEach((el) => {
-            el.parentElement.style.display = 'flex'
-            el.parentElement.style.justifyContent = 'center'
-          })
         }
       } catch (err) {
         console.warn('mermaid highlight error', err)
