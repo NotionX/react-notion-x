@@ -1664,8 +1664,8 @@ svg.notion-page-icon {
 }
 
 .notion-list-item-property {
-  /* display: flex;
-  align-items: center; */
+  display: flex;
+  align-items: center;
   margin-left: 14px;
   font-size: 14px;
 }
@@ -2749,7 +2749,7 @@ svg.notion-page-icon {
   box-shadow: rgba(15, 15, 15, 0.1) 0 0 0 1px, rgba(15, 15, 15, 0.1) 0 2px 4px;
 }
 
-.notion-external-mention .notion-external-subtitle-item{
+.notion-external-mention .notion-external-subtitle-item {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -2758,37 +2758,36 @@ svg.notion-page-icon {
   padding: 4px 0;
 }
 
-.notion-external-mention .notion-external-subtitle-item-name{
+.notion-external-mention .notion-external-subtitle-item-name {
   flex: none;
   width: 70px;
   font-weight: 500;
 }
 
-.notion-external-mention .notion-external-subtitle-item-desc{
-  flex: 1
+.notion-external-mention .notion-external-subtitle-item-desc {
+  flex: 1;
 }
 
 .notion-external-description:hover .notion-external-subtitle {
   display: block;
 }
 
-.notion-preview-card-domain-warp{
+.notion-preview-card-domain-warp {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
 }
 
-.notion-preview-card-domain-warp .notion-preview-card-domain{
-padding-left: 4px;
-
+.notion-preview-card-domain-warp .notion-preview-card-domain {
+  padding-left: 4px;
 }
-.notion-preview-card-domain-warp .notion-preview-card-logo{
+.notion-preview-card-domain-warp .notion-preview-card-logo {
   width: 14px;
   height: 14px;
 }
 
-.notion-preview-card-title{
+.notion-preview-card-title {
   font-size: 16px;
   line-height: 1.5;
   padding: 4px 0;
@@ -2891,7 +2890,7 @@ padding-left: 4px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 120%
+  width: 120%;
 }
 
 .notion-collection-view-tabs-content-item {
@@ -2941,9 +2940,9 @@ padding-left: 4px;
 }
 
 .nested-form-link {
-  background: none!important;
+  background: none !important;
   border: none;
-  padding: 0!important;
+  padding: 0 !important;
   text-decoration: underline;
   cursor: pointer;
 }
