@@ -69,6 +69,7 @@ function List({ blockIds, collection, collectionView }) {
                     data={titleData}
                     block={block}
                     collection={collection}
+                    linkToTitlePage={false}
                   />
                 </div>
 
