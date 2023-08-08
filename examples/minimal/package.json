@@ -4,18 +4,21 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "clean": "rm -rf .next",
+    "dev": "next dev",
+    "lint": "next lint",
     "start": "next start",
-    "deploy": "vercel deploy"
+    "vercel-deploy": "vercel deploy"
   },
   "dependencies": {
     "next": "^12.1.0",
-    "notion-client": "^6.16.0",
-    "notion-utils": "^6.16.0",
+    "notion-client": "workspace:*",
+    "notion-types": "workspace:*",
+    "notion-utils": "workspace:*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-notion-x": "^6.16.0"
+    "react-notion-x": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^16.11.2",

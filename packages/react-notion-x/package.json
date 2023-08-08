@@ -18,8 +18,11 @@
     "node": ">=12"
   },
   "scripts": {
-    "build": "tsup",
-    "watch": "tsup --watch --silent --onSuccess 'echo build successful'"
+    "build": "tsup --external react",
+    "clean": "rm -rf build",
+    "dev": "tsup --watch --external react",
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "publish": "pnpm publish"
   },
   "dependencies": {
     "@fisch0920/medium-zoom": "^1.0.7",

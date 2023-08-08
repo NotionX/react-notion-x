@@ -11,7 +11,7 @@
 ## Install
 
 ```bash
-npm install notion-types
+pnpm install notion-types
 ```
 
 This package only exports types and is compatible with both Node.js and browsers.

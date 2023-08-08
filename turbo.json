@@ -1,0 +1,46 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "build/**"
+      ],
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["build", "lint", "//#test-format"]
+    },
+    "lint": {
+    },
+    "//#test-format": {
+      "dependsOn": []
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "clean": {
+      "cache": false
+    },
+    "publish":{
+    },
+    "notion-types#publish":{
+      "dependsOn": ["build", "test"]
+    },
+    "notion-utils#publish":{
+      "dependsOn": ["build", "test"]
+    },
+    "notion-compat#publish":{
+      "dependsOn": ["build", "test"]
+    },
+    "notion-client#publish":{
+      "dependsOn": ["build", "test"]
+    },
+    "react-notion-x#publish":{
+      "dependsOn": ["build", "test"]
+    }
+  }
+}

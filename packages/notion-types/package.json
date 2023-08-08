@@ -11,6 +11,13 @@
   "files": [
     "build"
   ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf build",
+    "dev": "tsup --watch",
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "publish": "pnpm publish"
+    },
   "engines": {
     "node": ">=12"
   }

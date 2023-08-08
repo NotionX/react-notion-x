@@ -1,12 +1,13 @@
 {
   "extends": "../../tsconfig.base",
   "compilerOptions": {
-    "composite": true,
+    "composite": false,
     "rootDir": "src",
     "outDir": "build",
     "tsBuildInfoFile": "build/.tsbuildinfo",
     "emitDeclarationOnly": true
   },
-  "include": ["src"],
-  "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]
+  "include": [
+    "src/**/*"
+  ],
 }

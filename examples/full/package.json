@@ -4,13 +4,15 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "clean": "rm -rf .next",
+    "dev": "next dev",
+    "lint": "next lint",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
-    "deploy": "vercel deploy"
+    "vercel-deploy": "vercel deploy"
   },
   "dependencies": {
     "@notionhq/client": "^1.0.4",
@@ -18,9 +20,10 @@
     "got": "^12.0.2",
     "lqip-modern": "^1.2.0",
     "next": "^12.1.0",
-    "notion-client": "^6.16.0",
-    "notion-compat": "^6.16.0",
-    "notion-utils": "^6.16.0",
+    "notion-client": "workspace:*",
+    "notion-compat": "workspace:*",
+    "notion-types": "workspace:*",
+    "notion-utils": "workspace:*",
     "p-map": "^5.3.0",
     "p-memoize": "^6.0.1",
     "react": "^17.0.2",

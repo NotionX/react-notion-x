@@ -24,7 +24,10 @@
   },
   "scripts": {
     "build": "tsup",
-    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "clean": "rm -rf build",
+    "dev": "tsup --watch",
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "publish": "pnpm publish",
     "test": "ava"
   },
   "dependencies": {

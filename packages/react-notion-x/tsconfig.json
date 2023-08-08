@@ -1,8 +1,10 @@
 {
   "extends": "../../tsconfig.base",
   "compilerOptions": {
-    "composite": true,
+    "composite": false,
     "rootDir": "src",
+    "declaration": true,
+    "declarationMap": true,
     "outDir": "build",
     "tsBuildInfoFile": "build/.tsbuildinfo",
     "emitDeclarationOnly": true,
@@ -11,6 +13,7 @@
     "skipLibCheck": true,
     "jsx": "react"
   },
-  "include": ["src"],
-  "references": [{ "path": "../notion-types" }, { "path": "../notion-utils" }]
+  "include": [
+    "src/**/*"
+  ],
 }
