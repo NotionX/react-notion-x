@@ -17,7 +17,7 @@ export const Equation: React.FC<{
   math?: string
   inline?: boolean
   className?: string
-}> = ({ block, math, inline = false, className, ...rest }) => {
+}> = ({ block, math, inline, className, ...rest }) => {
   const { recordMap } = useNotionContext()
   math = math || getBlockTitle(block, recordMap)
   if (!math) return null
@@ -32,7 +32,11 @@ export const Equation: React.FC<{
         className
       )}
     >
-      <Katex math={math} settings={katexSettings} {...rest} />
+      {inline ? (
+        <Katex math={math} settings={katexSettings} {...rest} />
+      ) : (
+        <Katex math={math} settings={katexSettings} {...rest} block />
+      )}
     </span>
   )
 }
