@@ -74,7 +74,7 @@ export async function getAllPagesInSpace(
           Object.keys(page.block)
             .filter((key) => {
               const block = page.block[key]?.value
-              if (!block) return false
+              if (!block || block.alive === false) return false
 
               if (
                 block.type !== 'page' &&
