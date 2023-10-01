@@ -14,6 +14,7 @@ import Person2Icon from './type-person-2'
 import PhoneNumberIcon from './type-phone-number'
 import RelationIcon from './type-relation'
 import SelectIcon from './type-select'
+import StatusIcon from './type-status'
 import TextIcon from './type-text'
 import TimestampIcon from './type-timestamp'
 import TitleIcon from './type-title'
@@ -29,6 +30,7 @@ const iconMap = {
   text: TextIcon,
   number: NumberIcon,
   select: SelectIcon,
+  status: StatusIcon,
   multi_select: MultiSelectIcon,
   date: DateIcon,
   person: PersonIcon,

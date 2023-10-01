@@ -1,6 +1,6 @@
 {
   "name": "notion-utils",
-  "version": "6.15.4",
+  "version": "6.16.0",
   "type": "module",
   "description": "Useful utilities for working with Notion data. Isomorphic.",
   "repository": "NotionX/react-notion-x",
@@ -31,7 +31,7 @@
     "is-url-superb": "^6.1.0",
     "mem": "^9.0.2",
     "normalize-url": "^7.0.3",
-    "notion-types": "^6.15.4",
+    "notion-types": "^6.16.0",
     "p-queue": "^7.2.0"
   },
   "ava": {

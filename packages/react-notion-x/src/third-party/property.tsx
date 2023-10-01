@@ -3,6 +3,7 @@ import * as React from 'react'
 import * as types from 'notion-types'
 import format from 'date-fns/format/index.js'
 import formatNumber from 'format-number'
+import { FormulaResult } from 'notion-types'
 
 import { Checkbox } from '../components/checkbox'
 import { GracefulImage } from '../components/graceful-image'
@@ -79,10 +80,10 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderFormulaValue = React.useMemo(
     () =>
       function FormulaProperty() {
-        let content: string
+        let content: FormulaResult | null
 
         try {
-          let content = evalFormula(schema.formula, {
+          content = evalFormula(schema.formula, {
             schema: collection?.schema,
             properties: block?.properties
           })
@@ -327,6 +328,45 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
       case 'title':
         content = components.propertyTitleValue(props, renderTitleValue)
         break
+
+      case 'status': {
+        const value = data[0][0] || ''
+
+        const option = schema.options?.find((option) => value === option.value)
+
+        const color = option?.color || 'default-inferred'
+
+        content = components.propertySelectValue(
+          {
+            ...props,
+            value,
+            option,
+            color
+          },
+          () => (
+            <div
+              className={cs(
+                `notion-property-${schema.type}-item`,
+                color && `notion-item-${color}`
+              )}
+            >
+              <span
+                className={cs(`notion-item-bullet-${color}`)}
+                style={{
+                  marginRight: '5px',
+                  borderRadius: '100%',
+                  height: '8px',
+                  width: '8px',
+                  display: 'inline-flex',
+                  flexShrink: 0
+                }}
+              />
+              {value}
+            </div>
+          )
+        )
+        break
+      }
 
       case 'select':
       // intentional fallthrough

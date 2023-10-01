@@ -8,8 +8,9 @@ export interface NotionDateTime {
 }
 
 export const formatNotionDateTime = (datetime: NotionDateTime) => {
-  const dateString = `${datetime.start_time || ''} ${datetime.start_date} ${
-    datetime.time_zone || ''
-  }`
+  // Adding +00:00 preserve the time in UTC.
+  const dateString = `${datetime.start_date}T${
+    datetime.start_time || '00:00'
+  }+00:00`
   return formatDate(dateString)
 }

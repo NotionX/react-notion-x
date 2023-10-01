@@ -5,6 +5,7 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
+  "version": "6.15.8",
   "engines": {
     "node": ">=12"
   },

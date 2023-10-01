@@ -47,5 +47,6 @@ export interface Collection {
       property: PropertyID
       visibility: 'show' | 'hide'
     }>
+    hide_linked_collection_name?: boolean
   }
 }

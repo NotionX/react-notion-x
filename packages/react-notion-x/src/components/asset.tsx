@@ -11,6 +11,7 @@ import { LiteYouTubeEmbed } from './lite-youtube-embed'
 const isServer = typeof window === 'undefined'
 
 const supportedAssetTypes = [
+  'replit',
   'video',
   'image',
   'embed',
@@ -124,7 +125,7 @@ export const Asset: React.FC<{
     }
   }
 
-  const source =
+  let source =
     recordMap.signed_urls?.[block.id] || block.properties?.source?.[0]?.[0]
   let content = null
 
@@ -155,6 +156,7 @@ export const Asset: React.FC<{
   } else if (block.type === 'pdf') {
     style.overflow = 'auto'
     style.background = 'rgb(226, 226, 226)'
+    style.display = 'block'
 
     if (!style.padding) {
       style.padding = '8px 16px'
@@ -173,7 +175,8 @@ export const Asset: React.FC<{
     block.type === 'maps' ||
     block.type === 'excalidraw' ||
     block.type === 'codepen' ||
-    block.type === 'drive'
+    block.type === 'drive' ||
+    block.type === 'replit'
   ) {
     if (
       block.type === 'video' &&
@@ -238,6 +241,8 @@ export const Asset: React.FC<{
             />
           )
         } else {
+          src += block.type === 'typeform' ? '&disable-auto-focus=true' : ''
+
           content = (
             <iframe
               className='notion-asset-object-fit'
@@ -258,7 +263,10 @@ export const Asset: React.FC<{
     }
   } else if (block.type === 'image') {
     // console.log('image', block)
-
+    //kind of a hack for now. New file.notion.so images aren't signed correctly
+    if (source.includes('file.notion.so')) {
+      source = block.properties?.source?.[0]?.[0]
+    }
     const src = mapImageUrl(source, block as Block)
     const caption = getTextContent(block.properties?.caption)
     const alt = caption || 'notion image'
