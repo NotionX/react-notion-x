@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Block, CalendarCollectionView, PageBlock } from 'notion-types'
+import { CalendarCollectionView, PageBlock } from 'notion-types'
 import { getBlockIcon, getPagePropertyFromId } from 'notion-utils'
 
 import { PageIcon } from '../components/page-icon'
@@ -101,6 +101,9 @@ function Calendar({ blockIds, collectionView, collection }) {
     )
   )
 
+  /**
+   * Set next month to be shown
+   */
   const nextMonth = () => {
     if (currentYear.getMonth() == 11) {
       currentYear.setFullYear(currentYear.getFullYear() + 1)
@@ -119,6 +122,9 @@ function Calendar({ blockIds, collectionView, collection }) {
       )
     )
   }
+  /**
+   * Set previous month to be shown
+   */
   const prevMonth = () => {
     if (currentYear.getMonth() == 0) {
       currentYear.setFullYear(currentYear.getFullYear() - 1)
@@ -137,6 +143,9 @@ function Calendar({ blockIds, collectionView, collection }) {
       )
     )
   }
+  /**
+   * Set current (in the user time) month to be shwon
+   */
   const nowMonth = () => {
     currentYear.setMonth(new Date().getMonth())
     currentYear.setFullYear(new Date().getFullYear())
@@ -152,6 +161,11 @@ function Calendar({ blockIds, collectionView, collection }) {
     )
   }
 
+  /**
+   * Get the highest numer of pages for a specific weeknumer in the current month
+   * @param weekNumber
+   * @returns
+   */
   const checkWeek = (weekNumber: number) => {
     let max = 0
 
@@ -163,8 +177,13 @@ function Calendar({ blockIds, collectionView, collection }) {
     return max
   }
 
+  /**
+   * Get all the pages that has a block in the day parameter
+   * @param day
+   * @returns The blocks in a day
+   */
   const getPagesThisDay = (day: { date: number; month: number }) => {
-    const daysTo: Block[] = []
+    const daysTo: PageBlock[] = []
 
     blockIds?.map((blockId: string) => {
       const block = recordMap.block[blockId]?.value as PageBlock
@@ -189,18 +208,6 @@ function Calendar({ blockIds, collectionView, collection }) {
     return daysTo
   }
 
-  // Check if collection view is a standalone page or not
-  const isCollectionViewPage =
-    recordMap.block[Object.keys(recordMap.block)[0]].value.type ===
-    'collection_view_page'
-
-  // This is needed because calendar view pages need to be full width (like Notion)
-  React.useEffect(() => {
-    if (isCollectionViewPage) {
-      document.querySelector('.notion-page').classList.add('notion-full-width')
-    }
-  }, [isCollectionViewPage])
-
   return (
     <div className='notion-calendar-view'>
       <div className='notion-calendar-header'>
@@ -215,6 +222,7 @@ function Calendar({ blockIds, collectionView, collection }) {
             }}
           ></div>
 
+          {/* Calendar controls | prev - today - next */}
           {showCalendarControls && (
             <>
               <div
@@ -287,6 +295,7 @@ function Calendar({ blockIds, collectionView, collection }) {
       ></div>
 
       <div className='notion-calendar-body'>
+        {/* Rows */}
         {weeksArr.map((i, indexI) => (
           <div
             className={cs(
@@ -301,8 +310,10 @@ function Calendar({ blockIds, collectionView, collection }) {
             }}
             key={indexI}
           >
+            {/* Columns */}
             {i.map((day, indexY) => (
               <>
+                {/* Print the days blocks with the number and month if is day 1 */}
                 <div
                   className={cs(
                     'notion-selectable',
@@ -320,7 +331,6 @@ function Calendar({ blockIds, collectionView, collection }) {
                   <div
                     className={cs(
                       'notion-calendar-body-inner-day',
-
                       day.date == new Date().getDate() &&
                         day.month == new Date().getMonth() &&
                         day.year == new Date().getFullYear()
@@ -333,12 +343,18 @@ function Calendar({ blockIds, collectionView, collection }) {
                         : 'notion-calendar-body-inner-day-other-month'
                     )}
                   >
-                    {day.date == 1
+                    {day.date == 1 &&
+                    !(
+                      day.date == new Date().getDate() &&
+                      day.month == new Date().getMonth() &&
+                      day.year == new Date().getFullYear()
+                    )
                       ? `${monthsShort[day.month + currentMonth]} ${day.date}`
                       : day.date}
                   </div>
                 </div>
 
+                {/* Print the blocks the day */}
                 {getPagesThisDay(day).map((block, sum) => {
                   // Get date from calendar view query
                   const blockDate = getPagePropertyFromId(
@@ -365,9 +381,8 @@ function Calendar({ blockIds, collectionView, collection }) {
                       <div
                         className='notion-calendar-body-inner-card'
                         style={{
-                          left: `calc(${
-                            dayBlock == 0 ? 0 : dayBlock * 14.2857
-                          }%)`,
+                          left: `calc(${dayBlock * 14.2857}%)`,
+                          // Calculate the height of the block based on its properties (also the one that are not supported yet)
                           height: `${
                             collectionView.format?.calendar_properties &&
                             Object.keys(
