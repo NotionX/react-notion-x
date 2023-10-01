@@ -447,7 +447,6 @@ function Calendar({ blockIds, collectionView, collection }) {
                                         data={data}
                                         block={block}
                                         collection={collection}
-                                        longMonth={true}
                                       />
                                     </div>
                                   )
