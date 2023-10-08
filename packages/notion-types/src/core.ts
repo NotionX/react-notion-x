@@ -45,6 +45,7 @@ export type PropertyType =
   | 'select'
   | 'status'
   | 'multi_select'
+  | 'auto_increment_id'
   | 'date'
   | 'person'
   | 'file'

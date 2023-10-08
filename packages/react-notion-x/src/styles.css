@@ -10,6 +10,7 @@
   --fg-color-4: #000;
   --fg-color-5: rgba(55, 53, 47, 0.024);
   --fg-color-6: rgba(55, 53, 47, 0.8);
+  --fg-color-7: rgba(55, 53, 47, 0.5);
   --fg-color-icon: var(--fg-color);
 
   --bg-color: #fff;
@@ -1409,6 +1410,10 @@ svg.notion-page-icon {
   padding: 7px 8px 0;
 }
 
+.notion-table-cell-auto_increment_id {
+  color: var(--fg-color-7);
+}
+
 .notion-property-select,
 .notion-property-status,
 .notion-property-multi_select {
@@ -2156,6 +2161,10 @@ svg.notion-page-icon {
 
 .notion-collection-row-property .notion-property {
   width: 100%;
+}
+
+.notion-collection-row-property .notion-property-auto_increment_id {
+  color: var(--fg-color-7);
 }
 
 .notion-collection-row-property .notion-collection-column-title-icon {

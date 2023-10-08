@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { PropertyType } from 'notion-types'
 
+import AutoIncrementIdIcon from './type-auto-increment-id'
 import CheckboxIcon from './type-checkbox'
 import DateIcon from './type-date'
 import EmailIcon from './type-email'
@@ -44,7 +45,8 @@ const iconMap = {
   created_time: TimestampIcon,
   last_edited_time: TimestampIcon,
   created_by: Person2Icon,
-  last_edited_by: Person2Icon
+  last_edited_by: Person2Icon,
+  auto_increment_id: AutoIncrementIdIcon
 }
 
 export const PropertyIcon: React.FC<PropertyIconProps> = ({
