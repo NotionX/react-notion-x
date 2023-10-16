@@ -38,6 +38,7 @@ export interface Collection {
   copied_from: string
   template_pages?: Array<ID>
 
+  cover?: string;
   format?: {
     collection_page_properties?: Array<{
       property: PropertyID
