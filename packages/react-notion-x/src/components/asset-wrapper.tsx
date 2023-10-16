@@ -35,7 +35,6 @@ export const AssetWrapper: React.FC<{
       className={cs(
         'notion-asset-wrapper',
         `notion-asset-wrapper-${block.type}`,
-        value.format?.block_full_width && 'notion-asset-wrapper-full',
         blockId
       )}
     >
