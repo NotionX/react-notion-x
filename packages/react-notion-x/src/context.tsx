@@ -2,8 +2,28 @@ import * as React from 'react'
 
 import { ExtendedRecordMap } from 'notion-types'
 
+import { Alias } from './block-components/alias'
+import { Bookmark } from './block-components/bookmark'
+import { Callout } from './block-components/callout'
+import { Column } from './block-components/column'
+import { ColumnList } from './block-components/column-list'
+import { Divider } from './block-components/divider'
+import { Drive } from './block-components/drive'
+import { TextHeader } from './block-components/header'
+import { List } from './block-components/list'
+import { Page } from './block-components/page'
+import { Quote } from './block-components/quote'
+import { Table } from './block-components/table'
+import { TableOfContents } from './block-components/table-of-contents'
+import { TableRow } from './block-components/table-row'
+import { TextBlock } from './block-components/text'
+import { ToDo } from './block-components/to-do'
+import { Toggle } from './block-components/toggle'
 import { AssetWrapper } from './components/asset-wrapper'
+import { Audio } from './components/audio'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
+import { EOI } from './components/eoi'
+import { File } from './components/file'
 import { Header } from './components/header'
 import { wrapNextImage, wrapNextLink } from './next'
 import {
@@ -108,7 +128,6 @@ const defaultComponents: NotionComponents = {
   Link: DefaultLinkMemo,
   PageLink: DefaultPageLinkMemo,
   Checkbox: DefaultCheckbox,
-  Callout: undefined, // use the built-in callout rendering by default
 
   Code: dummyComponent('Code'),
   Equation: dummyComponent('Equation'),
@@ -136,8 +155,28 @@ const defaultComponents: NotionComponents = {
   Tweet: dummyComponent('Tweet'),
   Modal: dummyComponent('Modal'),
 
+  Embed: DefaultEmbed,
   Header: DefaultHeader,
-  Embed: DefaultEmbed
+  TextHeader,
+  Divider,
+  TextBlock,
+  Drive,
+  List,
+  ColumnList,
+  Column,
+  Quote,
+  Callout,
+  Bookmark,
+  Toggle,
+  TableOfContents,
+  ToDo,
+  Alias,
+  Table,
+  TableRow,
+  Page,
+  EOI,
+  Audio,
+  File
 }
 
 const defaultNotionContext: NotionContext = {
