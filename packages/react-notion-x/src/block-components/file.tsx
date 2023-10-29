@@ -2,10 +2,10 @@ import * as React from 'react'
 
 import { FileBlock } from 'notion-types'
 
+import { Text } from '../components/text'
 import { useNotionContext } from '../context'
 import { FileIcon } from '../icons/file-icon'
 import { cs } from '../utils'
-import { Text } from './text'
 
 export const File: React.FC<{
   block: FileBlock
