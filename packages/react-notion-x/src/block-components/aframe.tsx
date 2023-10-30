@@ -161,7 +161,7 @@ export const AFrame: React.FC<{
     <>
       {block?.properties?.caption && (
         <figcaption className='notion-asset-caption'>
-          <Text value={block.properties.caption} block={block} />
+          <Text value={block.properties.caption} block={block as any} />
         </figcaption>
       )}
     </>
