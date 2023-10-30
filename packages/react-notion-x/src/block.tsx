@@ -3,7 +3,6 @@ import * as React from 'react'
 import * as types from 'notion-types'
 import { uuidToId } from 'notion-utils'
 
-import { AssetWrapper } from './components/asset-wrapper'
 import { SyncPointerBlock } from './components/sync-pointer-block'
 import { useNotionContext } from './context'
 import { cs } from './utils'
@@ -90,14 +89,10 @@ export const Block: React.FC<BlockProps> = (props) => {
     }
 
     case 'embed':
-      return <components.Embed blockId={blockId} block={block} />
+    // fallthrough
     case 'replit':
     // fallthrough
-    case 'tweet':
-    // fallthrough
     case 'maps':
-    // fallthrough
-    case 'pdf':
     // fallthrough
     case 'figma':
     // fallthrough
@@ -107,16 +102,45 @@ export const Block: React.FC<BlockProps> = (props) => {
     // fallthrough
     case 'excalidraw':
     // fallthrough
-    case 'image':
-    // fallthrough
     case 'gist':
-    // fallthrough
+      // fallthrough
+      return (
+        <components.AssetWrapper blockId={blockId} block={block}>
+          <components.AFrame block={block} />
+        </components.AssetWrapper>
+      )
+
+    case 'pdf':
+      return (
+        <components.AssetWrapper blockId={blockId} block={block}>
+          <components.PDF block={block} />
+        </components.AssetWrapper>
+      )
+
     case 'video':
-      return <AssetWrapper blockId={blockId} block={block} />
+      return (
+        <components.AssetWrapper blockId={blockId} block={block}>
+          <components.Video block={block} />
+        </components.AssetWrapper>
+      )
+
+    case 'image': // for test
+      return (
+        <components.AssetWrapper blockId={blockId} block={block}>
+          <components.Image block={block} />
+        </components.AssetWrapper>
+      )
 
     case 'drive': {
       return <components.Drive blockId={blockId} block={block} />
     }
+
+    case 'tweet':
+      return (
+        <components.AssetWrapper blockId={blockId} block={block}>
+          <components.Tweet block={block} />
+        </components.AssetWrapper>
+      )
 
     case 'audio':
       return (

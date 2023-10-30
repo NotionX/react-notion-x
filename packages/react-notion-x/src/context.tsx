@@ -2,7 +2,9 @@ import * as React from 'react'
 
 import { ExtendedRecordMap } from 'notion-types'
 
+import { AFrame } from './block-components/aframe'
 import { Alias } from './block-components/alias'
+import { AssetWrapper } from './block-components/asset-wrapper'
 import { Audio } from './block-components/audio'
 import { Bookmark } from './block-components/bookmark'
 import { Callout } from './block-components/callout'
@@ -12,8 +14,10 @@ import { Divider } from './block-components/divider'
 import { Drive } from './block-components/drive'
 import { File } from './block-components/file'
 import { TextHeader } from './block-components/header'
+import { Image } from './block-components/image'
 import { List } from './block-components/list'
 import { Page } from './block-components/page'
+import { PDF } from './block-components/pdf'
 import { Quote } from './block-components/quote'
 import { Table } from './block-components/table'
 import { TableOfContents } from './block-components/table-of-contents'
@@ -21,7 +25,8 @@ import { TableRow } from './block-components/table-row'
 import { TextBlock } from './block-components/text'
 import { ToDo } from './block-components/to-do'
 import { Toggle } from './block-components/toggle'
-import { AssetWrapper } from './components/asset-wrapper'
+import { Tweet } from './block-components/tweet'
+import { Video } from './block-components/video'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
 import { EOI } from './components/eoi'
 import { Header } from './components/header'
@@ -102,7 +107,6 @@ const DefaultLinkMemo = React.memo(DefaultLink)
 const DefaultPageLink: React.FC = (props) => <a {...props} />
 const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
-const DefaultEmbed = (props) => <AssetWrapper {...props} />
 const DefaultHeader = Header
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -124,7 +128,6 @@ const dummyOverrideFn = (_: any, defaultValueFn: () => React.ReactNode) =>
   defaultValueFn()
 
 const defaultComponents: NotionComponents = {
-  Image: null, // disable custom images by default
   Link: DefaultLinkMemo,
   PageLink: DefaultPageLinkMemo,
   Checkbox: DefaultCheckbox,
@@ -155,7 +158,6 @@ const defaultComponents: NotionComponents = {
   Tweet: dummyComponent('Tweet'),
   Modal: dummyComponent('Modal'),
 
-  Embed: DefaultEmbed,
   Header: DefaultHeader,
   TextHeader,
   Divider,
@@ -176,7 +178,13 @@ const defaultComponents: NotionComponents = {
   Page,
   EOI,
   Audio,
-  File
+  File,
+  Image,
+  Video,
+  PDF,
+  TweetAsset: Tweet,
+  AFrame,
+  AssetWrapper
 }
 
 const defaultNotionContext: NotionContext = {

@@ -46,6 +46,11 @@ export interface NotionComponents {
   EOI?: any
   Audio?: any
   File?: any
+  Video?: any
+  PDF?: any
+  TweetAsset?: any
+  AFrame?: any
+  AssetWrapper?: any
 
   // collection
   Collection: any
@@ -71,7 +76,6 @@ export interface NotionComponents {
   Pdf: any
   Tweet: any
   Modal: any
-  Embed: any
 
   // page navigation
   Header: any
