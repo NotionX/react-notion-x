@@ -27,6 +27,30 @@ export interface NotionComponents {
   Code: any
   Equation: any
   Callout?: any
+  TextHeader?: any
+  Divider?: any
+  TextBlock?: any
+  Drive?: any
+  List?: any
+  ColumnList?: any
+  Column?: any
+  Quote?: any
+  Bookmark?: any
+  Toggle?: any
+  TableOfContents?: any
+  ToDo?: any
+  Alias?: any
+  Table?: any
+  TableRow?: any
+  Page?: any
+  EOI?: any
+  Audio?: any
+  File?: any
+  Video?: any
+  PDF?: any
+  TweetAsset?: any
+  AFrame?: any
+  AssetWrapper?: any
 
   // collection
   Collection: any
@@ -52,7 +76,6 @@ export interface NotionComponents {
   Pdf: any
   Tweet: any
   Modal: any
-  Embed: any
 
   // page navigation
   Header: any

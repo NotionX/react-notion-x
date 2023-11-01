@@ -2,8 +2,33 @@ import * as React from 'react'
 
 import { ExtendedRecordMap } from 'notion-types'
 
-import { AssetWrapper } from './components/asset-wrapper'
+import { AFrame } from './block-components/aframe'
+import { Alias } from './block-components/alias'
+import { AssetWrapper } from './block-components/asset-wrapper'
+import { Audio } from './block-components/audio'
+import { Bookmark } from './block-components/bookmark'
+import { Callout } from './block-components/callout'
+import { Column } from './block-components/column'
+import { ColumnList } from './block-components/column-list'
+import { Divider } from './block-components/divider'
+import { Drive } from './block-components/drive'
+import { File } from './block-components/file'
+import { TextHeader } from './block-components/header'
+import { Image } from './block-components/image'
+import { List } from './block-components/list'
+import { Page } from './block-components/page'
+import { PDF } from './block-components/pdf'
+import { Quote } from './block-components/quote'
+import { Table } from './block-components/table'
+import { TableOfContents } from './block-components/table-of-contents'
+import { TableRow } from './block-components/table-row'
+import { TextBlock } from './block-components/text'
+import { ToDo } from './block-components/to-do'
+import { Toggle } from './block-components/toggle'
+import { Tweet } from './block-components/tweet'
+import { Video } from './block-components/video'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
+import { EOI } from './components/eoi'
 import { Header } from './components/header'
 import { wrapNextImage, wrapNextLink } from './next'
 import {
@@ -82,7 +107,6 @@ const DefaultLinkMemo = React.memo(DefaultLink)
 const DefaultPageLink: React.FC = (props) => <a {...props} />
 const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
-const DefaultEmbed = (props) => <AssetWrapper {...props} />
 const DefaultHeader = Header
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -104,11 +128,9 @@ const dummyOverrideFn = (_: any, defaultValueFn: () => React.ReactNode) =>
   defaultValueFn()
 
 const defaultComponents: NotionComponents = {
-  Image: null, // disable custom images by default
   Link: DefaultLinkMemo,
   PageLink: DefaultPageLinkMemo,
   Checkbox: DefaultCheckbox,
-  Callout: undefined, // use the built-in callout rendering by default
 
   Code: dummyComponent('Code'),
   Equation: dummyComponent('Equation'),
@@ -137,7 +159,32 @@ const defaultComponents: NotionComponents = {
   Modal: dummyComponent('Modal'),
 
   Header: DefaultHeader,
-  Embed: DefaultEmbed
+  TextHeader,
+  Divider,
+  TextBlock,
+  Drive,
+  List,
+  ColumnList,
+  Column,
+  Quote,
+  Callout,
+  Bookmark,
+  Toggle,
+  TableOfContents,
+  ToDo,
+  Alias,
+  Table,
+  TableRow,
+  Page,
+  EOI,
+  Audio,
+  File,
+  Image,
+  Video,
+  PDF,
+  TweetAsset: Tweet,
+  AFrame,
+  AssetWrapper
 }
 
 const defaultNotionContext: NotionContext = {
