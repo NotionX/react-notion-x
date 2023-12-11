@@ -445,6 +445,7 @@ export interface TableBlock extends BaseBlock {
       [column: string]: { width?: number; color?: Color }
     }
     table_block_column_header: boolean
+    table_block_row_header: boolean
     table_block_column_order: string[]
   }
   view_ids: ID[]
