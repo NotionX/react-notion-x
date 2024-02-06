@@ -20,8 +20,7 @@ const indentLevels = {
  */
 const traverseBlocks = (
   blockIds: string[],
-  recordMap: types.ExtendedRecordMap,
-  indentLevel: number
+  recordMap: types.ExtendedRecordMap
 ): Array<TableOfContentsEntry> => {
   const toc: Array<TableOfContentsEntry> = []
 
@@ -46,11 +45,7 @@ const traverseBlocks = (
 
       // If the block has content, recursively traverse it
       if (block.content) {
-        const nestedHeaders = traverseBlocks(
-          block.content,
-          recordMap,
-          indentLevel + 1
-        )
+        const nestedHeaders = traverseBlocks(block.content, recordMap)
         toc.push(...nestedHeaders)
       }
     }
@@ -67,7 +62,7 @@ export const getPageTableOfContents = (
   page: types.PageBlock,
   recordMap: types.ExtendedRecordMap
 ): Array<TableOfContentsEntry> => {
-  const toc = traverseBlocks(page.content ?? [], recordMap, 0)
+  const toc = traverseBlocks(page.content ?? [], recordMap)
 
   const indentLevelStack = [
     {
