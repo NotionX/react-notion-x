@@ -58,6 +58,7 @@ export const NotionRenderer: React.FC<{
   blockId?: string
   hideBlockId?: boolean
   disableHeader?: boolean
+  customFunctions?: any
 }> = ({
   components,
   recordMap,
@@ -81,6 +82,7 @@ export const NotionRenderer: React.FC<{
   defaultPageIcon,
   defaultPageCover,
   defaultPageCoverPosition,
+  customFunctions,
   ...rest
 }) => {
   const zoom = React.useMemo(
@@ -118,6 +120,7 @@ export const NotionRenderer: React.FC<{
       defaultPageCover={defaultPageCover}
       defaultPageCoverPosition={defaultPageCoverPosition}
       zoom={isImageZoomable ? zoom : null}
+      customFunctions={customFunctions}
     >
       <NotionBlockRenderer {...rest} />
     </NotionContextProvider>
