@@ -929,7 +929,7 @@ svg.notion-page-icon {
 .notion-code-copy {
   position: absolute;
   top: 1em;
-  right: 1em;
+  right: 5em;
   user-select: none;
   z-index: 9;
   transition: opacity 0.2s cubic-bezier(0.3, 0, 0.5, 1);
@@ -996,6 +996,63 @@ svg.notion-page-icon {
   background: #222;
   color: #fff;
   border-radius: 6px;
+}
+.notion-code-menu {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  user-select: none;
+  z-index: 9;
+  transition: opacity 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  opacity: 0; /* Start with hidden menu to reduce UI clutter */
+}
+
+.notion-code:hover .notion-code-menu {
+  opacity: 1; /* Show the menu on hover */
+}
+
+.notion-code-menu-button {
+  display: inline-block;
+  padding: 0.6em;
+  font-size: 1.25em;
+  line-height: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1), color 0.2s cubic-bezier(0.3, 0, 0.5, 1), border-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background-color: #f6f8fa;
+  color: #24292f;
+  border: 1px solid rgba(27, 31, 36, 0.15);
+  border-radius: 6px;
+}
+
+.notion-code-menu-button:hover {
+  background-color: #f3f4f6;
+  border-color: rgba(27, 31, 36, 0.15);
+}
+
+.notion-code-menu-button:active {
+  background: hsla(220, 14%, 93%, 1);
+  border-color: rgba(27, 31, 36, 0.15);
+  transition: none;
+}
+
+.notion-code-menu-tooltip {
+  display: none; /* Keep tooltip hidden initially */
+  position: absolute;
+  bottom: -38px; /* Position the tooltip below the button */
+  left: 50%;
+  transform: translateX(-50%); /* Center the tooltip */
+  z-index: 99;
+  font-size: 14px;
+  white-space: nowrap; /* Ensure the tooltip text is on a single line */
+  background-color: #333; /* Background color for tooltip */
+  color: white; /* Text color for tooltip */
+  padding: 5px 8px; /* Padding around the tooltip text */
+  border-radius: 4px; /* Rounded corners for the tooltip */
+}
+
+.notion-code .notion-code-menu-button:hover + .notion-code-menu-tooltip {
+  display: block; /* Show the tooltip when hovering over the menu button */
 }
 
 .notion-column {

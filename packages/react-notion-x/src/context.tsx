@@ -40,7 +40,7 @@ export interface NotionContext {
   defaultPageIcon?: string
   defaultPageCover?: string
   defaultPageCoverPosition?: number
-
+  customFunctions?: any
   zoom: any
 }
 
@@ -71,7 +71,7 @@ export interface PartialNotionContext {
   defaultPageIcon?: string
   defaultPageCover?: string
   defaultPageCoverPosition?: number
-
+  customFunctions?: any
   zoom?: any
 }
 
