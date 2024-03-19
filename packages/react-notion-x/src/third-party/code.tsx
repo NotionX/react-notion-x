@@ -28,9 +28,20 @@ export const Code: React.FC<{
   const copyTimeout = React.useRef<number>()
   const { recordMap } = useNotionContext()
   const content = getBlockTitle(block, recordMap)
-  const language = (
-    block.properties?.language?.[0]?.[0] || defaultLanguage
-  ).toLowerCase()
+  const language = (() => {
+    const languageNotion = (
+      block.properties?.language?.[0]?.[0] || defaultLanguage
+    ).toLowerCase()
+
+    switch (languageNotion) {
+      case 'c++':
+        return 'cpp'
+      case 'f#':
+        return 'fsharp'
+      default:
+        return languageNotion
+    }
+  })()
   const caption = block.properties.caption
 
   const codeRef = React.useRef()
