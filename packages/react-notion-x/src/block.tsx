@@ -443,14 +443,14 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       if (block.content) {
         output = (
-          <>
-            {block.properties && (
-              <li>
+          <li>
+            <span>
+              {block.properties && (
                 <Text value={block.properties.title} block={block} />
-              </li>
-            )}
+              )}
+            </span>
             {wrapList(children)}
-          </>
+          </li>
         )
       } else {
         output = block.properties ? (
