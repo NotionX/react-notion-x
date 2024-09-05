@@ -22,8 +22,8 @@
     "test": "ava"
   },
   "dependencies": {
-    "notion-types": "^6.16.1",
-    "notion-utils": "^6.16.1",
+    "notion-types": "link:../notion-types",
+    "notion-utils": "link:../notion-utils",
     "p-queue": "^7.2.0"
   },
   "devDependencies": {

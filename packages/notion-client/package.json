@@ -23,8 +23,8 @@
   },
   "dependencies": {
     "got": "^11.8.1",
-    "notion-types": "^6.16.1",
-    "notion-utils": "^6.16.1",
+    "notion-types": "link:../notion-types",
+    "notion-utils": "link:../notion-utils",
     "p-map": "^5.3.0"
   },
   "ava": {
