@@ -131,6 +131,7 @@ const defaultComponents: NotionComponents = {
   propertyLastEditedTimeValue: dummyOverrideFn,
   propertyCreatedTimeValue: dummyOverrideFn,
   propertyDateValue: dummyOverrideFn,
+  propertyAutoIncrementIdValue: dummyOverrideFn,
 
   Pdf: dummyComponent('Pdf'),
   Tweet: dummyComponent('Tweet'),

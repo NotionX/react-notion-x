@@ -276,6 +276,14 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
     [block, data, schema]
   )
 
+  const renderAutoIncrementIdValue = React.useMemo(
+    () =>
+      function renderAutoIncrementIdValueProperty() {
+        return <Text value={data} block={block} />
+      },
+    [block, data]
+  )
+
   const renderCreatedTimeValue = React.useMemo(
     () =>
       function CreatedTimeProperty() {
@@ -456,6 +464,12 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
         // console.log('last_edited_by', schema, data)
         break
 
+      case 'auto_increment_id':
+        content = components.propertyTextValue(
+          props,
+          renderAutoIncrementIdValue
+        )
+        break
       case 'text':
         content = components.propertyTextValue(props, renderTextValue)
         break
