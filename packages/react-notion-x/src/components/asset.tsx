@@ -187,7 +187,8 @@ export const Asset: React.FC<{
       source.indexOf('wistia') < 0 &&
       source.indexOf('loom') < 0 &&
       source.indexOf('videoask') < 0 &&
-      source.indexOf('getcloudapp') < 0
+      source.indexOf('getcloudapp') < 0 &&
+      source.indexOf('tella') < 0
     ) {
       style.paddingBottom = undefined
 
