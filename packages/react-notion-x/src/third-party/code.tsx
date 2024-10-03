@@ -15,24 +15,24 @@ import 'prismjs/components/prism-tsx.min.js'
 import 'prismjs/components/prism-typescript.min.js'
 
 import { Text } from '../components/text'
-import { useNotionContext } from '../context'
 import CopyIcon from '../icons/copy'
+import MenuIcon from '../icons/menu'
 import { cs } from '../utils'
 
 export const Code: React.FC<{
   block: CodeBlock
   defaultLanguage?: string
   className?: string
-}> = ({ block, defaultLanguage = 'typescript', className }) => {
+  ctx: any
+}> = ({ block, defaultLanguage = 'typescript', className, ctx }) => {
   const [isCopied, setIsCopied] = React.useState(false)
   const copyTimeout = React.useRef<number>()
-  const { recordMap } = useNotionContext()
+  const { recordMap, customFunctions } = ctx
   const content = getBlockTitle(block, recordMap)
   const language = (
     block.properties?.language?.[0]?.[0] || defaultLanguage
   ).toLowerCase()
   const caption = block.properties.caption
-
   const codeRef = React.useRef()
   React.useEffect(() => {
     if (codeRef.current) {
@@ -64,17 +64,38 @@ export const Code: React.FC<{
     </div>
   )
 
+  const handleCodeMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+    if (customFunctions.codeMenuActions) {
+      customFunctions.codeMenuActions(content, language, block)
+    }
+    setIsMenuOpen(false)
+  }
+
+  const MenuButton = (
+    <div className='notion-code-menu-button' onClick={handleCodeMenu}>
+      <MenuIcon />
+    </div>
+  )
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
   return (
     <>
       <pre className={cs('notion-code', className)}>
         <div className='notion-code-copy'>
           {copyButton}
-
           {isCopied && (
             <div className='notion-code-copy-tooltip'>
               <div>{isCopied ? 'Copied' : 'Copy'}</div>
             </div>
           )}
+        </div>
+
+        <div className='notion-code-menu'>
+          {MenuButton}
+          <div className='notion-code-menu-tooltip'>
+            <div>{isMenuOpen ? 'Menu Open' : 'Menu'}</div>
+          </div>
         </div>
 
         <code className={`language-${language}`} ref={codeRef}>
