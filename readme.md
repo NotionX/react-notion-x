@@ -271,17 +271,17 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 
 `NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://react-notion-x-demo.transitivebullsh.it/3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
 
-If you're using Next.js, we recommend passing `next/image` and `next/link` to the renderer as follows:
+If you're using Next.js, we recommend passing `next/image` or `next/legacy/image`, and `next/link` to the renderer as follows:
 
 ```tsx
-import Image from 'next/image'
+import Image from 'next/image' // or import Image from 'next/legacy/image' if you use legacy Image
 import Link from 'next/link'
 
 export default ({ recordMap }) => (
   <NotionRenderer
     recordMap={recordMap}
     components={{
-      nextImage: Image,
+      nextImage: Image, // or nextLegacyImage: LegacyImage,
       nextLink: Link
     }}
   />
@@ -289,6 +289,8 @@ export default ({ recordMap }) => (
 ```
 
 This wraps these next.js components in a compatability layer so `NotionRenderer` can use them the same as their non-next.js equivalents `<img>` and `<a>`.
+
+Note that custom image component is currently only enabled with preview image or by turning on `forceCustomImages` of `NotionRenderer`.
 
 ## Related
 
