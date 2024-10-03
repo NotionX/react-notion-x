@@ -13,12 +13,14 @@ import { SearchDialog } from './search-dialog'
 
 export const Header: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock
-}> = ({ block }) => {
+  children?: React.ReactNode
+}> = ({ block,children }) => {
   return (
     <header className='notion-header'>
       <div className='notion-nav-header'>
         <Breadcrumbs block={block} />
         <Search block={block} />
+        {children}
       </div>
     </header>
   )
