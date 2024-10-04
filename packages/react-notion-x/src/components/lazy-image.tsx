@@ -145,8 +145,8 @@ export const LazyImage: React.FC<{
       the ass. If we have a preview image, then this works fine since we know the
       dimensions ahead of time, but if we don't, then next/image won't display
       anything.
-      
-      Since next/image is the most common use case for using custom images, and this 
+
+      Since next/image is the most common use case for using custom images, and this
       is likely to trip people up, we're disabling non-preview custom images for now.
 
       If you have a use case that is affected by this, please open an issue on github.
@@ -154,24 +154,18 @@ export const LazyImage: React.FC<{
     if (components.Image && forceCustomImages) {
       const ImageComponent = components.Image
       return (
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: height || '300px'
-          }}
-        >
           <ImageComponent
             src={src}
             alt={alt}
             title={alt}
             className={className}
-            style={{ objectFit: 'contain', ...style }}
-            fill={true}
+            style={{ width: '100%', height: 'auto', ...style }}
+            width={0}
+            height={0}
             priority={priority}
             onLoad={onLoad}
+            sizes="100vw"
           />
-        </div>
       )
     }
 
