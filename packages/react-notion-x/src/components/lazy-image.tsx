@@ -152,17 +152,26 @@ export const LazyImage: React.FC<{
       If you have a use case that is affected by this, please open an issue on github.
     */
     if (components.Image && forceCustomImages) {
+      const ImageComponent = components.Image
       return (
-        <components.Image
-          src={src}
-          alt={alt}
-          className={className}
-          style={style}
-          width={null}
-          height={height || null}
-          priority={priority}
-          onLoad={onLoad}
-        />
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            height: height || '300px'
+          }}
+        >
+          <ImageComponent
+            src={src}
+            alt={alt}
+            title={alt}
+            className={className}
+            style={{ objectFit: 'contain', ...style }}
+            fill={true}
+            priority={priority}
+            onLoad={onLoad}
+          />
+        </div>
       )
     }
 
