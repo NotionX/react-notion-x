@@ -12,8 +12,13 @@ export const File: React.FC<{
   className?: string
 }> = ({ block, className }) => {
   const { components, recordMap } = useNotionContext()
-  const source =
+
+  let source =
     recordMap.signed_urls[block.id] || block.properties?.source?.[0]?.[0]
+
+  if (block.space_id) {
+    source = source.concat('&spaceId=', block.space_id)
+  }
 
   return (
     <div className={cs('notion-file', className)}>
