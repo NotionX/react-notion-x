@@ -2,10 +2,10 @@ import * as React from 'react'
 
 import { FileBlock } from 'notion-types'
 
+import { Text } from '../components/text'
 import { useNotionContext } from '../context'
 import { FileIcon } from '../icons/file-icon'
 import { cs } from '../utils'
-import { Text } from './text'
 
 export const File: React.FC<{
   block: FileBlock
@@ -13,7 +13,7 @@ export const File: React.FC<{
 }> = ({ block, className }) => {
   const { components, recordMap } = useNotionContext()
   const source =
-    recordMap.signed_urls[block.id] || block.properties?.source?.[0]?.[0]
+    recordMap.signed_urls?.[block.id] || block.properties?.source?.[0]?.[0]
 
   return (
     <div className={cs('notion-file', className)}>
