@@ -63,8 +63,14 @@ export const EOI: React.FC<{
 
       <div className='notion-external-description'>
         <div className='notion-external-title'>{title}</div>
-
-        {(owner || lastUpdated) && (
+        {!inline && owner ? (
+          <div className='notion-external-block-desc'>
+            {owner}
+            {lastUpdated && <span> • </span>}
+            {lastUpdated && `Updated ${lastUpdated}`}
+          </div>
+        ) : null}
+        {inline && (owner || lastUpdated) && (
           <MentionPreviewCard
             title={title}
             owner={owner}

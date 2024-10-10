@@ -2985,6 +2985,13 @@ svg.notion-page-icon {
   color: var(--fg-color-3);
 }
 
+.notion-external-block-desc {
+  color: rgba(55, 53, 47, 0.65);
+  font-size: 12px;
+  white-space: nowrap;
+  padding-top: 4px;
+}
+
 .notion-external-mention .notion-external-subtitle {
   display: none;
   position: absolute;
