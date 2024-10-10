@@ -82,3 +82,85 @@ export const getYoutubeId = (url: string): string | null => {
 
   return null
 }
+
+/**
+ * Get dates and month in an array of weeks based on the year and on the month
+ * @param year
+ * @param month
+ * @param startWeekOnMonday
+ * @returns An array of objects with month and date number
+ */
+export const getWeeksInMonth = (
+  year: number,
+  month: number,
+  startWeekOnMonday?: boolean
+) => {
+  const weeks = [],
+    firstDate = new Date(year, month, 1),
+    lastDate = new Date(year, month + 1, 0),
+    numDays = lastDate.getDate()
+
+  let start = 1
+  let end = -1
+
+  if (firstDate.getDay() === 1) {
+    end = 7
+  } else if (firstDate.getDay() === 0) {
+    const preMonthEndDay = new Date(year, month, 0)
+
+    start = preMonthEndDay.getDate() - 6 + 1
+    end = 1
+  } else {
+    const preMonthEndDay = new Date(year, month, 0)
+
+    start =
+      preMonthEndDay.getDate() +
+      1 -
+      firstDate.getDay() +
+      (startWeekOnMonday ? 1 : 0)
+    end = 7 - firstDate.getDay() + (startWeekOnMonday ? 1 : 0)
+
+    weeks.push({
+      start: start,
+      end: end
+    })
+
+    start = end + 1
+    end = end + 7
+  }
+
+  while (start <= numDays) {
+    weeks.push({
+      start: start,
+      end: end
+    })
+
+    start = end + 1
+    end += 7
+    end = start === 1 && end === 8 ? 1 : end
+
+    if (end > numDays && start <= numDays) {
+      end = end - numDays
+
+      weeks.push({
+        start: start,
+        end: end
+      })
+
+      break
+    }
+  }
+
+  return weeks.map(({ start, end }, index) => {
+    const sub = +(start > end && index === 0)
+    return Array.from({ length: 7 }, (_, index) => {
+      const date = new Date(year, month - sub, start + index)
+
+      return {
+        date: date.getDate(),
+        month: date.getMonth(),
+        year: date.getFullYear()
+      }
+    })
+  })
+}

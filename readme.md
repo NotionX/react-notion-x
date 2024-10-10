@@ -202,8 +202,8 @@ For a production example, check out the [Next.js Notion Starter Kit](https://git
 
 The majority of Notion blocks and collection views are fully supported.
 
-| Block Type               | Supported  | Block Type Enum        | Notes                                                                                                            |
-| ------------------------ | ---------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Block Type               | Supported | Block Type Enum        | Notes                                                                                                            |
+| ------------------------ | --------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Page                     | ✅ Yes     | `page`                 |
 | Text                     | ✅ Yes     | `text`                 | Supports all known text formatting options                                                                       |
 | Bookmark                 | ✅ Yes     | `bookmark`             | Embedded preview of external URL                                                                                 |
@@ -243,7 +243,7 @@ The majority of Notion blocks and collection views are fully supported.
 | Collection View Gallery  | ✅ Yes     | `collection_view`      | `type = "gallery"` (grid view)                                                                                   |
 | Collection View Board    | ✅ Yes     | `collection_view`      | `type = "board"` (kanban view)                                                                                   |
 | Collection View List     | ✅ Yes     | `collection_view`      | `type = "list"` (vertical list view)                                                                             |
-| Collection View Calendar | ❌ Missing | `collection_view`      | `type = "calendar"` (embedded calendar view)                                                                     |
+| Collection View Calendar | ✅ Yes     | `collection_view`      | `type = "calendar"` (embedded calendar view [see more details here](#calendar-view))                                     |
 | Collection View Page     | ✅ Yes     | `collection_view_page` | Collection view as a standalone page                                                                             |
 
 Please let us know if you find any issues or missing blocks.
@@ -289,6 +289,20 @@ export default ({ recordMap }) => (
 ```
 
 This wraps these next.js components in a compatability layer so `NotionRenderer` can use them the same as their non-next.js equivalents `<img>` and `<a>`.
+
+
+## Calendar view
+Notion's databases calendar view is one of the most complex views that exists on Notion.
+This component is still a Work-In-Progress, **recommended use is for development only**, but will soon be more stable and out of bugs and ready for production deploys.
+
+At the moment it features:
+- Controls (previuous, current, next month views)
+- Display block that has ONLY one day duration (without time)
+- Show calendar in both SUN-SAT and MON-SUN format (use `startWeekOnMonday` parameter)
+
+What is unsupported at the moment:
+- Display blocks that has a day range
+- Display blocks with date and time (it will render but the data and time property will be shown in a bad way)
 
 ## Related
 
