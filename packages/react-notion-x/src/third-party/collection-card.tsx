@@ -29,7 +29,8 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
   } = ctx
   let coverContent = null
 
-  const { page_cover_position = 0.5, card_cover_position = 0.5 } = block.format || {}
+  const { page_cover_position = 0.5, card_cover_position = 0.5 } =
+    block.format || {}
   const coverPosition = (1 - page_cover_position) * 100
   const cardCoverPosition = (1 - card_cover_position) * 100
 
@@ -59,7 +60,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
             alt={caption || 'notion image'}
             style={{
               objectFit: coverAspect,
-              objectPosition: `center ${cardCoverPosition}%`  
+              objectPosition: `center ${cardCoverPosition}%`
             }}
           />
         )
