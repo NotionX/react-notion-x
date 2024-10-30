@@ -5,11 +5,12 @@
 # Source: https://stackoverflow.com/a/74732671
 python = ['3.10']
 
-# The node-gyp module doesn't work properly when using node 20
+# Node 20.X breaks the node-gyp module:
 # TypeError: Cannot assign to read only property 'cflags' of object '#<Object>'
-# This is the reason we need to stay with node 18
 # See more: https://stackoverflow.com/a/77910474/1337062
-node = ['18']
+# Node 18.X breaks ava test runner doesn't seem to work in package/notion-utils tests
+# node = ['16']
+# We read this value from .tool-versions file instead
 
 # Installing with npm doesn't seem to work out, use yarn everywhere
 "npm:yarn" = "latest"

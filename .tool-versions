@@ -1,0 +1,7 @@
+# FIXME: Remove this file when actions/setup-node supports .mise.toml
+# See more: https://github.com/actions/setup-node/issues/787
+nodejs 16.20.2
+
+# node-gyp has issues with newer python versions.
+# This is the latest version of 3.10.x as of October 2024
+python 3.10.13
