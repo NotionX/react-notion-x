@@ -3,10 +3,31 @@
 Suggestions and pull requests are highly encouraged. Have a look at the [open issues](https://github.com/NotionX/react-notion-x/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22+sort%3Areactions-%2B1-desc), especially [the easy ones](https://github.com/NotionX/react-notion-x/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22+sort%3Areactions-%2B1-desc).
 
 ## Development
+### Installing and using mise
+This project has a few aging dependencies like `node-gyp` and `lerna`.
 
-To develop the project locally, you'll need a recent version of Node.js and `yarn` v1 installed globally.
+Getting the project up and running was a bit hard so we defined the environment using [mise](https://github.com/jdx/mise). Mise is a tool like `nvm` or `asdf` and allows locking up both `python` and `nodejs` versions and ensures you have `yarn` installed as well.
 
-To get started, clone the repo and run `yarn` from the root directory:
+We would love to see contributions which would help updating the aging dependencies ❤️.
+
+If you are using MacOS you can install mise with `homebrew`:
+```sh
+brew install mise
+```
+Otherwise please check [mise installation docs](https://mise.jdx.dev/getting-started.html).
+
+Then activate mise. This depends on your shell. You can either run one of the following or copy them to your shell configs:
+```sh
+# Bash
+eval "$(mise activate bash)"
+# ZSH
+eval "$(mise activate zsh)"
+# Fish
+mise activate fish | source
+```
+
+### Cloning the repo and installing packages
+After installing `mise` you can proceed to clone the repo and run `yarn` from the root directory:
 
 ```bash
 git clone https://github.com/NotionX/react-notion-x.git

@@ -1,0 +1,18 @@
+[tools]
+# node-gyp has issues with newer python versions:
+# 'ValueError: invalid mode: 'rU' while trying to load binding.gyp'
+# These should be fixed by downgrading python to 3.10
+# Source: https://stackoverflow.com/a/74732671
+python = ['3.10']
+
+# The node-gyp module doesn't work properly when using node 20
+# TypeError: Cannot assign to read only property 'cflags' of object '#<Object>'
+# This is the reason we need to stay with node 18
+# See more: https://stackoverflow.com/a/77910474/1337062
+node = ['18']
+
+# Installing with npm doesn't seem to work out, use yarn everywhere
+"npm:yarn" = "latest"
+
+# To be able to build the packages in the monorepo workspace
+"npm:lerna" = "^4.0.0"
