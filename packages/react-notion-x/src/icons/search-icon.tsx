@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { cs } from '../utils'
 
-export const SearchIcon = (props) => {
+export const SearchIcon = (props: any) => {
   const { className, ...rest } = props
   return (
     <svg className={cs('notion-icon', className)} viewBox='0 0 17 17' {...rest}>

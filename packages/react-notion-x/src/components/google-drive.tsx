@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import { GoogleDriveBlock } from 'notion-types'
+import type * as React from 'react'
+import { type GoogleDriveBlock } from 'notion-types'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
@@ -18,7 +17,7 @@ export const GoogleDrive: React.FC<{
   try {
     const url = new URL(properties.url)
     domain = url.hostname
-  } catch (err) {
+  } catch {
     // ignore invalid urls for robustness
   }
 

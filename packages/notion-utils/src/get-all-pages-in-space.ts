@@ -1,4 +1,4 @@
-import { ExtendedRecordMap, PageMap } from 'notion-types'
+import { type ExtendedRecordMap, type PageMap } from 'notion-types'
 import PQueue from 'p-queue'
 
 import { parsePageId } from './parse-page-id'
@@ -25,7 +25,7 @@ export async function getAllPagesInSpace(
   {
     concurrency = 4,
     traverseCollections = true,
-    targetPageId = null
+    targetPageId
   }: {
     concurrency?: number
     traverseCollections?: boolean
@@ -71,31 +71,30 @@ export async function getAllPagesInSpace(
             }
           }
 
-          Object.keys(page.block)
-            .filter((key) => {
-              const block = page.block[key]?.value
-              if (!block || block.alive === false) return false
+          for (const subPageId of Object.keys(page.block).filter((key) => {
+            const block = page.block[key]?.value
+            if (!block || block.alive === false) return false
 
-              if (
-                block.type !== 'page' &&
-                block.type !== 'collection_view_page'
-              ) {
-                return false
-              }
+            if (
+              block.type !== 'page' &&
+              block.type !== 'collection_view_page'
+            ) {
+              return false
+            }
 
-              // the space id check is important to limit traversal because pages
-              // can reference pages in other spaces
-              if (
-                rootSpaceId &&
-                block.space_id &&
-                block.space_id !== rootSpaceId
-              ) {
-                return false
-              }
+            // the space id check is important to limit traversal because pages
+            // can reference pages in other spaces
+            if (
+              rootSpaceId &&
+              block.space_id &&
+              block.space_id !== rootSpaceId
+            ) {
+              return false
+            }
 
-              return true
-            })
-            .forEach((subPageId) => processPage(subPageId))
+            return true
+          }))
+            processPage(subPageId)
 
           // traverse collection item pages as they may contain subpages as well
           if (traverseCollections) {
@@ -115,7 +114,7 @@ export async function getAllPagesInSpace(
           }
 
           pages[pageId] = page
-        } catch (err) {
+        } catch (err: any) {
           console.warn(
             'page load error',
             { pageId, spaceId: rootSpaceId },

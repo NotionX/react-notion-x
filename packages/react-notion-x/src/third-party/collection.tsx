@@ -1,16 +1,15 @@
-import * as React from 'react'
-
-import * as types from 'notion-types'
+import type * as types from 'notion-types'
 import {
   getBlockCollectionId,
   getBlockParentPage,
   getTextContent
 } from 'notion-utils'
+import * as React from 'react'
 import { useLocalStorage, useWindowSize } from 'react-use'
 
 import { PageIcon } from '../components/page-icon'
 import {
-  NotionContext,
+  type NotionContext,
   NotionContextProvider,
   useNotionContext
 } from '../context'
@@ -18,7 +17,6 @@ import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { cs } from '../utils'
 import { CollectionRow } from './collection-row'
 import { CollectionView } from './collection-view'
-import { PropertyImplMemo } from './property'
 
 const isServer = typeof window === 'undefined'
 
@@ -81,21 +79,21 @@ const CollectionViewBlock: React.FC<{
 }> = ({ block, className }) => {
   const { recordMap, showCollectionViewDropdown } = useNotionContext()
   const { view_ids: viewIds } = block
-  const collectionId = getBlockCollectionId(block, recordMap)
+  const collectionId = getBlockCollectionId(block, recordMap)!
 
   const [isMounted, setIsMounted] = React.useState(false)
   React.useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  const defaultCollectionViewId = viewIds[0]
+  const defaultCollectionViewId = viewIds[0]!
   const [collectionState, setCollectionState] = useLocalStorage(block.id, {
     collectionViewId: defaultCollectionViewId
   })
 
   const collectionViewId =
     (isMounted &&
-      viewIds.find((id) => id === collectionState.collectionViewId)) ||
+      viewIds.find((id) => id && id === collectionState?.collectionViewId)) ||
     defaultCollectionViewId
 
   const onChangeView = React.useCallback(
@@ -138,16 +136,16 @@ const CollectionViewBlock: React.FC<{
     let notionBodyWidth = maxNotionBodyWidth
 
     if (parentPage?.format?.page_full_width) {
-      notionBodyWidth = (width - 2 * Math.min(96, width * 0.08)) | 0
+      notionBodyWidth = Math.trunc(width - 2 * Math.min(96, width * 0.08))
     } else {
       notionBodyWidth =
         width < maxNotionBodyWidth
-          ? (width - width * 0.02) | 0 // 2vw
+          ? Math.trunc(width - width * 0.02) // 2vw
           : maxNotionBodyWidth
     }
 
     const padding =
-      isServer && !isMounted ? 96 : ((width - notionBodyWidth) / 2) | 0
+      isServer && !isMounted ? 96 : Math.trunc((width - notionBodyWidth) / 2)
     style.paddingLeft = padding
     style.paddingRight = padding
 
@@ -251,13 +249,15 @@ const CollectionViewTabs: React.FC<{
 }
 
 const CollectionViewColumnDesc: React.FC<{
-  collectionView: types.CollectionView
+  collectionView?: types.CollectionView
   className?: string
   children?: React.ReactNode
 }> = ({ collectionView, className, children, ...rest }) => {
+  if (!collectionView) return null
+
   const { type } = collectionView
   const name =
-    collectionView.name || `${type[0].toUpperCase()}${type.slice(1)} view`
+    collectionView.name || `${type[0]!.toUpperCase()}${type.slice(1)} view`
 
   return (
     <div className={cs('notion-collection-view-type', className)} {...rest}>
@@ -273,4 +273,4 @@ const CollectionViewColumnDesc: React.FC<{
   )
 }
 
-export { PropertyImplMemo as Property }
+export { PropertyImplMemo as Property } from './property'

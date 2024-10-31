@@ -1,3 +1,5 @@
-import isUrl from 'is-url-superb'
 
-export { isUrl }
+
+
+
+export {default as isUrl} from 'is-url-superb'

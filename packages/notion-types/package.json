@@ -12,6 +12,13 @@
     "build"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "test": "run-s test:*",
+    "test:lint": "eslint .",
+    "test:typecheck": "tsc --noEmit"
   }
 }

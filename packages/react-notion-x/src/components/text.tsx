@@ -1,7 +1,10 @@
-import * as React from 'react'
-
-import { Block, Decoration, ExternalObjectInstance } from 'notion-types'
+import {
+  type Block,
+  type Decoration,
+  type ExternalObjectInstance
+} from 'notion-types'
 import { parsePageId } from 'notion-utils'
+import * as React from 'react'
 
 import { useNotionContext } from '../context'
 import { formatDate, getHashFragmentValue } from '../utils'
@@ -18,7 +21,7 @@ import { PageTitle } from './page-title'
  * attributes to the final element's style.
  */
 export const Text: React.FC<{
-  value: Decoration[]
+  value?: Decoration[]
   block: Block
   linkProps?: any
   linkProtocol?: string
@@ -81,6 +84,9 @@ export const Text: React.FC<{
                       return null
                     }
 
+                    const src = mapImageUrl(user.profile_photo, block)
+                    if (!src) return null
+
                     const name = [user.given_name, user.family_name]
                       .filter(Boolean)
                       .join(' ')
@@ -88,7 +94,7 @@ export const Text: React.FC<{
                     return (
                       <GracefulImage
                         className='notion-user'
-                        src={mapImageUrl(user.profile_photo, block)}
+                        src={src}
                         alt={name}
                       />
                     )
@@ -148,13 +154,17 @@ export const Text: React.FC<{
 
               case 'a': {
                 const v = decorator[1]
-                const pathname = v.substr(1)
+                const pathname = v.slice(1)
                 const id = parsePageId(pathname, { uuid: true })
 
-                if ((v[0] === '/' || v.includes(rootDomain)) && id) {
-                  const href = v.includes(rootDomain)
-                    ? v
-                    : `${mapPageUrl(id)}${getHashFragmentValue(v)}`
+                if (
+                  v[0] === '/' ||
+                  (rootDomain && v.includes(rootDomain) && id)
+                ) {
+                  const href =
+                    rootDomain && v.includes(rootDomain)
+                      ? v
+                      : `${mapPageUrl(id)}${getHashFragmentValue(v)}`
 
                   return (
                     <components.PageLink
@@ -200,7 +210,7 @@ export const Text: React.FC<{
                 } else if (type === 'daterange') {
                   // Example: Jul 31, 2010 → Jul 31, 2020
                   const startDate = v.start_date
-                  const endDate = v.end_date
+                  const endDate = v.end_date!
 
                   return `${formatDate(startDate)} → ${formatDate(endDate)}`
                 } else {
@@ -217,16 +227,15 @@ export const Text: React.FC<{
                   return null
                 }
 
+                const src = mapImageUrl(user.profile_photo, block)
+                if (!src) return null
+
                 const name = [user.given_name, user.family_name]
                   .filter(Boolean)
                   .join(' ')
 
                 return (
-                  <GracefulImage
-                    className='notion-user'
-                    src={mapImageUrl(user.profile_photo, block)}
-                    alt={name}
-                  />
+                  <GracefulImage className='notion-user' src={src} alt={name} />
                 )
               }
 

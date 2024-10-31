@@ -1,15 +1,14 @@
-import * as React from 'react'
-
 import mediumZoom from '@fisch0920/medium-zoom'
-import { ExtendedRecordMap } from 'notion-types'
+import { type ExtendedRecordMap } from 'notion-types'
+import * as React from 'react'
 
 import { Block } from './block'
 import { NotionContextProvider, useNotionContext } from './context'
 import {
-  MapImageUrlFn,
-  MapPageUrlFn,
-  NotionComponents,
-  SearchNotionFn
+  type MapImageUrlFn,
+  type MapPageUrlFn,
+  type NotionComponents,
+  type SearchNotionFn
 } from './types'
 
 export const NotionRenderer: React.FC<{
@@ -136,7 +135,7 @@ export const NotionBlockRenderer: React.FC<{
   level?: number
 }> = ({ level = 0, blockId, ...props }) => {
   const { recordMap } = useNotionContext()
-  const id = blockId || Object.keys(recordMap.block)[0]
+  const id = blockId || Object.keys(recordMap.block)[0]!
   const block = recordMap.block[id]?.value
 
   if (!block) {

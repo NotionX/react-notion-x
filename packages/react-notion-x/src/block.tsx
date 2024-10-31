@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import * as types from 'notion-types'
+/* eslint-disable @typescript-eslint/naming-convention */
+import type * as types from 'notion-types'
 import {
   getBlockCollectionId,
   getBlockIcon,
@@ -9,6 +8,7 @@ import {
   getTextContent,
   uuidToId
 } from 'notion-utils'
+import * as React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Audio } from './components/audio'
@@ -53,7 +53,7 @@ const tocIndentLevelCache: {
 
 const pageCoverStyleCache: Record<string, object> = {}
 
-export const Block: React.FC<BlockProps> = (props) => {
+export const Block: React.FC<BlockProps> = (props: BlockProps) => {
   const ctx = useNotionContext()
   const {
     components,
@@ -69,7 +69,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     defaultPageCoverPosition
   } = ctx
 
-  const [activeSection, setActiveSection] = React.useState(null)
+  const [activeSection, setActiveSection] = React.useState<string | null>(null)
 
   const {
     block,
@@ -121,8 +121,9 @@ export const Block: React.FC<BlockProps> = (props) => {
               ? block.properties
               : {
                   title:
-                    recordMap.collection[getBlockCollectionId(block, recordMap)]
-                      ?.value?.name
+                    recordMap.collection[
+                      getBlockCollectionId(block, recordMap)!
+                    ]?.value?.name
                 }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
@@ -144,8 +145,8 @@ export const Block: React.FC<BlockProps> = (props) => {
 
           const hasToc =
             showTableOfContents && toc.length >= minTableOfContentsItems
-          const hasAside = (hasToc || pageAside) && !page_full_width
-          const hasPageCover = pageCover || page_cover
+          const hasAside = !!((hasToc || pageAside) && !page_full_width)
+          const hasPageCover = !!(pageCover || page_cover)
 
           return (
             <div
@@ -165,12 +166,10 @@ export const Block: React.FC<BlockProps> = (props) => {
 
                 <div className='notion-page-scroller'>
                   {hasPageCover &&
-                    (pageCover ? (
-                      pageCover
-                    ) : (
+                    (pageCover ?? (
                       <div className='notion-page-cover-wrapper'>
                         <LazyImage
-                          src={mapImageUrl(page_cover, block)}
+                          src={mapImageUrl(page_cover!, block)}
                           alt={getTextContent(properties?.title)}
                           priority={true}
                           className='notion-page-cover'
@@ -313,7 +312,7 @@ export const Block: React.FC<BlockProps> = (props) => {
 
       // we use a cache here because constructing the ToC is non-trivial
       let indentLevel = tocIndentLevelCache[block.id]
-      let indentLevelClass: string
+      let indentLevelClass: string | undefined
 
       if (indentLevel === undefined) {
         const page = getBlockParentPage(block, recordMap)
@@ -619,7 +618,7 @@ export const Block: React.FC<BlockProps> = (props) => {
           try {
             const url = new URL(title)
             title = url.hostname
-          } catch (err) {
+          } catch {
             // ignore invalid links
           }
         }
@@ -756,7 +755,7 @@ export const Block: React.FC<BlockProps> = (props) => {
       return <div className={cs('notion-sync-block', blockId)}>{children}</div>
 
     case 'transclusion_reference':
-      return <SyncPointerBlock block={block} level={level + 1} {...props} />
+      return <SyncPointerBlock {...props} level={level + 1} />
 
     case 'alias': {
       const blockPointerId = block?.format?.alias_pointer?.id
@@ -832,7 +831,7 @@ export const Block: React.FC<BlockProps> = (props) => {
     default:
       if (process.env.NODE_ENV !== 'production') {
         console.log(
-          'Unsupported type ' + (block as any).type,
+          'Unsupported block type ' + (block as any).type,
           JSON.stringify(block, null, 2)
         )
       }

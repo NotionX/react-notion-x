@@ -1,7 +1,6 @@
-import * as React from 'react'
-
 import throttle from 'lodash.throttle'
-import { TableOfContentsEntry, uuidToId } from 'notion-utils'
+import { type TableOfContentsEntry, uuidToId } from 'notion-utils'
+import * as React from 'react'
 
 import { cs } from '../utils'
 
@@ -28,15 +27,14 @@ export const PageAside: React.FC<{
       throttle(() => {
         const sections = document.getElementsByClassName('notion-h')
 
-        let prevBBox: DOMRect = null
+        let prevBBox: DOMRect | null = null
         let currentSectionId = activeSection
 
-        for (let i = 0; i < sections.length; ++i) {
-          const section = sections[i]
+        for (const section of sections) {
           if (!section || !(section instanceof Element)) continue
 
           if (!currentSectionId) {
-            currentSectionId = section.getAttribute('data-id')
+            currentSectionId = (section as any).dataset.id
           }
 
           const bbox = section.getBoundingClientRect()
@@ -45,7 +43,7 @@ export const PageAside: React.FC<{
 
           // GetBoundingClientRect returns values relative to the viewport
           if (bbox.top - offset < 0) {
-            currentSectionId = section.getAttribute('data-id')
+            currentSectionId = (section as any).dataset.id
 
             prevBBox = bbox
             continue

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const ChevronDownIcon = (props) => {
+export const ChevronDownIcon = (props: any) => {
   const { className, ...rest } = props
   return (
     <svg className={className} {...rest} viewBox='0 0 30 30' width='10'>

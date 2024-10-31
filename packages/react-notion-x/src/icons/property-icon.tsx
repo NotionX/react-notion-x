@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import { PropertyType } from 'notion-types'
+import type * as React from 'react'
+import { type PropertyType } from 'notion-types'
 
 import CheckboxIcon from './type-checkbox'
 import DateIcon from './type-date'

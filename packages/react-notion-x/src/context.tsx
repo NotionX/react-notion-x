@@ -1,16 +1,15 @@
+import { type ExtendedRecordMap } from 'notion-types'
 import * as React from 'react'
-
-import { ExtendedRecordMap } from 'notion-types'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
 import { Header } from './components/header'
 import { wrapNextImage, wrapNextLink } from './next'
 import {
-  MapImageUrlFn,
-  MapPageUrlFn,
-  NotionComponents,
-  SearchNotionFn
+  type MapImageUrlFn,
+  type MapPageUrlFn,
+  type NotionComponents,
+  type SearchNotionFn
 } from './types'
 import { defaultMapImageUrl, defaultMapPageUrl } from './utils'
 
@@ -82,11 +81,11 @@ const DefaultLinkMemo = React.memo(DefaultLink)
 const DefaultPageLink: React.FC = (props) => <a {...props} />
 const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
-const DefaultEmbed = (props) => <AssetWrapper {...props} />
+const DefaultEmbed = (props: any) => <AssetWrapper {...props} />
 const DefaultHeader = Header
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const dummyLink = ({ href, rel, target, title, ...rest }) => (
+export const dummyLink = ({ href, rel, target, title, ...rest }: any) => (
   <span {...rest} />
 )
 
@@ -154,9 +153,9 @@ const defaultNotionContext: NotionContext = {
 
   mapPageUrl: defaultMapPageUrl(),
   mapImageUrl: defaultMapImageUrl,
-  searchNotion: null,
+  searchNotion: undefined,
   isShowingSearch: false,
-  onHideSearch: null,
+  onHideSearch: undefined,
 
   fullPage: false,
   darkMode: false,
@@ -169,8 +168,8 @@ const defaultNotionContext: NotionContext = {
   showTableOfContents: false,
   minTableOfContentsItems: 3,
 
-  defaultPageIcon: null,
-  defaultPageCover: null,
+  defaultPageIcon: undefined,
+  defaultPageCover: undefined,
   defaultPageCoverPosition: 0.5,
 
   zoom: null
@@ -178,7 +177,11 @@ const defaultNotionContext: NotionContext = {
 
 const ctx = React.createContext<NotionContext>(defaultNotionContext)
 
-export const NotionContextProvider: React.FC<PartialNotionContext> = ({
+export const NotionContextProvider: React.FC<
+  PartialNotionContext & {
+    children?: React.ReactNode
+  }
+> = ({
   components: themeComponents = {},
   children,
   mapPageUrl,
@@ -187,8 +190,8 @@ export const NotionContextProvider: React.FC<PartialNotionContext> = ({
   ...rest
 }) => {
   for (const key of Object.keys(rest)) {
-    if (rest[key] === undefined) {
-      delete rest[key]
+    if ((rest as any)[key] === undefined) {
+      delete (rest as any)[key]
     }
   }
 
@@ -210,8 +213,8 @@ export const NotionContextProvider: React.FC<PartialNotionContext> = ({
   // ensure the user can't override default components with falsy values
   // since it would result in very difficult-to-debug react errors
   for (const key of Object.keys(wrappedThemeComponents)) {
-    if (!wrappedThemeComponents[key]) {
-      delete wrappedThemeComponents[key]
+    if (!(wrappedThemeComponents as any)[key]) {
+      delete (wrappedThemeComponents as any)[key]
     }
   }
 

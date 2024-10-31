@@ -1,6 +1,5 @@
-import * as React from 'react'
-
 import { normalizeUrl } from 'notion-utils'
+import * as React from 'react'
 import { ImageState, LazyImageFull } from 'react-lazy-images'
 
 import { useNotionContext } from '../context'
@@ -29,11 +28,10 @@ export const LazyImage: React.FC<{
 }) => {
   const { recordMap, zoom, previewImages, forceCustomImages, components } =
     useNotionContext()
-
   const zoomRef = React.useRef(zoom ? zoom.clone() : null)
   const previewImage = previewImages
-    ? recordMap?.preview_images?.[src] ??
-      recordMap?.preview_images?.[normalizeUrl(src)]
+    ? (recordMap?.preview_images?.[src!] ??
+      recordMap?.preview_images?.[normalizeUrl(src)])
     : null
 
   const onLoad = React.useCallback(
@@ -84,7 +82,7 @@ export const LazyImage: React.FC<{
     }
 
     return (
-      <LazyImageFull src={src} {...rest} experimentalDecode={true}>
+      <LazyImageFull src={src!} {...rest} experimentalDecode={true}>
         {({ imageState, ref }) => {
           const isLoaded = imageState === ImageState.LoadSuccess
           const wrapperStyle: React.CSSProperties = {
@@ -145,8 +143,8 @@ export const LazyImage: React.FC<{
       the ass. If we have a preview image, then this works fine since we know the
       dimensions ahead of time, but if we don't, then next/image won't display
       anything.
-      
-      Since next/image is the most common use case for using custom images, and this 
+
+      Since next/image is the most common use case for using custom images, and this
       is likely to trip people up, we're disabling non-preview custom images for now.
 
       If you have a use case that is affected by this, please open an issue on github.

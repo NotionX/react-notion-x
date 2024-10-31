@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import { Block } from 'notion-types'
+import type * as React from 'react'
+import { type Block } from 'notion-types'
 
 import { useNotionContext } from '../context'
 import SvgTypeGitHub from '../icons/type-github'
@@ -31,7 +30,7 @@ export const EOI: React.FC<{
       externalImage = <SvgTypeGitHub />
       if (owner) {
         const parts = owner.split('/')
-        owner = parts[parts.length - 1]
+        owner = parts.at(-1)
       }
       break
 

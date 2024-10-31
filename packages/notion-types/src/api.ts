@@ -1,4 +1,4 @@
-import { RecordMap } from './maps'
+import { type RecordMap } from './maps'
 
 // API types
 // ----------------------------------------------------------------------------

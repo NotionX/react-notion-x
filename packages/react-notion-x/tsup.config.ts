@@ -1,4 +1,4 @@
-import { Options, defineConfig } from 'tsup'
+import { defineConfig, type Options } from 'tsup'
 
 const baseConfig: Options = {
   entry: [
@@ -10,7 +10,7 @@ const baseConfig: Options = {
     'src/third-party/pdf.tsx'
   ],
   outDir: 'build',
-  target: 'es2015',
+  target: 'es2018',
   platform: 'browser',
   format: ['esm'],
   splitting: false,
@@ -22,12 +22,14 @@ export default defineConfig([
     ...baseConfig,
     outDir: 'build/dev',
     minify: false,
-    sourcemap: true
+    sourcemap: true,
+    dts: true
   },
   {
     ...baseConfig,
     outDir: 'build',
     minify: false,
-    sourcemap: false
+    sourcemap: false,
+    dts: true
   }
 ])

@@ -1,6 +1,6 @@
 // import { promises as fs } from 'fs'
-import * as notion from 'notion-types'
-import got, { OptionsOfJSONResponseBody } from 'got'
+import type * as notion from 'notion-types'
+import got, { type OptionsOfJSONResponseBody } from 'got'
 import {
   getBlockCollectionId,
   getPageContentBlockIds,
@@ -9,7 +9,7 @@ import {
 } from 'notion-utils'
 import pMap from 'p-map'
 
-import * as types from './types'
+import type * as types from './types'
 
 /**
  * Main Notion API client.
@@ -112,7 +112,7 @@ export class NotionAPI {
         collectionId: string
         collectionViewId: string
       }> = contentBlockIds.flatMap((blockId) => {
-        const block = recordMap.block[blockId].value
+        const block = recordMap.block[blockId]?.value
         const collectionId =
           block &&
           (block.type === 'collection_view' ||
@@ -176,7 +176,7 @@ export class NotionAPI {
               ...recordMap.collection_query![collectionId],
               [collectionViewId]: (collectionData.result as any)?.reducerResults
             }
-          } catch (err) {
+          } catch (err: any) {
             // It's possible for public pages to link to private collections, in which case
             // Notion returns a 400 error
             console.warn('NotionAPI collectionQuery error', pageId, err.message)
@@ -259,11 +259,14 @@ export class NotionAPI {
         )
 
         if (signedUrls.length === allFileInstances.length) {
-          for (let i = 0; i < allFileInstances.length; ++i) {
-            const file = allFileInstances[i]
+          for (const [i, file] of allFileInstances.entries()) {
             const signedUrl = signedUrls[i]
+            if (!signedUrl) continue
 
-            recordMap.signed_urls[file.permissionRecord.id] = signedUrl
+            const blockId = file.permissionRecord.id
+            if (!blockId) continue
+
+            recordMap.signed_urls[blockId] = signedUrl
           }
         }
       } catch (err) {
@@ -293,7 +296,7 @@ export class NotionAPI {
     const body = {
       pageId: parsedPageId,
       limit: chunkLimit,
-      chunkNumber: chunkNumber,
+      chunkNumber,
       cursor: { stack: [] },
       verticalColumns: false
     }
@@ -333,13 +336,15 @@ export class NotionAPI {
 
     let filters = []
     if (collectionView?.format?.property_filters) {
-      filters = collectionView.format?.property_filters.map((filterObj) => {
-        //get the inner filter
-        return {
-          filter: filterObj?.filter?.filter,
-          property: filterObj?.filter?.property
+      filters = collectionView.format?.property_filters.map(
+        (filterObj: any) => {
+          //get the inner filter
+          return {
+            filter: filterObj?.filter?.filter,
+            property: filterObj?.filter?.property
+          }
         }
-      })
+      )
     }
 
     //Fixes formula filters from not working
@@ -359,7 +364,7 @@ export class NotionAPI {
       sort: [],
       ...collectionView?.query2,
       filter: {
-        filters: filters,
+        filters,
         operator: 'and'
       },
       searchQuery,
@@ -379,10 +384,10 @@ export class NotionAPI {
         select: 'enum_is',
         multi_select: 'enum_contains',
         created_time: 'date_is_within',
-        ['undefined']: 'is_empty'
+        undefined: 'is_empty'
       }
 
-      const reducersQuery = {}
+      const reducersQuery: Record<string, any> = {}
       for (const group of groups) {
         const {
           property,
@@ -403,14 +408,14 @@ export class NotionAPI {
                   }
                 }
 
-          const isUncategorizedValue = typeof value === 'undefined'
+          const isUncategorizedValue = value === undefined
           const isDateValue = value?.range
           // TODO: review dates reducers
           const queryLabel = isUncategorizedValue
             ? 'uncategorized'
             : isDateValue
-            ? value.range?.start_date || value.range?.end_date
-            : value?.value || value
+              ? value.range?.start_date || value.range?.end_date
+              : value?.value || value
 
           const queryValue =
             !isUncategorizedValue && (isDateValue || value?.value || value)
@@ -424,7 +429,7 @@ export class NotionAPI {
                   property,
                   filter: {
                     operator: !isUncategorizedValue
-                      ? operators[type]
+                      ? operators[type as keyof typeof operators]
                       : 'is_empty',
                     ...(!isUncategorizedValue && {
                       value: {
@@ -450,7 +455,7 @@ export class NotionAPI {
             ...(collectionView?.query2?.filter && {
               filter: collectionView?.query2?.filter
             }),
-            groupSortPreference: groups.map((group) => group?.value),
+            groupSortPreference: groups.map((group: any) => group?.value),
             limit
           },
           ...reducersQuery
@@ -460,7 +465,7 @@ export class NotionAPI {
         userTimeZone,
         //TODO: add filters here
         filter: {
-          filters: filters,
+          filters,
           operator: 'and'
         }
       }

@@ -1,6 +1,6 @@
-import * as React from 'react'
+import type * as React from 'react'
 
-import { CollectionGroupProps } from '../types'
+import { type CollectionGroupProps } from '../types'
 import { Property } from './property'
 
 export const CollectionGroup: React.FC<CollectionGroupProps> = ({
