@@ -11,12 +11,18 @@ const katexSettings = {
   strict: false
 }
 
-export const Equation: React.FC<{
+export function Equation({
+  block,
+  math,
+  inline = false,
+  className,
+  ...rest
+}: {
   block: EquationBlock
   math?: string
   inline?: boolean
   className?: string
-}> = ({ block, math, inline = false, className, ...rest }) => {
+}) {
   const { recordMap } = useNotionContext()
   math = math || getBlockTitle(block, recordMap)
   if (!math) return null

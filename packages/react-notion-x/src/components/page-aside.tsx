@@ -4,15 +4,7 @@ import * as React from 'react'
 
 import { cs } from '../utils'
 
-export const PageAside: React.FC<{
-  toc: Array<TableOfContentsEntry>
-  activeSection: string | null
-  setActiveSection: (activeSection: string | null) => unknown
-  hasToc: boolean
-  hasAside: boolean
-  pageAside?: React.ReactNode
-  className?: string
-}> = ({
+export function PageAside({
   toc,
   activeSection,
   setActiveSection,
@@ -20,7 +12,15 @@ export const PageAside: React.FC<{
   hasToc,
   hasAside,
   className
-}) => {
+}: {
+  toc: Array<TableOfContentsEntry>
+  activeSection: string | null
+  setActiveSection: (activeSection: string | null) => unknown
+  hasToc: boolean
+  hasAside: boolean
+  pageAside?: React.ReactNode
+  className?: string
+}) {
   const throttleMs = 100
   const actionSectionScrollSpy = React.useMemo(
     () =>

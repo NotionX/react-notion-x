@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export const EmptyIcon = (props: any) => {
+export function EmptyIcon(props: any) {
   const { className, ...rest } = props
   return (
     <svg className={className} {...rest} viewBox='0 0 14 14' width='14'>

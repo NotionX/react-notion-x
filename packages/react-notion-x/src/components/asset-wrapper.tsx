@@ -9,10 +9,13 @@ import { Text } from './text'
 
 const urlStyle = { width: '100%' }
 
-export const AssetWrapper: React.FC<{
+export function AssetWrapper({
+  blockId,
+  block
+}: {
   blockId: string
   block: Block
-}> = ({ blockId, block }) => {
+}) {
   const value = block as BaseContentBlock
   const { components, mapPageUrl, rootDomain, zoom } = useNotionContext()
 

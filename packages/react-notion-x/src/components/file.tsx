@@ -6,10 +6,13 @@ import { FileIcon } from '../icons/file-icon'
 import { cs } from '../utils'
 import { Text } from './text'
 
-export const File: React.FC<{
+export function File({
+  block,
+  className
+}: {
   block: FileBlock
   className?: string
-}> = ({ block, className }) => {
+}) {
   const { components, recordMap } = useNotionContext()
   const source =
     recordMap.signed_urls[block.id] || block.properties?.source?.[0]?.[0]

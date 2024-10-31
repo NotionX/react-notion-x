@@ -11,7 +11,31 @@ import {
   type SearchNotionFn
 } from './types'
 
-export const NotionRenderer: React.FC<{
+export function NotionRenderer({
+  components,
+  recordMap,
+  mapPageUrl,
+  mapImageUrl,
+  searchNotion,
+  isShowingSearch,
+  onHideSearch,
+  fullPage,
+  rootPageId,
+  rootDomain,
+  darkMode,
+  previewImages,
+  forceCustomImages,
+  showCollectionViewDropdown,
+  linkTableTitleProperties,
+  isLinkCollectionToUrlProperty,
+  isImageZoomable = true,
+  showTableOfContents,
+  minTableOfContentsItems,
+  defaultPageIcon,
+  defaultPageCover,
+  defaultPageCoverPosition,
+  ...rest
+}: {
   recordMap: ExtendedRecordMap
   components?: Partial<NotionComponents>
 
@@ -57,31 +81,7 @@ export const NotionRenderer: React.FC<{
   blockId?: string
   hideBlockId?: boolean
   disableHeader?: boolean
-}> = ({
-  components,
-  recordMap,
-  mapPageUrl,
-  mapImageUrl,
-  searchNotion,
-  isShowingSearch,
-  onHideSearch,
-  fullPage,
-  rootPageId,
-  rootDomain,
-  darkMode,
-  previewImages,
-  forceCustomImages,
-  showCollectionViewDropdown,
-  linkTableTitleProperties,
-  isLinkCollectionToUrlProperty,
-  isImageZoomable = true,
-  showTableOfContents,
-  minTableOfContentsItems,
-  defaultPageIcon,
-  defaultPageCover,
-  defaultPageCoverPosition,
-  ...rest
-}) => {
+}) {
   const zoom = React.useMemo(
     () =>
       typeof window !== 'undefined' &&
@@ -123,7 +123,11 @@ export const NotionRenderer: React.FC<{
   )
 }
 
-export const NotionBlockRenderer: React.FC<{
+export function NotionBlockRenderer({
+  level = 0,
+  blockId,
+  ...props
+}: {
   className?: string
   bodyClassName?: string
   header?: React.ReactNode
@@ -133,7 +137,7 @@ export const NotionBlockRenderer: React.FC<{
   blockId?: string
   hideBlockId?: boolean
   level?: number
-}> = ({ level = 0, blockId, ...props }) => {
+}) {
   const { recordMap } = useNotionContext()
   const id = blockId || Object.keys(recordMap.block)[0]!
   const block = recordMap.block[id]?.value
@@ -145,17 +149,18 @@ export const NotionBlockRenderer: React.FC<{
 
     return null
   }
+  console.log('NotionBlockRenderer', { id, block })
 
   return (
     <Block key={id} level={level} block={block} {...props}>
-      {block?.content?.map((contentBlockId) => (
+      {/* {block?.content?.map((contentBlockId) => (
         <NotionBlockRenderer
           key={contentBlockId}
           blockId={contentBlockId}
           level={level + 1}
           {...props}
         />
-      ))}
+      ))} */}
     </Block>
   )
 }

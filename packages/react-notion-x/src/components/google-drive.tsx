@@ -5,10 +5,13 @@ import { useNotionContext } from '../context'
 import { cs } from '../utils'
 import { GracefulImage } from './graceful-image'
 
-export const GoogleDrive: React.FC<{
+export function GoogleDrive({
+  block,
+  className
+}: {
   block: GoogleDriveBlock
   className?: string
-}> = ({ block, className }) => {
+}) {
   const { components, mapImageUrl } = useNotionContext()
   const properties = block.format?.drive_properties
   if (!properties) return null

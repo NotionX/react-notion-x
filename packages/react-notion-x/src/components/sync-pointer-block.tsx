@@ -6,10 +6,13 @@ import {
 
 import { NotionBlockRenderer } from '../renderer'
 
-export const SyncPointerBlock: React.FC<{
+export function SyncPointerBlock({
+  block,
+  level
+}: {
   block: BlockType
   level: number
-}> = ({ block, level }) => {
+}) {
   if (!block) {
     if (process.env.NODE_ENV !== 'production') {
       console.warn('missing sync pointer block')

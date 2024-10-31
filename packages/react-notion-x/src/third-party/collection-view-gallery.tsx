@@ -11,11 +11,11 @@ import { getCollectionGroups } from './collection-utils'
 
 const defaultBlockIds: string[] = []
 
-export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
+export function CollectionViewGallery({
   collection,
   collectionView,
   collectionData
-}) => {
+}: CollectionViewProps) {
   const isGroupedCollection = collectionView?.format?.collection_group_by
 
   if (isGroupedCollection) {

@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import type * as types from 'notion-types'
 import format from 'date-fns/format/index.js'
 import formatNumber from 'format-number'
@@ -29,7 +30,7 @@ export interface IPropertyProps {
  * This corresponds to rendering the content of a single cell in a table.
  * Property rendering is re-used across all the different types of collection views.
  */
-export const Property: React.FC<IPropertyProps> = (props) => {
+export function Property(props: IPropertyProps) {
   const { components } = useNotionContext()
 
   if (components.Property) {
@@ -39,7 +40,7 @@ export const Property: React.FC<IPropertyProps> = (props) => {
   }
 }
 
-export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
+export function PropertyImpl(props: IPropertyProps) {
   const { components, mapImageUrl, mapPageUrl } = useNotionContext()
   const {
     schema,

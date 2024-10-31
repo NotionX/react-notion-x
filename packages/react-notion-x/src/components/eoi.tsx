@@ -7,11 +7,15 @@ import { cs, formatNotionDateTime } from '../utils'
 import { MentionPreviewCard } from './mention-preview-card'
 
 // External Object Instance
-export const EOI: React.FC<{
+export function EOI({
+  block,
+  inline,
+  className
+}: {
   block: Block
   inline?: boolean
   className?: string
-}> = ({ block, inline, className }) => {
+}) {
   const { components } = useNotionContext()
   const { original_url, attributes, domain } = block?.format || {}
   if (!original_url || !attributes) {

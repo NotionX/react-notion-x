@@ -2,7 +2,6 @@
   "root": true,
   "extends": ["@fisch0920/eslint-config"],
   "rules": {
-    "react/function-component-definition": "off",
     "react/prop-types": "off",
     "unicorn/no-array-reduce": "off",
     "unicorn/filename-case": "off",

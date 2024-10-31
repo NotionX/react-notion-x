@@ -8,7 +8,7 @@ import { type CollectionCardProps } from '../types'
 import { cs } from '../utils'
 import { Property } from './property'
 
-export const CollectionCard: React.FC<CollectionCardProps> = ({
+export function CollectionCard({
   collection,
   block,
   cover,
@@ -17,7 +17,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
   properties,
   className,
   ...rest
-}) => {
+}: CollectionCardProps) {
   const ctx = useNotionContext()
   const {
     components,

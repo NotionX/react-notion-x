@@ -11,12 +11,12 @@ import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
 
-export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
+export function CollectionViewBoard({
   collection,
   collectionView,
   collectionData,
   padding
-}) => {
+}: CollectionViewProps) {
   const isGroupedCollection = collectionView?.format?.collection_group_by
 
   if (isGroupedCollection) {

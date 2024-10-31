@@ -10,13 +10,13 @@ import { Property } from './property'
 
 const defaultBlockIds: string[] = []
 
-export const CollectionViewTable: React.FC<CollectionViewProps> = ({
+export function CollectionViewTable({
   collection,
   collectionView,
   collectionData,
   padding,
   width
-}) => {
+}: CollectionViewProps) {
   const isGroupedCollection = collectionView?.format?.collection_group_by
 
   if (isGroupedCollection) {

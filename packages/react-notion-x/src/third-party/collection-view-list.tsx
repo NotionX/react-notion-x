@@ -10,11 +10,11 @@ import { Property } from './property'
 
 const defaultBlockIds: string[] = []
 
-export const CollectionViewList: React.FC<CollectionViewProps> = ({
+export function CollectionViewList({
   collection,
   collectionView,
   collectionData
-}) => {
+}: CollectionViewProps) {
   const isGroupedCollection = collectionView?.format?.collection_group_by
 
   if (isGroupedCollection) {

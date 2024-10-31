@@ -36,8 +36,8 @@ export interface NotionContext {
   linkTableTitleProperties: boolean
   isLinkCollectionToUrlProperty: boolean
 
-  defaultPageIcon?: string
-  defaultPageCover?: string
+  defaultPageIcon?: string | null
+  defaultPageCover?: string | null
   defaultPageCoverPosition?: number
 
   zoom: any
@@ -67,27 +67,31 @@ export interface PartialNotionContext {
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
 
-  defaultPageIcon?: string
-  defaultPageCover?: string
+  defaultPageIcon?: string | null
+  defaultPageCover?: string | null
   defaultPageCoverPosition?: number
 
   zoom?: any
 }
 
-const DefaultLink: React.FC = (props) => (
-  <a target='_blank' rel='noopener noreferrer' {...props} />
-)
+function DefaultLink(props: any) {
+  return <a target='_blank' rel='noopener noreferrer' {...props} />
+}
 const DefaultLinkMemo = React.memo(DefaultLink)
-const DefaultPageLink: React.FC = (props) => <a {...props} />
+function DefaultPageLink(props: any) {
+  return <a {...props} />
+}
 const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
-const DefaultEmbed = (props: any) => <AssetWrapper {...props} />
+function DefaultEmbed(props: any) {
+  return <AssetWrapper {...props} />
+}
 const DefaultHeader = Header
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const dummyLink = ({ href, rel, target, title, ...rest }: any) => (
-  <span {...rest} />
-)
+export function dummyLink({ href, rel, target, title, ...rest }: any) {
+  return <span {...rest} />
+}
 
 const dummyComponent = (name: string) => () => {
   console.warn(
@@ -140,6 +144,8 @@ const defaultComponents: NotionComponents = {
   Embed: DefaultEmbed
 }
 
+console.log('DefaultHeader', { DefaultHeader, Header, defaultComponents })
+
 const defaultNotionContext: NotionContext = {
   recordMap: {
     block: {},
@@ -169,8 +175,8 @@ const defaultNotionContext: NotionContext = {
   showTableOfContents: false,
   minTableOfContentsItems: 3,
 
-  defaultPageIcon: undefined,
-  defaultPageCover: undefined,
+  defaultPageIcon: null,
+  defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
 
   zoom: null
@@ -178,18 +184,16 @@ const defaultNotionContext: NotionContext = {
 
 const ctx = React.createContext<NotionContext>(defaultNotionContext)
 
-export const NotionContextProvider: React.FC<
-  PartialNotionContext & {
-    children?: React.ReactNode
-  }
-> = ({
+export function NotionContextProvider({
   components: themeComponents = {},
   children,
   mapPageUrl,
   mapImageUrl,
   rootPageId,
   ...rest
-}) => {
+}: PartialNotionContext & {
+  children?: React.ReactNode
+}) {
   for (const key of Object.keys(rest)) {
     if ((rest as any)[key] === undefined) {
       delete (rest as any)[key]
@@ -230,6 +234,9 @@ export const NotionContextProvider: React.FC<
     }),
     [mapImageUrl, mapPageUrl, wrappedThemeComponents, rootPageId, rest]
   )
+
+  console.log('NotionContextProvider', { value })
+  console.log({ rest, defaultComponents, wrappedThemeComponents })
 
   return <ctx.Provider value={value}>{children}</ctx.Provider>
 }

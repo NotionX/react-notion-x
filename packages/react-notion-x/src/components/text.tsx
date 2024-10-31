@@ -20,13 +20,18 @@ import { PageTitle } from './page-title'
  * TODO: I think this implementation would be more correct if the reduce just added
  * attributes to the final element's style.
  */
-export const Text: React.FC<{
+export function Text({
+  value,
+  block,
+  linkProps,
+  linkProtocol
+}: {
   value?: Decoration[]
   block: Block
   linkProps?: any
   linkProtocol?: string
   inline?: boolean // TODO: currently unused
-}> = ({ value, block, linkProps, linkProtocol }) => {
+}) {
   const { components, recordMap, mapPageUrl, mapImageUrl, rootDomain } =
     useNotionContext()
 
