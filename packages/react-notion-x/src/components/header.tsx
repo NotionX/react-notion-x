@@ -10,9 +10,11 @@ import { cs } from '../utils'
 import { PageIcon } from './page-icon'
 import { SearchDialog } from './search-dialog'
 
-export const Header: React.FC<{
+export function Header({
+  block
+}: {
   block: types.CollectionViewPageBlock | types.PageBlock
-}> = ({ block }) => {
+}) {
   return (
     <header className='notion-header'>
       <div className='notion-nav-header'>
@@ -23,10 +25,13 @@ export const Header: React.FC<{
   )
 }
 
-export const Breadcrumbs: React.FC<{
+export function Breadcrumbs({
+  block,
+  rootOnly = false
+}: {
   block: types.Block
   rootOnly?: boolean
-}> = ({ block, rootOnly = false }) => {
+}) {
   const { recordMap, mapPageUrl, components } = useNotionContext()
 
   const breadcrumbs = React.useMemo(() => {
@@ -81,11 +86,15 @@ export const Breadcrumbs: React.FC<{
   )
 }
 
-export const Search: React.FC<{
+export function Search({
+  block,
+  search,
+  title = 'Search'
+}: {
   block: types.Block
   search?: SearchNotionFn
   title?: React.ReactNode
-}> = ({ block, search, title = 'Search' }) => {
+}) {
   const { searchNotion, rootPageId, isShowingSearch, onHideSearch } =
     useNotionContext()
   const onSearchNotion = search || searchNotion

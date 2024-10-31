@@ -6,13 +6,19 @@ function capitalizeFirstLetter(str?: string) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export const MentionPreviewCard: React.FC<{
+export function MentionPreviewCard({
+  owner,
+  lastUpdated,
+  externalImage,
+  title,
+  domain
+}: {
   owner?: string
   lastUpdated?: string | null
   title: string
   domain: string
   externalImage?: React.ReactNode
-}> = ({ owner, lastUpdated, externalImage, title, domain }) => {
+}) {
   return (
     <div className='notion-external-subtitle'>
       {externalImage && (

@@ -3,7 +3,7 @@ import type * as React from 'react'
 import { type CollectionGroupProps } from '../types'
 import { Property } from './property'
 
-export const CollectionGroup: React.FC<CollectionGroupProps> = ({
+export function CollectionGroup({
   collectionViewComponent: CollectionViewComponent,
   collection,
   collectionGroup,
@@ -13,7 +13,7 @@ export const CollectionGroup: React.FC<CollectionGroupProps> = ({
   summaryProps,
   detailsProps,
   ...rest
-}) => {
+}: CollectionGroupProps) {
   if (hidden) return null
 
   return (

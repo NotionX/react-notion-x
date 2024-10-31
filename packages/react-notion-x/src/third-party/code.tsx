@@ -19,11 +19,15 @@ import { useNotionContext } from '../context'
 import CopyIcon from '../icons/copy'
 import { cs } from '../utils'
 
-export const Code: React.FC<{
+export function Code({
+  block,
+  defaultLanguage = 'typescript',
+  className
+}: {
   block: CodeBlock
   defaultLanguage?: string
   className?: string
-}> = ({ block, defaultLanguage = 'typescript', className }) => {
+}) {
   const [isCopied, setIsCopied] = React.useState(false)
   const copyTimeout = React.useRef<number>()
   const { recordMap } = useNotionContext()

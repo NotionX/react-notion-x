@@ -6,11 +6,15 @@ import { cs } from '../utils'
 import { CollectionColumnTitle } from './collection-column-title'
 import { Property } from './property'
 
-export const CollectionRow: React.FC<{
+export function CollectionRow({
+  block,
+  pageHeader = false,
+  className
+}: {
   block: PageBlock
   pageHeader?: boolean
   className?: string
-}> = ({ block, pageHeader = false, className }) => {
+}) {
   const { recordMap } = useNotionContext()
   const collectionId = block.parent_id
   const collection = recordMap.collection[collectionId]?.value

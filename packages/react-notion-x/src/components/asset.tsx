@@ -25,11 +25,15 @@ const supportedAssetTypes = new Set([
   'drive'
 ])
 
-export const Asset: React.FC<{
+export function Asset({
+  block,
+  zoomable = true,
+  children
+}: {
   block: BaseContentBlock
   children: any
   zoomable?: boolean
-}> = ({ block, zoomable = true, children }) => {
+}) {
   const { recordMap, mapImageUrl, components } = useNotionContext()
 
   if (!block || !supportedAssetTypes.has(block.type)) {

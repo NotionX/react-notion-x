@@ -8,15 +8,7 @@ import { cs } from '../utils'
 /**
  * Progressive, lazy images modeled after Medium's LQIP technique.
  */
-export const LazyImage: React.FC<{
-  src?: string
-  alt?: string
-  className?: string
-  style?: React.CSSProperties
-  height?: number
-  zoomable?: boolean
-  priority?: boolean
-}> = ({
+export function LazyImage({
   src,
   alt,
   className,
@@ -25,7 +17,15 @@ export const LazyImage: React.FC<{
   priority = false,
   height,
   ...rest
-}) => {
+}: {
+  src?: string
+  alt?: string
+  className?: string
+  style?: React.CSSProperties
+  height?: number
+  zoomable?: boolean
+  priority?: boolean
+}) {
   const { recordMap, zoom, previewImages, forceCustomImages, components } =
     useNotionContext()
   const zoomRef = React.useRef(zoom ? zoom.clone() : null)

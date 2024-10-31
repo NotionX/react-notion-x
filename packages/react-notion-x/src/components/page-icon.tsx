@@ -16,19 +16,19 @@ const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
   )
 }
 
-export const PageIconImpl: React.FC<{
-  block: Block
-  className?: string
-  inline?: boolean
-  hideDefaultIcon?: boolean
-  defaultIcon?: string
-}> = ({
+export function PageIconImpl({
   block,
   className,
   inline = true,
   hideDefaultIcon = false,
   defaultIcon
-}) => {
+}: {
+  block: Block
+  className?: string
+  inline?: boolean
+  hideDefaultIcon?: boolean
+  defaultIcon?: string | null
+}) {
   const { mapImageUrl, recordMap, darkMode } = useNotionContext()
   let isImage = false
   let content: any = null

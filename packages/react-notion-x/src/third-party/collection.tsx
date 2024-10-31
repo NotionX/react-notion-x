@@ -20,14 +20,18 @@ import { CollectionView } from './collection-view'
 
 const isServer = typeof window === 'undefined'
 
-export const Collection: React.FC<{
+export function Collection({
+  block,
+  className,
+  ctx
+}: {
   block:
     | types.CollectionViewBlock
     | types.CollectionViewPageBlock
     | types.PageBlock
   className?: string
   ctx: NotionContext
-}> = ({ block, className, ctx }) => {
+}) {
   /**
    * NOTE: there is a weird side effect of us using multiple bundles for
    * collections, where `useNotionContext` returns a *different* context than for
@@ -73,10 +77,13 @@ export const Collection: React.FC<{
   }
 }
 
-const CollectionViewBlock: React.FC<{
+function CollectionViewBlock({
+  block,
+  className
+}: {
   block: types.CollectionViewBlock | types.CollectionViewPageBlock
   className?: string
-}> = ({ block, className }) => {
+}) {
   const { recordMap, showCollectionViewDropdown } = useNotionContext()
   const { view_ids: viewIds } = block
   const collectionId = getBlockCollectionId(block, recordMap)!
@@ -220,11 +227,15 @@ const CollectionViewBlock: React.FC<{
   )
 }
 
-const CollectionViewTabs: React.FC<{
+function CollectionViewTabs({
+  collectionViewId,
+  viewIds,
+  onChangeView
+}: {
   collectionViewId: string
   viewIds: string[]
   onChangeView: (viewId: string) => unknown
-}> = ({ collectionViewId, viewIds, onChangeView }) => {
+}) {
   const { recordMap } = useNotionContext()
 
   return (
@@ -248,11 +259,16 @@ const CollectionViewTabs: React.FC<{
   )
 }
 
-const CollectionViewColumnDesc: React.FC<{
+function CollectionViewColumnDesc({
+  collectionView,
+  className,
+  children,
+  ...rest
+}: {
   collectionView?: types.CollectionView
   className?: string
   children?: React.ReactNode
-}> = ({ collectionView, className, children, ...rest }) => {
+}) {
   if (!collectionView) return null
 
   const { type } = collectionView
