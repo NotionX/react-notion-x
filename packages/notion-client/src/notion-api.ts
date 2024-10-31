@@ -544,7 +544,9 @@ export class NotionAPI {
       type: 'BlocksInAncestor',
       source: 'quick_find_public',
       ancestorId: parsePageId(params.ancestorId),
-      sort: 'Relevance',
+      sort: {
+        field: 'relevance'
+      },
       limit: params.limit || 20,
       query: params.query,
       filters: {

@@ -88,6 +88,18 @@ export interface CollectionQueryResult {
     blockIds: ID[]
     hasMore: boolean
   }
+
+  reducerResults?: {
+    collection_group_results: {
+      type: string
+      blockIds: ID[]
+      hasMore: boolean
+    }
+  }
+
+  collectionIds?: ID[]
+
+  recordMap?: ExtendedRecordMap
 }
 
 export interface AggregationResult {

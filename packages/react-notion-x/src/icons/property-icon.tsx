@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { PropertyType } from 'notion-types'
 
+import AutoIncrementIdIcon from './type-auto-increment-id'
 import CheckboxIcon from './type-checkbox'
 import DateIcon from './type-date'
 import EmailIcon from './type-email'
@@ -14,6 +15,7 @@ import Person2Icon from './type-person-2'
 import PhoneNumberIcon from './type-phone-number'
 import RelationIcon from './type-relation'
 import SelectIcon from './type-select'
+import StatusIcon from './type-status'
 import TextIcon from './type-text'
 import TimestampIcon from './type-timestamp'
 import TitleIcon from './type-title'
@@ -29,6 +31,7 @@ const iconMap = {
   text: TextIcon,
   number: NumberIcon,
   select: SelectIcon,
+  status: StatusIcon,
   multi_select: MultiSelectIcon,
   date: DateIcon,
   person: PersonIcon,
@@ -42,7 +45,8 @@ const iconMap = {
   created_time: TimestampIcon,
   last_edited_time: TimestampIcon,
   created_by: Person2Icon,
-  last_edited_by: Person2Icon
+  last_edited_by: Person2Icon,
+  auto_increment_id: AutoIncrementIdIcon
 }
 
 export const PropertyIcon: React.FC<PropertyIconProps> = ({

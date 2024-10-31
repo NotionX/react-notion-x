@@ -47,6 +47,7 @@ export interface NotionComponents {
   propertyLastEditedTimeValue: ComponentOverrideFn
   propertyCreatedTimeValue: ComponentOverrideFn
   propertyDateValue: ComponentOverrideFn
+  propertyAutoIncrementIdValue: ComponentOverrideFn
 
   // assets
   Pdf: any
