@@ -232,9 +232,6 @@ export function NotionContextProvider({
     [mapImageUrl, mapPageUrl, wrappedThemeComponents, rootPageId, rest]
   )
 
-  console.log('NotionContextProvider', { value })
-  console.log({ rest, defaultComponents, wrappedThemeComponents })
-
   return <ctx.Provider value={value}>{children}</ctx.Provider>
 }
 

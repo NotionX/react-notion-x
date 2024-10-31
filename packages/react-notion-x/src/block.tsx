@@ -54,12 +54,6 @@ const tocIndentLevelCache: {
 const pageCoverStyleCache: Record<string, object> = {}
 
 export function Block(props: BlockProps) {
-  console.log('Block', {
-    id: props.block.id,
-    type: props.block.type,
-    level: props.level
-  })
-
   const ctx = useNotionContext()
   const {
     components,
@@ -153,16 +147,6 @@ export function Block(props: BlockProps) {
             showTableOfContents && toc.length >= minTableOfContentsItems
           const hasAside = !!((hasToc || pageAside) && !page_full_width)
           const hasPageCover = !!(pageCover || page_cover)
-
-          console.log({
-            disableHeader,
-            header,
-            pageCover,
-            pageHeader,
-            pageFooter,
-            footer,
-            components
-          })
 
           return (
             <div

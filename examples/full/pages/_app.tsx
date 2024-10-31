@@ -4,10 +4,8 @@ import 'katex/dist/katex.min.css'
 import 'prismjs/themes/prism-tomorrow.css'
 // core styles shared by all of react-notion-x (required)
 import 'react-notion-x/src/styles.css'
-// force push
+// app styles
 import '../styles/globals.css'
-
-import * as React from 'react'
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />

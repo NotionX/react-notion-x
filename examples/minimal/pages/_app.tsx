@@ -2,8 +2,6 @@
 import 'react-notion-x/src/styles.css'
 import '../styles/globals.css'
 
-import * as React from 'react'
-
 // used for code syntax highlighting (optional)
 // import 'prismjs/themes/prism-tomorrow.css'
 

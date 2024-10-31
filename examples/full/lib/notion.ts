@@ -32,5 +32,9 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
 }
 
 export async function search(params: SearchParams): Promise<SearchResults> {
-  return notion.search(params)
+  if ('search' in notion) {
+    return notion.search(params)
+  } else {
+    throw new Error('Notion API does not support search')
+  }
 }
