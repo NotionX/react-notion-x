@@ -112,7 +112,14 @@ export const NotionPage = ({
     g.recordMap = recordMap
     g.block = block
   }
-
+  const codeMenuActions = {
+    copy: (content: string, language: string, block: any) => {
+      console.log('copy', content, language, block)
+    },
+    menu: (content: string, language: string, block: any) => {
+      console.log('menu', content, language, block)
+    }
+  }
   const socialDescription = 'React Notion X Demo'
   const socialImage =
     'https://react-notion-x-demo.transitivebullsh.it/social.jpg'
@@ -152,6 +159,7 @@ export const NotionPage = ({
         rootDomain={rootDomain}
         rootPageId={rootPageId}
         previewImages={previewImagesEnabled}
+        customFunctions={{ codeMenuActions: codeMenuActions.menu }}
         components={{
           // NOTE (transitive-bullshit 3/12/2023): I'm disabling next/image for this repo for now because the amount of traffic started costing me hundreds of dollars a month in Vercel image optimization costs. I'll probably re-enable it in the future if I can find a better solution.
           // nextImage: Image,
