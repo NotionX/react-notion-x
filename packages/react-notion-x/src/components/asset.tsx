@@ -92,15 +92,14 @@ export const Asset: React.FC<{
         case 'center':
           style.alignSelf = 'center'
           break
-        
+
         case 'left':
           style.alignSelf = 'start'
           break
-        
+
         case 'right':
           style.alignSelf = 'end'
           break
-        
       }
 
       if (block_width) {

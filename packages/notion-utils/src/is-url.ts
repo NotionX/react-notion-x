@@ -1,5 +1,1 @@
-
-
-
-
-export {default as isUrl} from 'is-url-superb'
+export { default as isUrl } from 'is-url-superb'

@@ -11,7 +11,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "turbo build",
+    "build": "turbo build --filter='./packages/*'",
     "dev": "turbo dev --concurrency 50 --continue",
     "clean": "turbo clean",
     "test": "turbo test",
