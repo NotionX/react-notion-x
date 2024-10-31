@@ -1,2 +1,2 @@
-export * from './notion-api'
+export * from './notion-api-universal'
 export * from './types'
