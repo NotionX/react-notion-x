@@ -56,7 +56,8 @@
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",
     "tsup": "^6.2.3",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "tsimp": "2.0.11"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
