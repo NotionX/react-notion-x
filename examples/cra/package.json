@@ -3,10 +3,10 @@
   "version": "6.16.1",
   "private": true,
   "scripts": {
-    "dev": "GENERATE_SOURCEMAP=false react-scripts start",
-    "start": "GENERATE_SOURCEMAP=false react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
-    "eject": "GENERATE_SOURCEMAP=false react-scripts eject"
+    "dev": "DISABLE_ESLINT_PLUGIN=true GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "DISABLE_ESLINT_PLUGIN=true GENERATE_SOURCEMAP=false react-scripts start",
+    "build": "DISABLE_ESLINT_PLUGIN=true GENERATE_SOURCEMAP=false react-scripts build",
+    "eject": "DISABLE_ESLINT_PLUGIN=true GENERATE_SOURCEMAP=false react-scripts eject"
   },
   "dependencies": {
     "@types/node": "^22.8.4",
@@ -17,12 +17,6 @@
     "react-dom": "^18.3.1",
     "react-notion-x": "workspace:*",
     "react-scripts": "5.0.1"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [

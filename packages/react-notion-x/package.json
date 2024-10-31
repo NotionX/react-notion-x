@@ -16,24 +16,24 @@
       "import": "./build/index.js"
     },
     "./build/third-party/code": {
-      "types": "./build//third-party/code.d.ts",
-      "import": "./build//third-party/code.js"
+      "types": "./build/third-party/code.d.ts",
+      "import": "./build/third-party/code.js"
     },
     "./build/third-party/collection": {
-      "types": "./build//third-party/collection.d.ts",
-      "import": "./build//third-party/collection.js"
+      "types": "./build/third-party/collection.d.ts",
+      "import": "./build/third-party/collection.js"
     },
     "./build/third-party/equation": {
-      "types": "./build//third-party/equation.d.ts",
-      "import": "./build//third-party/equation.js"
+      "types": "./build/third-party/equation.d.ts",
+      "import": "./build/third-party/equation.js"
     },
     "./build/third-party/modal": {
-      "types": "./build//third-party/modal.d.ts",
-      "import": "./build//third-party/modal.js"
+      "types": "./build/third-party/modal.d.ts",
+      "import": "./build/third-party/modal.js"
     },
     "./build/third-party/pdf": {
-      "types": "./build//third-party/pdf.d.ts",
-      "import": "./build//third-party/pdf.js"
+      "types": "./build/third-party/pdf.d.ts",
+      "import": "./build/third-party/pdf.js"
     },
     "./styles.css": "./src/styles.css",
     "./src/styles.css": "./src/styles.css"
