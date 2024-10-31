@@ -1,6 +1,6 @@
-import { defineConfig, type Options } from 'tsup'
+import { defineConfig } from 'tsup'
 
-const baseConfig: Options = {
+export default defineConfig({
   entry: [
     'src/index.tsx',
     'src/third-party/code.tsx',
@@ -14,22 +14,9 @@ const baseConfig: Options = {
   platform: 'browser',
   format: ['esm'],
   splitting: false,
-  shims: false
-}
-
-export default defineConfig([
-  {
-    ...baseConfig,
-    outDir: 'build/dev',
-    minify: false,
-    sourcemap: true,
-    dts: true
-  },
-  {
-    ...baseConfig,
-    outDir: 'build',
-    minify: false,
-    sourcemap: false,
-    dts: true
-  }
-])
+  shims: false,
+  dts: true,
+  minify: false,
+  sourcemap: true,
+  external: ['react', 'react-dom']
+})

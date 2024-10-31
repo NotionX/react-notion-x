@@ -10,6 +10,34 @@
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    },
+    "./build/third-party/code": {
+      "types": "./build//third-party/code.d.ts",
+      "import": "./build//third-party/code.js"
+    },
+    "./build/third-party/collection": {
+      "types": "./build//third-party/collection.d.ts",
+      "import": "./build//third-party/collection.js"
+    },
+    "./build/third-party/equation": {
+      "types": "./build//third-party/equation.d.ts",
+      "import": "./build//third-party/equation.js"
+    },
+    "./build/third-party/modal": {
+      "types": "./build//third-party/modal.d.ts",
+      "import": "./build//third-party/modal.js"
+    },
+    "./build/third-party/pdf": {
+      "types": "./build//third-party/pdf.d.ts",
+      "import": "./build//third-party/pdf.js"
+    },
+    "./styles.css": "./src/styles.css",
+    "./src/styles.css": "./src/styles.css"
+  },
   "files": [
     "build",
     "src/styles.css"
@@ -20,6 +48,7 @@
   "scripts": {
     "build": "tsup",
     "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "clean": "del build",
     "test": "run-s test:*",
     "test:lint": "eslint .",
     "test:typecheck": "tsc --noEmit"

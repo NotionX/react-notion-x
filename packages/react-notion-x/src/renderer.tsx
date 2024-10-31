@@ -149,7 +149,6 @@ export function NotionBlockRenderer({
 
     return null
   }
-  console.log('NotionBlockRenderer', { id, block })
 
   return (
     <Block key={id} level={level} block={block} {...props}>
