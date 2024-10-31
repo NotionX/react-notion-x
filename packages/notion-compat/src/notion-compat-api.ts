@@ -1,9 +1,9 @@
-import * as notion from 'notion-types'
 import type { Client } from '@notionhq/client'
+import type * as notion from 'notion-types'
 import { parsePageId } from 'notion-utils'
 import PQueue from 'p-queue'
 
-import * as types from './types'
+import type * as types from './types'
 import { convertPage } from './convert-page'
 
 export class NotionCompatAPI {
@@ -15,6 +15,9 @@ export class NotionCompatAPI {
 
   public async getPage(rawPageId: string): Promise<notion.ExtendedRecordMap> {
     const pageId = parsePageId(rawPageId)
+    if (!pageId) {
+      throw new Error(`Invalid page id "${rawPageId}"`)
+    }
 
     const [page, block, children] = await Promise.all([
       this.client.pages.retrieve({ page_id: pageId }),
@@ -129,10 +132,12 @@ export class NotionCompatAPI {
               blockMap[child.id] = childBlock
               parentMap[child.id] = blockId
 
-              const details = childBlock[childBlock.type]
+              const details: any =
+                childBlock[childBlock.type as keyof types.Block]
               if (details?.rich_text) {
                 const richTextMentions = details.rich_text.filter(
-                  (richTextItem) => richTextItem.type === 'mention'
+                  (richTextItem: types.RichTextItem) =>
+                    richTextItem.type === 'mention'
                 )
 
                 for (const richTextMention of richTextMentions) {
@@ -176,7 +181,7 @@ export class NotionCompatAPI {
               }
             }
           }
-        } catch (err) {
+        } catch (err: any) {
           console.warn('failed resolving block', blockId, err.message)
         } finally {
           pendingBlockIds.delete(blockId)
@@ -197,7 +202,7 @@ export class NotionCompatAPI {
 
   async getAllBlockChildren(blockId: string) {
     let blocks: types.BlockChildren = []
-    let cursor: string
+    let cursor: string | undefined
 
     do {
       const res = await this.client.blocks.children.list({
@@ -206,6 +211,8 @@ export class NotionCompatAPI {
       })
 
       blocks = blocks.concat(res.results)
+      if (!res.next_cursor) break
+
       cursor = res.next_cursor
     } while (cursor)
 
