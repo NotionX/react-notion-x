@@ -1,11 +1,10 @@
-import * as React from 'react'
-
-import { ImageBlock } from 'notion-types'
+import type * as React from 'react'
+import { type ImageBlock } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { LazyImage } from '../components/lazy-image'
-import { NotionContextProvider, dummyLink, useNotionContext } from '../context'
-import { CollectionCardProps } from '../types'
+import { dummyLink, NotionContextProvider, useNotionContext } from '../context'
+import { type CollectionCardProps } from '../types'
 import { cs } from '../utils'
 import { Property } from './property'
 
@@ -30,7 +29,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
   let coverContent = null
 
   const { page_cover_position = 0.5, card_cover_position = 0.5 } =
-    block.format || {}
+    block.format || ({} as any)
   const coverPosition = (1 - page_cover_position) * 100
   const cardCoverPosition = (1 - card_cover_position) * 100
 
@@ -38,9 +37,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
     const contentBlockId = block.content?.find((blockId) => {
       const block = recordMap.block[blockId]?.value
 
-      if (block?.type === 'image') {
-        return true
-      }
+      return block?.type === 'image'
     })
 
     if (contentBlockId) {
@@ -89,8 +86,10 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
     }
   } else if (cover?.type === 'property') {
     const { property } = cover
+    if (!property) return null
+
     const schema = collection.schema[property]
-    const data = block.properties?.[property]
+    const data = block.properties?.[property as keyof typeof block.properties]
 
     if (schema && data) {
       if (schema.type === 'file') {
@@ -120,11 +119,12 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
       }
     }
   }
-  let linkProperties = []
-  //check if a visible property has a url and we settings are for linking to it for the card
-  if (isLinkCollectionToUrlProperty) {
+
+  let linkProperties: any[] = []
+  // check if a visible property has a url and we settings are for linking to it for the card
+  if (isLinkCollectionToUrlProperty && properties) {
     linkProperties = properties
-      ?.filter(
+      .filter(
         (p) =>
           p.visible && p.property !== 'title' && collection.schema[p.property]
       )
@@ -132,13 +132,14 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
         if (!block.properties) return false
         const schema = collection.schema[p.property]
 
-        return schema.type == 'url'
+        return schema?.type === 'url'
       })
       .map((p) => {
-        return block.properties[p.property]
+        return block.properties?.[p.property as keyof typeof block.properties]
       })
-      ?.filter((p) => p && p.length > 0 && p[0] != undefined) //case where the url is empty
+      .filter((p) => p?.[0])
   }
+
   let url = null
   if (
     linkProperties &&
@@ -173,9 +174,10 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
               collection.schema[p.property]
           )
           .map((p) => {
-            if (!block.properties) return null
+            if (!block.properties || !p.property) return null
             const schema = collection.schema[p.property]
-            const data = block.properties[p.property]
+            const data =
+              block.properties[p.property as keyof typeof block.properties]
 
             return (
               <div className='notion-collection-card-property' key={p.property}>
@@ -200,7 +202,7 @@ export const CollectionCard: React.FC<CollectionCardProps> = ({
         ...ctx.components,
         // Disable <a> tabs in all child components so we don't create invalid DOM
         // trees with stacked <a> tags.
-        Link: (props) => {
+        Link: (props: any) => {
           return (
             <form action={props.href} target='_blank'>
               <input

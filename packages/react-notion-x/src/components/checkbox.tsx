@@ -1,10 +1,10 @@
-import * as React from 'react'
+import type * as React from 'react'
 
 import CheckIcon from '../icons/check'
 
 export const Checkbox: React.FC<{
   isChecked: boolean
-  blockId: string | undefined
+  blockId?: string
 }> = ({ isChecked }) => {
   let content = null
 

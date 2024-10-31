@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import { PageBlock } from 'notion-types'
+import type * as React from 'react'
+import { type PageBlock } from 'notion-types'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
@@ -27,7 +26,7 @@ export const CollectionRow: React.FC<{
   if (collection.format?.property_visibility) {
     propertyIds = propertyIds.filter(
       (id) =>
-        collection.format.property_visibility.find(
+        collection.format?.property_visibility?.find(
           ({ property }) => property === id
         )?.visibility !== 'hide'
     )
@@ -36,18 +35,17 @@ export const CollectionRow: React.FC<{
   // sort properties
   if (collection.format?.collection_page_properties) {
     // sort properties based on collection page order
-    const idToIndex = collection.format?.collection_page_properties.reduce(
-      (acc, p, i) => ({
-        ...acc,
-        [p.property]: i
-      }),
-      {}
+    const idToIndex = Object.fromEntries(
+      collection.format?.collection_page_properties.map((p, i) => [
+        p.property,
+        i
+      ])
     )
 
-    propertyIds.sort((a, b) => idToIndex[a] - idToIndex[b])
+    propertyIds.sort((a, b) => idToIndex[a]! - idToIndex[b]!)
   } else {
     // default to sorting properties alphabetically based on name
-    propertyIds.sort((a, b) => schemas[a].name.localeCompare(schemas[b].name))
+    propertyIds.sort((a, b) => schemas[a]!.name.localeCompare(schemas[b]!.name))
   }
 
   return (
@@ -55,6 +53,7 @@ export const CollectionRow: React.FC<{
       <div className='notion-collection-row-body'>
         {propertyIds.map((propertyId) => {
           const schema = schemas[propertyId]
+          if (!schema) return null
 
           return (
             <div className='notion-collection-row-property' key={propertyId}>
@@ -63,7 +62,11 @@ export const CollectionRow: React.FC<{
               <div className='notion-collection-row-value'>
                 <Property
                   schema={schema}
-                  data={block.properties?.[propertyId]}
+                  data={
+                    block.properties?.[
+                      propertyId as keyof typeof block.properties
+                    ]
+                  }
                   propertyId={propertyId}
                   block={block}
                   collection={collection}

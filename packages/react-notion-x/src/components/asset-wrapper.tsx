@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import { BaseContentBlock, Block } from 'notion-types'
+import type * as React from 'react'
+import { type BaseContentBlock, type Block } from 'notion-types'
 import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '..'
@@ -19,7 +18,7 @@ export const AssetWrapper: React.FC<{
 
   let isURL = false
   if (block.type === 'image') {
-    const caption: string = value?.properties?.caption?.[0]?.[0]
+    const caption: string | undefined = value?.properties?.caption?.[0]?.[0]
     if (caption) {
       const id = parsePageId(caption, { uuid: true })
 
@@ -51,9 +50,9 @@ export const AssetWrapper: React.FC<{
 
   // allows for an image to be a link
   if (isURL) {
-    const caption: string = value?.properties?.caption[0][0]
+    const caption: string | undefined = value?.properties?.caption?.[0]?.[0]
     const id = parsePageId(caption, { uuid: true })
-    const isPage = caption.charAt(0) === '/' && id
+    const isPage = caption?.charAt(0) === '/' && id
     const captionHostname = extractHostname(caption)
 
     return (
@@ -90,11 +89,11 @@ function isValidURL(str: string) {
   return !!pattern.test(str)
 }
 
-function extractHostname(url: string) {
+function extractHostname(url?: string) {
   try {
-    const hostname = new URL(url).hostname
+    const hostname = new URL(url!).hostname
     return hostname
-  } catch (err) {
+  } catch {
     return ''
   }
 }

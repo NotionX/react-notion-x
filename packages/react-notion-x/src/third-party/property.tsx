@@ -1,9 +1,8 @@
-import * as React from 'react'
-
-import * as types from 'notion-types'
+import type * as types from 'notion-types'
 import format from 'date-fns/format/index.js'
 import formatNumber from 'format-number'
-import { FormulaResult } from 'notion-types'
+import { type FormulaResult } from 'notion-types'
+import * as React from 'react'
 
 import { Checkbox } from '../components/checkbox'
 import { GracefulImage } from '../components/graceful-image'
@@ -54,7 +53,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderTextValue = React.useMemo(
     () =>
       function TextProperty() {
-        return <Text value={data} block={block} />
+        return <Text value={data} block={block!} />
       },
     [block, data]
   )
@@ -62,7 +61,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderDateValue = React.useMemo(
     () =>
       function DateProperty() {
-        return <Text value={data} block={block} />
+        return <Text value={data} block={block!} />
       },
     [block, data]
   )
@@ -70,7 +69,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderRelationValue = React.useMemo(
     () =>
       function RelationProperty() {
-        return <Text value={data} block={block} />
+        return <Text value={data} block={block!} />
       },
     [block, data]
   )
@@ -79,21 +78,22 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
     () =>
       function FormulaProperty() {
         let content: FormulaResult | null
+        if (!schema) return null
 
         try {
-          content = evalFormula(schema.formula, {
+          content = evalFormula(schema.formula!, {
             schema: collection?.schema,
             properties: block?.properties
           })
 
-          if (isNaN(content as number)) {
+          if (Number.isNaN(content as number)) {
             // console.log('NaN', schema.formula)
           }
 
           if (content instanceof Date) {
             content = format(content, 'MMM d, YYY hh:mm aa')
           }
-        } catch (err) {
+        } catch {
           // console.log('error evaluating formula', schema.formula, err)
           content = null
         }
@@ -116,7 +116,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
             </components.PageLink>
           )
         } else {
-          return <Text value={data} block={block} />
+          return <Text value={data} block={block!} />
         }
       },
     [block, components, data, linkToTitlePage, mapPageUrl]
@@ -126,7 +126,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
     () =>
       function PersonProperty() {
         // console.log('person', schema, data)
-        return <Text value={data} block={block} />
+        return <Text value={data} block={block!} />
       },
     [block, data]
   )
@@ -134,6 +134,8 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderFileValue = React.useMemo(
     () =>
       function FileProperty() {
+        if (!data) return null
+
         // TODO: assets should be previewable via image-zoom
         const files = data
           .filter((v) => v.length === 2)
@@ -143,13 +145,13 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
           <components.Link
             key={i}
             className='notion-property-file'
-            href={mapImageUrl(file[2] as string, block)}
+            href={mapImageUrl(file[2] as string, block!)}
             target='_blank'
             rel='noreferrer noopener'
           >
             <GracefulImage
               alt={file[0] as string}
-              src={mapImageUrl(file[2] as string, block)}
+              src={mapImageUrl(file[2] as string, block!)!}
               loading='lazy'
             />
           </components.Link>
@@ -161,7 +163,8 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderCheckboxValue = React.useMemo(
     () =>
       function CheckboxProperty() {
-        const isChecked = data && data[0][0] === 'Yes'
+        if (!data || !schema?.name) return null
+        const isChecked = data && data[0]?.[0] === 'Yes'
 
         return (
           <div className='notion-property-checkbox-container'>
@@ -176,14 +179,16 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderUrlValue = React.useMemo(
     () =>
       function UrlProperty() {
+        if (!data) return null
+
         // TODO: refactor to less hacky solution
-        const d = JSON.parse(JSON.stringify(data))
+        const d = structuredClone(data)
 
         if (inline) {
           try {
-            const url = new URL(d[0][0])
-            d[0][0] = url.hostname.replace(/^www\./, '')
-          } catch (err) {
+            const url = new URL(d[0]?.[0]!)
+            d[0]![0] = url.hostname.replace(/^www\./, '')
+          } catch {
             // ignore invalid urls
           }
         }
@@ -191,7 +196,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
         return (
           <Text
             value={d}
-            block={block}
+            block={block!}
             inline={inline}
             linkProps={{
               target: '_blank',
@@ -206,7 +211,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderEmailValue = React.useMemo(
     () =>
       function EmailProperty() {
-        return <Text value={data} linkProtocol='mailto' block={block} />
+        return <Text value={data} linkProtocol='mailto' block={block!} />
       },
     [block, data]
   )
@@ -214,7 +219,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderPhoneNumberValue = React.useMemo(
     () =>
       function PhoneNumberProperty() {
-        return <Text value={data} linkProtocol='tel' block={block} />
+        return <Text value={data} linkProtocol='tel' block={block!} />
       },
     [block, data]
   )
@@ -222,11 +227,12 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderNumberValue = React.useMemo(
     () =>
       function NumberProperty() {
-        const value = parseFloat(data[0][0] || '0')
+        if (!data || !schema) return null
+        const value = Number.parseFloat(data[0]?.[0] || '0')
         let output = ''
 
-        if (isNaN(value)) {
-          return <Text value={data} block={block} />
+        if (Number.isNaN(value)) {
+          return <Text value={data} block={block!} />
         } else {
           switch (schema.number_format) {
             case 'number_with_commas':
@@ -410,10 +416,10 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
               )
               break
             default:
-              return <Text value={data} block={block} />
+              return <Text value={data} block={block!} />
           }
 
-          return <Text value={[[output]]} block={block} />
+          return <Text value={[[output]]} block={block!} />
         }
       },
     [block, data, schema]
@@ -430,17 +436,17 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
   const renderCreatedTimeValue = React.useMemo(
     () =>
       function CreatedTimeProperty() {
-        return format(new Date(block?.created_time), 'MMM d, YYY hh:mm aa')
+        return format(new Date(block!.created_time), 'MMM d, YYY hh:mm aa')
       },
-    [block?.created_time]
+    [block]
   )
 
   const renderLastEditedTimeValue = React.useMemo(
     () =>
       function LastEditedTimeProperty() {
-        return format(new Date(block?.last_edited_time), 'MMM d, YYY hh:mm aa')
+        return format(new Date(block!.last_edited_time), 'MMM d, YYY hh:mm aa')
       },
-    [block?.last_edited_time]
+    [block]
   )
 
   if (!schema) {
@@ -479,10 +485,8 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
         break
 
       case 'status': {
-        const value = data[0][0] || ''
-
+        const value = data?.[0]?.[0] || ''
         const option = schema.options?.find((option) => value === option.value)
-
         const color = option?.color || 'default-inferred'
 
         content = components.propertySelectValue(
@@ -520,7 +524,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
       case 'select':
       // intentional fallthrough
       case 'multi_select': {
-        const values = (data[0][0] || '').split(',')
+        const values = (data?.[0]?.[0] || '').split(',')
 
         content = values.map((value, index) => {
           const option = schema.options?.find(
@@ -622,7 +626,7 @@ export const PropertyImpl: React.FC<IPropertyProps> = (props) => {
         break
 
       default:
-        content = <Text value={data} block={block} />
+        content = <Text value={data} block={block!} />
         break
     }
   }

@@ -1,10 +1,10 @@
+import type * as types from 'notion-types'
+import { type PageBlock } from 'notion-types'
 import * as React from 'react'
-
-import { PageBlock } from 'notion-types'
 
 import { useNotionContext } from '../context'
 import { EmptyIcon } from '../icons/empty-icon'
-import { CollectionViewProps } from '../types'
+import { type CollectionViewProps } from '../types'
 import { cs } from '../utils'
 import { CollectionCard } from './collection-card'
 import { CollectionGroup } from './collection-group'
@@ -53,7 +53,17 @@ export const CollectionViewBoard: React.FC<CollectionViewProps> = ({
   )
 }
 
-function Board({ collectionView, collectionData, collection, padding }) {
+function Board({
+  collectionView,
+  collectionData,
+  collection,
+  padding
+}: {
+  collection: types.Collection
+  collectionView: types.CollectionView
+  collectionData: types.CollectionQueryResult
+  padding?: number
+}) {
   const { recordMap } = useNotionContext()
   const {
     board_cover = { type: 'none' },
@@ -86,7 +96,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
       >
         <div className='notion-board-header'>
           <div className='notion-board-header-inner'>
-            {boardGroups.map((p, index) => {
+            {boardGroups.map((p: any, index: number) => {
               if (!(collectionData as any).board_columns?.results) {
                 // no groupResults in the data when collection is in a toggle
                 return null
@@ -132,7 +142,7 @@ function Board({ collectionView, collectionData, collection, padding }) {
         <div className='notion-board-header-placeholder' />
 
         <div className='notion-board-body'>
-          {boardGroups.map((p, index) => {
+          {boardGroups.map((p: any, index: number) => {
             const boardResults = (collectionData as any).board_columns?.results
             if (!boardResults) return null
             if (!p?.value?.type) return null

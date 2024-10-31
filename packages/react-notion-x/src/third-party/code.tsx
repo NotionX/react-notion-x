@@ -1,9 +1,3 @@
-import * as React from 'react'
-
-import copyToClipboard from 'clipboard-copy'
-import { CodeBlock } from 'notion-types'
-import { getBlockTitle } from 'notion-utils'
-import { highlightElement } from 'prismjs'
 import 'prismjs/components/prism-clike.min.js'
 import 'prismjs/components/prism-css-extras.min.js'
 import 'prismjs/components/prism-css.min.js'
@@ -13,6 +7,12 @@ import 'prismjs/components/prism-json.min.js'
 import 'prismjs/components/prism-jsx.min.js'
 import 'prismjs/components/prism-tsx.min.js'
 import 'prismjs/components/prism-typescript.min.js'
+
+import copyToClipboard from 'clipboard-copy'
+import { type CodeBlock } from 'notion-types'
+import { getBlockTitle } from 'notion-utils'
+import { highlightElement } from 'prismjs'
+import * as React from 'react'
 
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
@@ -61,7 +61,7 @@ export const Code: React.FC<{
 
     if (copyTimeout.current) {
       clearTimeout(copyTimeout.current)
-      copyTimeout.current = null
+      copyTimeout.current = undefined
     }
 
     copyTimeout.current = setTimeout(() => {
@@ -88,7 +88,7 @@ export const Code: React.FC<{
           )}
         </div>
 
-        <code className={`language-${language}`} ref={codeRef}>
+        <code className={`language-${language}`} ref={codeRef as any}>
           {content}
         </code>
       </pre>

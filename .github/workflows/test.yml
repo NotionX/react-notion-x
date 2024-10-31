@@ -4,75 +4,104 @@ on: [push, pull_request]
 
 jobs:
   test:
+    name: Test Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version:
+          - 18
+          - 22
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        id: pnpm-install
         with:
-          node-version: 16
-          cache: yarn
+          version: 9.12.2
+          run_install: false
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+      - name: Run test
+        run: pnpm test
 
   build-minimal:
+    name: Build Minimal Example ${{ matrix.node-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version:
+          - 18
+          - 22
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        id: pnpm-install
         with:
-          node-version: 16
-          cache: yarn
+          version: 9.12.2
+          run_install: false
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
       - name: Build minimal example
         run: |
           cd examples/minimal
-          yarn build
+          pnpm build
 
   build-full:
+    name: Build Full Example ${{ matrix.node-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version:
+          - 18
+          - 22
+
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        id: pnpm-install
         with:
-          node-version: 16
-          cache: yarn
+          version: 9.12.2
+          run_install: false
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-      - name: Build full example
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+      - name: Build minimal example
         run: |
           cd examples/full
-          yarn build
-
-  # TODO: using the official API with GitHub Actions results in too much rate
-  # limiting and false negative build failures, so we're disabling it for now.
-  # build-full-official-api:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #         cache: yarn
-
-  #     - run: yarn install --frozen-lockfile
-  #     - run: yarn build
-
-  #     - name: Build full example using the official Notion API
-
-  #       env:
-  #         USE_OFFICIAL_NOTION_API: true
-  #         NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-
-  #       run: |
-  #         cd examples/full
-  #         yarn build
+          pnpm build

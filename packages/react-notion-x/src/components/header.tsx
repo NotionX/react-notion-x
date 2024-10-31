@@ -1,12 +1,11 @@
-import * as React from 'react'
-
-import * as types from 'notion-types'
+import type * as types from 'notion-types'
 import { getPageBreadcrumbs } from 'notion-utils'
+import * as React from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 import { useNotionContext } from '../context'
 import { SearchIcon } from '../icons/search-icon'
-import { SearchNotionFn } from '../types'
+import { type SearchNotionFn } from '../types'
 import { cs } from '../utils'
 import { PageIcon } from './page-icon'
 import { SearchDialog } from './search-dialog'
@@ -31,17 +30,17 @@ export const Breadcrumbs: React.FC<{
   const { recordMap, mapPageUrl, components } = useNotionContext()
 
   const breadcrumbs = React.useMemo(() => {
-    const breadcrumbs = getPageBreadcrumbs(recordMap, block.id)
+    const tempBreadcrumbs = getPageBreadcrumbs(recordMap, block.id)
     if (rootOnly) {
-      return [breadcrumbs[0]].filter(Boolean)
+      return [tempBreadcrumbs?.[0]].filter(Boolean)
     }
 
-    return breadcrumbs
+    return tempBreadcrumbs
   }, [recordMap, block.id, rootOnly])
 
   return (
     <div className='breadcrumbs' key='breadcrumbs'>
-      {breadcrumbs.map((breadcrumb, index: number) => {
+      {breadcrumbs?.map((breadcrumb, index: number) => {
         if (!breadcrumb) {
           return null
         }
@@ -52,7 +51,7 @@ export const Breadcrumbs: React.FC<{
         }
 
         if (breadcrumb.active) {
-          componentMap.pageLink = (props) => <div {...props} />
+          componentMap.pageLink = (props: any) => <div {...props} />
         } else {
           pageLinkProps.href = mapPageUrl(breadcrumb.pageId)
         }

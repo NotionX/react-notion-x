@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 
 function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)

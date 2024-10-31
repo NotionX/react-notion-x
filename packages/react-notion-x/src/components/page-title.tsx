@@ -1,7 +1,6 @@
-import * as React from 'react'
-
-import { Block, Decoration } from 'notion-types'
+import { type Block, type Decoration } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
+import * as React from 'react'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'

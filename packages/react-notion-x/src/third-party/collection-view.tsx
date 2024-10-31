@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { CollectionViewProps } from '../types'
+import { type CollectionViewProps } from '../types'
 import { CollectionViewBoard } from './collection-view-board'
 import { CollectionViewGallery } from './collection-view-gallery'
 import { CollectionViewList } from './collection-view-list'

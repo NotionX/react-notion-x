@@ -4,18 +4,18 @@ export function getCollectionGroups(
   collection: any,
   collectionView: any,
   collectionData: any,
-  ...rest
-) {
+  ...rest: any[]
+): any[] {
   const elems = collectionView?.format?.collection_groups || []
-  return elems?.map(({ property, hidden, value: { value, type } }) => {
-    const isUncategorizedValue = typeof value === 'undefined'
+  return elems?.map(({ property, hidden, value: { value, type } }: any) => {
+    const isUncategorizedValue = value === undefined
     const isDateValue = value?.range
     // TODO: review dates reducers
     const queryLabel = isUncategorizedValue
       ? 'uncategorized'
       : isDateValue
-      ? value.range?.start_date || value.range?.end_date
-      : value?.value || value
+        ? value.range?.start_date || value.range?.end_date
+        : value?.value || value
 
     const collectionGroup = collectionData[`results:${type}:${queryLabel}`]
     let queryValue =

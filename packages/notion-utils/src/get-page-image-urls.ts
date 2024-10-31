@@ -1,4 +1,4 @@
-import * as types from 'notion-types'
+import type * as types from 'notion-types'
 
 import { getBlockIcon } from './get-block-icon'
 import { isUrl } from './is-url'
@@ -24,7 +24,7 @@ export const getPageImageUrls = (
         if (block.type === 'image') {
           const signedUrl = recordMap.signed_urls?.[block.id]
           let source = signedUrl || block.properties?.source?.[0]?.[0]
-          if (source.includes('file.notion.so')) {
+          if (source?.includes('file.notion.so')) {
             source = block.properties?.source?.[0]?.[0]
           }
 

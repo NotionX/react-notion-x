@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import { BaseContentBlock, Block } from 'notion-types'
+import type * as React from 'react'
+import { type BaseContentBlock, type Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
@@ -10,7 +9,7 @@ import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
 const isServer = typeof window === 'undefined'
 
-const supportedAssetTypes = [
+const supportedAssetTypes = new Set([
   'replit',
   'video',
   'image',
@@ -24,7 +23,7 @@ const supportedAssetTypes = [
   'gist',
   'codepen',
   'drive'
-]
+])
 
 export const Asset: React.FC<{
   block: BaseContentBlock
@@ -33,7 +32,7 @@ export const Asset: React.FC<{
 }> = ({ block, zoomable = true, children }) => {
   const { recordMap, mapImageUrl, components } = useNotionContext()
 
-  if (!block || !supportedAssetTypes.includes(block.type)) {
+  if (!block || !supportedAssetTypes.has(block.type)) {
     return null
   }
 
@@ -90,18 +89,17 @@ export const Asset: React.FC<{
       }
     } else {
       switch (block.format?.block_alignment) {
-        case 'center': {
+        case 'center':
           style.alignSelf = 'center'
           break
-        }
-        case 'left': {
+
+        case 'left':
           style.alignSelf = 'start'
           break
-        }
-        case 'right': {
+
+        case 'right':
           style.alignSelf = 'end'
           break
-        }
       }
 
       if (block_width) {
@@ -137,7 +135,7 @@ export const Asset: React.FC<{
     const src = source
     if (!src) return null
 
-    const id = src.split('?')[0].split('/').pop()
+    const id = src.split('?')[0]?.split('/').pop()
     if (!id) return null
 
     content = (
@@ -181,14 +179,14 @@ export const Asset: React.FC<{
     if (
       block.type === 'video' &&
       source &&
-      source.indexOf('youtube') < 0 &&
-      source.indexOf('youtu.be') < 0 &&
-      source.indexOf('vimeo') < 0 &&
-      source.indexOf('wistia') < 0 &&
-      source.indexOf('loom') < 0 &&
-      source.indexOf('videoask') < 0 &&
-      source.indexOf('getcloudapp') < 0 &&
-      source.indexOf('tella') < 0
+      !source.includes('youtube') &&
+      !source.includes('youtu.be') &&
+      !source.includes('vimeo') &&
+      !source.includes('wistia') &&
+      !source.includes('loom') &&
+      !source.includes('videoask') &&
+      !source.includes('getcloudapp') &&
+      !source.includes('tella')
     ) {
       style.paddingBottom = undefined
 

@@ -1,5 +1,5 @@
 export const idToUuid = (id = '') =>
-  `${id.substr(0, 8)}-${id.substr(8, 4)}-${id.substr(12, 4)}-${id.substr(
+  `${id.slice(0, 8)}-${id.slice(8, 12)}-${id.slice(12, 16)}-${id.slice(
     16,
-    4
-  )}-${id.substr(20)}`
+    20
+  )}-${id.slice(20)}`
