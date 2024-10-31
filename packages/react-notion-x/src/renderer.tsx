@@ -153,14 +153,14 @@ export function NotionBlockRenderer({
 
   return (
     <Block key={id} level={level} block={block} {...props}>
-      {/* {block?.content?.map((contentBlockId) => (
+      {block?.content?.map((contentBlockId) => (
         <NotionBlockRenderer
           key={contentBlockId}
           blockId={contentBlockId}
           level={level + 1}
           {...props}
         />
-      ))} */}
+      ))}
     </Block>
   )
 }
