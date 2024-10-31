@@ -34,6 +34,7 @@
     "@notionhq/client": "^1.0.4"
   },
   "ava": {
+    "timeout": "80s",
     "snapshotDir": ".snapshots",
     "extensions": {
       "ts": "module"

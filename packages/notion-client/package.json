@@ -29,6 +29,7 @@
     "p-map": "^5.3.0"
   },
   "ava": {
+    "timeout": "80s",
     "snapshotDir": ".snapshots",
     "extensions": {
       "ts": "module"

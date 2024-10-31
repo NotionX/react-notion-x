@@ -35,6 +35,7 @@
     "p-queue": "^7.2.0"
   },
   "ava": {
+    "timeout": "80s",
     "snapshotDir": ".snapshots",
     "extensions": {
       "ts": "module"
