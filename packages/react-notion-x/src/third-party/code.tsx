@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-duplicates
+import 'prismjs'
 import 'prismjs/components/prism-clike.min.js'
 import 'prismjs/components/prism-css-extras.min.js'
 import 'prismjs/components/prism-css.min.js'
@@ -11,6 +13,7 @@ import 'prismjs/components/prism-typescript.min.js'
 import copyToClipboard from 'clipboard-copy'
 import { type CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
+// eslint-disable-next-line import/no-duplicates, no-duplicate-imports
 import { highlightElement } from 'prismjs'
 import * as React from 'react'
 

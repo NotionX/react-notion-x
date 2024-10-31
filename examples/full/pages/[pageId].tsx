@@ -1,6 +1,5 @@
 import { type ExtendedRecordMap } from 'notion-types'
 import { getAllPagesInSpace } from 'notion-utils'
-import * as React from 'react'
 import { defaultMapPageUrl } from 'react-notion-x'
 
 import { NotionPage } from '../components/NotionPage'

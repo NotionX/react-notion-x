@@ -116,6 +116,9 @@ importers:
       p-memoize:
         specifier: ^7.1.1
         version: 7.1.1
+      prismjs:
+        specifier: ^1.27.0
+        version: 1.29.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
