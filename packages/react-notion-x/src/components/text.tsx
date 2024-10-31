@@ -158,13 +158,13 @@ export const Text: React.FC<{
                 const id = parsePageId(pathname, { uuid: true })
 
                 if (
-                  v[0] === '/' ||
-                  (rootDomain && v.includes(rootDomain) && id)
+                  (rootDomain && v.includes(rootDomain)) ||
+                  (id && v[0] === '/')
                 ) {
                   const href =
                     rootDomain && v.includes(rootDomain)
                       ? v
-                      : `${mapPageUrl(id)}${getHashFragmentValue(v)}`
+                      : `${mapPageUrl(id!)}${getHashFragmentValue(v)}`
 
                   return (
                     <components.PageLink

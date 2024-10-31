@@ -1,6 +1,6 @@
-import * as notion from 'notion-types'
+import type * as notion from 'notion-types'
 
-import * as types from './types'
+import type * as types from './types'
 import { convertBlock } from './convert-block'
 
 export function convertPage({
@@ -46,23 +46,20 @@ export function convertPage({
       })
     )
 
-  const compatBlockMap = [
-    compatPageBlock,
-    ...compatBlocks,
-    ...compatPageBlocks
-  ].reduce(
-    (blockMap, block) => ({
-      ...blockMap,
-      [block.id]: {
-        type: 'reader',
-        value: block
-      }
-    }),
-    {}
+  const compatBlockMap = Object.fromEntries(
+    [compatPageBlock, ...compatBlocks, ...compatPageBlocks]
+      .filter(Boolean)
+      .map((block) => [
+        block!.id,
+        {
+          type: 'reader',
+          value: block!
+        }
+      ])
   )
 
   return {
-    block: compatBlockMap,
+    block: compatBlockMap as any,
     collection: {},
     collection_view: {},
     collection_query: {},

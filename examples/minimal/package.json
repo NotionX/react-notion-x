@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "vercel deploy"
+    "deploy": "vercel deploy",
+    "test": "run-s test:*",
+    "test:lint": "eslint ."
   },
   "dependencies": {
     "next": "^15.0.2",

@@ -6,6 +6,7 @@
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "version": "6.15.8",
+  "packageManager": "pnpm@9.12.2",
   "engines": {
     "node": ">=18"
   },
