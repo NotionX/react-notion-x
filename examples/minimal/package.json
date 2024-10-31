@@ -15,6 +15,7 @@
     "next": "^15.0.2",
     "notion-client": "workspace:*",
     "notion-utils": "workspace:*",
+    "notion-types": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-notion-x": "workspace:*"

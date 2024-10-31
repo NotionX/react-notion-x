@@ -104,6 +104,9 @@ importers:
       notion-compat:
         specifier: workspace:*
         version: link:../../packages/notion-compat
+      notion-types:
+        specifier: workspace:*
+        version: link:../../packages/notion-types
       notion-utils:
         specifier: workspace:*
         version: link:../../packages/notion-utils
@@ -141,6 +144,9 @@ importers:
       notion-client:
         specifier: workspace:*
         version: link:../../packages/notion-client
+      notion-types:
+        specifier: workspace:*
+        version: link:../../packages/notion-types
       notion-utils:
         specifier: workspace:*
         version: link:../../packages/notion-utils
