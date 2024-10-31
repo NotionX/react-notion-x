@@ -482,7 +482,7 @@
 
 .notion-h {
   position: relative;
-  display: inline-block;
+  display: inline;
 
   font-weight: 600;
   line-height: 1.3;
