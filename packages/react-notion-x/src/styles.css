@@ -17,6 +17,9 @@
   --bg-color-0: rgba(135, 131, 120, 0.15);
   --bg-color-1: rgb(247, 246, 243);
   --bg-color-2: rgba(135, 131, 120, 0.15);
+  --bg-color-3: #fff;
+
+  --box-shadow: rgba(15, 15, 15, 0.1);
 
   --select-color-0: rgb(46, 170, 220);
   --select-color-1: rgba(45, 170, 219, 0.3);
@@ -104,6 +107,9 @@
   --bg-color-0: rgb(71, 76, 80);
   --bg-color-1: rgb(63, 68, 71);
   --bg-color-2: rgba(135, 131, 120, 0.15);
+  --bg-color-3: rgb(47, 47, 47);
+
+  --box-shadow: rgba(20, 20, 20, 0.1);
 
   --notion-red: rgb(255, 115, 105);
   --notion-pink: rgb(226, 85, 161);
@@ -1539,7 +1545,7 @@ svg.notion-page-icon {
   overflow: hidden;
 
   text-decoration: none;
-  box-shadow: rgba(15, 15, 15, 0.1) 0 0 0 1px, rgba(15, 15, 15, 0.1) 0 2px 4px;
+  box-shadow: var(--box-shadow) 0 0 0 1px, var(--box-shadow) 0 2px 4px;
   border-radius: 3px;
   background: var(--bg-color);
   color: var(--fg-color);
@@ -1678,6 +1684,259 @@ svg.notion-page-icon {
   /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.notion-calendar-view {
+  position: relative;
+  padding-left: 1px;
+}
+
+.notion-calendar-header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: var(--bg-color);
+  z-index: 83;
+}
+
+.notion-calendar-header-inner {
+  display: flex;
+  height: 42px;
+  align-items: center;
+}
+
+.notion-calendar-header-inner-date {
+  font-weight: 600;
+  margin-left: 8px;
+  margin-right: 8px;
+  line-height: 1;
+  font-size: 14px;
+}
+
+.notion-calendar-header-inner-controls-prev {
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 3px;
+  height: 24px;
+  width: 24px;
+  padding: 0px;
+}
+
+.notion-calendar-header-inner-controls-prev:hover,
+.notion-calendar-header-inner-controls-today:hover,
+.notion-calendar-header-inner-controls-next:hover {
+  background: var(--notion-gray_background);
+}
+
+.notion-calendar-header-inner-controls-today {
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  height: 24px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.2;
+  min-width: 0px;
+  padding-left: 6px;
+  padding-right: 6px;
+  color: var(--fg-color);
+}
+
+.notion-calendar-header-inner-controls-next {
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 3px;
+  height: 24px;
+  width: 24px;
+  padding: 0px;
+}
+
+.notion-calendar-header-inner-controls-next-svg,
+.notion-calendar-header-inner-controls-prev-svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+  fill: var(--fg-color-2);
+  flex-shrink: 0;
+  backface-visibility: hidden;
+}
+
+.notion-calendar-header-days {
+  display: flex;
+  margin-top: 0px;
+  box-shadow: var(--notion-gray_background) 0px 1px 0px;
+}
+
+.notion-calendar-header-days-day {
+  flex-grow: 1;
+  flex-basis: 0px;
+  text-align: center;
+  font-size: 12px;
+  height: 24px;
+  color: var(--fg-color-3);
+}
+
+.notion-calendar-body {
+  box-shadow: var(--notion-gray_background) -1px 0px 0px;
+  margin-top: 1px;
+  overflow: hidden;
+}
+
+.notion-calendar-body-inner {
+  position: relative;
+  display: flex;
+}
+
+.notion-calendar-body-inner-week {
+  position: relative;
+  flex: 1 0 0px;
+  border-right: 1px solid var(--notion-gray_background);
+  border-bottom: 1px solid var(--notion-gray_background);
+  cursor: default;
+}
+
+.notion-calendar-body-inner-week-dif {
+  background: var(--bg-color-1);
+}
+
+.notion-calendar-body-inner-day {
+  position: absolute;
+  font-size: 14px;
+  top: 4px;
+  right: 10px;
+  height: 24px;
+  line-height: 24px;
+}
+
+.notion-calendar-body-inner-day-today {
+  width: 24px;
+  border-radius: 100%;
+  text-align: center;
+  color: white;
+  background: var(--notion-red);
+}
+
+.notion-calendar-body-inner-day-this-month {
+  color: var(--fg-color-4);
+  text-align: right;
+  transition: color 100ms ease-out 0s;
+}
+
+.notion-calendar-body-inner-day-other-month {
+  color: var(--fg-color-2);
+  text-align: right;
+  transition: color 100ms ease-out 0s;
+}
+
+.notion-calendar-body-inner-card {
+  width: calc(14.2857%);
+  position: absolute;
+  padding: 3px 6px;
+  top: 30px;
+  z-index: 2;
+}
+
+.notion-calendar-body-inner-card-inner {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  background: var(--bg-color-3);
+  border-radius: 3px;
+  box-shadow: var(--box-shadow) 0px 0px 0px 1px, var(--box-shadow) 0px 2px 4px;
+}
+
+.notion-calendar-body-inner-card-inner-box {
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  position: relative;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  height: 100%;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.notion-calendar-body-inner-card-inner:hover {
+  background: var(--notion-gray_background);
+}
+
+.notion-calendar-body-inner-card-inner-box-title {
+  padding-left: 6px;
+  padding-right: 6px;
+  overflow: hidden;
+  width: 100%;
+  font-size: 12px;
+}
+
+.notion-calendar-body-inner-card-inner-box-title-inner {
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.notion-calendar-body-inner-card-inner-box-title-inner-icon {
+  user-select: none;
+  transition: background 20ms ease-in 0s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 12px;
+  width: 12px;
+  border-radius: 0.25em;
+  flex-shrink: 0;
+  margin-right: 4px;
+  margin-top: 2px;
+}
+
+.notion-calendar-body-inner-card-inner-box-title-inner-icon-svg {
+  width: 10.8px;
+  height: 10.8px;
+  display: block;
+  fill: var(--fg-color-3);
+  flex-shrink: 0;
+  backface-visibility: hidden;
+}
+
+.notion-calendar-body-inner-card-inner-box-title-inner-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.notion-calendar-body-inner-card-inner-box-properties {
+  padding-left: 6px;
+  padding-right: 6px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.notion-calendar-body-inner-card-inner-box-properties-property {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  height: 20px;
+  white-space: nowrap;
 }
 
 .notion-board {
@@ -2457,7 +2716,7 @@ svg.notion-page-icon {
 
 .notion-search {
   box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
-    rgba(15, 15, 15, 0.1) 0px 5px 10px, rgba(15, 15, 15, 0.2) 0px 15px 40px;
+    var(--box-shadow) 0px 5px 10px, rgba(15, 15, 15, 0.2) 0px 15px 40px;
   border-radius: 3px;
   background: var(--bg-color);
 
@@ -2636,9 +2895,6 @@ svg.notion-page-icon {
 
 .notion-collection-group {
   margin-bottom: 1em;
-}
-
-.notion-collection-group > summary {
 }
 
 .notion-collection-group > summary > div {
@@ -2900,7 +3156,7 @@ padding-left: 4px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 120%
+  width: 120%;
 }
 
 .notion-collection-view-tabs-content-item {
@@ -2950,9 +3206,9 @@ padding-left: 4px;
 }
 
 .nested-form-link {
-  background: none!important;
+  background: none !important;
   border: none;
-  padding: 0!important;
+  padding: 0 !important;
   text-decoration: underline;
   cursor: pointer;
 }

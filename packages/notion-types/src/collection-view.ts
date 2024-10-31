@@ -120,8 +120,8 @@ export interface BoardCollectionView extends BaseCollectionView {
 
 export interface CalendarCollectionView extends BaseCollectionView {
   type: 'calendar'
-
-  // TODO
+  visible: boolean
+  property?: PropertyID
 }
 
 export interface ReducerCollectionView extends BaseCollectionView {
