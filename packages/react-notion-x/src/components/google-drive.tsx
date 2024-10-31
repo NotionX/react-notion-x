@@ -31,7 +31,7 @@ export const GoogleDrive: React.FC<{
       >
         <div className='notion-google-drive-preview'>
           <GracefulImage
-            src={mapImageUrl(properties.thumbnail, block)}
+            src={mapImageUrl(properties.thumbnail, block)!}
             alt={properties.title || 'Google Drive Document'}
             loading='lazy'
           />

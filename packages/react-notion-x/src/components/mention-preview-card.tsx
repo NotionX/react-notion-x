@@ -1,12 +1,14 @@
 import type React from 'react'
 
-function capitalizeFirstLetter(str) {
+function capitalizeFirstLetter(str?: string) {
+  if (!str) return ''
+
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
 export const MentionPreviewCard: React.FC<{
   owner?: string
-  lastUpdated?: string
+  lastUpdated?: string | null
   title: string
   domain: string
   externalImage?: React.ReactNode

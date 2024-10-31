@@ -62,7 +62,7 @@ export const AssetWrapper: React.FC<{
         target={
           captionHostname &&
           captionHostname !== rootDomain &&
-          !caption.startsWith('/')
+          !caption?.startsWith('/')
             ? 'blank_'
             : null
         }
