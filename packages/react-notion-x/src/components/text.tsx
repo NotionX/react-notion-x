@@ -249,6 +249,7 @@ export function Text({
                 const externalObjectInstance = recordMap.block[blockId]
                   ?.value as ExternalObjectInstance
 
+                console.log('eoi', blockId, externalObjectInstance)
                 return <EOI block={externalObjectInstance} inline={true} />
               }
 

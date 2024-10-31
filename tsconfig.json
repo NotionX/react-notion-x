@@ -6,7 +6,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "target": "es2020",
-    "outDir": "dist",
+    "outDir": "build",
 
     "allowImportingTsExtensions": false,
     "allowJs": true,
@@ -14,7 +14,7 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": false,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,

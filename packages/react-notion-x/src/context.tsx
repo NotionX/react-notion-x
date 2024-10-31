@@ -143,8 +143,6 @@ const defaultComponents: NotionComponents = {
   Embed: DefaultEmbed
 }
 
-console.log('DefaultHeader', { DefaultHeader, Header, defaultComponents })
-
 const defaultNotionContext: NotionContext = {
   recordMap: {
     block: {},
