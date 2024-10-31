@@ -1,7 +1,7 @@
 import { type Block } from 'notion-types'
 
 export const defaultMapImageUrl = (
-  url: string,
+  url: string | undefined,
   block: Block
 ): string | undefined => {
   if (!url) {

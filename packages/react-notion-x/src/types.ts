@@ -6,7 +6,7 @@ export type MapPageUrlFn = (
   recordMap?: types.ExtendedRecordMap | undefined
 ) => string
 export type MapImageUrlFn = (
-  url: string,
+  url: string | undefined,
   block: types.Block
 ) => string | undefined
 export type SearchNotionFn = (

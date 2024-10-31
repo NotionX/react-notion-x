@@ -7,9 +7,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "analyze": "cross-env ANALYZE=true next build",
-    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
     "deploy": "vercel deploy",
     "test": "run-s test:*",
     "test:lint": "eslint ."
@@ -32,7 +29,6 @@
     "react-tweet-embed": "^2.0.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^15.0.2",
     "cross-env": "^7.0.3"
   }
 }

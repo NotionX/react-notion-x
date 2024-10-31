@@ -82,6 +82,7 @@ export const LazyImage: React.FC<{
     }
 
     return (
+      // @ts-expect-error LazyImage types are out-of-date.
       <LazyImageFull src={src!} {...rest} experimentalDecode={true}>
         {({ imageState, ref }) => {
           const isLoaded = imageState === ImageState.LoadSuccess

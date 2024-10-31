@@ -18,9 +18,9 @@ export const EOI: React.FC<{
     return null
   }
 
-  const title = attributes.find((attr) => attr.id === 'title')?.values[0]
-  let owner = attributes.find((attr) => attr.id === 'owner')?.values[0]
-  const lastUpdatedAt = attributes.find((attr) => attr.id === 'updated_at')
+  const title = attributes.find((attr: any) => attr.id === 'title')?.values[0]
+  let owner = attributes.find((attr: any) => attr.id === 'owner')?.values[0]
+  const lastUpdatedAt = attributes.find((attr: any) => attr.id === 'updated_at')
     ?.values[0]
   const lastUpdated = lastUpdatedAt ? formatNotionDateTime(lastUpdatedAt) : null
   let externalImage: React.ReactNode

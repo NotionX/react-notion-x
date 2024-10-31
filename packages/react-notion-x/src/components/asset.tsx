@@ -135,7 +135,7 @@ export const Asset: React.FC<{
     const src = source
     if (!src) return null
 
-    const id = src.split('?')[0].split('/').pop()
+    const id = src.split('?')?.[0]?.split('/').pop()
     if (!id) return null
 
     content = (
