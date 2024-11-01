@@ -429,7 +429,7 @@ export function PropertyImpl(props: IPropertyProps) {
   const renderAutoIncrementIdValue = React.useMemo(
     () =>
       function renderAutoIncrementIdValueProperty() {
-        return <Text value={data} block={block} />
+        return <Text value={data} block={block!} />
       },
     [block, data]
   )
@@ -618,6 +618,7 @@ export function PropertyImpl(props: IPropertyProps) {
           renderAutoIncrementIdValue
         )
         break
+
       case 'text':
         content = components.propertyTextValue(props, renderTextValue)
         break

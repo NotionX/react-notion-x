@@ -609,6 +609,6 @@ export class NotionAPI {
         json: body,
         headers
       })
-      .json()
+      .json<T>()
   }
 }

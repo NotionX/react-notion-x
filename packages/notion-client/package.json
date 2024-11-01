@@ -26,7 +26,7 @@
     "test:unit": "ava"
   },
   "dependencies": {
-    "ky": "^0.31.4",
+    "ky": "^1.7.2",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
     "p-map": "^7.0.2"
