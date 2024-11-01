@@ -160,11 +160,29 @@ importers:
         specifier: workspace:*
         version: link:../../packages/react-notion-x
 
+  node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom:
+    dependencies:
+      loose-envify:
+        specifier: ^1.1.0
+        version: 1.4.0
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      scheduler:
+        specifier: ^0.23.2
+        version: 0.23.2
+
+  node_modules/.pnpm/react@18.3.1/node_modules/react:
+    dependencies:
+      loose-envify:
+        specifier: ^1.1.0
+        version: 1.4.0
+
   packages/notion-client:
     dependencies:
-      got:
-        specifier: ^14.4.3
-        version: 14.4.3
+      ky:
+        specifier: ^0.31.4
+        version: 0.31.4
       notion-types:
         specifier: workspace:*
         version: link:../notion-types
@@ -4895,6 +4913,10 @@ packages:
   klona@2.0.6:
     resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
     engines: {node: '>= 8'}
+
+  ky@0.31.4:
+    resolution: {integrity: sha512-OFuAD3riwhAfHK3J4FrhlujFRpm0ELBEfDHZfFpw89OTozQt3NLF39lNblUO5udj5vSkyaBKnLai/rFCzBfISQ==}
+    engines: {node: '>=14.16'}
 
   language-subtag-registry@0.3.23:
     resolution: {integrity: sha512-0K65Lea881pHotoGEa5gDlMxt3pctLi2RplBb7Ezh4rRdLEOtgi7n4EwK9lamnUCkKBqaeKRVebTq6BAxSkpXQ==}
@@ -13093,6 +13115,8 @@ snapshots:
   kleur@3.0.3: {}
 
   klona@2.0.6: {}
+
+  ky@0.31.4: {}
 
   language-subtag-registry@0.3.23: {}
 
