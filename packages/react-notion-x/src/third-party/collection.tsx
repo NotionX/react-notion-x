@@ -5,7 +5,6 @@ import {
   getTextContent
 } from 'notion-utils'
 import * as React from 'react'
-import { useLocalStorage, useWindowSize } from 'react-use'
 
 import { PageIcon } from '../components/page-icon'
 import {
@@ -17,6 +16,7 @@ import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { cs } from '../utils'
 import { CollectionRow } from './collection-row'
 import { CollectionView } from './collection-view'
+import { useLocalStorage, useWindowSize } from './react-use'
 
 const isServer = typeof window === 'undefined'
 
