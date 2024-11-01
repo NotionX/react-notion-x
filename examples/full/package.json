@@ -2,36 +2,34 @@
   "name": "notion-x-example-full",
   "version": "6.16.2",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "analyze": "cross-env ANALYZE=true next build",
-    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
-    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
-    "deploy": "vercel deploy"
+    "deploy": "vercel deploy",
+    "test": "run-s test:*",
+    "test:lint": "eslint ."
   },
   "dependencies": {
-    "@notionhq/client": "^1.0.4",
-    "classnames": "^2.3.1",
-    "got": "^12.0.2",
-    "lqip-modern": "^1.2.0",
-    "next": "^12.1.0",
-    "notion-client": "^6.16.1",
-    "notion-compat": "^6.16.1",
-    "notion-utils": "^6.16.1",
-    "p-map": "^5.3.0",
-    "p-memoize": "^6.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-notion-x": "^6.16.1",
+    "@notionhq/client": "^2.2.15",
+    "classnames": "^2.5.1",
+    "ky": "^1.7.2",
+    "lqip-modern": "^2.1.0",
+    "next": "^15.0.2",
+    "notion-client": "workspace:*",
+    "notion-compat": "workspace:*",
+    "notion-types": "workspace:*",
+    "notion-utils": "workspace:*",
+    "p-map": "^7.0.2",
+    "p-memoize": "^7.1.1",
+    "prismjs": "^1.27.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-notion-x": "workspace:*",
     "react-tweet-embed": "^2.0.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^12.1.0",
-    "@types/node": "^16.11.2",
-    "cross-env": "^7.0.3",
-    "typescript": "^4.6.2"
+    "cross-env": "^7.0.3"
   }
 }

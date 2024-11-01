@@ -5,23 +5,12 @@ import { cs } from '../utils'
 const qs = (params: Record<string, string>) => {
   return Object.keys(params)
     .map(
-      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key]!)}`
     )
     .join('&')
 }
 
-export const LiteYouTubeEmbed: React.FC<{
-  id: string
-  defaultPlay?: boolean
-  mute?: boolean
-  lazyImage?: boolean
-  iframeTitle?: string
-  alt?: string
-  params?: Record<string, string>
-  adLinksPreconnect?: boolean
-  style?: React.CSSProperties
-  className?: string
-}> = ({
+export function LiteYouTubeEmbed({
   id,
   defaultPlay = false,
   mute = false,
@@ -32,7 +21,18 @@ export const LiteYouTubeEmbed: React.FC<{
   adLinksPreconnect = true,
   style,
   className
-}) => {
+}: {
+  id: string
+  defaultPlay?: boolean
+  mute?: boolean
+  lazyImage?: boolean
+  iframeTitle?: string
+  alt?: string
+  params?: Record<string, string>
+  adLinksPreconnect?: boolean
+  style?: React.CSSProperties
+  className?: string
+}) {
   const muteParam = mute || defaultPlay ? '1' : '0' // Default play must be muted
   const queryString = React.useMemo(
     () => qs({ autoplay: '1', mute: muteParam, ...params }),

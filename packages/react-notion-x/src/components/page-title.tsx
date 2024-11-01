@@ -1,18 +1,22 @@
-import * as React from 'react'
-
-import { Block, Decoration } from 'notion-types'
+import { type Block, type Decoration } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
+import * as React from 'react'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 import { PageIcon } from './page-icon'
 import { Text } from './text'
 
-export const PageTitleImpl: React.FC<{
+export function PageTitleImpl({
+  block,
+  className,
+  defaultIcon,
+  ...rest
+}: {
   block: Block
   className?: string
-  defaultIcon?: string
-}> = ({ block, className, defaultIcon, ...rest }) => {
+  defaultIcon?: string | null
+}) {
   const { recordMap } = useNotionContext()
 
   if (!block) return null

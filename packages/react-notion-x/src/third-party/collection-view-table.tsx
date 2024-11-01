@@ -1,22 +1,22 @@
 import * as React from 'react'
 
 import { useNotionContext } from '../context'
-import { CollectionViewProps } from '../types'
+import { type CollectionViewProps } from '../types'
 import { cs } from '../utils'
 import { CollectionColumnTitle } from './collection-column-title'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
 
-const defaultBlockIds = []
+const defaultBlockIds: string[] = []
 
-export const CollectionViewTable: React.FC<CollectionViewProps> = ({
+export function CollectionViewTable({
   collection,
   collectionView,
   collectionData,
   padding,
   width
-}) => {
+}: CollectionViewProps) {
   const isGroupedCollection = collectionView?.format?.collection_group_by
 
   if (isGroupedCollection) {
@@ -46,7 +46,7 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   }
 
   const blockIds =
-    (collectionData['collection_group_results']?.blockIds ??
+    (collectionData.collection_group_results?.blockIds ??
       collectionData.blockIds) ||
     defaultBlockIds
 
@@ -61,7 +61,15 @@ export const CollectionViewTable: React.FC<CollectionViewProps> = ({
   )
 }
 
-function Table({ blockIds = [], collection, collectionView, width, padding }) {
+function Table({
+  blockIds = [],
+  collection,
+  collectionView,
+  width,
+  padding
+}: {
+  blockIds?: string[]
+} & Omit<CollectionViewProps, 'collectionData'>) {
   const { recordMap, linkTableTitleProperties } = useNotionContext()
 
   const tableStyle = React.useMemo(
@@ -84,7 +92,7 @@ function Table({ blockIds = [], collection, collectionView, width, padding }) {
 
   if (collectionView.format?.table_properties) {
     properties = collectionView.format.table_properties.filter(
-      (p) => p.visible && collection.schema[p.property]
+      (p: any) => p.visible && collection.schema[p.property]
     )
   } else {
     properties = [{ property: 'title' }].concat(
@@ -101,7 +109,7 @@ function Table({ blockIds = [], collection, collectionView, width, padding }) {
           <>
             <div className='notion-table-header'>
               <div className='notion-table-header-inner'>
-                {properties.map((p) => {
+                {properties.map((p: any) => {
                   const schema = collection.schema?.[p.property]
                   const isTitle = p.property === 'title'
                   const style: React.CSSProperties = {}
@@ -122,7 +130,7 @@ function Table({ blockIds = [], collection, collectionView, width, padding }) {
                         style={style}
                       >
                         <div className='notion-table-view-header-cell-inner'>
-                          <CollectionColumnTitle schema={schema} />
+                          {schema && <CollectionColumnTitle schema={schema} />}
                         </div>
                       </div>
                     </div>
@@ -136,7 +144,7 @@ function Table({ blockIds = [], collection, collectionView, width, padding }) {
             <div className='notion-table-body'>
               {blockIds?.map((blockId) => (
                 <div className='notion-table-row' key={blockId}>
-                  {properties.map((p) => {
+                  {properties.map((p: any) => {
                     const schema = collection.schema?.[p.property]
                     const block = recordMap.block[blockId]?.value
                     const data = block?.properties?.[p.property]
@@ -157,7 +165,7 @@ function Table({ blockIds = [], collection, collectionView, width, padding }) {
                         key={p.property}
                         className={cs(
                           'notion-table-cell',
-                          `notion-table-cell-${schema.type}`
+                          `notion-table-cell-${schema?.type}`
                         )}
                         style={style}
                       >

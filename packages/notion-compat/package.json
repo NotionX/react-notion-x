@@ -14,34 +14,27 @@
     "build"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "scripts": {
     "build": "tsup",
     "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
-    "test": "ava"
+    "clean": "del build",
+    "test": "run-s test:*",
+    "test:lint": "eslint .",
+    "test:typecheck": "tsc --noEmit",
+    "test:unit": "vitest run"
   },
   "dependencies": {
-    "notion-types": "^6.16.1",
-    "notion-utils": "^6.16.1",
-    "p-queue": "^7.2.0"
+    "notion-types": "workspace:*",
+    "notion-utils": "workspace:*",
+    "p-queue": "^8.0.1"
   },
   "devDependencies": {
-    "@notionhq/client": "^1.0.4",
-    "notion-client": "^6.16.1"
+    "@notionhq/client": "^2.2.15",
+    "notion-client": "workspace:*"
   },
   "peerDependencies": {
-    "@notionhq/client": "^1.0.4"
-  },
-  "ava": {
-    "snapshotDir": ".snapshots",
-    "extensions": {
-      "ts": "module"
-    },
-    "nodeArguments": [
-      "--loader=ts-node/esm",
-      "--no-warnings",
-      "--experimental-specifier-resolution=node"
-    ]
+    "@notionhq/client": "^2.2.0"
   }
 }

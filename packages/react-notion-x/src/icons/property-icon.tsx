@@ -1,6 +1,4 @@
-import * as React from 'react'
-
-import { PropertyType } from 'notion-types'
+import { type PropertyType } from 'notion-types'
 
 import AutoIncrementIdIcon from './type-auto-increment-id'
 import CheckboxIcon from './type-checkbox'
@@ -49,10 +47,7 @@ const iconMap = {
   auto_increment_id: AutoIncrementIdIcon
 }
 
-export const PropertyIcon: React.FC<PropertyIconProps> = ({
-  type,
-  ...rest
-}) => {
+export function PropertyIcon({ type, ...rest }: PropertyIconProps) {
   const icon = iconMap[type] as any
   if (!icon) return null
 

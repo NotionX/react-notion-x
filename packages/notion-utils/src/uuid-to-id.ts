@@ -1,1 +1,1 @@
-export const uuidToId = (uuid: string) => uuid.replace(/-/g, '')
+export const uuidToId = (uuid: string) => uuid.replaceAll('-', '')

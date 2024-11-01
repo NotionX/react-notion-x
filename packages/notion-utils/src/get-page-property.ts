@@ -1,4 +1,8 @@
-import { Block, DateFormat, ExtendedRecordMap } from 'notion-types'
+import {
+  type Block,
+  type DateFormat,
+  type ExtendedRecordMap
+} from 'notion-types'
 
 import { getTextContent } from './get-text-content'
 
@@ -43,7 +47,12 @@ export function getPageProperty(
         return null
       }
 
-      const { type } = collection.schema[propertyId]
+      const s = collection.schema[propertyId]
+      if (!s) {
+        return null
+      }
+
+      const { type } = s
       const content = getTextContent(block.properties[propertyId])
 
       switch (type) {
@@ -57,26 +66,26 @@ export function getPageProperty(
           const property = block.properties[propertyId] as [['‣', [DateFormat]]]
           const formatDate = property[0][1][0][1]
 
-          if (formatDate.type == 'datetime') {
+          if (formatDate.type === 'datetime') {
             return new Date(
               `${formatDate.start_date} ${formatDate.start_time}`
             ).getTime()
-          } else if (formatDate.type == 'date') {
+          } else if (formatDate.type === 'date') {
             return new Date(formatDate.start_date).getTime()
-          } else if (formatDate.type == 'datetimerange') {
+          } else if (formatDate.type === 'datetimerange') {
             const { start_date, start_time, end_date, end_time } = formatDate
             const startTime = new Date(`${start_date} ${start_time}`).getTime()
             const endTime = new Date(`${end_date} ${end_time}`).getTime()
             return [startTime, endTime]
           } else {
             const startTime = new Date(formatDate.start_date).getTime()
-            const endTime = new Date(formatDate.end_date).getTime()
+            const endTime = new Date(formatDate.end_date!).getTime()
             return [startTime, endTime]
           }
         }
 
         case 'checkbox':
-          return content == 'Yes'
+          return content === 'Yes'
 
         case 'last_edited_time':
           return block.last_edited_time

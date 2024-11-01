@@ -1,9 +1,12 @@
-import { ExtendedRecordMap } from 'notion-types'
+import { type ExtendedRecordMap } from 'notion-types'
 
 import { getBlockTitle } from './get-block-title'
 
 export function getPageTitle(recordMap: ExtendedRecordMap) {
-  const pageBlock = recordMap.block[Object.keys(recordMap.block)[0]]?.value
+  const rootBlockId = Object.keys(recordMap.block)[0]
+  if (!rootBlockId) return null
+
+  const pageBlock = recordMap.block[rootBlockId]?.value
 
   if (pageBlock) {
     return getBlockTitle(pageBlock, recordMap)

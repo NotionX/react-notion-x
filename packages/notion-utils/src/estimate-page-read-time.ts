@@ -1,4 +1,8 @@
-import { Block, ExtendedRecordMap, PageBlock } from 'notion-types'
+import {
+  type Block,
+  type ExtendedRecordMap,
+  type PageBlock
+} from 'notion-types'
 
 import { getBlockTitle } from './get-block-title'
 import { getPageTableOfContents } from './get-page-table-of-contents'

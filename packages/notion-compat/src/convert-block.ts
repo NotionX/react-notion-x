@@ -1,6 +1,6 @@
-import * as notion from 'notion-types'
+import type * as notion from 'notion-types'
 
-import * as types from './types'
+import type * as types from './types'
 import { convertColor } from './convert-color'
 import { convertRichText } from './convert-rich-text'
 import { convertTime } from './convert-time'
@@ -57,7 +57,7 @@ export function convertBlock({
             compatBlock.parent_table = 'table'
             break
 
-          case 'child_page':
+          // case 'child_page':
           // fallthrough
           default:
             compatBlock.parent_table = 'block'
@@ -73,7 +73,7 @@ export function convertBlock({
     }
   }
 
-  const blockDetails = block[block.type]
+  const blockDetails: any = block[block.type as keyof types.Block]
   if (blockDetails) {
     if (blockDetails.rich_text) {
       compatBlock.properties.title = convertRichText(blockDetails.rich_text)
@@ -219,7 +219,7 @@ export function convertBlock({
       }
       break
 
-    case 'child_page': {
+    case 'child_page':
       compatBlock.type = 'page'
 
       if (pageMap) {
@@ -287,7 +287,6 @@ export function convertBlock({
       }
 
       break
-    }
 
     case 'template':
       // TODO
@@ -324,7 +323,7 @@ export function convertBlock({
           (_, i) => '' + i
         )
         compatBlock.format.table_block_column_format =
-          compatBlock.format.table_block_column_order.map((order) => {
+          compatBlock.format.table_block_column_order.map((order: any) => {
             return {
               [order]: {
                 // TODO: The SimpleTable column has no width and color. API is not supported.
@@ -355,10 +354,10 @@ export function convertBlock({
       compatBlock.format.block_height = '80vh'
       break
 
-    case 'video': {
+    case 'video':
       // TODO: formatting
       compatBlock.format.block_page_width = true
-      compatBlock.format.block_aspect_ratio = 0.5620608899297423
+      compatBlock.format.block_aspect_ratio = 0.562_060_889_929_742_3
 
       try {
         const url = compatBlock.properties.source?.[0]?.[0]
@@ -377,7 +376,6 @@ export function convertBlock({
         // ignore invalid urls
       }
       break
-    }
 
     case 'embed': {
       // TODO: embedding really needs to use some sort of externaly embed API like

@@ -1,6 +1,6 @@
-import * as notion from 'notion-types'
+import type * as notion from 'notion-types'
 
-import * as types from './types'
+import type * as types from './types'
 import { convertColor } from './convert-color'
 
 export function convertRichText(richText: types.RichText): notion.Decoration[] {
@@ -36,21 +36,22 @@ export function convertRichTextItem(
     subdecorations.push(['h', convertColor(richTextItem.annotations.color)])
   }
 
-  const details = richTextItem[richTextItem.type]
-  if (details) {
-    if (details.link) {
+  const details = richTextItem[
+    richTextItem.type as keyof types.RichTextItem
+  ] as any
+  if (details && typeof details === 'object') {
+    if (details.link?.url) {
       subdecorations.push(['a', details.link.url])
     }
   }
 
   switch (richTextItem.type) {
-    case 'text': {
+    case 'text':
       if (subdecorations.length) {
         return [richTextItem.text.content, subdecorations]
       } else {
         return [richTextItem.text.content]
       }
-    }
 
     case 'equation':
       if (richTextItem.equation?.expression) {
@@ -83,8 +84,8 @@ export function convertRichTextItem(
               {
                 type: 'date', // TODO
                 start_date: mention.date.start,
-                end_date: mention.date.end,
-                time_zone: mention.date.time_zone
+                end_date: mention.date.end || undefined,
+                time_zone: mention.date.time_zone || undefined
               }
             ])
             break

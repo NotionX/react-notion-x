@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import * as React from 'react'
-
 import isEqual from 'react-fast-compare'
 
 export const wrapNextImage = (NextImage: any): React.FC<any> => {
@@ -37,8 +37,8 @@ export const wrapNextImage = (NextImage: any): React.FC<any> => {
   }, isEqual)
 }
 
-export const wrapNextLink = (NextLink: any): React.FC<any> =>
-  function ReactNotionXNextLink({
+export function wrapNextLink(NextLink: any) {
+  return ({
     href,
     as,
     passHref,
@@ -48,7 +48,7 @@ export const wrapNextLink = (NextLink: any): React.FC<any> =>
     shallow,
     locale,
     ...linkProps
-  }) {
+  }: any) => {
     return (
       <NextLink
         href={href}
@@ -64,3 +64,4 @@ export const wrapNextLink = (NextLink: any): React.FC<any> =>
       </NextLink>
     )
   }
+}

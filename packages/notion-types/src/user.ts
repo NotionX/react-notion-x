@@ -1,4 +1,4 @@
-import { ID } from './core'
+import { type ID } from './core'
 
 export interface User {
   id: ID

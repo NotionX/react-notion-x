@@ -1,6 +1,5 @@
-import * as React from 'react'
-
-import { Block } from 'notion-types'
+import type * as React from 'react'
+import { type Block } from 'notion-types'
 
 import { useNotionContext } from '../context'
 import SvgTypeGitHub from '../icons/type-github'
@@ -8,20 +7,24 @@ import { cs, formatNotionDateTime } from '../utils'
 import { MentionPreviewCard } from './mention-preview-card'
 
 // External Object Instance
-export const EOI: React.FC<{
+export function EOI({
+  block,
+  inline,
+  className
+}: {
   block: Block
   inline?: boolean
   className?: string
-}> = ({ block, inline, className }) => {
+}) {
   const { components } = useNotionContext()
   const { original_url, attributes, domain } = block?.format || {}
   if (!original_url || !attributes) {
     return null
   }
 
-  const title = attributes.find((attr) => attr.id === 'title')?.values[0]
-  let owner = attributes.find((attr) => attr.id === 'owner')?.values[0]
-  const lastUpdatedAt = attributes.find((attr) => attr.id === 'updated_at')
+  const title = attributes.find((attr: any) => attr.id === 'title')?.values[0]
+  let owner = attributes.find((attr: any) => attr.id === 'owner')?.values[0]
+  const lastUpdatedAt = attributes.find((attr: any) => attr.id === 'updated_at')
     ?.values[0]
   const lastUpdated = lastUpdatedAt ? formatNotionDateTime(lastUpdatedAt) : null
   let externalImage: React.ReactNode
@@ -31,7 +34,7 @@ export const EOI: React.FC<{
       externalImage = <SvgTypeGitHub />
       if (owner) {
         const parts = owner.split('/')
-        owner = parts[parts.length - 1]
+        owner = parts.at(-1)
       }
       break
 

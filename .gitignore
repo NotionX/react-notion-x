@@ -24,3 +24,5 @@ yarn-error.log*
 
 .next/
 .vercel/
+.turbo/
+.tsimp/

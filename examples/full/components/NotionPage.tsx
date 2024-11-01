@@ -1,11 +1,9 @@
-import * as React from 'react'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 // import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
-import { ExtendedRecordMap } from 'notion-types'
+import { type ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 import TweetEmbed from 'react-tweet-embed'
@@ -76,11 +74,11 @@ const Modal = dynamic(
   }
 )
 
-const Tweet = ({ id }: { id: string }) => {
+function Tweet({ id }: { id: string }) {
   return <TweetEmbed tweetId={id} />
 }
 
-export const NotionPage = ({
+export function NotionPage({
   recordMap,
   previewImagesEnabled,
   rootPageId,
@@ -90,7 +88,7 @@ export const NotionPage = ({
   previewImagesEnabled?: boolean
   rootPageId?: string
   rootDomain?: string
-}) => {
+}) {
   const router = useRouter()
 
   if (router.isFallback) {

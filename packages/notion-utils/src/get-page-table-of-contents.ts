@@ -1,4 +1,4 @@
-import * as types from 'notion-types'
+import type * as types from 'notion-types'
 
 import { getTextContent } from './get-text-content'
 
@@ -76,7 +76,7 @@ export const getPageTableOfContents = (
     const actual = indentLevel
 
     do {
-      const prevIndent = indentLevelStack[indentLevelStack.length - 1]
+      const prevIndent = indentLevelStack.at(-1)!
       const { actual: prevActual, effective: prevEffective } = prevIndent
 
       if (actual > prevActual) {

@@ -1,7 +1,6 @@
-import * as React from 'react'
-
-import { Block, CalloutBlock, PageBlock } from 'notion-types'
+import { type Block, type CalloutBlock, type PageBlock } from 'notion-types'
 import { getBlockIcon, getBlockTitle } from 'notion-utils'
+import * as React from 'react'
 
 import { useNotionContext } from '../context'
 import { DefaultPageIcon } from '../icons/default-page-icon'
@@ -17,19 +16,19 @@ const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
   )
 }
 
-export const PageIconImpl: React.FC<{
-  block: Block
-  className?: string
-  inline?: boolean
-  hideDefaultIcon?: boolean
-  defaultIcon?: string
-}> = ({
+export function PageIconImpl({
   block,
   className,
   inline = true,
   hideDefaultIcon = false,
   defaultIcon
-}) => {
+}: {
+  block: Block
+  className?: string
+  inline?: boolean
+  hideDefaultIcon?: boolean
+  defaultIcon?: string | null
+}) {
   const { mapImageUrl, recordMap, darkMode } = useNotionContext()
   let isImage = false
   let content: any = null
@@ -69,7 +68,7 @@ export const PageIconImpl: React.FC<{
         content = (
           <DefaultPageIcon
             className={cs(className, 'notion-page-icon')}
-            alt={title ? title : 'page icon'}
+            alt={title || 'page icon'}
           />
         )
       }

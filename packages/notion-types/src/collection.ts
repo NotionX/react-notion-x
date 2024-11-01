@@ -1,12 +1,12 @@
 import {
-  Color,
-  Decoration,
-  ID,
-  NumberFormat,
-  PropertyID,
-  PropertyType
+  type Color,
+  type Decoration,
+  type ID,
+  type NumberFormat,
+  type PropertyID,
+  type PropertyType
 } from './core'
-import { Formula } from './formula'
+import { type Formula } from './formula'
 
 export interface SelectOption {
   id: ID

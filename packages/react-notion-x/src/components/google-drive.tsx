@@ -1,15 +1,17 @@
-import * as React from 'react'
-
-import { GoogleDriveBlock } from 'notion-types'
+import type * as React from 'react'
+import { type GoogleDriveBlock } from 'notion-types'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
 import { GracefulImage } from './graceful-image'
 
-export const GoogleDrive: React.FC<{
+export function GoogleDrive({
+  block,
+  className
+}: {
   block: GoogleDriveBlock
   className?: string
-}> = ({ block, className }) => {
+}) {
   const { components, mapImageUrl } = useNotionContext()
   const properties = block.format?.drive_properties
   if (!properties) return null
@@ -18,7 +20,7 @@ export const GoogleDrive: React.FC<{
   try {
     const url = new URL(properties.url)
     domain = url.hostname
-  } catch (err) {
+  } catch {
     // ignore invalid urls for robustness
   }
 
@@ -32,7 +34,7 @@ export const GoogleDrive: React.FC<{
       >
         <div className='notion-google-drive-preview'>
           <GracefulImage
-            src={mapImageUrl(properties.thumbnail, block)}
+            src={mapImageUrl(properties.thumbnail, block)!}
             alt={properties.title || 'Google Drive Document'}
             loading='lazy'
           />

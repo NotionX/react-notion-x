@@ -1,11 +1,11 @@
-import { Block } from 'notion-types'
+import { type Block } from 'notion-types'
 
 export const defaultMapImageUrl = (
-  url: string,
+  url: string | undefined,
   block: Block
-): string | null => {
+): string | undefined => {
   if (!url) {
-    return null
+    return undefined
   }
 
   if (url.startsWith('data:')) {

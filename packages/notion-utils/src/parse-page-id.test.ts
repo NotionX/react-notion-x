@@ -1,4 +1,4 @@
-import test from 'ava'
+import { expect, test } from 'vitest'
 
 import { parsePageId } from './parse-page-id'
 
@@ -33,27 +33,27 @@ const pageIdFixturesFailure = [
   null
 ]
 
-test('utils.parsePageId non-uuid success', (t) => {
+test('utils.parsePageId non-uuid success', () => {
   for (const id of pageIdFixturesSuccess) {
     const pageId = parsePageId(id, { uuid: false })
-    t.truthy(pageId)
-    t.falsy((pageId as string).includes('-'))
-    t.snapshot(pageId)
+    expect(pageId).toBeTruthy()
+    expect((pageId as string).includes('-')).toBe(false)
+    expect(pageId).toMatchSnapshot()
   }
 })
 
-test('utils.parsePageId uuid success', (t) => {
+test('utils.parsePageId uuid success', () => {
   for (const id of pageIdFixturesSuccess) {
     const pageId = parsePageId(id, { uuid: true })
-    t.truthy(pageId)
-    t.truthy((pageId as string).includes('-'))
-    t.snapshot(pageId)
+    expect(pageId).toBeTruthy()
+    expect((pageId as string).includes('-')).toBe(true)
+    expect(pageId).toMatchSnapshot()
   }
 })
 
-test('utils.parsePageId failure', (t) => {
+test('utils.parsePageId failure', () => {
   for (const id of pageIdFixturesFailure) {
     const pageId = parsePageId(id as string)
-    t.falsy(pageId)
+    expect(pageId).toBeFalsy()
   }
 })
