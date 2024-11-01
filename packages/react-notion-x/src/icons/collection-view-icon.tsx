@@ -20,7 +20,7 @@ const iconMap = {
 }
 
 export function CollectionViewIcon({ type, ...rest }: CollectionViewIconProps) {
-  const icon = iconMap[type] as any
+  const icon = iconMap[type as keyof typeof iconMap]
   if (!icon) {
     return null
   }
