@@ -1,4 +1,4 @@
-import { ID, PropertyID, PropertyType } from './core'
+import { type ID, type PropertyID, type PropertyType } from './core'
 
 /** Types of collection views supported by Notion */
 export type CollectionViewType =
@@ -7,6 +7,7 @@ export type CollectionViewType =
   | 'list'
   | 'board'
   | 'calendar'
+  | 'reducer'
 
 export type CollectionCardCoverType =
   | 'page_cover'
@@ -123,9 +124,18 @@ export interface CalendarCollectionView extends BaseCollectionView {
   // TODO
 }
 
+export interface ReducerCollectionView extends BaseCollectionView {
+  type: 'reducer'
+  reducerResults: {
+    collection_group_results: object
+  }
+  sizeHint: number
+}
+
 export type CollectionView =
   | TableCollectionView
   | GalleryCollectionView
   | ListCollectionView
   | BoardCollectionView
   | CalendarCollectionView
+  | ReducerCollectionView

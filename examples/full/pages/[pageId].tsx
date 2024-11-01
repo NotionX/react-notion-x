@@ -1,18 +1,16 @@
-import * as React from 'react'
-
+import { type ExtendedRecordMap } from 'notion-types'
 import { getAllPagesInSpace } from 'notion-utils'
 import { defaultMapPageUrl } from 'react-notion-x'
-import { ExtendedRecordMap } from 'notion-types'
 
-import * as notion from '../lib/notion'
 import { NotionPage } from '../components/NotionPage'
 import {
-  rootNotionPageId,
-  rootNotionSpaceId,
-  rootDomain,
   isDev,
-  previewImagesEnabled
+  previewImagesEnabled,
+  rootDomain,
+  rootNotionPageId,
+  rootNotionSpaceId
 } from '../lib/config'
+import * as notion from '../lib/notion'
 
 export const getStaticProps = async (context) => {
   const pageId = context.params.pageId as string

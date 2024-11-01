@@ -1,3 +1,5 @@
 import Modal from 'react-modal'
 
-export { Modal }
+Modal.setAppElement('.notion-frame')
+
+export { default as Modal } from 'react-modal'

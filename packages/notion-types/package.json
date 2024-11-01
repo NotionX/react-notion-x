@@ -1,17 +1,27 @@
 {
   "name": "notion-types",
-  "version": "6.12.6",
+  "version": "7.0.0",
   "type": "module",
   "description": "TypeScript types for core Notion data structures.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
+  "main": "./build/index.js",
+  "module": "./build/index.js",
   "types": "./build/index.d.ts",
   "sideEffects": false,
   "files": [
     "build"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "clean": "del build",
+    "test": "run-s test:*",
+    "test:lint": "eslint .",
+    "test:typecheck": "tsc --noEmit"
   }
 }

@@ -1,7 +1,8 @@
-import * as types from 'notion-types'
-import { getBlockTitle } from './get-block-title'
+import type * as types from 'notion-types'
+
 import { getBlockIcon } from './get-block-icon'
 import { getBlockParentPage } from './get-block-parent-page'
+import { getBlockTitle } from './get-block-title'
 
 export const getPageBreadcrumbs = (
   recordMap: types.ExtendedRecordMap,

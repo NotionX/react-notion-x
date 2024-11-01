@@ -1,13 +1,11 @@
-import * as React from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
+// import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-
-import { NotionRenderer } from 'react-notion-x'
-import { ExtendedRecordMap } from 'notion-types'
+import { type ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
+import { NotionRenderer } from 'react-notion-x'
 import TweetEmbed from 'react-tweet-embed'
 
 import { Loading } from './Loading'
@@ -76,11 +74,11 @@ const Modal = dynamic(
   }
 )
 
-const Tweet = ({ id }: { id: string }) => {
+function Tweet({ id }: { id: string }) {
   return <TweetEmbed tweetId={id} />
 }
 
-export const NotionPage = ({
+export function NotionPage({
   recordMap,
   previewImagesEnabled,
   rootPageId,
@@ -90,7 +88,7 @@ export const NotionPage = ({
   previewImagesEnabled?: boolean
   rootPageId?: string
   rootDomain?: string
-}) => {
+}) {
   const router = useRouter()
 
   if (router.isFallback) {
@@ -153,7 +151,8 @@ export const NotionPage = ({
         rootPageId={rootPageId}
         previewImages={previewImagesEnabled}
         components={{
-          nextImage: Image,
+          // NOTE (transitive-bullshit 3/12/2023): I'm disabling next/image for this repo for now because the amount of traffic started costing me hundreds of dollars a month in Vercel image optimization costs. I'll probably re-enable it in the future if I can find a better solution.
+          // nextImage: Image,
           nextLink: Link,
           Code,
           Collection,

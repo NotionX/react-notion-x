@@ -4,75 +4,44 @@ on: [push, pull_request]
 
 jobs:
   test:
+    name: Test Node.js ${{ matrix.node-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version:
+          - 18
+          - 22
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        id: pnpm-install
         with:
-          node-version: 16
-          cache: yarn
+          version: 9.12.2
+          run_install: false
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
-
-  build-minimal:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
-          cache: yarn
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+      - name: Run test
+        run: pnpm test
 
       - name: Build minimal example
         run: |
           cd examples/minimal
-          yarn build
-
-  build-full:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          cache: yarn
-
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
+          pnpm build
 
       - name: Build full example
         run: |
           cd examples/full
-          yarn build
-
-  # TODO: using the official API with GitHub Actions results in too much rate
-  # limiting and false negative build failures, so we're disabling it for now.
-  # build-full-official-api:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 16
-  #         cache: yarn
-
-  #     - run: yarn install --frozen-lockfile
-  #     - run: yarn build
-
-  #     - name: Build full example using the official Notion API
-
-  #       env:
-  #         USE_OFFICIAL_NOTION_API: true
-  #         NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-
-  #       run: |
-  #         cd examples/full
-  #         yarn build
+          pnpm build

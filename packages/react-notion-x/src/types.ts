@@ -1,11 +1,14 @@
-import * as types from 'notion-types'
-import * as React from 'react'
+import type * as types from 'notion-types'
+import type * as React from 'react'
 
 export type MapPageUrlFn = (
   pageId: string,
   recordMap?: types.ExtendedRecordMap | undefined
 ) => string
-export type MapImageUrlFn = (url: string, block: types.Block) => string
+export type MapImageUrlFn = (
+  url: string | undefined,
+  block: types.Block
+) => string | undefined
 export type SearchNotionFn = (
   params: types.SearchParams
 ) => Promise<types.SearchResults>
@@ -20,7 +23,7 @@ export interface NotionComponents {
   Image: any
   Link: any
   PageLink: any
-  Checkbox: React.FC<{ isChecked: boolean; blockId: string }>
+  Checkbox: React.FC<{ isChecked: boolean; blockId?: string }>
 
   // blocks
   Code: any
@@ -46,6 +49,7 @@ export interface NotionComponents {
   propertyLastEditedTimeValue: ComponentOverrideFn
   propertyCreatedTimeValue: ComponentOverrideFn
   propertyDateValue: ComponentOverrideFn
+  propertyAutoIncrementIdValue: ComponentOverrideFn
 
   // assets
   Pdf: any
@@ -58,6 +62,7 @@ export interface NotionComponents {
 
   // optional next.js-specific overrides
   nextImage?: any
+  nextLegacyImage?: any
   nextLink?: any
 }
 

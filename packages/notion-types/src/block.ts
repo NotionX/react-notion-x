@@ -1,4 +1,4 @@
-import { ID, Color, Decoration, Role } from './core'
+import { type Color, type Decoration, type ID, type Role } from './core'
 
 export type BlockType =
   | 'page'
@@ -24,6 +24,7 @@ export type BlockType =
   | 'video'
   | 'figma'
   | 'typeform'
+  | 'replit'
   | 'codepen'
   | 'excalidraw'
   | 'tweet'
@@ -67,6 +68,7 @@ export type Block =
   | VideoBlock
   | FigmaBlock
   | TypeformBlock
+  | ReplitBlock
   | CodepenBlock
   | ExcalidrawBlock
   | TweetBlock
@@ -131,6 +133,7 @@ export interface BaseContentBlock extends BaseBlock {
     caption?: Decoration[]
   }
   format?: {
+    block_alignment: 'center' | 'left' | 'right'
     block_width: number
     block_height: number
     display_source: string
@@ -150,6 +153,7 @@ export interface BasePageBlock extends BaseBlock {
     page_full_width?: boolean
     page_small_text?: boolean
     page_cover_position?: number
+    card_cover_position?: number
     block_locked?: boolean
     block_locked_by?: string
     page_cover?: string
@@ -295,6 +299,10 @@ export interface TypeformBlock extends BaseContentBlock {
   type: 'typeform'
 }
 
+export interface ReplitBlock extends BaseContentBlock {
+  type: 'replit'
+}
+
 export interface CodepenBlock extends BaseContentBlock {
   type: 'codepen'
 }
@@ -351,6 +359,7 @@ export interface GoogleDriveBlock extends BaseContentBlock {
       user_name: string
       modified_time: number
     }
+    block_alignment: 'center' | 'left' | 'right'
     block_width: number
     block_height: number
     display_source: string
@@ -437,6 +446,7 @@ export interface TableBlock extends BaseBlock {
       [column: string]: { width?: number; color?: Color }
     }
     table_block_column_header: boolean
+    table_block_row_header: boolean
     table_block_column_order: string[]
   }
   view_ids: ID[]

@@ -1,11 +1,14 @@
-import got from 'got'
+import ky from 'ky'
 import lqip from 'lqip-modern'
+import {
+  type ExtendedRecordMap,
+  type PreviewImage,
+  type PreviewImageMap
+} from 'notion-types'
+import { getPageImageUrls } from 'notion-utils'
 import pMap from 'p-map'
 import pMemoize from 'p-memoize'
-
-import { ExtendedRecordMap, PreviewImage, PreviewImageMap } from 'notion-types'
 import { defaultMapImageUrl } from 'react-notion-x'
-import { getPageImageUrls } from 'notion-utils'
 
 // NOTE: this is just an example of how to pre-compute preview images.
 // Depending on how many images you're working with, this can potentially be
@@ -31,7 +34,7 @@ export async function getPreviewImageMap(
 
 async function createPreviewImage(url: string): Promise<PreviewImage | null> {
   try {
-    const { body } = await got(url, { responseType: 'buffer' })
+    const body = await ky(url).arrayBuffer()
     const result = await lqip(body)
     console.log('lqip', { originalUrl: url, ...result.metadata })
 

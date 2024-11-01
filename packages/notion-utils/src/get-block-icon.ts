@@ -1,4 +1,9 @@
-import { Block, PageBlock, ExtendedRecordMap } from 'notion-types'
+import {
+  type Block,
+  type ExtendedRecordMap,
+  type PageBlock
+} from 'notion-types'
+
 import { getBlockCollectionId } from './get-block-collection-id'
 
 export function getBlockIcon(block: Block, recordMap: ExtendedRecordMap) {

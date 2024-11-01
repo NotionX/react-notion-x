@@ -1,25 +1,30 @@
-import * as React from 'react'
-import { Block } from 'notion-types'
+import type * as React from 'react'
+import { type Block } from 'notion-types'
 
 import { useNotionContext } from '../context'
-import { cs, formatNotionDateTime } from '../utils'
 import SvgTypeGitHub from '../icons/type-github'
+import { cs, formatNotionDateTime } from '../utils'
+import { MentionPreviewCard } from './mention-preview-card'
 
 // External Object Instance
-export const EOI: React.FC<{
+export function EOI({
+  block,
+  inline,
+  className
+}: {
   block: Block
   inline?: boolean
   className?: string
-}> = ({ block, inline, className }) => {
+}) {
   const { components } = useNotionContext()
   const { original_url, attributes, domain } = block?.format || {}
   if (!original_url || !attributes) {
     return null
   }
 
-  const title = attributes.find((attr) => attr.id === 'title')?.values[0]
-  let owner = attributes.find((attr) => attr.id === 'owner')?.values[0]
-  const lastUpdatedAt = attributes.find((attr) => attr.id === 'updated_at')
+  const title = attributes.find((attr: any) => attr.id === 'title')?.values[0]
+  let owner = attributes.find((attr: any) => attr.id === 'owner')?.values[0]
+  const lastUpdatedAt = attributes.find((attr: any) => attr.id === 'updated_at')
     ?.values[0]
   const lastUpdated = lastUpdatedAt ? formatNotionDateTime(lastUpdatedAt) : null
   let externalImage: React.ReactNode
@@ -29,7 +34,7 @@ export const EOI: React.FC<{
       externalImage = <SvgTypeGitHub />
       if (owner) {
         const parts = owner.split('/')
-        owner = parts[parts.length - 1]
+        owner = parts.at(-1)
       }
       break
 
@@ -61,13 +66,21 @@ export const EOI: React.FC<{
 
       <div className='notion-external-description'>
         <div className='notion-external-title'>{title}</div>
-
-        {(owner || lastUpdated) && (
-          <div className='notion-external-subtitle'>
-            {owner && <span>{owner}</span>}
-            {owner && lastUpdated && <span> • </span>}
-            {lastUpdated && <span>Updated {lastUpdated}</span>}
+        {!inline && owner ? (
+          <div className='notion-external-block-desc'>
+            {owner}
+            {lastUpdated && <span> • </span>}
+            {lastUpdated && `Updated ${lastUpdated}`}
           </div>
+        ) : null}
+        {inline && (owner || lastUpdated) && (
+          <MentionPreviewCard
+            title={title}
+            owner={owner}
+            lastUpdated={lastUpdated}
+            domain={domain}
+            externalImage={externalImage}
+          />
         )}
       </div>
     </components.Link>

@@ -1,4 +1,5 @@
-import * as types from 'notion-types'
+import type * as types from 'notion-types'
+
 import { getTextContent } from './get-text-content'
 
 export interface TableOfContentsEntry {
@@ -22,8 +23,12 @@ export const getPageTableOfContents = (
   page: types.PageBlock,
   recordMap: types.ExtendedRecordMap
 ): Array<TableOfContentsEntry> => {
-  const toc = (page.content ?? [])
-    .map((blockId: string) => {
+  type MapResult = TableOfContentsEntry | null | MapResult[]
+
+  // Maps `content` property to TOC entries.
+  // Pages and transclusion containers (synced blocks) both have the property.
+  function mapContentToEntries(content?: string[]): MapResult[] {
+    return (content ?? []).map((blockId: string) => {
       const block = recordMap.block[blockId]?.value
 
       if (block) {
@@ -41,10 +46,19 @@ export const getPageTableOfContents = (
             indentLevel: indentLevels[type]
           }
         }
+
+        if (type === 'transclusion_container') {
+          return mapContentToEntries(block.content)
+        }
       }
 
       return null
     })
+  }
+
+  const toc = mapContentToEntries(page.content)
+    // Synced blocks cannot be nested. So theoretically a 1-level flattening is enough.
+    .flat()
     .filter(Boolean) as Array<TableOfContentsEntry>
 
   const indentLevelStack = [
@@ -62,7 +76,7 @@ export const getPageTableOfContents = (
     const actual = indentLevel
 
     do {
-      const prevIndent = indentLevelStack[indentLevelStack.length - 1]
+      const prevIndent = indentLevelStack.at(-1)!
       const { actual: prevActual, effective: prevEffective } = prevIndent
 
       if (actual > prevActual) {

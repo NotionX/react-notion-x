@@ -1,4 +1,4 @@
-import { PropertyID } from './core'
+import { type PropertyID } from './core'
 
 // @see https://www.notion.vip/formulas/
 

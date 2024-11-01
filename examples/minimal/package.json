@@ -1,24 +1,23 @@
 {
   "name": "notion-x-example-minimal",
-  "version": "6.12.10",
+  "version": "7.0.0",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "vercel deploy"
+    "deploy": "vercel deploy",
+    "test": "run-s test:*",
+    "test:lint": "eslint ."
   },
   "dependencies": {
-    "next": "^12.1.0",
-    "notion-client": "^6.12.9",
-    "notion-utils": "^6.12.9",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-notion-x": "^6.12.10"
-  },
-  "devDependencies": {
-    "@types/node": "^16.11.2",
-    "typescript": "^4.6.2"
+    "next": "^15.0.2",
+    "notion-client": "workspace:*",
+    "notion-utils": "workspace:*",
+    "notion-types": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-notion-x": "workspace:*"
   }
 }

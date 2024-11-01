@@ -1,23 +1,49 @@
-import * as React from 'react'
 import mediumZoom from '@fisch0920/medium-zoom'
-import { ExtendedRecordMap } from 'notion-types'
+import { type ExtendedRecordMap } from 'notion-types'
+import * as React from 'react'
 
-import {
-  MapPageUrlFn,
-  MapImageUrlFn,
-  SearchNotionFn,
-  NotionComponents
-} from './types'
 import { Block } from './block'
-import { useNotionContext, NotionContextProvider } from './context'
+import { NotionContextProvider, useNotionContext } from './context'
+import {
+  type MapImageUrlFn,
+  type MapPageUrlFn,
+  type NotionComponents,
+  type SearchNotionFn
+} from './types'
 
-export const NotionRenderer: React.FC<{
+export function NotionRenderer({
+  components,
+  recordMap,
+  mapPageUrl,
+  mapImageUrl,
+  searchNotion,
+  isShowingSearch,
+  onHideSearch,
+  fullPage,
+  rootPageId,
+  rootDomain,
+  darkMode,
+  previewImages,
+  forceCustomImages,
+  showCollectionViewDropdown,
+  linkTableTitleProperties,
+  isLinkCollectionToUrlProperty,
+  isImageZoomable = true,
+  showTableOfContents,
+  minTableOfContentsItems,
+  defaultPageIcon,
+  defaultPageCover,
+  defaultPageCoverPosition,
+  ...rest
+}: {
   recordMap: ExtendedRecordMap
   components?: Partial<NotionComponents>
 
   mapPageUrl?: MapPageUrlFn
   mapImageUrl?: MapImageUrlFn
   searchNotion?: SearchNotionFn
+  isShowingSearch?: boolean
+  onHideSearch?: () => void
 
   rootPageId?: string
   rootDomain?: string
@@ -31,6 +57,8 @@ export const NotionRenderer: React.FC<{
   forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
   linkTableTitleProperties?: boolean
+  isLinkCollectionToUrlProperty?: boolean
+  isImageZoomable?: boolean
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
@@ -53,27 +81,7 @@ export const NotionRenderer: React.FC<{
   blockId?: string
   hideBlockId?: boolean
   disableHeader?: boolean
-}> = ({
-  components,
-  recordMap,
-  mapPageUrl,
-  mapImageUrl,
-  searchNotion,
-  fullPage,
-  rootPageId,
-  rootDomain,
-  darkMode,
-  previewImages,
-  forceCustomImages,
-  showCollectionViewDropdown,
-  linkTableTitleProperties,
-  showTableOfContents,
-  minTableOfContentsItems,
-  defaultPageIcon,
-  defaultPageCover,
-  defaultPageCoverPosition,
-  ...rest
-}) => {
+}) {
   const zoom = React.useMemo(
     () =>
       typeof window !== 'undefined' &&
@@ -92,6 +100,8 @@ export const NotionRenderer: React.FC<{
       mapPageUrl={mapPageUrl}
       mapImageUrl={mapImageUrl}
       searchNotion={searchNotion}
+      isShowingSearch={isShowingSearch}
+      onHideSearch={onHideSearch}
       fullPage={fullPage}
       rootPageId={rootPageId}
       rootDomain={rootDomain}
@@ -100,19 +110,24 @@ export const NotionRenderer: React.FC<{
       forceCustomImages={forceCustomImages}
       showCollectionViewDropdown={showCollectionViewDropdown}
       linkTableTitleProperties={linkTableTitleProperties}
+      isLinkCollectionToUrlProperty={isLinkCollectionToUrlProperty}
       showTableOfContents={showTableOfContents}
       minTableOfContentsItems={minTableOfContentsItems}
       defaultPageIcon={defaultPageIcon}
       defaultPageCover={defaultPageCover}
       defaultPageCoverPosition={defaultPageCoverPosition}
-      zoom={zoom}
+      zoom={isImageZoomable ? zoom : null}
     >
       <NotionBlockRenderer {...rest} />
     </NotionContextProvider>
   )
 }
 
-export const NotionBlockRenderer: React.FC<{
+export function NotionBlockRenderer({
+  level = 0,
+  blockId,
+  ...props
+}: {
   className?: string
   bodyClassName?: string
   header?: React.ReactNode
@@ -122,9 +137,9 @@ export const NotionBlockRenderer: React.FC<{
   blockId?: string
   hideBlockId?: boolean
   level?: number
-}> = ({ level = 0, blockId, ...props }) => {
+}) {
   const { recordMap } = useNotionContext()
-  const id = blockId || Object.keys(recordMap.block)[0]
+  const id = blockId || Object.keys(recordMap.block)[0]!
   const block = recordMap.block[id]?.value
 
   if (!block) {

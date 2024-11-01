@@ -1,7 +1,8 @@
 import * as React from 'react'
+
 import { cs } from '../utils'
 
-export const LoadingIcon = (props) => {
+export function LoadingIcon(props: any) {
   const { className, ...rest } = props
   return (
     <svg className={cs('notion-icon', className)} {...rest} viewBox='0 0 24 24'>

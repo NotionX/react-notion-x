@@ -1,17 +1,17 @@
+import { type ExtendedRecordMap } from 'notion-types'
 import * as React from 'react'
-import { ExtendedRecordMap } from 'notion-types'
-import { wrapNextImage, wrapNextLink } from './next'
-import { AssetWrapper } from './components/asset-wrapper'
-import { Header } from './components/header'
 
-import {
-  MapPageUrlFn,
-  MapImageUrlFn,
-  SearchNotionFn,
-  NotionComponents
-} from './types'
-import { defaultMapPageUrl, defaultMapImageUrl } from './utils'
+import { AssetWrapper } from './components/asset-wrapper'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
+import { Header } from './components/header'
+import { wrapNextImage, wrapNextLegacyImage, wrapNextLink } from './next'
+import {
+  type MapImageUrlFn,
+  type MapPageUrlFn,
+  type NotionComponents,
+  type SearchNotionFn
+} from './types'
+import { defaultMapImageUrl, defaultMapPageUrl } from './utils'
 
 export interface NotionContext {
   recordMap: ExtendedRecordMap
@@ -20,6 +20,8 @@ export interface NotionContext {
   mapPageUrl: MapPageUrlFn
   mapImageUrl: MapImageUrlFn
   searchNotion?: SearchNotionFn
+  isShowingSearch?: boolean
+  onHideSearch?: () => void
 
   rootPageId?: string
   rootDomain?: string
@@ -32,9 +34,10 @@ export interface NotionContext {
   showTableOfContents: boolean
   minTableOfContentsItems: number
   linkTableTitleProperties: boolean
+  isLinkCollectionToUrlProperty: boolean
 
-  defaultPageIcon?: string
-  defaultPageCover?: string
+  defaultPageIcon?: string | null
+  defaultPageCover?: string | null
   defaultPageCoverPosition?: number
 
   zoom: any
@@ -47,6 +50,8 @@ export interface PartialNotionContext {
   mapPageUrl?: MapPageUrlFn
   mapImageUrl?: MapImageUrlFn
   searchNotion?: SearchNotionFn
+  isShowingSearch?: boolean
+  onHideSearch?: () => void
 
   rootPageId?: string
   rootDomain?: string
@@ -57,31 +62,36 @@ export interface PartialNotionContext {
   forceCustomImages?: boolean
   showCollectionViewDropdown?: boolean
   linkTableTitleProperties?: boolean
+  isLinkCollectionToUrlProperty?: boolean
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
 
-  defaultPageIcon?: string
-  defaultPageCover?: string
+  defaultPageIcon?: string | null
+  defaultPageCover?: string | null
   defaultPageCoverPosition?: number
 
   zoom?: any
 }
 
-const DefaultLink: React.FC = (props) => (
-  <a target='_blank' rel='noopener noreferrer' {...props} />
-)
+function DefaultLink(props: any) {
+  return <a target='_blank' rel='noopener noreferrer' {...props} />
+}
 const DefaultLinkMemo = React.memo(DefaultLink)
-const DefaultPageLink: React.FC = (props) => <a {...props} />
+function DefaultPageLink(props: any) {
+  return <a {...props} />
+}
 const DefaultPageLinkMemo = React.memo(DefaultPageLink)
 
-const DefaultEmbed = AssetWrapper
+function DefaultEmbed(props: any) {
+  return <AssetWrapper {...props} />
+}
 const DefaultHeader = Header
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const dummyLink = ({ href, rel, target, title, ...rest }) => (
-  <span {...rest} />
-)
+export function dummyLink({ href, rel, target, title, ...rest }: any) {
+  return <span {...rest} />
+}
 
 const dummyComponent = (name: string) => () => {
   console.warn(
@@ -124,6 +134,7 @@ const defaultComponents: NotionComponents = {
   propertyLastEditedTimeValue: dummyOverrideFn,
   propertyCreatedTimeValue: dummyOverrideFn,
   propertyDateValue: dummyOverrideFn,
+  propertyAutoIncrementIdValue: dummyOverrideFn,
 
   Pdf: dummyComponent('Pdf'),
   Tweet: dummyComponent('Tweet'),
@@ -147,7 +158,9 @@ const defaultNotionContext: NotionContext = {
 
   mapPageUrl: defaultMapPageUrl(),
   mapImageUrl: defaultMapImageUrl,
-  searchNotion: null,
+  searchNotion: undefined,
+  isShowingSearch: false,
+  onHideSearch: undefined,
 
   fullPage: false,
   darkMode: false,
@@ -155,6 +168,7 @@ const defaultNotionContext: NotionContext = {
   forceCustomImages: false,
   showCollectionViewDropdown: true,
   linkTableTitleProperties: true,
+  isLinkCollectionToUrlProperty: false,
 
   showTableOfContents: false,
   minTableOfContentsItems: 3,
@@ -168,17 +182,19 @@ const defaultNotionContext: NotionContext = {
 
 const ctx = React.createContext<NotionContext>(defaultNotionContext)
 
-export const NotionContextProvider: React.FC<PartialNotionContext> = ({
+export function NotionContextProvider({
   components: themeComponents = {},
   children,
   mapPageUrl,
   mapImageUrl,
   rootPageId,
   ...rest
-}) => {
+}: PartialNotionContext & {
+  children?: React.ReactNode
+}) {
   for (const key of Object.keys(rest)) {
-    if (rest[key] === undefined) {
-      delete rest[key]
+    if ((rest as any)[key] === undefined) {
+      delete (rest as any)[key]
     }
   }
 
@@ -189,8 +205,20 @@ export const NotionContextProvider: React.FC<PartialNotionContext> = ({
     [themeComponents]
   )
 
-  if (wrappedThemeComponents.nextImage) {
+  if (
+    wrappedThemeComponents.nextImage &&
+    wrappedThemeComponents.nextLegacyImage
+  ) {
+    console.warn(
+      'You should not pass both nextImage and nextLegacyImage. Only nextImage component will be used.'
+    )
     wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
+  } else if (wrappedThemeComponents.nextImage) {
+    wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
+  } else if (wrappedThemeComponents.nextLegacyImage) {
+    wrappedThemeComponents.Image = wrapNextLegacyImage(
+      themeComponents.nextLegacyImage
+    )
   }
 
   if (wrappedThemeComponents.nextLink) {
@@ -200,8 +228,8 @@ export const NotionContextProvider: React.FC<PartialNotionContext> = ({
   // ensure the user can't override default components with falsy values
   // since it would result in very difficult-to-debug react errors
   for (const key of Object.keys(wrappedThemeComponents)) {
-    if (!wrappedThemeComponents[key]) {
-      delete wrappedThemeComponents[key]
+    if (!(wrappedThemeComponents as any)[key]) {
+      delete (wrappedThemeComponents as any)[key]
     }
   }
 

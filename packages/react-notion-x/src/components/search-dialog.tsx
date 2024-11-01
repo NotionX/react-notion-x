@@ -1,16 +1,14 @@
-import * as React from 'react'
-import * as types from 'notion-types'
+import type * as types from 'notion-types'
 import throttle from 'lodash.throttle'
-import { getBlockTitle, getBlockParentPage } from 'notion-utils'
+import { getBlockParentPage, getBlockTitle } from 'notion-utils'
+import * as React from 'react'
 
-import { SearchIcon } from '../icons/search-icon'
+import { NotionContextConsumer, NotionContextProvider } from '../context'
 import { ClearIcon } from '../icons/clear-icon'
 import { LoadingIcon } from '../icons/loading-icon'
-import { PageTitle } from './page-title'
+import { SearchIcon } from '../icons/search-icon'
 import { cs } from '../utils'
-import { NotionContextConsumer, NotionContextProvider } from '../context'
-
-// TODO: modal.default.setAppElement('.notion-viewport')
+import { PageTitle } from './page-title'
 
 export class SearchDialog extends React.Component<{
   isOpen: boolean
@@ -18,12 +16,22 @@ export class SearchDialog extends React.Component<{
   onClose: () => void
   searchNotion: (params: types.SearchParams) => Promise<types.SearchResults>
 }> {
-  constructor(props) {
+  constructor(props: {
+    isOpen: boolean
+    rootBlockId: string
+    onClose: () => void
+    searchNotion: (params: types.SearchParams) => Promise<types.SearchResults>
+  }) {
     super(props)
     this._inputRef = React.createRef()
   }
 
-  state = {
+  state: {
+    isLoading: boolean
+    query: string
+    searchResult: any | null
+    searchError: types.APIError | null
+  } = {
     isLoading: false,
     query: '',
     searchResult: null,
@@ -92,15 +100,17 @@ export class SearchDialog extends React.Component<{
                     {searchResult.results.length ? (
                       <NotionContextProvider
                         {...ctx}
+                        // TODO
                         recordMap={searchResult.recordMap}
                       >
                         <div className='resultsPane'>
-                          {searchResult.results.map((result) => (
+                          {searchResult.results.map((result: any) => (
                             <components.PageLink
                               key={result.id}
                               className={cs('result', 'notion-page-link')}
                               href={mapPageUrl(
                                 result.page.id,
+                                // TODO
                                 searchResult.recordMap
                               )}
                             >
@@ -161,7 +171,7 @@ export class SearchDialog extends React.Component<{
     }
   }
 
-  _onChangeQuery = (e) => {
+  _onChangeQuery = (e: any) => {
     const query = e.target.value
     this.setState({ query })
 
@@ -207,7 +217,7 @@ export class SearchDialog extends React.Component<{
     console.log('search', query, result)
 
     let searchResult: any = null // TODO
-    let searchError: types.APIError = null
+    let searchError: types.APIError | null = null
 
     if (result.error || result.errorId) {
       searchError = result
@@ -238,8 +248,8 @@ export class SearchDialog extends React.Component<{
 
           if (result.highlight?.text) {
             result.highlight.html = result.highlight.text
-              .replace(/<gzkNfoUU>/gi, '<b>')
-              .replace(/<\/gzkNfoUU>/gi, '</b>')
+              .replaceAll(/<gzknfouu>/gi, '<b>')
+              .replaceAll(/<\/gzknfouu>/gi, '</b>')
           }
 
           return result
@@ -247,12 +257,8 @@ export class SearchDialog extends React.Component<{
         .filter(Boolean)
 
       // dedupe results by page id
-      const searchResultsMap = results.reduce(
-        (map, result) => ({
-          ...map,
-          [result.page.id]: result
-        }),
-        {}
+      const searchResultsMap = Object.fromEntries(
+        results.map((result: any) => [result.page.id, result])
       )
       searchResult.results = Object.values(searchResultsMap)
     }

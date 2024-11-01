@@ -1,18 +1,18 @@
-import test from 'ava'
+import { expect, test } from 'vitest'
 
 import { normalizeUrl } from './normalize-url'
 
-test('normalizeUrl invalid', (t) => {
-  t.is(normalizeUrl(), '')
-  t.is(normalizeUrl(''), '')
-  t.is(normalizeUrl('#'), '')
-  t.is(normalizeUrl('#foo'), '')
-  t.is(normalizeUrl('/foo'), '')
-  t.is(normalizeUrl('/foo/bar'), '')
-  t.is(normalizeUrl('://test.com'), '')
+test('normalizeUrl invalid', () => {
+  expect(normalizeUrl()).toBe('')
+  expect(normalizeUrl('')).toBe('')
+  expect(normalizeUrl('#')).toBe('')
+  expect(normalizeUrl('#foo')).toBe('')
+  expect(normalizeUrl('/foo')).toBe('')
+  expect(normalizeUrl('/foo/bar')).toBe('')
+  expect(normalizeUrl('://test.com')).toBe('')
 })
 
-test('normalizeUrl valid', (t) => {
+test('normalizeUrl valid', () => {
   const fixtures = [
     'test.com',
     'test.com/123',
@@ -27,7 +27,7 @@ test('normalizeUrl valid', (t) => {
 
   for (const url of fixtures) {
     const normalizedUrl = normalizeUrl(url)
-    t.truthy(normalizedUrl)
-    t.snapshot(normalizedUrl)
+    expect(normalizedUrl).toBeTruthy()
+    expect(normalizedUrl).toMatchSnapshot()
   }
 })

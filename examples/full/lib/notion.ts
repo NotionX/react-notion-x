@@ -1,10 +1,14 @@
 import { Client } from '@notionhq/client'
-import { NotionCompatAPI } from 'notion-compat'
 import { NotionAPI } from 'notion-client'
-import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
+import { NotionCompatAPI } from 'notion-compat'
+import {
+  type ExtendedRecordMap,
+  type SearchParams,
+  type SearchResults
+} from 'notion-types'
 
+import { previewImagesEnabled, useOfficialNotionAPI } from './config'
 import { getPreviewImageMap } from './preview-images'
-import { useOfficialNotionAPI, previewImagesEnabled } from './config'
 
 const notion = useOfficialNotionAPI
   ? new NotionCompatAPI(new Client({ auth: process.env.NOTION_TOKEN }))
@@ -28,5 +32,9 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
 }
 
 export async function search(params: SearchParams): Promise<SearchResults> {
-  return notion.search(params)
+  if ('search' in notion) {
+    return notion.search(params)
+  } else {
+    throw new Error('Notion API does not support search')
+  }
 }

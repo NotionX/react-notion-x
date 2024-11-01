@@ -1,10 +1,10 @@
-import * as React from 'react'
+import { type Block, type CalloutBlock, type PageBlock } from 'notion-types'
 import { getBlockIcon, getBlockTitle } from 'notion-utils'
-import { Block, PageBlock, CalloutBlock } from 'notion-types'
+import * as React from 'react'
 
-import { cs, isUrl } from '../utils'
-import { DefaultPageIcon } from '../icons/default-page-icon'
 import { useNotionContext } from '../context'
+import { DefaultPageIcon } from '../icons/default-page-icon'
+import { cs, isUrl } from '../utils'
 import { LazyImage } from './lazy-image'
 
 const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
@@ -16,20 +16,20 @@ const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
   )
 }
 
-export const PageIconImpl: React.FC<{
-  block: Block
-  className?: string
-  inline?: boolean
-  hideDefaultIcon?: boolean
-  defaultIcon?: string
-}> = ({
+export function PageIconImpl({
   block,
   className,
   inline = true,
   hideDefaultIcon = false,
   defaultIcon
-}) => {
-  const { mapImageUrl, recordMap } = useNotionContext()
+}: {
+  block: Block
+  className?: string
+  inline?: boolean
+  hideDefaultIcon?: boolean
+  defaultIcon?: string | null
+}) {
+  const { mapImageUrl, recordMap, darkMode } = useNotionContext()
   let isImage = false
   let content: any = null
 
@@ -48,13 +48,27 @@ export const PageIconImpl: React.FC<{
           className={cs(className, 'notion-page-icon')}
         />
       )
+    } else if (icon && icon.startsWith('/icons/')) {
+      const url =
+        'https://www.notion.so' +
+        icon +
+        '?mode=' +
+        (darkMode ? 'dark' : 'light')
+
+      content = (
+        <LazyImage
+          src={url}
+          alt={title || 'page icon'}
+          className={cs(className, 'notion-page-icon')}
+        />
+      )
     } else if (!icon) {
       if (!hideDefaultIcon) {
         isImage = true
         content = (
           <DefaultPageIcon
             className={cs(className, 'notion-page-icon')}
-            alt={title ? title : 'page icon'}
+            alt={title || 'page icon'}
           />
         )
       }

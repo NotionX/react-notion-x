@@ -1,13 +1,12 @@
 import {
-  ID,
-  Decoration,
-  Color,
-  NumberFormat,
-  PropertyID,
-  PropertyType
+  type Color,
+  type Decoration,
+  type ID,
+  type NumberFormat,
+  type PropertyID,
+  type PropertyType
 } from './core'
-
-import { Formula } from './formula'
+import { type Formula } from './formula'
 
 export interface SelectOption {
   id: ID
@@ -48,5 +47,6 @@ export interface Collection {
       property: PropertyID
       visibility: 'show' | 'hide'
     }>
+    hide_linked_collection_name?: boolean
   }
 }

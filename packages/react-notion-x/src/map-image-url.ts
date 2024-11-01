@@ -1,11 +1,11 @@
-import { Block } from 'notion-types'
+import { type Block } from 'notion-types'
 
 export const defaultMapImageUrl = (
-  url: string,
+  url: string | undefined,
   block: Block
-): string | null => {
+): string | undefined => {
   if (!url) {
-    return null
+    return undefined
   }
 
   if (url.startsWith('data:')) {
@@ -47,7 +47,7 @@ export const defaultMapImageUrl = (
 
   const notionImageUrlV2 = new URL(url)
   let table = block.parent_table === 'space' ? 'block' : block.parent_table
-  if (table === 'collection') {
+  if (table === 'collection' || table === 'team') {
     table = 'block'
   }
   notionImageUrlV2.searchParams.set('table', table)

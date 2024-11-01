@@ -1,20 +1,21 @@
-import * as React from 'react'
-import { PageBlock } from 'notion-types'
+import type * as types from 'notion-types'
+import type * as React from 'react'
+import { type PageBlock } from 'notion-types'
 
-import { CollectionViewProps } from '../types'
-import { cs } from '../utils'
-import { getCollectionGroups } from './collection-utils'
 import { useNotionContext } from '../context'
+import { type CollectionViewProps } from '../types'
+import { cs } from '../utils'
 import { CollectionCard } from './collection-card'
 import { CollectionGroup } from './collection-group'
+import { getCollectionGroups } from './collection-utils'
 
-const defaultBlockIds = []
+const defaultBlockIds: string[] = []
 
-export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
+export function CollectionViewGallery({
   collection,
   collectionView,
   collectionData
-}) => {
+}: CollectionViewProps) {
   const isGroupedCollection = collectionView?.format?.collection_group_by
 
   if (isGroupedCollection) {
@@ -33,8 +34,13 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
     ))
   }
 
-  const blockIds =
-    (collectionData['collection_group_results']?.blockIds ??
+  const blockIds: string[] =
+    (collectionData.collection_group_results?.blockIds ??
+      (
+        collectionData[
+          'results:relation:uncategorized' as keyof typeof collectionData
+        ] as any
+      )?.blockIds ??
       collectionData.blockIds) ||
     defaultBlockIds
 
@@ -47,7 +53,15 @@ export const CollectionViewGallery: React.FC<CollectionViewProps> = ({
   )
 }
 
-function Gallery({ blockIds, collectionView, collection }) {
+function Gallery({
+  blockIds,
+  collectionView,
+  collection
+}: {
+  blockIds?: string[]
+  collection: types.Collection
+  collectionView: types.CollectionView
+}) {
   const { recordMap } = useNotionContext()
   const {
     gallery_cover = { type: 'none' },

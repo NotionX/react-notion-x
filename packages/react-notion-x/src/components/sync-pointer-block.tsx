@@ -1,18 +1,21 @@
-import * as React from 'react'
+import type * as React from 'react'
 import {
-  SyncPointerBlock as SyncPointerBlockType,
-  Block as BlockType
+  type Block as BlockType,
+  type SyncPointerBlock as SyncPointerBlockType
 } from 'notion-types'
 
 import { NotionBlockRenderer } from '../renderer'
 
-export const SyncPointerBlock: React.FC<{
+export function SyncPointerBlock({
+  block,
+  level
+}: {
   block: BlockType
   level: number
-}> = ({ block, level }) => {
+}) {
   if (!block) {
     if (process.env.NODE_ENV !== 'production') {
-      console.warn('missing sync pointer block', block.id)
+      console.warn('missing sync pointer block')
     }
 
     return null
