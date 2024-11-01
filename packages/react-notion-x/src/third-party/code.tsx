@@ -14,7 +14,7 @@ import copyToClipboard from 'clipboard-copy'
 import { type CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
 // eslint-disable-next-line import/no-duplicates, no-duplicate-imports
-import { highlightElement } from 'prismjs'
+import prism from 'prismjs'
 import * as React from 'react'
 
 import { Text } from '../components/text'
@@ -55,7 +55,7 @@ export function Code({
   React.useEffect(() => {
     if (codeRef.current) {
       try {
-        highlightElement(codeRef.current)
+        prism.highlightElement(codeRef.current)
       } catch (err) {
         console.warn('prismjs highlight error', err)
       }
