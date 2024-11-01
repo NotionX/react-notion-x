@@ -23,10 +23,10 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.9",
     "@fisch0920/eslint-config": "^1.4.0",
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/node": "^22.8.4",
-    "changeset": "^0.2.6",
     "del-cli": "^6.0.0",
     "eslint": "^8.57.1",
     "npm-run-all2": "^7.0.1",
