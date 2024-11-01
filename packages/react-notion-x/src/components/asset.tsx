@@ -3,7 +3,7 @@ import { type BaseContentBlock, type Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
-import { getYoutubeId } from '../utils'
+import { getUrlParams, getYoutubeId } from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
@@ -213,11 +213,13 @@ export function Asset({
         // console.log({ youtubeVideoId, src, format: block.format, style })
 
         if (youtubeVideoId) {
+          const params = getUrlParams(src)
           content = (
             <LiteYouTubeEmbed
               id={youtubeVideoId}
               style={assetStyle}
               className='notion-asset-object-fit'
+              params={params}
             />
           )
         } else if (block.type === 'gist') {
