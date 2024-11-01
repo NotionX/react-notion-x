@@ -304,11 +304,10 @@ Note that custom image component is currently only enabled with preview image or
   - `react-notion-x` started as a fork of `react-notion` with better support for different types of Notion content (especially collections) and grew into something much more comprehensive
   - `react-notion` is no longer actively maintained
 - [notion-api-worker](https://github.com/splitbee/notion-api-worker) - Notion API proxy exposed as a Cloudflare Worker
-  - `notion-types` and `notion-client` are a refactored fork of `notion-api-worker`.
+  - `notion-types` and `notion-client` are a rewrite of `notion-api-worker`
   - One of the main use cases for `react-notion-x` is server-side rendering via Next.js, in which case the CF worker is unnecessary
   - We recommend that you use [notion-client](./packages/notion-client) instead
-- [notion-api-agent](https://github.com/dragonman225/notionapi-agent) - Alternative Notion API client
-- [notion-py](https://github.com/jamalex/notion-py) - Excellent Python wrapper around the Notion API
+- [notion-py](https://github.com/jamalex/notion-py) - Python wrapper around the Notion API
 
 ## Contributing
 
@@ -319,8 +318,6 @@ See the [contribution guide](contributing.md) and join our amazing list of [cont
 MIT © [Travis Fischer](https://transitivebullsh.it)
 
 This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.
-
-Big thanks to [Noah Bragg](https://github.com/normdoow) who runs [Potion.so](https://www.potion.so/) for helping to maintain `react-notion-x`.
 
 Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
 
