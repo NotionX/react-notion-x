@@ -88,6 +88,7 @@ export function Block(props: BlockProps) {
     disableHeader
   } = props
 
+
   if (!block) {
     return null
   }
