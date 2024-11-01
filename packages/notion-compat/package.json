@@ -23,7 +23,7 @@
     "test": "run-s test:*",
     "test:lint": "eslint .",
     "test:typecheck": "tsc --noEmit",
-    "test:unit": "ava"
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "notion-types": "workspace:*",
@@ -36,14 +36,5 @@
   },
   "peerDependencies": {
     "@notionhq/client": "^2.2.0"
-  },
-  "ava": {
-    "snapshotDir": ".snapshots",
-    "extensions": {
-      "ts": "module"
-    },
-    "nodeArguments": [
-      "--import=tsimp"
-    ]
   }
 }

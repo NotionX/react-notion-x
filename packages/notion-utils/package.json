@@ -29,7 +29,7 @@
     "test": "run-s test:*",
     "test:lint": "eslint .",
     "test:typecheck": "tsc --noEmit",
-    "test:unit": "ava"
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "is-url-superb": "^6.1.0",
@@ -37,14 +37,5 @@
     "normalize-url": "^8.0.1",
     "notion-types": "workspace:*",
     "p-queue": "^8.0.1"
-  },
-  "ava": {
-    "snapshotDir": ".snapshots",
-    "extensions": {
-      "ts": "module"
-    },
-    "nodeArguments": [
-      "--import=tsimp"
-    ]
   }
 }

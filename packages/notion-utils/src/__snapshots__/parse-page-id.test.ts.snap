@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`utils.parsePageId non-uuid success 1`] = `"267c0d1f1df8457f9b5c8f7efca16d83"`;
+
+exports[`utils.parsePageId non-uuid success 2`] = `"267c0d1f1df8457f9b5c8f7efca16d83"`;
+
+exports[`utils.parsePageId non-uuid success 3`] = `"267c0d1f1df8457f9b5c8f7efca16d83"`;
+
+exports[`utils.parsePageId non-uuid success 4`] = `"267c0d1f1df8457f9b5c8f7efca16d83"`;
+
+exports[`utils.parsePageId non-uuid success 5`] = `"717a3608b1874cc5bafb5b9680b53395"`;
+
+exports[`utils.parsePageId non-uuid success 6`] = `"717a3608b1874cc5bafb5b9680b53395"`;
+
+exports[`utils.parsePageId non-uuid success 7`] = `"717a3608b1874cc5bafb5b9680b53395"`;
+
+exports[`utils.parsePageId non-uuid success 8`] = `"717a3608b1874cc5bafb5b9680b53395"`;
+
+exports[`utils.parsePageId non-uuid success 9`] = `"717a3608b1874cc5bafb5b9680b53395"`;
+
+exports[`utils.parsePageId non-uuid success 10`] = `"717a3608b1874cc5bafb5b9680b53395"`;
+
+exports[`utils.parsePageId non-uuid success 11`] = `"e5a735e33baa458b988993b55a54ee54"`;
+
+exports[`utils.parsePageId non-uuid success 12`] = `"fde5ac74eea345278f004482710e1af3"`;
+
+exports[`utils.parsePageId non-uuid success 13`] = `"e5a735e33baa458b988993b55a54ee54"`;
+
+exports[`utils.parsePageId non-uuid success 14`] = `"e5a735e33baa458b988993b55a54ee54"`;
+
+exports[`utils.parsePageId non-uuid success 15`] = `"d9ae0c6e7cad49a78e21d240cf2e3d04"`;
+
+exports[`utils.parsePageId uuid success 1`] = `"267c0d1f-1df8-457f-9b5c-8f7efca16d83"`;
+
+exports[`utils.parsePageId uuid success 2`] = `"267c0d1f-1df8-457f-9b5c-8f7efca16d83"`;
+
+exports[`utils.parsePageId uuid success 3`] = `"267c0d1f-1df8-457f-9b5c-8f7efca16d83"`;
+
+exports[`utils.parsePageId uuid success 4`] = `"267c0d1f-1df8-457f-9b5c-8f7efca16d83"`;
+
+exports[`utils.parsePageId uuid success 5`] = `"717a3608-b187-4cc5-bafb-5b9680b53395"`;
+
+exports[`utils.parsePageId uuid success 6`] = `"717a3608-b187-4cc5-bafb-5b9680b53395"`;
+
+exports[`utils.parsePageId uuid success 7`] = `"717a3608-b187-4cc5-bafb-5b9680b53395"`;
+
+exports[`utils.parsePageId uuid success 8`] = `"717a3608-b187-4cc5-bafb-5b9680b53395"`;
+
+exports[`utils.parsePageId uuid success 9`] = `"717a3608-b187-4cc5-bafb-5b9680b53395"`;
+
+exports[`utils.parsePageId uuid success 10`] = `"717a3608-b187-4cc5-bafb-5b9680b53395"`;
+
+exports[`utils.parsePageId uuid success 11`] = `"e5a735e3-3baa-458b-9889-93b55a54ee54"`;
+
+exports[`utils.parsePageId uuid success 12`] = `"fde5ac74-eea3-4527-8f00-4482710e1af3"`;
+
+exports[`utils.parsePageId uuid success 13`] = `"e5a735e3-3baa-458b-9889-93b55a54ee54"`;
+
+exports[`utils.parsePageId uuid success 14`] = `"e5a735e3-3baa-458b-9889-93b55a54ee54"`;
+
+exports[`utils.parsePageId uuid success 15`] = `"d9ae0c6e-7cad-49a7-8e21-d240cf2e3d04"`;

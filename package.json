@@ -26,17 +26,16 @@
     "@fisch0920/eslint-config": "^1.4.0",
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/node": "^22.8.4",
-    "ava": "^6.2.0",
     "del-cli": "^6.0.0",
     "eslint": "^8.57.1",
     "npm-run-all2": "^7.0.1",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tsimp": "^2.0.12",
     "tsup": "^8.3.5",
     "tsx": "^4.19.2",
     "turbo": "^2.2.3",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
   }
 }

@@ -1,7 +1,8 @@
-import test from 'ava'
+import { expect, test } from 'vitest'
 
-test('dummy', async (t) => {
-  t.truthy(true)
+test('dummy', async () => {
+  // dummy
+  expect(true).toBe(true)
 })
 
 /*
@@ -27,7 +28,7 @@ test('dummy', async (t) => {
 
 // const debug = false
 
-// test('NotionCompatAPI', async (t) => {
+// test('NotionCompatAPI', async () => {
 //   // const pageId = '067dd719a912471ea9a3ac10710e7fdf'
 //   const pageId = '8bcd65801a5d450fb7218d8890a38c29'
 
