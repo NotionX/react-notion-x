@@ -1,6 +1,6 @@
 /* eslint-disable react/function-component-definition */
 import type * as types from 'notion-types'
-import format from 'date-fns/format/index.js'
+import { format } from 'date-fns/format'
 import formatNumber from 'format-number'
 import { type FormulaResult } from 'notion-types'
 import * as React from 'react'
