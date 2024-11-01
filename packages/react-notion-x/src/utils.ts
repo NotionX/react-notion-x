@@ -84,18 +84,20 @@ export const getYoutubeId = (url: string): string | null => {
   return null
 }
 
-export const getUrlParams = (url: string): Record<string, string> | null => {
+export const getUrlParams = (
+  url: string
+): Record<string, string> | undefined => {
   try {
     const { searchParams } = new URL(url)
     const result: Record<string, string> = {}
-    searchParams.forEach((value, key) => {
+    for (const [key, value] of searchParams.entries()) {
       result[key] = value
-    })
+    }
 
     return result
   } catch {
     // ignore invalid urls
   }
 
-  return null
+  return
 }
