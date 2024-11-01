@@ -62,6 +62,7 @@ export interface NotionComponents {
 
   // optional next.js-specific overrides
   nextImage?: any
+  nextLegacyImage?: any
   nextLink?: any
 }
 

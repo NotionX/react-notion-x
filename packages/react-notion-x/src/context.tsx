@@ -4,7 +4,7 @@ import * as React from 'react'
 import { AssetWrapper } from './components/asset-wrapper'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'
 import { Header } from './components/header'
-import { wrapNextImage, wrapNextLink } from './next'
+import { wrapNextImage, wrapNextLegacyImage, wrapNextLink } from './next'
 import {
   type MapImageUrlFn,
   type MapPageUrlFn,
@@ -205,8 +205,20 @@ export function NotionContextProvider({
     [themeComponents]
   )
 
-  if (wrappedThemeComponents.nextImage) {
+  if (
+    wrappedThemeComponents.nextImage &&
+    wrappedThemeComponents.nextLegacyImage
+  ) {
+    console.warn(
+      'You should not pass both nextImage and nextLegacyImage. Only nextImage component will be used.'
+    )
     wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
+  } else if (wrappedThemeComponents.nextImage) {
+    wrappedThemeComponents.Image = wrapNextImage(themeComponents.nextImage)
+  } else if (wrappedThemeComponents.nextLegacyImage) {
+    wrappedThemeComponents.Image = wrapNextLegacyImage(
+      themeComponents.nextLegacyImage
+    )
   }
 
   if (wrappedThemeComponents.nextLink) {
