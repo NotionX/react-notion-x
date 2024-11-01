@@ -7,7 +7,7 @@ export function getCollectionGroups(
   ...rest: any[]
 ): any[] {
   const elems = collectionView?.format?.collection_groups || []
-  return elems?.map(({ property, hidden, value: { value, type } }: any) => {
+  return elems.map(({ property, hidden, value: { value, type } }: any) => {
     const isUncategorizedValue = value === undefined
     const isDateValue = value?.range
     // TODO: review dates reducers

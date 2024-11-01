@@ -1,4 +1,4 @@
-import got from 'got'
+import ky from 'ky'
 import lqip from 'lqip-modern'
 import {
   type ExtendedRecordMap,
@@ -34,7 +34,7 @@ export async function getPreviewImageMap(
 
 async function createPreviewImage(url: string): Promise<PreviewImage | null> {
   try {
-    const { body } = await got(url, { responseType: 'buffer' })
+    const body = await ky(url).arrayBuffer()
     const result = await lqip(body)
     console.log('lqip', { originalUrl: url, ...result.metadata })
 

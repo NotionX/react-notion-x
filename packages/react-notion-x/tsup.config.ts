@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup'
 
 export default defineConfig({
   entry: [
-    'src/index.tsx',
+    'src/index.ts',
     'src/third-party/code.tsx',
     'src/third-party/collection.tsx',
     'src/third-party/equation.tsx',
@@ -17,6 +17,5 @@ export default defineConfig({
   shims: false,
   dts: true,
   minify: false,
-  sourcemap: true,
-  external: ['react', 'react-dom']
+  sourcemap: true
 })
