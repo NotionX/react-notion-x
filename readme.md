@@ -10,20 +10,22 @@
 
 ## Contents
 
-- [Advice](#advice)
-- [Features](#features)
-- [Usage](#usage)
-- [Styles](#styles)
-- [Optional Components](#optional-components)
-- [Private Pages](#private-pages)
-- [Next.js Examples](#nextjs-examples)
-- [Packages](#packages)
-- [Supported Blocks](#supported-blocks)
-- [Performance](#performance)
-- [Related](#related)
-- [Contributing](#contributing)
-- [License](#license)
-- [Sponsor](#sponsor)
+- [React Notion X](#react-notion-x)
+  - [Contents](#contents)
+  - [Advice](#advice)
+  - [Features](#features)
+  - [Usage](#usage)
+  - [Styles](#styles)
+  - [Optional Components](#optional-components)
+  - [Private Pages](#private-pages)
+  - [Next.js Examples](#nextjs-examples)
+  - [Packages](#packages)
+  - [Supported Blocks](#supported-blocks)
+  - [Performance](#performance)
+  - [Related](#related)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Sponsor](#sponsor)
 
 ## Advice
 
@@ -147,7 +149,7 @@ export default ({ recordMap }) => (
 )
 ```
 
-The `Code` component uses [Prism]() under the hood. It comes bundled with support for JavaScript, TypeScript, and CSS by default. To add support for additional language syntaxes, follow the example in [`components/NotionPage.tsx`](./examples/full/components/NotionPage.tsx) which lazily loads Prism components at runtime.
+The `Code` component uses [Prism](https://prismjs.com) under the hood. It comes bundled with support for JavaScript, TypeScript, and CSS by default. To add support for additional language syntaxes, follow the example in [`components/NotionPage.tsx`](./examples/full/components/NotionPage.tsx) which lazily loads Prism components at runtime. You will likely want to add `prismjs` to your project as a dependency when using the `Code` component so TypeScript doesn't complain.
 
 For `Equation` support, you'll need to import the katex CSS styles.
 
