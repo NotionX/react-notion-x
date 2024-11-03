@@ -24,6 +24,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "dev": "tsup --watch",
     "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
     "clean": "del build",
     "test": "run-s test:*",

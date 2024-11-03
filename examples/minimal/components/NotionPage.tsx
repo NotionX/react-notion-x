@@ -15,7 +15,6 @@ export function NotionPage({
   }
 
   const title = getPageTitle(recordMap)
-  console.log(title, recordMap)
 
   return (
     <>
