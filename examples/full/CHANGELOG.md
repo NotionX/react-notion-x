@@ -1,5 +1,12 @@
 # notion-x-example-full
 
+## 7.0.2
+
+### Patch Changes
+
+- Updated dependencies
+  - react-notion-x@7.1.0
+
 ## 7.0.1
 
 ### Major Changes

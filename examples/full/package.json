@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-full",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "private": true,
   "type": "module",
   "scripts": {
