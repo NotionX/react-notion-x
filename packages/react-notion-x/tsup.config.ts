@@ -17,5 +17,6 @@ export default defineConfig({
   shims: false,
   dts: true,
   minify: false,
-  sourcemap: true
+  sourcemap: true,
+  external: ['react-pdf']
 })

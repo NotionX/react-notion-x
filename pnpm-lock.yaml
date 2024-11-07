@@ -255,6 +255,7 @@ importers:
       react-modal:
         specifier: ^3.14.3
         version: 3.16.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    optionalDependencies:
       react-pdf:
         specifier: ^9.1.1
         version: 9.1.1(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -10712,7 +10713,8 @@ snapshots:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
 
-  clsx@2.1.1: {}
+  clsx@2.1.1:
+    optional: true
 
   co@4.6.0: {}
 
@@ -11086,7 +11088,8 @@ snapshots:
 
   depd@2.0.0: {}
 
-  dequal@2.0.3: {}
+  dequal@2.0.3:
+    optional: true
 
   destroy@1.2.0: {}
 
@@ -13321,7 +13324,8 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  make-cancellable-promise@1.3.2: {}
+  make-cancellable-promise@1.3.2:
+    optional: true
 
   make-dir@3.1.0:
     dependencies:
@@ -13331,7 +13335,8 @@ snapshots:
     dependencies:
       semver: 7.6.3
 
-  make-event-props@1.6.2: {}
+  make-event-props@1.6.2:
+    optional: true
 
   makeerror@1.0.12:
     dependencies:
@@ -13365,6 +13370,7 @@ snapshots:
   merge-refs@1.3.0(@types/react@18.3.12):
     optionalDependencies:
       '@types/react': 18.3.12
+    optional: true
 
   merge-stream@2.0.0: {}
 
@@ -13777,6 +13783,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    optional: true
 
   performance-now@2.1.0: {}
 
@@ -14443,6 +14450,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    optional: true
 
   react-refresh@0.11.0: {}
 
@@ -15342,7 +15350,8 @@ snapshots:
 
   thunky@1.1.0: {}
 
-  tiny-invariant@1.3.3: {}
+  tiny-invariant@1.3.3:
+    optional: true
 
   tinybench@2.9.0: {}
 

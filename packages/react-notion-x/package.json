@@ -65,8 +65,7 @@
     "react-hotkeys-hook": "^4.5.1",
     "react-image": "^4.0.3",
     "react-lazy-images": "^1.1.0",
-    "react-modal": "^3.14.3",
-    "react-pdf": "^9.1.1"
+    "react-modal": "^3.14.3"
   },
   "devDependencies": {
     "@types/lodash.throttle": "^4.1.6",
@@ -76,10 +75,14 @@
     "clipboard-copy": "^4.0.1",
     "date-fns": "^4.1.0",
     "format-number": "^3.0.0",
-    "lodash.throttle": "^4.1.1"
+    "lodash.throttle": "^4.1.1",
+    "react-pdf": "^9.1.1"
   },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
+  },
+  "optionalDependencies": {
+    "react-pdf": "^9.1.1"
   }
 }
