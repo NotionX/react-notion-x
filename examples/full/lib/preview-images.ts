@@ -8,7 +8,6 @@ import {
 import { defaultMapImageUrl, getPageImageUrls } from 'notion-utils'
 import pMap from 'p-map'
 import pMemoize from 'p-memoize'
-import {} from 'react-notion-x'
 
 // NOTE: this is just an example of how to pre-compute preview images.
 // Depending on how many images you're working with, this can potentially be
