@@ -1,7 +1,5 @@
 import { type BlockMap } from 'notion-types'
 
-export * from './map-image-url'
-export * from './map-page-url'
 export { formatDate, formatNotionDateTime, isUrl } from 'notion-utils'
 
 export const cs = (...classes: Array<string | undefined | false>) =>

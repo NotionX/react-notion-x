@@ -1,4 +1,5 @@
 import { type ExtendedRecordMap } from 'notion-types'
+import { defaultMapImageUrl, defaultMapPageUrl } from 'notion-utils'
 import * as React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
@@ -11,7 +12,6 @@ import {
   type NotionComponents,
   type SearchNotionFn
 } from './types'
-import { defaultMapImageUrl, defaultMapPageUrl } from './utils'
 
 export interface NotionContext {
   recordMap: ExtendedRecordMap
