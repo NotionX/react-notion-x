@@ -1,5 +1,20 @@
 # notion-x-example-full
 
+## 7.1.0
+
+### Minor Changes
+
+- Move some utils into notion-utils
+
+### Patch Changes
+
+- Updated dependencies
+  - notion-client@7.1.0
+  - notion-compat@7.1.0
+  - notion-types@7.1.0
+  - notion-utils@7.1.0
+  - react-notion-x@7.2.0
+
 ## 7.0.2
 
 ### Patch Changes
