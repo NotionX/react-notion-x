@@ -1,5 +1,14 @@
 # notion-compat
 
+## 7.1.3
+
+### Patch Changes
+
+- twitter utils
+- Updated dependencies
+  - notion-types@7.1.3
+  - notion-utils@7.1.3
+
 ## 7.1.2
 
 ### Patch Changes

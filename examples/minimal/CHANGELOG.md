@@ -1,5 +1,16 @@
 # notion-x-example-minimal
 
+## 7.1.3
+
+### Patch Changes
+
+- twitter utils
+- Updated dependencies
+  - notion-client@7.1.3
+  - notion-types@7.1.3
+  - notion-utils@7.1.3
+  - react-notion-x@7.2.3
+
 ## 7.1.2
 
 ### Patch Changes

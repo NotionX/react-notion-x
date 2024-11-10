@@ -1,5 +1,14 @@
 # react-notion-x
 
+## 7.2.3
+
+### Patch Changes
+
+- twitter utils
+- Updated dependencies
+  - notion-types@7.1.3
+  - notion-utils@7.1.3
+
 ## 7.2.2
 
 ### Patch Changes

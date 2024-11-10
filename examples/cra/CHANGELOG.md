@@ -1,5 +1,14 @@
 # notion-x-example-cra
 
+## 7.1.3
+
+### Patch Changes
+
+- twitter utils
+- Updated dependencies
+  - notion-types@7.1.3
+  - react-notion-x@7.2.3
+
 ## 7.1.2
 
 ### Patch Changes
