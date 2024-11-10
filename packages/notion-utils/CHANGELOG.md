@@ -1,5 +1,13 @@
 # notion-utils
 
+## 7.1.2
+
+### Patch Changes
+
+- Add getPageTweets util
+- Updated dependencies
+  - notion-types@7.1.2
+
 ## 7.1.1
 
 ### Patch Changes

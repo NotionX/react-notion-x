@@ -1,5 +1,16 @@
 # notion-x-example-minimal
 
+## 7.1.2
+
+### Patch Changes
+
+- Add getPageTweets util
+- Updated dependencies
+  - notion-client@7.1.2
+  - notion-types@7.1.2
+  - notion-utils@7.1.2
+  - react-notion-x@7.2.2
+
 ## 7.1.1
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # react-notion-x
 
+## 7.2.2
+
+### Patch Changes
+
+- Add getPageTweets util
+- Updated dependencies
+  - notion-types@7.1.2
+  - notion-utils@7.1.2
+
 ## 7.2.1
 
 ### Patch Changes
