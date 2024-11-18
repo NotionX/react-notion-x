@@ -17,8 +17,13 @@ export function Audio({
     recordMap.signed_urls[block.id] || block.properties?.source?.[0]?.[0]
 
   if (block.space_id) {
-    source = source.concat('&spaceId=', block.space_id)
+    source = source?.concat('&spaceId=', block.space_id)
   }
+
+  if (!source) {
+    return null
+  }
+
   return (
     <div className={cs('notion-audio', className)}>
       <audio controls preload='none' src={source} />

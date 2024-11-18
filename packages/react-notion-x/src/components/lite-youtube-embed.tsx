@@ -11,10 +11,9 @@ const qs = (params: Record<string, string>) => {
 }
 
 type ImageType = 'jpg' | 'webp'
-// Define a type for video resolutions
-type VideoResolution = 120 | 320 | 480 | 640 | 1280
 
-const resolutions: VideoResolution[] = [120, 320, 480, 640, 1280]
+const resolutions = [120, 320, 480, 640, 1280] as const
+type VideoResolution = (typeof resolutions)[number]
 
 const resolutionMap: Record<VideoResolution, string> = {
   120: 'default',
@@ -22,20 +21,23 @@ const resolutionMap: Record<VideoResolution, string> = {
   480: 'hqdefault',
   640: 'sddefault',
   1280: 'maxresdefault'
-  // 2k, 4k, 8k images don't seem to be available
-  // Source: https://longzero.com/articles/youtube-thumbnail-sizes-url/
+  // 2k, 4k, 8k images don't seem to be available
+  // Source: https://longzero.com/articles/youtube-thumbnail-sizes-url/
 }
 
-// Function to get the poster URL based on the resolution type
+const resolutionSizes = resolutions
+  .map((resolution) => `(max-width: ${resolution}px) ${resolution}px`)
+  .join(', ')
+
 function getPosterUrl(
   id: string,
   resolution: VideoResolution = 480,
   type: ImageType = 'jpg'
 ): string {
-  // Return the appropriate URL based on the image type
   if (type === 'webp') {
     return `https://i.ytimg.com/vi_webp/${id}/${resolutionMap[resolution]}.webp`
   }
+
   // Default to jpg
   return `https://i.ytimg.com/vi/${id}/${resolutionMap[resolution]}.jpg`
 }
@@ -43,12 +45,6 @@ function getPosterUrl(
 function generateSrcSet(id: string, type: ImageType = 'jpg'): string {
   return resolutions
     .map((resolution) => `${getPosterUrl(id, resolution, type)} ${resolution}w`)
-    .join(', ')
-}
-
-function generateSizes(): string {
-  return resolutions
-    .map((resolution) => `(max-width: ${resolution}px) ${resolution}px`)
     .join(', ')
 }
 
@@ -107,13 +103,13 @@ export function LiteYouTubeEmbed({
       {/*
         'it seems pretty unlikely for a browser to support preloading but not WebP images'
         Source: https://blog.laurenashpole.com/post/658079409151016960
-      */}
+       */}
       <link
         rel='preload'
         as='image'
         href={getPosterUrl(id)}
         imageSrcSet={generateSrcSet(id, 'webp')}
-        imageSizes={generateSizes()}
+        imageSizes={resolutionSizes}
       />
 
       {isPreconnected && (
@@ -128,7 +124,9 @@ export function LiteYouTubeEmbed({
 
       {isPreconnected && adLinksPreconnect && (
         <>
-          {/* Not certain if these ad related domains are in the critical path. Could verify with domain-specific throttling. */}
+          {/* Not certain if these ad related domains are in the critical path.
+              Could verify with domain-specific throttling.
+            */}
           <link rel='preconnect' href='https://static.doubleclick.net' />
           <link rel='preconnect' href='https://googleads.g.doubleclick.net' />
         </>
@@ -149,7 +147,7 @@ export function LiteYouTubeEmbed({
           {/*
             Browsers which don't support srcSet will most likely not support webp too
             These browsers will then just get the default 480 size jpg
-          */}
+           */}
           {resolutions.map((resolution) => (
             <source
               key={resolution}
@@ -158,6 +156,7 @@ export function LiteYouTubeEmbed({
               type='image/webp'
             />
           ))}
+
           <img
             src={getPosterUrl(id)}
             className='notion-yt-thumbnail'

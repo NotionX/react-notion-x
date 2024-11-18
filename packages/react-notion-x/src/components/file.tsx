@@ -18,6 +18,10 @@ export function File({
   let source =
     recordMap.signed_urls[block.id] || block.properties?.source?.[0]?.[0]
 
+  if (!source) {
+    return null
+  }
+
   if (block.space_id) {
     source = source.concat('&spaceId=', block.space_id)
   }
