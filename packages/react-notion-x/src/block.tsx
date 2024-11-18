@@ -592,7 +592,7 @@ export function Block(props: BlockProps) {
               blockId
             )}
           >
-            <PageIcon block={block} />
+            <PageIcon block={block} hideDefaultIcon={true} />
 
             <div className='notion-callout-text'>
               <Text value={block.properties?.title} block={block} />
@@ -838,6 +838,4 @@ export function Block(props: BlockProps) {
 
       return <div />
   }
-
-  return null
 }
