@@ -1199,6 +1199,11 @@ svg.notion-page-icon {
   width: 100%;
 }
 
+.notion-callout-text > *:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
 .notion-toggle {
   width: 100%;
   padding: 3px 2px;
