@@ -1,5 +1,11 @@
 # notion-types
 
+## 7.1.4
+
+### Patch Changes
+
+- Minor fixes
+
 ## 7.1.3
 
 ### Patch Changes

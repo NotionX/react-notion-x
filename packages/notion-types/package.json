@@ -1,6 +1,6 @@
 {
   "name": "notion-types",
-  "version": "7.1.3",
+  "version": "7.1.4",
   "type": "module",
   "description": "TypeScript types for core Notion data structures.",
   "repository": "NotionX/react-notion-x",
