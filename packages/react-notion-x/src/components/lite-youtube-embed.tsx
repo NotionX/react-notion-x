@@ -10,11 +10,11 @@ const qs = (params: Record<string, string>) => {
     .join('&')
 }
 
-type ImageType = 'jpg' | 'webp';
+type ImageType = 'jpg' | 'webp'
 // Define a type for video resolutions
-type VideoResolution = 120 | 320 | 480 | 640 | 1280;
+type VideoResolution = 120 | 320 | 480 | 640 | 1280
 
-const resolutions: VideoResolution[] = [120, 320, 480, 640, 1280];
+const resolutions: VideoResolution[] = [120, 320, 480, 640, 1280]
 
 const resolutionMap: Record<VideoResolution, string> = {
   120: 'default',
@@ -24,28 +24,32 @@ const resolutionMap: Record<VideoResolution, string> = {
   1280: 'maxresdefault'
   // 2k, 4k, 8k images don't seem to be available
   // Source: https://longzero.com/articles/youtube-thumbnail-sizes-url/
-};
+}
 
 // Function to get the poster URL based on the resolution type
-function getPosterUrl(id: string, resolution: VideoResolution = 480, type: ImageType = 'jpg'): string {
+function getPosterUrl(
+  id: string,
+  resolution: VideoResolution = 480,
+  type: ImageType = 'jpg'
+): string {
   // Return the appropriate URL based on the image type
   if (type === 'webp') {
-    return `https://i.ytimg.com/vi_webp/${id}/${resolutionMap[resolution]}.webp`;
+    return `https://i.ytimg.com/vi_webp/${id}/${resolutionMap[resolution]}.webp`
   }
   // Default to jpg
-  return `https://i.ytimg.com/vi/${id}/${resolutionMap[resolution]}.jpg`;
+  return `https://i.ytimg.com/vi/${id}/${resolutionMap[resolution]}.jpg`
 }
 
 function generateSrcSet(id: string, type: ImageType = 'jpg'): string {
   return resolutions
     .map((resolution) => `${getPosterUrl(id, resolution, type)} ${resolution}w`)
-    .join(', ');
+    .join(', ')
 }
 
 function generateSizes(): string {
   return resolutions
     .map((resolution) => `(max-width: ${resolution}px) ${resolution}px`)
-    .join(', ');
+    .join(', ')
 }
 
 export function LiteYouTubeEmbed({
@@ -104,7 +108,13 @@ export function LiteYouTubeEmbed({
         'it seems pretty unlikely for a browser to support preloading but not WebP images'
         Source: https://blog.laurenashpole.com/post/658079409151016960
       */}
-      <link rel='preload' as='image' href={getPosterUrl(id)} imageSrcSet={generateSrcSet(id, 'webp')} imageSizes={generateSizes()} />
+      <link
+        rel='preload'
+        as='image'
+        href={getPosterUrl(id)}
+        imageSrcSet={generateSrcSet(id, 'webp')}
+        imageSizes={generateSizes()}
+      />
 
       {isPreconnected && (
         <>
