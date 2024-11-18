@@ -129,6 +129,10 @@ export function Asset({
 
   let source =
     recordMap.signed_urls?.[block.id] || block.properties?.source?.[0]?.[0]
+
+  if (block.space_id) {
+    source = source.concat('&spaceId=', block.space_id)
+  }
   let content = null
 
   if (!source) {
