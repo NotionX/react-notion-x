@@ -135,7 +135,9 @@ export function Asset({
   }
 
   if (block.space_id) {
-    source = source.concat('&spaceId=', block.space_id)
+    const url = new URL(source)
+    url.searchParams.set('spaceId', block.space_id)
+    source = url.toString()
   }
 
   let content = null
