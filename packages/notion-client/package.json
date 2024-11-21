@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "7.1.4",
+  "version": "7.1.5",
   "type": "module",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "repository": "NotionX/react-notion-x",

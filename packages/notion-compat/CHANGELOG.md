@@ -1,5 +1,14 @@
 # notion-compat
 
+## 7.1.5
+
+### Patch Changes
+
+- Fix images
+- Updated dependencies
+  - notion-types@7.1.5
+  - notion-utils@7.1.5
+
 ## 7.1.4
 
 ### Patch Changes

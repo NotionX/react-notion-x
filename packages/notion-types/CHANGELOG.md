@@ -1,5 +1,11 @@
 # notion-types
 
+## 7.1.5
+
+### Patch Changes
+
+- Fix images
+
 ## 7.1.4
 
 ### Patch Changes
