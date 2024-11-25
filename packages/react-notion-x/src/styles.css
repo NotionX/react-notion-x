@@ -13,6 +13,8 @@
   --fg-color-7: rgba(55, 53, 47, 0.5);
   --fg-color-icon: var(--fg-color);
 
+  --divider: rgb(233, 233, 231);
+
   --bg-color: #fff;
   --bg-color-0: rgba(135, 131, 120, 0.15);
   --bg-color-1: rgb(247, 246, 243);
@@ -99,6 +101,8 @@
   --fg-color-5: rgba(255, 255, 255, 0.7);
   --fg-color-6: #fff;
   --fg-color-icon: #fff;
+
+  --divider: rgb(47, 47, 47);
 
   --bg-color: #2f3437;
   --bg-color-0: rgb(71, 76, 80);
@@ -2667,18 +2671,18 @@ svg.notion-page-icon {
 }
 
 .notion-simple-table {
-  border: 1px solid var(--fg-color-5);
+  border: 1px solid var(--divider);
   border-collapse: collapse;
   border-spacing: 0;
   font-size: 14px;
 }
 
-.notion-simple-table tr:first-child td {
+.notion-simple-table-header {
   background: var(--bg-color-0);
 }
 
 .notion-simple-table td {
-  border: 1px solid var(--fg-color-5);
+  border: 1px solid var(--divider);
   padding: 8px 8px;
   white-space: pre-wrap;
 }
