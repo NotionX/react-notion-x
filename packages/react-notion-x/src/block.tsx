@@ -816,8 +816,7 @@ export function Block(props: BlockProps) {
             const color = formatMap?.[column]?.color
             if (color) {
               colorClass = `notion-${color}`
-            } else if (hasColumnHeader && columnIndex === 0 && !isRowHeader) {
-              // Avoid double-stacking the column header on the row header, since they may have an opacity.
+            } else if (hasColumnHeader && columnIndex === 0) {
               colorClass = 'notion-simple-table-header'
             }
 
