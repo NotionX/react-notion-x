@@ -314,7 +314,7 @@ export class NotionAPI {
   public async getCollectionData(
     collectionId: string,
     collectionViewId: string,
-    collectionView: any,
+    collectionView?: any,
     {
       limit = 9999,
       searchQuery = '',
