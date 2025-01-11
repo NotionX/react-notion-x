@@ -237,14 +237,17 @@ export class NotionAPI {
         // console.log(block, source)
 
         if (source) {
-          if (source.includes('secure.notion-static.com') || source.includes('prod-files-secure')) {
+          if (
+            source.includes('secure.notion-static.com') ||
+            source.includes('prod-files-secure')
+          ) {
             return {
               permissionRecord: {
                 table: 'block',
                 id: block.id
               },
               url: source
-            };
+            }
           }
 
           return []

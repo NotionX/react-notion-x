@@ -64,7 +64,6 @@
     "react-fast-compare": "^3.2.0",
     "react-hotkeys-hook": "^4.5.1",
     "react-image": "^4.0.3",
-    "react-lazy-images": "^1.1.0",
     "react-modal": "^3.14.3"
   },
   "devDependencies": {
