@@ -24,6 +24,9 @@ importers:
       '@types/node':
         specifier: ^22.9.0
         version: 22.10.5
+      '@types/react-lazyload':
+        specifier: ^3.2.3
+        version: 3.2.3
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -4107,6 +4110,12 @@ packages:
     dependencies:
       '@types/react': 18.3.18
     dev: false
+
+  /@types/react-lazyload@3.2.3:
+    resolution: {integrity: sha512-s03gWlHXiFqZr7TEFDTx8Lkl+ZEYrwTkXP9MNZ3Z3blzsPrnkYjgeSK2tjfzVv/TYVCnDk6TZwNRDHQlHy/1Ug==}
+    dependencies:
+      '@types/react': 18.3.18
+    dev: true
 
   /@types/react-modal@3.16.3:
     resolution: {integrity: sha512-xXuGavyEGaFQDgBv4UVm8/ZsG+qxeQ7f77yNrW3n+1J6XAstUy5rYHeIHPh1KzsGc6IkCIdu6lQ2xWzu1jBTLg==}
