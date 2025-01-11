@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      react-lazyload:
-        specifier: ^3.0.0
-        version: 3.2.1(react-dom@18.3.1)(react@18.3.1)
+      '@types/react':
+        specifier: ^18.3.12
+        version: 18.3.18
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.9
@@ -24,9 +24,6 @@ importers:
       '@types/node':
         specifier: ^22.9.0
         version: 22.10.5
-      '@types/react-lazyload':
-        specifier: ^3.2.3
-        version: 3.2.3
       del-cli:
         specifier: ^6.0.0
         version: 6.0.0
@@ -256,9 +253,6 @@ importers:
       react-image:
         specifier: ^4.0.3
         version: 4.1.0(@babel/runtime@7.26.0)(react-dom@18.3.1)(react@18.3.1)
-      react-lazyload:
-        specifier: ^3.0.0
-        version: 3.2.1(react-dom@18.3.1)(react@18.3.1)
       react-modal:
         specifier: ^3.14.3
         version: 3.16.3(react-dom@18.3.1)(react@18.3.1)
@@ -4110,12 +4104,6 @@ packages:
     dependencies:
       '@types/react': 18.3.18
     dev: false
-
-  /@types/react-lazyload@3.2.3:
-    resolution: {integrity: sha512-s03gWlHXiFqZr7TEFDTx8Lkl+ZEYrwTkXP9MNZ3Z3blzsPrnkYjgeSK2tjfzVv/TYVCnDk6TZwNRDHQlHy/1Ug==}
-    dependencies:
-      '@types/react': 18.3.18
-    dev: true
 
   /@types/react-modal@3.16.3:
     resolution: {integrity: sha512-xXuGavyEGaFQDgBv4UVm8/ZsG+qxeQ7f77yNrW3n+1J6XAstUy5rYHeIHPh1KzsGc6IkCIdu6lQ2xWzu1jBTLg==}
@@ -11408,16 +11396,6 @@ packages:
 
   /react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
-    dev: false
-
-  /react-lazyload@3.2.1(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-oDLlLOI/rRLY0fUh/HYFCy4CqCe7zdJXv6oTl2pC30tN3ezWxvwcdHYfD/ZkrGOMOOT5pO7hNLSvg7WsmAij1w==}
-    peerDependencies:
-      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
     dev: false
 
   /react-lifecycles-compat@3.0.4:

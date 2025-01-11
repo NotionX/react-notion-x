@@ -27,7 +27,6 @@
     "@fisch0920/eslint-config": "^1.4.0",
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/node": "^22.9.0",
-    "@types/react-lazyload": "^3.2.3",
     "del-cli": "^6.0.0",
     "eslint": "^8.57.1",
     "npm-run-all2": "^7.0.1",
@@ -41,6 +40,6 @@
     "vitest": "^2.1.5"
   },
   "dependencies": {
-    "react-lazyload": "^3.0.0"
+    "@types/react": "^18.3.12"
   }
 }
