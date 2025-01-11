@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      react-lazyload:
+        specifier: ^3.0.0
+        version: 3.2.1(react-dom@18.3.1)(react@18.3.1)
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.9
@@ -249,9 +253,9 @@ importers:
       react-image:
         specifier: ^4.0.3
         version: 4.1.0(@babel/runtime@7.26.0)(react-dom@18.3.1)(react@18.3.1)
-      react-lazy-images:
-        specifier: ^1.1.0
-        version: 1.1.0(react-dom@18.3.1)(react@18.3.1)
+      react-lazyload:
+        specifier: ^3.0.0
+        version: 3.2.1(react-dom@18.3.1)(react@18.3.1)
       react-modal:
         specifier: ^3.14.3
         version: 3.16.3(react-dom@18.3.1)(react@18.3.1)
@@ -8161,12 +8165,6 @@ packages:
       hasown: 2.0.2
       side-channel: 1.1.0
 
-  /invariant@2.2.4:
-    resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
-    dependencies:
-      loose-envify: 1.4.0
-    dev: false
-
   /ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
@@ -11392,16 +11390,6 @@ packages:
       react-dom: 18.3.1(react@18.3.1)
     dev: false
 
-  /react-intersection-observer@6.4.2(react@18.3.1):
-    resolution: {integrity: sha512-gL6YrkhniA0tIbyDbUterzBwKh61vHR520rsKULel5T37gG4YP07wnWI3WoqOcKK5bKAu0PZB2FHD7/OjawN+w==}
-    peerDependencies:
-      react: ^15.0.0 || ^16.0.0 || ^17.0.0
-    dependencies:
-      '@babel/runtime': 7.26.0
-      invariant: 2.2.4
-      react: 18.3.1
-    dev: false
-
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -11413,16 +11401,14 @@ packages:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
     dev: false
 
-  /react-lazy-images@1.1.0(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-h5DHFhkMJyh2qsDl3hXWu6d+On10FsgHtRJ+BH7xjgsFOvsqaii9CEwEESqPJrrAiHo1qrN1LgzrV8X3zctHKA==}
+  /react-lazyload@3.2.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-oDLlLOI/rRLY0fUh/HYFCy4CqCe7zdJXv6oTl2pC30tN3ezWxvwcdHYfD/ZkrGOMOOT5pO7hNLSvg7WsmAij1w==}
     peerDependencies:
-      react: ^15 || ^16
-      react-dom: ^15 || ^16
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-intersection-observer: 6.4.2(react@18.3.1)
-      unionize: 2.2.0
     dev: false
 
   /react-lifecycles-compat@3.0.4:
@@ -13324,10 +13310,6 @@ packages:
     resolution: {integrity: sha512-lRfVq8fE8gz6QMBuDM6a+LO3IAzTi05H6gCVaUpir2E1Rwpo4ZUog45KpNXKC/Mn3Yb9UDuHumeFTo9iV/D9FQ==}
     engines: {node: '>=18'}
     dev: true
-
-  /unionize@2.2.0:
-    resolution: {integrity: sha512-lHXiL6LPVuRYBGCLOdUd4GMHoAGqM0HtYHAZcA6pUEiwN1nk+LEYlh8bud7saeL0bkFntJzCPEPVVJeFm3Cqsg==}
-    dev: false
 
   /unique-string@2.0.0:
     resolution: {integrity: sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==}
