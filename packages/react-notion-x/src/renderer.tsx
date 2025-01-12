@@ -29,6 +29,7 @@ export function NotionRenderer({
   linkTableTitleProperties,
   isLinkCollectionToUrlProperty,
   isImageZoomable = true,
+  pageWidth,
   showTableOfContents,
   minTableOfContentsItems,
   defaultPageIcon,
@@ -59,6 +60,7 @@ export function NotionRenderer({
   linkTableTitleProperties?: boolean
   isLinkCollectionToUrlProperty?: boolean
   isImageZoomable?: boolean
+  pageWidth?: number
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
@@ -111,6 +113,7 @@ export function NotionRenderer({
       showCollectionViewDropdown={showCollectionViewDropdown}
       linkTableTitleProperties={linkTableTitleProperties}
       isLinkCollectionToUrlProperty={isLinkCollectionToUrlProperty}
+      pageWidth={pageWidth}
       showTableOfContents={showTableOfContents}
       minTableOfContentsItems={minTableOfContentsItems}
       defaultPageIcon={defaultPageIcon}
