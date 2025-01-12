@@ -1,5 +1,13 @@
 # notion-utils
 
+## 7.1.6
+
+### Patch Changes
+
+- Fix signed urls
+- Updated dependencies
+  - notion-types@7.1.6
+
 ## 7.1.5
 
 ### Patch Changes

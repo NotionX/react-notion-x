@@ -1,5 +1,14 @@
 # notion-x-example-cra
 
+## 7.1.6
+
+### Patch Changes
+
+- Fix signed urls
+- Updated dependencies
+  - notion-types@7.1.6
+  - react-notion-x@7.2.6
+
 ## 7.1.5
 
 ### Patch Changes
