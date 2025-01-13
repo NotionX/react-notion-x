@@ -375,7 +375,7 @@ function evalFunctionFormula(
             start: date2,
             end: date1
           }) as any
-        )[unit] ?? (0 as number)
+        )[unit] ?? 0
       )
     }
 
