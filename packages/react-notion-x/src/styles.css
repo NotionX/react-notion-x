@@ -1294,7 +1294,6 @@ svg.notion-page-icon {
   float: left;
   min-width: var(--notion-max-width);
   padding-left: 0;
-  transition: padding 200ms ease-out;
 }
 
 .notion-table-header {

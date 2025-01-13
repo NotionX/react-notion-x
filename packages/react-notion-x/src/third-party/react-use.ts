@@ -211,3 +211,19 @@ export const useLocalStorage = <T>(
 
   return [state, set, remove]
 }
+
+// Style mismatches between server rendering and client hydration can act
+// unpredictably. Style that depends on the client state should use this hook
+// can prevent the unpredictable behavior. More details here:
+// https://github.com/vercel/next.js/issues/17463
+export const useClientStyle = (
+  clientStyle: React.CSSProperties,
+  serverStyle: React.CSSProperties = {}
+) => {
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  return isMounted ? clientStyle : serverStyle
+}

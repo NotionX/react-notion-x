@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type * as React from 'react'
 
 import { useNotionContext } from '../context'
 import { type CollectionViewProps } from '../types'
@@ -7,6 +7,7 @@ import { CollectionColumnTitle } from './collection-column-title'
 import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
+import { useClientStyle } from './react-use'
 
 const defaultBlockIds: string[] = []
 
@@ -72,21 +73,18 @@ function Table({
 } & Omit<CollectionViewProps, 'collectionData'>) {
   const { recordMap, linkTableTitleProperties } = useNotionContext()
 
-  const tableStyle = React.useMemo(
-    () => ({
+  const tableStyle = useClientStyle(
+    {
       width,
       maxWidth: width
-    }),
-    [width]
+    },
+    { visibility: 'hidden' }
   )
 
-  const tableViewStyle = React.useMemo(
-    () => ({
-      paddingLeft: padding,
-      paddingRight: padding
-    }),
-    [padding]
-  )
+  const tableViewStyle = useClientStyle({
+    paddingLeft: padding,
+    paddingRight: padding
+  })
 
   let properties = []
 
