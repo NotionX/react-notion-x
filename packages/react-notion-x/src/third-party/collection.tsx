@@ -84,7 +84,8 @@ function CollectionViewBlock({
   block: types.CollectionViewBlock | types.CollectionViewPageBlock
   className?: string
 }) {
-  const { recordMap, showCollectionViewDropdown } = useNotionContext()
+  const { recordMap, pageWidth, showCollectionViewDropdown } =
+    useNotionContext()
   const { view_ids: viewIds } = block
   const collectionId = getBlockCollectionId(block, recordMap)!
 
@@ -139,7 +140,7 @@ function CollectionViewBlock({
 
     const width = windowWidth
     // TODO: customize for mobile?
-    const maxNotionBodyWidth = 708
+    const maxNotionBodyWidth = pageWidth
     let notionBodyWidth = maxNotionBodyWidth
 
     if (parentPage?.format?.page_full_width) {
@@ -147,7 +148,7 @@ function CollectionViewBlock({
     } else {
       notionBodyWidth =
         width < maxNotionBodyWidth
-          ? Math.trunc(width - width * 0.02) // 2vw
+          ? Math.trunc(width - width * 0.04) // 2vw for each side
           : maxNotionBodyWidth
     }
 
@@ -161,7 +162,7 @@ function CollectionViewBlock({
       width,
       padding
     }
-  }, [windowWidth, parentPage, collectionView?.type, isMounted])
+  }, [windowWidth, parentPage, pageWidth, collectionView?.type, isMounted])
 
   // console.log({
   //   width,
