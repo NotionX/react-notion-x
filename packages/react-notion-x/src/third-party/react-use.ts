@@ -213,8 +213,8 @@ export const useLocalStorage = <T>(
 }
 
 // Style mismatches between server rendering and client hydration can act
-// unpredictably. Style that depends on the client state should use this hook
-// can prevent the unpredictable behavior. More details here:
+// unpredictably. Styles that depends on the client state should use this hook
+// to prevent the unpredictable behavior. More details here:
 // https://github.com/vercel/next.js/issues/17463
 export const useClientStyle = (
   clientStyle: React.CSSProperties,
