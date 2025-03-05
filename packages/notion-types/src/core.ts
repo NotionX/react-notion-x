@@ -119,6 +119,13 @@ export type InlineEquationFormat = ['e', string]
 export type DiscussionFormat = ['m', string]
 export type ExternalLinkFormat = ['‣', [string, string]]
 export type DateFormat = ['d', FormattedDate]
+export type MotionLinkFormat = ['lm', Record<MotionLinkContentKeys, string>]
+
+export type MotionLinkContentKeys =
+  | 'href'
+  | 'title'
+  | 'icon_url'
+  | 'description'
 
 export interface FormattedDate {
   type: 'date' | 'daterange' | 'datetime' | 'datetimerange'
@@ -145,6 +152,7 @@ export type SubDecoration =
   | ExternalLinkFormat
   | DiscussionFormat
   | ExternalObjectInstanceFormat
+  | MotionLinkFormat
 
 export type BaseDecoration = [string]
 export type AdditionalDecoration = [string, SubDecoration[]]

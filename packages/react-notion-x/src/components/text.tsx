@@ -11,6 +11,7 @@ import { formatDate, getHashFragmentValue } from '../utils'
 import { EOI } from './eoi'
 import { GracefulImage } from './graceful-image'
 import { PageTitle } from './page-title'
+import { LazyImage } from './lazy-image'
 
 /**
  * Renders a single piece of Notion text, including basic rich text formatting.
@@ -126,6 +127,32 @@ export function Text({
                     )
                   }
                 }
+              }
+
+              case 'lm': {
+                const linkContent = decorator[1]
+                return (
+                  <components.Link
+                    className='notion-link'
+                    href={linkContent.href}
+                    {...linkProps}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <span className='notion-page-title notion-mention-title'>
+                      <div className='notion-page-icon-inline notion-page-icon-image'>
+                        <LazyImage
+                          src={linkContent.icon_url}
+                          alt={linkContent.title}
+                          className='notion-page-title-icon notion-page-icon'
+                        />
+                      </div>
+                      <span className='notion-page-title-text notion-mention-title-text'>
+                        {linkContent.title}
+                      </span>
+                    </span>
+                  </components.Link>
+                )
               }
 
               case 'h':
