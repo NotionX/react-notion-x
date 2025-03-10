@@ -239,7 +239,8 @@ export class NotionAPI {
         if (source) {
           if (
             source.includes('secure.notion-static.com') ||
-            source.includes('prod-files-secure')
+            source.includes('prod-files-secure') ||
+            source.includes('attachment:')
           ) {
             return {
               permissionRecord: {
