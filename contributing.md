@@ -40,3 +40,33 @@ Whenever you make a change to one of the packages, the `pnpm dev` from the proje
 Sometimes, this process gets a little out of whack, and if you're not sure what's going on, I usually just quit one or both of the `pnpm dev` commands and restart them.
 
 If you're seeing something unexpected while debugging one of the Next.js demos, try running `rm -rf .next` to refresh the Next.js cache before running `pnpm dev` again.
+
+## Before Pull Request
+
+Before submitting your pull request, please check the following:
+
+1. Run linting:
+
+```bash
+pnpm run test:lint
+```
+
+If there are any linting errors, please fix them before proceeding with the PR. This helps maintain consistent code quality across the project.
+
+2. Run tests:
+
+```bash
+pnpm test
+```
+
+Ensure that all the tests pass before submitting your PR. This verifies that your changes don't break existing functionality.
+
+3. Build the project:
+
+```bash
+pnpm build
+```
+
+Ensure that the project can be built successfully. This confirms that your changes are compatible with the build process.
+
+If all these steps pass, your code is ready for the pull request.
