@@ -10,8 +10,8 @@ import { useNotionContext } from '../context'
 import { formatDate, getHashFragmentValue } from '../utils'
 import { EOI } from './eoi'
 import { GracefulImage } from './graceful-image'
-import { PageTitle } from './page-title'
 import { LinkMention, type LinkMentionData } from './link-mention'
+import { PageTitle } from './page-title'
 
 /**
  * Renders a single piece of Notion text, including basic rich text formatting.
