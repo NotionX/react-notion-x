@@ -11,6 +11,7 @@ import { formatDate, getHashFragmentValue } from '../utils'
 import { EOI } from './eoi'
 import { GracefulImage } from './graceful-image'
 import { PageTitle } from './page-title'
+import { LinkMention, type LinkMentionData } from './link-mention'
 
 /**
  * Renders a single piece of Notion text, including basic rich text formatting.
@@ -20,6 +21,7 @@ import { PageTitle } from './page-title'
  * TODO: I think this implementation would be more correct if the reduce just added
  * attributes to the final element's style.
  */
+
 export function Text({
   value,
   block,
@@ -242,6 +244,11 @@ export function Text({
                 return (
                   <GracefulImage className='notion-user' src={src} alt={name} />
                 )
+              }
+
+              case 'lm': {
+                const metadata = decorator[1] as unknown as LinkMentionData
+                return <LinkMention metadata={metadata} />
               }
 
               case 'eoi': {
