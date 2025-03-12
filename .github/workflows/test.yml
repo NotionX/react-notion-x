@@ -33,6 +33,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
+      - name: Run lint
+        run: pnpm run test:lint
+
       - name: Run test
         run: pnpm test
 
