@@ -84,7 +84,11 @@ export function Code({
 
   return (
     <>
-      <pre className={cs('notion-code', className)}>
+      <pre
+        className={cs('notion-code', `language-${language}`, className)}
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={0}
+      >
         <div className='notion-code-copy'>
           {copyButton}
 
