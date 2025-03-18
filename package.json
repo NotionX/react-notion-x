@@ -6,7 +6,7 @@
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "version": "7.0.0",
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@10.6.4",
   "engines": {
     "node": ">=18"
   },
@@ -19,24 +19,35 @@
     "test:lint": "turbo test:lint",
     "test:typecheck": "turbo test:typecheck",
     "test:unit": "turbo test:unit",
+    "release": "bumpp -r && pnpm publish -r",
     "pretest": "run-s build",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.9",
     "@fisch0920/eslint-config": "^1.4.0",
     "@total-typescript/ts-reset": "^0.6.1",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.13.10",
     "del-cli": "^6.0.0",
     "eslint": "^8.57.1",
-    "npm-run-all2": "^7.0.1",
-    "prettier": "^3.3.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tsup": "^8.3.5",
-    "tsx": "^4.19.2",
-    "turbo": "^2.3.0",
-    "typescript": "^5.6.3",
-    "vitest": "^2.1.5"
+    "npm-run-all2": "^7.0.2",
+    "prettier": "^3.5.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "simple-git-hooks": "^2.11.1",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.3",
+    "turbo": "^2.4.4",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --ignore-unknown --write",
+      "eslint --fix"
+    ]
   }
 }

@@ -29,10 +29,10 @@
   "dependencies": {
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
-    "p-queue": "^8.0.1"
+    "p-queue": "^8.1.0"
   },
   "devDependencies": {
-    "@notionhq/client": "^2.2.15",
+    "@notionhq/client": "^2.3.0",
     "notion-client": "workspace:*"
   },
   "peerDependencies": {

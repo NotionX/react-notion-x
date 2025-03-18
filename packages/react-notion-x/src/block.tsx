@@ -438,7 +438,7 @@ export function Block(props: BlockProps) {
           </ol>
         )
 
-      let output: JSX.Element | null = null
+      let output: React.ReactNode | null = null
 
       if (block.content) {
         output = (
