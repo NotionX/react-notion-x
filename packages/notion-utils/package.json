@@ -34,9 +34,9 @@
   },
   "dependencies": {
     "is-url-superb": "^6.1.0",
-    "mem": "^10.0.0",
+    "memoize": "^10.1.0",
     "normalize-url": "^8.0.1",
     "notion-types": "workspace:*",
-    "p-queue": "^8.0.1"
+    "p-queue": "^8.1.0"
   }
 }

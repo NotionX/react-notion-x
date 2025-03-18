@@ -1,7 +1,7 @@
-import mem from 'mem'
+import memoize from 'memoize'
 import normalizeUrlImpl from 'normalize-url'
 
-export const normalizeUrl = mem((url?: string) => {
+export const normalizeUrl = memoize((url?: string) => {
   if (!url) {
     return ''
   }

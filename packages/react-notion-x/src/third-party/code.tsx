@@ -32,7 +32,7 @@ export function Code({
   className?: string
 }) {
   const [isCopied, setIsCopied] = React.useState(false)
-  const copyTimeout = React.useRef<number>()
+  const copyTimeout = React.useRef<number | undefined>(undefined)
   const { recordMap } = useNotionContext()
   const content = getBlockTitle(block, recordMap)
   const language = (() => {
@@ -51,7 +51,7 @@ export function Code({
   })()
   const caption = block.properties.caption
 
-  const codeRef = React.useRef()
+  const codeRef = React.useRef<HTMLElement | null>(null)
   React.useEffect(() => {
     if (codeRef.current) {
       try {
