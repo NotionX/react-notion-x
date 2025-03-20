@@ -21,13 +21,15 @@ export function PageIconImpl({
   className,
   inline = true,
   hideDefaultIcon = false,
-  defaultIcon
+  defaultIcon,
+  alignCenter = false
 }: {
   block: Block
   className?: string
   inline?: boolean
   hideDefaultIcon?: boolean
   defaultIcon?: string | null
+  alignCenter?: boolean
 }) {
   const { mapImageUrl, recordMap, darkMode } = useNotionContext()
   let isImage = false
@@ -94,7 +96,8 @@ export function PageIconImpl({
     <div
       className={cs(
         inline ? 'notion-page-icon-inline' : 'notion-page-icon-hero',
-        isImage ? 'notion-page-icon-image' : 'notion-page-icon-span'
+        isImage ? 'notion-page-icon-image' : 'notion-page-icon-span',
+        alignCenter ? 'align-center' : 'align-left'
       )}
     >
       {content}
