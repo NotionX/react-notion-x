@@ -95,7 +95,9 @@ export function PageIconImpl({
       className={cs(
         inline ? 'notion-page-icon-inline' : 'notion-page-icon-hero',
         isImage ? 'notion-page-icon-image' : 'notion-page-icon-span',
-        alignCenter ? 'align-center' : 'align-left'
+        alignCenter
+          ? 'notion-page-icon--align-center'
+          : 'notion-page-icon--align-left'
       )}
     >
       {content}

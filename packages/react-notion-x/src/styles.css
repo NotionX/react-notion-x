@@ -633,12 +633,12 @@
   height: 124px;
 }
 
-.notion-page-icon-hero.notion-page-icon-image.align-left {
+.notion-page-icon-hero.notion-page-icon-image.notion-page-icon--align-left {
   left: 0%;
   margin-left: 26px;
 }
 
-.notion-page-icon-hero.notion-page-icon-image.align-center {
+.notion-page-icon-hero.notion-page-icon-image.notion-page-icon--align-center {
   left: 50%;
   margin-left: -62px;
 }
@@ -646,15 +646,14 @@
 .notion-page-icon-hero.notion-page-icon-span {
   height: 78px;
   width: 78px;
-  margin-left: -39px;
 }
 
-.notion-page-icon-hero.notion-page-icon-span.align-left {
+.notion-page-icon-hero.notion-page-icon-span.notion-page-icon--align-left {
   left: 0%;
   margin-left: 16px;
 }
 
-.notion-page-icon-hero.notion-page-icon-span.align-center {
+.notion-page-icon-hero.notion-page-icon-span.notion-page-icon--align-center {
   left: 50%;
   margin-left: -39px;
 }
