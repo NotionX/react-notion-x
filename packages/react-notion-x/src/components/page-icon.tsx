@@ -21,17 +21,15 @@ export function PageIconImpl({
   className,
   inline = true,
   hideDefaultIcon = false,
-  defaultIcon,
-  alignCenter = false
+  defaultIcon
 }: {
   block: Block
   className?: string
   inline?: boolean
   hideDefaultIcon?: boolean
   defaultIcon?: string | null
-  alignCenter?: boolean
 }) {
-  const { mapImageUrl, recordMap, darkMode } = useNotionContext()
+  const { alignCenter, mapImageUrl, recordMap, darkMode } = useNotionContext()
   let isImage = false
   let content: any = null
 
