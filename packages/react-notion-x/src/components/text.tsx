@@ -259,6 +259,9 @@ export function Text({
                 return <EOI block={externalObjectInstance} inline={true} />
               }
 
+              case 'si':
+                return null
+
               default:
                 if (process.env.NODE_ENV !== 'production') {
                   console.log('unsupported text format', decorator)

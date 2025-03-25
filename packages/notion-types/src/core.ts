@@ -120,6 +120,7 @@ export type DiscussionFormat = ['m', string]
 export type ExternalLinkFormat = ['‣', [string, string]]
 export type DateFormat = ['d', FormattedDate]
 export type LinkMentionFormat = ['lm', string]
+export type SuggestionEditFormat = ['si', string]
 
 export interface FormattedDate {
   type: 'date' | 'daterange' | 'datetime' | 'datetimerange'
@@ -147,6 +148,7 @@ export type SubDecoration =
   | DiscussionFormat
   | ExternalObjectInstanceFormat
   | LinkMentionFormat
+  | SuggestionEditFormat
 
 export type BaseDecoration = [string]
 export type AdditionalDecoration = [string, SubDecoration[]]
