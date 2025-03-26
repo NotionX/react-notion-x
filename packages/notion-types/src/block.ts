@@ -131,6 +131,7 @@ export interface BaseContentBlock extends BaseBlock {
   properties: {
     source: string[][]
     caption?: Decoration[]
+    alt_text?: Decoration[]
   }
   format?: {
     block_alignment: 'center' | 'left' | 'right'
