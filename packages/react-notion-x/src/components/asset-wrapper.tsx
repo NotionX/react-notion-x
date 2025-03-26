@@ -37,7 +37,6 @@ export function AssetWrapper({
       className={cs(
         'notion-asset-wrapper',
         `notion-asset-wrapper-${block.type}`,
-        value.format?.block_full_width && 'notion-asset-wrapper-full',
         blockId
       )}
     >
