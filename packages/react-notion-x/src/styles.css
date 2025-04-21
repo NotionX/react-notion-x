@@ -746,8 +746,8 @@ svg.notion-page-icon {
   width: 100%;
   margin: 6px 0;
   padding: 0;
-  border-top: none;
-  border-color: var(--fg-color-0);
+  border: none;
+  border-bottom: 1px solid var(--bg-color-0);
 }
 
 .notion-link {
@@ -2980,7 +2980,7 @@ svg.notion-page-icon {
 .notion-link-mention {
   position: relative;
   display: inline-flex;
-  align-items: center; 
+  align-items: center;
   vertical-align: middle;
 }
 
@@ -3022,8 +3022,8 @@ svg.notion-page-icon {
 }
 
 .notion-link-mention-card {
-  width: 18rem; 
-  height: 15rem; 
+  width: 18rem;
+  height: 15rem;
   background: var(--bg-color);
   border-radius: 0.75rem;
   border: 1px solid rgba(27, 31, 36, 0.15);
