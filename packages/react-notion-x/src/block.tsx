@@ -23,7 +23,13 @@ import { SyncPointerBlock } from './components/sync-pointer-block'
 import { Text } from './components/text'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
-import { cs, getListNumber, isUrl } from './utils'
+import {
+  cs,
+  getListNestingLevel,
+  getListNumber,
+  getListStyle,
+  isUrl
+} from './utils'
 
 interface BlockProps {
   block: types.Block
@@ -433,6 +439,15 @@ export function Block(props: BlockProps) {
           <ol
             start={start}
             className={cs('notion-list', 'notion-list-numbered', blockId)}
+            style={
+              block.type === 'numbered_list'
+                ? {
+                    listStyleType: getListStyle(
+                      getListNestingLevel(block.id, recordMap.block)
+                    )
+                  }
+                : undefined
+            }
           >
             {content}
           </ol>

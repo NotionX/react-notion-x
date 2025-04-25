@@ -852,6 +852,18 @@ svg.notion-page-icon {
   margin-bottom: 0;
 }
 
+.notion-list-numbered ol {
+  list-style-type: lower-alpha;
+}
+
+.notion-list-numbered ol ol {
+  list-style-type: lower-roman;
+}
+
+.notion-list-numbered ol ol ol {
+  list-style-type: decimal;
+}
+
 .notion-list-disc li {
   padding-left: 0.1em;
 }

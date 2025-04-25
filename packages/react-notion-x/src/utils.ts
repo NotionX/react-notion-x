@@ -48,6 +48,38 @@ export const getListNumber = (blockId: string, blockMap: BlockMap) => {
   return group.indexOf(blockId) + 1
 }
 
+export const getListNestingLevel = (
+  blockId: string,
+  blockMap: BlockMap
+): number => {
+  let level = 0
+  let currentBlockId = blockId
+
+  while (true) {
+    const parentId = blockMap[currentBlockId]?.value?.parent_id
+
+    if (!parentId) break
+
+    const parentBlock = blockMap[parentId]?.value
+    if (!parentBlock) break
+
+    if (parentBlock.type === 'numbered_list') {
+      level++
+      currentBlockId = parentId
+    } else {
+      break
+    }
+  }
+
+  return level
+}
+
+export const getListStyle = (level: number): string => {
+  const styles: string[] = ['decimal', 'lower-alpha', 'lower-roman']
+  const index = ((level % styles.length) + styles.length) % styles.length
+  return styles[index] as string
+}
+
 export const getHashFragmentValue = (url: string) => {
   return url.includes('#') ? url.replace(/^.+(#.+)$/, '$1') : ''
 }
