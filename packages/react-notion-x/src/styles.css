@@ -2672,7 +2672,7 @@ svg.notion-page-icon {
   font-size: 14px;
 }
 
-.notion-simple-table tr:first-child td {
+.notion-simple-table-header-row td {
   background: var(--bg-color-0);
 }
 

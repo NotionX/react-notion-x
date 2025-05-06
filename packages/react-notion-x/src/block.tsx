@@ -789,6 +789,10 @@ export function Block(props: BlockProps) {
       const formatMap = tableBlock.format?.table_block_column_format
       const backgroundColor = block.format?.block_color
 
+      const hasRowHeader = tableBlock.format?.table_block_column_header === true
+
+      const isHeaderRow = hasRowHeader && tableBlock.content?.[0] === block.id
+
       if (!tableBlock || !order) {
         return null
       }
@@ -798,6 +802,7 @@ export function Block(props: BlockProps) {
           className={cs(
             'notion-simple-table-row',
             backgroundColor && `notion-${backgroundColor}`,
+            isHeaderRow && 'notion-simple-table-header-row',
             blockId
           )}
         >
