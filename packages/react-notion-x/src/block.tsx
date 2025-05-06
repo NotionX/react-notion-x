@@ -790,6 +790,7 @@ export function Block(props: BlockProps) {
       const backgroundColor = block.format?.block_color
 
       const hasRowHeader = tableBlock.format?.table_block_column_header === true
+      const hasColumnHeader = tableBlock.format?.table_block_row_header === true
 
       const isHeaderRow = hasRowHeader && tableBlock.content?.[0] === block.id
 
@@ -806,13 +807,18 @@ export function Block(props: BlockProps) {
             blockId
           )}
         >
-          {order.map((column) => {
+          {order.map((column, columnIndex) => {
             const color = formatMap?.[column]?.color
+
+            const isHeaderColumn = hasColumnHeader && columnIndex === 0
 
             return (
               <td
                 key={column}
-                className={color ? `notion-${color}` : ''}
+                className={cs(
+                  color ? `notion-${color}` : '',
+                  isHeaderColumn && 'notion-simple-table-header-cell'
+                )}
                 style={{
                   width: formatMap?.[column]?.width || 120
                 }}
