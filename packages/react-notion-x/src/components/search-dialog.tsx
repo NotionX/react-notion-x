@@ -1,5 +1,5 @@
 import type * as types from 'notion-types'
-import throttle from 'lodash.throttle'
+import debounce from 'lodash.debounce'
 import { getBlockParentPage, getBlockTitle } from 'notion-utils'
 import * as React from 'react'
 
@@ -42,7 +42,9 @@ export class SearchDialog extends React.Component<{
   _search: any
 
   componentDidMount() {
-    this._search = throttle(this._searchImpl.bind(this), 1000)
+    this._search = debounce(this._searchImpl.bind(this), 1000, {
+      trailing: true
+    })
     this._warmupSearch()
   }
 
@@ -173,14 +175,22 @@ export class SearchDialog extends React.Component<{
 
   _onChangeQuery = (e: any) => {
     const query = e.target.value
-    this.setState({ query })
 
     if (!query.trim()) {
-      this.setState({ isLoading: false, searchResult: null, searchError: null })
+      this.setState({
+        query,
+        isLoading: false,
+        searchResult: null,
+        searchError: null
+      })
       return
-    } else {
-      this._search()
     }
+
+    // set query and trigger search, but don't immediately change loading state
+    this.setState({ query }, () => {
+      // trigger search after state update
+      this._search()
+    })
   }
 
   _onClearQuery = () => {
@@ -208,63 +218,82 @@ export class SearchDialog extends React.Component<{
       return
     }
 
+    // store current query for later comparison
+    const currentQuery = query
+
     this.setState({ isLoading: true })
-    const result: any = await searchNotion({
-      query,
-      ancestorId: rootBlockId
-    })
 
-    console.log('search', query, result)
+    try {
+      const result: any = await searchNotion({
+        query: currentQuery,
+        ancestorId: rootBlockId
+      })
 
-    let searchResult: any = null // TODO
-    let searchError: types.APIError | null = null
+      console.log('search', currentQuery, result)
 
-    if (result.error || result.errorId) {
-      searchError = result
-    } else {
-      searchResult = { ...result }
+      let searchResult: any = null // TODO
+      let searchError: types.APIError | null = null
 
-      const results = searchResult.results
-        .map((result: any) => {
-          const block = searchResult.recordMap.block[result.id]?.value
-          if (!block) return
+      if (result.error || result.errorId) {
+        searchError = result
+      } else {
+        searchResult = { ...result }
 
-          const title = getBlockTitle(block, searchResult.recordMap)
-          if (!title) {
-            return
+        const results = searchResult.results
+          .map((result: any) => {
+            const block = searchResult.recordMap.block[result.id]?.value
+            if (!block) return
+
+            const title = getBlockTitle(block, searchResult.recordMap)
+            if (!title) {
+              return
+            }
+
+            result.title = title
+            result.block = block
+            result.recordMap = searchResult.recordMap
+            result.page =
+              getBlockParentPage(block, searchResult.recordMap, {
+                inclusive: true
+              }) || block
+
+            if (!result.page.id) {
+              return
+            }
+
+            if (result.highlight?.text) {
+              result.highlight.html = result.highlight.text
+                .replaceAll(/<gzknfouu>/gi, '<b>')
+                .replaceAll(/<\/gzknfouu>/gi, '</b>')
+            }
+
+            return result
+          })
+          .filter(Boolean)
+
+        // dedupe results by page id
+        const searchResultsMap = Object.fromEntries(
+          results.map((result: any) => [result.page.id, result])
+        )
+        searchResult.results = Object.values(searchResultsMap)
+      }
+
+      // ensure state is only updated when current query matches the state query
+      if (this.state.query === currentQuery) {
+        this.setState({ isLoading: false, searchResult, searchError })
+      }
+    } catch (err) {
+      console.error('err:', err)
+      if (this.state.query === currentQuery) {
+        this.setState({
+          isLoading: false,
+          searchResult: null,
+          searchError: {
+            message: 'search_error',
+            errorId: 'search_error'
           }
-
-          result.title = title
-          result.block = block
-          result.recordMap = searchResult.recordMap
-          result.page =
-            getBlockParentPage(block, searchResult.recordMap, {
-              inclusive: true
-            }) || block
-
-          if (!result.page.id) {
-            return
-          }
-
-          if (result.highlight?.text) {
-            result.highlight.html = result.highlight.text
-              .replaceAll(/<gzknfouu>/gi, '<b>')
-              .replaceAll(/<\/gzknfouu>/gi, '</b>')
-          }
-
-          return result
         })
-        .filter(Boolean)
-
-      // dedupe results by page id
-      const searchResultsMap = Object.fromEntries(
-        results.map((result: any) => [result.page.id, result])
-      )
-      searchResult.results = Object.values(searchResultsMap)
-    }
-
-    if (this.state.query === query) {
-      this.setState({ isLoading: false, searchResult, searchError })
+      }
     }
   }
 }
