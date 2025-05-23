@@ -786,28 +786,44 @@ export function Block(props: BlockProps) {
       const tableBlock = recordMap.block[block.parent_id]
         ?.value as types.TableBlock
       const order = tableBlock.format?.table_block_column_order
-      const formatMap = tableBlock.format?.table_block_column_format
-      const backgroundColor = block.format?.block_color
 
       if (!tableBlock || !order) {
         return null
       }
+
+      const rowIndex = recordMap.block[block.parent_id]?.value.content?.indexOf(
+        block.id
+      )
+      const formatMap = tableBlock.format?.table_block_column_format
+      const hasColumnHeader = Boolean(
+        tableBlock.format?.table_block_column_header
+      )
+      const isRowHeader =
+        Boolean(tableBlock.format?.table_block_column_header) && rowIndex === 0
+      const backgroundColor = block.format?.block_color
 
       return (
         <tr
           className={cs(
             'notion-simple-table-row',
             backgroundColor && `notion-${backgroundColor}`,
+            isRowHeader && `notion-simple-table-header`,
             blockId
           )}
         >
-          {order.map((column) => {
+          {order.map((column, columnIndex) => {
+            let colorClass = ''
             const color = formatMap?.[column]?.color
+            if (color) {
+              colorClass = `notion-${color}`
+            } else if (hasColumnHeader && columnIndex === 0) {
+              colorClass = 'notion-simple-table-header'
+            }
 
             return (
               <td
                 key={column}
-                className={color ? `notion-${color}` : ''}
+                className={colorClass}
                 style={{
                   width: formatMap?.[column]?.width || 120
                 }}
