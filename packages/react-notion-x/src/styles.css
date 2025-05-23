@@ -2674,7 +2674,14 @@ svg.notion-page-icon {
   font-size: 14px;
 }
 
-.notion-simple-table tr:first-child td {
+/* simple table header */
+/* row header */
+.notion-simple-table-header-row td {
+  background: var(--bg-color-0);
+}
+
+/* column header */
+.notion-simple-table-header-cell {
   background: var(--bg-color-0);
 }
 
