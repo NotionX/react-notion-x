@@ -837,17 +837,16 @@ svg.notion-page-icon {
   margin: 0;
   margin-block-start: 0.6em;
   margin-block-end: 0.6em;
+  padding-inline-start: 28px;
 }
 
 .notion-list-disc {
   list-style-type: disc;
-  padding-inline-start: 1.7em;
   margin-top: 0;
   margin-bottom: 0;
 }
 .notion-list-numbered {
   list-style-type: decimal;
-  padding-inline-start: 1.6em;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -861,8 +860,17 @@ svg.notion-page-icon {
 }
 
 .notion-list li {
-  padding: 6px 0;
+  padding: 6px 2px;
   white-space: pre-wrap;
+}
+
+.notion-list li > .notion-list {
+  padding-inline-start: 26px;
+}
+
+.notion-list li > .notion-list > :not(li) {
+  margin-left: -28px;
+  width: calc(100% + 28px);
 }
 
 .notion-asset-wrapper {
@@ -1206,14 +1214,14 @@ svg.notion-page-icon {
 
 .notion-toggle {
   width: 100%;
-  padding: 3px 2px;
+  padding: 3px 2px 3px 28px;
 }
 .notion-toggle > summary {
+  list-style-position: outside;
+  padding-left: 2px;
+  padding-right: 2px;
   cursor: pointer;
   outline: none;
-}
-.notion-toggle > div {
-  margin-left: 1.1em;
 }
 
 .notion-collection {
@@ -1485,8 +1493,9 @@ svg.notion-page-icon {
 }
 
 .notion-property-checkbox {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  display: flex;
+  justify-content: center;
 }
 
 .notion-property-checkbox-checked {
@@ -1862,7 +1871,7 @@ svg.notion-page-icon {
 }
 
 .notion-to-do-children {
-  padding-left: 1.5em;
+  padding-left: 28px;
 }
 
 .notion-to-do-checked .notion-to-do-item {
@@ -1871,12 +1880,14 @@ svg.notion-page-icon {
 }
 
 .notion-to-do-body {
+  padding-left: 2px;
+  padding-right: 2px;
   white-space: pre-wrap;
   word-break: break-word;
 }
 
 .notion-to-do-item .notion-property-checkbox {
-  margin-right: 8px;
+  margin-right: 2px;
 }
 
 .notion-google-drive {
