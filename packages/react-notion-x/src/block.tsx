@@ -23,7 +23,13 @@ import { SyncPointerBlock } from './components/sync-pointer-block'
 import { Text } from './components/text'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
-import { cs, getListNumber, isUrl } from './utils'
+import {
+  cs,
+  getListNestingLevel,
+  getListNumber,
+  getListStyle,
+  isUrl
+} from './utils'
 
 interface BlockProps {
   block: types.Block
@@ -433,24 +439,57 @@ export function Block(props: BlockProps) {
           <ol
             start={start}
             className={cs('notion-list', 'notion-list-numbered', blockId)}
+            style={
+              block.type === 'numbered_list'
+                ? {
+                    listStyleType: getListStyle(
+                      getListNestingLevel(block.id, recordMap.block)
+                    )
+                  }
+                : undefined
+            }
           >
             {content}
           </ol>
         )
 
       let output: React.ReactNode | null = null
+      const isTopLevel =
+        block.type !== recordMap.block[block.parent_id]?.value?.type
+      const start = getListNumber(block.id, recordMap.block)
 
       if (block.content) {
-        output = (
-          <>
-            {block.properties && (
-              <li>
-                <Text value={block.properties.title} block={block} />
-              </li>
-            )}
-            {wrapList(children)}
-          </>
-        )
+        const listItem = block.properties ? (
+          <li>
+            <Text value={block.properties.title} block={block} />
+          </li>
+        ) : null
+
+        if (block.type === 'bulleted_list') {
+          output = (
+            <>
+              {listItem}
+              <ul className={cs('notion-list', 'notion-list-disc', blockId)}>
+                {children}
+              </ul>
+            </>
+          )
+        } else {
+          const nestingLevel = getListNestingLevel(block.id, recordMap.block)
+          output = (
+            <>
+              {listItem}
+              <ol
+                className={cs('notion-list', 'notion-list-numbered', blockId)}
+                style={{
+                  listStyleType: getListStyle(nestingLevel + 1)
+                }}
+              >
+                {children}
+              </ol>
+            </>
+          )
+        }
       } else {
         output = block.properties ? (
           <li>
@@ -458,10 +497,6 @@ export function Block(props: BlockProps) {
           </li>
         ) : null
       }
-
-      const isTopLevel =
-        block.type !== recordMap.block[block.parent_id]?.value?.type
-      const start = getListNumber(block.id, recordMap.block)
 
       return isTopLevel ? wrapList(output, start) : output
     }
