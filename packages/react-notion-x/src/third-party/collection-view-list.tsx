@@ -2,6 +2,7 @@ import type * as types from 'notion-types'
 import type * as React from 'react'
 import { type PageBlock } from 'notion-types'
 
+import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
 import { type CollectionViewProps } from '../types'
 import { CollectionGroup } from './collection-group'
@@ -72,6 +73,11 @@ function List({
                 key={blockId}
               >
                 <div className='notion-list-item-title'>
+                  <PageIcon
+                    block={block}
+                    className='notion-page-title-icon'
+                    hideDefaultIcon
+                  />
                   <Property
                     schema={titleSchema}
                     data={titleData}

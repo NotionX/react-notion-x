@@ -1657,6 +1657,8 @@ svg.notion-page-icon {
 }
 
 .notion-list-item-title {
+  display: flex;
+  align-items: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
