@@ -361,26 +361,28 @@ function evalFunctionFormula(
     case 'dateAdd': {
       const date = evalFormula(args[0]!, ctx) as Date
       const number = evalFormula(args[1]!, ctx) as number
-      const unit = evalFormula(args[1]!, ctx) as string
+      const unit = evalFormula(args[2]!, ctx) as string
       return add(date, { [unit]: number })
     }
 
     case 'dateBetween': {
       const date1 = evalFormula(args[0]!, ctx) as Date
       const date2 = evalFormula(args[1]!, ctx) as Date
-      const unit = evalFormula(args[1]!, ctx) as string
+      const unit = evalFormula(args[2]!, ctx) as string
       return (
-        intervalToDuration({
-          start: date2,
-          end: date1
-        }) as any
-      )[unit] as number
+        (
+          intervalToDuration({
+            start: date2,
+            end: date1
+          }) as any
+        )[unit] ?? 0
+      )
     }
 
     case 'dateSubtract': {
       const date = evalFormula(args[0]!, ctx) as Date
       const number = evalFormula(args[1]!, ctx) as number
-      const unit = evalFormula(args[1]!, ctx) as string
+      const unit = evalFormula(args[2]!, ctx) as string
       return sub(date, { [unit]: number })
     }
 
