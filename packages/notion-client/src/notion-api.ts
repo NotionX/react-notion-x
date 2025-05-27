@@ -203,73 +203,94 @@ export class NotionAPI {
     }
 
     if (fetchRelationPages) {
-      const maxIterations = 10 // Limit iterations to prevent infinite loops
-      for (let i = 0; i < maxIterations; ++i) {
-        const allRelationPageIdsInThisIteration = new Set<string>()
+      const newBlocks = await this.fetchRelationPages(recordMap, kyOptions)
+      recordMap.block = { ...recordMap.block, ...newBlocks }
+    }
 
-        for (const blockId of Object.keys(recordMap.block)) {
-          const blockValue = recordMap.block[blockId]?.value
-          if (
-            blockValue?.parent_table === 'collection' &&
-            blockValue?.parent_id
-          ) {
-            const collection = recordMap.collection[blockValue.parent_id]?.value
-            if (collection?.schema) {
-              for (const propertyId of Object.keys(
-                blockValue.properties || {}
-              )) {
-                const schema = collection.schema[propertyId]
-                if (schema?.type === 'relation') {
-                  const decorations = blockValue.properties![propertyId]
-                  if (decorations && Array.isArray(decorations)) {
-                    for (const decoration of decorations) {
-                      if (
-                        Array.isArray(decoration) &&
-                        decoration.length > 1 &&
-                        decoration[0] === '‣'
-                      ) {
-                        const pagePointer = decoration[1]?.[0]
-                        if (
-                          Array.isArray(pagePointer) &&
-                          pagePointer.length > 1 &&
-                          pagePointer[0] === 'p'
-                        ) {
-                          allRelationPageIdsInThisIteration.add(pagePointer[1])
-                        }
-                      }
-                    }
-                  }
-                }
+    return recordMap
+  }
+
+  fetchRelationPages = async (
+    recordMap: notion.ExtendedRecordMap,
+    kyOptions: KyOptions | undefined
+  ): Promise<notion.BlockMap> => {
+    const maxIterations = 10
+
+    for (let i = 0; i < maxIterations; ++i) {
+      const relationPageIdsThisIteration = new Set<string>()
+
+      for (const blockId of Object.keys(recordMap.block)) {
+        const blockValue = recordMap.block[blockId]?.value
+        if (
+          blockValue?.parent_table === 'collection' &&
+          blockValue?.parent_id
+        ) {
+          const collection = recordMap.collection[blockValue.parent_id]?.value
+          if (collection?.schema) {
+            const ids = this.extractRelationPageIdsFromBlock(
+              blockValue,
+              collection.schema
+            )
+            for (const id of ids) relationPageIdsThisIteration.add(id)
+          }
+        }
+      }
+
+      const missingRelationPageIds = Array.from(
+        relationPageIdsThisIteration
+      ).filter((id) => !recordMap.block[id]?.value)
+
+      if (!missingRelationPageIds.length) break
+
+      try {
+        const newBlocks = await this.getBlocks(
+          missingRelationPageIds,
+          kyOptions
+        ).then((res) => res.recordMap.block)
+        recordMap.block = { ...recordMap.block, ...newBlocks }
+      } catch (err: any) {
+        console.warn(
+          'NotionAPI getBlocks error during fetchRelationPages:',
+          err
+        )
+        // consider break or delay/retry here
+      }
+    }
+
+    return recordMap.block
+  }
+
+  extractRelationPageIdsFromBlock = (
+    blockValue: any,
+    collectionSchema: any
+  ): Set<string> => {
+    const pageIds = new Set<string>()
+
+    for (const propertyId of Object.keys(blockValue.properties || {})) {
+      const schema = collectionSchema[propertyId]
+      if (schema?.type === 'relation') {
+        const decorations = blockValue.properties[propertyId]
+        if (Array.isArray(decorations)) {
+          for (const decoration of decorations) {
+            if (
+              Array.isArray(decoration) &&
+              decoration.length > 1 &&
+              decoration[0] === '‣'
+            ) {
+              const pagePointer = decoration[1]?.[0]
+              if (
+                Array.isArray(pagePointer) &&
+                pagePointer.length > 1 &&
+                pagePointer[0] === 'p'
+              ) {
+                pageIds.add(pagePointer[1])
               }
             }
           }
         }
-
-        const pendingRelationPageIds = Array.from(
-          allRelationPageIdsInThisIteration
-        ).filter((id) => !recordMap.block[id]?.value)
-
-        if (!pendingRelationPageIds.length) {
-          break // No new related pages to fetch
-        }
-
-        try {
-          const newBlocks = await this.getBlocks(
-            pendingRelationPageIds,
-            kyOptions
-          ).then((res) => res.recordMap.block)
-          recordMap.block = { ...recordMap.block, ...newBlocks }
-        } catch (err: any) {
-          console.warn(
-            'NotionAPI getBlocks error during fetchRelationPages:',
-            err.message
-          )
-          //TODO: Decide if we should break or continue if some blocks fail
-        }
       }
     }
-
-    return recordMap
+    return pageIds
   }
 
   public async addSignedUrls({
