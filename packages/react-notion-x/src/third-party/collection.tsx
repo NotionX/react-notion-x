@@ -115,10 +115,7 @@ function CollectionViewBlock({
     [collectionState, setCollectionState]
   )
 
-  let { width: windowWidth } = useWindowSize()
-  if (isServer) {
-    windowWidth = 1024
-  }
+  const { width: windowWidth } = useWindowSize()
 
   const collection = recordMap.collection[collectionId]?.value
   const collectionView = recordMap.collection_view[collectionViewId]?.value
@@ -152,7 +149,7 @@ function CollectionViewBlock({
     }
 
     const padding =
-      isServer && !isMounted ? 96 : Math.trunc((width - notionBodyWidth) / 2)
+      isServer || !isMounted ? 96 : Math.trunc((width - notionBodyWidth) / 2)
     style.paddingLeft = padding
     style.paddingRight = padding
 
@@ -161,7 +158,12 @@ function CollectionViewBlock({
       width,
       padding
     }
-  }, [windowWidth, parentPage, collectionView?.type, isMounted])
+  }, [
+    collectionView?.type,
+    windowWidth,
+    parentPage?.format?.page_full_width,
+    isMounted
+  ])
 
   // console.log({
   //   width,
