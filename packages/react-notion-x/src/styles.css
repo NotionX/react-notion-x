@@ -531,6 +531,16 @@
   opacity: 1;
 }
 
+/* Add specific styles for headings in sync blocks */
+.notion-sync-block .notion-h {
+  display: block;
+}
+
+/* Preserve original styles for toggle headings */
+details.notion-toggle .notion-h {
+  display: inline;
+}
+
 .notion-hash-link {
   opacity: 0;
   text-decoration: none;
