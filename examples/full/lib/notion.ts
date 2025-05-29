@@ -21,7 +21,7 @@ if (useOfficialNotionAPI) {
 }
 
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
-  const recordMap = await notion.getPage(pageId)
+  const recordMap = await notion.getPage(pageId, { fetchRelationPages: true })
 
   if (previewImagesEnabled) {
     const previewImageMap = await getPreviewImageMap(recordMap)
