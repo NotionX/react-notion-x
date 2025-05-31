@@ -45,16 +45,16 @@ export const useWindowSize = (
   initialHeight = Infinity
 ) => {
   const [state, setState] = useRafState<{ width: number; height: number }>({
-    width: isBrowser ? window.innerWidth : initialWidth,
-    height: isBrowser ? window.innerHeight : initialHeight
+    width: isBrowser ? document.documentElement.clientWidth : initialWidth,
+    height: isBrowser ? document.documentElement.clientHeight : initialHeight
   })
 
   useEffect((): (() => void) | void => {
     if (isBrowser) {
       const handler = () => {
         setState({
-          width: window.innerWidth,
-          height: window.innerHeight
+          width: document.documentElement.clientWidth,
+          height: document.documentElement.clientHeight
         })
       }
 
