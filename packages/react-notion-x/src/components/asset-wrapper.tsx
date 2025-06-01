@@ -11,6 +11,12 @@ import { cs } from '../utils'
 import { Asset } from './asset'
 import { Text } from './text'
 
+interface URLInfo {
+  id?: string
+  type: 'page' | 'external'
+  url: string
+}
+
 const urlStyle = { width: '100%' }
 
 export function AssetWrapper({
@@ -27,7 +33,7 @@ export function AssetWrapper({
   const imageHyperlink = (value as ImageBlock).format?.image_hyperlink
 
   const availableLinks = [imageHyperlink, caption].filter(Boolean) as string[]
-  const urlInfo = getURL(value, availableLinks)
+  const urlInfo = getURLInfo(value, availableLinks)
 
   const figure = (
     <figure
@@ -51,15 +57,15 @@ export function AssetWrapper({
   // allows for an image to be a link
   if (urlInfo?.url) {
     const urlHostName = extractHostname(urlInfo.url)
+    const isExternalLink =
+      urlHostName && urlHostName !== rootDomain && !caption?.startsWith('/')
+    const href = urlInfo.type === 'page' ? mapPageUrl(urlInfo.id!) : urlInfo.url
+
     return (
       <components.PageLink
         style={urlStyle}
-        href={urlInfo.type === 'page' ? mapPageUrl(urlInfo.url) : urlInfo.url}
-        target={
-          urlHostName && urlHostName !== rootDomain && !caption?.startsWith('/')
-            ? 'blank_'
-            : null
-        }
+        href={href}
+        target={isExternalLink ? 'blank_' : null}
       >
         {figure}
       </components.PageLink>
@@ -69,14 +75,10 @@ export function AssetWrapper({
   return figure
 }
 
-function getURL(
+function getURLInfo(
   block: BaseContentBlock,
   availableLinks: string[]
-): {
-  id?: string
-  type: 'page' | 'external'
-  url: string
-} | null {
+): URLInfo | null {
   if (block.type !== 'image') {
     return null
   }
@@ -84,7 +86,7 @@ function getURL(
   for (const link of availableLinks) {
     if (!link) continue
 
-    const id = parsePageId(link, { uuid: true })
+    const id = parsePageId(link, { uuid: false })
     const isPage = link.charAt(0) === '/' && id
 
     if (isPage || isValidURL(link)) {
@@ -97,7 +99,6 @@ function getURL(
   }
   return null
 }
-
 function isValidURL(str: string) {
   // TODO: replace this with a more well-tested package
   const pattern = new RegExp(
@@ -111,7 +112,6 @@ function isValidURL(str: string) {
   )
   return !!pattern.test(str)
 }
-
 function extractHostname(url?: string) {
   try {
     const hostname = new URL(url!).hostname
