@@ -63,6 +63,18 @@ export function LazyImage({
     setIsLazyLoaded(true)
   }, [])
 
+  const lazyImageRef = React.useCallback(
+    (image: HTMLImageElement) => {
+      attachZoomRef?.(image)
+
+      // if the image is cached, we can trigger the onLoadLazy immediately
+      if (image.complete) {
+        onLoadLazy()
+      }
+    },
+    [attachZoomRef, onLoadLazy]
+  )
+
   if (previewImage) {
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
 
@@ -119,7 +131,7 @@ export function LazyImage({
             className='lazy-image-real'
             src={src}
             alt={alt}
-            ref={attachZoomRef}
+            ref={lazyImageRef}
             style={{
               ...style,
               ...imgStyle
