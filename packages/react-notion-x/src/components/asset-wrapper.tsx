@@ -10,11 +10,18 @@ import { cs } from '../utils'
 import { Asset } from './asset'
 import { Text } from './text'
 
-interface URLInfo {
-  id?: string
-  type: 'page' | 'external'
+interface PageInfo {
+  type: 'page'
+  id: string
   url: string
 }
+
+interface ExternalInfo {
+  type: 'external'
+  url: string
+}
+
+type URLInfo = PageInfo | ExternalInfo | null
 
 const urlStyle = { width: '100%' }
 
@@ -77,27 +84,32 @@ export function AssetWrapper({
 
   return figure
 }
-
-function getURLInfo(block: BaseContentBlock, link?: string): URLInfo | null {
-  if (!link) {
+function getURLInfo(block: BaseContentBlock, link?: string): URLInfo {
+  if (!link || block.type !== 'image') {
     return null
   }
 
-  if (block.type !== 'image') {
-    return null
-  }
   const id = parsePageId(link, { uuid: true })
   const isPage = link.charAt(0) === '/' && id
 
-  if (isPage || isValidURL(link)) {
+  if (isPage) {
     return {
-      id: id ?? undefined,
-      type: isValidURL(link) ? 'external' : 'page',
+      type: 'page' as const,
+      id,
       url: link
     }
   }
+
+  if (isValidURL(link)) {
+    return {
+      type: 'external' as const,
+      url: link
+    }
+  }
+
   return null
 }
+
 function isValidURL(str: string) {
   // TODO: replace this with a more well-tested package
   const pattern = new RegExp(
