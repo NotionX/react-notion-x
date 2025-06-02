@@ -1,4 +1,3 @@
-import type * as React from 'react'
 import {
   type BaseContentBlock,
   type Block,
@@ -31,9 +30,9 @@ export function AssetWrapper({
 
   const caption = value.properties?.caption?.[0]?.[0]
   const imageHyperlink = (value as ImageBlock).format?.image_hyperlink
+  const linkToUse = imageHyperlink || caption || ''
 
-  const availableLinks = [imageHyperlink, caption].filter(Boolean) as string[]
-  const urlInfo = getURLInfo(value, availableLinks)
+  const urlInfo = getURLInfo(value, linkToUse)
 
   const figure = (
     <figure
@@ -59,7 +58,11 @@ export function AssetWrapper({
     const urlHostName = extractHostname(urlInfo.url)
     const isExternalLink =
       urlHostName && urlHostName !== rootDomain && !caption?.startsWith('/')
-    const href = urlInfo.type === 'page' ? mapPageUrl(urlInfo.id!) : urlInfo.url
+
+    const href =
+      urlInfo.type === 'page' && urlInfo.id
+        ? mapPageUrl(urlInfo.id)
+        : urlInfo.url
 
     return (
       <components.PageLink
@@ -75,26 +78,22 @@ export function AssetWrapper({
   return figure
 }
 
-function getURLInfo(
-  block: BaseContentBlock,
-  availableLinks: string[]
-): URLInfo | null {
-  if (block.type !== 'image') {
+function getURLInfo(block: BaseContentBlock, link?: string): URLInfo | null {
+  if (!link) {
     return null
   }
 
-  for (const link of availableLinks) {
-    if (!link) continue
+  if (block.type !== 'image') {
+    return null
+  }
+  const id = parsePageId(link, { uuid: true })
+  const isPage = link.charAt(0) === '/' && id
 
-    const id = parsePageId(link, { uuid: false })
-    const isPage = link.charAt(0) === '/' && id
-
-    if (isPage || isValidURL(link)) {
-      return {
-        id: id ?? undefined,
-        type: isValidURL(link) ? 'external' : 'page',
-        url: link
-      }
+  if (isPage || isValidURL(link)) {
+    return {
+      id: id ?? undefined,
+      type: isValidURL(link) ? 'external' : 'page',
+      url: link
     }
   }
   return null
