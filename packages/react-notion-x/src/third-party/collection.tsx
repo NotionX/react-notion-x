@@ -4,7 +4,7 @@ import {
   getBlockParentPage,
   getTextContent
 } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 
 import { PageIcon } from '../components/page-icon'
 import {

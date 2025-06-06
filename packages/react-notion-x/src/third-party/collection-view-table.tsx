@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type React from 'react'
 
 import { useNotionContext } from '../context'
 import { type CollectionViewProps } from '../types'

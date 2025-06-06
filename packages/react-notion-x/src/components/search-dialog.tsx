@@ -1,7 +1,7 @@
 import type * as types from 'notion-types'
 import throttle from 'lodash.throttle'
 import { getBlockParentPage, getBlockTitle } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 
 import { NotionContextConsumer, NotionContextProvider } from '../context'
 import { ClearIcon } from '../icons/clear-icon'

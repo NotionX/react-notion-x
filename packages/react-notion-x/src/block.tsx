@@ -7,7 +7,7 @@ import {
   getTextContent,
   uuidToId
 } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Audio } from './components/audio'

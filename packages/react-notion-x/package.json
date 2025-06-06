@@ -76,6 +76,8 @@
     "date-fns": "catalog:",
     "format-number": "catalog:",
     "lodash.throttle": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-pdf": "^9.1.1"
   },
   "peerDependencies": {

@@ -374,7 +374,7 @@ importers:
         version: 1.0.7
       '@matejmazur/react-katex':
         specifier: 'catalog:'
-        version: 3.1.3(katex@0.16.21)(react@19.0.0)
+        version: 3.1.3(katex@0.16.21)(react@19.1.0)
       katex:
         specifier: 'catalog:'
         version: 0.16.21
@@ -387,27 +387,21 @@ importers:
       prismjs:
         specifier: 'catalog:'
         version: 1.30.0
-      react:
-        specifier: '>=18'
-        version: 19.0.0
-      react-dom:
-        specifier: '>=18'
-        version: 19.0.0(react@19.0.0)
       react-fast-compare:
         specifier: 'catalog:'
         version: 3.2.2
       react-hotkeys-hook:
         specifier: 'catalog:'
-        version: 4.6.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 4.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-image:
         specifier: 'catalog:'
-        version: 4.1.0(@babel/runtime@7.27.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 4.1.0(@babel/runtime@7.27.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-lazy-images:
         specifier: 'catalog:'
-        version: 1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-modal:
         specifier: 'catalog:'
-        version: 3.16.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 3.16.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     devDependencies:
       '@types/lodash.throttle':
         specifier: 'catalog:'
@@ -433,10 +427,16 @@ importers:
       lodash.throttle:
         specifier: 'catalog:'
         version: 4.1.1
+      react:
+        specifier: 'catalog:'
+        version: 19.1.0
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.1.0(react@19.1.0)
     optionalDependencies:
       react-pdf:
         specifier: ^9.2.1
-        version: 9.2.1(@types/react@19.1.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 9.2.1(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
 packages:
 
@@ -6214,11 +6214,6 @@ packages:
       typescript:
         optional: true
 
-  react-dom@19.0.0:
-    resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
-    peerDependencies:
-      react: ^19.0.0
-
   react-dom@19.1.0:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
@@ -6302,10 +6297,6 @@ packages:
     resolution: {integrity: sha512-g2kfPjSRTOKeJtaQF5EMuSTmp/q8I0qdDs/pZ2qLXZjCWExDT/JgjxSlyM65NyNzsz8072PDpvlO/sIXwwVpdQ==}
     peerDependencies:
       react: '>=17'
-
-  react@19.0.0:
-    resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
-    engines: {node: '>=0.10.0'}
 
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
@@ -6529,9 +6520,6 @@ packages:
   saxes@5.0.1:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}
     engines: {node: '>=10'}
-
-  scheduler@0.25.0:
-    resolution: {integrity: sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==}
 
   scheduler@0.26.0:
     resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
@@ -9232,10 +9220,10 @@ snapshots:
       - supports-color
     optional: true
 
-  '@matejmazur/react-katex@3.1.3(katex@0.16.21)(react@19.0.0)':
+  '@matejmazur/react-katex@3.1.3(katex@0.16.21)(react@19.1.0)':
     dependencies:
       katex: 0.16.21
-      react: 19.0.0
+      react: 19.1.0
 
   '@next/env@15.3.3': {}
 
@@ -14326,11 +14314,6 @@ snapshots:
       - supports-color
       - vue-template-compiler
 
-  react-dom@19.0.0(react@19.0.0):
-    dependencies:
-      react: 19.0.0
-      scheduler: 0.25.0
-
   react-dom@19.1.0(react@19.1.0):
     dependencies:
       react: 19.1.0
@@ -14340,22 +14323,22 @@ snapshots:
 
   react-fast-compare@3.2.2: {}
 
-  react-hotkeys-hook@4.6.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-hotkeys-hook@4.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
-  react-image@4.1.0(@babel/runtime@7.27.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-image@4.1.0(@babel/runtime@7.27.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@babel/runtime': 7.27.6
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
-  react-intersection-observer@6.4.2(react@19.0.0):
+  react-intersection-observer@6.4.2(react@19.1.0):
     dependencies:
       '@babel/runtime': 7.26.10
       invariant: 2.2.4
-      react: 19.0.0
+      react: 19.1.0
 
   react-is@16.13.1: {}
 
@@ -14363,25 +14346,25 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-lazy-images@1.1.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-lazy-images@1.1.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      react-intersection-observer: 6.4.2(react@19.0.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      react-intersection-observer: 6.4.2(react@19.1.0)
       unionize: 2.2.0
 
   react-lifecycles-compat@3.0.4: {}
 
-  react-modal@3.16.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-modal@3.16.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       exenv: 1.2.2
       prop-types: 15.8.1
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
       react-lifecycles-compat: 3.0.4
       warning: 4.0.3
 
-  react-pdf@9.2.1(@types/react@19.1.6)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-pdf@9.2.1(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       clsx: 2.1.1
       dequal: 2.0.3
@@ -14389,8 +14372,8 @@ snapshots:
       make-event-props: 1.6.2
       merge-refs: 1.3.0(@types/react@19.1.6)
       pdfjs-dist: 4.8.69
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
       tiny-invariant: 1.3.3
       warning: 4.0.3
     optionalDependencies:
@@ -14489,8 +14472,6 @@ snapshots:
   react-tweet-embed@2.0.0(react@19.1.0):
     dependencies:
       react: 19.1.0
-
-  react@19.0.0: {}
 
   react@19.1.0: {}
 
@@ -14727,8 +14708,6 @@ snapshots:
   saxes@5.0.1:
     dependencies:
       xmlchars: 2.2.0
-
-  scheduler@0.25.0: {}
 
   scheduler@0.26.0: {}
 
