@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type React from 'react'
 import { type BaseContentBlock, type Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
@@ -7,7 +7,7 @@ import { getUrlParams, getYoutubeId } from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
-const isServer = typeof window === 'undefined'
+const isServer = !globalThis.window
 
 const supportedAssetTypes = new Set([
   'replit',

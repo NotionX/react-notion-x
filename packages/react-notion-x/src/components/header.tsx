@@ -1,6 +1,6 @@
 import type * as types from 'notion-types'
 import { getPageBreadcrumbs } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 import { useNotionContext } from '../context'

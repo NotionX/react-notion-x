@@ -4,7 +4,7 @@ import {
   type ExternalObjectInstance
 } from 'notion-types'
 import { parsePageId } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 
 import { useNotionContext } from '../context'
 import { formatDate, getHashFragmentValue } from '../utils'

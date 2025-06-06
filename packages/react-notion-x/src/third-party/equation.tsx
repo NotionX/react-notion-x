@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type React from 'react'
 import Katex from '@matejmazur/react-katex'
 import { type EquationBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'

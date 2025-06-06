@@ -12,24 +12,25 @@
     "test:lint": "eslint ."
   },
   "dependencies": {
-    "@notionhq/client": "^2.3.0",
-    "classnames": "^2.5.1",
-    "ky": "^1.7.5",
-    "lqip-modern": "^2.1.0",
-    "next": "^15.2.3",
+    "@notionhq/client": "catalog:",
+    "classnames": "catalog:",
+    "ky": "catalog:",
+    "lqip-modern": "catalog:",
+    "next": "catalog:",
     "notion-client": "workspace:*",
     "notion-compat": "workspace:*",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
-    "p-map": "^7.0.3",
-    "p-memoize": "^7.1.1",
-    "prismjs": "^1.30.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "p-map": "catalog:",
+    "p-memoize": "catalog:",
+    "prismjs": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-notion-x": "workspace:*",
-    "react-tweet-embed": "^2.0.0"
+    "react-tweet-embed": "catalog:"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "@types/prismjs": "catalog:",
+    "cross-env": "catalog:"
   }
 }

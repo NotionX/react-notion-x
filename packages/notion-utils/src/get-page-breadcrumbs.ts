@@ -42,8 +42,6 @@ export const getPageBreadcrumbs = (
     }
 
     currentPageId = parentId
-
-    // eslint-disable-next-line no-constant-condition
   } while (true)
 
   breadcrumbs.reverse()

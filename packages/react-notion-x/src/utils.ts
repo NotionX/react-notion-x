@@ -84,7 +84,7 @@ export const getHashFragmentValue = (url: string) => {
   return url.includes('#') ? url.replace(/^.+(#.+)$/, '$1') : ''
 }
 
-export const isBrowser = typeof window !== 'undefined'
+export const isBrowser = !!globalThis.window
 
 const youtubeDomains = new Set([
   'youtu.be',
