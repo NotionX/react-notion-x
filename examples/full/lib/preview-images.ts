@@ -42,7 +42,7 @@ async function createPreviewImage(url: string): Promise<PreviewImage | null> {
       originalHeight: result.metadata.originalHeight,
       dataURIBase64: result.metadata.dataURIBase64
     }
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === 'Input buffer contains unsupported image format') {
       return null
     }
