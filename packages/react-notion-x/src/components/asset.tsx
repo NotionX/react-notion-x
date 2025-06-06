@@ -275,7 +275,7 @@ export function Asset({
     }
   } else if (block.type === 'image') {
     // console.log('image', block)
-    //kind of a hack for now. New file.notion.so images aren't signed correctly
+    // TODO: kind of a hack for now. New file.notion.so images aren't signed correctly
     if (source.includes('file.notion.so')) {
       source = block.properties?.source?.[0]?.[0]
     }

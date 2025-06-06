@@ -90,6 +90,7 @@ export function wrapNextLink(NextLink: any) {
         scroll={scroll}
         shallow={shallow}
         locale={locale}
+        legacyBehavior
       >
         <a {...linkProps} />
       </NextLink>
