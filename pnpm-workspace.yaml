@@ -4,6 +4,7 @@ packages:
 onlyBuiltDependencies:
   - simple-git-hooks
 catalog:
+  "@fisch0920/config": ^1.1.2
   "@fisch0920/eslint-config": ^1.4.0
   "@fisch0920/medium-zoom": ^1.0.7
   "@matejmazur/react-katex": ^3.1.3

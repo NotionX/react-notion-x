@@ -26,7 +26,7 @@
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@fisch0920/config": "^1.1.1",
+    "@fisch0920/config": "catalog:",
     "@total-typescript/ts-reset": "catalog:",
     "@types/node": "catalog:",
     "bumpp": "catalog:",
