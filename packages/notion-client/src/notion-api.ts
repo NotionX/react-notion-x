@@ -530,6 +530,7 @@ export class NotionAPI {
         loader
       },
       kyOptions: {
+        timeout: 60_000,
         ...kyOptions,
         searchParams: {
           // TODO: spread kyOptions?.searchParams
