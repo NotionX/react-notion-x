@@ -110,6 +110,7 @@ export interface BaseBlock {
   created_time: number
   last_edited_time: number
   alive: boolean
+  has_children: boolean
   created_by_table: string
   created_by_id: ID
   last_edited_by_table: string
