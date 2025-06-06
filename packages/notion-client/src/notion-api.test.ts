@@ -3,6 +3,7 @@ import { expect, test } from 'vitest'
 import { NotionAPI } from './notion-api'
 
 const pageIdFixturesSuccess = [
+  '78fc5a4b88d74b0e824e29407e9f1ec1',
   '067dd719-a912-471e-a9a3-ac10710e7fdf',
   '067dd719a912471ea9a3ac10710e7fdf',
   'https://www.notion.so/saasifysh/Embeds-5d4e290ca4604d8fb809af806a6c1749',
@@ -32,7 +33,7 @@ for (const pageId of pageIdFixturesSuccess) {
     },
     async () => {
       const api = new NotionAPI()
-      const page = await api.getPage(pageId)
+      const page = await api.getPage(pageId, { throwOnCollectionErrors: true })
 
       expect(page).toBeTruthy()
       expect(page.block).toBeTruthy()

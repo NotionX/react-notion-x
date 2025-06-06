@@ -187,7 +187,7 @@ export function PropertyImpl(props: IPropertyProps) {
 
         if (inline) {
           try {
-            const url = new URL(d[0]?.[0]!)
+            const url = new URL(d[0]![0]!)
             d[0]![0] = url.hostname.replace(/^www\./, '')
           } catch {
             // ignore invalid urls

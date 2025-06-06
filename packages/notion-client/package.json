@@ -27,9 +27,9 @@
     "test:unit": "vitest run"
   },
   "dependencies": {
-    "ky": "^1.7.5",
+    "ky": "catalog:",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
-    "p-map": "^7.0.3"
+    "p-map": "catalog:"
   }
 }

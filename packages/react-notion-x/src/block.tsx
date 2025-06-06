@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type * as types from 'notion-types'
 import {
   getBlockCollectionId,

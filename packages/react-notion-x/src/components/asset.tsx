@@ -7,7 +7,7 @@ import { getUrlParams, getYoutubeId } from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
-const isServer = typeof window === 'undefined'
+const isServer = !globalThis.window
 
 const supportedAssetTypes = new Set([
   'replit',

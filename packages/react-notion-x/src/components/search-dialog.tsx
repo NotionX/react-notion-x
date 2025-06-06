@@ -26,7 +26,7 @@ export class SearchDialog extends React.Component<{
     this._inputRef = React.createRef()
   }
 
-  state: {
+  override state: {
     isLoading: boolean
     query: string
     searchResult: any | null
@@ -41,12 +41,12 @@ export class SearchDialog extends React.Component<{
   _inputRef: any
   _search: any
 
-  componentDidMount() {
+  override componentDidMount() {
     this._search = throttle(this._searchImpl.bind(this), 1000)
-    this._warmupSearch()
+    void this._warmupSearch()
   }
 
-  render() {
+  override render() {
     const { isOpen, onClose } = this.props
     const { isLoading, query, searchResult, searchError } = this.state
 

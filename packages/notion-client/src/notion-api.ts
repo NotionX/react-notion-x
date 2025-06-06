@@ -51,6 +51,8 @@ export class NotionAPI {
       signFileUrls = true,
       chunkLimit = 100,
       chunkNumber = 0,
+      throwOnCollectionErrors = false,
+      collectionReducerLimit = 999,
       kyOptions
     }: {
       concurrency?: number
@@ -59,6 +61,8 @@ export class NotionAPI {
       signFileUrls?: boolean
       chunkLimit?: number
       chunkNumber?: number
+      throwOnCollectionErrors?: boolean
+      collectionReducerLimit?: number
       kyOptions?: KyOptions
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
@@ -84,7 +88,6 @@ export class NotionAPI {
     recordMap.signed_urls = {}
 
     if (fetchMissingBlocks) {
-      // eslint-disable-next-line no-constant-condition
       while (true) {
         // fetch any missing content blocks
         const pendingBlockIds = getPageContentBlockIds(recordMap).filter(
@@ -146,6 +149,7 @@ export class NotionAPI {
               collectionViewId,
               collectionView,
               {
+                limit: collectionReducerLimit,
                 kyOptions
               }
             )
@@ -180,10 +184,26 @@ export class NotionAPI {
               [collectionViewId]: (collectionData.result as any)?.reducerResults
             }
           } catch (err: any) {
-            // It's possible for public pages to link to private collections, in which case
-            // Notion returns a 400 error
-            console.warn('NotionAPI collectionQuery error', pageId, err.message)
-            console.error(err)
+            // It's possible for public pages to link to private collections,
+            // in which case Notion returns a 400 error. This may be that or it
+            // may be something else.
+            console.warn(
+              'NotionAPI collectionQuery error',
+              { pageId, collectionId, collectionViewId },
+              err.message
+            )
+
+            if (throwOnCollectionErrors) {
+              throw err
+              // throw new Error(
+              //   `NotionAPI error fetching collectionQuery for page "${pageId}" collection "${collectionId}" view "${collectionViewId}": ${err.message}`,
+              //   {
+              //     cause: err
+              //   }
+              // )
+            } else {
+              console.error(err)
+            }
           }
         },
         {
@@ -320,7 +340,7 @@ export class NotionAPI {
     collectionViewId: string,
     collectionView: any,
     {
-      limit = 9999,
+      limit = 999,
       searchQuery = '',
       userTimeZone = this._userTimeZone,
       loadContentCover = true,
@@ -354,7 +374,7 @@ export class NotionAPI {
       )
     }
 
-    //Fixes formula filters from not working
+    // Fixes formula filters from not working
     if (collectionView?.query2?.filter?.filters) {
       filters.push(...collectionView.query2.filter.filters)
     }
@@ -503,9 +523,19 @@ export class NotionAPI {
         collectionView: {
           id: collectionViewId
         },
+        source: {
+          type: 'collection',
+          id: collectionId
+        },
         loader
       },
-      kyOptions
+      kyOptions: {
+        ...kyOptions,
+        searchParams: {
+          // TODO: spread kyOptions?.searchParams
+          src: 'initial_load'
+        }
+      }
     })
   }
 
@@ -607,13 +637,21 @@ export class NotionAPI {
 
     const url = `${this._apiBaseUrl}/${endpoint}`
 
-    return ky
-      .post(url, {
-        ...this._kyOptions,
-        ...kyOptions,
-        json: body,
-        headers
-      })
-      .json<T>()
+    const res = await ky.post(url, {
+      mode: 'no-cors',
+      ...this._kyOptions,
+      ...kyOptions,
+      json: body,
+      headers
+    })
+
+    // TODO: we're awaiting the first fetch and then separately awaiting
+    // `res.json()` because there seems to be some weird error which repros
+    // sporadically when loading collections where the body is already used.
+    // No idea why, but from my testing, separating these into two separate
+    // steps seems to fix the issue locally for me...
+    // console.log(endpoint, { bodyUsed: res.bodyUsed })
+
+    return res.json<T>()
   }
 }

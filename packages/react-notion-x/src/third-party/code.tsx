@@ -63,7 +63,7 @@ export function Code({
   }, [codeRef])
 
   const onClickCopyToClipboard = React.useCallback(() => {
-    copyToClipboard(content)
+    void copyToClipboard(content)
     setIsCopied(true)
 
     if (copyTimeout.current) {
