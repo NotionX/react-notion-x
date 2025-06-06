@@ -84,7 +84,7 @@ export function NotionRenderer({
 }) {
   const zoom = React.useMemo(
     () =>
-      typeof window !== 'undefined' &&
+      !!globalThis.window &&
       mediumZoom({
         background: 'rgba(0, 0, 0, 0.8)',
         minZoomScale: 2.0,

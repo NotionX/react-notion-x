@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type React from 'react'
 import { type GoogleDriveBlock } from 'notion-types'
 
 import { useNotionContext } from '../context'

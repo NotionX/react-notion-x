@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 import { type CollectionViewProps } from '../types'
 import { CollectionViewBoard } from './collection-view-board'

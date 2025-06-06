@@ -1,6 +1,6 @@
 import type * as types from 'notion-types'
 import { type PageBlock } from 'notion-types'
-import * as React from 'react'
+import React from 'react'
 
 import { useNotionContext } from '../context'
 import { EmptyIcon } from '../icons/empty-icon'

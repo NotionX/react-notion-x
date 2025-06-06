@@ -1,8 +1,5 @@
-import {
-  type BaseContentBlock,
-  type Block,
-  type ImageBlock
-} from 'notion-types'
+import type React from 'react'
+import { type BaseContentBlock, type Block, type ImageBlock } from 'notion-types'
 import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '..'

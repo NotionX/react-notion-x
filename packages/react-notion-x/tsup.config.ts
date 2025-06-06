@@ -18,5 +18,5 @@ export default defineConfig({
   dts: true,
   minify: false,
   sourcemap: true,
-  external: ['react-pdf']
+  external: ['react-pdf', 'react', 'react-dom']
 })

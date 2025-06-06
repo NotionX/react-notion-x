@@ -11,7 +11,7 @@ export const getPageImageUrls = (
   {
     mapImageUrl
   }: {
-    mapImageUrl: (url: string, block: types.Block) => string | null
+    mapImageUrl: (url: string, block: types.Block) => string | undefined
   }
 ): string[] => {
   const blockIds = Object.keys(recordMap.block)

@@ -68,7 +68,7 @@ export class NotionCompatAPI {
       }
 
       pendingBlockIds.add(blockId)
-      queue.add(async () => {
+      void queue.add(async () => {
         try {
           let partialBlock = blockMap[blockId]
           if (!partialBlock) {
@@ -90,7 +90,7 @@ export class NotionCompatAPI {
               const page = partialPage as types.Page
               switch (page.parent?.type) {
                 case 'page_id':
-                  processBlock(page.parent.page_id, {
+                  void processBlock(page.parent.page_id, {
                     shallow: true
                   })
                   if (!parentMap[blockId]) {
@@ -99,7 +99,7 @@ export class NotionCompatAPI {
                   break
 
                 case 'database_id':
-                  processBlock(page.parent.database_id, {
+                  void processBlock(page.parent.database_id, {
                     shallow: true
                   })
                   if (!parentMap[blockId]) {
@@ -144,13 +144,13 @@ export class NotionCompatAPI {
                   switch (richTextMention.mention?.type) {
                     case 'page': {
                       const pageId = richTextMention.mention.page.id
-                      processBlock(pageId, { shallow: true })
+                      void processBlock(pageId, { shallow: true })
                       break
                     }
 
                     case 'database': {
                       const databaseId = richTextMention.mention.database.id
-                      processBlock(databaseId, { shallow: true })
+                      void processBlock(databaseId, { shallow: true })
                       break
                     }
                   }
@@ -160,13 +160,13 @@ export class NotionCompatAPI {
               if (childBlock.type === 'link_to_page') {
                 switch (childBlock.link_to_page?.type) {
                   case 'page_id':
-                    processBlock(childBlock.link_to_page.page_id, {
+                    void processBlock(childBlock.link_to_page.page_id, {
                       shallow: true
                     })
                     break
 
                   case 'database_id':
-                    processBlock(childBlock.link_to_page.database_id, {
+                    void processBlock(childBlock.link_to_page.database_id, {
                       shallow: true
                     })
                     break
@@ -177,7 +177,7 @@ export class NotionCompatAPI {
                 childBlock.has_children &&
                 childBlock.type !== 'child_database'
               ) {
-                processBlock(childBlock.id)
+                void processBlock(childBlock.id)
               }
             }
           }

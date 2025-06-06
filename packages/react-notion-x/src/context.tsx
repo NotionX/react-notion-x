@@ -1,6 +1,6 @@
 import { type ExtendedRecordMap } from 'notion-types'
 import { defaultMapImageUrl, defaultMapPageUrl } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Checkbox as DefaultCheckbox } from './components/checkbox'

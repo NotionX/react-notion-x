@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type * as types from 'notion-types'
 import {
   getBlockCollectionId,
@@ -8,7 +7,7 @@ import {
   getTextContent,
   uuidToId
 } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Audio } from './components/audio'

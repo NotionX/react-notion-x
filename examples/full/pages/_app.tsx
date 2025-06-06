@@ -7,7 +7,7 @@ import 'react-notion-x/src/styles.css'
 // app styles
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: any) {
   return <Component {...pageProps} />
 }
 

@@ -38,30 +38,30 @@ function off<T extends Window | Document | HTMLElement | EventTarget>(
   }
 }
 
-const isBrowser = typeof window !== 'undefined'
+const isBrowser = !!globalThis.window
 
 export const useWindowSize = (
   initialWidth = Infinity,
   initialHeight = Infinity
 ) => {
   const [state, setState] = useRafState<{ width: number; height: number }>({
-    width: isBrowser ? window.innerWidth : initialWidth,
-    height: isBrowser ? window.innerHeight : initialHeight
+    width: isBrowser ? globalThis.window.innerWidth : initialWidth,
+    height: isBrowser ? globalThis.window.innerHeight : initialHeight
   })
 
   useEffect((): (() => void) | void => {
     if (isBrowser) {
       const handler = () => {
         setState({
-          width: window.innerWidth,
-          height: window.innerHeight
+          width: globalThis.window.innerWidth,
+          height: globalThis.window.innerHeight
         })
       }
 
-      on(window, 'resize', handler)
+      on(globalThis.window, 'resize', handler)
 
       return () => {
-        off(window, 'resize', handler)
+        off(globalThis.window, 'resize', handler)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

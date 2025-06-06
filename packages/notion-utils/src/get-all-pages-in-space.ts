@@ -46,7 +46,7 @@ export async function getAllPagesInSpace(
     if (pageId && !pages[pageId] && !pendingPageIds.has(pageId)) {
       pendingPageIds.add(pageId)
 
-      queue.add(async () => {
+      void queue.add(async () => {
         try {
           if (
             targetPageId &&
@@ -93,8 +93,9 @@ export async function getAllPagesInSpace(
             }
 
             return true
-          }))
-            processPage(subPageId)
+          })) {
+            void processPage(subPageId)
+          }
 
           // traverse collection item pages as they may contain subpages as well
           if (traverseCollections) {
@@ -106,7 +107,7 @@ export async function getAllPagesInSpace(
 
                 if (blockIds) {
                   for (const collectionItemId of blockIds) {
-                    processPage(collectionItemId)
+                    void processPage(collectionItemId)
                   }
                 }
               }

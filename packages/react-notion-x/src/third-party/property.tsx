@@ -3,7 +3,7 @@ import type * as types from 'notion-types'
 import { format } from 'date-fns/format'
 import formatNumber from 'format-number'
 import { type FormulaResult } from 'notion-types'
-import * as React from 'react'
+import React from 'react'
 
 import { Checkbox } from '../components/checkbox'
 import { GracefulImage } from '../components/graceful-image'
@@ -187,7 +187,7 @@ export function PropertyImpl(props: IPropertyProps) {
 
         if (inline) {
           try {
-            const url = new URL(d[0]?.[0]!)
+            const url = new URL(d[0]![0]!)
             d[0]![0] = url.hostname.replace(/^www\./, '')
           } catch {
             // ignore invalid urls

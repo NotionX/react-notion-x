@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-cra",
-  "version": "7.3.0",
+  "version": "7.4.1",
   "private": true,
   "scripts": {
     "dev": "DISABLE_ESLINT_PLUGIN=true GENERATE_SOURCEMAP=false react-scripts start",
@@ -9,14 +9,14 @@
     "eject": "DISABLE_ESLINT_PLUGIN=true GENERATE_SOURCEMAP=false react-scripts eject"
   },
   "dependencies": {
-    "@types/node": "^22.13.10",
-    "@types/react": "^19.0.11",
-    "@types/react-dom": "^19.0.4",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "notion-types": "workspace:*",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-notion-x": "workspace:*",
-    "react-scripts": "5.0.1"
+    "react-scripts": "catalog:"
   },
   "browserslist": {
     "production": [

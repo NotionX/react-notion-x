@@ -1,6 +1,6 @@
 {
   "name": "notion-x-example-minimal",
-  "version": "7.3.0",
+  "version": "7.4.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,12 +12,12 @@
     "test:lint": "eslint ."
   },
   "dependencies": {
-    "next": "^15.2.3",
+    "next": "catalog:",
     "notion-client": "workspace:*",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-notion-x": "workspace:*"
   }
 }

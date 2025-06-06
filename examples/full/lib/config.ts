@@ -14,11 +14,10 @@ export const previewImagesEnabled = true
 // and is currently not as well-supported.
 // If you want to use the official API, you must provide a NOTION_TOKEN env var.
 export const useOfficialNotionAPI =
-  false ||
-  (process.env.USE_OFFICIAL_NOTION_API === 'true' && process.env.NOTION_TOKEN)
+  process.env.USE_OFFICIAL_NOTION_API === 'true' && !!process.env.NOTION_TOKEN
 
 export const isDev =
   process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
 
 export const port = process.env.PORT || 3000
-export const rootDomain = isDev ? `localhost:${port}` : null
+export const rootDomain = isDev ? `localhost:${port}` : undefined

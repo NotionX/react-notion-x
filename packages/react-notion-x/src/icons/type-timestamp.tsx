@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type React from 'react'
 
 function SvgTypeTimestamp(props: React.SVGProps<SVGSVGElement>) {
   return (

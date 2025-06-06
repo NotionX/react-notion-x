@@ -4,7 +4,7 @@ import {
   getBlockParentPage,
   getTextContent
 } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 
 import { PageIcon } from '../components/page-icon'
 import {
@@ -18,7 +18,7 @@ import { CollectionRow } from './collection-row'
 import { CollectionView } from './collection-view'
 import { useLocalStorage, useWindowSize } from './react-use'
 
-const isServer = typeof window === 'undefined'
+const isServer = !globalThis.window
 
 export function Collection({
   block,

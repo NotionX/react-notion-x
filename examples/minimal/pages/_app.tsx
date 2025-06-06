@@ -8,7 +8,7 @@ import '../styles/globals.css'
 // used for rendering equations (optional)
 // import 'katex/dist/katex.min.css'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: any) {
   return <Component {...pageProps} />
 }
 
