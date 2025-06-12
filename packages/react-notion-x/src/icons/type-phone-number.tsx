@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type React from 'react'
 
 function SvgTypePhoneNumber(props: React.SVGProps<SVGSVGElement>) {
   return (

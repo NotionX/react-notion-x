@@ -1,5 +1,5 @@
 import { normalizeUrl } from 'notion-utils'
-import * as React from 'react'
+import React from 'react'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'

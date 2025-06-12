@@ -15,7 +15,7 @@ import { type CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
 // eslint-disable-next-line import/no-duplicates, no-duplicate-imports
 import prism from 'prismjs'
-import * as React from 'react'
+import React from 'react'
 
 import { Text } from '../components/text'
 import { useNotionContext } from '../context'
@@ -63,7 +63,7 @@ export function Code({
   }, [codeRef])
 
   const onClickCopyToClipboard = React.useCallback(() => {
-    copyToClipboard(content)
+    void copyToClipboard(content)
     setIsCopied(true)
 
     if (copyTimeout.current) {

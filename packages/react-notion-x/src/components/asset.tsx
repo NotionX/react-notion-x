@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type React from 'react'
 import { type BaseContentBlock, type Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
@@ -7,7 +7,7 @@ import { getUrlParams, getYoutubeId } from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
-const isServer = typeof window === 'undefined'
+const isServer = !globalThis.window
 
 const supportedAssetTypes = new Set([
   'replit',
@@ -275,7 +275,7 @@ export function Asset({
     }
   } else if (block.type === 'image') {
     // console.log('image', block)
-    //kind of a hack for now. New file.notion.so images aren't signed correctly
+    // TODO: kind of a hack for now. New file.notion.so images aren't signed correctly
     if (source.includes('file.notion.so')) {
       source = block.properties?.source?.[0]?.[0]
     }

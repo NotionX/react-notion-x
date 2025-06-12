@@ -12,7 +12,6 @@ import { parsePageId } from './parse-page-id'
  * If `rootSpaceId` is not defined, the space ID of the root page will be used
  * to scope traversal.
  *
- *
  * @param rootPageId - Page ID to start from.
  * @param rootSpaceId - Space ID to scope traversal.
  * @param getPage - Function used to fetch a single page.
@@ -25,18 +24,24 @@ export async function getAllPagesInSpace(
   {
     concurrency = 4,
     traverseCollections = true,
-    targetPageId
+    targetPageId,
+    maxDepth = Number.POSITIVE_INFINITY
   }: {
     concurrency?: number
     traverseCollections?: boolean
     targetPageId?: string
+    maxDepth?: number
   } = {}
 ): Promise<PageMap> {
   const pages: PageMap = {}
   const pendingPageIds = new Set<string>()
   const queue = new PQueue({ concurrency })
 
-  async function processPage(pageId: string) {
+  async function processPage(pageId: string, depth = 0) {
+    if (depth > maxDepth) {
+      return
+    }
+
     if (targetPageId && pendingPageIds.has(targetPageId)) {
       return
     }
@@ -46,7 +51,7 @@ export async function getAllPagesInSpace(
     if (pageId && !pages[pageId] && !pendingPageIds.has(pageId)) {
       pendingPageIds.add(pageId)
 
-      queue.add(async () => {
+      void queue.add(async () => {
         try {
           if (
             targetPageId &&
@@ -93,8 +98,9 @@ export async function getAllPagesInSpace(
             }
 
             return true
-          }))
-            processPage(subPageId)
+          })) {
+            void processPage(subPageId, depth + 1)
+          }
 
           // traverse collection item pages as they may contain subpages as well
           if (traverseCollections) {
@@ -106,7 +112,7 @@ export async function getAllPagesInSpace(
 
                 if (blockIds) {
                   for (const collectionItemId of blockIds) {
-                    processPage(collectionItemId)
+                    void processPage(collectionItemId, depth + 1)
                   }
                 }
               }

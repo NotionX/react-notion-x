@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import type React from 'react'
 
 import { type CollectionGroupProps } from '../types'
 import { Property } from './property'

@@ -1,6 +1,6 @@
 {
   "name": "notion-compat",
-  "version": "7.3.0",
+  "version": "7.4.2",
   "type": "module",
   "description": "Compatibility layer between the official Notion API and unofficial private API.",
   "repository": "NotionX/react-notion-x",
@@ -29,10 +29,10 @@
   "dependencies": {
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
-    "p-queue": "^8.1.0"
+    "p-queue": "catalog:"
   },
   "devDependencies": {
-    "@notionhq/client": "^2.3.0",
+    "@notionhq/client": "catalog:",
     "notion-client": "workspace:*"
   },
   "peerDependencies": {

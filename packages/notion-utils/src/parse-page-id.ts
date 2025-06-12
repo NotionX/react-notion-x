@@ -12,13 +12,13 @@ const pageId2Re = /\b([\da-f]{8}(?:-[\da-f]{4}){3}-[\da-f]{12})\b/
  * Defaults to returning a UUID (with dashes).
  */
 export const parsePageId = (
-  id: string | null = '',
+  id: string | undefined | null = '',
   { uuid = true }: { uuid?: boolean } = {}
-) => {
-  if (!id) return null
+): string | undefined => {
+  if (!id) return
 
   id = id.split('?')[0]!
-  if (!id) return null
+  if (!id) return
 
   const match = id.match(pageIdRe)
 
@@ -31,5 +31,5 @@ export const parsePageId = (
     return uuid ? match2[1] : match2[1]!.replaceAll('-', '')
   }
 
-  return null
+  return
 }

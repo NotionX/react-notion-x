@@ -33,6 +33,10 @@ export const defaultMapImageUrl = (
         return url
       }
     }
+
+    if (u.hostname === 'img.notionusercontent.com') {
+      return url
+    }
   } catch {
     // ignore invalid urls
   }
