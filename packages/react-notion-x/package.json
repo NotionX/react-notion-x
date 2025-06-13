@@ -64,7 +64,6 @@
     "react-fast-compare": "catalog:",
     "react-hotkeys-hook": "catalog:",
     "react-image": "catalog:",
-    "react-lazy-images": "catalog:",
     "react-modal": "catalog:"
   },
   "devDependencies": {
