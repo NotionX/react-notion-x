@@ -51,7 +51,7 @@ export class NotionAPI {
       signFileUrls = true,
       chunkLimit = 100,
       chunkNumber = 0,
-      fetchRelationPages = true, // New option
+      fetchRelationPages = false,
       kyOptions
     }: {
       concurrency?: number
@@ -60,7 +60,7 @@ export class NotionAPI {
       signFileUrls?: boolean
       chunkLimit?: number
       chunkNumber?: number
-      fetchRelationPages?: boolean // New option
+      fetchRelationPages?: boolean
       kyOptions?: KyOptions
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
