@@ -53,7 +53,7 @@ export class NotionAPI {
       chunkNumber = 0,
       throwOnCollectionErrors = false,
       collectionReducerLimit = 999,
-      fetchRelationPages = true, // New option
+      fetchRelationPages = false,
       kyOptions
     }: {
       concurrency?: number
@@ -64,7 +64,7 @@ export class NotionAPI {
       chunkNumber?: number
       throwOnCollectionErrors?: boolean
       collectionReducerLimit?: number
-      fetchRelationPages?: boolean // New option
+      fetchRelationPages?: boolean
       kyOptions?: KyOptions
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
