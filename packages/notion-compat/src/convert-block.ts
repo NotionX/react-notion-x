@@ -225,7 +225,7 @@ export function convertBlock({
       if (pageMap) {
         const page = pageMap[block.id] as types.Page
         if (page) {
-          if (page.properties.title) {
+          if (page.properties.title?.rich_text) {
             compatBlock.properties.title = convertRichText(
               (page.properties.title as any).rich_text
             )
