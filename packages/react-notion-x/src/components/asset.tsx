@@ -280,8 +280,9 @@ export function Asset({
       source = block.properties?.source?.[0]?.[0]
     }
     const src = mapImageUrl(source, block as Block)
+    const altText = getTextContent(block.properties?.alt_text)
     const caption = getTextContent(block.properties?.caption)
-    const alt = caption || 'notion image'
+    const alt = altText || caption || 'notion image'
 
     content = (
       <LazyImage
