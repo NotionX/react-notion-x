@@ -1,5 +1,5 @@
 {
-  "name": "@ahmedelkady/notion-client",
+  "name": "@tekunda/notion-client",
   "version": "7.3.0",
   "type": "module",
   "description": "Robust TypeScript client for the unofficial Notion API.",
