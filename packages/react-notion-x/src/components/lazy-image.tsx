@@ -1,6 +1,5 @@
 import { normalizeUrl } from 'notion-utils'
 import React from 'react'
-import { ImageState, LazyImageFull } from 'react-lazy-images'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
@@ -59,6 +58,23 @@ export function LazyImage({
     [zoomable, attachZoom]
   )
 
+  const [isLazyLoaded, setIsLazyLoaded] = React.useState(false)
+  const onLoadLazy = React.useCallback(() => {
+    setIsLazyLoaded(true)
+  }, [])
+
+  const lazyImageRef = React.useCallback(
+    (image: HTMLImageElement) => {
+      attachZoomRef?.(image)
+
+      // if the image is cached, we can trigger the onLoadLazy immediately
+      if (image.complete) {
+        onLoadLazy()
+      }
+    },
+    [attachZoomRef, onLoadLazy]
+  )
+
   if (previewImage) {
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
 
@@ -81,60 +97,54 @@ export function LazyImage({
       )
     }
 
-    return (
-      // @ts-expect-error LazyImage types are out-of-date.
-      <LazyImageFull src={src!} {...rest} experimentalDecode={true}>
-        {({ imageState, ref }) => {
-          const isLoaded = imageState === ImageState.LoadSuccess
-          const wrapperStyle: React.CSSProperties = {
-            width: '100%'
-          }
-          const imgStyle: React.CSSProperties = {}
+    return (() => {
+      const wrapperStyle: React.CSSProperties = {
+        width: '100%'
+      }
+      const imgStyle: React.CSSProperties = {}
 
-          if (height) {
-            wrapperStyle.height = height
-          } else {
-            imgStyle.position = 'absolute'
-            wrapperStyle.paddingBottom = `${aspectRatio * 100}%`
-          }
+      if (height) {
+        wrapperStyle.height = height
+      } else {
+        imgStyle.position = 'absolute'
+        wrapperStyle.paddingBottom = `${aspectRatio * 100}%`
+      }
 
-          return (
-            <div
-              className={cs(
-                'lazy-image-wrapper',
-                isLoaded && 'lazy-image-loaded',
-                className
-              )}
-              style={wrapperStyle}
-            >
-              <img
-                className='lazy-image-preview'
-                src={previewImage.dataURIBase64}
-                alt={alt}
-                ref={ref}
-                style={style}
-                decoding='async'
-              />
+      return (
+        <div
+          className={cs(
+            'lazy-image-wrapper',
+            isLazyLoaded && 'lazy-image-loaded',
+            className
+          )}
+          style={wrapperStyle}
+        >
+          <img
+            className='lazy-image-preview'
+            src={previewImage.dataURIBase64}
+            alt={alt}
+            style={style}
+            decoding='async'
+          />
 
-              <img
-                className='lazy-image-real'
-                src={src}
-                alt={alt}
-                ref={attachZoomRef}
-                style={{
-                  ...style,
-                  ...imgStyle
-                }}
-                width={previewImage.originalWidth}
-                height={previewImage.originalHeight}
-                decoding='async'
-                loading='lazy'
-              />
-            </div>
-          )
-        }}
-      </LazyImageFull>
-    )
+          <img
+            className='lazy-image-real'
+            src={src}
+            alt={alt}
+            ref={lazyImageRef}
+            style={{
+              ...style,
+              ...imgStyle
+            }}
+            width={previewImage.originalWidth}
+            height={previewImage.originalHeight}
+            decoding='async'
+            loading='lazy'
+            onLoad={onLoadLazy}
+          />
+        </div>
+      )
+    })()
   } else {
     // TODO: GracefulImage doesn't seem to support refs, but we'd like to prevent
     // invalid images from loading as error states

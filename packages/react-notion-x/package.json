@@ -9,7 +9,7 @@
   "main": "./build/index.js",
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": ["src/styles.css"],
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
@@ -51,7 +51,7 @@
     "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
     "clean": "del build",
     "test": "run-s test:*",
-    "test:lint": "eslint .",
+    "test:lint": "eslint . --fix",
     "test:typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -78,7 +78,7 @@
     "lodash.throttle": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-pdf": "^9.1.1"
+    "react-pdf": "^9.1.1", "lightningcss": "catalog:"
   },
   "peerDependencies": {
     "react": ">=18",

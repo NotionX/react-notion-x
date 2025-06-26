@@ -16,16 +16,13 @@ import {
 export interface NotionContext {
   recordMap: ExtendedRecordMap
   components: NotionComponents
-
   mapPageUrl: MapPageUrlFn
   mapImageUrl: MapImageUrlFn
   searchNotion?: SearchNotionFn
   isShowingSearch?: boolean
   onHideSearch?: () => void
-
   rootPageId?: string
   rootDomain?: string
-
   fullPage: boolean
   darkMode: boolean
   previewImages: boolean
@@ -35,14 +32,11 @@ export interface NotionContext {
   minTableOfContentsItems: number
   linkTableTitleProperties: boolean
   isLinkCollectionToUrlProperty: boolean
-
   defaultPageIcon?: string | null
   defaultPageCover?: string | null
   defaultPageCoverPosition?: number
-
   zoom: any
 }
-
 export interface PartialNotionContext {
   recordMap?: ExtendedRecordMap
   components?: Partial<NotionComponents>
@@ -52,10 +46,8 @@ export interface PartialNotionContext {
   searchNotion?: SearchNotionFn
   isShowingSearch?: boolean
   onHideSearch?: () => void
-
   rootPageId?: string
   rootDomain?: string
-
   fullPage?: boolean
   darkMode?: boolean
   previewImages?: boolean
@@ -63,14 +55,11 @@ export interface PartialNotionContext {
   showCollectionViewDropdown?: boolean
   linkTableTitleProperties?: boolean
   isLinkCollectionToUrlProperty?: boolean
-
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
-
   defaultPageIcon?: string | null
   defaultPageCover?: string | null
   defaultPageCoverPosition?: number
-
   zoom?: any
 }
 
