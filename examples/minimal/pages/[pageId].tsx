@@ -6,7 +6,7 @@ import notion from '../lib/notion'
 
 export const getStaticProps = async (context) => {
   const pageId = (context.params.pageId as string) || rootNotionPageId
-  const recordMap = await notion.getPage(pageId)
+  const recordMap = await notion.getPage(pageId, { fetchRelationPages: true })
 
   return {
     props: {
