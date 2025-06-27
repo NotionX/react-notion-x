@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-// import Image from 'next/image'
+//import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { type ExtendedRecordMap } from 'notion-types'
@@ -182,7 +182,7 @@ export function NotionPage({
         previewImages={previewImagesEnabled}
         components={{
           // NOTE (transitive-bullshit 3/12/2023): I'm disabling next/image for this repo for now because the amount of traffic started costing me hundreds of dollars a month in Vercel image optimization costs. I'll probably re-enable it in the future if I can find a better solution.
-          // nextLegacyImage: Image,
+          //nextImage: Image,
           nextLink: Link,
           Code,
           Collection,

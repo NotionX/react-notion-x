@@ -41,8 +41,8 @@ catalog:
   react-dom: ^19.1.0
   react-fast-compare: ^3.2.0
   react-hotkeys-hook: ^4.5.1
+  react-intersection-observer: ^9.16.0
   react-image: ^4.0.3
-  react-lazy-images: ^1.1.0
   react-modal: ^3.16.3
   react-scripts: 5.0.1
   react-tweet-embed: ^2.0.0
@@ -51,6 +51,7 @@ catalog:
   tsx: ^4.19.4
   turbo: ^2.5.4
   typescript: ^5.8.3
+  unionize: ^3.1.0
   vitest: ^3.2.2
 ignoredBuiltDependencies:
   - '@fisch0920/config'

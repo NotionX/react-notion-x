@@ -27,7 +27,6 @@
     "test:unit": "vitest run"
   },
   "dependencies": {
-    "ky": "catalog:",
     "got": "catalog:",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
