@@ -3,7 +3,12 @@ import { type BaseContentBlock, type Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
-import { getUrlParams, getYoutubeId, setUrlParams } from '../utils'
+import {
+  deleteUrlParams,
+  getUrlParams,
+  getYoutubeId,
+  setUrlParams
+} from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
@@ -200,8 +205,9 @@ export function Asset({
     ) {
       style.paddingBottom = undefined
       const vidoeTitle = block.format?.link_title || 'block.type'
-      if (displaySource && style.height) {
+      if (displaySource) {
         delete style.height
+        deleteUrlParams(displaySource, ['spaceId'])
       }
       content = (
         <>
