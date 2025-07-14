@@ -214,7 +214,7 @@ export function Asset({
           {displaySource ? (
             <iframe
               src={displaySource}
-              title={vidoeTitle}
+              title={videoTitle}
               style={{
                 ...assetStyle,
                 aspectRatio: 1 / (block.format?.block_aspect_ratio || 1)
@@ -227,7 +227,7 @@ export function Asset({
               preload='metadata'
               style={assetStyle}
               src={source}
-              title={vidoeTitle}
+              title={videoTitle}
             />
           )}
         </>
