@@ -3,7 +3,7 @@ import { type BaseContentBlock, type Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
-import { getUrlParams, getYoutubeId } from '../utils'
+import { getUrlParams, getYoutubeId, setUrlParams } from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
@@ -135,9 +135,7 @@ export function Asset({
   }
 
   if (block.space_id) {
-    const url = new URL(source)
-    url.searchParams.set('spaceId', block.space_id)
-    source = url.toString()
+    setUrlParams(source, { spaceId: block.space_id })
   }
 
   let content = null
