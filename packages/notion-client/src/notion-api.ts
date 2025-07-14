@@ -542,19 +542,9 @@ export class NotionAPI {
         }
       }
 
-      const reducerLabel = isBoardType ? 'board_columns' : `${type}_groups`
       loader = {
         type: 'reducer',
         reducers: {
-          [reducerLabel]: {
-            type: 'groups',
-            groupBy,
-            ...(collectionView?.query2?.filter && {
-              filter: collectionView?.query2?.filter
-            }),
-            groupSortPreference: groups.map((group: any) => group?.value),
-            limit
-          },
           ...reducersQuery
         },
         ...collectionView?.query2,
