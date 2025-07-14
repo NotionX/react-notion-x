@@ -190,7 +190,7 @@ export function Asset({
     block.type === 'drive' ||
     block.type === 'replit'
   ) {
-    const displaySource = block.format?.display_source
+    let displaySource = block.format?.display_source
     if (
       block.type === 'video' &&
       source &&
@@ -207,7 +207,7 @@ export function Asset({
       const videoTitle = block.format?.link_title || 'block.type'
       if (displaySource) {
         delete style.height
-        deleteUrlParams(displaySource, ['spaceId'])
+        displaySource = deleteUrlParams(displaySource, ['spaceId'])
       }
       content = (
         <>
