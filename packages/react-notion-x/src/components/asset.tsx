@@ -204,7 +204,7 @@ export function Asset({
       !source.includes('tella')
     ) {
       style.paddingBottom = undefined
-      const vidoeTitle = block.format?.link_title || 'block.type'
+      const videoTitle = block.format?.link_title || 'block.type'
       if (displaySource) {
         delete style.height
         deleteUrlParams(displaySource, ['spaceId'])
