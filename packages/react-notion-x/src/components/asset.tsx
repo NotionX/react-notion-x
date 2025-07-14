@@ -187,6 +187,7 @@ export function Asset({
     block.type === 'drive' ||
     block.type === 'replit'
   ) {
+    const displaySource = block.format?.display_source
     if (
       block.type === 'video' &&
       source &&
@@ -200,19 +201,35 @@ export function Asset({
       !source.includes('tella')
     ) {
       style.paddingBottom = undefined
-
+      const vidoeTitle = block.format?.link_title || 'block.type'
+      if (displaySource && style.height) {
+        delete style.height
+      }
       content = (
-        <video
-          playsInline
-          controls
-          preload='metadata'
-          style={assetStyle}
-          src={source}
-          title={block.type}
-        />
+        <>
+          {displaySource ? (
+            <iframe
+              src={displaySource}
+              title={vidoeTitle}
+              style={{
+                ...assetStyle,
+                aspectRatio: 1 / (block.format?.block_aspect_ratio || 1)
+              }}
+            />
+          ) : (
+            <video
+              playsInline
+              controls
+              preload='metadata'
+              style={assetStyle}
+              src={source}
+              title={vidoeTitle}
+            />
+          )}
+        </>
       )
     } else {
-      let src = block.format?.display_source || source
+      let src = displaySource || source
 
       if (src) {
         const youtubeVideoId: string | null =

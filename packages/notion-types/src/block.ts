@@ -133,6 +133,7 @@ export interface BaseContentBlock extends BaseBlock {
     caption?: Decoration[]
   }
   format?: {
+    link_title: string
     block_alignment: 'center' | 'left' | 'right'
     block_width: number
     block_height: number
@@ -359,6 +360,7 @@ export interface GoogleDriveBlock extends BaseContentBlock {
       user_name: string
       modified_time: number
     }
+    link_title: string
     block_alignment: 'center' | 'left' | 'right'
     block_width: number
     block_height: number
