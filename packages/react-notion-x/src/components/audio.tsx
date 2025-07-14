@@ -13,7 +13,7 @@ export function Audio({
 }) {
   const { recordMap } = useNotionContext()
 
-  const source =
+  let source =
     recordMap.signed_urls[block.id] || block.properties?.source?.[0]?.[0]
 
   if (!source) {
@@ -21,7 +21,7 @@ export function Audio({
   }
 
   if (block.space_id) {
-    setUrlParams(source, { spaceId: block.space_id })
+    source = setUrlParams(source, { spaceId: block.space_id })
   }
 
   return (

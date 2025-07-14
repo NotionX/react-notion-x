@@ -140,7 +140,7 @@ export function Asset({
   }
 
   if (block.space_id) {
-    setUrlParams(source, { spaceId: block.space_id })
+    source = setUrlParams(source, { spaceId: block.space_id })
   }
 
   let content = null
