@@ -152,7 +152,7 @@ const defaultNotionContext: NotionContext = {
     collection_query: {},
     notion_user: {},
     signed_urls: {},
-    embeddedFormBaseUrl: ''
+    embeddedFormsBaseUrl: ''
   },
 
   components: defaultComponents,

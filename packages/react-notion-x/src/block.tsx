@@ -770,7 +770,7 @@ export function Block(props: BlockProps) {
         return (
           <Form
             block={linkedBlock}
-            embeddedFormBaseUrl={recordMap.embeddedFormBaseUrl}
+            embeddedFormsBaseUrl={recordMap.embeddedFormsBaseUrl}
           />
         )
       }
