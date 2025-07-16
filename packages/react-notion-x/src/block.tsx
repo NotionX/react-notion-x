@@ -14,6 +14,7 @@ import { AssetWrapper } from './components/asset-wrapper'
 import { Audio } from './components/audio'
 import { EOI } from './components/eoi'
 import { File } from './components/file'
+import { Form } from './components/form'
 import { GoogleDrive } from './components/google-drive'
 import { LazyImage } from './components/lazy-image'
 import { PageAside } from './components/page-aside'
@@ -763,6 +764,15 @@ export function Block(props: BlockProps) {
       if (!linkedBlock) {
         console.log('"alias" missing block', blockPointerId)
         return null
+      }
+
+      if ((linkedBlock as types.FormBlock)?.type === 'form') {
+        return (
+          <Form
+            block={linkedBlock}
+            embeddedFormBaseUrl={recordMap.embeddedFormBaseUrl}
+          />
+        )
       }
 
       return (

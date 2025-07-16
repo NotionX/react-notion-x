@@ -21,7 +21,10 @@ if (useOfficialNotionAPI) {
 }
 
 export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
-  const recordMap = await notion.getPage(pageId, { fetchRelationPages: true })
+  const recordMap = await notion.getPage(pageId, {
+    fetchRelationPages: true,
+    embeddedFormBaseUrl: 'https://tekunda.notion.site'
+  })
 
   if (previewImagesEnabled) {
     const previewImageMap = await getPreviewImageMap(recordMap)

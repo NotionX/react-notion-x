@@ -151,7 +151,8 @@ const defaultNotionContext: NotionContext = {
     collection_view: {},
     collection_query: {},
     notion_user: {},
-    signed_urls: {}
+    signed_urls: {},
+    embeddedFormBaseUrl: ''
   },
 
   components: defaultComponents,

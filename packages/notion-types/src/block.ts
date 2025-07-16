@@ -44,6 +44,7 @@ export type BlockType =
   | 'external_object_instance'
   | 'breadcrumb'
   | 'miro'
+  | 'form'
   // fallback for unknown blocks
   | string
 
@@ -91,6 +92,7 @@ export type Block =
   | TableRowBlock
   | ExternalObjectInstance
   | BreadcrumbInstance
+  | FormBlock
 
 /**
  * Base properties shared by all blocks.
@@ -469,4 +471,20 @@ export interface ExternalObjectInstance extends BaseBlock {
 
 export interface BreadcrumbInstance extends BaseBlock {
   type: 'breadcrumb'
+}
+
+export interface FormBlock extends BaseBlock {
+  type: 'form'
+  format: {
+    site_id: string
+    form_config?: {
+      anonymous_submissions?: boolean
+      submission_permissions?: string
+    }
+    form_layout_pointer?: {
+      id: string
+      table: string
+      spaceId: string
+    }
+  }
 }
