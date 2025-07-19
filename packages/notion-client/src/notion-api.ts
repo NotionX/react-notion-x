@@ -1,6 +1,5 @@
-// import { promises as fs } from 'fs'
 import type * as notion from 'notion-types'
-import ky, { type Options as KyOptions } from 'ky'
+import got, { type OptionsOfJSONResponseBody as Got_Options } from 'got'
 import {
   getBlockCollectionId,
   getPageContentBlockIds,
@@ -19,7 +18,7 @@ export class NotionAPI {
   private readonly _authToken?: string
   private readonly _activeUser?: string
   private readonly _userTimeZone: string
-  private readonly _kyOptions?: KyOptions
+  private readonly _kyOptions?: Got_Options
 
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
@@ -33,7 +32,7 @@ export class NotionAPI {
     userLocale?: string
     userTimeZone?: string
     activeUser?: string
-    kyOptions?: KyOptions
+    kyOptions?: Got_Options
   } = {}) {
     this._apiBaseUrl = apiBaseUrl
     this._authToken = authToken
@@ -65,7 +64,7 @@ export class NotionAPI {
       throwOnCollectionErrors?: boolean
       collectionReducerLimit?: number
       fetchRelationPages?: boolean
-      kyOptions?: KyOptions
+      kyOptions?: Got_Options
     } = {}
   ): Promise<notion.ExtendedRecordMap> {
     const page = await this.getPageRaw(pageId, {
@@ -232,7 +231,7 @@ export class NotionAPI {
 
   fetchRelationPages = async (
     recordMap: notion.ExtendedRecordMap,
-    kyOptions: KyOptions | undefined
+    kyOptions: Got_Options | undefined
   ): Promise<notion.BlockMap> => {
     const maxIterations = 10
 
@@ -320,7 +319,7 @@ export class NotionAPI {
   }: {
     recordMap: notion.ExtendedRecordMap
     contentBlockIds?: string[]
-    kyOptions?: KyOptions
+    kyOptions?: Got_Options
   }) {
     recordMap.signed_urls = {}
 
@@ -401,7 +400,7 @@ export class NotionAPI {
     }: {
       chunkLimit?: number
       chunkNumber?: number
-      kyOptions?: KyOptions
+      kyOptions?: Got_Options
     } = {}
   ) {
     const parsedPageId = parsePageId(pageId)
@@ -442,7 +441,7 @@ export class NotionAPI {
       userTimeZone?: string
       userLocale?: string
       loadContentCover?: boolean
-      kyOptions?: KyOptions
+      kyOptions?: Got_Options
     } = {}
   ) {
     const type = collectionView?.type
@@ -620,7 +619,9 @@ export class NotionAPI {
         loader
       },
       kyOptions: {
-        timeout: 60_000,
+        timeout: {
+          request: 60_000
+        },
         ...kyOptions,
         searchParams: {
           // TODO: spread kyOptions?.searchParams
@@ -630,7 +631,7 @@ export class NotionAPI {
     })
   }
 
-  public async getUsers(userIds: string[], kyOptions?: KyOptions) {
+  public async getUsers(userIds: string[], kyOptions?: Got_Options) {
     return this.fetch<notion.RecordValues<notion.User>>({
       endpoint: 'getRecordValues',
       body: {
@@ -640,7 +641,7 @@ export class NotionAPI {
     })
   }
 
-  public async getBlocks(blockIds: string[], kyOptions?: KyOptions) {
+  public async getBlocks(blockIds: string[], kyOptions?: Got_Options) {
     return this.fetch<notion.PageChunk>({
       endpoint: 'syncRecordValues',
       body: {
@@ -657,7 +658,7 @@ export class NotionAPI {
 
   public async getSignedFileUrls(
     urls: types.SignedUrlRequest[],
-    kyOptions?: KyOptions
+    kyOptions?: Got_Options
   ) {
     return this.fetch<types.SignedUrlResponse>({
       endpoint: 'getSignedFileUrls',
@@ -668,7 +669,7 @@ export class NotionAPI {
     })
   }
 
-  public async search(params: notion.SearchParams, kyOptions?: KyOptions) {
+  public async search(params: notion.SearchParams, kyOptions?: Got_Options) {
     const body = {
       type: 'BlocksInAncestor',
       source: 'quick_find_public',
@@ -708,7 +709,7 @@ export class NotionAPI {
   }: {
     endpoint: string
     body: object
-    kyOptions?: KyOptions
+    kyOptions?: Got_Options
     headers?: any
   }): Promise<T> {
     const headers: any = {
@@ -728,21 +729,12 @@ export class NotionAPI {
 
     const url = `${this._apiBaseUrl}/${endpoint}`
 
-    const res = await ky.post(url, {
-      mode: 'no-cors',
-      ...this._kyOptions,
-      ...kyOptions,
-      json: body,
-      headers
-    })
-
-    // TODO: we're awaiting the first fetch and then separately awaiting
-    // `res.json()` because there seems to be some weird error which repros
-    // sporadically when loading collections where the body is already used.
-    // No idea why, but from my testing, separating these into two separate
-    // steps seems to fix the issue locally for me...
-    // console.log(endpoint, { bodyUsed: res.bodyUsed })
-
-    return res.json<T>()
+    return got
+      .post(url, {
+        ...kyOptions,
+        json: body,
+        headers
+      })
+      .json()
   }
 }

@@ -22,7 +22,7 @@
     "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
     "clean": "del build",
     "test": "run-s test:*",
-    "test:lint": "eslint .",
+    "test:lint": "eslint . --fix",
     "test:typecheck": "tsc --noEmit",
     "test:unit": "vitest run"
   },

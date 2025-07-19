@@ -300,7 +300,7 @@ function evalFunctionFormula(
 
         case 'object':
           if (value instanceof Date) {
-            return format(value as Date, 'MMM d, YYY')
+            return format(value as Date, 'MMM d, yyy')
           } else {
             // shouldn't ever get here
             return `${value}`

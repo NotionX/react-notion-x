@@ -1,9 +1,9 @@
 import { normalizeUrl } from 'notion-utils'
 import React from 'react'
-import { ImageState, LazyImageFull } from 'react-lazy-images'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
+import { ImageState, LazyImageFull } from './lazy-image-full'
 
 /**
  * Progressive, lazy images modeled after Medium's LQIP technique.
@@ -82,7 +82,6 @@ export function LazyImage({
     }
 
     return (
-      // @ts-expect-error LazyImage types are out-of-date.
       <LazyImageFull src={src!} {...rest} experimentalDecode={true}>
         {({ imageState, ref }) => {
           const isLoaded = imageState === ImageState.LoadSuccess

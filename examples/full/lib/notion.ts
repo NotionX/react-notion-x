@@ -30,7 +30,6 @@ export async function getPage(pageId: string): Promise<ExtendedRecordMap> {
 
   return recordMap
 }
-
 export async function search(params: SearchParams): Promise<SearchResults> {
   if ('search' in notion) {
     return notion.search(params)

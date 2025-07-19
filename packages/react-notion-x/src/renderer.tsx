@@ -59,17 +59,13 @@ export function NotionRenderer({
   linkTableTitleProperties?: boolean
   isLinkCollectionToUrlProperty?: boolean
   isImageZoomable?: boolean
-
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
-
   defaultPageIcon?: string
   defaultPageCover?: string
   defaultPageCoverPosition?: number
-
   className?: string
   bodyClassName?: string
-
   header?: React.ReactNode
   footer?: React.ReactNode
   pageHeader?: React.ReactNode
@@ -77,7 +73,6 @@ export function NotionRenderer({
   pageTitle?: React.ReactNode
   pageAside?: React.ReactNode
   pageCover?: React.ReactNode
-
   blockId?: string
   hideBlockId?: boolean
   disableHeader?: boolean
