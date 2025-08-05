@@ -108,8 +108,8 @@ export async function getAllPagesInSpace(
               page.collection_query
             )) {
               for (const collectionData of Object.values(collectionViews)) {
-                const { blockIds } = collectionData
-
+                const { blockIds } =
+                  collectionData?.collection_group_results || {}
                 if (blockIds) {
                   for (const collectionItemId of blockIds) {
                     void processPage(collectionItemId, depth + 1)
