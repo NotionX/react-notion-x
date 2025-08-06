@@ -1,6 +1,6 @@
 {
   "name": "notion-compat",
-  "version": "7.4.2",
+  "version": "7.4.3",
   "type": "module",
   "description": "Compatibility layer between the official Notion API and unofficial private API.",
   "repository": "NotionX/react-notion-x",

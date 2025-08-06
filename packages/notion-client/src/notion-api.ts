@@ -567,11 +567,18 @@ export class NotionAPI {
         reducers: {
           [reducerLabel]: {
             type: 'groups',
+            version: 'v2',
             groupBy,
             ...(collectionView?.query2?.filter && {
               filter: collectionView?.query2?.filter
             }),
-            groupSortPreference: groups.map((group: any) => group?.value),
+            groupSortPreference: groups.map((group: any) => ({
+              property: group?.property,
+              value: {
+                type: group?.value?.type,
+                value: group?.value?.value
+              }
+            })),
             limit
           },
           ...reducersQuery
