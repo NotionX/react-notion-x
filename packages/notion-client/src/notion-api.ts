@@ -1,6 +1,6 @@
 // import { promises as fs } from 'fs'
 import type * as notion from 'notion-types'
-import ky, { type Options as KyOptions } from 'ky'
+import { type Options as KyOptions } from 'ky'
 import {
   getBlockCollectionId,
   getPageContentBlockIds,
@@ -707,6 +707,51 @@ export class NotionAPI {
     })
   }
 
+  // public async fetch<T>({
+  //   endpoint,
+  //   body,
+  //   kyOptions,
+  //   headers: clientHeaders
+  // }: {
+  //   endpoint: string
+  //   body: object
+  //   kyOptions?: KyOptions
+  //   headers?: any
+  // }): Promise<T> {
+  //   const headers: any = {
+  //     ...clientHeaders,
+  //     ...this._kyOptions?.headers,
+  //     ...kyOptions?.headers,
+  //     'Content-Type': 'application/json'
+  //   }
+
+  //   if (this._authToken) {
+  //     headers.cookie = `token_v2=${this._authToken}`
+  //   }
+
+  //   if (this._activeUser) {
+  //     headers['x-notion-active-user-header'] = this._activeUser
+  //   }
+
+  //   const url = `${this._apiBaseUrl}/${endpoint}`
+
+  //   const res = await ky.post(url, {
+  //     mode: 'no-cors',
+  //     ...this._kyOptions,
+  //     ...kyOptions,
+  //     json: body,
+  //     headers
+  //   })
+
+  //   // TODO: we're awaiting the first fetch and then separately awaiting
+  //   // `res.json()` because there seems to be some weird error which repros
+  //   // sporadically when loading collections where the body is already used.
+  //   // No idea why, but from my testing, separating these into two separate
+  //   // steps seems to fix the issue locally for me...
+  //   // console.log(endpoint, { bodyUsed: res.bodyUsed })
+
+  //   return res.json<T>()
+  // }
   public async fetch<T>({
     endpoint,
     body,
@@ -735,21 +780,17 @@ export class NotionAPI {
 
     const url = `${this._apiBaseUrl}/${endpoint}`
 
-    const res = await ky.post(url, {
-      mode: 'no-cors',
-      ...this._kyOptions,
-      ...kyOptions,
-      json: body,
-      headers
+    const res = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+      ...kyOptions
     })
 
-    // TODO: we're awaiting the first fetch and then separately awaiting
-    // `res.json()` because there seems to be some weird error which repros
-    // sporadically when loading collections where the body is already used.
-    // No idea why, but from my testing, separating these into two separate
-    // steps seems to fix the issue locally for me...
-    // console.log(endpoint, { bodyUsed: res.bodyUsed })
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`)
+    }
 
-    return res.json<T>()
+    return res.json() as Promise<T>
   }
 }
