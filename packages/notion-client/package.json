@@ -22,12 +22,12 @@
     "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
     "clean": "del build",
     "test": "run-s test:*",
-    "test:lint": "eslint . --fix",
+    "test:lint": "eslint .",
     "test:typecheck": "tsc --noEmit",
     "test:unit": "vitest run"
   },
   "dependencies": {
-    "got": "catalog:",
+    "ofetch": "catalog:",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
     "p-map": "catalog:"

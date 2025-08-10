@@ -1,4 +1,4 @@
-const nextConfig = {
+export default {
   staticPageGenerationTimeout: 300,
   images: {
     domains: [
@@ -10,5 +10,3 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp']
   }
 }
-
-export default nextConfig

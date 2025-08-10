@@ -92,7 +92,7 @@ export function PropertyImpl(props: IPropertyProps) {
           }
 
           if (content instanceof Date) {
-            content = format(content, 'MMM d, yyy hh:mm aa')
+            content = format(content, 'MMM d, YYY hh:mm aa')
           }
         } catch {
           // console.log('error evaluating formula', schema.formula, err)
@@ -437,7 +437,7 @@ export function PropertyImpl(props: IPropertyProps) {
   const renderCreatedTimeValue = React.useMemo(
     () =>
       function CreatedTimeProperty() {
-        return format(new Date(block!.created_time), 'MMM d, yyy hh:mm aa')
+        return format(new Date(block!.created_time), 'MMM d, YYY hh:mm aa')
       },
     [block]
   )
@@ -445,7 +445,7 @@ export function PropertyImpl(props: IPropertyProps) {
   const renderLastEditedTimeValue = React.useMemo(
     () =>
       function LastEditedTimeProperty() {
-        return format(new Date(block!.last_edited_time), 'MMM d, yyy hh:mm aa')
+        return format(new Date(block!.last_edited_time), 'MMM d, YYY hh:mm aa')
       },
     [block]
   )

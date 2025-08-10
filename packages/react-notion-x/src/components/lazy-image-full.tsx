@@ -389,7 +389,7 @@ const loadImage = (
     }
 
     image.addEventListener('load', resolve)
-    image.addEventListener = reject
+    image.addEventListener('error', reject)
   })
 
 /** Promise that resolves after a specified number of ms */

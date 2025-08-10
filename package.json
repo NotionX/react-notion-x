@@ -16,7 +16,7 @@
     "dev": "turbo dev --concurrency 50 --continue --filter='./packages/*'",
     "clean": "turbo clean",
     "test": "turbo test",
-    "test:format": "prettier --check \"**/*.{js,ts,tsx}\" --write",
+    "test:format": "prettier --check \"**/*.{js,ts,tsx}\"",
     "test:lint": "turbo test:lint",
     "test:typecheck": "turbo test:typecheck",
     "test:unit": "turbo test:unit",

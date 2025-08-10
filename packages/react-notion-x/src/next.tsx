@@ -71,19 +71,26 @@ export const wrapNextLegacyImage = (NextLegacyImage: any): React.FC<any> => {
 export function wrapNextLink(NextLink: any) {
   return ({
     href,
+    as,
+    passHref,
     prefetch,
     replace,
     scroll,
-    onNavigate,
+    shallow,
+    locale,
     ...linkProps
   }: any) => {
     return (
       <NextLink
         href={href}
+        as={as}
+        passHref={passHref}
         prefetch={prefetch}
         replace={replace}
         scroll={scroll}
-        onNavigate={onNavigate}
+        shallow={shallow}
+        locale={locale}
+        legacyBehavior
       >
         <a {...linkProps} />
       </NextLink>

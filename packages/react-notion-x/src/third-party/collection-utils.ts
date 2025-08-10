@@ -34,7 +34,7 @@ export function getCollectionGroups(
       }
 
       // TODO: review dates format based on value.type ('week'|'month'|'year')
-      queryValue = format(new Date(queryLabel), 'MMM d, yyy hh:mm aa')
+      queryValue = format(new Date(queryLabel), 'MMM d, YYY hh:mm aa')
     }
 
     return {
