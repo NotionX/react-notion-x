@@ -5,7 +5,6 @@ import { convertColor } from './convert-color'
 import { convertRichText } from './convert-rich-text'
 import { convertTime } from './convert-time'
 
-
 export function convertBlock({
   block: partialBlock,
   children = [],
@@ -461,15 +460,19 @@ export function convertBlock({
     }
 
     case 'image':
-    // TODO : Add image format
-    if (block.image) {
-      compatBlock.properties.source = [[block.image.file?.url || block.image.external?.url]]
-      if (block.image.caption) {
-        compatBlock.properties.caption = block.image.caption.map(caption => convertRichText(caption))
-      }
-    }
-    break
+      // TODO : Add image format
+      if (block.image) {
+        compatBlock.properties.source = [
+          [(block.image as any).file?.url || (block.image as any).external?.url]
+        ]
 
+        if (block.image.caption) {
+          compatBlock.properties.caption = block.image.caption.map((caption) =>
+            convertRichText([caption])
+          )
+        }
+      }
+      break
 
     case 'audio':
       // no-op
