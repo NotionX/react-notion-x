@@ -112,11 +112,11 @@ export async function getAllPagesInSpace(
                   new Set([
                     ...(collectionData?.collection_group_results?.blockIds ||
                       []),
-                    ...collectionData.blockIds
+                    ...(collectionData.blockIds || [])
                   ])
                 )
 
-                if (blockIds) {
+                if (blockIds.length) {
                   for (const collectionItemId of blockIds) {
                     void processPage(collectionItemId, depth + 1)
                   }
