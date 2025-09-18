@@ -493,6 +493,7 @@
   max-width: 100%;
   white-space: pre-wrap;
   word-break: break-word;
+  width:100%;
 }
 
 .notion-h1 {
