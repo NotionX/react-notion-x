@@ -649,7 +649,7 @@ export class NotionAPI {
 
   public async getBlocks(blockIds: string[], kyOptions?: KyOptions) {
     return this.fetch<notion.PageChunk>({
-      endpoint: 'syncRecordValues',
+      endpoint: 'syncRecordValuesMain',
       body: {
         requests: blockIds.map((blockId) => ({
           // TODO: when to use table 'space' vs 'block'?
