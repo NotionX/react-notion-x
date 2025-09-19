@@ -64,8 +64,10 @@
     "react-fast-compare": "catalog:",
     "react-hotkeys-hook": "catalog:",
     "react-image": "catalog:",
-    "react-lazy-images": "catalog:",
-    "react-modal": "catalog:"
+    "react-intersection-observer": "catalog:",
+    "react-modal": "catalog:",
+    "unionize"                   : "catalog:"
+
   },
   "devDependencies": {
     "@types/lodash.throttle": "catalog:",

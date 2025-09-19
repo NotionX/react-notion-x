@@ -27,7 +27,7 @@
     "test:unit": "vitest run"
   },
   "dependencies": {
-    "ky": "catalog:",
+    "ofetch": "catalog:",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
     "p-map": "catalog:"
