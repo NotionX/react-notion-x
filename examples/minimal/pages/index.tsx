@@ -12,7 +12,11 @@ export const getStaticProps = async () => {
     props: {
       recordMap
     },
-    revalidate: 10
+    // cache for 1 day in seconds
+    // NOTE: you'll likely want to use a shorter cache time for your app, but
+    // I'm bumping this up because my vercel bill keeps increasing due to people
+    // abusing the demo to host their own sites.
+    revalidate: 86_400
   }
 }
 

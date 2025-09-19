@@ -431,7 +431,7 @@ export class NotionAPI {
   public async getCollectionData(
     collectionId: string,
     collectionViewId: string,
-    collectionView: any,
+    collectionView?: any,
     {
       limit = 999,
       searchQuery = '',
@@ -652,7 +652,7 @@ export class NotionAPI {
 
   public async getBlocks(blockIds: string[], ofetchOptions?: OfetchOptions) {
     return this.fetch<notion.PageChunk>({
-      endpoint: 'syncRecordValues',
+      endpoint: 'syncRecordValuesMain',
       body: {
         requests: blockIds.map((blockId) => ({
           // TODO: when to use table 'space' vs 'block'?

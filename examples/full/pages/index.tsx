@@ -16,7 +16,7 @@ export const getStaticProps = async () => {
     props: {
       recordMap
     },
-    revalidate: 10
+    revalidate: 86_400 // cache for 1 day in seconds
   }
 }
 

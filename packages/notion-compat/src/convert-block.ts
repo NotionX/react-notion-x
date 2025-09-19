@@ -460,8 +460,18 @@ export function convertBlock({
     }
 
     case 'image':
-      // no-op
-      // TODO: handle formatting
+      // TODO : Add image format
+      if (block.image) {
+        compatBlock.properties.source = [
+          [(block.image as any).file?.url || (block.image as any).external?.url]
+        ]
+
+        if (block.image.caption) {
+          compatBlock.properties.caption = block.image.caption.map((caption) =>
+            convertRichText([caption])
+          )
+        }
+      }
       break
 
     case 'audio':
