@@ -66,8 +66,7 @@
     "react-image": "catalog:",
     "react-intersection-observer": "catalog:",
     "react-modal": "catalog:",
-    "unionize"                   : "catalog:"
-
+    "unionize": "catalog:"
   },
   "devDependencies": {
     "@types/lodash.throttle": "catalog:",
