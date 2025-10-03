@@ -193,6 +193,9 @@ export interface BulletedListBlock extends BaseTextBlock {
 
 export interface NumberedListBlock extends BaseTextBlock {
   type: 'numbered_list'
+  format?: BaseTextBlock['format'] & {
+    list_start_index?: number
+  }
 }
 
 export interface HeaderBlock extends BaseTextBlock {

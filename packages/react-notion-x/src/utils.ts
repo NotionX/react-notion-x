@@ -45,7 +45,11 @@ export const getListNumber = (blockId: string, blockMap: BlockMap) => {
     return
   }
 
-  return group.indexOf(blockId) + 1
+  const groupIndex = group.indexOf(blockId) + 1
+  const startIndex = blockMap[blockId]?.value.format?.list_start_index
+  return blockMap[blockId]?.value.type === 'numbered_list'
+    ? (startIndex ?? groupIndex)
+    : groupIndex
 }
 
 export const getListNestingLevel = (
