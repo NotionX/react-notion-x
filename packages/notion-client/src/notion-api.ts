@@ -192,6 +192,29 @@ export class NotionAPI {
             // It's possible for public pages to link to private collections,
             // in which case Notion returns a 400 error. This may be that or it
             // may be something else.
+
+            // Special handling for 530 errors (API endpoint issues)
+            const is530Error =
+              err.response?.status === 530 ||
+              err.status === 530 ||
+              err.message?.includes('530')
+
+            if (is530Error) {
+              console.error(
+                '\n Notion API Error 530: Collection query failed\n' +
+                  '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+                  ' This usually means the API endpoint needs to be updated.\n\n' +
+                  " Solution: Configure NotionAPI with your site's subdomain:\n\n" +
+                  '  const api = new NotionAPI({\n' +
+                  "    apiBaseUrl: 'https://YOUR-SUBDOMAIN.notion.site/api/v3'\n" +
+                  '  })\n\n' +
+                  ' Find your subdomain in your Notion page URL:\n' +
+                  '  https://YOUR-SUBDOMAIN.notion.site/...\n\n' +
+                  ' Learn more: https://github.com/NotionX/react-notion-x/tree/master/packages/notion-client#using-custom-api-base-url\n' +
+                  '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
+              )
+            }
+
             console.warn(
               'NotionAPI collectionQuery error',
               { pageId, collectionId, collectionViewId },

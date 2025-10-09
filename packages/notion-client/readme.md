@@ -36,6 +36,44 @@ const collectionData = await api.getCollectionData(
 )
 ```
 
+### Using Custom API Base URL
+
+**Important:** Due to recent changes in Notion's internal API you may need to specify your Notion site's subdomain when accessing public pages with collections/databases to avoid HTTP 530 errors.
+
+```ts
+import { NotionAPI } from 'notion-client'
+
+// For public Notion pages, use your site's subdomain
+const api = new NotionAPI({
+  apiBaseUrl: 'https://your-subdomain.notion.site/api/v3'
+})
+
+const page = await api.getPage('your-page-id')
+```
+
+**How to find your subdomain:**
+
+1. Open your Notion page in a web browser
+2. Look at the URL: `https://your-subdomain.notion.site/Page-Title-xxxxx`
+3. Copy the `your-subdomain` part
+4. Use it in the `apiBaseUrl` parameter
+
+**Example:**
+
+If your Notion page URL is `https://acme-corp.notion.site/Team-Wiki-abc123`, then:
+
+```ts
+const api = new NotionAPI({
+  apiBaseUrl: 'https://acme-corp.notion.site/api/v3'
+})
+```
+
+**Troubleshooting:**
+
+- ❌ `Error 530` when querying collections → Update `apiBaseUrl` with your subdomain
+- ❌ Using the old endpoint `https://www.notion.so/api/v3` → Switch to your site's URL
+- ✅ Private pages with `authToken` → The default endpoint usually works fine
+
 ### Fetch a database's content
 
 You can pass a database ID to the `getPage` method. The response is an object which contains several important properties:
