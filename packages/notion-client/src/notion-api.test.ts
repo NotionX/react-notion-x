@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, test, vi } from 'vitest'
 
 import { NotionAPI } from './notion-api'
 
@@ -47,3 +47,75 @@ for (const pageId of pageIdFixturesFailure) {
     await expect(() => api.getPage(pageId)).rejects.toThrow()
   })
 }
+
+test('NotionAPI.getPage should log a helpful error on 530 errors', async () => {
+  const consoleErrorSpy = vi
+    .spyOn(console, 'error')
+    .mockImplementation(() => {})
+
+  const pageId = 'bdecdf15-0d0e-40cb-9f34-12be132335d4' // Use a valid UUID format
+  const collectionId = 'collection-id'
+  const viewId = 'view-id'
+
+  const api = new NotionAPI()
+
+  // Spy on the private fetch method to isolate the mock to this test
+  const fetchSpy = vi
+    .spyOn(api as any, 'fetch')
+    .mockImplementation(async (params: any) => {
+      const { endpoint } = params
+      if (endpoint === 'loadPageChunk') {
+        return {
+          recordMap: {
+            block: {
+              [pageId]: {
+                value: {
+                  id: pageId,
+                  type: 'collection_view_page',
+                  collection_id: collectionId,
+                  view_ids: [viewId]
+                }
+              }
+            },
+            collection: {
+              [collectionId]: {
+                value: { id: collectionId, name: [['Test Collection']] }
+              }
+            },
+            collection_view: {
+              [viewId]: {
+                value: { id: viewId, type: 'table' }
+              }
+            }
+          }
+        }
+      }
+
+      if (endpoint === 'queryCollection') {
+        const error: any = new Error('Response code 530')
+        error.status = 530
+        error.response = { status: 530 }
+        throw error
+      }
+
+      return {}
+    })
+
+  const page = await api.getPage(pageId, {
+    fetchCollections: true,
+    throwOnCollectionErrors: false
+  })
+
+  expect(page).toBeTruthy()
+  expect(consoleErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining('Notion API Error 530: Collection query failed')
+  )
+  expect(consoleErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining(
+      "Solution: Configure NotionAPI with your site's subdomain"
+    )
+  )
+
+  fetchSpy.mockRestore()
+  consoleErrorSpy.mockRestore()
+})
