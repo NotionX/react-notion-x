@@ -56,7 +56,9 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: true
+    // TODO: changing this to false because my vercel bill keeps increasing due to
+    // people abusing the demo to host their own sites.
+    fallback: false
   }
 }
 
