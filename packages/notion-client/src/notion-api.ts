@@ -24,7 +24,11 @@ export class NotionAPI {
   private readonly _ofetchOptions?: OfetchOptions
 
   constructor({
-    apiBaseUrl = 'https://www.notion.so/api/v3',
+    // TODO: figure out a workaround so this base URL isn't hardcoded to my
+    // personal public notion site. This used to be 'https://www.notion.so/api/v3',
+    // but the queryCollection endpoint on this domain started returning `530`
+    // HTTP errors for some reason.
+    apiBaseUrl = 'https://transitive-bs.notion.site/api/v3',
     authToken,
     activeUser,
     userTimeZone = 'America/New_York',
