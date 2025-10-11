@@ -24,11 +24,7 @@ export class NotionAPI {
   private readonly _ofetchOptions?: OfetchOptions
 
   constructor({
-    // TODO: figure out a workaround so this base URL isn't hardcoded to my
-    // personal public notion site. This used to be 'https://www.notion.so/api/v3',
-    // but the queryCollection endpoint on this domain started returning `530`
-    // HTTP errors for some reason.
-    apiBaseUrl = 'https://transitive-bs.notion.site/api/v3',
+    apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
     activeUser,
     userTimeZone = 'America/New_York',
@@ -126,6 +122,7 @@ export class NotionAPI {
       const allCollectionInstances: Array<{
         collectionId: string
         collectionViewId: string
+        spaceId?: string
       }> = contentBlockIds.flatMap((blockId) => {
         const block = recordMap.block[blockId]?.value
         const collectionId =
@@ -135,9 +132,11 @@ export class NotionAPI {
           getBlockCollectionId(block, recordMap)
 
         if (collectionId) {
+          const spaceId = block?.space_id
           return block.view_ids?.map((collectionViewId) => ({
             collectionId,
-            collectionViewId
+            collectionViewId,
+            spaceId
           }))
         } else {
           return []
@@ -148,19 +147,9 @@ export class NotionAPI {
       await pMap(
         allCollectionInstances,
         async (collectionInstance) => {
-          const { collectionId, collectionViewId } = collectionInstance
+          const { collectionId, collectionViewId, spaceId } = collectionInstance
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value
-
-          // Get the space_id from the collection block
-          const collectionBlock = Object.values(recordMap.block).find(
-            (b) =>
-              b?.value &&
-              (b.value.type === 'collection_view' ||
-                b.value.type === 'collection_view_page') &&
-              getBlockCollectionId(b.value, recordMap) === collectionId
-          )
-          const spaceId = collectionBlock?.value?.space_id
 
           try {
             const collectionData = await this.getCollectionData(
