@@ -152,6 +152,16 @@ export class NotionAPI {
           const collectionView =
             recordMap.collection_view[collectionViewId]?.value
 
+          // Get the space_id from the collection block
+          const collectionBlock = Object.values(recordMap.block).find(
+            (b) =>
+              b?.value &&
+              (b.value.type === 'collection_view' ||
+                b.value.type === 'collection_view_page') &&
+              getBlockCollectionId(b.value, recordMap) === collectionId
+          )
+          const spaceId = collectionBlock?.value?.space_id
+
           try {
             const collectionData = await this.getCollectionData(
               collectionId,
@@ -159,6 +169,7 @@ export class NotionAPI {
               collectionView,
               {
                 limit: collectionReducerLimit,
+                spaceId,
                 ofetchOptions
               }
             )
@@ -441,6 +452,7 @@ export class NotionAPI {
       searchQuery = '',
       userTimeZone = this._userTimeZone,
       loadContentCover = true,
+      spaceId,
       ofetchOptions
     }: {
       type?: notion.CollectionViewType
@@ -449,6 +461,7 @@ export class NotionAPI {
       userTimeZone?: string
       userLocale?: string
       loadContentCover?: boolean
+      spaceId?: string
       ofetchOptions?: OfetchOptions
     } = {}
   ) {
@@ -618,6 +631,11 @@ export class NotionAPI {
     //   )
     // }
 
+    const headers: any = {}
+    if (spaceId) {
+      headers['x-notion-space-id'] = spaceId
+    }
+
     return this.fetch<notion.CollectionInstance>({
       endpoint: 'queryCollection',
       body: {
@@ -633,6 +651,7 @@ export class NotionAPI {
         },
         loader
       },
+      headers,
       ofetchOptions: {
         timeout: 60_000,
         ...ofetchOptions,
