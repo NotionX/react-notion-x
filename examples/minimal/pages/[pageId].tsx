@@ -9,7 +9,7 @@ export const getStaticProps = async (context: any) => {
   const recordMap = await notion.getPage(pageId)
 
   // NOTE: this isn't necessary; trying to reduce my vercel bill
-  if (recordMap.block[0]!.value.space_id !== rootNotionSpaceId) {
+  if (recordMap.block[0]?.value?.space_id !== rootNotionSpaceId) {
     return {
       notFound: true
     }
