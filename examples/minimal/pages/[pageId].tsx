@@ -1,12 +1,19 @@
 import { type ExtendedRecordMap } from 'notion-types'
 
 import { NotionPage } from '../components/NotionPage'
-import { rootNotionPageId } from '../lib/config'
+import { rootNotionPageId, rootNotionSpaceId } from '../lib/config'
 import notion from '../lib/notion'
 
 export const getStaticProps = async (context: any) => {
   const pageId = (context.params.pageId as string) || rootNotionPageId
   const recordMap = await notion.getPage(pageId)
+
+  // NOTE: this isn't necessary; trying to reduce my vercel bill
+  if (recordMap.block[0]!.value.space_id !== rootNotionSpaceId) {
+    return {
+      notFound: true
+    }
+  }
 
   return {
     props: {
@@ -23,9 +30,7 @@ export const getStaticProps = async (context: any) => {
 export async function getStaticPaths() {
   return {
     paths: [],
-    // TODO: changing this to false because my vercel bill keeps increasing due to
-    // people abusing the demo to host their own sites.
-    fallback: false
+    fallback: true
   }
 }
 
