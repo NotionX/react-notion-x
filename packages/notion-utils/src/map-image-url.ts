@@ -1,5 +1,8 @@
 import { type Block } from 'notion-types'
 
+// eslint-disable-next-line security/detect-unsafe-regex
+const GIF_REGEXP = /(?:https?:\/\/)?[^\s]+\.gif(?=$|\?|#)/
+
 export const defaultMapImageUrl = (
   url: string | undefined,
   block: Block
@@ -9,6 +12,10 @@ export const defaultMapImageUrl = (
   }
 
   if (url.startsWith('data:')) {
+    return url
+  }
+
+  if (GIF_REGEXP.test(url)) {
     return url
   }
 

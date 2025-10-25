@@ -6,12 +6,12 @@ Suggestions and pull requests are highly encouraged. Have a look at the [open is
 
 To develop the project locally, you'll need a recent version of Node.js and `pnpm` installed globally.
 
-To get started, clone the repo and run `pnpm` from the root directory:
+To get started, clone the repo and run `pnpm install` from the root directory:
 
 ```bash
 git clone https://github.com/NotionX/react-notion-x.git
 cd react-notion-x
-pnpm
+pnpm install
 ```
 
 This will install dependencies and link all of the local packages together using `lerna`. This includes the example projects which will now point to the local version of your packages.
