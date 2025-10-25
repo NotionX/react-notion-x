@@ -34,6 +34,12 @@ export interface NotionComponents {
   Collection: any
   Property?: any
 
+  // collection view components
+  CollectionViewGallery?: any
+  CollectionViewTable?: any
+  CollectionViewList?: any
+  CollectionViewBoard?: any
+
   propertyTextValue: ComponentOverrideFn
   propertySelectValue: ComponentOverrideFn
   propertyRelationValue: ComponentOverrideFn
