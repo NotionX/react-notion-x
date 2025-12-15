@@ -47,7 +47,11 @@ export const getPageTableOfContents = (
           }
         }
 
-        if (type === 'transclusion_container') {
+        if (
+          type === 'transclusion_container' ||
+          type === 'column_list' ||
+          type === 'column'
+        ) {
           return mapContentToEntries(block.content)
         }
       }
@@ -56,10 +60,15 @@ export const getPageTableOfContents = (
     })
   }
 
-  const toc = mapContentToEntries(page.content)
-    // Synced blocks cannot be nested. So theoretically a 1-level flattening is enough.
-    .flat()
-    .filter(Boolean) as Array<TableOfContentsEntry>
+  // Helper function to flatten nested results recursively
+  function flattenResults(results: MapResult[]): TableOfContentsEntry[] {
+    return results.flatMap((r) => {
+      if (r == null) return []
+      return Array.isArray(r) ? flattenResults(r) : [r]
+    })
+  }
+
+  const toc = flattenResults(mapContentToEntries(page.content))
 
   const indentLevelStack = [
     {
