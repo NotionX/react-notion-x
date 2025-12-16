@@ -24,7 +24,7 @@ catalog:
   eslint: ^9.35.0
   format-number: ^3.0.0
   is-url-superb: ^6.1.0
-  katex: ^0.16.21
+  katex: 0.16.21
   ky: ^1.8.1
   lodash.throttle: ^4.1.1
   lqip-modern: ^2.1.0

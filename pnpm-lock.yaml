@@ -67,7 +67,7 @@ catalogs:
       specifier: ^6.1.0
       version: 6.1.0
     katex:
-      specifier: ^0.16.21
+      specifier: 0.16.21
       version: 0.16.21
     ky:
       specifier: ^1.8.1
@@ -245,6 +245,9 @@ importers:
       classnames:
         specifier: 'catalog:'
         version: 2.5.1
+      katex:
+        specifier: 'catalog:'
+        version: 0.16.21
       ky:
         specifier: 'catalog:'
         version: 1.8.1
