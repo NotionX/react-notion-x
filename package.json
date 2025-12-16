@@ -6,9 +6,9 @@
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "version": "7.7.2",
-  "packageManager": "pnpm@10.17.0",
+  "packageManager": "pnpm@10.26.0",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "type": "module",
   "scripts": {
