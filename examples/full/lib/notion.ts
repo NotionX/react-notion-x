@@ -15,6 +15,7 @@ const notion = useOfficialNotionAPI
   : new NotionAPI()
 
 if (useOfficialNotionAPI) {
+  console.log('Using official Notion API', process.env.NOTION_TOKEN)
   console.warn(
     'Using the official Notion API. Note that many blocks only include partial support for formatting and layout. Use at your own risk.'
   )

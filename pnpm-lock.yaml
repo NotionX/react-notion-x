@@ -300,12 +300,18 @@ importers:
 
   examples/minimal:
     dependencies:
+      '@notionhq/client':
+        specifier: 'catalog:'
+        version: 2.3.0
       next:
         specifier: 'catalog:'
         version: 16.0.10(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       notion-client:
         specifier: workspace:*
         version: link:../../packages/notion-client
+      notion-compat:
+        specifier: workspace:*
+        version: link:../../packages/notion-compat
       notion-types:
         specifier: workspace:*
         version: link:../../packages/notion-types

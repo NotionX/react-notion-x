@@ -75,7 +75,7 @@ export function convertBlock({
 
   const blockDetails: any = block[block.type as keyof types.Block]
   if (blockDetails) {
-    if (blockDetails.rich_text) {
+    if (blockDetails?.rich_text) {
       compatBlock.properties.title = convertRichText(blockDetails.rich_text)
     }
 
