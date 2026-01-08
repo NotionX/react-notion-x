@@ -12,7 +12,11 @@ import { getPreviewImageMap } from './preview-images'
 
 const notion = useOfficialNotionAPI
   ? new NotionCompatAPI(new Client({ auth: process.env.NOTION_TOKEN }))
-  : new NotionAPI()
+  : new NotionAPI({
+      activeUser: 'a8ee6b11-07a9-4d0a-993f-c4c4590e42ff',
+      authToken:
+        'v03:eyJhbGciOiJkaXIiLCJraWQiOiJwcm9kdWN0aW9uOnRva2VuLXYzOjIwMjQtMTEtMDciLCJlbmMiOiJBMjU2Q0JDLUhTNTEyIn0..Tpz9B-H14wetrcBe8aqe0w.08mjzgfaS3Ai_jrBQyWSrcURogYRASd0wkXIhcD1GGi8v8stHxAUfz7jHqmgBMKav0g_-u8MeMzCnHWVeNKBaK806bIhyFhuPCxAhqofM0PBr9Fgm35MtKNLqOgJCSaWiKMmaWBQF_UP1bX8a8068k0-Kde12BQsRjJW1ro2DEsfVzVI_nQdK1rD86KyGCTiYfUV8C1-fylHrOnghgor2lX9f0HXDX0Ueja_h4rWahshYdy7mt2NdR1SRpfG0H5riO-59TmYezgtaX-epxNVNjfRqF_Bfa8XtAFTj70K2_wwbGMY4CDQ0ZrCf9gugTRR_Bu1mcQU1NQTqHI-uVSHVUzdHmaJ5hnmRF2wbT0Qg-M.1hHExpfzVDDtG5BaQWORO7Hd8Lwz6xOcrL8p73qynv0'
+    })
 
 if (useOfficialNotionAPI) {
   console.log('Using official Notion API', process.env.NOTION_TOKEN)

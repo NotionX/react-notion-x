@@ -13,8 +13,10 @@ export const previewImagesEnabled = true
 // Note that the official API doesn't expose formatting options for many blocks
 // and is currently not as well-supported.
 // If you want to use the official API, you must provide a NOTION_TOKEN env var.
-export const useOfficialNotionAPI =
-  process.env.USE_OFFICIAL_NOTION_API === 'true' && !!process.env.NOTION_TOKEN
+// export const useOfficialNotionAPI =
+//   process.env.USE_OFFICIAL_NOTION_API === 'true' && !!process.env.NOTION_TOKEN
+
+export const useOfficialNotionAPI = false
 
 export const isDev =
   process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
