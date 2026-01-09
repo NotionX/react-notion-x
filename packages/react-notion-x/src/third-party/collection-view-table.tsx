@@ -74,6 +74,18 @@ function Table({
 } & Omit<CollectionViewProps, 'collectionData'>) {
   const { recordMap, linkTableTitleProperties } = useNotionContext()
 
+  const [isExpanded, setIsExpanded] = React.useState(false)
+
+  const { inline_collection_first_load_limit } = collectionView.format || {}
+  const loadLimit = inline_collection_first_load_limit?.limit
+  const shouldLimit = typeof loadLimit === 'number'
+
+  const showLoadMore =
+    shouldLimit && !isExpanded && (blockIds?.length || 0) > loadLimit
+  const visibleBlockIds = showLoadMore
+    ? blockIds?.slice(0, loadLimit)
+    : blockIds
+
   const tableStyle = useClientStyle(
     {
       width,
@@ -141,7 +153,7 @@ function Table({
             <div className='notion-table-header-placeholder'></div>
 
             <div className='notion-table-body'>
-              {blockIds?.map((blockId) => (
+              {visibleBlockIds?.map((blockId) => (
                 <div className='notion-table-row' key={blockId}>
                   {properties.map((p: any) => {
                     const schema = collection.schema?.[p.property]
@@ -184,6 +196,28 @@ function Table({
           </>
         )}
       </div>
+
+      {showLoadMore && (
+        <div
+          className='notion-collection-load-more'
+          onClick={() => setIsExpanded(true)}
+        >
+          <svg
+            viewBox='0 0 24 24'
+            height='16'
+            width='16'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <path d='M12 5v14' />
+            <path d='m19 12-7 7-7-7' />
+          </svg>
+          Load more
+        </div>
+      )}
     </div>
   )
 }

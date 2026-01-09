@@ -3383,3 +3383,30 @@ svg.notion-page-icon {
   font-size: 0.875rem;
   color: var(--fg-color-2);
 }
+
+.notion-collection-load-more {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fg-color-2);
+  user-select: none;
+  cursor: pointer;
+  transition: background 120ms ease-in;
+  border-radius: var(--notion-corner-radius);
+}
+
+.notion-collection-load-more:hover {
+  background: var(--bg-color-0);
+  color: var(--fg-color);
+}
+
+.notion-collection-load-more svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  fill: currentColor;
+}
