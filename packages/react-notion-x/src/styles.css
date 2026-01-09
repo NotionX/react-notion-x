@@ -87,6 +87,7 @@
 
   --notion-max-width: 720px;
   --notion-header-height: 45px;
+  --notion-corner-radius: 8px;
 }
 
 .dark-mode {
@@ -674,7 +675,7 @@ details.notion-toggle .notion-h {
 
 .notion-page-icon-hero.notion-page-icon-image .notion-page-icon {
   display: block;
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   width: 100%;
   height: 100%;
   max-width: 100%;
@@ -702,7 +703,7 @@ img.notion-page-icon,
 svg.notion-page-icon {
   display: block;
   object-fit: fill;
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   max-width: 100%;
   max-height: 100%;
 }
@@ -834,7 +835,7 @@ svg.notion-page-icon {
   color: #eb5757;
   padding: 0.2em 0.4em;
   background: var(--bg-color-2);
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   font-size: 85%;
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
     monospace;
@@ -931,7 +932,7 @@ svg.notion-page-icon {
   width: 100%;
   padding: 1em;
   margin: 4px 0;
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   tab-size: 2;
   display: block;
   box-sizing: border-box;
@@ -1061,7 +1062,7 @@ svg.notion-page-icon {
   box-sizing: border-box;
   text-decoration: none;
   border: 1px solid var(--fg-color-1);
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   display: flex;
   overflow: hidden;
   user-select: none;
@@ -1183,7 +1184,7 @@ svg.notion-page-icon {
   padding: 16px 16px 16px 12px;
   display: inline-flex;
   width: 100%;
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   border-width: 1px;
   align-items: center;
   box-sizing: border-box;
@@ -1842,7 +1843,7 @@ svg.notion-page-icon {
   box-shadow:
     rgba(15, 15, 15, 0.1) 0 0 0 1px,
     rgba(15, 15, 15, 0.1) 0 2px 4px;
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   background: var(--bg-color);
   color: var(--fg-color);
   transition: background 100ms ease-out 0s;
@@ -1866,7 +1867,7 @@ svg.notion-page-icon {
 .notion-collection-card-cover img {
   width: 100%;
   height: 100%;
-  border-radius: 1px 1px 0 0;
+  border-radius: var(--notion-corner-radius) var(--notion-corner-radius) 0 0;
   /* object-fit: cover; */
 }
 
@@ -2271,7 +2272,7 @@ svg.notion-page-icon {
   display: flex;
   align-items: center;
   padding: 3px 2px;
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   transition: background 20ms ease-in 0s;
   color: inherit;
   text-decoration: none;
@@ -2380,7 +2381,7 @@ svg.notion-page-icon {
   justify-content: center;
   height: 22px;
   width: 22px;
-  border-radius: 3px;
+  border-radius: var(--notion-corner-radius);
   flex-shrink: 0;
 }
 
