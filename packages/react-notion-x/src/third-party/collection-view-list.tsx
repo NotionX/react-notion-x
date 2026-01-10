@@ -1,5 +1,5 @@
 import type * as types from 'notion-types'
-import type React from 'react'
+import React from 'react'
 import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
 

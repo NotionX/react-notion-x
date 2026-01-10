@@ -1,4 +1,4 @@
-import type React from 'react'
+import React from 'react'
 import { getBlockValue } from 'notion-utils'
 
 import { useNotionContext } from '../context'
