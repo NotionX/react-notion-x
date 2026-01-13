@@ -1,0 +1,40 @@
+{
+  "name": "notion-v1-client",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Raw TypeScript client for Notion V1 API without adaptation layer.",
+  "repository": "NotionX/react-notion-x",
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "clean": "del build",
+    "test": "run-s test:*",
+    "test:lint": "eslint .",
+    "test:typecheck": "tsc --noEmit",
+    "test:unit": "vitest run"
+  },
+  "dependencies": {
+    "ofetch": "catalog:",
+    "p-queue": "catalog:",
+    "notion-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@notionhq/client": "catalog:"
+  },
+  "peerDependencies": {
+    "@notionhq/client": "^2.2.0"
+  }
+}

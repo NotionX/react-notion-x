@@ -19,6 +19,7 @@
     "lqip-modern": "catalog:",
     "next": "catalog:",
     "notion-client": "workspace:*",
+    "notion-v1-client": "workspace:*",
     "notion-compat": "workspace:*",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",

@@ -16,7 +16,7 @@ export const previewImagesEnabled = true
 // export const useOfficialNotionAPI =
 //   process.env.USE_OFFICIAL_NOTION_API === 'true' && !!process.env.NOTION_TOKEN
 
-export const useOfficialNotionAPI = false
+export const useOfficialNotionAPI = true
 
 export const isDev =
   process.env.NODE_ENV === 'development' || !process.env.NODE_ENV

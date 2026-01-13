@@ -6,6 +6,8 @@ import 'prismjs/themes/prism-tomorrow.css'
 import 'react-notion-x/src/styles.css'
 // app styles
 import '../styles/globals.css'
+// // notion api interceptor for development logging
+// import '../lib/notion-interceptor'
 
 function MyApp({ Component, pageProps }: any) {
   return <Component {...pageProps} />
