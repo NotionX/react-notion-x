@@ -8,13 +8,19 @@ export function convertPage({
   blockMap,
   blockChildrenMap,
   pageMap,
-  parentMap
+  parentMap,
+  fullWidth,
+  pageFont,
+  smallText
 }: {
   pageId: string
   blockMap: types.BlockMap
   blockChildrenMap: types.BlockChildrenMap
   pageMap: types.PageMap
   parentMap: types.ParentMap
+  fullWidth?: boolean
+  pageFont?: 'default' | 'serif' | 'mono'
+  smallText?: boolean
 }): notion.ExtendedRecordMap {
   const compatBlocks = Object.values(blockMap).map((block) =>
     convertBlock({
@@ -31,7 +37,10 @@ export function convertPage({
     blockMap,
     blockChildrenMap,
     pageMap,
-    parentMap
+    parentMap,
+    fullWidth,
+    pageFont,
+    smallText
   })
 
   const compatPageBlocks = Object.keys(pageMap)
@@ -42,7 +51,10 @@ export function convertPage({
         blockMap,
         blockChildrenMap,
         pageMap,
-        parentMap
+        parentMap,
+        fullWidth,
+        pageFont,
+        smallText
       })
     )
 
@@ -73,13 +85,19 @@ export function convertPageBlock({
   blockMap,
   blockChildrenMap,
   pageMap,
-  parentMap
+  parentMap,
+  fullWidth,
+  pageFont,
+  smallText
 }: {
   pageId: string
   blockMap: types.BlockMap
   blockChildrenMap: types.BlockChildrenMap
   pageMap: types.PageMap
   parentMap: types.ParentMap
+  fullWidth?: boolean
+  pageFont?: 'default' | 'serif' | 'mono'
+  smallText?: boolean
 }): notion.Block | null {
   const partialPage = pageMap[pageId]
   const page = partialPage as types.Page
@@ -92,6 +110,29 @@ export function convertPageBlock({
       blockMap,
       parentMap
     })
+
+    // Apply page format settings
+    if (compatPageBlock && compatPageBlock.format) {
+      // Apply full-width setting
+      if (fullWidth !== undefined) {
+        compatPageBlock.format.page_full_width = fullWidth
+      } else {
+        // Smart default: full-width for database pages or pages with covers
+        const isDatabasePage = page.parent?.type === 'database_id'
+        const hasCover = !!page.cover
+        compatPageBlock.format.page_full_width = isDatabasePage || hasCover
+      }
+
+      // Apply page font (not available in official API, so use provided value or default)
+      if (pageFont) {
+        compatPageBlock.format.page_font = pageFont
+      }
+
+      // Apply small text setting (not available in official API, so use provided value or default)
+      if (smallText !== undefined) {
+        compatPageBlock.format.page_small_text = smallText
+      }
+    }
 
     return compatPageBlock
   }

@@ -2,6 +2,7 @@ import type * as notion from 'notion-types'
 
 import type * as types from './types'
 import { convertColor } from './convert-color'
+import { convertPageProperties } from './convert-page-properties'
 import { convertRichText } from './convert-rich-text'
 import { convertTime } from './convert-time'
 
@@ -225,12 +226,16 @@ export function convertBlock({
       if (pageMap) {
         const page = pageMap[block.id] as types.Page
         if (page) {
-          if (page.properties.title) {
-            compatBlock.properties.title = convertRichText(
-              (page.properties.title as any).rich_text
-            )
+          // Convert all page properties (including database properties)
+          if (page.properties) {
+            const convertedProperties = convertPageProperties(page.properties)
+            compatBlock.properties = {
+              ...compatBlock.properties,
+              ...convertedProperties
+            }
           }
 
+          // Handle cover image
           if (page.cover) {
             switch (page.cover.type) {
               case 'external':
@@ -241,11 +246,11 @@ export function convertBlock({
                 compatBlock.format.page_cover = page.cover.file.url
                 break
             }
-
-            // TODO
+            // Default cover position to center (0.5)
             compatBlock.format.page_cover_position = 0.5
           }
 
+          // Handle page icon
           if (page.icon) {
             switch (page.icon.type) {
               case 'emoji':
@@ -262,6 +267,7 @@ export function convertBlock({
             }
           }
 
+          // Set parent table based on parent type
           if (page.parent) {
             switch (page.parent.type) {
               case 'workspace':
@@ -277,11 +283,20 @@ export function convertBlock({
                 break
             }
           }
+
+          // Note: The official Notion API doesn't expose these page format properties:
+          // - page_full_width
+          // - page_small_text
+          // - block_locked
+          // - block_locked_by
+          // These would need to be retrieved through other means if available
         }
       }
 
+      // Fallback to child_page title if page properties not available
       if (block.child_page) {
-        if (block.child_page.title) {
+        if (block.child_page.title && !compatBlock.properties?.title) {
+          compatBlock.properties = compatBlock.properties || {}
           compatBlock.properties.title = [[block.child_page.title]]
         }
       }

@@ -1,6 +1,7 @@
 export * from './convert-block'
 export * from './convert-color'
 export * from './convert-page'
+export { convertPageProperties } from './convert-page-properties'
 export * from './convert-rich-text'
 export * from './convert-time'
 export * from './notion-compat-api'

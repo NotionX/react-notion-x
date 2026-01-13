@@ -13,7 +13,31 @@ export class NotionCompatAPI {
     this.client = client
   }
 
-  public async getPage(rawPageId: string): Promise<notion.ExtendedRecordMap> {
+  public async getPage(
+    rawPageId: string,
+    options?: {
+      /**
+       * Set default full-width layout for pages
+       * @default true for database pages, false for regular pages
+       */
+      fullWidth?: boolean
+      /**
+       * Set page font style
+       * @default 'default'
+       */
+      pageFont?: 'default' | 'serif' | 'mono'
+      /**
+       * Set small text mode
+       * @default false
+       */
+      smallText?: boolean
+      /**
+       * Concurrency for fetching nested blocks
+       * @default 4
+       */
+      concurrency?: number
+    }
+  ): Promise<notion.ExtendedRecordMap> {
     const pageId = parsePageId(rawPageId)
     if (!pageId) {
       throw new Error(`Invalid page id "${rawPageId}"`)
@@ -25,14 +49,19 @@ export class NotionCompatAPI {
       this.getAllBlockChildren(pageId)
     ])
     const { blockMap, blockChildrenMap, pageMap, parentMap } =
-      await this.resolvePage(pageId)
+      await this.resolvePage(pageId, {
+        concurrency: options?.concurrency
+      })
 
     const recordMap = convertPage({
       pageId,
       blockMap,
       blockChildrenMap,
       pageMap,
-      parentMap
+      parentMap,
+      fullWidth: options?.fullWidth,
+      pageFont: options?.pageFont,
+      smallText: options?.smallText
     })
 
     ;(recordMap as any).raw = {
