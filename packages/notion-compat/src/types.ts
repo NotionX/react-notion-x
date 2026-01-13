@@ -28,8 +28,19 @@ export type RichText = Extract<
 >['paragraph']['rich_text']
 export type RichTextItem = ArrayElement<RichText>
 
+export type PartialDatabase = Awaited<
+  ReturnType<InstanceType<typeof Client>['databases']['retrieve']>
+>
+
+export type Database = Extract<PartialDatabase, { title: unknown }>
+
+export type DatabaseQueryResponse = Awaited<
+  ReturnType<InstanceType<typeof Client>['databases']['query']>
+>
+
 export type PageMap = Record<string, PartialPage>
 export type BlockMap = Record<string, PartialBlock>
 export type BlockChildrenMap = Record<string, Array<string>>
+export type DatabaseMap = Record<string, PartialDatabase>
 
 export type ParentMap = Record<string, string>

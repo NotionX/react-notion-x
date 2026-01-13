@@ -1,4 +1,6 @@
 export * from './convert-block'
+export { convertCollection } from './convert-collection'
+export { createDefaultCollectionView } from './convert-collection-view'
 export * from './convert-color'
 export * from './convert-page'
 export { convertPageProperties } from './convert-page-properties'

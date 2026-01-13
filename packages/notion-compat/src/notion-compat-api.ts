@@ -4,6 +4,8 @@ import { parsePageId } from 'notion-utils'
 import PQueue from 'p-queue'
 
 import type * as types from './types'
+import { convertCollection } from './convert-collection'
+import { createDefaultCollectionView } from './convert-collection-view'
 import { convertPage } from './convert-page'
 
 export class NotionCompatAPI {
@@ -32,6 +34,16 @@ export class NotionCompatAPI {
        */
       smallText?: boolean
       /**
+       * Automatically fetch database entries and include in collection_query
+       * @default true
+       */
+      fetchDatabaseEntries?: boolean
+      /**
+       * Maximum entries to fetch per database
+       * @default 100
+       */
+      maxDatabaseEntries?: number
+      /**
        * Concurrency for fetching nested blocks
        * @default 4
        */
@@ -48,20 +60,24 @@ export class NotionCompatAPI {
       this.client.blocks.retrieve({ block_id: pageId }),
       this.getAllBlockChildren(pageId)
     ])
-    const { blockMap, blockChildrenMap, pageMap, parentMap } =
+    const { blockMap, blockChildrenMap, pageMap, databaseMap, parentMap } =
       await this.resolvePage(pageId, {
         concurrency: options?.concurrency
       })
 
-    const recordMap = convertPage({
+    const recordMap = await convertPage({
       pageId,
       blockMap,
       blockChildrenMap,
       pageMap,
+      databaseMap,
       parentMap,
       fullWidth: options?.fullWidth,
       pageFont: options?.pageFont,
-      smallText: options?.smallText
+      smallText: options?.smallText,
+      fetchDatabaseEntries: options?.fetchDatabaseEntries ?? true,
+      maxDatabaseEntries: options?.maxDatabaseEntries ?? 100,
+      notionClient: this.client
     })
 
     ;(recordMap as any).raw = {
@@ -71,6 +87,40 @@ export class NotionCompatAPI {
     }
 
     return recordMap
+  }
+
+  public async getDatabase(databaseId: string): Promise<{
+    collection: notion.Collection
+    collectionView: notion.CollectionView
+  }> {
+    const database = await this.client.databases.retrieve({
+      database_id: databaseId
+    })
+
+    const typedDatabase = database as types.Database
+    const collection = convertCollection(typedDatabase)
+    const collectionView = createDefaultCollectionView(databaseId, 'table')
+
+    return {
+      collection,
+      collectionView
+    }
+  }
+
+  public async queryDatabase(
+    databaseId: string,
+    options?: {
+      filter?: any
+      sorts?: any[]
+      pageSize?: number
+    }
+  ): Promise<types.DatabaseQueryResponse> {
+    return this.client.databases.query({
+      database_id: databaseId,
+      filter: options?.filter,
+      sorts: options?.sorts,
+      page_size: options?.pageSize || 100
+    })
   }
 
   async resolvePage(
@@ -83,6 +133,7 @@ export class NotionCompatAPI {
   ) {
     const blockMap: types.BlockMap = {}
     const pageMap: types.PageMap = {}
+    const databaseMap: types.DatabaseMap = {}
     const parentMap: types.ParentMap = {}
     const blockChildrenMap: types.BlockChildrenMap = {}
     const pendingBlockIds = new Set<string>()
@@ -108,6 +159,7 @@ export class NotionCompatAPI {
           }
 
           const block = partialBlock as types.Block
+
           if (block.type === 'child_page') {
             if (!pageMap[blockId]) {
               const partialPage = await this.client.pages.retrieve({
@@ -142,6 +194,21 @@ export class NotionCompatAPI {
               // don't fetch children or recurse on subpages
               return
             }
+          }
+
+          if (block.type === 'child_database') {
+            if (!databaseMap[blockId]) {
+              try {
+                const database = await this.client.databases.retrieve({
+                  database_id: blockId
+                })
+                databaseMap[blockId] = database
+              } catch (err: any) {
+                console.warn('failed resolving database', blockId, err.message)
+              }
+            }
+            // Don't fetch children of databases - they're queried separately
+            return
           }
 
           if (shallow) {
@@ -225,6 +292,7 @@ export class NotionCompatAPI {
       blockMap,
       blockChildrenMap,
       pageMap,
+      databaseMap,
       parentMap
     }
   }

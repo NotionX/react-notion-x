@@ -327,7 +327,14 @@ export function convertBlock({
       break
 
     case 'child_database':
-      // TODO
+      compatBlock.type = 'collection_view'
+      ;(compatBlock as any).collection_id = block.id
+      ;(compatBlock as any).view_ids = [`${block.id}-default-view`]
+
+      if (block.child_database?.title) {
+        compatBlock.properties = compatBlock.properties || {}
+        compatBlock.properties.title = [[block.child_database.title]]
+      }
       break
 
     case 'table':

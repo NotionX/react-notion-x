@@ -1,27 +1,38 @@
+import type { Client } from '@notionhq/client'
 import type * as notion from 'notion-types'
 
 import type * as types from './types'
 import { convertBlock } from './convert-block'
+import { convertCollection } from './convert-collection'
+import { createDefaultCollectionView } from './convert-collection-view'
 
-export function convertPage({
+export async function convertPage({
   pageId,
   blockMap,
   blockChildrenMap,
   pageMap,
+  databaseMap,
   parentMap,
   fullWidth,
   pageFont,
-  smallText
+  smallText,
+  fetchDatabaseEntries = true,
+  maxDatabaseEntries = 100,
+  notionClient
 }: {
   pageId: string
   blockMap: types.BlockMap
   blockChildrenMap: types.BlockChildrenMap
   pageMap: types.PageMap
+  databaseMap: types.DatabaseMap
   parentMap: types.ParentMap
   fullWidth?: boolean
   pageFont?: 'default' | 'serif' | 'mono'
   smallText?: boolean
-}): notion.ExtendedRecordMap {
+  fetchDatabaseEntries?: boolean
+  maxDatabaseEntries?: number
+  notionClient?: Client
+}): Promise<notion.ExtendedRecordMap> {
   const compatBlocks = Object.values(blockMap).map((block) =>
     convertBlock({
       block,
@@ -37,6 +48,7 @@ export function convertPage({
     blockMap,
     blockChildrenMap,
     pageMap,
+    databaseMap,
     parentMap,
     fullWidth,
     pageFont,
@@ -51,6 +63,7 @@ export function convertPage({
         blockMap,
         blockChildrenMap,
         pageMap,
+        databaseMap,
         parentMap,
         fullWidth,
         pageFont,
@@ -70,11 +83,68 @@ export function convertPage({
       ])
   )
 
+  // Convert databases to collections
+  const collectionMap: notion.CollectionMap = {}
+  const collectionViewMap: notion.CollectionViewMap = {}
+  const collectionQuery: any = {}
+
+  for (const [databaseId, database] of Object.entries(databaseMap)) {
+    const typedDatabase = database as types.Database
+    const collection = convertCollection(typedDatabase)
+    const collectionView = createDefaultCollectionView(databaseId, 'table')
+
+    collectionMap[databaseId] = {
+      role: 'reader',
+      value: collection
+    }
+
+    collectionViewMap[collectionView.id] = {
+      role: 'reader',
+      value: collectionView
+    }
+
+    // Fetch database entries if requested
+    if (fetchDatabaseEntries && notionClient) {
+      try {
+        const queryResult = await notionClient.databases.query({
+          database_id: databaseId,
+          page_size: maxDatabaseEntries
+        })
+
+        // Build collection query result
+        const blockIds = queryResult.results.map((page: any) => page.id)
+
+        collectionQuery[databaseId] = {
+          [collectionView.id]: {
+            type: collectionView.type,
+            total: queryResult.results.length,
+            blockIds,
+            aggregationResults: [],
+            collection_group_results: {
+              type: 'results',
+              blockIds,
+              hasMore: !!queryResult.has_more
+            }
+          }
+        }
+
+        // Add database pages to pageMap so they're included in the recordMap
+        for (const result of queryResult.results) {
+          if (!pageMap[result.id]) {
+            pageMap[result.id] = result as any
+          }
+        }
+      } catch (err: any) {
+        console.warn(`Failed to query database ${databaseId}:`, err.message)
+      }
+    }
+  }
+
   return {
     block: compatBlockMap as any,
-    collection: {},
-    collection_view: {},
-    collection_query: {},
+    collection: collectionMap,
+    collection_view: collectionViewMap,
+    collection_query: collectionQuery,
     signed_urls: {},
     notion_user: {}
   }
@@ -85,6 +155,7 @@ export function convertPageBlock({
   blockMap,
   blockChildrenMap,
   pageMap,
+  databaseMap: _databaseMap,
   parentMap,
   fullWidth,
   pageFont,
@@ -94,6 +165,7 @@ export function convertPageBlock({
   blockMap: types.BlockMap
   blockChildrenMap: types.BlockChildrenMap
   pageMap: types.PageMap
+  databaseMap: types.DatabaseMap
   parentMap: types.ParentMap
   fullWidth?: boolean
   pageFont?: 'default' | 'serif' | 'mono'
