@@ -525,7 +525,10 @@ export function PropertyImpl(props: IPropertyProps) {
       case 'select':
       // intentional fallthrough
       case 'multi_select': {
-        const values = (data?.[0]?.[0] || '').split(',')
+        const originalValues = (data?.[0]?.[0] || '').split(',')
+        const values = originalValues.filter((value) =>
+          schema.options?.some((option) => value === option.value)
+        )
 
         content = values.map((value, index) => {
           const option = schema.options?.find(
