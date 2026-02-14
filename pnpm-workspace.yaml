@@ -3,24 +3,24 @@ packages:
   - examples/*
 
 catalog:
-  '@fisch0920/config': ^1.2.0
+  '@fisch0920/config': ^1.4.0
   '@fisch0920/eslint-config': ^1.4.0
   '@fisch0920/medium-zoom': ^1.0.7
   '@matejmazur/react-katex': ^3.1.3
   '@notionhq/client': ^2.3.0
   '@total-typescript/ts-reset': ^0.6.1
   '@types/lodash.throttle': ^4.1.6
-  '@types/node': ^24.5.1
+  '@types/node': ^25.2.3
   '@types/prismjs': ^1.26.5
   '@types/react': ^19.2.7
   '@types/react-dom': ^19.2.3
   '@types/react-modal': ^3.16.3
-  bumpp: ^10.1.1
+  bumpp: ^10.4.1
   classnames: ^2.5.1
   clipboard-copy: ^4.0.1
   cross-env: ^7.0.3
   date-fns: ^4.1.0
-  del-cli: ^6.0.0
+  del-cli: ^7.0.0
   eslint: ^9.35.0
   format-number: ^3.0.0
   is-url-superb: ^6.1.0
@@ -36,10 +36,10 @@ catalog:
   p-map: ^7.0.3
   p-memoize: ^7.1.1
   p-queue: ^8.1.0
-  prettier: ^3.6.2
+  prettier: ^3.8.1
   prismjs: ^1.30.0
-  react: ^19.2.3
-  react-dom: ^19.2.3
+  react: ^19.2.4
+  react-dom: ^19.2.4
   react-fast-compare: ^3.2.0
   react-hotkeys-hook: ^4.5.1
   react-image: ^4.0.3
@@ -47,11 +47,11 @@ catalog:
   react-modal: ^3.16.3
   react-scripts: 5.0.1
   react-tweet-embed: ^2.0.0
-  simple-git-hooks: ^2.13.0
-  tsup: ^8.5.0
-  tsx: ^4.20.5
-  turbo: ^2.5.6
-  typescript: ^5.9.2
+  simple-git-hooks: ^2.13.1
+  tsup: ^8.5.1
+  tsx: ^4.21.0
+  turbo: ^2.8.7
+  typescript: ^5.9.3
   unionize: ^3.1.0
   vitest: ^3.2.4
 
