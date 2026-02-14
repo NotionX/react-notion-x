@@ -151,13 +151,6 @@ export function NotionBlockRenderer({
     return null
   }
 
-  if (!block.id) {
-    console.warn('malformed block', id, JSON.stringify(block, null, 2))
-  }
-  if (block.id) {
-    console.warn('valid block', id, JSON.stringify(block, null, 2))
-  }
-
   return (
     <Block key={id} level={level} block={block} {...props}>
       {block?.content?.map((contentBlockId) => (
