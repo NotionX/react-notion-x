@@ -1,6 +1,7 @@
 import type * as types from 'notion-types'
 import type React from 'react'
 import { type PageBlock } from 'notion-types'
+import { getBlockValue } from 'notion-utils'
 
 import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
@@ -60,7 +61,7 @@ function List({
       <div className='notion-list-view'>
         <div className='notion-list-body'>
           {blockIds?.map((blockId) => {
-            const block = recordMap.block[blockId]?.value as PageBlock
+            const block = getBlockValue(recordMap.block[blockId]) as PageBlock
             if (!block) return null
 
             const titleSchema = collection.schema.title

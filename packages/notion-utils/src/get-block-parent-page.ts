@@ -1,5 +1,7 @@
 import type * as types from 'notion-types'
 
+import { getBlockValue } from './get-block-value'
+
 /**
  * Returns the parent page block containing a given page.
  *
@@ -30,9 +32,9 @@ export const getBlockParentPage = (
     }
 
     if (parentTable === 'collection') {
-      currentRecord = recordMap.collection[parentId]?.value
+      currentRecord = getBlockValue(recordMap.collection[parentId])
     } else {
-      currentRecord = recordMap.block[parentId]?.value
+      currentRecord = getBlockValue(recordMap.block[parentId])
 
       if ((currentRecord as types.Block)?.type === 'page') {
         return currentRecord as types.PageBlock

@@ -1,6 +1,7 @@
 import { type ExtendedRecordMap, type PageMap } from 'notion-types'
 import PQueue from 'p-queue'
 
+import { getBlockValue } from './get-block-value'
 import { parsePageId } from './parse-page-id'
 
 /**
@@ -66,7 +67,7 @@ export async function getAllPagesInSpace(
             return
           }
 
-          const spaceId = page.block[pageId]?.value?.space_id
+          const spaceId = getBlockValue(page.block[pageId])?.space_id
 
           if (spaceId) {
             if (!rootSpaceId) {
@@ -77,7 +78,7 @@ export async function getAllPagesInSpace(
           }
 
           for (const subPageId of Object.keys(page.block).filter((key) => {
-            const block = page.block[key]?.value
+            const block = getBlockValue(page.block[key])
             if (!block || block.alive === false) return false
 
             if (

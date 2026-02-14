@@ -1,15 +1,16 @@
 import mediumZoom from '@fisch0920/medium-zoom'
 import { type ExtendedRecordMap } from 'notion-types'
+import { getBlockValue } from 'notion-utils'
 import * as React from 'react'
 
+import type {
+  MapImageUrlFn,
+  MapPageUrlFn,
+  NotionComponents,
+  SearchNotionFn
+} from './types'
 import { Block } from './block'
 import { NotionContextProvider, useNotionContext } from './context'
-import {
-  type MapImageUrlFn,
-  type MapPageUrlFn,
-  type NotionComponents,
-  type SearchNotionFn
-} from './types'
 
 export function NotionRenderer({
   components,
@@ -140,7 +141,7 @@ export function NotionBlockRenderer({
 }) {
   const { recordMap } = useNotionContext()
   const id = blockId || Object.keys(recordMap.block)[0]!
-  const block = recordMap.block[id]?.value
+  const block = getBlockValue(recordMap.block[id])
 
   if (!block) {
     if (process.env.NODE_ENV !== 'production') {
@@ -148,6 +149,13 @@ export function NotionBlockRenderer({
     }
 
     return null
+  }
+
+  if (!block.id) {
+    console.warn('malformed block', id, JSON.stringify(block, null, 2))
+  }
+  if (block.id) {
+    console.warn('valid block', id, JSON.stringify(block, null, 2))
   }
 
   return (

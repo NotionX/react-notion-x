@@ -113,14 +113,40 @@ export function NotionPage({
   recordMap,
   previewImagesEnabled,
   rootPageId,
-  rootDomain
+  rootDomain,
+  enabled = true
 }: {
   recordMap: ExtendedRecordMap
   previewImagesEnabled?: boolean
   rootPageId?: string
   rootDomain?: string
+  enabled?: boolean
 }) {
   const router = useRouter()
+
+  if (!enabled) {
+    return (
+      <div style={{ padding: '20px' }}>
+        <p>
+          Hey 👋 I've disabled the public demo for subpages for{' '}
+          <a
+            href='https://github.com/NotionX/react-notion-x'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            react-notion-x
+          </a>{' '}
+          for now because my Vercel bill keeps increasing due to people abusing
+          the demo.
+        </p>
+
+        <p>
+          You can still run the demos locally by checking out the git repo and
+          following the instructions in the readme.
+        </p>
+      </div>
+    )
+  }
 
   if (router.isFallback) {
     return <Loading />

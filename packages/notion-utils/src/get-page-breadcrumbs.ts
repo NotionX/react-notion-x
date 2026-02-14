@@ -3,6 +3,7 @@ import type * as types from 'notion-types'
 import { getBlockIcon } from './get-block-icon'
 import { getBlockParentPage } from './get-block-parent-page'
 import { getBlockTitle } from './get-block-title'
+import { getBlockValue } from './get-block-value'
 
 export const getPageBreadcrumbs = (
   recordMap: types.ExtendedRecordMap,
@@ -14,7 +15,7 @@ export const getPageBreadcrumbs = (
   let currentPageId = activePageId
 
   do {
-    const block = blockMap[currentPageId]?.value
+    const block = getBlockValue(blockMap[currentPageId])
     if (!block) {
       break
     }

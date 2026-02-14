@@ -3,7 +3,7 @@ import {
   type Decoration,
   type ExternalObjectInstance
 } from 'notion-types'
-import { parsePageId } from 'notion-utils'
+import { getBlockValue, parsePageId } from 'notion-utils'
 import React from 'react'
 
 import { useNotionContext } from '../context'
@@ -59,7 +59,7 @@ export function Text({
               case 'p': {
                 // link to an internal block (within the current workspace)
                 const blockId = decorator[1]
-                const linkedBlock = recordMap.block[blockId]?.value
+                const linkedBlock = getBlockValue(recordMap.block[blockId])
                 if (!linkedBlock) {
                   console.log('"p" missing block', blockId)
                   return null
@@ -84,7 +84,7 @@ export function Text({
 
                 switch (linkType) {
                   case 'u': {
-                    const user = recordMap.notion_user[id]?.value
+                    const user = getBlockValue(recordMap.notion_user[id])
 
                     if (!user) {
                       console.log('"‣" missing user', id)
@@ -108,7 +108,7 @@ export function Text({
                   }
 
                   default: {
-                    const linkedBlock = recordMap.block[id]?.value
+                    const linkedBlock = getBlockValue(recordMap.block[id])
 
                     if (!linkedBlock) {
                       console.log('"‣" missing block', linkType, id)
@@ -227,7 +227,7 @@ export function Text({
 
               case 'u': {
                 const userId = decorator[1]
-                const user = recordMap.notion_user[userId]?.value
+                const user = getBlockValue(recordMap.notion_user[userId])
 
                 if (!user) {
                   console.log('missing user', userId)
@@ -253,8 +253,13 @@ export function Text({
 
               case 'eoi': {
                 const blockId = decorator[1]
-                const externalObjectInstance = recordMap.block[blockId]
-                  ?.value as ExternalObjectInstance
+                const externalObjectInstance = getBlockValue(
+                  recordMap.block[blockId]
+                ) as ExternalObjectInstance
+                if (!externalObjectInstance) {
+                  console.log('"eoi" missing block', blockId)
+                  return null
+                }
 
                 return <EOI block={externalObjectInstance} inline={true} />
               }

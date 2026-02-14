@@ -1,5 +1,7 @@
 import { type Block, type ExtendedRecordMap } from 'notion-types'
 
+import { getBlockValue } from './get-block-value'
+
 export function getBlockCollectionId(
   block: Block,
   recordMap: ExtendedRecordMap
@@ -14,7 +16,10 @@ export function getBlockCollectionId(
 
   const collectionViewId = (block as any)?.view_ids?.[0]
   if (collectionViewId) {
-    const collectionView = recordMap.collection_view?.[collectionViewId]?.value
+    const collectionView = getBlockValue(
+      recordMap.collection_view?.[collectionViewId]
+    )
+
     if (collectionView) {
       const collectionId = collectionView.format?.collection_pointer?.id
       return collectionId

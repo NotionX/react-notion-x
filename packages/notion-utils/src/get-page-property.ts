@@ -4,6 +4,7 @@ import {
   type ExtendedRecordMap
 } from 'notion-types'
 
+import { getBlockValue } from './get-block-value'
 import { getTextContent } from './get-text-content'
 
 /**
@@ -35,7 +36,7 @@ export function getPageProperty(
       return null
     }
 
-    const collection = recordMap.collection[block.parent_id]?.value
+    const collection = getBlockValue(recordMap.collection[block.parent_id])
 
     if (collection) {
       const propertyNameL = propertyName.toLowerCase()

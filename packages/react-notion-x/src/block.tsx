@@ -3,6 +3,7 @@ import {
   getBlockCollectionId,
   getBlockIcon,
   getBlockParentPage,
+  getBlockValue,
   getPageTableOfContents,
   getTextContent,
   uuidToId
@@ -125,10 +126,11 @@ export function Block(props: BlockProps) {
             block.type === 'page'
               ? block.properties
               : {
-                  title:
+                  title: getBlockValue(
                     recordMap.collection[
                       getBlockCollectionId(block, recordMap)!
-                    ]?.value?.name
+                    ]
+                  )?.name
                 }
 
           const coverPosition = (1 - (page_cover_position || 0.5)) * 100
@@ -454,7 +456,7 @@ export function Block(props: BlockProps) {
 
       let output: React.ReactNode | null = null
       const isTopLevel =
-        block.type !== recordMap.block[block.parent_id]?.value?.type
+        block.type !== getBlockValue(recordMap.block[block.parent_id])?.type
       const start = getListNumber(block.id, recordMap.block)
 
       if (block.content) {
@@ -567,7 +569,7 @@ export function Block(props: BlockProps) {
       // note: notion uses 46px
       const spacerWidth = `min(32px, 4vw)`
       const ratio = block.format?.column_ratio || 0.5
-      const parent = recordMap.block[block.parent_id]?.value
+      const parent = getBlockValue(recordMap.block[block.parent_id])
       const columns =
         parent?.content?.length || Math.max(2, Math.ceil(1.0 / ratio))
 
@@ -793,7 +795,7 @@ export function Block(props: BlockProps) {
 
     case 'alias': {
       const blockPointerId = block?.format?.alias_pointer?.id
-      const linkedBlock = recordMap.block[blockPointerId]?.value
+      const linkedBlock = getBlockValue(recordMap.block[blockPointerId])
       if (!linkedBlock) {
         console.log('"alias" missing block', blockPointerId)
         return null
@@ -817,8 +819,13 @@ export function Block(props: BlockProps) {
       )
 
     case 'table_row': {
-      const tableBlock = recordMap.block[block.parent_id]
-        ?.value as types.TableBlock
+      const tableBlock = getBlockValue(
+        recordMap.block[block.parent_id]
+      ) as types.TableBlock
+      if (!tableBlock) {
+        return null
+      }
+
       const order = tableBlock.format?.table_block_column_order
       const formatMap = tableBlock.format?.table_block_column_format
       const backgroundColor = block.format?.block_color

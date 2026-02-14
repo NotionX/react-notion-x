@@ -7,11 +7,22 @@ import { type User } from './user'
 // Aggregate map types
 // ----------------------------------------------------------------------------
 
+export type NotionMapBox<T> =
+  | {
+      role: Role
+      value: T
+    }
+  | {
+      // some blocks are double-nested...
+      role: Role
+      value: {
+        role: Role
+        value: T
+      }
+    }
+
 export interface NotionMap<T> {
-  [key: string]: {
-    role: Role
-    value: T
-  }
+  [key: string]: NotionMapBox<T>
 }
 
 export type BlockMap = NotionMap<Block>

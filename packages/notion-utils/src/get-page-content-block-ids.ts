@@ -1,5 +1,7 @@
 import type * as types from 'notion-types'
 
+import { getBlockValue } from './get-block-value'
+
 /**
  * Gets the IDs of all blocks contained on a page starting from a root block ID.
  */
@@ -14,7 +16,7 @@ export const getPageContentBlockIds = (
     if (contentBlockIds.has(blockId)) return
     contentBlockIds.add(blockId)
 
-    const block = recordMap.block[blockId]?.value
+    const block = getBlockValue(recordMap.block[blockId])
     if (!block) return
 
     const { content, type, properties, format } = block

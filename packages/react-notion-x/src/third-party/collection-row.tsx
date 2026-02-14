@@ -1,5 +1,6 @@
 import type React from 'react'
 import { type PageBlock } from 'notion-types'
+import { getBlockValue } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
@@ -17,7 +18,7 @@ export function CollectionRow({
 }) {
   const { recordMap } = useNotionContext()
   const collectionId = block.parent_id
-  const collection = recordMap.collection[collectionId]?.value
+  const collection = getBlockValue(recordMap.collection[collectionId])
   const schemas = collection?.schema
 
   if (!collection || !schemas) {

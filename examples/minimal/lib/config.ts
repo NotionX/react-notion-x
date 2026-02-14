@@ -7,3 +7,5 @@ export const rootNotionSpaceId = 'fde5ac74-eea3-4527-8f00-4482710e1af3'
 
 export const isDev =
   process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+
+console.log({ isDev, NODE_ENV: process.env.NODE_ENV })

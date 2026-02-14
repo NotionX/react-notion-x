@@ -4,6 +4,7 @@
 import type * as notion from 'notion-types'
 import {
   getBlockCollectionId,
+  getBlockValue,
   getPageContentBlockIds,
   parsePageId,
   uuidToId
@@ -124,7 +125,7 @@ export class NotionAPI {
         collectionViewId: string
         spaceId?: string
       }> = contentBlockIds.flatMap((blockId) => {
-        const block = recordMap.block[blockId]?.value
+        const block = getBlockValue(recordMap.block[blockId])
         const collectionId =
           block &&
           (block.type === 'collection_view' ||
@@ -247,12 +248,16 @@ export class NotionAPI {
       const relationPageIdsThisIteration = new Set<string>()
 
       for (const blockId of Object.keys(recordMap.block)) {
-        const blockValue = recordMap.block[blockId]?.value
+        const blockValue = getBlockValue(recordMap.block[blockId])
+
         if (
           blockValue?.parent_table === 'collection' &&
           blockValue?.parent_id
         ) {
-          const collection = recordMap.collection[blockValue.parent_id]?.value
+          const collection = getBlockValue(
+            recordMap.collection[blockValue.parent_id]
+          )
+
           if (collection?.schema) {
             const ids = this.extractRelationPageIdsFromBlock(
               blockValue,
@@ -265,7 +270,7 @@ export class NotionAPI {
 
       const missingRelationPageIds = Array.from(
         relationPageIdsThisIteration
-      ).filter((id) => !recordMap.block[id]?.value)
+      ).filter((id) => !recordMap.block[id])
 
       if (!missingRelationPageIds.length) break
 
@@ -336,7 +341,7 @@ export class NotionAPI {
     }
 
     const allFileInstances = contentBlockIds.flatMap((blockId) => {
-      const block = recordMap.block[blockId]?.value
+      const block = getBlockValue(recordMap.block[blockId])
 
       if (
         block &&
