@@ -3,16 +3,16 @@ import { type ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 
-import { isDev } from '../lib/config'
-
 export function NotionPage({
   recordMap,
-  rootPageId
+  rootPageId,
+  enabled = true
 }: {
   recordMap: ExtendedRecordMap
   rootPageId?: string
+  enabled?: boolean
 }) {
-  if (!isDev) {
+  if (!enabled) {
     return (
       <div style={{ padding: '20px' }}>
         <p>

@@ -8,7 +8,6 @@ import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 import TweetEmbed from 'react-tweet-embed'
 
-import { isDev } from '../lib/config'
 import { Loading } from './Loading'
 
 // -----------------------------------------------------------------------------
@@ -114,16 +113,18 @@ export function NotionPage({
   recordMap,
   previewImagesEnabled,
   rootPageId,
-  rootDomain
+  rootDomain,
+  enabled = true
 }: {
   recordMap: ExtendedRecordMap
   previewImagesEnabled?: boolean
   rootPageId?: string
   rootDomain?: string
+  enabled?: boolean
 }) {
   const router = useRouter()
 
-  if (!isDev) {
+  if (!enabled) {
     return (
       <div style={{ padding: '20px' }}>
         <p>

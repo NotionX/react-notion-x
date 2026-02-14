@@ -32,5 +32,11 @@ export async function getStaticPaths() {
 }
 
 export default function Page({ recordMap }: { recordMap: ExtendedRecordMap }) {
-  return <NotionPage recordMap={recordMap} rootPageId={rootNotionPageId} />
+  return (
+    <NotionPage
+      recordMap={recordMap}
+      rootPageId={rootNotionPageId}
+      enabled={isDev}
+    />
+  )
 }

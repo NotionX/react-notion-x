@@ -82,6 +82,7 @@ export default function Page({ recordMap }: { recordMap: ExtendedRecordMap }) {
       rootDomain={rootDomain}
       rootPageId={rootNotionPageId}
       previewImagesEnabled={previewImagesEnabled}
+      enabled={isDev}
     />
   )
 }
