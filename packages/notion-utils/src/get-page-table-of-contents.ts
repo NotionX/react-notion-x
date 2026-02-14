@@ -1,5 +1,6 @@
 import type * as types from 'notion-types'
 
+import { getBlockValue } from './get-block-value'
 import { getTextContent } from './get-text-content'
 
 export interface TableOfContentsEntry {
@@ -29,7 +30,7 @@ export const getPageTableOfContents = (
   // Pages and transclusion containers (synced blocks) both have the property.
   function mapContentToEntries(content?: string[]): MapResult[] {
     return (content ?? []).map((blockId: string) => {
-      const block = recordMap.block[blockId]?.value
+      const block = getBlockValue(recordMap.block[blockId])
 
       if (block) {
         const { type } = block

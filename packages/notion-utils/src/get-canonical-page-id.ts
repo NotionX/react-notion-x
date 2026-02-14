@@ -1,6 +1,7 @@
 import { type ExtendedRecordMap } from 'notion-types'
 
 import { getBlockTitle } from './get-block-title'
+import { getBlockValue } from './get-block-value'
 import { getPageProperty } from './get-page-property'
 import { normalizeTitle } from './normalize-title'
 import { uuidToId } from './uuid-to-id'
@@ -16,7 +17,7 @@ export const getCanonicalPageId = (
   if (!pageId || !recordMap) return null
 
   const id = uuidToId(pageId)
-  const block = recordMap.block[pageId]?.value
+  const block = getBlockValue(recordMap.block[pageId])
 
   if (block) {
     const slug =

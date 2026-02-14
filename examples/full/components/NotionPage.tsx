@@ -8,6 +8,7 @@ import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
 import TweetEmbed from 'react-tweet-embed'
 
+import { isDev } from '../lib/config'
 import { Loading } from './Loading'
 
 // -----------------------------------------------------------------------------
@@ -121,6 +122,30 @@ export function NotionPage({
   rootDomain?: string
 }) {
   const router = useRouter()
+
+  if (!isDev) {
+    return (
+      <div style={{ padding: '20px' }}>
+        <p>
+          Hey 👋 I've disabled the public demo for subpages for{' '}
+          <a
+            href='https://github.com/NotionX/react-notion-x'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            react-notion-x
+          </a>{' '}
+          for now because my Vercel bill keeps increasing due to people abusing
+          the demo.
+        </p>
+
+        <p>
+          You can still run the demos locally by checking out the git repo and
+          following the instructions in the readme.
+        </p>
+      </div>
+    )
+  }
 
   if (router.isFallback) {
     return <Loading />

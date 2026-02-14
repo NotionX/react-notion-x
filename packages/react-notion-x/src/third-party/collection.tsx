@@ -2,6 +2,7 @@ import type * as types from 'notion-types'
 import {
   getBlockCollectionId,
   getBlockParentPage,
+  getBlockValue,
   getTextContent
 } from 'notion-utils'
 import React from 'react'
@@ -120,8 +121,10 @@ function CollectionViewBlock({
     windowWidth = 1024
   }
 
-  const collection = recordMap.collection[collectionId]?.value
-  const collectionView = recordMap.collection_view[collectionViewId]?.value
+  const collection = getBlockValue(recordMap.collection[collectionId])
+  const collectionView = getBlockValue(
+    recordMap.collection_view[collectionViewId]
+  )
   const collectionData =
     recordMap.collection_query[collectionId]?.[collectionViewId]
   const parentPage = getBlockParentPage(block, recordMap)
@@ -251,7 +254,7 @@ function CollectionViewTabs({
           )}
         >
           <CollectionViewColumnDesc
-            collectionView={recordMap.collection_view[viewId]?.value}
+            collectionView={getBlockValue(recordMap.collection_view[viewId])}
           />
         </button>
       ))}

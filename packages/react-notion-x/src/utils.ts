@@ -1,4 +1,5 @@
 import { type BlockMap } from 'notion-types'
+import { getBlockValue } from 'notion-utils'
 
 export { formatDate, formatNotionDateTime, isUrl } from 'notion-utils'
 
@@ -12,12 +13,12 @@ const groupBlockContent = (blockMap: BlockMap): string[][] => {
   let index = -1
 
   for (const id of Object.keys(blockMap)) {
-    const blockValue = blockMap[id]?.value
+    const blockValue = getBlockValue(blockMap[id])
 
     if (blockValue) {
       if (blockValue.content)
         for (const blockId of blockValue.content) {
-          const blockType = blockMap[blockId]?.value?.type
+          const blockType = getBlockValue(blockMap[blockId])?.type
 
           if (blockType && blockType !== lastType) {
             index++
@@ -46,8 +47,8 @@ export const getListNumber = (blockId: string, blockMap: BlockMap) => {
   }
 
   const groupIndex = group.indexOf(blockId) + 1
-  const startIndex = blockMap[blockId]?.value.format?.list_start_index
-  return blockMap[blockId]?.value.type === 'numbered_list'
+  const startIndex = getBlockValue(blockMap[blockId])?.format?.list_start_index
+  return getBlockValue(blockMap[blockId])?.type === 'numbered_list'
     ? (startIndex ?? groupIndex)
     : groupIndex
 }
@@ -60,11 +61,11 @@ export const getListNestingLevel = (
   let currentBlockId = blockId
 
   while (true) {
-    const parentId = blockMap[currentBlockId]?.value?.parent_id
+    const parentId = getBlockValue(blockMap[currentBlockId])?.parent_id
 
     if (!parentId) break
 
-    const parentBlock = blockMap[parentId]?.value
+    const parentBlock = getBlockValue(blockMap[parentId])
     if (!parentBlock) break
 
     if (parentBlock.type === 'numbered_list') {

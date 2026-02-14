@@ -5,6 +5,7 @@ import {
 } from 'notion-types'
 
 import { getBlockTitle } from './get-block-title'
+import { getBlockValue } from './get-block-value'
 import { getPageTableOfContents } from './get-page-table-of-contents'
 
 type EstimatePageReadTimeOptions = {
@@ -92,7 +93,7 @@ function getBlockContentStats(
   }
 
   for (const childId of block.content || []) {
-    const child = recordMap.block[childId]?.value
+    const child = getBlockValue(recordMap.block[childId])
     let recurse = false
     if (!child) continue
 
@@ -203,7 +204,9 @@ function getBlockContentStats(
         if (!referencePointerId) {
           continue
         }
-        const referenceBlock = recordMap.block[referencePointerId]?.value
+        const referenceBlock = getBlockValue(
+          recordMap.block[referencePointerId]
+        )
         if (referenceBlock) {
           mergeContentStats(
             stats,

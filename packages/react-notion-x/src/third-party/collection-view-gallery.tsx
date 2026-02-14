@@ -1,6 +1,7 @@
 import type * as types from 'notion-types'
 import type React from 'react'
 import { type PageBlock } from 'notion-types'
+import { getBlockValue } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { type CollectionViewProps } from '../types'
@@ -79,7 +80,7 @@ function Gallery({
           )}
         >
           {blockIds?.map((blockId) => {
-            const block = recordMap.block[blockId]?.value as PageBlock
+            const block = getBlockValue(recordMap.block[blockId]) as PageBlock
             if (!block) return null
 
             return (
