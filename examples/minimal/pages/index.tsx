@@ -1,14 +1,10 @@
 import { type ExtendedRecordMap } from 'notion-types'
 
 import { NotionPage } from '../components/NotionPage'
-import { isDev, rootNotionPageId } from '../lib/config'
+import { rootNotionPageId } from '../lib/config'
 import notion from '../lib/notion'
 
 export const getStaticProps = async () => {
-  if (!isDev) {
-    return { props: {}, revalidate: false }
-  }
-
   const pageId = rootNotionPageId
   const recordMap = await notion.getPage(pageId)
 
