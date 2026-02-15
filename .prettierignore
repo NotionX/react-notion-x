@@ -3,3 +3,4 @@
 .vercel/
 build/
 docs/
+next-env.d.ts
