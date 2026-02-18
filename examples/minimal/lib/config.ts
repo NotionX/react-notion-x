@@ -1,6 +1,5 @@
 // TODO: change this to the notion ID of the page you want to test
-// my example notion page implementing buttons https://www.notion.so/Notion-API-Testing-Page-30a2598df29f8002ac30fdbb98ae3eb5
-export const rootNotionPageId = '30a2598df29f8002ac30fdbb98ae3eb5'
+export const rootNotionPageId = '067dd719a912471ea9a3ac10710e7fdf'
 
 // NOTE: rootNotionSpaceId is optional; set it to undefined if you don't want to
 // use it.
