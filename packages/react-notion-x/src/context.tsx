@@ -112,6 +112,7 @@ const defaultComponents: NotionComponents = {
   PageLink: DefaultPageLinkMemo,
   Checkbox: DefaultCheckbox,
   Callout: undefined, // use the built-in callout rendering by default
+  Button: undefined, // use the built-in button rendering by default
 
   Code: dummyComponent('Code'),
   Equation: dummyComponent('Equation'),

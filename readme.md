@@ -155,6 +155,55 @@ For `Equation` support, you'll need to import the katex CSS styles.
 
 For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
 
+### Custom Button Components
+
+Button blocks are rendered by default using a simple built-in implementation that displays the button text with proper colors. For advanced functionality like handling button clicks with automations (opening URLs, triggering webhooks), you can provide a custom `Button` component:
+
+```tsx
+import { NotionButton } from './components/NotionButton'
+
+export default ({ recordMap }) => (
+  <NotionRenderer
+    recordMap={recordMap}
+    components={{
+      Button: NotionButton
+    }}
+  />
+)
+```
+
+## Custom Button Components
+
+Button blocks are now **built-in by default** with full automation support including:
+
+- Opening external URLs in new tabs
+- Internal page navigation
+- Sending webhooks with Notion-format payloads
+- Custom header support
+
+The default Button component is exported from `react-notion-x` and handles most common use cases automatically. If you need custom behavior, you can override it:
+
+```tsx
+import { Button } from 'react-notion-x'
+
+// Optional: Create a custom button component
+const MyCustomButton = ({ blockId, block, className }) => {
+  // Your custom implementation
+  return <Button blockId={blockId} block={block} className={className} />
+}
+
+<NotionRenderer
+  recordMap={recordMap}
+  components={{
+    Button: MyCustomButton
+  }}
+/>
+```
+
+For webhook functionality, you'll need a server-side proxy endpoint to avoid CORS issues. See [examples/minimal/pages/api/webhook-proxy.ts](./examples/minimal/pages/api/webhook-proxy.ts) for a Next.js implementation.
+
+The Button component receives `blockId`, `block`, and optional `className` as props. See [packages/react-notion-x/src/components/button.tsx](./packages/react-notion-x/src/components/button.tsx) for the default implementation.
+
 ## Private Pages
 
 You may optionally pass an `authToken` and `activeUser` to the API if you want to access private Notion pages. Both can be retrieved from your web browser. Once you are viewing your workpace, open your Development Tools > Application > Cookie > and Copy the `token_v2` and `notion_user_id`. Respectively, activeUser: notion_user_id, authToken: token_v2.
@@ -224,6 +273,7 @@ The majority of Notion blocks and collection views are fully supported.
 | Column                   | ✅ Yes     | `column`               |
 | Column List              | ✅ Yes     | `column_list`          |
 | Toggle                   | ✅ Yes     | `toggle`               | [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details)                                 |
+| Button                   | ✅ Yes     | `button`               | Interactive buttons with automation support (open URLs, webhooks) - customizable via components prop             |
 | Image                    | ✅ Yes     | `image`                | `<img>`                                                                                                          |
 | Embed                    | ✅ Yes     | `embed`                | Generic `iframe` embeds                                                                                          |
 | Video                    | ✅ Yes     | `video`                | `iframe`                                                                                                         |

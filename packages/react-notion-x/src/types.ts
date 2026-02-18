@@ -29,6 +29,11 @@ export interface NotionComponents {
   Code: any
   Equation: any
   Callout?: any
+  Button?: React.ComponentType<{
+    blockId: string
+    block: types.ButtonBlock
+    className?: string
+  }>
 
   // collection
   Collection: any

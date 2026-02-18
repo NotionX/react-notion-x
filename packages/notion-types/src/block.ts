@@ -43,6 +43,7 @@ export type BlockType =
   | 'table_row'
   | 'external_object_instance'
   | 'breadcrumb'
+  | 'button'
   | 'miro'
   // fallback for unknown blocks
   | string
@@ -91,6 +92,7 @@ export type Block =
   | TableRowBlock
   | ExternalObjectInstance
   | BreadcrumbInstance
+  | ButtonBlock
 
 /**
  * Base properties shared by all blocks.
@@ -276,6 +278,17 @@ export interface ToggleBlock extends BaseBlock {
   type: 'toggle'
   properties: {
     title: Decoration[]
+  }
+}
+
+export interface ButtonBlock extends BaseBlock {
+  type: 'button'
+  format?: {
+    block_color?: Color
+    automation_id?: string
+  }
+  properties?: {
+    title?: Decoration[]
   }
 }
 
