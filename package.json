@@ -5,7 +5,7 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "version": "7.8.1",
+  "version": "7.8.2",
   "packageManager": "pnpm@10.28.2",
   "engines": {
     "node": ">=20"
