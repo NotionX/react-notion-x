@@ -1,3 +1,4 @@
+export * from './components/button'
 export * from './components/header'
 export * from './components/page-icon'
 export * from './components/text'

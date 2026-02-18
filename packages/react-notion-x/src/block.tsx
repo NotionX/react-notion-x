@@ -12,6 +12,7 @@ import React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
 import { Audio } from './components/audio'
+import { Button } from './components/button'
 import { EOI } from './components/eoi'
 import { File } from './components/file'
 import { GoogleDrive } from './components/google-drive'
@@ -727,6 +728,18 @@ export function Block(props: BlockProps) {
           <div>{children}</div>
         </details>
       )
+
+    case 'button': {
+      const ButtonComponent = components.Button || Button
+
+      return (
+        <ButtonComponent
+          blockId={blockId}
+          block={block as types.ButtonBlock}
+          className={blockId}
+        />
+      )
+    }
 
     case 'table_of_contents': {
       const page = getBlockParentPage(block, recordMap)
