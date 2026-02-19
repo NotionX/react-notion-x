@@ -12,9 +12,9 @@ import {
 import * as notion from '../lib/notion'
 
 export const getStaticProps = async (context: any) => {
-  if (!isDev) {
-    return { props: {}, revalidate: false }
-  }
+  // if (!isDev) {
+  //   return { props: {}, revalidate: false }
+  // }
 
   const pageId = context.params.pageId as string
   const recordMap = await notion.getPage(pageId)
@@ -82,7 +82,8 @@ export default function Page({ recordMap }: { recordMap: ExtendedRecordMap }) {
       rootDomain={rootDomain}
       rootPageId={rootNotionPageId}
       previewImagesEnabled={previewImagesEnabled}
-      enabled={isDev}
+      // enabled={isDev}
+      enabled={true}
     />
   )
 }

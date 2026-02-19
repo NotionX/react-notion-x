@@ -17,6 +17,8 @@
   - [Usage](#usage)
   - [Styles](#styles)
   - [Optional Components](#optional-components)
+    - [Custom Button Components](#custom-button-components)
+  - [Custom Button Components](#custom-button-components-1)
   - [Private Pages](#private-pages)
   - [Next.js Examples](#nextjs-examples)
   - [Packages](#packages)
@@ -42,7 +44,7 @@ And if you want even more control, then you're in the right place! 👇👇
   - 95-100% Lighthouse scores
   - Heavier components can be loaded lazily via `next/dynamic`
 - 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality
-- 🔥 **Solid** - Used in production by [Potion](https://www.potion.so) and thousands of websites
+- 🔥 **Solid** - Used in production by tens of thousands of websites
 - 💪 **Smooth** - Supports `next/image` along with LQIP preview images ([demo](https://react-notion-x-demo.transitivebullsh.it/3492bd6dbaf44fe7a5cac62c5d402f06))
 - Framework agnostic - Use with next.js, create-react-app, gatsby, etc
 
@@ -192,7 +194,7 @@ const MyCustomButton = ({ blockId, block, className }) => {
   return <Button blockId={blockId} block={block} className={className} />
 }
 
-<NotionRenderer
+;<NotionRenderer
   recordMap={recordMap}
   components={{
     Button: MyCustomButton
