@@ -1,5 +1,9 @@
 import { type ExtendedRecordMap } from 'notion-types'
-import { defaultMapPageUrl, getAllPagesInSpace } from 'notion-utils'
+import {
+  defaultMapPageUrl,
+  getAllPagesInSpace,
+  getBlockValue
+} from 'notion-utils'
 
 import { NotionPage } from '../components/NotionPage'
 import {
@@ -20,13 +24,14 @@ export const getStaticProps = async (context: any) => {
   const recordMap = await notion.getPage(pageId)
 
   // NOTE: this isn't necessary; trying to reduce my vercel bill
-  // const blockIds = Object.keys(recordMap.block)
-  // const firstBlock = blockIds.length > 0 ? recordMap.block[blockIds[0]!] : null
-  // if (rootNotionSpaceId && firstBlock?.value?.space_id !== rootNotionSpaceId) {
-  //   return {
-  //     notFound: true
-  //   }
-  // }
+  const blockIds = Object.keys(recordMap.block)
+  const firstBlock =
+    blockIds.length > 0 ? getBlockValue(recordMap.block[blockIds[0]!]) : null
+  if (rootNotionSpaceId && firstBlock?.space_id !== rootNotionSpaceId) {
+    return {
+      notFound: true
+    }
+  }
 
   return {
     props: {
