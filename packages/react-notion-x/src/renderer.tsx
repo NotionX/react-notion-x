@@ -35,6 +35,7 @@ export function NotionRenderer({
   defaultPageIcon,
   defaultPageCover,
   defaultPageCoverPosition,
+  alignCenter,
   ...rest
 }: {
   recordMap: ExtendedRecordMap
@@ -60,6 +61,7 @@ export function NotionRenderer({
   linkTableTitleProperties?: boolean
   isLinkCollectionToUrlProperty?: boolean
   isImageZoomable?: boolean
+  alignCenter?: boolean
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
@@ -118,6 +120,7 @@ export function NotionRenderer({
       defaultPageCover={defaultPageCover}
       defaultPageCoverPosition={defaultPageCoverPosition}
       zoom={isImageZoomable ? zoom : null}
+      alignCenter={alignCenter}
     >
       <NotionBlockRenderer {...rest} />
     </NotionContextProvider>
