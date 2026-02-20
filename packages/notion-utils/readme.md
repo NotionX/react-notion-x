@@ -18,6 +18,12 @@ This package is compatible with both Node.js and client-side web usage.
 
 ## Usage
 
+### parsePageId
+
+URLs for Notion pages follow this pattern: `https://www.notion.so/{title}-{id}`.
+
+This function extracts a Notion page's id from its url so that it can be used to query the page's properties and children block.
+
 ```ts
 import { parsePageId } from 'notion-utils'
 
@@ -32,6 +38,35 @@ parsePageId('About-d9ae0c6e7cad49a78e21d240cf2e3d04')
 parsePageId('About-d9ae0c6e7cad49a78e21d240cf2e3d04', { uuid: false })
 // 'd9ae0c6e7cad49a78e21d240cf2e3d04'
 ```
+
+### getCanonicalPageId
+
+This function returns a display-friendly id for a page that follows this pattern: `{page title}-{page id}`. It is useful for programmatically creating  pretty urls, aka slugs for Notion pages.
+
+The function takes three parameters:
+- `pageId`
+- `recordMap`: The response from querying the current page, or its parent page using `getPage` method of `notion-client`. Under the hood, the function uses the `pageId` as a key to look up its properties.
+- `uuid`: boolean (optional): Whether the returned slug should contain id or not. Default to true.
+
+```
+ts
+import { getCanonicalPageId } from 'notion-utils'
+import { NotionAPI } from 'notion-client'
+
+const notion = new NotionAPI()
+
+const databaseId = '3e3073e97aee481cb831765e112ec7b5'
+const childPageId = '27aaa1b503fb44e9a0d842a9e8f39325'
+
+const database = notion.getPage(databaseId)
+
+const childPageSlug1 = getCanonicalPageId(childPageId, database)
+// log 'next-js-notion-starter-kit-27aaa1b503fb44e9a0d842a9e8f39325'
+
+const childPageSlug2 = getCanonicalPageId(childPageId, database, { uuid: false })
+// log 'nextjs-notion-starter-kit'
+```
+
 
 ## Docs
 
