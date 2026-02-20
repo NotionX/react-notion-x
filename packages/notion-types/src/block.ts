@@ -294,6 +294,9 @@ export interface ButtonBlock extends BaseBlock {
 
 export interface ImageBlock extends BaseContentBlock {
   type: 'image'
+  format: {
+    image_hyperlink: string
+  } & BaseContentBlock['format']
 }
 
 export interface EmbedBlock extends BaseContentBlock {

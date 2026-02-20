@@ -1,11 +1,24 @@
 import type React from 'react'
-import { type BaseContentBlock, type Block } from 'notion-types'
+import { type BaseContentBlock, type Block, type ImageBlock } from 'notion-types'
 import { parsePageId } from 'notion-utils'
 
 import { useNotionContext } from '..'
 import { cs } from '../utils'
 import { Asset } from './asset'
 import { Text } from './text'
+
+interface PageInfo {
+  type: 'page'
+  id: string
+  url: string
+}
+
+interface ExternalInfo {
+  type: 'external'
+  url: string
+}
+
+type URLInfo = PageInfo | ExternalInfo | null
 
 const urlStyle = { width: '100%' }
 
@@ -19,18 +32,11 @@ export function AssetWrapper({
   const value = block as BaseContentBlock
   const { components, mapPageUrl, rootDomain, zoom } = useNotionContext()
 
-  let isURL = false
-  if (block.type === 'image') {
-    const caption: string | undefined = value?.properties?.caption?.[0]?.[0]
-    if (caption) {
-      const id = parsePageId(caption, { uuid: true })
+  const caption = value.properties?.caption?.[0]?.[0]
+  const imageHyperlink = (value as ImageBlock).format?.image_hyperlink
+  const linkToUse = imageHyperlink || caption || ''
 
-      const isPage = caption.charAt(0) === '/' && id
-      if (isPage || isValidURL(caption)) {
-        isURL = true
-      }
-    }
-  }
+  const urlInfo = getURLInfo(value, linkToUse)
 
   const figure = (
     <figure
@@ -41,8 +47,8 @@ export function AssetWrapper({
         blockId
       )}
     >
-      <Asset block={value} zoomable={zoom && !isURL}>
-        {value?.properties?.caption && !isURL && (
+      <Asset block={value} zoomable={zoom && !urlInfo}>
+        {value?.properties?.caption && (
           <figcaption className='notion-asset-caption'>
             <Text value={value.properties.caption} block={block} />
           </figcaption>
@@ -52,23 +58,21 @@ export function AssetWrapper({
   )
 
   // allows for an image to be a link
-  if (isURL) {
-    const caption: string | undefined = value?.properties?.caption?.[0]?.[0]
-    const id = parsePageId(caption, { uuid: true })
-    const isPage = caption?.charAt(0) === '/' && id
-    const captionHostname = extractHostname(caption)
+  if (urlInfo?.url) {
+    const urlHostName = extractHostname(urlInfo.url)
+    const isExternalLink =
+      urlHostName && urlHostName !== rootDomain && !caption?.startsWith('/')
+
+    const href =
+      urlInfo.type === 'page' && urlInfo.id
+        ? mapPageUrl(urlInfo.id)
+        : urlInfo.url
 
     return (
       <components.PageLink
         style={urlStyle}
-        href={isPage ? mapPageUrl(id) : caption}
-        target={
-          captionHostname &&
-          captionHostname !== rootDomain &&
-          !caption?.startsWith('/')
-            ? 'blank_'
-            : null
-        }
+        href={href}
+        target={isExternalLink ? 'blank_' : null}
       >
         {figure}
       </components.PageLink>
@@ -76,6 +80,31 @@ export function AssetWrapper({
   }
 
   return figure
+}
+function getURLInfo(block: BaseContentBlock, link?: string): URLInfo {
+  if (!link || block.type !== 'image') {
+    return null
+  }
+
+  const id = parsePageId(link, { uuid: true })
+  const isPage = link.charAt(0) === '/' && id
+
+  if (isPage) {
+    return {
+      type: 'page' as const,
+      id,
+      url: link
+    }
+  }
+
+  if (isValidURL(link)) {
+    return {
+      type: 'external' as const,
+      url: link
+    }
+  }
+
+  return null
 }
 
 function isValidURL(str: string) {
@@ -91,7 +120,6 @@ function isValidURL(str: string) {
   )
   return !!pattern.test(str)
 }
-
 function extractHostname(url?: string) {
   try {
     const hostname = new URL(url!).hostname
