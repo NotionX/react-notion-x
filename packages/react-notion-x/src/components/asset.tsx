@@ -3,7 +3,12 @@ import { type BaseContentBlock, type Block } from 'notion-types'
 import { getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
-import { getUrlParams, getYoutubeId } from '../utils'
+import {
+  deleteUrlParams,
+  getUrlParams,
+  getYoutubeId,
+  setUrlParams
+} from '../utils'
 import { LazyImage } from './lazy-image'
 import { LiteYouTubeEmbed } from './lite-youtube-embed'
 
@@ -135,9 +140,7 @@ export function Asset({
   }
 
   if (block.space_id) {
-    const url = new URL(source)
-    url.searchParams.set('spaceId', block.space_id)
-    source = url.toString()
+    source = setUrlParams(source, { spaceId: block.space_id })
   }
 
   let content = null
@@ -187,6 +190,7 @@ export function Asset({
     block.type === 'drive' ||
     block.type === 'replit'
   ) {
+    let displaySource = block.format?.display_source
     if (
       block.type === 'video' &&
       source &&
@@ -200,19 +204,36 @@ export function Asset({
       !source.includes('tella')
     ) {
       style.paddingBottom = undefined
-
+      const videoTitle = block.format?.link_title || 'block.type'
+      if (displaySource) {
+        delete style.height
+        displaySource = deleteUrlParams(displaySource, ['spaceId'])
+      }
       content = (
-        <video
-          playsInline
-          controls
-          preload='metadata'
-          style={assetStyle}
-          src={source}
-          title={block.type}
-        />
+        <>
+          {displaySource ? (
+            <iframe
+              src={displaySource}
+              title={videoTitle}
+              style={{
+                ...assetStyle,
+                aspectRatio: 1 / (block.format?.block_aspect_ratio || 1)
+              }}
+            />
+          ) : (
+            <video
+              playsInline
+              controls
+              preload='metadata'
+              style={assetStyle}
+              src={source}
+              title={videoTitle}
+            />
+          )}
+        </>
       )
     } else {
-      let src = block.format?.display_source || source
+      let src = displaySource || source
 
       if (src) {
         const youtubeVideoId: string | null =
