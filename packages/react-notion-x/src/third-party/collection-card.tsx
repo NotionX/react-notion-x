@@ -33,7 +33,7 @@ export function CollectionCard({
   const coverPosition = (1 - page_cover_position) * 100
   const cardCoverPosition = (1 - card_cover_position) * 100
 
-  if (cover?.type === 'page_content') {
+  if (cover?.type === 'page_content' || cover?.type === 'page_content_first') {
     const contentBlockId = block.content?.find((blockId) => {
       const block = getBlockValue(recordMap.block[blockId])
 
