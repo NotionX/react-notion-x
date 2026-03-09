@@ -269,22 +269,21 @@ export function Block(props: BlockProps) {
                 page_full_width && 'notion-full-width',
                 page_small_text && 'notion-small-text',
                 blockId,
-                className,
-                bodyClassName
+                className
               )}
             >
               <div className='notion-viewport' />
 
               {pageHeader}
+              <div className={`notion-block-content ${bodyClassName}`}>
+                {(block.type === 'collection_view_page' ||
+                  (block.type === 'page' &&
+                    block.parent_table === 'collection')) && (
+                  <components.Collection block={block} ctx={ctx} />
+                )}
 
-              {(block.type === 'collection_view_page' ||
-                (block.type === 'page' &&
-                  block.parent_table === 'collection')) && (
-                <components.Collection block={block} ctx={ctx} />
-              )}
-
-              {block.type !== 'collection_view_page' && children}
-
+                {block.type !== 'collection_view_page' && children}
+              </div>
               {pageFooter}
             </main>
           )
