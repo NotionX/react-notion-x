@@ -184,7 +184,7 @@ function CollectionViewBlock({
 
   const title = getTextContent(collection.name).trim()
   const showTitle =
-    block.format?.hide_inline_collection_name !== true &&
+    (block.format as any)?.hide_inline_collection_name !== true &&
     collectionView.format?.hide_linked_collection_name !== true &&
     title
   if (collection.icon) {
