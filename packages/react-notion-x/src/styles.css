@@ -299,7 +299,7 @@
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
-  min-height: calc(100vh - var(--notion-header-height));
+  min-height: calc(100% - var(--notion-header-height));
 }
 
 .notion-red,
