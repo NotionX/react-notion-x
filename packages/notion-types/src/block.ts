@@ -415,6 +415,7 @@ export interface CollectionViewPageBlock extends BasePageBlock {
   collection_id?: ID
   view_ids: ID[]
   format: BasePageBlock['format'] & {
+    hide_inline_collection_name?: boolean
     collection_pointer?: {
       id: ID
       spaceId: ID
