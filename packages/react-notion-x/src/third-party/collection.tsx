@@ -27,9 +27,9 @@ export function Collection({
   ctx
 }: {
   block:
-    | types.CollectionViewBlock
-    | types.CollectionViewPageBlock
-    | types.PageBlock
+  | types.CollectionViewBlock
+  | types.CollectionViewPageBlock
+  | types.PageBlock
   className?: string
   ctx: NotionContext
 }) {
@@ -184,7 +184,9 @@ function CollectionViewBlock({
 
   const title = getTextContent(collection.name).trim()
   const showTitle =
-    collectionView.format?.hide_linked_collection_name !== true && title
+    block.format?.hide_inline_collection_name !== true &&
+    collectionView.format?.hide_linked_collection_name !== true &&
+    title
   if (collection.icon) {
     block.format = {
       ...block.format,
@@ -250,7 +252,7 @@ function CollectionViewTabs({
           className={cs(
             'notion-collection-view-tabs-content-item',
             collectionViewId === viewId &&
-              'notion-collection-view-tabs-content-item-active'
+            'notion-collection-view-tabs-content-item-active'
           )}
         >
           <CollectionViewColumnDesc
