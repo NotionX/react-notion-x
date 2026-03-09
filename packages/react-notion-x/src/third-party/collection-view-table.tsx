@@ -1,5 +1,5 @@
-import React from 'react'
 import { getBlockValue } from 'notion-utils'
+import React from 'react'
 
 import { useNotionContext } from '../context'
 import { type CollectionViewProps } from '../types'

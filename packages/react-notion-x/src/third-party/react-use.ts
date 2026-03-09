@@ -64,14 +64,12 @@ export const useWindowSize = (
         off(globalThis.window, 'resize', handler)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return state
 }
 
 export const useEffectOnce = (effect: EffectCallback) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(effect, [])
 }
 
@@ -134,7 +132,6 @@ export const useLocalStorage = <T>(
       : options.deserializer
     : JSON.parse
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const initializer = useRef((key: string) => {
     try {
       const serializer = options
@@ -160,15 +157,12 @@ export const useLocalStorage = <T>(
     }
   })
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [state, setState] = useState<T | undefined>(() =>
     initializer.current(key)
   )
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useLayoutEffect(() => setState(initializer.current(key)), [key])
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const set: Dispatch<SetStateAction<T | undefined>> = useCallback(
     (valOrFunc) => {
       try {
@@ -194,11 +188,10 @@ export const useLocalStorage = <T>(
         // localStorage can throw. Also JSON.stringify can throw.
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [key, setState]
   )
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const remove = useCallback(() => {
     try {
       localStorage.removeItem(key)

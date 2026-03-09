@@ -12,6 +12,7 @@ export type CollectionViewType =
 export type CollectionCardCoverType =
   | 'page_cover'
   | 'page_content'
+  | 'page_content_first'
   | 'property'
   | 'none'
   | 'file'
