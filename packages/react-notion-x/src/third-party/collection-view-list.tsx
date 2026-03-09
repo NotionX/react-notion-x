@@ -1,7 +1,7 @@
 import type * as types from 'notion-types'
-import React from 'react'
 import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
+import React from 'react'
 
 import { PageIcon } from '../components/page-icon'
 import { useNotionContext } from '../context'
@@ -108,7 +108,7 @@ function List({
                       const data =
                         block &&
                         block.properties?.[
-                        p.property as keyof typeof block.properties
+                          p.property as keyof typeof block.properties
                         ]
 
                       if (!schema) {

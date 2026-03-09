@@ -1,7 +1,7 @@
 import type * as types from 'notion-types'
-import React from 'react'
 import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
+import React from 'react'
 
 import { useNotionContext } from '../context'
 import { type CollectionViewProps } from '../types'
@@ -39,7 +39,7 @@ export function CollectionViewGallery({
     (collectionData.collection_group_results?.blockIds ??
       (
         collectionData[
-        'results:relation:uncategorized' as keyof typeof collectionData
+          'results:relation:uncategorized' as keyof typeof collectionData
         ] as any
       )?.blockIds ??
       collectionData.blockIds) ||
