@@ -634,7 +634,6 @@ details.notion-toggle .notion-h {
 .notion-page-icon-hero {
   position: absolute;
   top: 0;
-  left: 50%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -643,12 +642,30 @@ details.notion-toggle .notion-h {
 .notion-page-icon-hero.notion-page-icon-image {
   width: 124px;
   height: 124px;
+}
+
+.notion-page-icon-hero.notion-page-icon-image.notion-page-icon--align-left {
+  left: 0%;
+  margin-left: 26px;
+}
+
+.notion-page-icon-hero.notion-page-icon-image.notion-page-icon--align-center {
+  left: 50%;
   margin-left: -62px;
 }
 
 .notion-page-icon-hero.notion-page-icon-span {
   height: 78px;
   width: 78px;
+}
+
+.notion-page-icon-hero.notion-page-icon-span.notion-page-icon--align-left {
+  left: 0%;
+  margin-left: 16px;
+}
+
+.notion-page-icon-hero.notion-page-icon-span.notion-page-icon--align-center {
+  left: 50%;
   margin-left: -39px;
 }
 
