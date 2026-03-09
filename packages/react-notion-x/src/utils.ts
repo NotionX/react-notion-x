@@ -136,3 +136,22 @@ export const getUrlParams = (
 
   return
 }
+
+export const setUrlParams = (
+  urlString: string,
+  params: Record<string, string>
+): string => {
+  const url = new URL(urlString)
+  for (const [key, value] of Object.entries(params)) {
+    url.searchParams.set(key, value)
+  }
+  return url.toString()
+}
+
+export const deleteUrlParams = (urlString: string, keys: string[]): string => {
+  const url = new URL(urlString)
+  for (const key of keys) {
+    url.searchParams.delete(key)
+  }
+  return url.toString()
+}
