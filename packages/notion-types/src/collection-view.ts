@@ -49,6 +49,7 @@ export interface TableCollectionView extends BaseCollectionView {
       property: PropertyID
       visible: boolean
       width: number
+      wrap?: boolean
     }>
   }
   page_sort: ID[]
