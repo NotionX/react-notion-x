@@ -1691,6 +1691,19 @@ svg.notion-page-icon {
   font-weight: 500;
 }
 
+.notion-table-cell-title .notion-page-link {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.notion-table-cell-title .notion-page-link em,
+.notion-table-cell-title .notion-page-link i,
+.notion-table-cell-title .notion-page-link b,
+.notion-table-cell-title .notion-page-link strong {
+  font-style: inherit;
+  font-weight: inherit;
+}
+
 .notion-table-cell-text {
   white-space: pre-wrap;
 }
