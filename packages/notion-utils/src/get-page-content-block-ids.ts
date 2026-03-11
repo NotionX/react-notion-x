@@ -48,6 +48,11 @@ export const getPageContentBlockIds = (
       if (referenceId) {
         addContentBlocks(referenceId)
       }
+
+      const aliasId = (format as any).alias_pointer?.id
+      if (aliasId) {
+        addContentBlocks(aliasId)
+      }
     }
 
     if (!content || !Array.isArray(content)) {
