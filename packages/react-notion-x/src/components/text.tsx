@@ -68,12 +68,12 @@ export function Text({
                 // console.log('p', blockId)
 
                 return (
-                  <components.PageLink
+                  <components.Link
                     className='notion-link'
                     href={mapPageUrl(blockId)}
                   >
                     <PageTitle block={linkedBlock} />
-                  </components.PageLink>
+                  </components.Link>
                 )
               }
 
@@ -116,7 +116,7 @@ export function Text({
                     }
 
                     return (
-                      <components.PageLink
+                      <components.Link
                         className='notion-link'
                         href={mapPageUrl(id)}
                         {...linkProps}
@@ -124,7 +124,7 @@ export function Text({
                         rel='noopener noreferrer'
                       >
                         <PageTitle block={linkedBlock} />
-                      </components.PageLink>
+                      </components.Link>
                     )
                   }
                 }
@@ -174,13 +174,13 @@ export function Text({
                       : `${mapPageUrl(id!)}${getHashFragmentValue(v)}`
 
                   return (
-                    <components.PageLink
+                    <components.Link
                       className='notion-link'
                       href={href}
                       {...linkProps}
                     >
                       {element}
-                    </components.PageLink>
+                    </components.Link>
                   )
                 } else {
                   return (
