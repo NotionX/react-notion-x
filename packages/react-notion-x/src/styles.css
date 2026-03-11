@@ -1687,6 +1687,11 @@ svg.notion-page-icon {
   border-right: 0 none;
 }
 
+.notion-table-cell.notion-table-cell-nowrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .notion-table-cell-title {
   font-weight: 500;
 }
