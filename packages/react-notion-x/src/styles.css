@@ -1687,6 +1687,10 @@ svg.notion-page-icon {
   border-right: 0 none;
 }
 
+.notion-table-cell .notion-page-icon-inline {
+  flex-shrink: 0;
+}
+
 .notion-table-cell-title {
   font-weight: 500;
 }
