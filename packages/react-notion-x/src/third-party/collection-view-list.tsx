@@ -102,7 +102,7 @@ function List({
 
                 <div className='notion-list-item-body'>
                   {collectionView.format?.list_properties
-                    ?.filter((p: any) => p.visible)
+                    ?.filter((p: any) => p.visible && p.property !== 'title')
                     .map((p: any) => {
                       const schema = collection.schema[p.property]
                       const data =
