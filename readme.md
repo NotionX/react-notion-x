@@ -360,7 +360,7 @@ Note that custom image component is currently only enabled with preview image or
 
 ## Contributing
 
-See the [contribution guide](contributing.md) and join our amazing list of [contributors](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/graphs/contributors)!
+See the [contribution guide](contributing.md) and join our amazing list of [contributors](https://github.com/NotionX/react-notion-x/graphs/contributors)!
 
 ## License
 
