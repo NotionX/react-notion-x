@@ -10,7 +10,7 @@ export function decorationsToMarkdown(
       const text = decoration[0]
       const formatting = decoration[1]
 
-      if (!formatting || formatting.length === 0) {
+      if (!formatting?.length) {
         return text
       }
 
@@ -44,7 +44,7 @@ export function decorationsToMarkdown(
           }
 
           case '‣': {
-            const [, linkId] = formatValue as [string, string]
+            const [_, linkId] = formatValue as [string, string]
             const targetBlock = getBlockValue(recordMap.block[linkId])
             const title = (targetBlock as any)?.properties?.title
               ? getTextContent((targetBlock as any).properties.title)
@@ -70,9 +70,20 @@ export function decorationsToMarkdown(
             if (userRaw) {
               const user = getBlockValue(userRaw as any) as any
               if (user) {
-                return user.name || user.full_name || user.given_name || result
+                const name = [user.given_name, user.family_name]
+                  .filter(Boolean)
+                  .join(' ')
+
+                return (
+                  name ||
+                  user.name ||
+                  user.full_name ||
+                  user.given_name ||
+                  result
+                )
               }
             }
+
             return result
           }
 

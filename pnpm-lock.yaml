@@ -358,6 +358,12 @@ importers:
 
   packages/notion-to-md:
     dependencies:
+      date-fns:
+        specifier: 'catalog:'
+        version: 4.1.0
+      format-number:
+        specifier: 'catalog:'
+        version: 3.0.0
       notion-types:
         specifier: workspace:*
         version: link:../notion-types

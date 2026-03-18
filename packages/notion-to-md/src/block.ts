@@ -1,6 +1,12 @@
-import type { Block, ExtendedRecordMap, TableRowBlock } from 'notion-types'
+import type {
+  Block,
+  Decoration,
+  ExtendedRecordMap,
+  TableRowBlock
+} from 'notion-types'
 import {
   defaultMapImageUrl,
+  getBlockCollectionId,
   getBlockTitle,
   getBlockValue,
   getListNestingLevel,
@@ -10,6 +16,7 @@ import {
 } from 'notion-utils'
 
 import { getIcon } from './icon'
+import { renderCollectionProperty } from './property'
 import { decorationsToMarkdown } from './text'
 
 function getTitle(block: Block, recordMap: ExtendedRecordMap): string {
@@ -98,7 +105,6 @@ export function renderBlock(
     }
 
     case 'numbered_list': {
-      console.log('numbered_list', { level, block })
       const listNestingLevel = getListNestingLevel(block.id, recordMap.block)
       const listNumber = getListNumber(block.id, recordMap.block)
       const indent = '   '.repeat(listNestingLevel)
@@ -297,8 +303,86 @@ export function renderBlock(
     }
 
     case 'collection_view':
-    case 'collection_view_page':
-      return '' // skip in first iteration
+    case 'collection_view_page': {
+      const collectionId = getBlockCollectionId(block, recordMap)
+      if (!collectionId) return ''
+
+      const collection = getBlockValue(recordMap.collection?.[collectionId])
+      if (!collection) return ''
+
+      const viewId = (block as any).view_ids?.[0]
+      if (!viewId) return ''
+
+      const collectionView = getBlockValue(recordMap.collection_view?.[viewId])
+      const collectionData =
+        recordMap.collection_query?.[collectionId]?.[viewId]
+      if (!collectionData) return ''
+
+      const blockIds: string[] =
+        collectionData.collection_group_results?.blockIds ??
+        collectionData.blockIds ??
+        []
+
+      if (blockIds.length === 0) return ''
+
+      let properties: Array<{ property: string }>
+      if (collectionView?.format?.table_properties) {
+        properties = (collectionView.format.table_properties as any[]).filter(
+          (p: any) => p.visible && collection.schema[p.property]
+        )
+      } else {
+        properties = [{ property: 'title' }].concat(
+          Object.keys(collection.schema)
+            .filter((p) => p !== 'title')
+            .map((property) => ({ property }))
+        )
+      }
+
+      if (properties.length === 0) return ''
+
+      const headerCells = properties.map((p) => {
+        if (p.property === 'title') {
+          return collection.schema.title?.name ?? 'Name'
+        }
+        return collection.schema[p.property]?.name ?? p.property
+      })
+
+      const rows = blockIds
+        .map((rowId) => {
+          const rowBlock = getBlockValue(recordMap.block[rowId])
+          if (!rowBlock) return null
+          return properties.map((p) => {
+            const schema = collection.schema[p.property]
+            if (!schema) return ''
+            const cellDecs: Decoration[] =
+              (rowBlock as any).properties?.[p.property] ?? []
+            return renderCollectionProperty(
+              schema,
+              cellDecs,
+              rowBlock,
+              recordMap,
+              collection
+            )
+          })
+        })
+        .filter((r): r is string[] => r !== null)
+
+      if (rows.length === 0) return ''
+
+      const collectionTitle = getTextContent(collection.name).trim()
+      const heading = collectionTitle ? `### ${collectionTitle}\n\n` : ''
+
+      const formatRow = (cols: string[]) => `| ${cols.join(' | ')} |`
+      const separator = `| ${properties.map(() => '---').join(' | ')} |`
+
+      const table = [
+        formatRow(headerCells),
+        separator,
+        ...rows.map(formatRow)
+      ].join('\n')
+
+      return `${heading}${table}`
+    }
 
     default:
       return ''

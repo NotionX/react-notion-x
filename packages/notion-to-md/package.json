@@ -26,6 +26,8 @@
     "test:unit": "vitest run"
   },
   "dependencies": {
+    "date-fns": "catalog:",
+    "format-number": "catalog:",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*"
   },
