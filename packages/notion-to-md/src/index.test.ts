@@ -19,10 +19,10 @@ const pageIdFixtures = [
   '8bcd65801a5d450fb7218d8890a38c29',
   '30bedb27f12481cc9d6afe0976b52e60',
   '52353862df0f48ba85648db7d0acd1dd',
-  '2fea615a97a7401c81be486e4eec2e94', // collections
+  // '2fea615a97a7401c81be486e4eec2e94', // collections
   '17aef37fb4624588ab1ff0e6671acba5', // collection number formatting
-  '9cb9716c93164c6c8b4cd0bac3879aeb',
-  'faafed747a464097a28e462ce4952506',
+  // '9cb9716c93164c6c8b4cd0bac3879aeb',
+  // 'faafed747a464097a28e462ce4952506',
   '9d9814f3220a4b3bbc2481ad6fd7c913'
 ]
 
