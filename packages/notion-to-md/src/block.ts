@@ -199,7 +199,13 @@ export function renderBlock(
     case 'bookmark': {
       const url = getTextContent((block as any).properties?.link)
       const title = getTextContent((block as any).properties?.title) || url
-      return `[${title}](${url})`
+      return `[${title}](${url})\n`
+    }
+
+    case 'button': {
+      const url = getTextContent((block as any).properties?.link)
+      const title = getTextContent((block as any).properties?.title) || url
+      return `_${title}_\n`
     }
 
     case 'equation': {

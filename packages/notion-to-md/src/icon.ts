@@ -23,7 +23,7 @@ export function getIcon(
     const icon = getBlockIcon(block, recordMap)?.trim()
 
     if (!icon) {
-      return undefined
+      return '📁'
     }
 
     if (isUrl(icon) || icon.startsWith('/icons/')) {
