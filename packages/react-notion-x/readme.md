@@ -14,6 +14,6 @@ See the [full docs](https://github.com/NotionX/react-notion-x).
 
 ## License
 
-MIT © [Travis Fischer](https://transitivebullsh.it)
+MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+Support my OSS work by [following me on X](https://x.com/transitive_bs).
