@@ -23,7 +23,8 @@ const pageIdFixtures = [
   '17aef37fb4624588ab1ff0e6671acba5', // collection number formatting
   // '9cb9716c93164c6c8b4cd0bac3879aeb',
   // 'faafed747a464097a28e462ce4952506',
-  '9d9814f3220a4b3bbc2481ad6fd7c913'
+  '9d9814f3220a4b3bbc2481ad6fd7c913',
+  '0c322c33381c49bca5083a451c334c39'
 ]
 
 const debug = false
