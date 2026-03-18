@@ -27,11 +27,8 @@
   - [Related](#related)
   - [Contributing](#contributing)
   - [License](#license)
-  - [Sponsor](#sponsor)
 
 ## Advice
-
-If you just want to publish a website using Notion, then we highly recommend using [Super.so](https://s.super.so/x) — a hosted solution with great perf that takes care of all the details for you.
 
 If you want more control over your website via React, then we recommend checking out the accompanying [Next.js starter kit](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which is free and uses `react-notion-x` under the hood.
 
@@ -372,13 +369,3 @@ MIT © [Travis Fischer](https://transitivebullsh.it)
 This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.
 
 Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
-
-## Sponsor
-
-[Super.so](https://s.super.so/x) has been kind enough to sponsor this project. If you're looking for a hosted solution that takes a very similar approach to `react-notion-x` but handles all of the details for you, then definitely check them out.
-
-<p align="center">
-  <a href="https://s.super.so/x" title="Super.so">
-    <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/super-so-banner.png">
-  </a>
-</p>
