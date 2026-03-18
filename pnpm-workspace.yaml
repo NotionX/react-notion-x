@@ -58,6 +58,8 @@ catalog:
 enablePrePostScripts: true
 
 minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@fisch0920/config'
 
 onlyBuiltDependencies:
   - simple-git-hooks

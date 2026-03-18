@@ -17,7 +17,7 @@
     "clean": "turbo clean",
     "test": "turbo test",
     "test:format": "prettier --check \"**/*.{js,ts,tsx}\"",
-    "test:lint": "turbo test:lint",
+    "test:lint": "eslint .",
     "test:typecheck": "turbo test:typecheck",
     "test:unit": "turbo test:unit",
     "release": "bumpp -r && pnpm publish -r",

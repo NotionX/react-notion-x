@@ -356,6 +356,19 @@ importers:
         specifier: workspace:*
         version: link:../notion-client
 
+  packages/notion-to-md:
+    dependencies:
+      notion-types:
+        specifier: workspace:*
+        version: link:../notion-types
+      notion-utils:
+        specifier: workspace:*
+        version: link:../notion-utils
+    devDependencies:
+      notion-client:
+        specifier: workspace:*
+        version: link:../notion-client
+
   packages/notion-types: {}
 
   packages/notion-utils:

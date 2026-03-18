@@ -1,8 +1,8 @@
 {
-  "name": "notion-compat",
+  "name": "notion-to-md",
   "version": "7.8.3",
   "type": "module",
-  "description": "Compatibility layer between the official Notion API and unofficial private API.",
+  "description": "Converts a Notion page to GitHub-Flavored Markdown.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
@@ -27,14 +27,9 @@
   },
   "dependencies": {
     "notion-types": "workspace:*",
-    "notion-utils": "workspace:*",
-    "p-queue": "catalog:"
+    "notion-utils": "workspace:*"
   },
   "devDependencies": {
-    "@notionhq/client": "catalog:",
     "notion-client": "workspace:*"
-  },
-  "peerDependencies": {
-    "@notionhq/client": "^2.2.0"
   }
 }
