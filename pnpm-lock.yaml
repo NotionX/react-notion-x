@@ -356,7 +356,7 @@ importers:
         specifier: workspace:*
         version: link:../notion-client
 
-  packages/notion-to-md:
+  packages/notion-to-md-x:
     dependencies:
       date-fns:
         specifier: 'catalog:'
