@@ -46,4 +46,4 @@ See the [full docs](https://github.com/NotionX/react-notion-x).
 
 MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-Support my OSS work by <a href="https://x.com/transitive_bs">following me on X.
+Support my OSS work by [following me on X](https://x.com/transitive_bs).
