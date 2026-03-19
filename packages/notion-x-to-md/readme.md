@@ -13,9 +13,7 @@
 - ✅ use notion content with LLMs
 - ✅ renders all notion blocks including collections
 - ✅ renders embedded tweets as markdown
-- ✅ works without an API key
-- ✅ unit tests
-- ✅ free
+- ✅ free; no API key needed
 
 ## Install
 
