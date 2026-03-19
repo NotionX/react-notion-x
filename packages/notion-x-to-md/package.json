@@ -6,6 +6,9 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
+  "bin": {
+    "notion-x-to-md": "./build/cli.js"
+  },
   "main": "./build/index.js",
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -26,15 +29,14 @@
     "test:unit": "vitest run"
   },
   "dependencies": {
+    "commander": "^14.0.3",
     "date-fns": "catalog:",
     "format-number": "catalog:",
+    "notion-client": "workspace:*",
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
     "p-map": "catalog:",
     "tweet-to-md": "^1.0.1"
-  },
-  "devDependencies": {
-    "notion-client": "workspace:*"
   },
   "keywords": [
     "notion",
