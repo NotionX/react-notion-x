@@ -4,15 +4,15 @@
 
 # notion-to-md-x
 
-> Converts a Notion page to GitHub-Flavored Markdown. Useful for using Notion with LLMs.
+> Converts a Notion page to Markdown. Useful for using Notion with LLMs.
 
 [![NPM](https://img.shields.io/npm/v/notion-to-md-x.svg)](https://www.npmjs.com/package/notion-to-md-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Features
 
-- ✅ supports all notion page types
+- ✅ supports all notion blocks including collections
 - ✅ embed notion pages or blocks as context for LLMs
-- ✅ automatically embeds tweets using [tweet-to-md](https://github.com/transitive-bullshit/tweet-to-md)
+- ✅ automatically embeds tweets
 - ✅ works without an API key
 - ✅ free
 
@@ -34,7 +34,7 @@ const api = new NotionAPI()
 const page = await api.getPage('067dd719a912471ea9a3ac10710e7fdf')
 
 // convert the page to a markdown string
-const markdown = notionPageToMarkdown(page)
+const markdown = await notionPageToMarkdown(page)
 
 console.log(markdown)
 ```
