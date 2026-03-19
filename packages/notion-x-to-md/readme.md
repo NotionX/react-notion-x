@@ -10,9 +10,9 @@
 
 ## Features
 
-- ✅ use notion content with LLMs
-- ✅ renders all notion blocks including collections
-- ✅ renders embedded tweets as markdown
+- 🔥 use notion content with LLMs
+- ✅ supports all notion blocks including collections
+- ✅ supports embedded tweets
 - ✅ free; no API key needed
 
 ## Install
