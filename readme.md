@@ -2,7 +2,7 @@
   <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/notion-ts.png" width="689">
 </p>
 
-# React Notion X
+# React Notion X <!-- omit from toc -->
 
 > Fast and accurate React renderer for Notion. TS batteries included. ⚡️
 
@@ -10,21 +10,20 @@
 
 ## Contents
 
-- [React Notion X](#react-notion-x)
-  - [Contents](#contents)
-  - [Advice](#advice)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Styles](#styles)
-  - [Optional Components](#optional-components)
-  - [Private Pages](#private-pages)
-  - [Next.js Examples](#nextjs-examples)
-  - [Packages](#packages)
-  - [Supported Blocks](#supported-blocks)
-  - [Performance](#performance)
-  - [Related](#related)
-  - [Contributing](#contributing)
-  - [License](#license)
+- [Contents](#contents)
+- [Advice](#advice)
+- [Features](#features)
+- [Usage](#usage)
+- [Styles](#styles)
+- [Optional Components](#optional-components)
+- [Private Pages](#private-pages)
+- [Next.js Examples](#nextjs-examples)
+- [Packages](#packages)
+- [Supported Blocks](#supported-blocks)
+- [Performance](#performance)
+- [Related](#related)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Advice
 
