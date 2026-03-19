@@ -266,6 +266,7 @@ The majority of Notion blocks and collection views are fully supported.
 | Heading 1                | ✅ Yes     | `header`               | `<h1>`                                                                                                           |
 | Heading 2                | ✅ Yes     | `sub_header`           | `<h2>`                                                                                                           |
 | Heading 3                | ✅ Yes     | `sub_sub_header`       | `<h3>`                                                                                                           |
+| Heading 4                | ✅ Yes     | `header_4`             | `<h4>`                                                                                                           |
 | Quote                    | ✅ Yes     | `quote`                |
 | Callout                  | ✅ Yes     | `callout`              |
 | Equation (block)         | ✅ Yes     | `equation`             | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)                       |

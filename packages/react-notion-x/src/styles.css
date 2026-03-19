@@ -1,7 +1,8 @@
 :root {
-  --notion-font: ui-sans-serif, system-ui, apple-system, BlinkMacSystemFont,
-    'Segoe UI', Helvetica, 'Apple Color Emoji', Arial, sans-serif,
-    'Segoe UI Emoji', 'Segoe UI Symbol';
+  --notion-font:
+    ui-sans-serif, system-ui, apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Helvetica, 'Apple Color Emoji', Arial, sans-serif, 'Segoe UI Emoji',
+    'Segoe UI Symbol';
   --fg-color: rgb(55, 53, 47);
   --fg-color-0: rgba(55, 53, 47, 0.09);
   --fg-color-1: rgba(55, 53, 47, 0.16);
@@ -494,7 +495,7 @@
   max-width: 100%;
   white-space: pre-wrap;
   word-break: break-word;
-  width:100%;
+  width: 100%;
 }
 
 .notion-h1 {
@@ -510,7 +511,8 @@
 
 .notion-title + .notion-h1,
 .notion-title + .notion-h2,
-.notion-title + .notion-h3 {
+.notion-title + .notion-h3,
+.notion-title + .notion-h4 {
   margin-top: 0;
 }
 /* TODO: notion-page-content */
@@ -526,6 +528,10 @@
 }
 .notion-h3 {
   font-size: 1.25em;
+  margin-top: 1em;
+}
+.notion-h4 {
+  font-size: 1.15em;
   margin-top: 1em;
 }
 
@@ -687,8 +693,9 @@ details.notion-toggle .notion-h {
 }
 
 .notion-page-icon {
-  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', NotoColorEmoji,
-    'Noto Color Emoji', 'Segoe UI Symbol', 'Android Emoji', EmojiSymbols;
+  font-family:
+    'Apple Color Emoji', 'Segoe UI Emoji', NotoColorEmoji, 'Noto Color Emoji',
+    'Segoe UI Symbol', 'Android Emoji', EmojiSymbols;
   font-size: 1.1em;
   fill: var(--fg-color-6);
   color: var(--fg-color-icon);
@@ -837,8 +844,8 @@ svg.notion-page-icon {
   background: var(--bg-color-2);
   border-radius: var(--notion-corner-radius);
   font-size: 85%;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
-    monospace;
+  font-family:
+    'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 
 .notion-inline-underscore {
@@ -938,8 +945,8 @@ svg.notion-page-icon {
   box-sizing: border-box;
   overflow: auto;
   background: var(--bg-color-1);
-  font-family: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier,
-    monospace;
+  font-family:
+    SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 
 .notion-code-copy {
@@ -3282,7 +3289,7 @@ svg.notion-page-icon {
 .notion-link-mention {
   position: relative;
   display: inline-flex;
-  align-items: center; 
+  align-items: center;
   vertical-align: middle;
 }
 
@@ -3324,8 +3331,8 @@ svg.notion-page-icon {
 }
 
 .notion-link-mention-card {
-  width: 18rem; 
-  height: 15rem; 
+  width: 18rem;
+  height: 15rem;
   background: var(--bg-color);
   border-radius: 0.75rem;
   border: 1px solid rgba(27, 31, 36, 0.15);

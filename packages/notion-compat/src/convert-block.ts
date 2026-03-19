@@ -132,6 +132,10 @@ export function convertBlock({
       compatBlock.type = 'sub_sub_header'
       break
 
+    case 'heading_4' as any:
+      compatBlock.type = 'header_4'
+      break
+
     case 'bulleted_list_item':
       compatBlock.type = 'bulleted_list'
       break

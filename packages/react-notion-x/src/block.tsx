@@ -307,7 +307,9 @@ export function Block(props: BlockProps) {
     // fallthrough
     case 'sub_header':
     // fallthrough
-    case 'sub_sub_header': {
+    case 'sub_sub_header':
+    // fallthrough
+    case 'header_4': {
       if (!block.properties) return null
 
       const blockColor = block.format?.block_color
@@ -340,11 +342,13 @@ export function Block(props: BlockProps) {
       const isH1 = block.type === 'header'
       const isH2 = block.type === 'sub_header'
       const isH3 = block.type === 'sub_sub_header'
+      const isH4 = block.type === 'header_4'
 
       const classNameStr = cs(
         isH1 && 'notion-h notion-h1',
         isH2 && 'notion-h notion-h2',
         isH3 && 'notion-h notion-h3',
+        isH4 && 'notion-h notion-h4',
         blockColor && `notion-${blockColor}`,
         indentLevelClass,
         blockId
@@ -379,11 +383,17 @@ export function Block(props: BlockProps) {
             {innerHeader}
           </h3>
         )
-      } else {
+      } else if (isH3) {
         headerBlock = (
           <h4 className={classNameStr} data-id={id}>
             {innerHeader}
           </h4>
+        )
+      } else {
+        headerBlock = (
+          <h5 className={classNameStr} data-id={id}>
+            {innerHeader}
+          </h5>
         )
       }
 

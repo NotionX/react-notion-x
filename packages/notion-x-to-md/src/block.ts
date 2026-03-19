@@ -59,6 +59,9 @@ export async function renderBlock(
     case 'sub_sub_header':
       return `### ${getTitle(block, recordMap)}\n`
 
+    case 'header_4':
+      return `#### ${getTitle(block, recordMap)}\n`
+
     case 'text': {
       const content = getTitle(block, recordMap)
       const children = await renderBlockChildren(block, recordMap, level + 1)

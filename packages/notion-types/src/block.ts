@@ -9,6 +9,7 @@ export type BlockType =
   | 'header'
   | 'sub_header'
   | 'sub_sub_header'
+  | 'header_4'
   | 'quote'
   | 'equation'
   | 'to_do'
@@ -57,6 +58,7 @@ export type Block =
   | HeaderBlock
   | SubHeaderBlock
   | SubSubHeaderBlock
+  | Header4HeaderBlock
   | TodoBlock
   | TableOfContentsBlock
   | DividerBlock
@@ -218,6 +220,13 @@ export interface SubHeaderBlock extends BaseTextBlock {
 
 export interface SubSubHeaderBlock extends BaseTextBlock {
   type: 'sub_sub_header'
+  format?: {
+    block_color: Color
+    toggleable?: boolean
+  }
+}
+export interface Header4HeaderBlock extends BaseTextBlock {
+  type: 'header_4'
   format?: {
     block_color: Color
     toggleable?: boolean

@@ -13,7 +13,8 @@ export interface TableOfContentsEntry {
 const indentLevels = {
   header: 0,
   sub_header: 1,
-  sub_sub_header: 2
+  sub_sub_header: 2,
+  header_4: 3
 }
 
 /**
@@ -38,7 +39,8 @@ export const getPageTableOfContents = (
         if (
           type === 'header' ||
           type === 'sub_header' ||
-          type === 'sub_sub_header'
+          type === 'sub_sub_header' ||
+          type === 'header_4'
         ) {
           return {
             id: blockId,
