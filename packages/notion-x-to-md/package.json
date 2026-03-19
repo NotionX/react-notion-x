@@ -6,9 +6,6 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "bin": {
-    "notion-x-to-md": "./build/cli.js"
-  },
   "main": "./build/index.js",
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -16,6 +13,9 @@
   "files": [
     "build"
   ],
+  "bin": {
+    "notion-x-to-md": "./build/cli.js"
+  },
   "engines": {
     "node": ">=18"
   },
