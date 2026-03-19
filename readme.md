@@ -191,12 +191,14 @@ const MyCustomButton = ({ blockId, block, className }) => {
   return <Button blockId={blockId} block={block} className={className} />
 }
 
-;<NotionRenderer
-  recordMap={recordMap}
-  components={{
-    Button: MyCustomButton
-  }}
-/>
+export default ({ recordMap }) => (
+  <NotionRenderer
+    recordMap={recordMap}
+    components={{
+      Button: MyCustomButton
+    }}
+  />
+)
 ```
 
 For webhook functionality, you'll need a server-side proxy endpoint to avoid CORS issues. See [examples/minimal/pages/api/webhook-proxy.ts](./examples/minimal/pages/api/webhook-proxy.ts) for a Next.js implementation.
@@ -239,14 +241,16 @@ For a production example, check out the [Next.js Notion Starter Kit](https://git
 
 ## Packages
 
-| Package                                     | NPM                                                                                                     | Environment   | Description                                    |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------- |
-| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                |
-| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | Server-side\* | Robust TypeScript client for the Notion API.   |
-| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | Universal     | Core Notion TypeScript types.                  |
-| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | Universal     | Useful utilities for working with Notion data. |
+| Package                                     | NPM                                                                                                     | Environment   | Description                                                                     |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------- |
+| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                                                 |
+| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | Server-side\* | Robust TypeScript client for the Notion API.                                    |
+| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | Universal     | Core Notion TypeScript types.                                                   |
+| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | Universal     | Useful utilities for working with Notion data.                                  |
+| [notion-compat](./packages/notion-compat)   | [![NPM](https://img.shields.io/npm/v/notion-compat.svg)](https://www.npmjs.com/package/notion-utils)    | Server-side   | Compatibility layer between the official Notion API and unofficial private API. |
+| [notion-x-to-md](./packages/notion-x-to-md) | [![NPM](https://img.shields.io/npm/v/notion-x-to-md.svg)](https://www.npmjs.com/package/notion-x-to-md) | Universal     | Converts a Notion page to Markdown. Very useful for LLMs.                       |
 
-\* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js and Deno.
+\* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js, Bun, Deno, CF workers, etc.
 
 ## Supported Blocks
 
