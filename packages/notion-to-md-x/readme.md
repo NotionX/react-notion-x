@@ -44,7 +44,7 @@ console.log(markdown)
 
 - You don't need to create any Notion API keys or integrations; just make sure your Notion page is publicly accessible.
 - Resulting image URLs hosted by Notion will work for a short while before becoming inaccessible. This is the same thing that happens with the official Notion app.
-  - If you want permanent image URLs, you can post-process the `ExtendedRecordMap` returned ty `NotionAPI.getPage` to upload the temporary images to a permanent URL, while storing a mapping of block IDs to permanent URLs.
+  - If you want permanent image URLs, you can post-process the `ExtendedRecordMap` returned by `NotionAPI.getPage` to upload the temporary images to a permanent URL, while storing a mapping of block IDs to permanent URLs.
 - Collections (databases) are supported, including lots of nuanced features like proper number/date/expression/formula formatting, though all database views will be rendered as markdown tables.
 - Why's it called `notion-to-md-x`? Because `notion-to-md` was already taken, but this version is based on `react-notion-x` and is much more robust.
 - It outputs Github-Flavored Markdown ([GFM](https://github.github.com/gfm/)) which is well-supported by LLMs.
