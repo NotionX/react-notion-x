@@ -29,7 +29,9 @@
     "date-fns": "catalog:",
     "format-number": "catalog:",
     "notion-types": "workspace:*",
-    "notion-utils": "workspace:*"
+    "notion-utils": "workspace:*",
+    "p-map": "catalog:",
+    "tweet-to-md": "^1.0.1"
   },
   "devDependencies": {
     "notion-client": "workspace:*"

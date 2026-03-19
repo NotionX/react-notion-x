@@ -30,7 +30,7 @@
     "@types/node": "catalog:",
     "bumpp": "catalog:",
     "del-cli": "catalog:",
-    "eslint": "catalog:",
+    "eslint": "^9.39.4",
     "npm-run-all2": "catalog:",
     "prettier": "catalog:",
     "react": "catalog:",

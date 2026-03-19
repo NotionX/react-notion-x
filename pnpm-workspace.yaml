@@ -56,12 +56,16 @@ catalog:
   vitest: ^3.2.4
 
 enablePrePostScripts: true
+ignoredBuiltDependencies:
+  - canvas
 
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - '@fisch0920/config'
+  - tweet-to-md
 
 onlyBuiltDependencies:
+  - canvas
   - simple-git-hooks
 
 packageManagerStrict: false

@@ -3,7 +3,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { NotionAPI } from 'notion-client'
 import { expect, test } from 'vitest'
 
-import { notionPageToMarkdown } from '.'
+import { notionPageToMarkdown } from './notion-page-to-markdown'
 
 const pageIdFixtures = [
   '067dd719a912471ea9a3ac10710e7fdf',
@@ -24,10 +24,11 @@ const pageIdFixtures = [
   // '9cb9716c93164c6c8b4cd0bac3879aeb',
   // 'faafed747a464097a28e462ce4952506',
   '9d9814f3220a4b3bbc2481ad6fd7c913',
-  '0c322c33381c49bca5083a451c334c39'
+  '0c322c33381c49bca5083a451c334c39',
+  '7b7f063709034186adbfb46f455d5065'
 ]
 
-const debug = false
+const writeExamples = false
 
 for (const id of pageIdFixtures) {
   test(
@@ -38,16 +39,17 @@ for (const id of pageIdFixtures) {
     async () => {
       const api = new NotionAPI()
       const recordMap = await api.getPage(id)
-      const markdown = notionPageToMarkdown(recordMap)
+      const markdown = await notionPageToMarkdown(recordMap)
 
-      if (debug) {
+      if (writeExamples) {
         console.log(`${id}.md\n${markdown}`)
-        await mkdir('out', { recursive: true })
-        await writeFile(`out/${id}.md`, markdown)
+        await mkdir('examples', { recursive: true })
+        await writeFile(`examples/${id}.md`, markdown)
       }
 
       expect(markdown).toBeTruthy()
-      expect(markdown.trim()).toMatchSnapshot()
+      expect(markdown.trim()).toEqual(markdown)
+      expect(markdown).toMatchSnapshot()
     }
   )
 }

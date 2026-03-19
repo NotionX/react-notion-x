@@ -14,39 +14,18 @@ import {
   getTextContent,
   uuidToId
 } from 'notion-utils'
+import pMap from 'p-map'
+import { getTweet, tweetToMarkdown } from 'tweet-to-md'
 
 import { getIcon } from './icon'
 import { renderCollectionProperty } from './property'
 import { decorationsToMarkdown } from './text'
 
-function getTitle(block: Block, recordMap: ExtendedRecordMap): string {
-  return decorationsToMarkdown(block.properties?.title ?? [], recordMap)
-}
-
-function renderChildren(
-  block: Block,
-  recordMap: ExtendedRecordMap,
-  level: number
-): string {
-  if (!block.content?.length) return ''
-  return block.content
-    .map((childId) => renderBlock(childId, recordMap, level + 1))
-    .filter(Boolean)
-    .join('\n')
-}
-
-function prefixLines(text: string, prefix: string): string {
-  return text
-    .split('\n')
-    .map((line) => `${prefix}${line}`)
-    .join('\n')
-}
-
-export function renderBlock(
+export async function renderBlock(
   blockId: string,
   recordMap: ExtendedRecordMap,
   level = 0
-): string {
+): Promise<string> {
   const rawBlock = recordMap.block[blockId]
   if (!rawBlock) return ''
 
@@ -59,7 +38,7 @@ export function renderBlock(
     case 'page':
       if (level === 0) {
         const title = getTitle(block, recordMap)
-        const children = renderChildren(block, recordMap, level)
+        const children = await renderBlockChildren(block, recordMap, level + 1)
         return `# ${title}\n\n${children}\n`
       } else {
         const title = [
@@ -82,7 +61,7 @@ export function renderBlock(
 
     case 'text': {
       const content = getTitle(block, recordMap)
-      const children = renderChildren(block, recordMap, level)
+      const children = await renderBlockChildren(block, recordMap, level + 1)
       if (!content && !children) return '\n'
       if (children) {
         return `${content}\n${prefixLines(children, '  ')}`
@@ -95,10 +74,7 @@ export function renderBlock(
       const indent = '  '.repeat(listNestingLevel)
       const content = `${indent}- ${getTitle(block, recordMap)}`
       if (block.content?.length) {
-        const children = block.content
-          .map((id) => renderBlock(id, recordMap, level + 1))
-          .filter(Boolean)
-          .join('\n')
+        const children = await renderBlockChildren(block, recordMap, level + 1)
         return `${content}\n${children}`
       }
       return content
@@ -110,10 +86,7 @@ export function renderBlock(
       const indent = '   '.repeat(listNestingLevel)
       const content = `${indent}${listNumber}. ${getTitle(block, recordMap)}`
       if (block.content?.length) {
-        const children = block.content
-          .map((id) => renderBlock(id, recordMap, level + 1))
-          .filter(Boolean)
-          .join('\n')
+        const children = await renderBlockChildren(block, recordMap, level + 1)
         return `${content}\n${children}`
       }
       return content
@@ -127,14 +100,14 @@ export function renderBlock(
 
     case 'quote': {
       const content = getTitle(block, recordMap)
-      const children = renderChildren(block, recordMap, level)
+      const children = await renderBlockChildren(block, recordMap, level + 1)
       const parts = [content, children].filter(Boolean)
       return parts.map((part) => prefixLines(part, '> ')).join('\n')
     }
 
     case 'callout': {
       const content = getTitle(block, recordMap)
-      const children = renderChildren(block, recordMap, level)
+      const children = await renderBlockChildren(block, recordMap, level + 1)
       const title = [getIcon(block, recordMap), content]
         .filter(Boolean)
         .join(' ')
@@ -145,7 +118,7 @@ export function renderBlock(
 
     case 'toggle': {
       const content = getTitle(block, recordMap)
-      const children = renderChildren(block, recordMap, level)
+      const children = await renderBlockChildren(block, recordMap, level + 1)
       return children
         ? `<details>\n<summary>${content}</summary>\n${children}\n</details>`
         : content
@@ -195,6 +168,20 @@ export function renderBlock(
       const caption = (block as any).properties?.caption
       const title = caption ? getTextContent(caption) : source
       return `[${title}](${source})`
+    }
+
+    case 'tweet': {
+      const src: string | undefined =
+        recordMap.signed_urls?.[block.id] || block.properties?.source?.[0]?.[0]
+      const id = src?.split('?')?.[0]?.split('/').pop()
+      if (!id) return ''
+      try {
+        const tweet = await getTweet(id)
+        if (!tweet) return ''
+        return tweetToMarkdown(tweet)
+      } catch {
+        return ''
+      }
     }
 
     case 'gist': {
@@ -272,7 +259,7 @@ export function renderBlock(
     case 'column_list':
     case 'column':
     case 'transclusion_container':
-      return renderChildren(block, recordMap, level)
+      return renderBlockChildren(block, recordMap, level + 1)
 
     case 'transclusion_reference': {
       const syncBlock = block
@@ -282,10 +269,7 @@ export function renderBlock(
       if (!targetId) return ''
       const targetBlock = getBlockValue(recordMap.block[targetId])
       if (!targetBlock?.content?.length) return ''
-      return targetBlock.content
-        .map((id: string) => renderBlock(id, recordMap, level))
-        .filter(Boolean)
-        .join('\n')
+      return renderBlockChildren(targetBlock, recordMap, level)
     }
 
     case 'alias': {
@@ -387,4 +371,32 @@ export function renderBlock(
     default:
       return ''
   }
+}
+
+async function renderBlockChildren(
+  block: Block,
+  recordMap: ExtendedRecordMap,
+  level: number
+): Promise<string> {
+  if (!block.content?.length) return ''
+  return (
+    await pMap(
+      block.content,
+      async (childId) => renderBlock(childId, recordMap, level),
+      { concurrency: 4 }
+    )
+  )
+    .filter(Boolean)
+    .join('\n')
+}
+
+function getTitle(block: Block, recordMap: ExtendedRecordMap): string {
+  return decorationsToMarkdown(block.properties?.title ?? [], recordMap)
+}
+
+function prefixLines(text: string, prefix: string): string {
+  return text
+    .split('\n')
+    .map((line) => `${prefix}${line}`)
+    .join('\n')
 }
