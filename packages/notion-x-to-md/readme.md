@@ -14,6 +14,7 @@
 - ✅ supports all notion blocks including collections
 - ✅ supports embedded tweets
 - ✅ free; no API key needed
+- ✅ ts + cli
 
 ## Install
 
