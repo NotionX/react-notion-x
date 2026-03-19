@@ -366,4 +366,4 @@ See the [contribution guide](contributing.md) and join our amazing list of [cont
 
 MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-Support my OSS work by [following me on X](https://x.com/transitive_bs).
+Support my OSS work by [following me on X](https://x.com/transitive_bs)

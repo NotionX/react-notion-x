@@ -28,4 +28,4 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-Support my OSS work by [following me on X](https://x.com/transitive_bs).
+Support my OSS work by [following me on X](https://x.com/transitive_bs)

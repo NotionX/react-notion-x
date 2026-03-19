@@ -151,4 +151,4 @@ The main feature missing from `notion-compat` right now is collection (database)
 
 MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-Support my OSS work by [following me on X](https://x.com/transitive_bs).
+Support my OSS work by [following me on X](https://x.com/transitive_bs)

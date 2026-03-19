@@ -46,4 +46,4 @@ Note that custom images will only be enabled if either the image has a valid pre
 
 MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-Support my OSS work by [following me on X](https://x.com/transitive_bs).
+Support my OSS work by [following me on X](https://x.com/transitive_bs)
