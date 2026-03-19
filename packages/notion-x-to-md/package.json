@@ -1,6 +1,6 @@
 {
   "name": "notion-x-to-md",
-  "version": "7.9.1",
+  "version": "7.10.0",
   "type": "module",
   "description": "Converts a Notion page to Markdown. Very useful for LLMs.",
   "repository": "NotionX/react-notion-x",
