@@ -11,7 +11,7 @@ export { decorationsToMarkdown } from './text'
  * The root block (first key in recordMap.block) is rendered as the top-level
  * page.
  *
- * This function ahs to be `async` because it may load remote resources like
+ * This function has to be `async` because it may load remote resources like
  * tweets.
  */
 export async function notionPageToMarkdown(

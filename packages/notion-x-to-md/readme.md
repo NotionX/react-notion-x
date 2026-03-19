@@ -40,6 +40,28 @@ const markdown = await notionPageToMarkdown(page)
 console.log(markdown)
 ```
 
+## CLI
+
+```bash
+npx -y notion-x-to-md https://notion.so/067dd719a912471ea9a3ac10710e7fdf
+```
+
+```bash
+npx -y notion-x-to-md de14421f13914ac7b528fa2e31eb1455
+```
+
+```
+Usage: notion-x-to-md [options] <page>
+
+Converts a Notion page to Markdown
+
+Arguments:
+  page        Notion page ID or URL (must be publicly accessible)
+
+Options:
+  -h, --help  display help for command
+```
+
 ### Examples
 
 | Notion Page                  | Page ID                                                                                | Markdown Output                                      | Supported? | Notes                                                                                                                                |
