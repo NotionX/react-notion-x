@@ -1,6 +1,3 @@
-// import { promises as fs } from 'fs'
-//import ky, { type Options as OfetchOptions } from 'ky'
-
 import type * as notion from 'notion-types'
 import {
   getBlockCollectionId,
@@ -24,6 +21,15 @@ export class NotionAPI {
   private readonly _userTimeZone: string
   private readonly _ofetchOptions?: OfetchOptions
 
+  /**
+   * Constructor for the NotionAPI class.
+   * @param options - Configuration options.
+   * @param options.apiBaseUrl - The base URL of the Notion API. Defaults to `https://www.notion.so/api/v3`.
+   * @param options.authToken - The authentication token for the Notion API. Defaults to undefined.
+   * @param options.activeUser - The active user for the Notion API. Defaults to undefined.
+   * @param options.userTimeZone - The time zone for the Notion API. Defaults to `America/New_York`.
+   * @param options.ofetchOptions - The HTTP options to use for the underlying `ofetch` requests. Defaults to undefined.
+   */
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
@@ -45,6 +51,24 @@ export class NotionAPI {
     this._ofetchOptions = ofetchOptions
   }
 
+  /**
+   * Fetch a Notion page's content, including all async blocks, collection queries, and signed urls.
+   *
+   * @param pageId - The ID of the Notion page to fetch. May be a page ID, UUID, or URL.
+   * @param options - Optional configuration options.
+   * @param options.concurrency - The max number of concurrent Notion API requests to make. Defaults to `3`.
+   * @param options.fetchMissingBlocks - Whether to fetch additional missing blocks. Defaults to `true`.
+   * @param options.fetchCollections - Whether to fetch collections and their associated views. Defaults to `true`.
+   * @param options.signFileUrls - Whether to sign file URLs. Defaults to `true`.
+   * @param options.chunkLimit - The number of chunks to fetch. Defaults to `100`.
+   * @param options.chunkNumber - The number of the first chunk to fetch. Defaults to `0`.
+   * @param options.throwOnCollectionErrors - Whether to throw on collection errors. Defaults to `false`.
+   * @param options.collectionReducerLimit - The max number of collection reducers to fetch. Defaults to `999`.
+   * @param options.fetchRelationPages - Whether to fetch relation pages. Defaults to `false`.
+   * @param options.ofetchOptions - The HTTP options to use for the underlying `ofetch` requests. Defaults to `undefined`.
+   *
+   * @returns The content of the Notion page as an `ExtendedRecordMap`.
+   */
   public async getPage(
     pageId: string,
     {
@@ -238,6 +262,14 @@ export class NotionAPI {
     return recordMap
   }
 
+  /**
+   * Fetches relation pages from the Notion API.
+   *
+   * @param recordMap - The record map to fetch relation pages from.
+   * @param ofetchOptions - The HTTP options to use for the underlying `ofetch` requests.
+   *
+   * @returns The relation pages as a `BlockMap`.
+   */
   fetchRelationPages = async (
     recordMap: notion.ExtendedRecordMap,
     ofetchOptions: OfetchOptions | undefined
@@ -309,11 +341,13 @@ export class NotionAPI {
               decoration.length > 1 &&
               decoration[0] === '‣'
             ) {
-              const pagePointer = decoration[1]?.[0]
+              const pagePointer = (decoration as string[][][])[1]?.[0]
               if (
+                pagePointer &&
                 Array.isArray(pagePointer) &&
                 pagePointer.length > 1 &&
-                pagePointer[0] === 'p'
+                pagePointer[0] === 'p' &&
+                pagePointer[1]
               ) {
                 pageIds.add(pagePointer[1])
               }

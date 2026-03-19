@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@fisch0920/config": "catalog:",
-    "@total-typescript/ts-reset": "catalog:",
     "@types/node": "catalog:",
     "bumpp": "catalog:",
     "del-cli": "catalog:",

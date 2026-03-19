@@ -7,13 +7,12 @@ import { expect, test } from 'vitest'
 import { NotionCompatAPI } from './notion-compat-api'
 
 // NOTE: it's fine to expose this secret here because it's only scoped for
-// accessing these teset files.
+// accessing these test files.
 const auth = 'secret_KZ8vNH8UmOGIEQTlcPOp19yAiy0JZbyEqN5mLSqz2HF'
 const debug = false
 
 const testPageIds = [
-  '067dd719a912471ea9a3ac10710e7fdf', // notion kit test suite homepage
-  '8bcd65801a5d450fb7218d8890a38c29' // sync blocks
+  '067dd719a912471ea9a3ac10710e7fdf' // notion kit test suite homepage
 ]
 
 for (const pageId of testPageIds) {

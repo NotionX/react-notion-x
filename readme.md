@@ -76,7 +76,7 @@ You'll need to import some CSS styles as well. If you're using Next.js, we recom
 
 ```ts
 // core styles shared by all of react-notion-x (required)
-import 'react-notion-x/src/styles.css'
+import 'react-notion-x/styles.css'
 
 // used for code syntax highlighting (optional)
 import 'prismjs/themes/prism-tomorrow.css'
@@ -89,14 +89,14 @@ import 'katex/dist/katex.min.css'
 
 The default imports from `react-notion-x` strive to be as lightweight as possible. Most blocks will render just fine, but some larger blocks like PDFs and collection views (database views) are not included by default.
 
-To use them, you'll need to import the ones you want from `react-notion-x/build/third-party/*`:
+To use them, you'll need to import the ones you want from `react-notion-x/third-party/*`:
 
 ```tsx
-import { Code } from 'react-notion-x/build/third-party/code'
-import { Collection } from 'react-notion-x/build/third-party/collection'
-import { Equation } from 'react-notion-x/build/third-party/equation'
-import { Modal } from 'react-notion-x/build/third-party/modal'
-import { Pdf } from 'react-notion-x/build/third-party/pdf'
+import { Code } from 'react-notion-x/third-party/code'
+import { Collection } from 'react-notion-x/third-party/collection'
+import { Equation } from 'react-notion-x/third-party/equation'
+import { Modal } from 'react-notion-x/third-party/modal'
+import { Pdf } from 'react-notion-x/third-party/pdf'
 ```
 
 Note that we strongly recommend lazy-loading these components unless you know you'll need them up front for your use case.
@@ -107,24 +107,22 @@ If you're using Next.js, you can use [next/dynamic](https://nextjs.org/docs/adva
 import dynamic from 'next/dynamic'
 
 const Code = dynamic(() =>
-  import('react-notion-x/build/third-party/code').then((m) => m.Code)
+  import('react-notion-x/third-party/code').then((m) => m.Code)
 )
 const Collection = dynamic(() =>
-  import('react-notion-x/build/third-party/collection').then(
-    (m) => m.Collection
-  )
+  import('react-notion-x/third-party/collection').then((m) => m.Collection)
 )
 const Equation = dynamic(() =>
-  import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
+  import('react-notion-x/third-party/equation').then((m) => m.Equation)
 )
 const Pdf = dynamic(
-  () => import('react-notion-x/build/third-party/pdf').then((m) => m.Pdf),
+  () => import('react-notion-x/third-party/pdf').then((m) => m.Pdf),
   {
     ssr: false
   }
 )
 const Modal = dynamic(
-  () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
+  () => import('react-notion-x/third-party/modal').then((m) => m.Modal),
   {
     ssr: false
   }

@@ -6,13 +6,12 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "main": "./build/index.js",
-  "module": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "source": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "sideEffects": false,
-  "files": [
-    "build"
-  ],
   "engines": {
     "node": ">=18"
   },
@@ -30,5 +29,19 @@
     "notion-types": "workspace:*",
     "notion-utils": "workspace:*",
     "p-map": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "files": [
+      "build"
+    ],
+    "types": "./build/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./build/index.d.ts",
+        "import": "./build/index.js",
+        "default": "./build/index.js"
+      }
+    }
   }
 }

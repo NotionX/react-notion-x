@@ -6,16 +6,15 @@
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "main": "./build/index.js",
-  "module": "./build/index.js",
-  "types": "./build/index.d.ts",
-  "sideEffects": false,
-  "files": [
-    "build"
-  ],
-  "bin": {
-    "notion-x-to-md": "./build/cli.js"
+  "source": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
   },
+  "bin": {
+    "notion-x-to-md": "./src/cli.ts"
+  },
+  "sideEffects": false,
   "engines": {
     "node": ">=18"
   },
@@ -50,5 +49,22 @@
     "chatgpt",
     "openai",
     "gpt"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public",
+    "files": [
+      "build"
+    ],
+    "types": "./build/index.d.ts",
+    "bin": {
+      "notion-x-to-md": "./build/cli.js"
+    },
+    "exports": {
+      ".": {
+        "types": "./build/index.d.ts",
+        "import": "./build/index.js",
+        "default": "./build/index.js"
+      }
+    }
+  }
 }

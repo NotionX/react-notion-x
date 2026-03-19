@@ -278,7 +278,7 @@ export function Button({
                 body: JSON.stringify({ url: webhookUrl, payload, headers })
               })
 
-              const result = await response.json()
+              const result: any = await response.json()
 
               if (!response.ok || !result.success) {
                 console.error('Webhook request failed:', result)

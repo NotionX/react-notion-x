@@ -166,7 +166,7 @@ const getLoadingCmd =
     // Kick off request for Image and attach listeners for response
     loadingPromise.promise
       .then((_res) => instance.update(Action.LoadSuccess({})))
-      .catch((err) => {
+      .catch((err: any) => {
         // If the Loading Promise was canceled, it means we have stopped
         // loading due to unmount, rather than an error.
         if (!err.isCanceled) {
