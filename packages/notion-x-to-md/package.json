@@ -1,5 +1,5 @@
 {
-  "name": "notion-to-md-x",
+  "name": "notion-x-to-md",
   "version": "7.8.3",
   "type": "module",
   "description": "Converts a Notion page to Markdown. Very useful for LLMs.",

@@ -1,12 +1,12 @@
 <p align="center">
-  <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/notion-ts.png" width="689">
+  <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/notion-x-to-md.jpg">
 </p>
 
-# notion-to-md-x
+# notion-x-to-md
 
 > Converts a Notion page to Markdown. Very useful for LLMs.
 
-[![NPM](https://img.shields.io/npm/v/notion-to-md-x.svg)](https://www.npmjs.com/package/notion-to-md-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/notion-x-to-md.svg)](https://www.npmjs.com/package/notion-x-to-md) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
 ## Features
 
@@ -20,14 +20,14 @@
 ## Install
 
 ```bash
-npm install notion-to-md-x
+npm install notion-x-to-md
 ```
 
 ## Usage
 
 ```ts
 import { NotionAPI } from 'notion-client'
-import { notionPageToMarkdown } from 'notion-to-md-x'
+import { notionPageToMarkdown } from 'notion-x-to-md'
 
 const api = new NotionAPI()
 
@@ -46,7 +46,7 @@ console.log(markdown)
 - Resulting image URLs hosted by Notion will work for a short while before becoming inaccessible. This is the same thing that happens with the official Notion app.
   - If you want permanent image URLs, you can post-process the `ExtendedRecordMap` returned by `NotionAPI.getPage` to upload the temporary images to a permanent URL, while storing a mapping of block IDs to permanent URLs.
 - Collections (databases) are supported, including lots of nuanced features like proper number/date/expression/formula formatting, though all database views will be rendered as markdown tables.
-- Why's it called `notion-to-md-x`? Because `notion-to-md` was already taken, but this version is based on `react-notion-x` and is much more robust.
+- Why's it called `notion-x-to-md`? Because `notion-to-md` was already taken, but this version is based on `react-notion-x` which has a long history of stable maintenance.
 - It outputs Github-Flavored Markdown ([GFM](https://github.github.com/gfm/)) which is well-supported by LLMs.
 
 ### Examples
