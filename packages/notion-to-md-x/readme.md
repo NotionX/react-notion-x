@@ -4,7 +4,7 @@
 
 # notion-to-md-x
 
-> Converts a Notion page to Markdown so you can easily use Notion content with LLMs.
+> Converts a Notion page to Markdown. Very useful for LLMs.
 
 [![NPM](https://img.shields.io/npm/v/notion-to-md-x.svg)](https://www.npmjs.com/package/notion-to-md-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
 
