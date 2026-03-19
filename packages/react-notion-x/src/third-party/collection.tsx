@@ -187,6 +187,7 @@ function CollectionViewBlock({
     (block.format as any)?.hide_inline_collection_name !== true &&
     collectionView.format?.hide_linked_collection_name !== true &&
     title
+
   if (collection.icon) {
     block.format = {
       ...block.format,
@@ -206,6 +207,7 @@ function CollectionViewBlock({
             />
           )}
         </div>
+
         {showTitle && (
           <div className='notion-collection-header'>
             <div className='notion-collection-header-title'>
@@ -214,11 +216,13 @@ function CollectionViewBlock({
                 className='notion-page-title-icon'
                 hideDefaultIcon
               />
+
               {title}
             </div>
           </div>
         )}
       </div>
+
       <div className={cs('notion-collection', className)}>
         <CollectionView
           collection={collection}

@@ -17,8 +17,6 @@
   - [Usage](#usage)
   - [Styles](#styles)
   - [Optional Components](#optional-components)
-    - [Custom Button Components](#custom-button-components)
-  - [Custom Button Components](#custom-button-components-1)
   - [Private Pages](#private-pages)
   - [Next.js Examples](#nextjs-examples)
   - [Packages](#packages)
@@ -151,57 +149,6 @@ The `Code` component uses [Prism](https://prismjs.com) under the hood. It comes 
 For `Equation` support, you'll need to import the katex CSS styles.
 
 For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
-
-### Custom Button Components
-
-Button blocks are rendered by default using a simple built-in implementation that displays the button text with proper colors. For advanced functionality like handling button clicks with automations (opening URLs, triggering webhooks), you can provide a custom `Button` component:
-
-```tsx
-import { NotionButton } from './components/NotionButton'
-
-export default ({ recordMap }) => (
-  <NotionRenderer
-    recordMap={recordMap}
-    components={{
-      Button: NotionButton
-    }}
-  />
-)
-```
-
-## Custom Button Components
-
-Button blocks are now **built-in by default** with full automation support including:
-
-- Opening external URLs in new tabs
-- Internal page navigation
-- Sending webhooks with Notion-format payloads
-- Custom header support
-
-The default Button component is exported from `react-notion-x` and handles most common use cases automatically. If you need custom behavior, you can override it:
-
-```tsx
-import { Button } from 'react-notion-x'
-
-// Optional: Create a custom button component
-const MyCustomButton = ({ blockId, block, className }) => {
-  // Your custom implementation
-  return <Button blockId={blockId} block={block} className={className} />
-}
-
-export default ({ recordMap }) => (
-  <NotionRenderer
-    recordMap={recordMap}
-    components={{
-      Button: MyCustomButton
-    }}
-  />
-)
-```
-
-For webhook functionality, you'll need a server-side proxy endpoint to avoid CORS issues. See [examples/minimal/pages/api/webhook-proxy.ts](./examples/minimal/pages/api/webhook-proxy.ts) for a Next.js implementation.
-
-The Button component receives `blockId`, `block`, and optional `className` as props. See [packages/react-notion-x/src/components/button.tsx](./packages/react-notion-x/src/components/button.tsx) for the default implementation.
 
 ## Private Pages
 
