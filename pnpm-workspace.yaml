@@ -10,12 +10,12 @@ catalog:
   '@notionhq/client': ^2.3.0
   '@total-typescript/ts-reset': ^0.6.1
   '@types/lodash.throttle': ^4.1.6
-  '@types/node': ^25.2.3
+  '@types/node': ^25.5.0
   '@types/prismjs': ^1.26.5
   '@types/react': ^19.2.14
   '@types/react-dom': ^19.2.3
   '@types/react-modal': ^3.16.3
-  bumpp: ^10.4.1
+  bumpp: ^11.0.1
   classnames: ^2.5.1
   clipboard-copy: ^4.0.1
   cross-env: ^7.0.3
@@ -50,10 +50,10 @@ catalog:
   simple-git-hooks: ^2.13.1
   tsup: ^8.5.1
   tsx: ^4.21.0
-  turbo: ^2.8.7
+  turbo: ^2.8.17
   typescript: ^5.9.3
   unionize: ^3.1.0
-  vitest: ^3.2.4
+  vitest: ^4.1.0
 
 enablePrePostScripts: true
 ignoredBuiltDependencies:
