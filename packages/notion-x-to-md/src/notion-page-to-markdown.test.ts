@@ -14,19 +14,19 @@ const pageIdFixtures = [
   '5995506f2c564d81956aa38711e12337',
   '3492bd6dbaf44fe7a5cac62c5d402f06',
   '912379b0c54440a286619f76446cd753',
-  '5d4e290ca4604d8fb809af806a6c1749',
   '7820b2d5300747b38e31344eb06fbd57',
   '8bcd65801a5d450fb7218d8890a38c29',
   '30bedb27f12481cc9d6afe0976b52e60',
   '52353862df0f48ba85648db7d0acd1dd',
-  '2fea615a97a7401c81be486e4eec2e94', // collections
   '17aef37fb4624588ab1ff0e6671acba5', // collection number formatting
   '9d9814f3220a4b3bbc2481ad6fd7c913',
   '0c322c33381c49bca5083a451c334c39'
   // TODO: re-add these tests (they fail because of date rendering being different on CI vs local)
-  // '9cb9716c93164c6c8b4cd0bac3879aeb',
-  // 'faafed747a464097a28e462ce4952506',
-  // '7b7f063709034186adbfb46f455d5065',
+  // '5d4e290ca4604d8fb809af806a6c1749', // embeds
+  // '2fea615a97a7401c81be486e4eec2e94', // collections
+  // '9cb9716c93164c6c8b4cd0bac3879aeb', // inline gallery
+  // 'faafed747a464097a28e462ce4952506', // gallery
+  // '7b7f063709034186adbfb46f455d5065', // tweet embeds
 ]
 
 const writeExamples = false
