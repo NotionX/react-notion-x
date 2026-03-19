@@ -7,9 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "vercel deploy",
-    "test": "run-s test:*",
-    "test:lint": "eslint ."
+    "deploy": "vercel deploy"
   },
   "dependencies": {
     "@notionhq/client": "catalog:",

@@ -227,7 +227,8 @@ export function convertBlock({
         if (page) {
           if (page.properties.title) {
             compatBlock.properties.title = convertRichText(
-              (page.properties.title as any).rich_text
+              (page.properties.title as any).rich_text ||
+                (page.properties.title as any).title
             )
           }
 

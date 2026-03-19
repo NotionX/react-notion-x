@@ -4,6 +4,9 @@ import {
   getBlockIcon,
   getBlockParentPage,
   getBlockValue,
+  getListNestingLevel,
+  getListNumber,
+  getListStyle,
   getPageTableOfContents,
   getTextContent,
   uuidToId
@@ -24,13 +27,7 @@ import { SyncPointerBlock } from './components/sync-pointer-block'
 import { Text } from './components/text'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
-import {
-  cs,
-  getListNestingLevel,
-  getListNumber,
-  getListStyle,
-  isUrl
-} from './utils'
+import { cs, isUrl } from './utils'
 
 interface BlockProps {
   block: types.Block

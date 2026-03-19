@@ -43,7 +43,7 @@ And if you want even more control, then you're in the right place! 👇👇
 - 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality
 - 🔥 **Solid** - Used in production by tens of thousands of websites
 - 💪 **Smooth** - Supports `next/image` along with LQIP preview images ([demo](https://react-notion-x-demo.transitivebullsh.it/3492bd6dbaf44fe7a5cac62c5d402f06))
-- Framework agnostic - Use with next.js, create-react-app, gatsby, etc
+- Framework agnostic - Use with next.js, vite, remix, etc
 
 ## Usage
 
@@ -360,12 +360,10 @@ Note that custom image component is currently only enabled with preview image or
 
 ## Contributing
 
-See the [contribution guide](contributing.md) and join our amazing list of [contributors](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/graphs/contributors)!
+See the [contribution guide](contributing.md) and join our amazing list of [contributors](https://github.com/NotionX/react-notion-x/graphs/contributors)!
 
 ## License
 
-MIT © [Travis Fischer](https://transitivebullsh.it)
+MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.
-
-Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+Support my OSS work by [following me on X](https://x.com/transitive_bs)

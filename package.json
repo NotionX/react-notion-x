@@ -6,7 +6,7 @@
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
   "version": "7.8.3",
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@10.32.1",
   "engines": {
     "node": ">=20"
   },
@@ -17,7 +17,7 @@
     "clean": "turbo clean",
     "test": "turbo test",
     "test:format": "prettier --check \"**/*.{js,ts,tsx}\"",
-    "test:lint": "turbo test:lint",
+    "test:lint": "eslint .",
     "test:typecheck": "turbo test:typecheck",
     "test:unit": "turbo test:unit",
     "release": "bumpp -r && pnpm publish -r",
@@ -30,7 +30,7 @@
     "@types/node": "catalog:",
     "bumpp": "catalog:",
     "del-cli": "catalog:",
-    "eslint": "catalog:",
+    "eslint": "^9.39.4",
     "npm-run-all2": "catalog:",
     "prettier": "catalog:",
     "react": "catalog:",
