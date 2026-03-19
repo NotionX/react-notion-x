@@ -40,15 +40,6 @@ const markdown = await notionPageToMarkdown(page)
 console.log(markdown)
 ```
 
-### Notes
-
-- You don't need to create any Notion API keys or integrations; just make sure your Notion page is publicly accessible.
-- Resulting image URLs hosted by Notion will work for a short while before becoming inaccessible. This is the same thing that happens with the official Notion app.
-  - If you want permanent image URLs, you can post-process the `ExtendedRecordMap` returned by `NotionAPI.getPage` to upload the temporary images to a permanent URL, while storing a mapping of block IDs to permanent URLs.
-- Collections (databases) are supported, including lots of nuanced features like proper number/date/expression/formula formatting, though all database views will be rendered as markdown tables.
-- Why's it called `notion-x-to-md`? Because `notion-to-md` was already taken, but this version is based on `react-notion-x` which has a long history of stable maintenance.
-- It outputs Github-Flavored Markdown ([GFM](https://github.github.com/gfm/)) which is well-supported by LLMs.
-
 ### Examples
 
 | Notion Page                  | Page ID                                                                                | Markdown Output                                      | Supported? | Notes                                                                                                                                |
@@ -71,6 +62,15 @@ console.log(markdown)
 | Buttons                      | [30bedb27f12481cc9d6afe0976b52e60](https://notion.so/30bedb27f12481cc9d6afe0976b52e60) | [md](./examples/30bedb27f12481cc9d6afe0976b52e60.md) | ☑️         | button labels/actions not rendered                                                                                                   |
 | Tweet Embeds                 | [7b7f063709034186adbfb46f455d5065](https://notion.so/7b7f063709034186adbfb46f455d5065) | [md](./examples/7b7f063709034186adbfb46f455d5065.md) | ☑️         | uses [tweet-to-md](https://github.com/transitive-bullshit/tweet-to-md); polls not shown; gif and video tweets show poster image only |
 | Embeds                       | [5d4e290ca4604d8fb809af806a6c1749](https://notion.so/5d4e290ca4604d8fb809af806a6c1749) | [md](./examples/5d4e290ca4604d8fb809af806a6c1749.md) | ☑️         | videos shown as link; iframe embeds (Maps, Figma, Drive) render empty                                                                |
+
+### Notes
+
+- You don't need to create any Notion API keys or integrations; just make sure your Notion page is publicly accessible.
+- Resulting image URLs hosted by Notion will work for a short while before becoming inaccessible. This is the same thing that happens with the official Notion app.
+  - If you want permanent image URLs, you can post-process the `ExtendedRecordMap` returned by `NotionAPI.getPage` to upload the temporary images to a permanent URL, while storing a mapping of block IDs to permanent URLs.
+- Collections (databases) are supported, including lots of nuanced features like proper number/date/expression/formula formatting, though all database views will be rendered as markdown tables.
+- Why's it called `notion-x-to-md`? Because `notion-to-md` was already taken, but this version is based on `react-notion-x` which has a long history of stable maintenance.
+- It outputs Github-Flavored Markdown ([GFM](https://github.github.com/gfm/)) which is well-supported by LLMs.
 
 ## Docs
 
