@@ -320,7 +320,27 @@ importers:
         specifier: workspace:*
         version: link:../notion-client
 
-  packages/notion-to-md-x:
+  packages/notion-types: {}
+
+  packages/notion-utils:
+    dependencies:
+      is-url-superb:
+        specifier: 'catalog:'
+        version: 6.1.0
+      memoize:
+        specifier: 'catalog:'
+        version: 10.1.0
+      normalize-url:
+        specifier: 'catalog:'
+        version: 8.0.1
+      notion-types:
+        specifier: workspace:*
+        version: link:../notion-types
+      p-queue:
+        specifier: 'catalog:'
+        version: 8.1.0
+
+  packages/notion-x-to-md:
     dependencies:
       date-fns:
         specifier: 'catalog:'
@@ -344,26 +364,6 @@ importers:
       notion-client:
         specifier: workspace:*
         version: link:../notion-client
-
-  packages/notion-types: {}
-
-  packages/notion-utils:
-    dependencies:
-      is-url-superb:
-        specifier: 'catalog:'
-        version: 6.1.0
-      memoize:
-        specifier: 'catalog:'
-        version: 10.1.0
-      normalize-url:
-        specifier: 'catalog:'
-        version: 8.0.1
-      notion-types:
-        specifier: workspace:*
-        version: link:../notion-types
-      p-queue:
-        specifier: 'catalog:'
-        version: 8.1.0
 
   packages/react-notion-x:
     dependencies:
