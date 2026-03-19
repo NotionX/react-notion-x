@@ -10,7 +10,7 @@
 
 ## Features
 
-- ✅ embed notion pages or blocks as context for LLMs
+- ✅ use notion content with LLMs
 - ✅ renders all notion blocks including collections
 - ✅ renders embedded tweets as markdown
 - ✅ works without an API key
@@ -31,7 +31,7 @@ import { notionPageToMarkdown } from 'notion-x-to-md'
 
 const api = new NotionAPI()
 
-// fetch a page's content
+// fetch a notion page's content
 const page = await api.getPage('067dd719a912471ea9a3ac10710e7fdf')
 
 // convert the page to a markdown string
@@ -71,10 +71,6 @@ console.log(markdown)
 - Collections (databases) are supported, including lots of nuanced features like proper number/date/expression/formula formatting, though all database views will be rendered as markdown tables.
 - Why's it called `notion-x-to-md`? Because `notion-to-md` was already taken, but this version is based on `react-notion-x` which has a long history of stable maintenance.
 - It outputs Github-Flavored Markdown ([GFM](https://github.github.com/gfm/)) which is well-supported by LLMs.
-
-## Docs
-
-See the [full docs](https://github.com/NotionX/react-notion-x).
 
 ## License
 
