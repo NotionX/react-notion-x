@@ -17,6 +17,39 @@ export function TabBlock(props: TabBlockProps) {
 
   const tabIds = block.content ?? []
   const [activeIndex, setActiveIndex] = React.useState(0)
+  const tabScrollRef = React.useRef<HTMLDivElement>(null)
+  const [scrollFadeLeft, setScrollFadeLeft] = React.useState(false)
+  const [scrollFadeRight, setScrollFadeRight] = React.useState(false)
+
+  const updateTabScrollFades = React.useCallback(() => {
+    const el = tabScrollRef.current
+    if (!el) return
+    const { scrollLeft, scrollWidth, clientWidth } = el
+    const maxScroll = scrollWidth - clientWidth
+    const epsilon = 1
+    setScrollFadeLeft(scrollLeft > epsilon)
+    setScrollFadeRight(maxScroll > epsilon && scrollLeft < maxScroll - epsilon)
+  }, [])
+
+  React.useLayoutEffect(() => {
+    updateTabScrollFades()
+  }, [tabIds, updateTabScrollFades])
+
+  React.useEffect(() => {
+    const el = tabScrollRef.current
+    if (!el) return
+
+    const ro = new ResizeObserver(() => updateTabScrollFades())
+    ro.observe(el)
+    const list = el.firstElementChild
+    if (list) ro.observe(list)
+
+    window.addEventListener('resize', updateTabScrollFades)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', updateTabScrollFades)
+    }
+  }, [tabIds, updateTabScrollFades])
 
   React.useEffect(() => {
     if (!tabIds.length) return
@@ -58,7 +91,11 @@ export function TabBlock(props: TabBlockProps) {
       <div className='notion-tab-block-inner'>
         <div className='notion-tab-header-row'>
           <div className='notion-tab-scroll-host'>
-            <div className='notion-tab-scroll'>
+            <div
+              ref={tabScrollRef}
+              className='notion-tab-scroll'
+              onScroll={updateTabScrollFades}
+            >
               <div
                 role='tablist'
                 aria-label='Tab block'
@@ -99,6 +136,20 @@ export function TabBlock(props: TabBlockProps) {
                 })}
               </div>
             </div>
+            <div
+              className={cs(
+                'notion-tab-scroll-fade notion-tab-scroll-fade-left',
+                scrollFadeLeft && 'notion-tab-scroll-fade-visible'
+              )}
+              aria-hidden
+            />
+            <div
+              className={cs(
+                'notion-tab-scroll-fade notion-tab-scroll-fade-right',
+                scrollFadeRight && 'notion-tab-scroll-fade-visible'
+              )}
+              aria-hidden
+            />
           </div>
           <div className='notion-tab-add-placeholder' aria-hidden />
         </div>

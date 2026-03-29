@@ -3423,7 +3423,6 @@ svg.notion-page-icon {
 .notion-tab-block {
   width: 100%;
   max-width: var(--notion-max-width);
-  padding: 8px;
   box-sizing: border-box;
 }
 
@@ -3448,6 +3447,39 @@ svg.notion-page-icon {
   align-items: center;
   width: 100%;
   min-width: 0;
+}
+
+.notion-tab-scroll-fade {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 18px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.notion-tab-scroll-fade-visible {
+  opacity: 1;
+}
+
+.notion-tab-scroll-fade-left {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--bg-color) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.notion-tab-scroll-fade-right {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--bg-color) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .notion-tab-scroll {
