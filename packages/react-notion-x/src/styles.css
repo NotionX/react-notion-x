@@ -3418,3 +3418,112 @@ svg.notion-page-icon {
   margin-right: 6px;
   fill: currentColor;
 }
+
+/* Tab block (Notion-style) */
+.notion-tab-block {
+  width: 100%;
+  max-width: var(--notion-max-width);
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.notion-tab-block-inner {
+  position: relative;
+  border: 1px solid var(--fg-color-0);
+  border-radius: 16px;
+  color: inherit;
+  fill: inherit;
+}
+
+.notion-tab-header-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 12px 10px;
+  border-radius: 16px 16px 0 0;
+}
+
+.notion-tab-scroll-host {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.notion-tab-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin: 4px;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+}
+
+.notion-tab-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.notion-tab-list-inner {
+  display: flex;
+  margin: 0;
+  gap: 4px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.notion-tab-pill-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+}
+
+.notion-tab-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--fg-color-3);
+  font-family: inherit;
+  max-width: 240px;
+}
+
+.notion-tab-button:hover {
+  background: var(--bg-color-0);
+}
+
+.notion-tab-button.notion-tab-button-active {
+  color: var(--fg-color);
+  background: var(--bg-color-0);
+}
+
+.notion-tab-button-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notion-tab-add-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.notion-tab-panel {
+  position: relative;
+  padding: 0 20px 16px;
+}

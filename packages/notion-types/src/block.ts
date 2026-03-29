@@ -46,6 +46,7 @@ export type BlockType =
   | 'breadcrumb'
   | 'button'
   | 'miro'
+  | 'tab'
   // fallback for unknown blocks
   | string
 
@@ -95,6 +96,7 @@ export type Block =
   | ExternalObjectInstance
   | BreadcrumbInstance
   | ButtonBlock
+  | TabBlock
 
 /**
  * Base properties shared by all blocks.
@@ -299,6 +301,10 @@ export interface ButtonBlock extends BaseBlock {
   properties?: {
     title?: Decoration[]
   }
+}
+
+export interface TabBlock extends BaseBlock {
+  type: 'tab'
 }
 
 export interface ImageBlock extends BaseContentBlock {
