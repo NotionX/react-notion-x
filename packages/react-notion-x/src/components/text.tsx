@@ -264,6 +264,22 @@ export function Text({
                 return <EOI block={externalObjectInstance} inline={true} />
               }
 
+              case 'ce': {
+                const customEmojiId = decorator[1]
+                const emojiUrl = recordMap.custom_emojis?.[customEmojiId]
+                if (!emojiUrl) {
+                  console.log('missing custom emoji', customEmojiId)
+                  return null
+                }
+                return (
+                  <GracefulImage
+                    className='notion-custom-emoji'
+                    src={emojiUrl}
+                    alt='custom emoji'
+                  />
+                )
+              }
+
               case 'si':
                 return null
 

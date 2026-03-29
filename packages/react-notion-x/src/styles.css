@@ -2507,6 +2507,14 @@ svg.notion-page-icon {
   height: 20px;
 }
 
+.notion-custom-emoji {
+  display: inline-block;
+  object-fit: contain;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
 .notion-list-item-property .notion-property-multi_select-item {
   margin-bottom: 0;
   flex-wrap: none;
