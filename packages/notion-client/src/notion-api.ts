@@ -811,7 +811,6 @@ export class NotionAPI {
     body,
     method = 'POST',
     apiBaseUrl = this._apiBaseUrl,
-    query,
     ofetchOptions,
     headers: clientHeaders
   }: {
@@ -819,7 +818,6 @@ export class NotionAPI {
     body?: object
     method?: 'GET' | 'POST'
     apiBaseUrl?: string
-    query?: Record<string, string | number | boolean | undefined>
     ofetchOptions?: OfetchOptions
     headers?: any
   }): Promise<T> {
@@ -861,7 +859,6 @@ export class NotionAPI {
       mode: 'no-cors',
       ...this._ofetchOptions,
       ...ofetchOptions,
-      query,
       body,
       headers
     })
