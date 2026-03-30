@@ -17,22 +17,22 @@ catalog:
   bumpp: ^11.0.1
   classnames: ^2.5.1
   clipboard-copy: ^4.0.1
-  cross-env: ^7.0.3
+  cross-env: ^10.1.0
   date-fns: ^4.1.0
   del-cli: ^7.0.0
   eslint: ^9.35.0
   format-number: ^3.0.0
   is-url-superb: ^6.1.0
   katex: 0.16.21
-  ky: ^1.8.1
+  ky: ^1.14.3
   lodash.throttle: ^4.1.1
   lqip-modern: ^2.1.0
   memoize: ^10.1.0
-  next: ^16.1.6
+  next: ^16.2.1
   normalize-url: ^8.0.1
   npm-run-all2: ^8.0.4
-  ofetch: ^1.4.1
-  p-map: ^7.0.3
+  ofetch: ^1.5.1
+  p-map: ^7.0.4
   p-memoize: ^7.1.1
   p-queue: ^8.1.0
   prettier: ^3.8.1
@@ -49,10 +49,10 @@ catalog:
   simple-git-hooks: ^2.13.1
   tsup: ^8.5.1
   tsx: ^4.21.0
-  turbo: ^2.8.17
+  turbo: ^2.8.21
   typescript: ^5.9.3
   unionize: ^3.1.0
-  vitest: ^4.1.0
+  vitest: ^4.1.2
 
 enablePrePostScripts: true
 ignoredBuiltDependencies:
