@@ -106,7 +106,9 @@ function getBlockContentStats(
       // fallthrough
       case 'sub_header':
       // fallthrough
-      case 'sub_sub_header': {
+      case 'sub_sub_header':
+      // fallthrough
+      case 'header_4': {
         const title = getBlockTitle(child, recordMap)
         stats.numWords += countWordsInText(title)
         break

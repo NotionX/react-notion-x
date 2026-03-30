@@ -1,39 +1,57 @@
 {
   "name": "react-notion-x",
-  "version": "7.8.3",
+  "version": "7.10.0",
   "type": "module",
   "description": "Fast and accurate React renderer for Notion.",
   "repository": "NotionX/react-notion-x",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "main": "./build/index.js",
-  "module": "./build/index.js",
-  "types": "./build/index.d.ts",
-  "sideEffects": false,
+  "source": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
-      "types": "./build/index.d.ts",
-      "default": "./build/index.js"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./third-party/code": {
+      "types": "./src/third-party/code.tsx",
+      "default": "./src/third-party/code.tsx"
+    },
+    "./third-party/collection": {
+      "types": "./src/third-party/collection.tsx",
+      "default": "./src/third-party/collection.tsx"
+    },
+    "./third-party/equation": {
+      "types": "./src/third-party/equation.tsx",
+      "default": "./src/third-party/equation.tsx"
+    },
+    "./third-party/modal": {
+      "types": "./src/third-party/modal.tsx",
+      "default": "./src/third-party/modal.tsx"
+    },
+    "./third-party/pdf": {
+      "types": "./src/third-party/pdf.tsx",
+      "default": "./src/third-party/pdf.tsx"
     },
     "./build/third-party/code": {
-      "types": "./build/third-party/code.d.ts",
-      "default": "./build/third-party/code.js"
+      "types": "./src/third-party/code.tsx",
+      "default": "./src/third-party/code.tsx"
     },
     "./build/third-party/collection": {
-      "types": "./build/third-party/collection.d.ts",
-      "default": "./build/third-party/collection.js"
+      "types": "./src/third-party/collection.tsx",
+      "default": "./src/third-party/collection.tsx"
     },
     "./build/third-party/equation": {
-      "types": "./build/third-party/equation.d.ts",
-      "default": "./build/third-party/equation.js"
+      "types": "./src/third-party/equation.tsx",
+      "default": "./src/third-party/equation.tsx"
     },
     "./build/third-party/modal": {
-      "types": "./build/third-party/modal.d.ts",
-      "default": "./build/third-party/modal.js"
+      "types": "./src/third-party/modal.tsx",
+      "default": "./src/third-party/modal.tsx"
     },
     "./build/third-party/pdf": {
-      "types": "./build/third-party/pdf.d.ts",
-      "default": "./build/third-party/pdf.js"
+      "types": "./src/third-party/pdf.tsx",
+      "default": "./src/third-party/pdf.tsx"
     },
     "./styles.css": "./src/styles.css",
     "./src/styles.css": "./src/styles.css"
@@ -42,6 +60,7 @@
     "build",
     "src/styles.css"
   ],
+  "sideEffects": false,
   "engines": {
     "node": ">=18"
   },
@@ -51,7 +70,6 @@
     "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
     "clean": "del build",
     "test": "run-s test:*",
-    "test:lint": "eslint .",
     "test:typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -87,5 +105,61 @@
   },
   "optionalDependencies": {
     "react-pdf": "^9.2.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "files": [
+      "build",
+      "src/styles.css"
+    ],
+    "types": "./build/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      },
+      "./third-party/code": {
+        "types": "./build/third-party/code.d.ts",
+        "default": "./build/third-party/code.js"
+      },
+      "./third-party/collection": {
+        "types": "./build/third-party/collection.d.ts",
+        "default": "./build/third-party/collection.js"
+      },
+      "./third-party/equation": {
+        "types": "./build/third-party/equation.d.ts",
+        "default": "./build/third-party/equation.js"
+      },
+      "./third-party/modal": {
+        "types": "./build/third-party/modal.d.ts",
+        "default": "./build/third-party/modal.js"
+      },
+      "./third-party/pdf": {
+        "types": "./build/third-party/pdf.d.ts",
+        "default": "./build/third-party/pdf.js"
+      },
+      "./build/third-party/code": {
+        "types": "./build/third-party/code.d.ts",
+        "default": "./build/third-party/code.js"
+      },
+      "./build/third-party/collection": {
+        "types": "./build/third-party/collection.d.ts",
+        "default": "./build/third-party/collection.js"
+      },
+      "./build/third-party/equation": {
+        "types": "./build/third-party/equation.d.ts",
+        "default": "./build/third-party/equation.js"
+      },
+      "./build/third-party/modal": {
+        "types": "./build/third-party/modal.d.ts",
+        "default": "./build/third-party/modal.js"
+      },
+      "./build/third-party/pdf": {
+        "types": "./build/third-party/pdf.d.ts",
+        "default": "./build/third-party/pdf.js"
+      },
+      "./styles.css": "./src/styles.css",
+      "./src/styles.css": "./src/styles.css"
+    }
   }
 }

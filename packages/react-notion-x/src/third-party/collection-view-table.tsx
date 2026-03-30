@@ -9,6 +9,7 @@ import { CollectionGroup } from './collection-group'
 import { getCollectionGroups } from './collection-utils'
 import { Property } from './property'
 import { useClientStyle } from './react-use'
+import { TableCellTooltip } from './table-cell-tooltip'
 
 const defaultBlockIds: string[] = []
 
@@ -76,6 +77,11 @@ function Table({
 
   const [isExpanded, setIsExpanded] = React.useState(false)
 
+  // View-level wrap default; absence means false (Notion convention)
+  const tableWrap = collectionView.format?.table_wrap ?? false
+
+  const tableRef = React.useRef<HTMLDivElement | null>(null)
+
   const { inline_collection_first_load_limit } = collectionView.format || {}
   const loadLimit = inline_collection_first_load_limit?.limit
   const shouldLimit = typeof loadLimit === 'number'
@@ -114,7 +120,7 @@ function Table({
   }
 
   return (
-    <div className='notion-table' style={tableStyle}>
+    <div className='notion-table' style={tableStyle} ref={tableRef}>
       <div className='notion-table-view' style={tableViewStyle}>
         {!!properties.length && (
           <>
@@ -171,12 +177,16 @@ function Table({
                       // style.width = `${100.0 / properties.length}%`
                     }
 
+                    // Per-column wrap overrides view-level default
+                    const cellWrap = p.wrap ?? tableWrap
+
                     return (
                       <div
                         key={p.property}
                         className={cs(
                           'notion-table-cell',
-                          `notion-table-cell-${schema?.type}`
+                          `notion-table-cell-${schema?.type}`,
+                          !cellWrap && 'notion-table-cell-nowrap'
                         )}
                         style={style}
                       >
@@ -193,6 +203,8 @@ function Table({
                 </div>
               ))}
             </div>
+
+            <TableCellTooltip tableRef={tableRef} />
           </>
         )}
       </div>

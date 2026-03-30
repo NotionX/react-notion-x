@@ -1,6 +1,3 @@
-// import { promises as fs } from 'fs'
-//import ky, { type Options as OfetchOptions } from 'ky'
-
 import type * as notion from 'notion-types'
 import {
   getBlockCollectionId,
@@ -24,6 +21,15 @@ export class NotionAPI {
   private readonly _userTimeZone: string
   private readonly _ofetchOptions?: OfetchOptions
 
+  /**
+   * Constructor for the NotionAPI class.
+   * @param options - Configuration options.
+   * @param options.apiBaseUrl - The base URL of the Notion API. Defaults to `https://www.notion.so/api/v3`.
+   * @param options.authToken - The authentication token for the Notion API. Defaults to undefined.
+   * @param options.activeUser - The active user for the Notion API. Defaults to undefined.
+   * @param options.userTimeZone - The time zone for the Notion API. Defaults to `America/New_York`.
+   * @param options.ofetchOptions - The HTTP options to use for the underlying `ofetch` requests. Defaults to undefined.
+   */
   constructor({
     apiBaseUrl = 'https://www.notion.so/api/v3',
     authToken,
@@ -45,12 +51,31 @@ export class NotionAPI {
     this._ofetchOptions = ofetchOptions
   }
 
+  /**
+   * Fetch a Notion page's content, including all async blocks, collection queries, and signed urls.
+   *
+   * @param pageId - The ID of the Notion page to fetch. May be a page ID, UUID, or URL.
+   * @param options - Optional configuration options.
+   * @param options.concurrency - The max number of concurrent Notion API requests to make. Defaults to `3`.
+   * @param options.fetchMissingBlocks - Whether to fetch additional missing blocks. Defaults to `true`.
+   * @param options.fetchCollections - Whether to fetch collections and their associated views. Defaults to `true`.
+   * @param options.signFileUrls - Whether to sign file URLs. Defaults to `true`.
+   * @param options.chunkLimit - The number of chunks to fetch. Defaults to `100`.
+   * @param options.chunkNumber - The number of the first chunk to fetch. Defaults to `0`.
+   * @param options.throwOnCollectionErrors - Whether to throw on collection errors. Defaults to `false`.
+   * @param options.collectionReducerLimit - The max number of collection reducers to fetch. Defaults to `999`.
+   * @param options.fetchRelationPages - Whether to fetch relation pages. Defaults to `false`.
+   * @param options.ofetchOptions - The HTTP options to use for the underlying `ofetch` requests. Defaults to `undefined`.
+   *
+   * @returns The content of the Notion page as an `ExtendedRecordMap`.
+   */
   public async getPage(
     pageId: string,
     {
       concurrency = 3,
       fetchMissingBlocks = true,
       fetchCollections = true,
+      fetchCustomEmojis = false,
       signFileUrls = true,
       chunkLimit = 100,
       chunkNumber = 0,
@@ -62,6 +87,7 @@ export class NotionAPI {
       concurrency?: number
       fetchMissingBlocks?: boolean
       fetchCollections?: boolean
+      fetchCustomEmojis?: boolean
       signFileUrls?: boolean
       chunkLimit?: number
       chunkNumber?: number
@@ -235,9 +261,30 @@ export class NotionAPI {
       recordMap.block = { ...recordMap.block, ...newBlocks }
     }
 
+    if (fetchCustomEmojis) {
+      const emojiMap: Record<string, string> = {}
+      const CustomEmojis = await this.getCustomEmojis({ ofetchOptions })
+
+      for (const emoji of CustomEmojis.results ?? []) {
+        if (emoji?.id && emoji?.url) {
+          emojiMap[emoji.id] = emoji.url
+        }
+      }
+
+      recordMap.custom_emojis = emojiMap
+    }
+
     return recordMap
   }
 
+  /**
+   * Fetches relation pages from the Notion API.
+   *
+   * @param recordMap - The record map to fetch relation pages from.
+   * @param ofetchOptions - The HTTP options to use for the underlying `ofetch` requests.
+   *
+   * @returns The relation pages as a `BlockMap`.
+   */
   fetchRelationPages = async (
     recordMap: notion.ExtendedRecordMap,
     ofetchOptions: OfetchOptions | undefined
@@ -309,11 +356,13 @@ export class NotionAPI {
               decoration.length > 1 &&
               decoration[0] === '‣'
             ) {
-              const pagePointer = decoration[1]?.[0]
+              const pagePointer = (decoration as string[][][])[1]?.[0]
               if (
+                pagePointer &&
                 Array.isArray(pagePointer) &&
                 pagePointer.length > 1 &&
-                pagePointer[0] === 'p'
+                pagePointer[0] === 'p' &&
+                pagePointer[1]
               ) {
                 pageIds.add(pagePointer[1])
               }
@@ -667,6 +716,33 @@ export class NotionAPI {
     })
   }
 
+  public async getCustomEmojis({
+    apiBaseUrl = 'https://api.notion.com/v1',
+    notionVersion = '2026-03-11',
+    ofetchOptions
+  }: {
+    apiBaseUrl?: string
+    notionVersion?: string
+    ofetchOptions?: OfetchOptions
+  } = {}): Promise<types.ListCustomEmojisResponse> {
+    if (!this._authToken) {
+      throw new Error(
+        'NotionAPI.getCustomEmojis requires authToken (or process.env.NOTION_TOKEN)'
+      )
+    }
+
+    return this.fetch<types.ListCustomEmojisResponse>({
+      apiBaseUrl: apiBaseUrl.replace(/\/+$/, ''), // remove trailing slash if present
+      headers: {
+        Authorization: `Bearer ${this._authToken}`,
+        'Notion-Version': notionVersion
+      },
+      endpoint: 'custom_emojis',
+      method: 'GET',
+      ofetchOptions
+    })
+  }
+
   public async getBlocks(blockIds: string[], ofetchOptions?: OfetchOptions) {
     return this.fetch<notion.PageChunk>({
       endpoint: 'syncRecordValuesMain',
@@ -733,11 +809,15 @@ export class NotionAPI {
   public async fetch<T>({
     endpoint,
     body,
+    method = 'POST',
+    apiBaseUrl = this._apiBaseUrl,
     ofetchOptions,
     headers: clientHeaders
   }: {
     endpoint: string
-    body: object
+    body?: object
+    method?: 'GET' | 'POST'
+    apiBaseUrl?: string
     ofetchOptions?: OfetchOptions
     headers?: any
   }): Promise<T> {
@@ -756,7 +836,7 @@ export class NotionAPI {
       headers['x-notion-active-user-header'] = this._activeUser
     }
 
-    const url = `${this._apiBaseUrl}/${endpoint}`
+    const url = `${apiBaseUrl}/${endpoint}`
 
     /*     const res = await ky.post(url, {
       mode: 'no-cors',
@@ -775,7 +855,7 @@ export class NotionAPI {
 
     /* return res.json<T>() */
     const res = ofetch(url, {
-      method: 'POST',
+      method,
       mode: 'no-cors',
       ...this._ofetchOptions,
       ...ofetchOptions,

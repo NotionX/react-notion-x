@@ -9,6 +9,7 @@ export type BlockType =
   | 'header'
   | 'sub_header'
   | 'sub_sub_header'
+  | 'header_4'
   | 'quote'
   | 'equation'
   | 'to_do'
@@ -45,6 +46,7 @@ export type BlockType =
   | 'breadcrumb'
   | 'button'
   | 'miro'
+  | 'tab'
   // fallback for unknown blocks
   | string
 
@@ -57,6 +59,7 @@ export type Block =
   | HeaderBlock
   | SubHeaderBlock
   | SubSubHeaderBlock
+  | Header4HeaderBlock
   | TodoBlock
   | TableOfContentsBlock
   | DividerBlock
@@ -93,6 +96,7 @@ export type Block =
   | ExternalObjectInstance
   | BreadcrumbInstance
   | ButtonBlock
+  | TabBlock
 
 /**
  * Base properties shared by all blocks.
@@ -223,6 +227,13 @@ export interface SubSubHeaderBlock extends BaseTextBlock {
     toggleable?: boolean
   }
 }
+export interface Header4HeaderBlock extends BaseTextBlock {
+  type: 'header_4'
+  format?: {
+    block_color: Color
+    toggleable?: boolean
+  }
+}
 
 export interface QuoteBlock extends BaseTextBlock {
   type: 'quote'
@@ -290,6 +301,10 @@ export interface ButtonBlock extends BaseBlock {
   properties?: {
     title?: Decoration[]
   }
+}
+
+export interface TabBlock extends BaseBlock {
+  type: 'tab'
 }
 
 export interface ImageBlock extends BaseContentBlock {

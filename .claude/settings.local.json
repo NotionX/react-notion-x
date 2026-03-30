@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install:*)",
+      "Bash(pnpm:*)",
+      "Bash(node:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(ls -d /Users/tfischer/dev/modules/react-notion-x/node_modules/.pnpm/incur*)",
+      "Bash(npm view:*)",
+      "Bash",
+      "Edit"
+    ]
+  }
+}
