@@ -70,6 +70,7 @@ The main feature missing from `notion-compat` right now is collection (database)
 - heading_1 (`header` block)
 - heading_2 (`sub_header` block)
 - heading_3 (`sub_sub_header` block)
+- heading_4 (`header_4` block)
 - bulleted_list_item (`bulleted_list` block)
 - numbered_list_item (`numbered_list` block)
 - quote
@@ -149,6 +150,6 @@ The main feature missing from `notion-compat` right now is collection (database)
 
 ## License
 
-MIT © [Travis Fischer](https://transitivebullsh.it)
+MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+Support my OSS work by [following me on X](https://x.com/transitive_bs)

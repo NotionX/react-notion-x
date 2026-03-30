@@ -2,36 +2,30 @@
   <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/notion-ts.png" width="689">
 </p>
 
-# React Notion X
+# React Notion X <!-- omit from toc -->
 
 > Fast and accurate React renderer for Notion. TS batteries included. ⚡️
 
-[![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io) [![NPM](https://badgen.net/bundlephobia/minzip/react-notion-x)](https://bundlephobia.com/package/react-notion-x)
+[![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io) [![Bundle Size](https://badgen.net/bundlephobia/minzip/react-notion-x)](https://bundlephobia.com/package/react-notion-x)
 
 ## Contents
 
-- [React Notion X](#react-notion-x)
-  - [Contents](#contents)
-  - [Advice](#advice)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Styles](#styles)
-  - [Optional Components](#optional-components)
-    - [Custom Button Components](#custom-button-components)
-  - [Custom Button Components](#custom-button-components-1)
-  - [Private Pages](#private-pages)
-  - [Next.js Examples](#nextjs-examples)
-  - [Packages](#packages)
-  - [Supported Blocks](#supported-blocks)
-  - [Performance](#performance)
-  - [Related](#related)
-  - [Contributing](#contributing)
-  - [License](#license)
-  - [Sponsor](#sponsor)
+- [Contents](#contents)
+- [Advice](#advice)
+- [Features](#features)
+- [Usage](#usage)
+- [Styles](#styles)
+- [Optional Components](#optional-components)
+- [Private Pages](#private-pages)
+- [Next.js Examples](#nextjs-examples)
+- [Packages](#packages)
+- [Supported Blocks](#supported-blocks)
+- [Performance](#performance)
+- [Related](#related)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Advice
-
-If you just want to publish a website using Notion, then we highly recommend using [Super.so](https://s.super.so/x) — a hosted solution with great perf that takes care of all the details for you.
 
 If you want more control over your website via React, then we recommend checking out the accompanying [Next.js starter kit](https://github.com/transitive-bullshit/nextjs-notion-starter-kit), which is free and uses `react-notion-x` under the hood.
 
@@ -46,7 +40,7 @@ And if you want even more control, then you're in the right place! 👇👇
 - 💯 **Tests** - Comes with a comprehensive [test suite](https://www.notion.so/Notion-Test-Suite-067dd719a912471ea9a3ac10710e7fdf) covering most of Notion's functionality
 - 🔥 **Solid** - Used in production by tens of thousands of websites
 - 💪 **Smooth** - Supports `next/image` along with LQIP preview images ([demo](https://react-notion-x-demo.transitivebullsh.it/3492bd6dbaf44fe7a5cac62c5d402f06))
-- Framework agnostic - Use with next.js, create-react-app, gatsby, etc
+- Framework agnostic - Use with next.js, vite, remix, etc
 
 ## Usage
 
@@ -79,7 +73,7 @@ You'll need to import some CSS styles as well. If you're using Next.js, we recom
 
 ```ts
 // core styles shared by all of react-notion-x (required)
-import 'react-notion-x/src/styles.css'
+import 'react-notion-x/styles.css'
 
 // used for code syntax highlighting (optional)
 import 'prismjs/themes/prism-tomorrow.css'
@@ -92,14 +86,14 @@ import 'katex/dist/katex.min.css'
 
 The default imports from `react-notion-x` strive to be as lightweight as possible. Most blocks will render just fine, but some larger blocks like PDFs and collection views (database views) are not included by default.
 
-To use them, you'll need to import the ones you want from `react-notion-x/build/third-party/*`:
+To use them, you'll need to import the ones you want from `react-notion-x/third-party/*`:
 
 ```tsx
-import { Code } from 'react-notion-x/build/third-party/code'
-import { Collection } from 'react-notion-x/build/third-party/collection'
-import { Equation } from 'react-notion-x/build/third-party/equation'
-import { Modal } from 'react-notion-x/build/third-party/modal'
-import { Pdf } from 'react-notion-x/build/third-party/pdf'
+import { Code } from 'react-notion-x/third-party/code'
+import { Collection } from 'react-notion-x/third-party/collection'
+import { Equation } from 'react-notion-x/third-party/equation'
+import { Modal } from 'react-notion-x/third-party/modal'
+import { Pdf } from 'react-notion-x/third-party/pdf'
 ```
 
 Note that we strongly recommend lazy-loading these components unless you know you'll need them up front for your use case.
@@ -110,24 +104,22 @@ If you're using Next.js, you can use [next/dynamic](https://nextjs.org/docs/adva
 import dynamic from 'next/dynamic'
 
 const Code = dynamic(() =>
-  import('react-notion-x/build/third-party/code').then((m) => m.Code)
+  import('react-notion-x/third-party/code').then((m) => m.Code)
 )
 const Collection = dynamic(() =>
-  import('react-notion-x/build/third-party/collection').then(
-    (m) => m.Collection
-  )
+  import('react-notion-x/third-party/collection').then((m) => m.Collection)
 )
 const Equation = dynamic(() =>
-  import('react-notion-x/build/third-party/equation').then((m) => m.Equation)
+  import('react-notion-x/third-party/equation').then((m) => m.Equation)
 )
 const Pdf = dynamic(
-  () => import('react-notion-x/build/third-party/pdf').then((m) => m.Pdf),
+  () => import('react-notion-x/third-party/pdf').then((m) => m.Pdf),
   {
     ssr: false
   }
 )
 const Modal = dynamic(
-  () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
+  () => import('react-notion-x/third-party/modal').then((m) => m.Modal),
   {
     ssr: false
   }
@@ -156,55 +148,6 @@ The `Code` component uses [Prism](https://prismjs.com) under the hood. It comes 
 For `Equation` support, you'll need to import the katex CSS styles.
 
 For each of these optional components, make sure you're also importing the relevant third-party CSS if needed ([above](#Styles)).
-
-### Custom Button Components
-
-Button blocks are rendered by default using a simple built-in implementation that displays the button text with proper colors. For advanced functionality like handling button clicks with automations (opening URLs, triggering webhooks), you can provide a custom `Button` component:
-
-```tsx
-import { NotionButton } from './components/NotionButton'
-
-export default ({ recordMap }) => (
-  <NotionRenderer
-    recordMap={recordMap}
-    components={{
-      Button: NotionButton
-    }}
-  />
-)
-```
-
-## Custom Button Components
-
-Button blocks are now **built-in by default** with full automation support including:
-
-- Opening external URLs in new tabs
-- Internal page navigation
-- Sending webhooks with Notion-format payloads
-- Custom header support
-
-The default Button component is exported from `react-notion-x` and handles most common use cases automatically. If you need custom behavior, you can override it:
-
-```tsx
-import { Button } from 'react-notion-x'
-
-// Optional: Create a custom button component
-const MyCustomButton = ({ blockId, block, className }) => {
-  // Your custom implementation
-  return <Button blockId={blockId} block={block} className={className} />
-}
-
-;<NotionRenderer
-  recordMap={recordMap}
-  components={{
-    Button: MyCustomButton
-  }}
-/>
-```
-
-For webhook functionality, you'll need a server-side proxy endpoint to avoid CORS issues. See [examples/minimal/pages/api/webhook-proxy.ts](./examples/minimal/pages/api/webhook-proxy.ts) for a Next.js implementation.
-
-The Button component receives `blockId`, `block`, and optional `className` as props. See [packages/react-notion-x/src/components/button.tsx](./packages/react-notion-x/src/components/button.tsx) for the default implementation.
 
 ## Private Pages
 
@@ -242,14 +185,16 @@ For a production example, check out the [Next.js Notion Starter Kit](https://git
 
 ## Packages
 
-| Package                                     | NPM                                                                                                     | Environment   | Description                                    |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------- |
-| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                |
-| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | Server-side\* | Robust TypeScript client for the Notion API.   |
-| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | Universal     | Core Notion TypeScript types.                  |
-| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | Universal     | Useful utilities for working with Notion data. |
+| Package                                     | NPM                                                                                                     | Environment   | Description                                                                     |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------- |
+| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                                                 |
+| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | Server-side\* | Robust TypeScript client for the Notion API.                                    |
+| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | Universal     | Core Notion TypeScript types.                                                   |
+| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | Universal     | Useful utilities for working with Notion data.                                  |
+| [notion-compat](./packages/notion-compat)   | [![NPM](https://img.shields.io/npm/v/notion-compat.svg)](https://www.npmjs.com/package/notion-utils)    | Server-side   | Compatibility layer between the official Notion API and unofficial private API. |
+| [notion-x-to-md](./packages/notion-x-to-md) | [![NPM](https://img.shields.io/npm/v/notion-x-to-md.svg)](https://www.npmjs.com/package/notion-x-to-md) | Universal     | Converts a Notion page to Markdown. Very useful for LLMs.                       |
 
-\* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js and Deno.
+\* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js, Bun, Deno, CF workers, etc.
 
 ## Supported Blocks
 
@@ -265,6 +210,7 @@ The majority of Notion blocks and collection views are fully supported.
 | Heading 1                | ✅ Yes     | `header`               | `<h1>`                                                                                                           |
 | Heading 2                | ✅ Yes     | `sub_header`           | `<h2>`                                                                                                           |
 | Heading 3                | ✅ Yes     | `sub_sub_header`       | `<h3>`                                                                                                           |
+| Heading 4                | ✅ Yes     | `header_4`             | `<h4>`                                                                                                           |
 | Quote                    | ✅ Yes     | `quote`                |
 | Callout                  | ✅ Yes     | `callout`              |
 | Equation (block)         | ✅ Yes     | `equation`             | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)                       |
@@ -363,22 +309,10 @@ Note that custom image component is currently only enabled with preview image or
 
 ## Contributing
 
-See the [contribution guide](contributing.md) and join our amazing list of [contributors](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/graphs/contributors)!
+See the [contribution guide](contributing.md) and join our amazing list of [contributors](https://github.com/NotionX/react-notion-x/graphs/contributors)!
 
 ## License
 
-MIT © [Travis Fischer](https://transitivebullsh.it)
+MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-This project extends MIT-licensed work by [Timo Lins](https://twitter.com/timolins), [Tobias Lins](https://twitter.com/linstobias), [Sam Wight](https://samw.dev), and other contributors.
-
-Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
-
-## Sponsor
-
-[Super.so](https://s.super.so/x) has been kind enough to sponsor this project. If you're looking for a hosted solution that takes a very similar approach to `react-notion-x` but handles all of the details for you, then definitely check them out.
-
-<p align="center">
-  <a href="https://s.super.so/x" title="Super.so">
-    <img alt="React Notion X" src="https://raw.githubusercontent.com/NotionX/react-notion-x/master/media/super-so-banner.png">
-  </a>
-</p>
+Support my OSS work by [following me on X](https://x.com/transitive_bs)

@@ -44,7 +44,7 @@ You can pass a database ID to the `getPage` method. The response is an object wh
 - `collection`
 - `collection_view`
 
-The value of the `block` property maps the id of each block object present in the database to its corresponding properties like type, parent id, created time, last edited by, and more. 
+The value of the `block` property maps the id of each block object present in the database to its corresponding properties like type, parent id, created time, last edited by, and more.
 
 ```
 {
@@ -67,8 +67,7 @@ The map of blocks is arranged as followed:
 - The next ids are of all the children pages inside the database
 - After that comes all the children blocks of each page.
 
-
-Please note that a block object can take many types: header, text, list, media, and almost any block supported by Notion. It can also be *a page* or a *collection view*.
+Please note that a block object can take many types: header, text, list, media, and almost any block supported by Notion. It can also be _a page_ or a _collection view_.
 
 Example of a block object of type `text`:
 
@@ -125,6 +124,7 @@ Example of a block object of type `page`:
 ```
 
 Example of a block object of type `collection_view`:
+
 ```
 {
   role: 'reader',
@@ -159,6 +159,6 @@ See the [full docs](https://github.com/NotionX/react-notion-x).
 
 ## License
 
-MIT © [Travis Fischer](https://transitivebullsh.it)
+MIT © [Travis Fischer](https://x.com/transitive_bs)
 
-Support my OSS work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+Support my OSS work by [following me on X](https://x.com/transitive_bs)

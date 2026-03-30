@@ -4,6 +4,9 @@ import {
   getBlockIcon,
   getBlockParentPage,
   getBlockValue,
+  getListNestingLevel,
+  getListNumber,
+  getListStyle,
   getPageTableOfContents,
   getTextContent,
   uuidToId
@@ -21,18 +24,13 @@ import { PageAside } from './components/page-aside'
 import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
 import { SyncPointerBlock } from './components/sync-pointer-block'
+import { TabBlock } from './components/tab-block'
 import { Text } from './components/text'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
-import {
-  cs,
-  getListNestingLevel,
-  getListNumber,
-  getListStyle,
-  isUrl
-} from './utils'
+import { cs, isUrl } from './utils'
 
-interface BlockProps {
+export interface BlockProps {
   block: types.Block
   level: number
 
@@ -310,7 +308,9 @@ export function Block(props: BlockProps) {
     // fallthrough
     case 'sub_header':
     // fallthrough
-    case 'sub_sub_header': {
+    case 'sub_sub_header':
+    // fallthrough
+    case 'header_4': {
       if (!block.properties) return null
 
       const blockColor = block.format?.block_color
@@ -343,11 +343,13 @@ export function Block(props: BlockProps) {
       const isH1 = block.type === 'header'
       const isH2 = block.type === 'sub_header'
       const isH3 = block.type === 'sub_sub_header'
+      const isH4 = block.type === 'header_4'
 
       const classNameStr = cs(
         isH1 && 'notion-h notion-h1',
         isH2 && 'notion-h notion-h2',
         isH3 && 'notion-h notion-h3',
+        isH4 && 'notion-h notion-h4',
         blockColor && `notion-${blockColor}`,
         indentLevelClass,
         blockId
@@ -382,11 +384,17 @@ export function Block(props: BlockProps) {
             {innerHeader}
           </h3>
         )
-      } else {
+      } else if (isH3) {
         headerBlock = (
           <h4 className={classNameStr} data-id={id}>
             {innerHeader}
           </h4>
+        )
+      } else {
+        headerBlock = (
+          <h5 className={classNameStr} data-id={id}>
+            {innerHeader}
+          </h5>
         )
       }
 
@@ -887,6 +895,18 @@ export function Block(props: BlockProps) {
             )
           })}
         </tr>
+      )
+    }
+
+    case 'tab': {
+      const { children: _tabChildren, ...tabBlockProps } = props
+      return (
+        <TabBlock
+          {...tabBlockProps}
+          block={block}
+          blockId={blockId}
+          level={level}
+        />
       )
     }
 

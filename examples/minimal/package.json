@@ -1,15 +1,13 @@
 {
   "name": "notion-x-example-minimal",
-  "version": "7.8.3",
+  "version": "7.10.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "vercel deploy",
-    "test": "run-s test:*",
-    "test:lint": "eslint ."
+    "deploy": "vercel deploy"
   },
   "dependencies": {
     "next": "catalog:",

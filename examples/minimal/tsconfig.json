@@ -1,8 +1,5 @@
 {
   "extends": "@fisch0920/config/tsconfig-react",
-  "compilerOptions": {
-    "target": "ES2017"
-  },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

@@ -121,6 +121,7 @@ export type ExternalLinkFormat = ['‣', [string, string]]
 export type DateFormat = ['d', FormattedDate]
 export type LinkMentionFormat = ['lm', string]
 export type SuggestionEditFormat = ['si', string]
+export type CustomEmojiFormat = ['ce', string]
 
 export interface FormattedDate {
   type: 'date' | 'daterange' | 'datetime' | 'datetimerange'
@@ -149,6 +150,7 @@ export type SubDecoration =
   | ExternalObjectInstanceFormat
   | LinkMentionFormat
   | SuggestionEditFormat
+  | CustomEmojiFormat
 
 export type BaseDecoration = [string]
 export type AdditionalDecoration = [string, SubDecoration[]]
