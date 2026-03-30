@@ -65,6 +65,9 @@ export interface ExtendedRecordMap extends RecordMap {
 
   // optional map of preview images
   preview_images?: PreviewImageMap
+
+  // custom emojis map
+  custom_emojis?: CustomEmojiMap
 }
 
 export interface PageChunk {
@@ -133,4 +136,8 @@ export interface PreviewImage {
 
 export interface PreviewImageMap {
   [url: string]: PreviewImage | null
+}
+
+export interface CustomEmojiMap {
+  [emojiId: string]: string | null
 }

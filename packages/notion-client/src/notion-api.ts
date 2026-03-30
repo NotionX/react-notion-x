@@ -75,6 +75,7 @@ export class NotionAPI {
       concurrency = 3,
       fetchMissingBlocks = true,
       fetchCollections = true,
+      fetchCustomEmojis = false,
       signFileUrls = true,
       chunkLimit = 100,
       chunkNumber = 0,
@@ -86,6 +87,7 @@ export class NotionAPI {
       concurrency?: number
       fetchMissingBlocks?: boolean
       fetchCollections?: boolean
+      fetchCustomEmojis?: boolean
       signFileUrls?: boolean
       chunkLimit?: number
       chunkNumber?: number
@@ -257,6 +259,19 @@ export class NotionAPI {
     if (fetchRelationPages) {
       const newBlocks = await this.fetchRelationPages(recordMap, ofetchOptions)
       recordMap.block = { ...recordMap.block, ...newBlocks }
+    }
+
+    if (fetchCustomEmojis) {
+      const emojiMap: Record<string, string> = {}
+      const CustomEmojis = await this.getCustomEmojis({ ofetchOptions })
+
+      for (const emoji of CustomEmojis.results ?? []) {
+        if (emoji?.id && emoji?.url) {
+          emojiMap[emoji.id] = emoji.url
+        }
+      }
+
+      recordMap.custom_emojis = emojiMap
     }
 
     return recordMap
@@ -701,6 +716,33 @@ export class NotionAPI {
     })
   }
 
+  public async getCustomEmojis({
+    apiBaseUrl = 'https://api.notion.com/v1',
+    notionVersion = '2026-03-11',
+    ofetchOptions
+  }: {
+    apiBaseUrl?: string
+    notionVersion?: string
+    ofetchOptions?: OfetchOptions
+  } = {}): Promise<types.ListCustomEmojisResponse> {
+    if (!this._authToken) {
+      throw new Error(
+        'NotionAPI.getCustomEmojis requires authToken (or process.env.NOTION_TOKEN)'
+      )
+    }
+
+    return this.fetch<types.ListCustomEmojisResponse>({
+      apiBaseUrl: apiBaseUrl.replace(/\/+$/, ''), // remove trailing slash if present
+      headers: {
+        Authorization: `Bearer ${this._authToken}`,
+        'Notion-Version': notionVersion
+      },
+      endpoint: 'custom_emojis',
+      method: 'GET',
+      ofetchOptions
+    })
+  }
+
   public async getBlocks(blockIds: string[], ofetchOptions?: OfetchOptions) {
     return this.fetch<notion.PageChunk>({
       endpoint: 'syncRecordValuesMain',
@@ -767,11 +809,15 @@ export class NotionAPI {
   public async fetch<T>({
     endpoint,
     body,
+    method = 'POST',
+    apiBaseUrl = this._apiBaseUrl,
     ofetchOptions,
     headers: clientHeaders
   }: {
     endpoint: string
-    body: object
+    body?: object
+    method?: 'GET' | 'POST'
+    apiBaseUrl?: string
     ofetchOptions?: OfetchOptions
     headers?: any
   }): Promise<T> {
@@ -790,7 +836,7 @@ export class NotionAPI {
       headers['x-notion-active-user-header'] = this._activeUser
     }
 
-    const url = `${this._apiBaseUrl}/${endpoint}`
+    const url = `${apiBaseUrl}/${endpoint}`
 
     /*     const res = await ky.post(url, {
       mode: 'no-cors',
@@ -809,7 +855,7 @@ export class NotionAPI {
 
     /* return res.json<T>() */
     const res = ofetch(url, {
-      method: 'POST',
+      method,
       mode: 'no-cors',
       ...this._ofetchOptions,
       ...ofetchOptions,
