@@ -24,12 +24,13 @@ import { PageAside } from './components/page-aside'
 import { PageIcon } from './components/page-icon'
 import { PageTitle } from './components/page-title'
 import { SyncPointerBlock } from './components/sync-pointer-block'
+import { TabBlock } from './components/tab-block'
 import { Text } from './components/text'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
 import { cs, isUrl } from './utils'
 
-interface BlockProps {
+export interface BlockProps {
   block: types.Block
   level: number
 
@@ -894,6 +895,18 @@ export function Block(props: BlockProps) {
             )
           })}
         </tr>
+      )
+    }
+
+    case 'tab': {
+      const { children: _tabChildren, ...tabBlockProps } = props
+      return (
+        <TabBlock
+          {...tabBlockProps}
+          block={block}
+          blockId={blockId}
+          level={level}
+        />
       )
     }
 
