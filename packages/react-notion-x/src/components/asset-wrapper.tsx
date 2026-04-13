@@ -26,7 +26,7 @@ export function AssetWrapper({
       const id = parsePageId(caption, { uuid: true })
 
       const isPage = caption.charAt(0) === '/' && id
-      if (isPage || isValidURL(caption)) {
+      if (isPage || URL.canParse(caption)) {
         isURL = true
       }
     }
@@ -76,20 +76,6 @@ export function AssetWrapper({
   }
 
   return figure
-}
-
-function isValidURL(str: string) {
-  // TODO: replace this with a more well-tested package
-  const pattern = new RegExp(
-    '^(https?:\\/\\/)?' + // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-      '(\\#[-a-z\\d_]*)?$',
-    'i'
-  )
-  return !!pattern.test(str)
 }
 
 function extractHostname(url?: string) {

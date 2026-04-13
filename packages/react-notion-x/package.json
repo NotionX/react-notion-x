@@ -92,7 +92,6 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/react-modal": "catalog:",
-    "clipboard-copy": "catalog:",
     "date-fns": "catalog:",
     "format-number": "catalog:",
     "lodash.throttle": "catalog:",
