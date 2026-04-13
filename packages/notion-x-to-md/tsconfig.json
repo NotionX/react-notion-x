@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "outDir": "build"
+    "outDir": "build",
+    "types": ["node"],
+    "module": "esnext"
   },
   "include": ["src", "*.config.ts"]
 }

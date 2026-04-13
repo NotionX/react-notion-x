@@ -4,7 +4,7 @@ import {
   type ExtendedRecordMap,
   type PageBlock
 } from 'notion-types'
-import { getBlockIcon, isUrl } from 'notion-utils'
+import { getBlockIcon } from 'notion-utils'
 
 const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
   return (
@@ -26,7 +26,7 @@ export function getIcon(
       return '📁'
     }
 
-    if (isUrl(icon) || icon.startsWith('/icons/')) {
+    if (URL.canParse(icon) || icon.startsWith('/icons/')) {
       return '❔'
     }
 

@@ -10,7 +10,6 @@ import 'prismjs/components/prism-jsx.min.js'
 import 'prismjs/components/prism-tsx.min.js'
 import 'prismjs/components/prism-typescript.min.js'
 
-import copyToClipboard from 'clipboard-copy'
 import { type CodeBlock } from 'notion-types'
 import { getBlockTitle } from 'notion-utils'
 // eslint-disable-next-line import/no-duplicates, no-duplicate-imports
@@ -62,8 +61,8 @@ export function Code({
     }
   }, [codeRef])
 
-  const onClickCopyToClipboard = React.useCallback(() => {
-    void copyToClipboard(content)
+  const onClickCopyToClipboard = React.useCallback(async () => {
+    await navigator.clipboard.writeText(content)
     setIsCopied(true)
 
     if (copyTimeout.current) {

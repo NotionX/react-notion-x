@@ -28,7 +28,7 @@ import { TabBlock } from './components/tab-block'
 import { Text } from './components/text'
 import { useNotionContext } from './context'
 import { LinkIcon } from './icons/link-icon'
-import { cs, isUrl } from './utils'
+import { cs } from './utils'
 
 export interface BlockProps {
   block: types.Block
@@ -142,7 +142,7 @@ export function Block(props: BlockProps) {
           }
 
           const pageIcon = getBlockIcon(block, recordMap) ?? defaultPageIcon
-          const isPageIconUrl = pageIcon && isUrl(pageIcon)
+          const isPageIconUrl = pageIcon && URL.canParse(pageIcon)
 
           const toc = getPageTableOfContents(
             block as types.PageBlock,
