@@ -108,6 +108,24 @@ export class NotionAPI {
       throw new Error(`Notion page not found "${uuidToId(pageId)}"`)
     }
 
+    // unwrap doubly-nested value structures from Notion API response
+    // some blocks return { role, value: { role, value: { id, type, ... } } }
+    for (const key of ['block', 'collection', 'collection_view'] as const) {
+      const map = recordMap[key]
+      if (!map) continue
+      for (const id of Object.keys(map)) {
+        const entry = map[id] as any
+        if (
+          entry?.value &&
+          entry.value.value &&
+          typeof entry.value.value === 'object' &&
+          entry.value.value.id
+        ) {
+          entry.value = entry.value.value
+        }
+      }
+    }
+
     // ensure that all top-level maps exist
     recordMap.collection = recordMap.collection ?? {}
     recordMap.collection_view = recordMap.collection_view ?? {}
