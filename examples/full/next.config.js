@@ -1,13 +1,14 @@
 export default {
   staticPageGenerationTimeout: 300,
   images: {
-    domains: [
-      'www.notion.so',
-      'notion.so',
-      'images.unsplash.com',
-      'abs.twimg.com',
-      'pbs.twimg.com',
-      's3.us-west-2.amazonaws.com'
+    remotePatterns: [
+      { protocol: 'https', hostname: 'www.notion.so' },
+      { protocol: 'https', hostname: 'notion.so' },
+      { protocol: 'https', hostname: 'img.notionusercontent.com' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'abs.twimg.com' },
+      { protocol: 'https', hostname: 'pbs.twimg.com' },
+      { protocol: 'https', hostname: '*.amazonaws.com' }
     ],
     formats: ['image/avif', 'image/webp']
   }
