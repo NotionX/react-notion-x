@@ -823,6 +823,8 @@ export class NotionAPI {
     headers?: any
   }): Promise<T> {
     const headers: any = {
+      'User-Agent':
+        'notion-client (+https://github.com/NotionX/react-notion-x)',
       ...clientHeaders,
       ...this._ofetchOptions?.headers,
       ...ofetchOptions?.headers,
