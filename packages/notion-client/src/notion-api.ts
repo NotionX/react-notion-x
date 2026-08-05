@@ -24,14 +24,14 @@ export class NotionAPI {
   /**
    * Constructor for the NotionAPI class.
    * @param options - Configuration options.
-   * @param options.apiBaseUrl - The base URL of the Notion API. Defaults to `https://www.notion.so/api/v3`.
+   * @param options.apiBaseUrl - The base URL of the Notion API. Defaults to `https://app.notion.com/api/v3`.
    * @param options.authToken - The authentication token for the Notion API. Defaults to undefined.
    * @param options.activeUser - The active user for the Notion API. Defaults to undefined.
    * @param options.userTimeZone - The time zone for the Notion API. Defaults to `America/New_York`.
    * @param options.ofetchOptions - The HTTP options to use for the underlying `ofetch` requests. Defaults to undefined.
    */
   constructor({
-    apiBaseUrl = 'https://www.notion.so/api/v3',
+    apiBaseUrl = 'https://app.notion.com/api/v3',
     authToken,
     activeUser,
     userTimeZone = 'America/New_York',
