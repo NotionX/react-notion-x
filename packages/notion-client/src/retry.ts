@@ -122,12 +122,21 @@ export function getRetryDelay(
   maxRetries = defaultMaxRetries
 ): number {
   const suggested = getServerSuggestedDelay(context.response)
-  if (suggested !== undefined) {
-    return suggested
-  }
 
   if (context.response?.status === 429) {
-    return Math.round(rateLimitCooldownMs + Math.random() * rateLimitJitterMs)
+    // Never retry a rate limit faster than the cooldown, even when the server
+    // suggests otherwise. Some layers in front of the API answer with
+    // `Retry-After: 0`, and taking that literally burns the entire retry
+    // budget in milliseconds while the cooldown is still in effect. A hint may
+    // extend the wait, never shorten it.
+    const cooldown = Math.round(
+      rateLimitCooldownMs + Math.random() * rateLimitJitterMs
+    )
+    return suggested === undefined ? cooldown : Math.max(suggested, cooldown)
+  }
+
+  if (suggested !== undefined) {
+    return suggested
   }
 
   // `ofetch` decrements `retry` on each attempt, so the remaining retry count

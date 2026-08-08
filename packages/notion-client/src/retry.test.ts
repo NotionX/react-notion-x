@@ -87,8 +87,28 @@ describe('getServerSuggestedDelay', () => {
 })
 
 describe('getRetryDelay', () => {
-  test('respects a server-suggested delay', () => {
-    expect(getRetryDelay(createContext({ retryAfter: '2' }))).toBe(2000)
+  test('respects a server-suggested delay on non-rate-limit errors', () => {
+    expect(getRetryDelay(createContext({ status: 503, retryAfter: '2' }))).toBe(
+      2000
+    )
+  })
+
+  test('never retries a rate limit faster than the cooldown', () => {
+    // a proxy answering `Retry-After: 0` must not collapse the cooldown and
+    // burn the whole retry budget while the limit is still in effect
+    for (const context of [
+      createContext({ status: 429, retryAfter: '0' }),
+      createContext({ status: 429, retryAfter: '2' }),
+      createContext({ status: 429, data: { clientData: { retryAfter: 0 } } })
+    ]) {
+      expect(getRetryDelay(context)).toBeGreaterThanOrEqual(60_000)
+    }
+  })
+
+  test('lets a longer server-suggested delay extend the cooldown', () => {
+    expect(
+      getRetryDelay(createContext({ status: 429, retryAfter: '90' }))
+    ).toBe(90_000)
   })
 
   test('waits out the cooldown on 429 rather than backing off from 1s', () => {
