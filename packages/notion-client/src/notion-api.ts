@@ -10,6 +10,7 @@ import { type FetchOptions as OfetchOptions, ofetch } from 'ofetch'
 import pMap from 'p-map'
 
 import type * as types from './types'
+import { defaultMaxRetries, getRetryDelay } from './retry'
 
 /**
  * Main Notion API client.
@@ -857,13 +858,23 @@ export class NotionAPI {
     // console.log(endpoint, { bodyUsed: res.bodyUsed })
 
     /* return res.json<T>() */
+
+    // Notion rate-limits aggressively, and `ofetch` doesn't retry payload
+    // methods by default, so retry with exponential backoff unless the caller
+    // has opted out.
+    const retry =
+      ofetchOptions?.retry ?? this._ofetchOptions?.retry ?? defaultMaxRetries
+    const maxRetries = typeof retry === 'number' ? retry : defaultMaxRetries
+
     const res = ofetch(url, {
       method,
       mode: 'no-cors',
+      retryDelay: (context) => getRetryDelay(context, maxRetries),
       ...this._ofetchOptions,
       ...ofetchOptions,
       body,
-      headers
+      headers,
+      retry
     })
     return res
   }
