@@ -10,7 +10,11 @@ import { type FetchOptions as OfetchOptions, ofetch } from 'ofetch'
 import pMap from 'p-map'
 
 import type * as types from './types'
-import { defaultMaxRetries, getRetryDelay } from './retry'
+import {
+  defaultMaxRetries,
+  defaultRetryStatusCodes,
+  getRetryDelay
+} from './retry'
 
 /**
  * Main Notion API client.
@@ -869,6 +873,7 @@ export class NotionAPI {
     const res = ofetch(url, {
       method,
       mode: 'no-cors',
+      retryStatusCodes: defaultRetryStatusCodes,
       retryDelay: (context) => getRetryDelay(context, maxRetries),
       ...this._ofetchOptions,
       ...ofetchOptions,

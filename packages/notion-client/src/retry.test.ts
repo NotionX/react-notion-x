@@ -1,19 +1,30 @@
 import { type FetchContext } from 'ofetch'
 import { describe, expect, test } from 'vitest'
 
-import { defaultMaxRetries, getRetryDelay, parseRetryAfter } from './retry'
+import {
+  defaultMaxRetries,
+  defaultRetryStatusCodes,
+  getRetryDelay,
+  getServerSuggestedDelay,
+  parseRetryAfter
+} from './retry'
 
 function createContext({
   retry,
-  retryAfter
+  retryAfter,
+  status = 429,
+  data
 }: {
   retry?: number
   retryAfter?: string
+  status?: number
+  data?: unknown
 } = {}) {
   return {
     options: { retry },
     response: {
-      status: 429,
+      status,
+      _data: data,
       headers: new Headers(retryAfter ? { 'retry-after': retryAfter } : {})
     }
   } as unknown as FetchContext
@@ -46,32 +57,86 @@ describe('parseRetryAfter', () => {
   })
 })
 
+describe('getServerSuggestedDelay', () => {
+  test('prefers the Retry-After header', () => {
+    const context = createContext({
+      retryAfter: '2',
+      data: { clientData: { retryAfter: 99 } }
+    })
+    expect(getServerSuggestedDelay(context.response)).toBe(2000)
+  })
+
+  test('falls back to the clientData.retryAfter body hint', () => {
+    const context = createContext({ data: { clientData: { retryAfter: 7 } } })
+    expect(getServerSuggestedDelay(context.response)).toBe(7000)
+  })
+
+  test('clamps a server-suggested delay to the max', () => {
+    const context = createContext({ retryAfter: '9999' })
+    expect(getServerSuggestedDelay(context.response)).toBe(120_000)
+  })
+
+  test('tolerates an HTML error body from the edge', () => {
+    const context = createContext({ data: '<html>rate limited</html>' })
+    expect(getServerSuggestedDelay(context.response)).toBeUndefined()
+  })
+
+  test('returns undefined when nothing is suggested', () => {
+    expect(getServerSuggestedDelay(createContext().response)).toBeUndefined()
+  })
+})
+
 describe('getRetryDelay', () => {
-  test('respects the Retry-After header', () => {
+  test('respects a server-suggested delay', () => {
     expect(getRetryDelay(createContext({ retryAfter: '2' }))).toBe(2000)
   })
 
-  test('caps Retry-After at the max delay', () => {
-    expect(getRetryDelay(createContext({ retryAfter: '600' }))).toBe(30_000)
+  test('waits out the cooldown on 429 rather than backing off from 1s', () => {
+    // retrying inside the cooldown window cannot succeed, so even the first
+    // 429 retry must wait it out
+    for (const retry of [3, 2, 1]) {
+      const delay = getRetryDelay(createContext({ status: 429, retry }))
+      expect(delay).toBeGreaterThanOrEqual(60_000)
+      expect(delay).toBeLessThanOrEqual(75_000)
+    }
   })
 
-  test('backs off exponentially across attempts', () => {
-    const delays = [3, 2, 1].map((retry) =>
-      getRetryDelay(createContext({ retry }), defaultMaxRetries)
-    )
-
-    // jittered across the upper half of each backoff window
-    expect(delays[0]).toBeGreaterThanOrEqual(500)
-    expect(delays[0]).toBeLessThanOrEqual(1000)
-    expect(delays[1]).toBeGreaterThanOrEqual(1000)
-    expect(delays[1]).toBeLessThanOrEqual(2000)
-    expect(delays[2]).toBeGreaterThanOrEqual(2000)
-    expect(delays[2]).toBeLessThanOrEqual(4000)
+  test('backs off exponentially with full jitter on transient errors', () => {
+    // full jitter is uniform over [0, exponential], so assert the ceiling
+    const ceilings = [1000, 2000, 4000]
+    for (const [i, retry] of [3, 2, 1].entries()) {
+      const delays = Array.from({ length: 50 }, () =>
+        getRetryDelay(createContext({ status: 503, retry }), defaultMaxRetries)
+      )
+      for (const delay of delays) {
+        expect(delay).toBeGreaterThanOrEqual(0)
+        expect(delay).toBeLessThanOrEqual(ceilings[i]!)
+      }
+    }
   })
 
   test('caps exponential backoff at the max delay', () => {
-    const delay = getRetryDelay(createContext({ retry: 0 }), 100)
-    expect(delay).toBeGreaterThanOrEqual(15_000)
-    expect(delay).toBeLessThanOrEqual(30_000)
+    const delays = Array.from({ length: 50 }, () =>
+      getRetryDelay(createContext({ status: 503, retry: 0 }), 100)
+    )
+    for (const delay of delays) {
+      expect(delay).toBeLessThanOrEqual(60_000)
+    }
+  })
+})
+
+describe('defaultRetryStatusCodes', () => {
+  test('retries rate limits, gateway errors, and transport failures', () => {
+    // ofetch synthesizes a 500 for network-level failures
+    for (const code of [429, 500, 502, 503, 504]) {
+      expect(defaultRetryStatusCodes).toContain(code)
+    }
+  })
+
+  test('does not retry client errors that will never succeed', () => {
+    // private pages return 400; retrying them wastes the budget
+    for (const code of [400, 401, 403, 404, 409, 425]) {
+      expect(defaultRetryStatusCodes).not.toContain(code)
+    }
   })
 })
