@@ -3,7 +3,7 @@ import { type FileBlock } from 'notion-types'
 
 import { useNotionContext } from '../context'
 import { FileIcon } from '../icons/file-icon'
-import { cs } from '../utils'
+import { cs, setUrlParams } from '../utils'
 import { Text } from './text'
 
 export function File({
@@ -23,9 +23,7 @@ export function File({
   }
 
   if (block.space_id) {
-    const url = new URL(source)
-    url.searchParams.set('spaceId', block.space_id)
-    source = url.toString()
+    source = setUrlParams(source, { spaceId: block.space_id })
   }
 
   return (
