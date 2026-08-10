@@ -28,7 +28,6 @@
     "test:unit": "vitest run"
   },
   "dependencies": {
-    "commander": "^14.0.3",
     "date-fns": "catalog:",
     "format-number": "catalog:",
     "notion-client": "workspace:*",
@@ -36,6 +35,9 @@
     "notion-utils": "workspace:*",
     "p-map": "catalog:",
     "tweet-to-md": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
   },
   "keywords": [
     "notion",

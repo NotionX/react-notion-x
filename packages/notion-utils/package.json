@@ -25,7 +25,6 @@
     "test:unit": "vitest run"
   },
   "dependencies": {
-    "is-url-superb": "catalog:",
     "memoize": "catalog:",
     "normalize-url": "catalog:",
     "notion-types": "workspace:*",

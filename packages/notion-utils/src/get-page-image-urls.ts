@@ -2,7 +2,6 @@ import type * as types from 'notion-types'
 
 import { getBlockIcon } from './get-block-icon'
 import { getBlockValue } from './get-block-value'
-import { isUrl } from './is-url'
 
 /**
  * Gets URLs of all images contained on the given page.
@@ -65,7 +64,7 @@ export const getPageImageUrls = (
         }
 
         const pageIcon = getBlockIcon(block, recordMap)
-        if (pageIcon && isUrl(pageIcon)) {
+        if (pageIcon && URL.canParse(pageIcon)) {
           images.push({
             block,
             url: pageIcon

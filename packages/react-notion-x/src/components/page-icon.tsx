@@ -4,7 +4,7 @@ import React from 'react'
 
 import { useNotionContext } from '../context'
 import { DefaultPageIcon } from '../icons/default-page-icon'
-import { cs, isUrl } from '../utils'
+import { cs } from '../utils'
 import { LazyImage } from './lazy-image'
 
 const isIconBlock = (value: Block): value is PageBlock | CalloutBlock => {
@@ -37,7 +37,7 @@ export function PageIconImpl({
     const icon = getBlockIcon(block, recordMap)?.trim() || defaultIcon
     const title = getBlockTitle(block, recordMap)
 
-    if (icon && isUrl(icon)) {
+    if (icon && URL.canParse(icon)) {
       const url = mapImageUrl(icon, block)
       isImage = true
 

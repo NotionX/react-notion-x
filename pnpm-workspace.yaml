@@ -16,13 +16,11 @@ catalog:
   '@types/react-modal': ^3.16.3
   bumpp: ^11.0.1
   classnames: ^2.5.1
-  clipboard-copy: ^4.0.1
   cross-env: ^10.1.0
   date-fns: ^4.1.0
   del-cli: ^7.0.0
   eslint: ^9.35.0
   format-number: ^3.0.0
-  is-url-superb: ^6.1.0
   katex: 0.16.21
   ky: ^1.14.3
   lodash.throttle: ^4.1.1
