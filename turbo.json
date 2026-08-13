@@ -1,5 +1,5 @@
 {
-  "$schema": "https://turbo.build/schema.json",
+  "$schema": "https://turborepo.dev/schema.json",
   "ui": "stream",
   "tasks": {
     "build": {
@@ -12,7 +12,7 @@
       "dependsOn": ["^clean"]
     },
     "test": {
-      "dependsOn": ["test:format", "test:typecheck", "test:unit"]
+      "dependsOn": ["test:format", "test:lint", "test:typecheck", "test:unit"]
     },
     "test:typecheck": {
       "dependsOn": ["^test:typecheck"],
@@ -22,6 +22,10 @@
       "dependsOn": ["^test:unit"],
       "outputLogs": "errors-only"
     },
+    "test:lint": {
+      "dependsOn": ["//#test:lint", "^test:lint"]
+    },
+    "//#test:lint": {},
     "test:format": {
       "dependsOn": ["//#test:format", "^test:format"]
     },

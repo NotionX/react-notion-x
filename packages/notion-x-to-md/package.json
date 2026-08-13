@@ -19,9 +19,9 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "watch": "tsup --watch --silent --onSuccess 'echo build successful'",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "watch": "tsdown --watch --silent --onSuccess 'echo build successful'",
     "clean": "del build",
     "test": "run-s test:*",
     "test:typecheck": "tsc --noEmit",

@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsdown'
 
 export default defineConfig({
   entry: [
@@ -13,10 +13,12 @@ export default defineConfig({
   target: 'es2018',
   platform: 'browser',
   format: ['esm'],
-  splitting: false,
   shims: false,
   dts: true,
   minify: false,
   sourcemap: true,
-  external: ['react-pdf', 'react', 'react-dom']
+  deps: {
+    neverBundle: ['react-pdf', 'react', 'react-dom']
+  },
+  clean: true
 })
