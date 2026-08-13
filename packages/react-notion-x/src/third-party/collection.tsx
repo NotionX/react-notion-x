@@ -27,9 +27,7 @@ export function Collection({
   ctx
 }: {
   block:
-    | types.CollectionViewBlock
-    | types.CollectionViewPageBlock
-    | types.PageBlock
+    types.CollectionViewBlock | types.CollectionViewPageBlock | types.PageBlock
   className?: string
   ctx: NotionContext
 }) {

@@ -2,12 +2,7 @@ import { type ID, type PropertyID, type PropertyType } from './core'
 
 /** Types of collection views supported by Notion */
 export type CollectionViewType =
-  | 'table'
-  | 'gallery'
-  | 'list'
-  | 'board'
-  | 'calendar'
-  | 'reducer'
+  'table' | 'gallery' | 'list' | 'board' | 'calendar' | 'reducer'
 
 export type CollectionCardCoverType =
   | 'page_cover'

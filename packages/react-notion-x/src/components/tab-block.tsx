@@ -58,8 +58,7 @@ export function TabBlock(props: TabBlockProps) {
 
   const renderSubtree = (childBlockId: string, lvl: number) => {
     const b = getBlockValue(recordMap.block[childBlockId]) as
-      | types.Block
-      | undefined
+      types.Block | undefined
     if (!b) return null
     return (
       <Block key={childBlockId} {...forwardProps} block={b} level={lvl}>

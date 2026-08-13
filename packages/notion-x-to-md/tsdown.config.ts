@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsdown'
 
 export default defineConfig({
   entry: ['src/index.ts', 'src/cli.ts'],
@@ -6,8 +6,8 @@ export default defineConfig({
   target: 'node18',
   platform: 'node',
   format: ['esm'],
-  splitting: false,
   sourcemap: true,
   minify: false,
-  dts: true
+  dts: true,
+  clean: true
 })

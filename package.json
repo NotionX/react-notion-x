@@ -35,10 +35,10 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "simple-git-hooks": "catalog:",
-    "tsup": "catalog:",
+    "tsdown": "^0.22.14",
     "tsx": "catalog:",
     "turbo": "catalog:",
-    "typescript": "catalog:",
+    "typescript": "^6.0.3",
     "vitest": "catalog:"
   },
   "prettier": "@fisch0920/config/prettier",
