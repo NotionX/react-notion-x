@@ -11,8 +11,7 @@ jobs:
       fail-fast: true
       matrix:
         node-version:
-          - 23
-          - 25
+          - 24
 
     steps:
       - uses: actions/checkout@v6
@@ -20,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm build
