@@ -55,15 +55,15 @@
     "files": [
       "build"
     ],
-    "types": "./build/index.d.ts",
+    "types": "./build/index.d.mts",
     "bin": {
-      "notion-x-to-md": "./build/cli.js"
+      "notion-x-to-md": "./build/cli.mjs"
     },
     "exports": {
       ".": {
-        "types": "./build/index.d.ts",
-        "import": "./build/index.js",
-        "default": "./build/index.js"
+        "types": "./build/index.d.mts",
+        "import": "./build/index.mjs",
+        "default": "./build/index.mjs"
       }
     }
   }
