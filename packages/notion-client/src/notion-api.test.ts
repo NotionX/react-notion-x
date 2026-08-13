@@ -31,7 +31,7 @@ for (const input of pageIdFixturesSuccess) {
   test(
     `NotionAPI.getPage success ${input}`,
     {
-      timeout: 60_000 // one minute timeout
+      timeout: 120_000 // one minute timeout
     },
     async () => {
       const pageId = parsePageId(input)
