@@ -108,7 +108,7 @@ export interface BaseBlock {
 
   space_id?: ID
   parent_id: ID
-  parent_table: 'space' | 'block' | 'table'
+  parent_table: 'space' | 'block' | 'table' | 'collection' | (string & {})
 
   version: number
   created_time: number
