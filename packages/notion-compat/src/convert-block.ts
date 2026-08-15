@@ -33,7 +33,7 @@ export function convertBlock({
 
   compatBlock.properties = {}
   compatBlock.format = {}
-  compatBlock.type = block.type
+  compatBlock.type = block.type as any // TODO
   compatBlock.created_time = convertTime(block.created_time)
   compatBlock.last_edited_time = convertTime(block.last_edited_time)
   if (block.created_by) {
@@ -348,9 +348,10 @@ export function convertBlock({
       break
 
     case 'table_row':
-      compatBlock.properties = {
-        ...block.table_row?.cells?.map((cell) => convertRichText(cell))
-      }
+      // TODO
+      // compatBlock.properties = {
+      //   ...block.table_row?.cells?.map((cell) => convertRichText(cell))
+      // }
       break
 
     case 'pdf':

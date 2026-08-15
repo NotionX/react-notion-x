@@ -3,9 +3,8 @@
   "compilerOptions": {
     "lib": ["esnext", "ESNext.Array", "dom", "dom.iterable"],
     "target": "ES2020",
-    "jsx": "react-jsx",
-    "types": ["node"]
+    "jsx": "react-jsx"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["*.config.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

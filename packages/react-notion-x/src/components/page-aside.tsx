@@ -56,10 +56,9 @@ export function PageAside({
         setActiveSection(currentSectionId)
       }, throttleMs),
 
-    [
-      // explicitly not taking a dependency on activeSection
-      setActiveSection
-    ]
+    // explicitly not taking a dependency on activeSection
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+    [setActiveSection]
   )
 
   React.useEffect(() => {

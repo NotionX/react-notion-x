@@ -3,16 +3,28 @@ import { type PropertyID } from './core'
 // @see https://www.notion.vip/formulas/
 
 export type FormulaType =
-  'constant' | 'property' | 'operator' | 'function' | 'symbol'
+  | 'constant'
+  | 'property'
+  | 'operator'
+  | 'function'
+  | 'symbol'
 
 export type FormulaConstantType = 'e' | 'false' | 'true' | 'pi'
 
 export type FormulaValueType =
-  'string' | 'number' | 'boolean' | 'date' | FormulaConstantType
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'date'
+  | FormulaConstantType
 
 export type FormulaResult = string | number | boolean | Date
 export type FormulaResultType =
-  'text' | 'number' | 'boolean' | 'date' | 'checkbox'
+  | 'text'
+  | 'number'
+  | 'boolean'
+  | 'date'
+  | 'checkbox'
 
 export type FormulaOperatorType =
   // arithmetic

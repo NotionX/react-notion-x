@@ -6,9 +6,7 @@
         "id": "8a586d25-3f98-4b85-b482-54da84465d23",
         "version": 67,
         "type": "collection_view_page",
-        "view_ids": [
-          "93a5d7a2-7664-478a-993f-4a5b948c0dba"
-        ],
+        "view_ids": ["93a5d7a2-7664-478a-993f-4a5b948c0dba"],
         "collection_id": "e777a528-9404-4e96-9f26-0014be705592",
         "permissions": [
           {
@@ -37,20 +35,9 @@
         "version": 20,
         "type": "toggle",
         "properties": {
-          "title": [
-            [
-              "Admin",
-              [
-                [
-                  "i"
-                ]
-              ]
-            ]
-          ]
+          "title": [["Admin", [["i"]]]]
         },
-        "content": [
-          "8a586d25-3f98-4b85-b482-54da84465d23"
-        ],
+        "content": ["8a586d25-3f98-4b85-b482-54da84465d23"],
         "format": {
           "block_color": "gray"
         },
@@ -72,11 +59,7 @@
         "version": 310,
         "type": "page",
         "properties": {
-          "title": [
-            [
-              "The NBA — in Notion."
-            ]
-          ]
+          "title": [["The NBA — in Notion."]]
         },
         "content": [
           "6d3d29a0-6996-4596-8994-84d39d22e724",
@@ -219,11 +202,7 @@
       "value": {
         "id": "e777a528-9404-4e96-9f26-0014be705592",
         "version": 34,
-        "name": [
-          [
-            "NBA Teams"
-          ]
-        ],
+        "name": [["NBA Teams"]],
         "schema": {
           "$N1}": {
             "name": "Conference",

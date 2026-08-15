@@ -24,14 +24,14 @@ export function CollectionViewBoard({
     const collectionGroups = getCollectionGroups(
       collection,
       collectionView,
-      collectionData,
-      padding
+      collectionData
     )
 
     return collectionGroups.map((group, index) => (
       <CollectionGroup
         key={index}
         {...group}
+        padding={padding}
         summaryProps={{
           style: {
             paddingLeft: padding

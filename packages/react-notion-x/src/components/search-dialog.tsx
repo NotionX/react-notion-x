@@ -29,7 +29,7 @@ export class SearchDialog extends React.Component<{
   override state: {
     isLoading: boolean
     query: string
-    searchResult: any | null
+    searchResult: any
     searchError: types.APIError | null
   } = {
     isLoading: false,

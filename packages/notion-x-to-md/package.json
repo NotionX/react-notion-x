@@ -1,22 +1,49 @@
 {
   "name": "notion-x-to-md",
   "version": "7.11.1",
-  "type": "module",
   "description": "Converts a Notion page to Markdown. Very useful for LLMs.",
-  "repository": "NotionX/react-notion-x",
-  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "keywords": [
+    "ai",
+    "chat",
+    "chatbot",
+    "chatgpt",
+    "gfm",
+    "gpt",
+    "llm",
+    "markdown",
+    "md",
+    "notion",
+    "openai"
+  ],
   "license": "MIT",
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": "NotionX/react-notion-x",
+  "bin": {
+    "notion-x-to-md": "./src/cli.ts"
+  },
   "source": "./src/index.ts",
+  "type": "module",
+  "sideEffects": false,
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
   },
-  "bin": {
-    "notion-x-to-md": "./src/cli.ts"
-  },
-  "sideEffects": false,
-  "engines": {
-    "node": ">=18"
+  "publishConfig": {
+    "bin": {
+      "notion-x-to-md": "./build/cli.mjs"
+    },
+    "files": [
+      "build"
+    ],
+    "types": "./build/index.d.mts",
+    "exports": {
+      ".": {
+        "types": "./build/index.d.mts",
+        "import": "./build/index.mjs",
+        "default": "./build/index.mjs"
+      }
+    },
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",
@@ -37,34 +64,7 @@
     "p-map": "catalog:",
     "tweet-to-md": "^1.0.5"
   },
-  "keywords": [
-    "notion",
-    "md",
-    "markdown",
-    "gfm",
-    "llm",
-    "ai",
-    "chat",
-    "chatbot",
-    "chatgpt",
-    "openai",
-    "gpt"
-  ],
-  "publishConfig": {
-    "access": "public",
-    "files": [
-      "build"
-    ],
-    "types": "./build/index.d.mts",
-    "bin": {
-      "notion-x-to-md": "./build/cli.mjs"
-    },
-    "exports": {
-      ".": {
-        "types": "./build/index.d.mts",
-        "import": "./build/index.mjs",
-        "default": "./build/index.mjs"
-      }
-    }
+  "engines": {
+    "node": ">=18"
   }
 }

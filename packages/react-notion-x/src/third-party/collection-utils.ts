@@ -3,8 +3,7 @@ import { format } from 'date-fns/format'
 export function getCollectionGroups(
   collection: any,
   collectionView: any,
-  collectionData: any,
-  ...rest: any[]
+  collectionData: any
 ): any[] {
   const elems = collectionView?.format?.collection_groups || []
   return elems.map(({ property, hidden, value: { value, type } }: any) => {
@@ -45,8 +44,7 @@ export function getCollectionGroups(
       collection,
       collectionView,
       collectionData,
-      blockIds: collectionGroup?.blockIds,
-      ...rest
+      blockIds: collectionGroup?.blockIds
     }
   })
 }

@@ -20,7 +20,7 @@ interface AutomationValue {
 
 interface AutomationActionValue {
   id: string
-  type: 'open_page' | 'send_webhook' | 'http_request' | string
+  type: string
   config?: {
     target?: {
       type?: 'url' | 'page'

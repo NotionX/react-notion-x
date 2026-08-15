@@ -1,4 +1,3 @@
-import type React from 'react'
 import { type CollectionPropertySchema } from 'notion-types'
 
 import { PropertyIcon } from '../icons/property-icon'

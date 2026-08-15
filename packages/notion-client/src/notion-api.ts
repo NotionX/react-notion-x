@@ -831,7 +831,9 @@ export class NotionAPI {
       'User-Agent':
         'notion-client (+https://github.com/NotionX/react-notion-x)',
       ...clientHeaders,
+      // oxlint-disable-next-line typescript/no-misused-spread
       ...this._ofetchOptions?.headers,
+      // oxlint-disable-next-line typescript/no-misused-spread
       ...ofetchOptions?.headers,
       'Content-Type': 'application/json'
     }

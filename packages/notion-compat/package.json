@@ -1,19 +1,30 @@
 {
   "name": "notion-compat",
   "version": "7.11.1",
-  "type": "module",
   "description": "Compatibility layer between the official Notion API and unofficial private API.",
-  "repository": "NotionX/react-notion-x",
-  "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": "NotionX/react-notion-x",
   "source": "./src/index.ts",
+  "type": "module",
+  "sideEffects": false,
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
   },
-  "sideEffects": false,
-  "engines": {
-    "node": ">=18"
+  "publishConfig": {
+    "files": [
+      "build"
+    ],
+    "types": "./build/index.d.mts",
+    "exports": {
+      ".": {
+        "types": "./build/index.d.mts",
+        "import": "./build/index.mjs",
+        "default": "./build/index.mjs"
+      }
+    },
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",
@@ -35,18 +46,7 @@
   "peerDependencies": {
     "@notionhq/client": "^2.2.0"
   },
-  "publishConfig": {
-    "access": "public",
-    "files": [
-      "build"
-    ],
-    "types": "./build/index.d.mts",
-    "exports": {
-      ".": {
-        "types": "./build/index.d.mts",
-        "import": "./build/index.mjs",
-        "default": "./build/index.mjs"
-      }
-    }
+  "engines": {
+    "node": ">=18"
   }
 }

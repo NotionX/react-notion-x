@@ -386,7 +386,9 @@ async function renderBlockChildren(
     await pMap(
       block.content,
       async (childId) => renderBlock(childId, recordMap, level),
-      { concurrency: 4 }
+      {
+        concurrency: 4
+      }
     )
   )
     .filter(Boolean)
