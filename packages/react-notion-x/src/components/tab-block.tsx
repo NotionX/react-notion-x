@@ -33,7 +33,7 @@ export function TabBlock(props: TabBlockProps) {
 
   React.useLayoutEffect(() => {
     updateTabScrollFades()
-  }, [tabIds, updateTabScrollFades])
+  }, [updateTabScrollFades])
 
   React.useEffect(() => {
     const el = tabScrollRef.current
@@ -49,7 +49,7 @@ export function TabBlock(props: TabBlockProps) {
       ro.disconnect()
       window.removeEventListener('resize', updateTabScrollFades)
     }
-  }, [tabIds, updateTabScrollFades])
+  }, [updateTabScrollFades])
 
   React.useEffect(() => {
     if (!tabIds.length) return
@@ -58,7 +58,8 @@ export function TabBlock(props: TabBlockProps) {
 
   const renderSubtree = (childBlockId: string, lvl: number) => {
     const b = getBlockValue(recordMap.block[childBlockId]) as
-      types.Block | undefined
+      | types.Block
+      | undefined
     if (!b) return null
     return (
       <Block key={childBlockId} {...forwardProps} block={b} level={lvl}>

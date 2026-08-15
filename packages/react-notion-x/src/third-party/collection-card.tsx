@@ -1,4 +1,3 @@
-import type React from 'react'
 import { type ImageBlock } from 'notion-types'
 import { getBlockValue, getTextContent } from 'notion-utils'
 

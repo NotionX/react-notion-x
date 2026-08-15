@@ -1,5 +1,3 @@
-import type React from 'react'
-
 function capitalizeFirstLetter(str?: string) {
   if (!str) return ''
 

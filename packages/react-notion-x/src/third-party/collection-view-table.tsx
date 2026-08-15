@@ -26,15 +26,15 @@ export function CollectionViewTable({
     const collectionGroups = getCollectionGroups(
       collection,
       collectionView,
-      collectionData,
-      padding,
-      width
+      collectionData
     )
 
     return collectionGroups.map((group, index) => (
       <CollectionGroup
         key={index}
         {...group}
+        padding={padding}
+        width={width}
         collectionViewComponent={(props) => (
           <Table {...props} padding={padding} width={width} />
         )}

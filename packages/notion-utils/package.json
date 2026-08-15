@@ -1,19 +1,30 @@
 {
   "name": "notion-utils",
   "version": "7.11.1",
-  "type": "module",
   "description": "Useful utilities for working with Notion data. Supports any JS environment including browsers.",
-  "repository": "NotionX/react-notion-x",
-  "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": "NotionX/react-notion-x",
   "source": "./src/index.ts",
+  "type": "module",
+  "sideEffects": false,
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
   },
-  "sideEffects": false,
-  "engines": {
-    "node": ">=18"
+  "publishConfig": {
+    "files": [
+      "build"
+    ],
+    "types": "./build/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./build/index.d.ts",
+        "import": "./build/index.js",
+        "default": "./build/index.js"
+      }
+    },
+    "access": "public"
   },
   "scripts": {
     "build": "tsdown",
@@ -31,18 +42,7 @@
     "notion-types": "workspace:*",
     "p-queue": "catalog:"
   },
-  "publishConfig": {
-    "access": "public",
-    "files": [
-      "build"
-    ],
-    "types": "./build/index.d.ts",
-    "exports": {
-      ".": {
-        "types": "./build/index.d.ts",
-        "import": "./build/index.js",
-        "default": "./build/index.js"
-      }
-    }
+  "engines": {
+    "node": ">=18"
   }
 }

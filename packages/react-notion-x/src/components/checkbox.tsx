@@ -1,5 +1,3 @@
-import type React from 'react'
-
 import CheckIcon from '../icons/check'
 
 export function Checkbox({

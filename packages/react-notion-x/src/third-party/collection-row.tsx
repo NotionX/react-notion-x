@@ -1,4 +1,3 @@
-import type React from 'react'
 import { type PageBlock } from 'notion-types'
 import { getBlockValue } from 'notion-utils'
 

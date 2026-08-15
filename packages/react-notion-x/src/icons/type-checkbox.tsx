@@ -1,5 +1,3 @@
-import type React from 'react'
-
 function SvgTypeCheckbox(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox='0 0 14 14' {...props}>

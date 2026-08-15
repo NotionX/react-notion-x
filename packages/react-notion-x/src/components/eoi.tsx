@@ -1,4 +1,3 @@
-import type React from 'react'
 import { type Block } from 'notion-types'
 
 import { useNotionContext } from '../context'

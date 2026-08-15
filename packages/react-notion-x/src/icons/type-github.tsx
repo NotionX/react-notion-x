@@ -1,5 +1,3 @@
-import type React from 'react'
-
 function SvgTypeGitHub(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox='0 0 260 260' {...props}>

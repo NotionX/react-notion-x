@@ -186,7 +186,7 @@ function evalFunctionFormula(
       if (typeof v0 === 'number') {
         return v0 + +v1
       } else if (typeof v0 === 'string') {
-        return v0 + `${v1}`
+        return v0 + String(v1)
       } else {
         // TODO
         return v0
@@ -303,7 +303,7 @@ function evalFunctionFormula(
             return format(value as Date, 'MMM d, yyyy')
           } else {
             // shouldn't ever get here
-            return `${value}`
+            return String(value)
           }
 
         // case 'number':

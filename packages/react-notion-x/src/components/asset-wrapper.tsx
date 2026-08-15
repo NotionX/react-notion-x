@@ -1,4 +1,3 @@
-import type React from 'react'
 import { type BaseContentBlock, type Block } from 'notion-types'
 import { parsePageId } from 'notion-utils'
 

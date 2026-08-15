@@ -1,30 +1,18 @@
 {
   "name": "notion-types",
   "version": "7.11.1",
-  "type": "module",
   "description": "TypeScript types for core Notion data structures.",
-  "repository": "NotionX/react-notion-x",
-  "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": "NotionX/react-notion-x",
   "source": "./src/index.ts",
+  "type": "module",
+  "sideEffects": false,
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
   },
-  "sideEffects": false,
-  "engines": {
-    "node": ">=18"
-  },
-  "scripts": {
-    "build": "tsdown",
-    "dev": "tsdown --watch",
-    "watch": "tsdown --watch --silent --onSuccess 'echo build successful'",
-    "clean": "del build",
-    "test": "run-s test:*",
-    "test:typecheck": "tsc --noEmit"
-  },
   "publishConfig": {
-    "access": "public",
     "files": [
       "build"
     ],
@@ -35,6 +23,18 @@
         "import": "./build/index.js",
         "default": "./build/index.js"
       }
-    }
+    },
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "watch": "tsdown --watch --silent --onSuccess 'echo build successful'",
+    "clean": "del build",
+    "test": "run-s test:*",
+    "test:typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

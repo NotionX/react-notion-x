@@ -185,14 +185,14 @@ For a production example, check out the [Next.js Notion Starter Kit](https://git
 
 ## Packages
 
-| Package                                     | NPM                                                                                                     | Environment   | Description                                                                     |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------- |
-| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion.                                                 |
-| [notion-client](./packages/notion-client)   | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client)   | Server-side\* | Robust TypeScript client for the Notion API.                                    |
-| [notion-types](./packages/notion-types)     | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types)     | Universal     | Core Notion TypeScript types.                                                   |
-| [notion-utils](./packages/notion-utils)     | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils)     | Universal     | Useful utilities for working with Notion data.                                  |
-| [notion-compat](./packages/notion-compat)   | [![NPM](https://img.shields.io/npm/v/notion-compat.svg)](https://www.npmjs.com/package/notion-utils)    | Server-side   | Compatibility layer between the official Notion API and unofficial private API. |
-| [notion-x-to-md](./packages/notion-x-to-md) | [![NPM](https://img.shields.io/npm/v/notion-x-to-md.svg)](https://www.npmjs.com/package/notion-x-to-md) | Universal     | Converts a Notion page to Markdown. Very useful for LLMs.                       |
+| Package | NPM | Environment | Description |
+| --- | --- | --- | --- |
+| [react-notion-x](./packages/react-notion-x) | [![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) | Browser + SSR | Fast React renderer for Notion. |
+| [notion-client](./packages/notion-client) | [![NPM](https://img.shields.io/npm/v/notion-client.svg)](https://www.npmjs.com/package/notion-client) | Server-side\* | Robust TypeScript client for the Notion API. |
+| [notion-types](./packages/notion-types) | [![NPM](https://img.shields.io/npm/v/notion-types.svg)](https://www.npmjs.com/package/notion-types) | Universal | Core Notion TypeScript types. |
+| [notion-utils](./packages/notion-utils) | [![NPM](https://img.shields.io/npm/v/notion-utils.svg)](https://www.npmjs.com/package/notion-utils) | Universal | Useful utilities for working with Notion data. |
+| [notion-compat](./packages/notion-compat) | [![NPM](https://img.shields.io/npm/v/notion-compat.svg)](https://www.npmjs.com/package/notion-utils) | Server-side | Compatibility layer between the official Notion API and unofficial private API. |
+| [notion-x-to-md](./packages/notion-x-to-md) | [![NPM](https://img.shields.io/npm/v/notion-x-to-md.svg)](https://www.npmjs.com/package/notion-x-to-md) | Universal | Converts a Notion page to Markdown. Very useful for LLMs. |
 
 \* Notion's API should not be called from client-side browsers due to CORS restrictions. `notion-client` is compatible with Node.js, Bun, Deno, CF workers, etc.
 
@@ -200,51 +200,51 @@ For a production example, check out the [Next.js Notion Starter Kit](https://git
 
 The majority of Notion blocks and collection views are fully supported.
 
-| Block Type               | Supported  | Block Type Enum        | Notes                                                                                                            |
-| ------------------------ | ---------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Page                     | ✅ Yes     | `page`                 |
-| Text                     | ✅ Yes     | `text`                 | Supports all known text formatting options                                                                       |
-| Bookmark                 | ✅ Yes     | `bookmark`             | Embedded preview of external URL                                                                                 |
-| Bulleted List            | ✅ Yes     | `bulleted_list`        | `<ul>`                                                                                                           |
-| Numbered List            | ✅ Yes     | `numbered_list`        | `<ol>`                                                                                                           |
-| Heading 1                | ✅ Yes     | `header`               | `<h1>`                                                                                                           |
-| Heading 2                | ✅ Yes     | `sub_header`           | `<h2>`                                                                                                           |
-| Heading 3                | ✅ Yes     | `sub_sub_header`       | `<h3>`                                                                                                           |
-| Heading 4                | ✅ Yes     | `header_4`             | `<h4>`                                                                                                           |
-| Quote                    | ✅ Yes     | `quote`                |
-| Callout                  | ✅ Yes     | `callout`              |
-| Equation (block)         | ✅ Yes     | `equation`             | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)                       |
-| Equation (inline)        | ✅ Yes     | `text`                 | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)                       |
-| Todos (checkboxes)       | ✅ Yes     | `to_do`                |
-| Table Of Contents        | ✅ Yes     | `table_of_contents`    | See `notion-utils` `getPageTableOfContents` helper funtion                                                       |
-| Divider                  | ✅ Yes     | `divider`              | Horizontal line                                                                                                  |
-| Column                   | ✅ Yes     | `column`               |
-| Column List              | ✅ Yes     | `column_list`          |
-| Toggle                   | ✅ Yes     | `toggle`               | [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details)                                 |
-| Button                   | ✅ Yes     | `button`               | Interactive buttons with automation support (open URLs, webhooks) - customizable via components prop             |
-| Image                    | ✅ Yes     | `image`                | `<img>`                                                                                                          |
-| Embed                    | ✅ Yes     | `embed`                | Generic `iframe` embeds                                                                                          |
-| Video                    | ✅ Yes     | `video`                | `iframe`                                                                                                         |
-| Figma                    | ✅ Yes     | `figma`                | `iframe`                                                                                                         |
-| Google Maps              | ✅ Yes     | `maps`                 | `iframe`                                                                                                         |
-| Google Drive             | ✅ Yes     | `drive`                | Google Docs, Sheets, etc custom embed                                                                            |
-| Tweet                    | ✅ Yes     | `tweet`                | Uses the twitter embedding SDK                                                                                   |
-| PDF                      | ✅ Yes     | `pdf`                  | Uses S3 signed URLs and [react-pdf](https://github.com/wojtekmaj/react-pdf)                                      |
-| Audio                    | ✅ Yes     | `audio`                | Uses S3 signed URLs and [HTML5 `audio` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) |
-| File                     | ✅ Yes     | `file`                 | Uses S3 signed URLs (generic downloadable file)                                                                  |
-| Link                     | ✅ Yes     | `text`                 | External links                                                                                                   |
-| Page Link                | ✅ Yes     | `page`                 | Link to a notion page in the same workspace                                                                      |
-| External Page Link       | ✅ Yes     | `text`                 | Links to a notion page or collection view in another workspace                                                   |
-| Code (block)             | ✅ Yes     | `code`                 | Block code syntax highlighting via [prismjs](https://prismjs.com/)                                               |
-| Code (inline)            | ✅ Yes     | `text`                 | Inline code formatting (no syntax highlighting)                                                                  |
-| Collections              | ✅ Yes     |                        | Also known as [databases](https://www.notion.so/Intro-to-databases-fd8cd2d212f74c50954c11086d85997e)             |
-| Collection View          | ✅ Yes     | `collection_view`      | Collections have a 1:N mapping to collection views                                                               |
-| Collection View Table    | ✅ Yes     | `collection_view`      | `type = "table"` (default table view)                                                                            |
-| Collection View Gallery  | ✅ Yes     | `collection_view`      | `type = "gallery"` (grid view)                                                                                   |
-| Collection View Board    | ✅ Yes     | `collection_view`      | `type = "board"` (kanban view)                                                                                   |
-| Collection View List     | ✅ Yes     | `collection_view`      | `type = "list"` (vertical list view)                                                                             |
-| Collection View Calendar | ❌ Missing | `collection_view`      | `type = "calendar"` (embedded calendar view)                                                                     |
-| Collection View Page     | ✅ Yes     | `collection_view_page` | Collection view as a standalone page                                                                             |
+| Block Type | Supported | Block Type Enum | Notes |
+| --- | --- | --- | --- |
+| Page | ✅ Yes | `page` |
+| Text | ✅ Yes | `text` | Supports all known text formatting options |
+| Bookmark | ✅ Yes | `bookmark` | Embedded preview of external URL |
+| Bulleted List | ✅ Yes | `bulleted_list` | `<ul>` |
+| Numbered List | ✅ Yes | `numbered_list` | `<ol>` |
+| Heading 1 | ✅ Yes | `header` | `<h1>` |
+| Heading 2 | ✅ Yes | `sub_header` | `<h2>` |
+| Heading 3 | ✅ Yes | `sub_sub_header` | `<h3>` |
+| Heading 4 | ✅ Yes | `header_4` | `<h4>` |
+| Quote | ✅ Yes | `quote` |
+| Callout | ✅ Yes | `callout` |
+| Equation (block) | ✅ Yes | `equation` | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex) |
+| Equation (inline) | ✅ Yes | `text` | [katex](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex) |
+| Todos (checkboxes) | ✅ Yes | `to_do` |
+| Table Of Contents | ✅ Yes | `table_of_contents` | See `notion-utils` `getPageTableOfContents` helper funtion |
+| Divider | ✅ Yes | `divider` | Horizontal line |
+| Column | ✅ Yes | `column` |
+| Column List | ✅ Yes | `column_list` |
+| Toggle | ✅ Yes | `toggle` | [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) |
+| Button | ✅ Yes | `button` | Interactive buttons with automation support (open URLs, webhooks) - customizable via components prop |
+| Image | ✅ Yes | `image` | `<img>` |
+| Embed | ✅ Yes | `embed` | Generic `iframe` embeds |
+| Video | ✅ Yes | `video` | `iframe` |
+| Figma | ✅ Yes | `figma` | `iframe` |
+| Google Maps | ✅ Yes | `maps` | `iframe` |
+| Google Drive | ✅ Yes | `drive` | Google Docs, Sheets, etc custom embed |
+| Tweet | ✅ Yes | `tweet` | Uses the twitter embedding SDK |
+| PDF | ✅ Yes | `pdf` | Uses S3 signed URLs and [react-pdf](https://github.com/wojtekmaj/react-pdf) |
+| Audio | ✅ Yes | `audio` | Uses S3 signed URLs and [HTML5 `audio` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) |
+| File | ✅ Yes | `file` | Uses S3 signed URLs (generic downloadable file) |
+| Link | ✅ Yes | `text` | External links |
+| Page Link | ✅ Yes | `page` | Link to a notion page in the same workspace |
+| External Page Link | ✅ Yes | `text` | Links to a notion page or collection view in another workspace |
+| Code (block) | ✅ Yes | `code` | Block code syntax highlighting via [prismjs](https://prismjs.com/) |
+| Code (inline) | ✅ Yes | `text` | Inline code formatting (no syntax highlighting) |
+| Collections | ✅ Yes |  | Also known as [databases](https://www.notion.so/Intro-to-databases-fd8cd2d212f74c50954c11086d85997e) |
+| Collection View | ✅ Yes | `collection_view` | Collections have a 1:N mapping to collection views |
+| Collection View Table | ✅ Yes | `collection_view` | `type = "table"` (default table view) |
+| Collection View Gallery | ✅ Yes | `collection_view` | `type = "gallery"` (grid view) |
+| Collection View Board | ✅ Yes | `collection_view` | `type = "board"` (kanban view) |
+| Collection View List | ✅ Yes | `collection_view` | `type = "list"` (vertical list view) |
+| Collection View Calendar | ❌ Missing | `collection_view` | `type = "calendar"` (embedded calendar view) |
+| Collection View Page | ✅ Yes | `collection_view_page` | Collection view as a standalone page |
 
 Please let us know if you find any issues or missing blocks.
 

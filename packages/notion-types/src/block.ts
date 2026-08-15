@@ -47,8 +47,6 @@ export type BlockType =
   | 'button'
   | 'miro'
   | 'tab'
-  // fallback for unknown blocks
-  | string
 
 /** The different block values a block can have. */
 export type Block =
@@ -110,7 +108,7 @@ export interface BaseBlock {
 
   space_id?: ID
   parent_id: ID
-  parent_table: string | 'space' | 'block' | 'table'
+  parent_table: 'space' | 'block' | 'table' | 'collection' | (string & {})
 
   version: number
   created_time: number

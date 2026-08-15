@@ -1,25 +1,24 @@
 {
   "name": "notion",
+  "version": "7.11.1",
   "private": true,
   "description": "Fast and accurate React renderer for Notion. TS batteries included.",
-  "repository": "NotionX/react-notion-x",
-  "author": "Travis Fischer <travis@transitivebullsh.it>",
   "license": "MIT",
-  "version": "7.11.1",
-  "packageManager": "pnpm@10.32.1",
-  "engines": {
-    "node": ">=20"
-  },
+  "author": "Travis Fischer <travis@transitivebullsh.it>",
+  "repository": "NotionX/react-notion-x",
   "type": "module",
   "scripts": {
     "build": "turbo build --filter='./packages/*'",
     "dev": "turbo dev --concurrency 50 --continue --filter='./packages/*'",
     "clean": "turbo clean",
     "test": "turbo test",
-    "test:format": "prettier --check \"**/*.{js,ts,tsx}\"",
-    "test:lint": "eslint .",
+    "test:format": "oxfmt --check",
+    "test:lint": "oxlint",
     "test:typecheck": "turbo test:typecheck",
     "test:unit": "turbo test:unit",
+    "fix": "run-s fix:*",
+    "fix:format": "oxfmt",
+    "fix:lint": "oxlint --fix",
     "release": "bumpp -r && pnpm publish -r",
     "pretest": "run-s build",
     "prepare": "simple-git-hooks"
@@ -29,26 +28,32 @@
     "@types/node": "catalog:",
     "bumpp": "catalog:",
     "del-cli": "catalog:",
-    "eslint": "^9.39.4",
+    "lint-staged": "catalog:",
     "npm-run-all2": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
     "prettier": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "simple-git-hooks": "catalog:",
-    "tsdown": "^0.22.14",
+    "tsdown": "catalog:",
     "tsx": "catalog:",
     "turbo": "catalog:",
-    "typescript": "^6.0.3",
+    "typescript": "catalog:",
     "vitest": "catalog:"
   },
-  "prettier": "@fisch0920/config/prettier",
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "prettier --ignore-unknown --write",
-      "eslint --fix"
+      "oxfmt",
+      "oxlint --fix"
     ]
-  }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@11.5.0"
 }
