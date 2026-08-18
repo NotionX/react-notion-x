@@ -6,7 +6,7 @@
 
 > Fast and accurate React renderer for Notion. TS batteries included. ⚡️
 
-[![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+[![NPM](https://img.shields.io/npm/v/react-notion-x.svg)](https://www.npmjs.com/package/react-notion-x) [![Build Status](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml/badge.svg)](https://github.com/NotionX/react-notion-x/actions/workflows/test.yml) [![Code style enforced by Oxc](https://img.shields.io/badge/code_style-oxc-brightgreen.svg)](https://oxc.rs)
 
 ## Contents
 
@@ -259,13 +259,13 @@ All known blocks and most known configuration settings can be found in our [test
   <br>
   <br>
   <a href="https://bundlephobia.com/package/react-notion-x" title="Bundlephobia">
-    <img alt="Bundlephobia" src="https://badgen.net/bundlephobia/minzip/react-notion-x" />
+    bundlephobia minzip
   </a>
 </p>
 
 Out of the box, `react-notion-x` is pretty fast and relatively lightweight, but there are a few key factors to be aware of.
 
-Bundlephobia reports a [~28kb gzip bundle size](https://bundlephobia.com/result?p=react-notion-x) for the main `react-notion-x` bundle. This doesn't include the optional `third-party` components which we recommend lazy loading via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) only if a page needs them.
+Bundlephobia reports a [~31kb gzip bundle size](https://bundlephobia.com/package/react-notion-x) for the main `react-notion-x` bundle. This doesn't include the optional `third-party` components which we recommend lazy loading via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import) only if a page needs them.
 
 Another major factor for perf comes from images hosted by Notion. They're generally unoptimized, improperly sized, and not cacheable because Notion has to deal with fine-grained access control that users can change at any time. You can override the default `mapImageUrl` function on `NotionRenderer` to add caching via a CDN like Cloudflare Workers, which is what Notion X does for optimal page load speeds.
 

@@ -158,7 +158,7 @@
     "react-dom": ">=18"
   },
   "optionalDependencies": {
-    "react-pdf": "^9.2.1"
+    "react-pdf": "^10.4.1"
   },
   "engines": {
     "node": ">=18"

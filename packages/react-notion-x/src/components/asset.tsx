@@ -290,6 +290,7 @@ export function Asset({
         zoomable={zoomable}
         height={style.height as number}
         style={assetStyle}
+        unoptimized={true}
       />
     )
   }

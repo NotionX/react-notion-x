@@ -4,6 +4,8 @@ import { Document, Page, pdfjs } from 'react-pdf'
 // ensure pdfjs can find its worker script regardless of how react-notion-x is bundled
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.mjs`
 
+// TODO: embed AnnotationLayer.css and TextLayer.css in react-notion-x so that users don't have to import them manually
+
 export function Pdf({ file, ...rest }: { file: string }) {
   const [numPages, setNumPages] = React.useState<number>(0)
 

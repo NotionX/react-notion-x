@@ -15,6 +15,7 @@ export function LazyImage({
   style,
   zoomable = false,
   priority = false,
+  unoptimized = false,
   height,
   ...rest
 }: {
@@ -25,6 +26,7 @@ export function LazyImage({
   height?: number
   zoomable?: boolean
   priority?: boolean
+  unoptimized?: boolean
 }) {
   const { recordMap, zoom, previewImages, forceCustomImages, components } =
     useNotionContext()
@@ -76,6 +78,7 @@ export function LazyImage({
           blurDataURL={previewImage.dataURIBase64}
           placeholder='blur'
           priority={priority}
+          unoptimized={unoptimized}
           onLoad={onLoad}
         />
       )
@@ -159,6 +162,7 @@ export function LazyImage({
           width={null}
           height={height || null}
           priority={priority}
+          unoptimized={unoptimized}
           onLoad={onLoad}
         />
       )
