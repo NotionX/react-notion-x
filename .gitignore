@@ -27,3 +27,4 @@ yarn-error.log*
 .vercel/
 .turbo/
 .tsimp/
+.pnpm-store
