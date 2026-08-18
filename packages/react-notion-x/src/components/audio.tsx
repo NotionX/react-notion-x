@@ -1,4 +1,5 @@
 import { type AudioBlock } from 'notion-types'
+import { getSignedFileUrl } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
@@ -12,17 +13,14 @@ export function Audio({
 }) {
   const { recordMap } = useNotionContext()
 
-  let source =
-    recordMap.signed_urls[block.id] || block.properties?.source?.[0]?.[0]
+  const source = getSignedFileUrl(
+    block.properties?.source?.[0]?.[0],
+    block,
+    recordMap.signed_urls
+  )
 
   if (!source) {
     return null
-  }
-
-  if (block.space_id) {
-    const url = new URL(source)
-    url.searchParams.set('spaceId', block.space_id)
-    source = url.toString()
   }
 
   return (

@@ -1,5 +1,9 @@
 import { type ExtendedRecordMap } from 'notion-types'
-import { defaultMapImageUrl, defaultMapPageUrl } from 'notion-utils'
+import {
+  defaultMapImageUrl,
+  defaultMapPageUrl,
+  getSignedFileUrl
+} from 'notion-utils'
 import React from 'react'
 
 import { AssetWrapper } from './components/asset-wrapper'
@@ -189,6 +193,7 @@ export function NotionContextProvider({
   mapPageUrl,
   mapImageUrl,
   rootPageId,
+  recordMap = defaultNotionContext.recordMap,
   ...rest
 }: PartialNotionContext & {
   children?: React.ReactNode
@@ -234,16 +239,31 @@ export function NotionContextProvider({
     }
   }
 
+  const resolvedMapImageUrl = React.useMemo<MapImageUrlFn>(() => {
+    const mapper = mapImageUrl ?? defaultMapImageUrl
+
+    return (url, block) =>
+      mapper(getSignedFileUrl(url, block, recordMap.signed_urls), block)
+  }, [mapImageUrl, recordMap])
+
   const value = React.useMemo(
     () => ({
       ...defaultNotionContext,
       ...rest,
+      recordMap,
       rootPageId,
       mapPageUrl: mapPageUrl ?? defaultMapPageUrl(rootPageId),
-      mapImageUrl: mapImageUrl ?? defaultMapImageUrl,
+      mapImageUrl: resolvedMapImageUrl,
       components: { ...defaultComponents, ...wrappedThemeComponents }
     }),
-    [mapImageUrl, mapPageUrl, wrappedThemeComponents, rootPageId, rest]
+    [
+      mapPageUrl,
+      recordMap,
+      resolvedMapImageUrl,
+      wrappedThemeComponents,
+      rootPageId,
+      rest
+    ]
   )
 
   return <ctx.Provider value={value}>{children}</ctx.Provider>

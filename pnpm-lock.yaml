@@ -132,9 +132,6 @@ catalogs:
     react-image:
       specifier: ^4.0.3
       version: 4.1.0
-    react-intersection-observer:
-      specifier: ^11.0.0
-      version: 11.0.0
     react-modal:
       specifier: ^3.16.3
       version: 3.16.3
@@ -159,9 +156,6 @@ catalogs:
     typescript:
       specifier: ^7.0.2
       version: 7.0.2
-    unionize:
-      specifier: ^3.1.0
-      version: 3.1.0
     vitest:
       specifier: ^4.1.10
       version: 4.1.10
@@ -420,15 +414,9 @@ importers:
       react-image:
         specifier: 'catalog:'
         version: 4.1.0(@babel/runtime@7.28.6)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      react-intersection-observer:
-        specifier: 'catalog:'
-        version: 11.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react-modal:
         specifier: 'catalog:'
         version: 3.16.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      unionize:
-        specifier: 'catalog:'
-        version: 3.1.0
     devDependencies:
       '@types/lodash.throttle':
         specifier: 'catalog:'
@@ -2709,15 +2697,6 @@ packages:
       react: '>=16.8'
       react-dom: '>=16.8'
 
-  react-intersection-observer@11.0.0:
-    resolution: {integrity: sha512-tF2PjXa//GcUmkCIcZR2qGsj6HwnuunFQdgeJ89BwFE6epB7E9yIzdr018H1khxG7DiMpIDvAne1GKQMFwn+fw==}
-    peerDependencies:
-      react: ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -2974,9 +2953,6 @@ packages:
   unicorn-magic@0.3.0:
     resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
     engines: {node: '>=18'}
-
-  unionize@3.1.0:
-    resolution: {integrity: sha512-LQZvbanzvpzvK0QYgRvnaA9VVe+g4nTbRlyoGGWDKFrZn0HJnDN5LC2Ti0+BxpKKOCrL3BQcRBVFPy/t12Y24Q==}
 
   verkit@0.3.2:
     resolution: {integrity: sha512-zj/ob3UsvJGN0whEAKFp53REA5X66hvffVqoCtVQAakJKnKlH+/PcOfMoFwIG/o4rElqLv/ycAFlx8ZlXUorCg==}
@@ -4647,12 +4623,6 @@ snapshots:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
-  react-intersection-observer@11.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
-    dependencies:
-      react: 19.2.8
-    optionalDependencies:
-      react-dom: 19.2.8(react@19.2.8)
-
   react-is@16.13.1: {}
 
   react-lifecycles-compat@3.0.4: {}
@@ -4976,8 +4946,6 @@ snapshots:
   undici-types@8.3.0: {}
 
   unicorn-magic@0.3.0: {}
-
-  unionize@3.1.0: {}
 
   verkit@0.3.2: {}
 
