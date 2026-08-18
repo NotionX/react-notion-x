@@ -1,6 +1,6 @@
 {
   "name": "notion",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "private": true,
   "description": "Fast and accurate React renderer for Notion. TS batteries included.",
   "license": "MIT",
