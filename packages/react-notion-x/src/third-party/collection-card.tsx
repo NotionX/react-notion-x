@@ -60,6 +60,9 @@ export function CollectionCard({
           <LazyImage
             src={src}
             alt={caption || 'notion image'}
+            fill={true}
+            sizes='(max-width: 640px) 100vw, 33vw'
+            unoptimized={true}
             style={{
               objectFit: coverAspect,
               objectPosition: `center ${cardCoverPosition}%`
@@ -82,6 +85,9 @@ export function CollectionCard({
         <LazyImage
           src={mapImageUrl(page_cover, block)}
           alt={getTextContent(block.properties?.title)}
+          fill={true}
+          sizes='(max-width: 640px) 100vw, 33vw'
+          unoptimized={true}
           style={{
             objectFit: coverAspect,
             objectPosition: `center ${coverPosition}%`
@@ -109,6 +115,9 @@ export function CollectionCard({
               <LazyImage
                 alt={file[0] as string}
                 src={mapImageUrl(file[2] as string, block)}
+                fill={true}
+                sizes='(max-width: 640px) 100vw, 33vw'
+                unoptimized={true}
                 style={{
                   objectFit: coverAspect,
                   objectPosition: `center ${coverPosition}%`

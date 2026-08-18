@@ -12,7 +12,7 @@ Config can be found in [`lib/config.ts`](./lib/config.ts)
 
 This demo adds a few nice features:
 
-- Uses [next/image](https://nextjs.org/docs/api-reference/next/image) to serve optimal images
+- Uses [next/image](https://nextjs.org/docs/app/api-reference/components/image) to serve optimal images
 - Uses preview images generated using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
 - Includes larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
   - Collection, CollectionRow
@@ -36,7 +36,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 ## Preview Images
 
-This demo uses [next/image](https://nextjs.org/docs/api-reference/next/image) as a custom image component. It also generates preview images at page build time using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern).
+This demo uses [next/image](https://nextjs.org/docs/app/api-reference/components/image) as a custom image component. It also generates preview images at page build time using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern).
 
 Note that preview image generation can be very slow, so it's recommended that you either cache the results in a key-value database or disable it by setting `previewImagesEnabled` to `false` in [`lib/config.ts`](./lib/config.ts)
 

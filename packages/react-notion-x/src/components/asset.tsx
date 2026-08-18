@@ -1,5 +1,5 @@
 import { type BaseContentBlock, type Block } from 'notion-types'
-import { getTextContent } from 'notion-utils'
+import { getSignedFileUrl, getTextContent } from 'notion-utils'
 
 import { useNotionContext } from '../context'
 import { getUrlParams, getYoutubeId } from '../utils'
@@ -126,17 +126,14 @@ export function Asset({
     }
   }
 
-  let source =
-    recordMap.signed_urls?.[block.id] || block.properties?.source?.[0]?.[0]
+  const source = getSignedFileUrl(
+    block.properties?.source?.[0]?.[0],
+    block as Block,
+    recordMap.signed_urls
+  )
 
   if (!source) {
     return null
-  }
-
-  if (block.space_id) {
-    const url = new URL(source)
-    url.searchParams.set('spaceId', block.space_id)
-    source = url.toString()
   }
 
   let content = null
@@ -273,11 +270,6 @@ export function Asset({
       }
     }
   } else if (block.type === 'image') {
-    // TODO: kind of a hack for now. New file.notion.so images aren't signed correctly
-    // Gifs need to use their original file URLs and not the source prop (see #663)
-    if (!source.includes('.gif') && source.includes('file.notion.so')) {
-      source = block.properties?.source?.[0]?.[0]
-    }
     const src = mapImageUrl(source, block as Block)
     const altText = getTextContent(block.properties?.alt_text)
     const caption = getTextContent(block.properties?.caption)

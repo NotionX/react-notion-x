@@ -1,7 +1,102 @@
+import { type ExtendedRecordMap } from 'notion-types'
 import { getBlockValue, parsePageId } from 'notion-utils'
-import { expect, test } from 'vitest'
+import { expect, test, vi } from 'vitest'
 
 import { NotionAPI } from './notion-api'
+
+test('NotionAPI.addSignedUrls signs every private asset in a block', async () => {
+  const imageSource = 'attachment:image-id:image.png'
+  const proxiedImageSource = 'attachment:proxied-image-id:proxied-image.png'
+  const imageProxyUrl = `https://www.notion.so/image/${encodeURIComponent(
+    proxiedImageSource
+  )}?table=block&id=proxy-image-block&cache=v2`
+  const pageCover = 'attachment:cover-id:cover.jpg'
+  const pageIcon =
+    'https://s3-us-west-2.amazonaws.com/secure.notion-static.com/icon-id/icon.png'
+  const propertyFile =
+    'https://prod-files-secure.s3.us-west-2.amazonaws.com/property-id/property.png'
+  const externalBookmarkImage =
+    'https://github.githubassets.com/images/modules/open_graph/github-logo.png'
+
+  const recordMap = {
+    block: {
+      'image-block': {
+        role: 'reader',
+        value: {
+          id: 'image-block',
+          type: 'image',
+          parent_table: 'block',
+          properties: {
+            source: [[imageSource]]
+          }
+        }
+      },
+      'page-block': {
+        role: 'reader',
+        value: {
+          id: 'page-block',
+          type: 'page',
+          parent_table: 'block',
+          format: {
+            page_cover: pageCover,
+            page_icon: pageIcon,
+            bookmark_cover: externalBookmarkImage
+          },
+          properties: {
+            files: [['property file', [['a', propertyFile]]]]
+          }
+        }
+      },
+      'proxy-image-block': {
+        role: 'reader',
+        value: {
+          id: 'proxy-image-block',
+          type: 'image',
+          parent_table: 'block',
+          properties: {
+            source: [[imageProxyUrl]]
+          }
+        }
+      }
+    },
+    collection: {},
+    collection_view: {},
+    notion_user: {},
+    collection_query: {},
+    signed_urls: {}
+  } as unknown as ExtendedRecordMap
+
+  const api = new NotionAPI()
+  const getSignedFileUrls = vi
+    .spyOn(api, 'getSignedFileUrls')
+    .mockImplementation(async (requests) => ({
+      signedUrls: requests.map(({ url }) => `signed:${url}`)
+    }))
+
+  await api.addSignedUrls({ recordMap })
+
+  const requests = getSignedFileUrls.mock.calls[0]![0]
+  expect(requests.map(({ url }) => url)).toEqual([
+    imageSource,
+    pageCover,
+    pageIcon,
+    propertyFile,
+    proxiedImageSource
+  ])
+  expect(recordMap.signed_urls[imageSource]).toBe(`signed:${imageSource}`)
+  expect(recordMap.signed_urls['image-block']).toBe(`signed:${imageSource}`)
+  expect(recordMap.signed_urls[pageCover]).toBe(`signed:${pageCover}`)
+  expect(recordMap.signed_urls['page-block']).toBe(`signed:${pageCover}`)
+  expect(recordMap.signed_urls[pageIcon]).toBe(`signed:${pageIcon}`)
+  expect(recordMap.signed_urls[propertyFile]).toBe(`signed:${propertyFile}`)
+  expect(recordMap.signed_urls[proxiedImageSource]).toBe(
+    `signed:${proxiedImageSource}`
+  )
+  expect(recordMap.signed_urls['proxy-image-block']).toBe(
+    `signed:${proxiedImageSource}`
+  )
+  expect(recordMap.signed_urls[externalBookmarkImage]).toBeUndefined()
+})
 
 const pageIdFixturesSuccess = [
   '78fc5a4b88d74b0e824e29407e9f1ec1',

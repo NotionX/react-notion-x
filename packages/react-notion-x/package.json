@@ -123,7 +123,8 @@
     "watch": "tsdown --watch --silent --onSuccess 'echo build successful'",
     "clean": "del build",
     "test": "run-s test:*",
-    "test:typecheck": "tsc --noEmit"
+    "test:typecheck": "tsc --noEmit",
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@fisch0920/medium-zoom": "catalog:",
@@ -135,9 +136,7 @@
     "react-fast-compare": "catalog:",
     "react-hotkeys-hook": "catalog:",
     "react-image": "catalog:",
-    "react-intersection-observer": "catalog:",
-    "react-modal": "catalog:",
-    "unionize": "catalog:"
+    "react-modal": "catalog:"
   },
   "devDependencies": {
     "@types/lodash.throttle": "catalog:",

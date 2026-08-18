@@ -3,7 +3,6 @@ import React from 'react'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
-import { ImageState, LazyImageFull } from './lazy-image-full'
 
 /**
  * Progressive, lazy images modeled after Medium's LQIP technique.
@@ -16,6 +15,8 @@ export function LazyImage({
   zoomable = false,
   priority = false,
   unoptimized = false,
+  fill = false,
+  sizes,
   height,
   ...rest
 }: {
@@ -27,10 +28,14 @@ export function LazyImage({
   zoomable?: boolean
   priority?: boolean
   unoptimized?: boolean
+  fill?: boolean
+  sizes?: string
 }) {
   const { recordMap, zoom, previewImages, forceCustomImages, components } =
     useNotionContext()
   const zoomRef = React.useRef(zoom ? zoom.clone() : null)
+  const [loadedSrc, setLoadedSrc] = React.useState<string | null>(null)
+  const isLoaded = loadedSrc === src
   const previewImage = previewImages
     ? (recordMap?.preview_images?.[src!] ??
       recordMap?.preview_images?.[normalizeUrl(src)])
@@ -38,45 +43,38 @@ export function LazyImage({
 
   const onLoad = React.useCallback(
     (e: any) => {
+      setLoadedSrc(src ?? null)
+
       if (zoomable && (e.target.src || e.target.srcset)) {
         if (zoomRef.current) {
           ;(zoomRef.current as any).attach(e.target)
         }
       }
     },
-    [zoomRef, zoomable]
-  )
-
-  const attachZoom = React.useCallback(
-    (image: any) => {
-      if (zoomRef.current && image) {
-        ;(zoomRef.current as any).attach(image)
-      }
-    },
-    [zoomRef]
-  )
-
-  const attachZoomRef = React.useMemo(
-    () => (zoomable ? attachZoom : undefined),
-    [zoomable, attachZoom]
+    [src, zoomRef, zoomable]
   )
 
   if (previewImage) {
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
 
     if (components.Image) {
-      // TODO: could try using next/image onLoadComplete to replace LazyImageFull
-      // while retaining our blur implementation
+      const useBlurPlaceholder =
+        previewImage.originalWidth >= 40 && previewImage.originalHeight >= 40
+
       return (
         <components.Image
           src={src}
           alt={alt}
           style={style}
           className={className}
-          width={previewImage.originalWidth}
-          height={previewImage.originalHeight}
-          blurDataURL={previewImage.dataURIBase64}
-          placeholder='blur'
+          width={fill ? undefined : previewImage.originalWidth}
+          height={fill ? undefined : previewImage.originalHeight}
+          fill={fill}
+          sizes={sizes}
+          blurDataURL={
+            useBlurPlaceholder ? previewImage.dataURIBase64 : undefined
+          }
+          placeholder={useBlurPlaceholder ? 'blur' : undefined}
           priority={priority}
           unoptimized={unoptimized}
           onLoad={onLoad}
@@ -84,83 +82,68 @@ export function LazyImage({
       )
     }
 
+    const wrapperStyle: React.CSSProperties = {
+      width: '100%'
+    }
+    const imgStyle: React.CSSProperties = {}
+
+    if (height) {
+      wrapperStyle.height = height
+    } else {
+      imgStyle.position = 'absolute'
+      wrapperStyle.paddingBottom = `${aspectRatio * 100}%`
+    }
+
     return (
-      <LazyImageFull src={src!} {...rest} experimentalDecode={true}>
-        {({ imageState, ref }) => {
-          const isLoaded = imageState === ImageState.LoadSuccess
-          const wrapperStyle: React.CSSProperties = {
-            width: '100%'
-          }
-          const imgStyle: React.CSSProperties = {}
+      <div
+        className={cs(
+          'lazy-image-wrapper',
+          isLoaded && 'lazy-image-loaded',
+          className
+        )}
+        style={wrapperStyle}
+      >
+        <img
+          className='lazy-image-preview'
+          src={previewImage.dataURIBase64}
+          alt=''
+          aria-hidden='true'
+          style={style}
+          decoding='async'
+        />
 
-          if (height) {
-            wrapperStyle.height = height
-          } else {
-            imgStyle.position = 'absolute'
-            wrapperStyle.paddingBottom = `${aspectRatio * 100}%`
-          }
-
-          return (
-            <div
-              className={cs(
-                'lazy-image-wrapper',
-                isLoaded && 'lazy-image-loaded',
-                className
-              )}
-              style={wrapperStyle}
-            >
-              <img
-                className='lazy-image-preview'
-                src={previewImage.dataURIBase64}
-                alt={alt}
-                ref={ref}
-                style={style}
-                decoding='async'
-              />
-
-              <img
-                className='lazy-image-real'
-                src={src}
-                alt={alt}
-                ref={attachZoomRef}
-                style={{
-                  ...style,
-                  ...imgStyle
-                }}
-                width={previewImage.originalWidth}
-                height={previewImage.originalHeight}
-                decoding='async'
-                loading='lazy'
-              />
-            </div>
-          )
-        }}
-      </LazyImageFull>
+        <img
+          className='lazy-image-real'
+          src={src}
+          alt={alt}
+          style={{
+            ...style,
+            ...imgStyle
+          }}
+          width={previewImage.originalWidth}
+          height={previewImage.originalHeight}
+          decoding='async'
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : undefined}
+          onLoad={onLoad}
+          {...rest}
+        />
+      </div>
     )
   } else {
-    // TODO: GracefulImage doesn't seem to support refs, but we'd like to prevent
-    // invalid images from loading as error states
-
-    /*
-      NOTE: Using next/image without a pre-defined width/height is a huge pain in
-      the ass. If we have a preview image, then this works fine since we know the
-      dimensions ahead of time, but if we don't, then next/image won't display
-      anything.
-
-      Since next/image is the most common use case for using custom images, and this
-      is likely to trip people up, we're disabling non-preview custom images for now.
-
-      If you have a use case that is affected by this, please open an issue on github.
-    */
-    if (components.Image && forceCustomImages) {
+    // Modern next/image can render unknown-size images with `fill` as long as
+    // the containing layout establishes its dimensions. Other unknown-size
+    // images keep their native <img> behavior unless explicitly forced.
+    if (components.Image && (fill || forceCustomImages)) {
       return (
         <components.Image
           src={src}
           alt={alt}
           className={className}
           style={style}
-          width={null}
-          height={height || null}
+          height={fill ? undefined : height}
+          fill={fill || undefined}
+          sizes={sizes}
           priority={priority}
           unoptimized={unoptimized}
           onLoad={onLoad}
@@ -175,9 +158,10 @@ export function LazyImage({
         style={style}
         src={src}
         alt={alt}
-        ref={attachZoomRef}
-        loading='lazy'
+        loading={priority ? 'eager' : 'lazy'}
+        fetchPriority={priority ? 'high' : undefined}
         decoding='async'
+        onLoad={onLoad}
         {...rest}
       />
     )

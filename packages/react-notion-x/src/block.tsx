@@ -178,6 +178,8 @@ export function Block(props: BlockProps) {
                           src={mapImageUrl(page_cover!, block)}
                           alt={getTextContent(properties?.title)}
                           priority={true}
+                          fill={true}
+                          sizes='100vw'
                           className='notion-page-cover'
                           style={pageCoverStyle}
                         />
@@ -700,6 +702,9 @@ export function Block(props: BlockProps) {
                     <LazyImage
                       src={mapImageUrl(block.format?.bookmark_icon, block)}
                       alt={title}
+                      fill={true}
+                      sizes='16px'
+                      unoptimized={true}
                     />
                   </div>
                 )}
@@ -715,6 +720,9 @@ export function Block(props: BlockProps) {
                 <LazyImage
                   src={mapImageUrl(block.format?.bookmark_cover, block)}
                   alt={getTextContent(block.properties?.title)}
+                  fill={true}
+                  sizes='(max-width: 640px) 0px, 25vw'
+                  unoptimized={true}
                   style={{
                     objectFit: 'cover'
                   }}

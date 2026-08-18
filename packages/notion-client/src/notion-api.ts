@@ -2,6 +2,7 @@ import type * as notion from 'notion-types'
 import {
   getBlockCollectionId,
   getBlockValue,
+  getNotionFileUrl,
   getPageContentBlockIds,
   parsePageId,
   uuidToId
@@ -15,6 +16,36 @@ import {
   defaultRetryStatusCodes,
   getRetryDelay
 } from './retry'
+
+const getNotionFileUrls = (
+  value: unknown,
+  urls = new Set<string>()
+): Set<string> => {
+  if (typeof value === 'string') {
+    const notionFileUrl = getNotionFileUrl(value)
+    if (notionFileUrl) {
+      urls.add(notionFileUrl)
+    }
+
+    return urls
+  }
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      getNotionFileUrls(item, urls)
+    }
+
+    return urls
+  }
+
+  if (value && typeof value === 'object') {
+    for (const item of Object.values(value)) {
+      getNotionFileUrls(item, urls)
+    }
+  }
+
+  return urls
+}
 
 /**
  * Main Notion API client.
@@ -254,17 +285,17 @@ export class NotionAPI {
       )
     }
 
+    if (fetchRelationPages) {
+      const newBlocks = await this.fetchRelationPages(recordMap, ofetchOptions)
+      recordMap.block = { ...recordMap.block, ...newBlocks }
+    }
+
     // Optionally fetch signed URLs for any embedded files.
     // NOTE: Similar to collection data, we default to eagerly fetching signed URL info
     // because it is preferable for many use cases as opposed to making these API calls
     // lazily from the client-side.
     if (signFileUrls) {
-      await this.addSignedUrls({ recordMap, contentBlockIds, ofetchOptions })
-    }
-
-    if (fetchRelationPages) {
-      const newBlocks = await this.fetchRelationPages(recordMap, ofetchOptions)
-      recordMap.block = { ...recordMap.block, ...newBlocks }
+      await this.addSignedUrls({ recordMap, ofetchOptions })
     }
 
     if (fetchCustomEmojis) {
@@ -392,47 +423,36 @@ export class NotionAPI {
     recordMap.signed_urls = {}
 
     if (!contentBlockIds) {
-      contentBlockIds = getPageContentBlockIds(recordMap)
+      // Include collection rows and other fetched blocks which aren't descendants
+      // of the root page but may still be rendered from this record map.
+      contentBlockIds = Object.keys(recordMap.block)
     }
 
     const allFileInstances = contentBlockIds.flatMap((blockId) => {
       const block = getBlockValue(recordMap.block[blockId])
 
-      if (
-        block &&
-        (block.type === 'pdf' ||
-          block.type === 'audio' ||
-          (block.type === 'image' && block.file_ids?.length) ||
-          block.type === 'video' ||
-          block.type === 'file' ||
-          block.type === 'page')
-      ) {
-        const source =
-          block.type === 'page'
-            ? block.format?.page_cover
-            : block.properties?.source?.[0]?.[0]
-        // console.log(block, source)
-
-        if (source) {
-          if (
-            source.includes('secure.notion-static.com') ||
-            source.includes('prod-files-secure') ||
-            source.includes('attachment:')
-          ) {
-            return {
-              permissionRecord: {
-                table: 'block',
-                id: block.id
-              },
-              url: source
-            }
-          }
-
-          return []
-        }
+      if (!block) {
+        return []
       }
 
-      return []
+      const primaryUrl =
+        block.type === 'page'
+          ? block.format?.page_cover
+          : block.properties?.source?.[0]?.[0]
+      const primaryNotionFileUrl = primaryUrl
+        ? getNotionFileUrl(primaryUrl)
+        : undefined
+
+      return Array.from(
+        getNotionFileUrls([primaryUrl, block.format, block.properties])
+      ).map((url) => ({
+        permissionRecord: {
+          table: 'block',
+          id: block.id
+        },
+        url,
+        isPrimary: url === primaryNotionFileUrl
+      }))
     })
 
     if (allFileInstances.length > 0) {
@@ -442,19 +462,19 @@ export class NotionAPI {
           ofetchOptions
         )
 
-        if (signedUrls.length === allFileInstances.length) {
-          for (const [i, file] of allFileInstances.entries()) {
-            const signedUrl = signedUrls[i]
-            if (!signedUrl) continue
+        for (const [i, file] of allFileInstances.entries()) {
+          const signedUrl = signedUrls[i]
+          if (!signedUrl) continue
 
+          recordMap.signed_urls[file.url] = signedUrl
+
+          if (file.isPrimary) {
             const blockId = file.permissionRecord.id
-            if (!blockId) continue
-
             recordMap.signed_urls[blockId] = signedUrl
           }
         }
       } catch (err) {
-        console.warn('NotionAPI getSignedfileUrls error', err)
+        console.warn('NotionAPI getSignedFileUrls error', err)
       }
     }
   }

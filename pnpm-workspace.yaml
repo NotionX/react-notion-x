@@ -11,6 +11,7 @@ minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - "@fisch0920/config"
   - tweet-to-md
+  - lqip-modern
 packageManagerStrict: false
 catalog:
   "@fisch0920/config": ^2.0.2
@@ -37,7 +38,7 @@ catalog:
   ky: ^2.0.2
   lint-staged: ^17.3.0
   lodash.throttle: ^4.1.1
-  lqip-modern: ^2.1.0
+  lqip-modern: ^3.0.0
   memoize: ^11.0.0
   next: ^16.3.1
   normalize-url: ^9.0.1
