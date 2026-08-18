@@ -1,6 +1,6 @@
 {
   "name": "react-notion-x",
-  "version": "7.12.0",
+  "version": "7.12.1",
   "description": "Fast and accurate React renderer for Notion.",
   "license": "MIT",
   "author": "Travis Fischer <travis@transitivebullsh.it>",

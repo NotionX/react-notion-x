@@ -1,6 +1,6 @@
 {
   "name": "notion-compat",
-  "version": "7.12.0",
+  "version": "7.12.1",
   "description": "Compatibility layer between the official Notion API and unofficial private API.",
   "license": "MIT",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
