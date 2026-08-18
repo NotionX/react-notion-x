@@ -22,6 +22,9 @@
     "notion-x-to-md": "./src/cli.ts"
   },
   "source": "./src/index.ts",
+  "files": [
+    "build"
+  ],
   "type": "module",
   "sideEffects": false,
   "types": "./src/index.ts",
@@ -32,9 +35,6 @@
     "bin": {
       "notion-x-to-md": "./build/cli.mjs"
     },
-    "files": [
-      "build"
-    ],
     "types": "./build/index.d.mts",
     "exports": {
       ".": {
