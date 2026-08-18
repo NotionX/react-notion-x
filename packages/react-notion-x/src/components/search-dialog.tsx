@@ -1,6 +1,6 @@
 import type * as types from 'notion-types'
 import throttle from 'lodash.throttle'
-import { getBlockParentPage, getBlockTitle } from 'notion-utils'
+import { getBlockParentPage, getBlockTitle, getBlockValue } from 'notion-utils'
 import React from 'react'
 
 import { NotionContextConsumer, NotionContextProvider } from '../context'
@@ -214,8 +214,6 @@ export class SearchDialog extends React.Component<{
       ancestorId: rootBlockId
     })
 
-    console.log('search', query, result)
-
     let searchResult: any = null // TODO
     let searchError: types.APIError | null = null
 
@@ -226,7 +224,7 @@ export class SearchDialog extends React.Component<{
 
       const results = searchResult.results
         .map((result: any) => {
-          const block = searchResult.recordMap.block[result.id]?.value
+          const block = getBlockValue(searchResult.recordMap.block[result.id])
           if (!block) return
 
           const title = getBlockTitle(block, searchResult.recordMap)
