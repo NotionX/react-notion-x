@@ -1,6 +1,6 @@
 {
   "name": "notion-client",
-  "version": "7.12.1",
+  "version": "8.0.0",
   "description": "Robust TypeScript client for the unofficial Notion API.",
   "license": "MIT",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
