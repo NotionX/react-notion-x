@@ -569,6 +569,7 @@ details.notion-toggle .notion-h {
 }
 
 .notion-page-cover-wrapper {
+  position: relative;
   width: 100%;
   height: 30vh;
   min-height: 30vh;
@@ -582,13 +583,11 @@ details.notion-toggle .notion-h {
   overflow: hidden;
 }
 
-.notion-collection-card-cover span,
 .notion-collection-card-cover img {
   min-height: 100% !important;
   max-height: 100% !important;
 }
 
-.notion-page-cover-wrapper span,
 .notion-page-cover-wrapper img {
   width: 100% !important;
   height: 30vh !important;
@@ -716,6 +715,7 @@ svg.notion-page-icon {
 }
 
 .notion-page-icon-inline {
+  position: relative;
   width: 22px;
   height: 22px;
   max-width: 22px;
@@ -1111,6 +1111,7 @@ svg.notion-page-icon {
 }
 
 .notion-bookmark-link-icon {
+  position: relative;
   width: 16px;
   height: 16px;
   min-width: 16px;
@@ -1140,12 +1141,6 @@ svg.notion-page-icon {
   position: absolute !important;
   width: 100%;
   height: 100%;
-}
-
-.notion-bookmark-image span {
-  width: 100% !important;
-  height: 100% !important;
-  max-height: 100%;
 }
 
 .notion-column .notion-bookmark-image {
@@ -1796,6 +1791,8 @@ svg.notion-page-icon {
 }
 
 .notion-collection-card-cover .notion-property-file {
+  position: relative;
+  display: block;
   height: 100%;
 }
 

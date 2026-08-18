@@ -4,7 +4,7 @@ import isEqual from 'react-fast-compare'
 export const wrapNextImage = (NextImage: any): React.FC<any> => {
   return React.memo(function ReactNotionXNextImage({
     src,
-    alt,
+    alt = '',
 
     width,
     height,
@@ -12,56 +12,30 @@ export const wrapNextImage = (NextImage: any): React.FC<any> => {
     className,
 
     fill,
+    preload,
+    priority,
+    loading,
 
     ...rest
   }) {
-    if (fill === 'undefined') {
-      fill = !(width && height)
-    }
+    const hasIntrinsicSize =
+      typeof width === 'number' &&
+      width > 0 &&
+      typeof height === 'number' &&
+      height > 0
+    const shouldFill = fill ?? !hasIntrinsicSize
+    const shouldPreload = preload ?? priority
 
     return (
       <NextImage
         className={className}
         src={src}
         alt={alt}
-        width={!fill && width && height ? width : undefined}
-        height={!fill && width && height ? height : undefined}
-        fill={fill}
-        {...rest}
-      />
-    )
-  }, isEqual)
-}
-
-export const wrapNextLegacyImage = (NextLegacyImage: any): React.FC<any> => {
-  return React.memo(function ReactNotionXNextLegacyImage({
-    src,
-    alt,
-
-    width,
-    height,
-
-    className,
-    style,
-
-    layout,
-
-    ...rest
-  }) {
-    if (!layout) {
-      layout = width && height ? 'intrinsic' : 'fill'
-    }
-
-    return (
-      <NextLegacyImage
-        className={className}
-        src={src}
-        alt={alt}
-        width={layout === 'intrinsic' && width}
-        height={layout === 'intrinsic' && height}
-        objectFit={style?.objectFit}
-        objectPosition={style?.objectPosition}
-        layout={layout}
+        width={shouldFill ? undefined : width}
+        height={shouldFill ? undefined : height}
+        fill={shouldFill}
+        preload={shouldPreload || undefined}
+        loading={shouldPreload ? undefined : loading}
         {...rest}
       />
     )

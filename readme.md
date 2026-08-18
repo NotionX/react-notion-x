@@ -172,7 +172,7 @@ Here's a more [full-featured Next.js example project](./examples/full) with the 
 
 The full-featured demo adds a few nice features:
 
-- Uses [next/image](https://nextjs.org/docs/api-reference/next/image) to serve optimal images
+- Uses [next/image](https://nextjs.org/docs/app/api-reference/components/image) to serve optimal images
 - Uses preview images generated via [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)
 - Lazily bundles larger optional components via [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
   - Code
@@ -271,17 +271,17 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 
 `NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://react-notion-x-demo.transitivebullsh.it/3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
 
-If you're using Next.js, we recommend passing `next/image` or `next/legacy/image`, and `next/link` to the renderer as follows:
+If you're using Next.js, we recommend passing `next/image` and `next/link` to the renderer as follows:
 
 ```tsx
-import Image from 'next/image' // or import Image from 'next/legacy/image' if you use legacy Image
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default ({ recordMap }) => (
   <NotionRenderer
     recordMap={recordMap}
     components={{
-      nextImage: Image, // or nextLegacyImage: LegacyImage,
+      nextImage: Image,
       nextLink: Link
     }}
   />

@@ -46,6 +46,9 @@ export function PageIconImpl({
           src={url}
           alt={title || 'page icon'}
           className={cs(className, 'notion-page-icon')}
+          fill={true}
+          sizes={inline ? '24px' : '124px'}
+          unoptimized={true}
         />
       )
     } else if (icon && icon.startsWith('/icons/')) {
@@ -60,6 +63,9 @@ export function PageIconImpl({
           src={url}
           alt={title || 'page icon'}
           className={cs(className, 'notion-page-icon')}
+          fill={true}
+          sizes={inline ? '24px' : '124px'}
+          unoptimized={true}
         />
       )
     } else if (!icon) {

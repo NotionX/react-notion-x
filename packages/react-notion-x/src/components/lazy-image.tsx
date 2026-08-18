@@ -15,6 +15,8 @@ export function LazyImage({
   zoomable = false,
   priority = false,
   unoptimized = false,
+  fill = false,
+  sizes,
   height,
   ...rest
 }: {
@@ -26,6 +28,8 @@ export function LazyImage({
   zoomable?: boolean
   priority?: boolean
   unoptimized?: boolean
+  fill?: boolean
+  sizes?: string
 }) {
   const { recordMap, zoom, previewImages, forceCustomImages, components } =
     useNotionContext()
@@ -54,16 +58,23 @@ export function LazyImage({
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
 
     if (components.Image) {
+      const useBlurPlaceholder =
+        previewImage.originalWidth >= 40 && previewImage.originalHeight >= 40
+
       return (
         <components.Image
           src={src}
           alt={alt}
           style={style}
           className={className}
-          width={previewImage.originalWidth}
-          height={previewImage.originalHeight}
-          blurDataURL={previewImage.dataURIBase64}
-          placeholder='blur'
+          width={fill ? undefined : previewImage.originalWidth}
+          height={fill ? undefined : previewImage.originalHeight}
+          fill={fill}
+          sizes={sizes}
+          blurDataURL={
+            useBlurPlaceholder ? previewImage.dataURIBase64 : undefined
+          }
+          placeholder={useBlurPlaceholder ? 'blur' : undefined}
           priority={priority}
           unoptimized={unoptimized}
           onLoad={onLoad}
@@ -120,26 +131,19 @@ export function LazyImage({
       </div>
     )
   } else {
-    /*
-      NOTE: Using next/image without a pre-defined width/height is a huge pain in
-      the ass. If we have a preview image, then this works fine since we know the
-      dimensions ahead of time, but if we don't, then next/image won't display
-      anything.
-
-      Since next/image is the most common use case for using custom images, and this
-      is likely to trip people up, we're disabling non-preview custom images for now.
-
-      If you have a use case that is affected by this, please open an issue on github.
-    */
-    if (components.Image && forceCustomImages) {
+    // Modern next/image can render unknown-size images with `fill` as long as
+    // the containing layout establishes its dimensions. Other unknown-size
+    // images keep their native <img> behavior unless explicitly forced.
+    if (components.Image && (fill || forceCustomImages)) {
       return (
         <components.Image
           src={src}
           alt={alt}
           className={className}
           style={style}
-          width={null}
-          height={height || null}
+          height={fill ? undefined : height}
+          fill={fill || undefined}
+          sizes={sizes}
           priority={priority}
           unoptimized={unoptimized}
           onLoad={onLoad}
