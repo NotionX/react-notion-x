@@ -39,6 +39,7 @@ export interface NotionContext {
   minTableOfContentsItems: number
   linkTableTitleProperties: boolean
   isLinkCollectionToUrlProperty: boolean
+  alignCenter: boolean
 
   defaultPageIcon?: string | null
   defaultPageCover?: string | null
@@ -67,6 +68,7 @@ export interface PartialNotionContext {
   showCollectionViewDropdown?: boolean
   linkTableTitleProperties?: boolean
   isLinkCollectionToUrlProperty?: boolean
+  alignCenter?: boolean
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
@@ -174,6 +176,7 @@ const defaultNotionContext: NotionContext = {
   showCollectionViewDropdown: true,
   linkTableTitleProperties: true,
   isLinkCollectionToUrlProperty: false,
+  alignCenter: true,
 
   showTableOfContents: false,
   minTableOfContentsItems: 3,
