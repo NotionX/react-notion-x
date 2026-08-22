@@ -32,6 +32,7 @@ export function NotionRenderer({
   isImageZoomable = true,
   showTableOfContents,
   minTableOfContentsItems,
+  tableOfContentsTitle,
   defaultPageIcon,
   defaultPageCover,
   defaultPageCoverPosition,
@@ -63,6 +64,7 @@ export function NotionRenderer({
 
   showTableOfContents?: boolean
   minTableOfContentsItems?: number
+  tableOfContentsTitle?: string | null
 
   defaultPageIcon?: string
   defaultPageCover?: string
@@ -114,6 +116,7 @@ export function NotionRenderer({
       isLinkCollectionToUrlProperty={isLinkCollectionToUrlProperty}
       showTableOfContents={showTableOfContents}
       minTableOfContentsItems={minTableOfContentsItems}
+      tableOfContentsTitle={tableOfContentsTitle}
       defaultPageIcon={defaultPageIcon}
       defaultPageCover={defaultPageCover}
       defaultPageCoverPosition={defaultPageCoverPosition}

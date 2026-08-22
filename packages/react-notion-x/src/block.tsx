@@ -69,6 +69,7 @@ export function Block(props: BlockProps) {
     mapImageUrl,
     showTableOfContents,
     minTableOfContentsItems,
+    tableOfContentsTitle,
     defaultPageIcon,
     defaultPageCover,
     defaultPageCoverPosition
@@ -241,6 +242,7 @@ export function Block(props: BlockProps) {
                         {hasAside && (
                           <PageAside
                             toc={toc}
+                            tocTitle={tableOfContentsTitle}
                             activeSection={activeSection}
                             setActiveSection={setActiveSection}
                             hasToc={hasToc}
