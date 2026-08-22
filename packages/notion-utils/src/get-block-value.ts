@@ -25,5 +25,6 @@ export function getBlockValue<
     return undefined
   }
 
+  // oxlint-disable-next-line anti-slop/no-chained-type-assertions
   return block as any as T
 }

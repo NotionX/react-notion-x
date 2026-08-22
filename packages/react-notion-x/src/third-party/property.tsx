@@ -101,7 +101,7 @@ export function PropertyImpl(props: IPropertyProps) {
 
         return content
       },
-    [block?.properties, collection?.schema, schema]
+    [block, collection, schema]
   )
 
   const renderTitleValue = React.useMemo(

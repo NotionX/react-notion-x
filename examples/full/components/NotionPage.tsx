@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -122,6 +123,17 @@ export function NotionPage({
 }) {
   const router = useRouter()
 
+  // useful for debugging from the dev console
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const keys = Object.keys(recordMap?.block || {})
+      const block = recordMap?.block?.[keys[0]!]?.value
+      const g = window as any
+      g.recordMap = recordMap
+      g.block = block
+    }
+  }, [recordMap])
+
   if (!enabled) {
     return (
       <div style={{ padding: '20px' }}>
@@ -155,15 +167,6 @@ export function NotionPage({
   }
 
   const title = getPageTitle(recordMap) ?? ''
-
-  // useful for debugging from the dev console
-  if (typeof window !== 'undefined') {
-    const keys = Object.keys(recordMap?.block || {})
-    const block = recordMap?.block?.[keys[0]!]?.value
-    const g = window as any
-    g.recordMap = recordMap
-    g.block = block
-  }
 
   const socialDescription = 'React Notion X Demo'
   const socialImage =

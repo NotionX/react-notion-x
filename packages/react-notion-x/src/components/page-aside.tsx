@@ -15,7 +15,7 @@ export function PageAside({
 }: {
   toc: Array<TableOfContentsEntry>
   activeSection: string | null
-  setActiveSection: (activeSection: string | null) => unknown
+  setActiveSection: (activeSection: string | null) => void
   hasToc: boolean
   hasAside: boolean
   pageAside?: React.ReactNode

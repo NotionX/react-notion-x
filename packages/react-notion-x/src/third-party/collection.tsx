@@ -243,7 +243,7 @@ function CollectionViewTabs({
 }: {
   collectionViewId: string
   viewIds: string[]
-  onChangeView: (viewId: string) => unknown
+  onChangeView: (viewId: string) => void
 }) {
   const { recordMap } = useNotionContext()
 

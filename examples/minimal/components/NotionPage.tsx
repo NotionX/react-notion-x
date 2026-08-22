@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { type ExtendedRecordMap } from 'notion-types'
 import { getPageTitle } from 'notion-utils'
 import { NotionRenderer } from 'react-notion-x'
+import { useEffect } from 'react'
 
 export function NotionPage({
   recordMap,
@@ -12,6 +13,17 @@ export function NotionPage({
   rootPageId?: string
   enabled?: boolean
 }) {
+  // useful for debugging from the dev console
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const keys = Object.keys(recordMap?.block || {})
+      const block = recordMap?.block?.[keys[0]!]?.value
+      const g = window as any
+      g.recordMap = recordMap
+      g.block = block
+    }
+  }, [recordMap])
+
   if (!enabled) {
     return (
       <div style={{ padding: '20px' }}>
