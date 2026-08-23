@@ -1,6 +1,6 @@
 {
   "name": "notion-x-to-md",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "description": "Converts a Notion page to Markdown. Very useful for LLMs.",
   "keywords": [
     "ai",

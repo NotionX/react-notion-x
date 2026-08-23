@@ -1,6 +1,6 @@
 {
   "name": "notion-types",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "description": "TypeScript types for core Notion data structures.",
   "license": "MIT",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
