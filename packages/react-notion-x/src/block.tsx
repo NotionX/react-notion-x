@@ -706,7 +706,6 @@ export function Block(props: BlockProps) {
                       alt={title}
                       fill={true}
                       sizes='16px'
-                      unoptimized={true}
                     />
                   </div>
                 )}
@@ -724,7 +723,6 @@ export function Block(props: BlockProps) {
                   alt={getTextContent(block.properties?.title)}
                   fill={true}
                   sizes='(max-width: 640px) 0px, 25vw'
-                  unoptimized={true}
                   style={{
                     objectFit: 'cover'
                   }}

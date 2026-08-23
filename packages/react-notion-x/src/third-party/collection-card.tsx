@@ -62,7 +62,6 @@ export function CollectionCard({
             alt={caption || 'notion image'}
             fill={true}
             sizes='(max-width: 640px) 100vw, 33vw'
-            unoptimized={true}
             style={{
               objectFit: coverAspect,
               objectPosition: `center ${cardCoverPosition}%`
@@ -87,7 +86,6 @@ export function CollectionCard({
           alt={getTextContent(block.properties?.title)}
           fill={true}
           sizes='(max-width: 640px) 100vw, 33vw'
-          unoptimized={true}
           style={{
             objectFit: coverAspect,
             objectPosition: `center ${coverPosition}%`
@@ -117,7 +115,6 @@ export function CollectionCard({
                 src={mapImageUrl(file[2] as string, block)}
                 fill={true}
                 sizes='(max-width: 640px) 100vw, 33vw'
-                unoptimized={true}
                 style={{
                   objectFit: coverAspect,
                   objectPosition: `center ${coverPosition}%`
