@@ -27,7 +27,7 @@
     "react-dom": "catalog:",
     "react-notion-x": "workspace:*",
     "react-tweet-embed": "catalog:",
-    "sharp": "^0.35.3"
+    "sharp": "catalog:"
   },
   "devDependencies": {
     "@types/prismjs": "catalog:",

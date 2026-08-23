@@ -26,6 +26,8 @@
   "devDependencies": {
     "@fisch0920/config": "catalog:",
     "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "bumpp": "catalog:",
     "del-cli": "catalog:",
     "lint-staged": "catalog:",

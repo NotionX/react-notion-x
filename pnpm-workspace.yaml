@@ -10,7 +10,7 @@ enablePrePostScripts: true
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - "@fisch0920/config"
-  - '@fisch0920/oxlint-plugin-anti-slop'
+  - "@fisch0920/oxlint-plugin-anti-slop"
   - tweet-to-md
   - lqip-modern
 packageManagerStrict: false
@@ -62,6 +62,7 @@ catalog:
   react-modal: ^3.16.3
   react-scripts: 5.0.1
   react-tweet-embed: ^2.0.0
+  sharp: ^0.35.3
   simple-git-hooks: ^2.13.1
   tsdown: ^0.22.14
   tsx: ^4.23.12
