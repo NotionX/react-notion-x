@@ -706,6 +706,7 @@ export function Block(props: BlockProps) {
                       alt={title}
                       fill={true}
                       sizes='16px'
+                      // this image is likely to be hot-linked from a third-party, so we can't optimize it
                       unoptimized={true}
                     />
                   </div>
@@ -724,6 +725,7 @@ export function Block(props: BlockProps) {
                   alt={getTextContent(block.properties?.title)}
                   fill={true}
                   sizes='(max-width: 640px) 0px, 25vw'
+                  // this image is likely to be hot-linked from a third-party, so we can't optimize it
                   unoptimized={true}
                   style={{
                     objectFit: 'cover'
