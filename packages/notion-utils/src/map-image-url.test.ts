@@ -7,7 +7,8 @@ import {
   getStableNotionFileSource,
   getSignedFileUrl,
   isNotionFileUrlExpired,
-  isNotionSignedFileUrl
+  isNotionSignedFileUrl,
+  resolveDefaultImageUrl
 } from './map-image-url'
 
 const legacySource =
@@ -239,5 +240,89 @@ describe('Notion file URL expiration', () => {
     `${legacySource}?X-Amz-Signature=value`
   ])('recognizes signed URL %s', (url) => {
     expect(isNotionSignedFileUrl(url)).toBe(true)
+  })
+
+  test('recognizes expiration inside a Notion image proxy', () => {
+    const expiredSource =
+      'https://img.notionusercontent.com/image?exp=1&sig=expired'
+    const proxyUrl = `https://www.notion.so/image/${encodeURIComponent(
+      expiredSource
+    )}?table=block&id=${imageBlock.id}`
+
+    expect(isNotionSignedFileUrl(proxyUrl)).toBe(true)
+    expect(isNotionFileUrlExpired(proxyUrl, now)).toBe(true)
+  })
+
+  test('does not let a future outer expiry mask an expired proxy source', () => {
+    const expiredSource =
+      'https://img.notionusercontent.com/image?exp=1&sig=expired'
+    const proxyUrl = `https://app.notion.com/image/${encodeURIComponent(
+      expiredSource
+    )}?exp=4102444800&table=block&id=${imageBlock.id}`
+
+    expect(isNotionFileUrlExpired(proxyUrl, now)).toBe(true)
+  })
+
+  test('uses only sufficiently fresh private signatures', () => {
+    const source = 'attachment:file-id:image.png'
+    const currentTime = Date.now()
+    const signedUrl = (expirationTimestamp: number) =>
+      `https://file.notion.com/f/f/space-id/file-id/image.png?expirationTimestamp=${expirationTimestamp}&signature=value`
+
+    const freshSignedUrl = signedUrl(currentTime + 3_600_000)
+    expect(
+      resolveDefaultImageUrl(source, imageBlock, {
+        isPublic: false,
+        signedUrls: { [source]: freshSignedUrl }
+      })
+    ).toBe(freshSignedUrl)
+
+    for (const expirationTimestamp of [1, currentTime + 30_000]) {
+      const resolvedUrl = resolveDefaultImageUrl(source, imageBlock, {
+        isPublic: false,
+        signedUrls: { [source]: signedUrl(expirationTimestamp) }
+      })
+
+      expect(resolvedUrl).not.toBe(signedUrl(expirationTimestamp))
+      expect(resolvedUrl).toContain('https://app.notion.com/image/')
+    }
+  })
+
+  test.each([false, true])(
+    'drops an unrecoverable expired image CDN URL for isPublic=%s',
+    (isPublic) => {
+      const expiredSource =
+        'https://img.notionusercontent.com/image?exp=1&sig=expired'
+
+      expect(
+        resolveDefaultImageUrl(expiredSource, imageBlock, {
+          isPublic,
+          signedUrls: {}
+        })
+      ).toBeUndefined()
+    }
+  )
+
+  test('canonicalizes a future-valid public image CDN URL', () => {
+    const source =
+      'https://img.notionusercontent.com/s3/prod-files-secure%2Fspace-id%2Ffile-id%2Fimage.png/size/w=2000?exp=4102444800&sig=fresh'
+    const resolvedUrl = resolveDefaultImageUrl(source, imageBlock, {
+      isPublic: true,
+      signedUrls: {}
+    })
+
+    expect(resolvedUrl).toBeDefined()
+    expect(
+      decodeURIComponent(new URL(resolvedUrl!).pathname.slice('/image/'.length))
+    ).toBe('attachment:file-id:image.png')
+  })
+
+  test('reads expiration from the current Notion image JWT', () => {
+    const token = `header.${btoa(JSON.stringify({ exp: 2_000_000_000 }))}.signature`
+    const url = `https://img.notionusercontent.com/image?tok=${token}`
+
+    expect(isNotionSignedFileUrl(url)).toBe(true)
+    expect(isNotionFileUrlExpired(url, now)).toBe(true)
+    expect(isNotionFileUrlExpired(url, now - 1)).toBe(false)
   })
 })

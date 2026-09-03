@@ -96,11 +96,16 @@ describe('stable Notion image URL mapping', () => {
     expect(defaultMapImageUrl(source, imageBlock)).toBe(source)
   })
 
-  test('preserves an opaque img.notionusercontent.com URL', () => {
+  test('recovers a stable source from a Notion image CDN URL', () => {
+    expect.hasAssertions()
+
     const source =
       'https://img.notionusercontent.com/s3/prod-files-secure%2Fspace-id%2Ffile-id%2Fimage.png/size/w=2000?exp=1&sig=token&id=block-id&table=block'
 
-    expect(defaultMapImageUrl(source, imageBlock)).toBe(source)
+    expectStableNotionProxy(
+      defaultMapImageUrl(source, imageBlock),
+      'attachment:file-id:image.png'
+    )
   })
 
   test('re-homes a legacy Notion image proxy without retaining old query data', () => {
@@ -211,6 +216,21 @@ describe('getPageImageUrls', () => {
       expect(imageUrls).toHaveLength(1)
       expect(imageUrls).not.toContain(expiredSignedUrl)
       expectStableNotionProxy(imageUrls[0], 'attachment:file-id:image.png')
+
+      const customMapperSources: string[] = []
+      const customImageUrls = getPageImageUrls(recordMap, {
+        mapImageUrl: (url) => {
+          customMapperSources.push(url)
+          return url
+        }
+      })
+
+      expect(customMapperSources).toEqual(customImageUrls)
+      expect(customImageUrls).not.toContain(expiredSignedUrl)
+      expectStableNotionProxy(
+        customImageUrls[0],
+        'attachment:file-id:image.png'
+      )
     }
   )
 

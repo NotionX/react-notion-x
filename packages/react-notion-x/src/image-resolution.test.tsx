@@ -8,20 +8,20 @@ import { NotionRenderer } from './renderer'
 
 test('does not embed temporary signatures in public page image URLs', () => {
   const rootBlockId = '11111111-1111-4111-8111-111111111111'
-  const privateImageBlockId = '22222222-2222-4222-8222-222222222222'
+  const notionImageBlockId = '22222222-2222-4222-8222-222222222222'
   const externalImageBlockId = '33333333-3333-4333-8333-333333333333'
   const spaceId = '44444444-4444-4444-8444-444444444444'
 
   const pageCover =
     'https://prod-files-secure.s3.us-west-2.amazonaws.com/cover-id/cover.jpg'
   const pageIcon = 'attachment:icon-id:icon.png'
-  const privateImage = 'attachment:image-id:image.png'
+  const notionImage = 'attachment:image-id:image.png'
   const externalImage =
     'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee'
 
   const temporaryPageCover = `https://file.notion.com/f/f/${spaceId}/cover-id/cover.jpg?table=block&id=${rootBlockId}&spaceId=${spaceId}&expirationTimestamp=4102444800000&signature=temporary-cover`
   const temporaryPageIcon = `https://file.notion.com/f/f/${spaceId}/icon-id/icon.png?table=block&id=${rootBlockId}&spaceId=${spaceId}&expirationTimestamp=4102444800000&signature=temporary-icon`
-  const temporaryPrivateImage = `https://file.notion.com/f/f/${spaceId}/image-id/image.png?table=block&id=${privateImageBlockId}&spaceId=${spaceId}&expirationTimestamp=4102444800000&signature=temporary-image`
+  const temporaryNotionImage = `https://file.notion.com/f/f/${spaceId}/image-id/image.png?table=block&id=${notionImageBlockId}&spaceId=${spaceId}&expirationTimestamp=4102444800000&signature=temporary-image`
 
   const recordMap = {
     block: {
@@ -33,7 +33,7 @@ test('does not embed temporary signatures in public page image URLs', () => {
           parent_table: 'space',
           parent_id: spaceId,
           space_id: spaceId,
-          content: [privateImageBlockId, externalImageBlockId],
+          content: [notionImageBlockId, externalImageBlockId],
           properties: {
             title: [['Image URL regression']]
           },
@@ -45,17 +45,17 @@ test('does not embed temporary signatures in public page image URLs', () => {
           permissions: [{ role: 'reader', type: 'public_permission' }]
         }
       },
-      [privateImageBlockId]: {
+      [notionImageBlockId]: {
         role: 'reader',
         value: {
-          id: privateImageBlockId,
+          id: notionImageBlockId,
           type: 'image',
           parent_table: 'block',
           parent_id: rootBlockId,
           space_id: spaceId,
           properties: {
-            source: [[privateImage]],
-            alt_text: [['Private image']]
+            source: [[notionImage]],
+            alt_text: [['Notion image']]
           }
         }
       },
@@ -81,9 +81,9 @@ test('does not embed temporary signatures in public page image URLs', () => {
     signed_urls: {
       [pageCover]: temporaryPageCover,
       [pageIcon]: temporaryPageIcon,
-      [privateImage]: temporaryPrivateImage,
+      [notionImage]: temporaryNotionImage,
       [rootBlockId]: temporaryPageCover,
-      [privateImageBlockId]: temporaryPrivateImage
+      [notionImageBlockId]: temporaryNotionImage
     }
   } as unknown as ExtendedRecordMap
 
@@ -132,12 +132,38 @@ test('does not embed temporary signatures in public page image URLs', () => {
       id: rootBlockId
     },
     {
-      source: privateImage,
+      source: notionImage,
       table: 'block',
-      id: privateImageBlockId
+      id: notionImageBlockId
     },
     externalImage
   ])
+
+  receivedImageSources.length = 0
+  const customMapperSources: Array<string | undefined> = []
+  renderToStaticMarkup(
+    <NotionRenderer
+      recordMap={recordMap}
+      fullPage
+      forceCustomImages
+      disableHeader
+      mapImageUrl={(source) => {
+        customMapperSources.push(source)
+        return source
+      }}
+      components={{ nextImage: Image }}
+    />
+  )
+
+  expect(customMapperSources).toEqual(receivedImageSources)
+  expect(customMapperSources).not.toContain(temporaryPageCover)
+  expect(customMapperSources).not.toContain(temporaryPageIcon)
+  expect(customMapperSources).not.toContain(temporaryNotionImage)
+  expect(
+    customMapperSources.filter((source) =>
+      source?.startsWith('https://app.notion.com/image/')
+    )
+  ).toHaveLength(3)
 })
 
 test('uses a fresh signed image URL for a private page', () => {

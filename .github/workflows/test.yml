@@ -30,6 +30,9 @@ jobs:
           cd examples/minimal
           pnpm build
 
+      - name: Smoke test minimal example images
+        run: pnpm --filter notion-x-example-minimal test:image
+
       - name: Build full example
         run: |
           cd examples/full

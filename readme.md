@@ -271,6 +271,8 @@ Another major factor for perf comes from images hosted by Notion. They're genera
 
 For public pages, the default mapper turns Notion-hosted image sources into stable `app.notion.com/image` proxy URLs. It intentionally does not embed the temporary URLs from `recordMap.signed_urls`, so a cached page does not break when those signatures expire. If you use `next/image`, allow `app.notion.com` in `images.remotePatterns` (as shown in the examples). Private-page images still require signed URLs; re-fetch private record maps before their signatures expire or proxy them through an authenticated CDN you control.
 
+Custom `mapImageUrl` functions receive the same access-aware input: stable proxy URLs for public Notion assets and signatures that are not known to be expired for private assets. This keeps identity and CDN mappers from accidentally caching an expiring public Notion URL.
+
 `NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://react-notion-x-demo.transitivebullsh.it/3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
 
 If you're using Next.js, we recommend passing `next/image` and `next/link` to the renderer as follows:

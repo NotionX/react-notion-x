@@ -5,9 +5,10 @@ import { idToUuid } from './id-to-uuid'
 export const notionImageProxyOrigin = 'https://app.notion.com'
 
 const notionFileHosts = new Set(['file.notion.com', 'file.notion.so'])
+const notionImageCdnHost = 'img.notionusercontent.com'
 const minimumSignedUrlValidity = 60_000
 
-const isNotionHost = (hostname: string): boolean => {
+export const isNotionHost = (hostname: string): boolean => {
   const normalizedHostname = hostname.toLowerCase()
 
   return (
@@ -16,6 +17,18 @@ const isNotionHost = (hostname: string): boolean => {
     normalizedHostname === 'notion.com' ||
     normalizedHostname.endsWith('.notion.com')
   )
+}
+
+const getNotionImageProxySource = (url: URL): string | undefined => {
+  if (!isNotionHost(url.hostname) || !url.pathname.startsWith('/image/')) {
+    return undefined
+  }
+
+  try {
+    return decodeURIComponent(url.pathname.slice('/image/'.length))
+  } catch {
+    return undefined
+  }
 }
 
 const isLegacyNotionFileUrl = (url: URL): boolean => {
@@ -29,23 +42,70 @@ const isLegacyNotionFileUrl = (url: URL): boolean => {
   )
 }
 
+const getNotionImageCdnAttachmentSource = (url: URL): string | undefined => {
+  if (url.hostname.toLowerCase() !== notionImageCdnHost) {
+    return undefined
+  }
+
+  const match = /^\/s3\/([^/]+)\/size(?:\/|$)/.exec(url.pathname)
+  if (!match) {
+    return undefined
+  }
+
+  try {
+    const [bucket, spaceId, fileId, ...filenameParts] = decodeURIComponent(
+      match[1]!
+    ).split('/')
+    const filename = filenameParts.join('/')
+
+    if (
+      !bucket?.startsWith('prod-files-secure') ||
+      !spaceId ||
+      !fileId ||
+      !filename
+    ) {
+      return undefined
+    }
+
+    return `attachment:${fileId}:${filename}`
+  } catch {
+    return undefined
+  }
+}
+
 const hasNotionFileSignature = (url: URL): boolean =>
   (notionFileHosts.has(url.hostname.toLowerCase()) &&
     url.searchParams.has('signature')) ||
-  (url.hostname.toLowerCase() === 'img.notionusercontent.com' &&
-    (url.searchParams.has('sig') || url.searchParams.has('signature'))) ||
+  (url.hostname.toLowerCase() === notionImageCdnHost &&
+    (url.searchParams.has('sig') ||
+      url.searchParams.has('signature') ||
+      url.searchParams.has('tok'))) ||
   (isLegacyNotionFileUrl(url) &&
     (url.searchParams.has('X-Amz-Signature') ||
       url.searchParams.has('Signature')))
 
-/** Returns whether a URL contains a temporary Notion file signature. */
-export const isNotionSignedFileUrl = (url: string): boolean => {
+const isNotionSignedFileUrlImpl = (url: string, depth: number): boolean => {
   try {
-    return hasNotionFileSignature(new URL(url))
+    const parsedUrl = new URL(url)
+    if (hasNotionFileSignature(parsedUrl)) {
+      return true
+    }
+
+    const proxiedUrl = getNotionImageProxySource(parsedUrl)
+    return Boolean(
+      depth < 5 &&
+      proxiedUrl &&
+      proxiedUrl !== url &&
+      isNotionSignedFileUrlImpl(proxiedUrl, depth + 1)
+    )
   } catch {
     return false
   }
 }
+
+/** Returns whether a URL contains a temporary Notion file signature. */
+export const isNotionSignedFileUrl = (url: string): boolean =>
+  isNotionSignedFileUrlImpl(url, 0)
 
 const getAwsSignatureExpiration = (url: URL): number | undefined => {
   const expires = Number(url.searchParams.get('X-Amz-Expires'))
@@ -83,10 +143,39 @@ const getAwsSignatureExpiration = (url: URL): number | undefined => {
   return startedAt + expires * 1000
 }
 
-/** Returns whether a temporary Notion file URL carries an expired timestamp. */
-export const isNotionFileUrlExpired = (
+const getNotionImageTokenExpiration = (url: URL): number | undefined => {
+  if (url.hostname.toLowerCase() !== notionImageCdnHost) {
+    return undefined
+  }
+
+  const payload = url.searchParams.get('tok')?.split('.')[1]
+  if (!payload) {
+    return undefined
+  }
+
+  try {
+    const base64 = payload
+      .replaceAll('-', '+')
+      .replaceAll('_', '/')
+      .padEnd(Math.ceil(payload.length / 4) * 4, '=')
+    const claims: unknown = JSON.parse(globalThis.atob(base64))
+    if (!claims || typeof claims !== 'object') {
+      return undefined
+    }
+    const expiration = Number((claims as { exp?: unknown }).exp)
+
+    return Number.isFinite(expiration) && expiration > 0
+      ? expiration * 1000
+      : undefined
+  } catch {
+    return undefined
+  }
+}
+
+const isNotionFileUrlExpiredImpl = (
   url: string,
-  now = Date.now()
+  now: number,
+  depth: number
 ): boolean => {
   try {
     const parsedUrl = new URL(url)
@@ -98,37 +187,52 @@ export const isNotionFileUrlExpired = (
       if (expirationTimestamp < 1_000_000_000_000) {
         expirationTimestamp *= 1000
       }
-      return expirationTimestamp <= now
+      if (expirationTimestamp <= now) {
+        return true
+      }
     }
 
     const expires = Number(parsedUrl.searchParams.get('Expires'))
     if (Number.isFinite(expires) && expires > 0) {
-      return expires * 1000 <= now
+      if (expires * 1000 <= now) {
+        return true
+      }
     }
 
     const exp = Number(parsedUrl.searchParams.get('exp'))
     if (Number.isFinite(exp) && exp > 0) {
-      return exp * 1000 <= now
+      if (exp * 1000 <= now) {
+        return true
+      }
+    }
+
+    const tokenExpiration = getNotionImageTokenExpiration(parsedUrl)
+    if (tokenExpiration !== undefined && tokenExpiration <= now) {
+      return true
     }
 
     const awsExpiration = getAwsSignatureExpiration(parsedUrl)
-    return awsExpiration !== undefined && awsExpiration <= now
+    if (awsExpiration !== undefined && awsExpiration <= now) {
+      return true
+    }
+
+    const proxiedUrl = getNotionImageProxySource(parsedUrl)
+    return Boolean(
+      depth < 5 &&
+      proxiedUrl &&
+      proxiedUrl !== url &&
+      isNotionFileUrlExpiredImpl(proxiedUrl, now, depth + 1)
+    )
   } catch {
     return false
   }
 }
 
-const getNotionImageProxySource = (url: URL): string | undefined => {
-  if (!isNotionHost(url.hostname) || !url.pathname.startsWith('/image/')) {
-    return undefined
-  }
-
-  try {
-    return decodeURIComponent(url.pathname.slice('/image/'.length))
-  } catch {
-    return undefined
-  }
-}
+/** Returns whether a temporary Notion file URL carries an expired timestamp. */
+export const isNotionFileUrlExpired = (
+  url: string,
+  now = Date.now()
+): boolean => isNotionFileUrlExpiredImpl(url, now, 0)
 
 const getAttachmentSource = (url: URL): string | undefined => {
   if (!notionFileHosts.has(url.hostname.toLowerCase())) {
@@ -191,6 +295,12 @@ export const getStableNotionFileSource = (url: string): string | undefined => {
     const attachmentSource = getAttachmentSource(parsedUrl)
     if (attachmentSource) {
       return attachmentSource
+    }
+
+    const imageCdnAttachmentSource =
+      getNotionImageCdnAttachmentSource(parsedUrl)
+    if (imageCdnAttachmentSource) {
+      return imageCdnAttachmentSource
     }
 
     if (isLegacyNotionFileUrl(parsedUrl)) {
@@ -352,5 +462,9 @@ export const resolveDefaultImageUrl = (
     }
   }
 
-  return defaultMapImageUrl(url, block)
+  const mappedUrl = defaultMapImageUrl(url, block)
+
+  // An opaque temporary CDN URL that cannot be converted back into a stable
+  // source would reintroduce expiring output. Omit it instead.
+  return mappedUrl && isNotionSignedFileUrl(mappedUrl) ? undefined : mappedUrl
 }

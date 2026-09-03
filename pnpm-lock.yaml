@@ -315,6 +315,10 @@ importers:
       react-notion-x:
         specifier: workspace:*
         version: link:../../packages/react-notion-x
+    devDependencies:
+      tsx:
+        specifier: 'catalog:'
+        version: 4.23.13
 
   packages/notion-client:
     dependencies:

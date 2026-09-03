@@ -1,5 +1,9 @@
 import { type Block, type CalloutBlock, type PageBlock } from 'notion-types'
-import { getBlockIcon, getBlockTitle } from 'notion-utils'
+import {
+  getBlockIcon,
+  getBlockTitle,
+  notionImageProxyOrigin
+} from 'notion-utils'
 import React from 'react'
 
 import { useNotionContext } from '../context'
@@ -51,7 +55,7 @@ export function PageIconImpl({
         />
       )
     } else if (icon && icon.startsWith('/icons/')) {
-      const url = `https://app.notion.com${icon}?mode=${darkMode ? 'dark' : 'light'}`
+      const url = `${notionImageProxyOrigin}${icon}?mode=${darkMode ? 'dark' : 'light'}`
 
       content = (
         <LazyImage

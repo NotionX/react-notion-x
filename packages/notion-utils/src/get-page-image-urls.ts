@@ -4,11 +4,7 @@ import { getBlockIcon } from './get-block-icon'
 import { getBlockValue } from './get-block-value'
 import { isPublicNotionBlock } from './is-public-notion-page'
 import { isUrl } from './is-url'
-import {
-  defaultMapImageUrl,
-  getSignedFileUrl,
-  resolveDefaultImageUrl
-} from './map-image-url'
+import { defaultMapImageUrl, resolveDefaultImageUrl } from './map-image-url'
 
 /**
  * Gets URLs of all images contained on the given page.
@@ -79,17 +75,16 @@ export const getPageImageUrls = (
     })
     .filter(Boolean)
     .map(({ block, url }) => {
+      const resolvedUrl = resolveDefaultImageUrl(url, block, {
+        isPublic: isPublicNotionBlock(recordMap, block.id),
+        signedUrls: recordMap.signed_urls
+      })
+
       if (mapImageUrl === defaultMapImageUrl) {
-        return resolveDefaultImageUrl(url, block, {
-          isPublic: isPublicNotionBlock(recordMap, block.id),
-          signedUrls: recordMap.signed_urls
-        })
+        return resolvedUrl
       }
 
-      return mapImageUrl(
-        getSignedFileUrl(url, block, recordMap.signed_urls) ?? url,
-        block
-      )
+      return resolvedUrl ? mapImageUrl(resolvedUrl, block) : undefined
     })
     .filter(Boolean)
 

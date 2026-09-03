@@ -1,7 +1,7 @@
 import memoize from 'memoize'
 import normalizeUrlImpl from 'normalize-url'
 
-import { notionImageProxyOrigin } from './map-image-url'
+import { isNotionHost, notionImageProxyOrigin } from './map-image-url'
 
 export const normalizeUrl = memoize((url?: string) => {
   if (!url) {
@@ -10,13 +10,8 @@ export const normalizeUrl = memoize((url?: string) => {
 
   try {
     const u = new URL(url)
-    const hostname = u.hostname.toLowerCase()
     const isNotionImageProxy =
-      (hostname === 'notion.so' ||
-        hostname.endsWith('.notion.so') ||
-        hostname === 'notion.com' ||
-        hostname.endsWith('.notion.com')) &&
-      u.pathname.startsWith('/image/')
+      isNotionHost(u.hostname) && u.pathname.startsWith('/image/')
 
     if (isNotionImageProxy) {
       const subUrl = decodeURIComponent(u.pathname.slice('/image/'.length))

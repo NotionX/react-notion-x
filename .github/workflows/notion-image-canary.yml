@@ -27,3 +27,5 @@ jobs:
 
       - run: pnpm install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm --filter notion-client exec vitest run src/notion-image-live.test.ts
+      - run: pnpm --filter notion-x-example-minimal build
+      - run: pnpm --filter notion-x-example-minimal test:image

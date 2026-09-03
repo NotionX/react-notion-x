@@ -1,5 +1,5 @@
 import type * as types from 'notion-types'
-import { getBlockValue } from 'notion-utils'
+import { getBlockValue, notionImageProxyOrigin } from 'notion-utils'
 import React from 'react'
 
 import { useNotionContext } from '../context'
@@ -207,7 +207,7 @@ export function Button({
                         type: 'external',
                         external: {
                           url: pageBlock.format.page_cover.startsWith('/')
-                            ? `https://app.notion.com${pageBlock.format.page_cover}`
+                            ? `${notionImageProxyOrigin}${pageBlock.format.page_cover}`
                             : pageBlock.format.page_cover
                         }
                       }
