@@ -1,6 +1,6 @@
 {
   "name": "notion-utils",
-  "version": "8.0.7",
+  "version": "8.0.8",
   "description": "Useful utilities for working with Notion data. Supports any JS environment including browsers.",
   "license": "MIT",
   "author": "Travis Fischer <travis@transitivebullsh.it>",
