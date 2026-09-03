@@ -7,7 +7,7 @@ import { NotionAPI } from './notion-api'
 test('NotionAPI.addSignedUrls signs every private asset in a block', async () => {
   const imageSource = 'attachment:image-id:image.png'
   const proxiedImageSource = 'attachment:proxied-image-id:proxied-image.png'
-  const imageProxyUrl = `https://www.notion.so/image/${encodeURIComponent(
+  const imageProxyUrl = `https://app.notion.com/image/${encodeURIComponent(
     proxiedImageSource
   )}?table=block&id=proxy-image-block&cache=v2`
   const pageCover = 'attachment:cover-id:cover.jpg'
@@ -96,6 +96,53 @@ test('NotionAPI.addSignedUrls signs every private asset in a block', async () =>
     `signed:${proxiedImageSource}`
   )
   expect(recordMap.signed_urls[externalBookmarkImage]).toBeUndefined()
+})
+
+test('NotionAPI.addSignedUrls preserves nullable response alignment', async () => {
+  const firstSource = 'attachment:first-id:first.png'
+  const secondSource = 'attachment:second-id:second.png'
+  const recordMap = {
+    block: {
+      first: {
+        role: 'reader',
+        value: {
+          id: 'first',
+          type: 'image',
+          parent_table: 'block',
+          properties: { source: [[firstSource]] }
+        }
+      },
+      second: {
+        role: 'reader',
+        value: {
+          id: 'second',
+          type: 'image',
+          parent_table: 'block',
+          properties: { source: [[secondSource]] }
+        }
+      }
+    },
+    collection: {},
+    collection_view: {},
+    notion_user: {},
+    collection_query: {},
+    signed_urls: {}
+  } as unknown as ExtendedRecordMap
+  const api = new NotionAPI()
+  vi.spyOn(api, 'getSignedFileUrls').mockResolvedValue({
+    signedUrls: [null, 'https://file.notion.com/signed-second']
+  })
+
+  await api.addSignedUrls({ recordMap })
+
+  expect(recordMap.signed_urls[firstSource]).toBeUndefined()
+  expect(recordMap.signed_urls.first).toBeUndefined()
+  expect(recordMap.signed_urls[secondSource]).toBe(
+    'https://file.notion.com/signed-second'
+  )
+  expect(recordMap.signed_urls.second).toBe(
+    'https://file.notion.com/signed-second'
+  )
 })
 
 const pageIdFixturesSuccess = [

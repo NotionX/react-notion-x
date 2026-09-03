@@ -2,7 +2,9 @@ import { type ExtendedRecordMap } from 'notion-types'
 import {
   defaultMapImageUrl,
   defaultMapPageUrl,
-  getSignedFileUrl
+  getSignedFileUrl,
+  isPublicNotionBlock,
+  resolveDefaultImageUrl
 } from 'notion-utils'
 import React from 'react'
 
@@ -189,6 +191,12 @@ const defaultNotionContext: NotionContext = {
 }
 
 const ctx = React.createContext<NotionContext>(defaultNotionContext)
+const defaultImageMapperMarker = Symbol('defaultImageMapper')
+
+const isDefaultImageMapper = (mapper?: MapImageUrlFn): boolean =>
+  mapper === undefined ||
+  mapper === defaultMapImageUrl ||
+  Boolean((mapper as any)?.[defaultImageMapperMarker])
 
 export function NotionContextProvider({
   components: themeComponents = {},
@@ -231,11 +239,26 @@ export function NotionContextProvider({
   }
 
   const resolvedMapImageUrl = React.useMemo<MapImageUrlFn>(() => {
-    const mapper = mapImageUrl ?? defaultMapImageUrl
+    if (isDefaultImageMapper(mapImageUrl)) {
+      const resolvedDefaultMapper: MapImageUrlFn = (url, block) => {
+        return resolveDefaultImageUrl(url, block, {
+          // Public blocks use stable sources because cached signatures expire.
+          // Private blocks retain usable signatures because the anonymous image
+          // proxy may not have permission to resolve their assets.
+          isPublic: isPublicNotionBlock(recordMap, block.id, rootPageId),
+          signedUrls: recordMap.signed_urls
+        })
+      }
+      Object.defineProperty(resolvedDefaultMapper, defaultImageMapperMarker, {
+        value: true
+      })
+      return resolvedDefaultMapper
+    }
 
+    const mapper = mapImageUrl!
     return (url, block) =>
       mapper(getSignedFileUrl(url, block, recordMap.signed_urls), block)
-  }, [mapImageUrl, recordMap])
+  }, [mapImageUrl, recordMap, rootPageId])
 
   const value = React.useMemo(
     () => ({

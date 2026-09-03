@@ -4,6 +4,7 @@ export default {
     remotePatterns: [
       { protocol: 'https', hostname: 'www.notion.so' },
       { protocol: 'https', hostname: 'notion.so' },
+      { protocol: 'https', hostname: 'app.notion.com' },
       { protocol: 'https', hostname: 'file.notion.com' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'abs.twimg.com' },

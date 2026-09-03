@@ -126,11 +126,13 @@ export function Asset({
     }
   }
 
-  const source = getSignedFileUrl(
-    block.properties?.source?.[0]?.[0],
-    block as Block,
-    recordMap.signed_urls
-  )
+  const originalSource = block.properties?.source?.[0]?.[0]
+  // Image sources are mapped through Notion's stable proxy below. Other asset
+  // types still need the temporary download URL returned by the unofficial API.
+  const source =
+    block.type === 'image'
+      ? originalSource
+      : getSignedFileUrl(originalSource, block as Block, recordMap.signed_urls)
 
   if (!source) {
     return null

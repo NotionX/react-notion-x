@@ -207,7 +207,7 @@ export function Button({
                         type: 'external',
                         external: {
                           url: pageBlock.format.page_cover.startsWith('/')
-                            ? `https://www.notion.so${pageBlock.format.page_cover}`
+                            ? `https://app.notion.com${pageBlock.format.page_cover}`
                             : pageBlock.format.page_cover
                         }
                       }

@@ -2,8 +2,13 @@ import type * as types from 'notion-types'
 
 import { getBlockIcon } from './get-block-icon'
 import { getBlockValue } from './get-block-value'
+import { isPublicNotionBlock } from './is-public-notion-page'
 import { isUrl } from './is-url'
-import { getSignedFileUrl } from './map-image-url'
+import {
+  defaultMapImageUrl,
+  getSignedFileUrl,
+  resolveDefaultImageUrl
+} from './map-image-url'
 
 /**
  * Gets URLs of all images contained on the given page.
@@ -73,12 +78,19 @@ export const getPageImageUrls = (
       return images
     })
     .filter(Boolean)
-    .map(({ block, url }) =>
-      mapImageUrl(
+    .map(({ block, url }) => {
+      if (mapImageUrl === defaultMapImageUrl) {
+        return resolveDefaultImageUrl(url, block, {
+          isPublic: isPublicNotionBlock(recordMap, block.id),
+          signedUrls: recordMap.signed_urls
+        })
+      }
+
+      return mapImageUrl(
         getSignedFileUrl(url, block, recordMap.signed_urls) ?? url,
         block
       )
-    )
+    })
     .filter(Boolean)
 
   return Array.from(new Set(imageUrls))

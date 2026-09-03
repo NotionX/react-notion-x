@@ -269,6 +269,8 @@ Bundlephobia reports a [~31kb gzip bundle size](https://bundlephobia.com/package
 
 Another major factor for perf comes from images hosted by Notion. They're generally unoptimized, improperly sized, and not cacheable because Notion has to deal with fine-grained access control that users can change at any time. You can override the default `mapImageUrl` function on `NotionRenderer` to add caching via a CDN like Cloudflare Workers, which is what Notion X does for optimal page load speeds.
 
+For public pages, the default mapper turns Notion-hosted image sources into stable `app.notion.com/image` proxy URLs. It intentionally does not embed the temporary URLs from `recordMap.signed_urls`, so a cached page does not break when those signatures expire. If you use `next/image`, allow `app.notion.com` in `images.remotePatterns` (as shown in the examples). Private-page images still require signed URLs; re-fetch private record maps before their signatures expire or proxy them through an authenticated CDN you control.
+
 `NotionRenderer` also supports lazy image loading with optional low quality image placeholder previews. You can see a demo of this in practice [on this page](https://react-notion-x-demo.transitivebullsh.it/3492bd6dbaf44fe7a5cac62c5d402f06) which is using [lqip-modern](https://github.com/transitive-bullshit/lqip-modern) to pre-generate placeholder images that are inspired by Medium.com's image loading.
 
 If you're using Next.js, we recommend passing `next/image` and `next/link` to the renderer as follows:

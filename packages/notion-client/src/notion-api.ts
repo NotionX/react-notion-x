@@ -2,8 +2,8 @@ import type * as notion from 'notion-types'
 import {
   getBlockCollectionId,
   getBlockValue,
-  getNotionFileUrl,
   getPageContentBlockIds,
+  getStableNotionFileSource,
   parsePageId,
   uuidToId
 } from 'notion-utils'
@@ -22,7 +22,7 @@ const getNotionFileUrls = (
   urls = new Set<string>()
 ): Set<string> => {
   if (typeof value === 'string') {
-    const notionFileUrl = getNotionFileUrl(value)
+    const notionFileUrl = getStableNotionFileSource(value)
     if (notionFileUrl) {
       urls.add(notionFileUrl)
     }
@@ -440,7 +440,7 @@ export class NotionAPI {
           ? block.format?.page_cover
           : block.properties?.source?.[0]?.[0]
       const primaryNotionFileUrl = primaryUrl
-        ? getNotionFileUrl(primaryUrl)
+        ? getStableNotionFileSource(primaryUrl)
         : undefined
 
       return Array.from(

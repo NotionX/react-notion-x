@@ -51,11 +51,7 @@ export function PageIconImpl({
         />
       )
     } else if (icon && icon.startsWith('/icons/')) {
-      const url =
-        'https://www.notion.so' +
-        icon +
-        '?mode=' +
-        (darkMode ? 'dark' : 'light')
+      const url = `https://app.notion.com${icon}?mode=${darkMode ? 'dark' : 'light'}`
 
       content = (
         <LazyImage

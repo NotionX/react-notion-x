@@ -31,3 +31,14 @@ test('normalizeUrl valid', () => {
     expect(normalizedUrl).toMatchSnapshot()
   }
 })
+
+test('normalizes legacy and current Notion image proxy origins consistently', () => {
+  const source = encodeURIComponent(
+    'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/file-id/image.png'
+  )
+  const query = '?table=block&id=block-id&cache=v2'
+
+  expect(normalizeUrl(`https://app.notion.com/image/${source}${query}`)).toBe(
+    normalizeUrl(`https://www.notion.so/image/${source}${query}`)
+  )
+})

@@ -16,4 +16,4 @@ exports[`normalizeUrl valid 7`] = `"test.com/foo/bar"`;
 
 exports[`normalizeUrl valid 8`] = `"test.com/foo/bar"`;
 
-exports[`normalizeUrl valid 9`] = `"notion.so/image/s3.us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fae16c287-668f-4ea7-90a8-5ed96302e14f%2Fquilt-opt.jpg"`;
+exports[`normalizeUrl valid 9`] = `"app.notion.com/image/s3.us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fae16c287-668f-4ea7-90a8-5ed96302e14f%2Fquilt-opt.jpg"`;
