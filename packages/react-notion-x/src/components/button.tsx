@@ -1,9 +1,9 @@
 import type * as types from 'notion-types'
+import { getBlockValue } from 'notion-utils'
 import React from 'react'
 
 import { useNotionContext } from '../context'
 import { cs } from '../utils'
-import { getBlockValue } from 'notion-utils'
 import { Text } from './text'
 
 interface AutomationValue {
