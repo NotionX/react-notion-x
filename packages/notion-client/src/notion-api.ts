@@ -283,6 +283,78 @@ export class NotionAPI {
           concurrency
         }
       )
+
+      // `queryCollection` with `loadContentCover` returns only the first few
+      // content blocks of each row page (8 observed). A gallery or board
+      // whose cover is `page_content` shows the row's first image block, so
+      // a row whose first image sits past that prefix renders an empty cover
+      // even though its id is in `content` (Notion's own client shows the
+      // image). Fetch the next slice of each such row's unloaded content in
+      // a single `syncRecordValuesMain` call, bounded per row so a large
+      // gallery does not pull every block of every row page.
+      const maxContentCoverBlocksPerRow = 32
+      const pendingContentCoverBlockIds = new Set<string>()
+
+      for (const { collectionId, collectionViewId } of allCollectionInstances) {
+        const collectionView = getBlockValue(
+          recordMap.collection_view[collectionViewId]
+        )
+        const cover =
+          collectionView?.type === 'gallery'
+            ? collectionView.format?.gallery_cover
+            : collectionView?.type === 'board'
+              ? collectionView.format?.board_cover
+              : undefined
+
+        if (
+          cover?.type !== 'page_content' &&
+          cover?.type !== 'page_content_first'
+        ) {
+          continue
+        }
+
+        const reducerResults: Record<string, any> =
+          recordMap.collection_query[collectionId]?.[collectionViewId] ?? {}
+
+        for (const reducerResult of Object.values(reducerResults)) {
+          for (const rowId of reducerResult?.blockIds ?? []) {
+            const content = getBlockValue(recordMap.block[rowId])?.content
+
+            if (
+              !content?.length ||
+              content.some(
+                (id) => getBlockValue(recordMap.block[id])?.type === 'image'
+              )
+            ) {
+              continue
+            }
+
+            for (const id of content
+              .filter((id) => !recordMap.block[id])
+              .slice(0, maxContentCoverBlocksPerRow)) {
+              pendingContentCoverBlockIds.add(id)
+            }
+          }
+        }
+      }
+
+      if (pendingContentCoverBlockIds.size > 0) {
+        const blockIds = [...pendingContentCoverBlockIds]
+
+        try {
+          const newBlocks = await this.getBlocks(blockIds, ofetchOptions).then(
+            (res) => res.recordMap.block
+          )
+
+          recordMap.block = { ...recordMap.block, ...newBlocks }
+        } catch (err: any) {
+          console.warn(
+            'NotionAPI page content cover sync error',
+            { pageId, blockIds },
+            err.message
+          )
+        }
+      }
     }
 
     if (fetchRelationPages) {
