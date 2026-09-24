@@ -17,9 +17,7 @@ import { CollectionViewIcon } from '../icons/collection-view-icon'
 import { cs } from '../utils'
 import { CollectionRow } from './collection-row'
 import { CollectionView } from './collection-view'
-import { useLocalStorage, useWindowSize } from './react-use'
-
-const isServer = !globalThis.window
+import { useLocalStorage } from './react-use'
 
 export function Collection({
   block,
@@ -27,9 +25,9 @@ export function Collection({
   ctx
 }: {
   block:
-    | types.CollectionViewBlock
-    | types.CollectionViewPageBlock
-    | types.PageBlock
+  | types.CollectionViewBlock
+  | types.CollectionViewPageBlock
+  | types.PageBlock
   className?: string
   ctx: NotionContext
 }) {
@@ -116,10 +114,10 @@ function CollectionViewBlock({
     [collectionState, setCollectionState]
   )
 
-  let { width: windowWidth } = useWindowSize()
-  if (isServer) {
-    windowWidth = 1024
-  }
+  // let { width: windowWidth } = useWindowSize()
+  // if (isServer) {
+  //   windowWidth = 1024
+  // }
 
   const collection = getBlockValue(recordMap.collection[collectionId])
   const collectionView = getBlockValue(
@@ -127,44 +125,48 @@ function CollectionViewBlock({
   )
   const collectionData =
     recordMap.collection_query[collectionId]?.[collectionViewId]
-  const parentPage = getBlockParentPage(block, recordMap)
+  // const parentPage = getBlockParentPage(block, recordMap)
 
   const { width, padding } = React.useMemo(() => {
     const style: React.CSSProperties = {}
 
-    if (collectionView?.type !== 'table' && collectionView?.type !== 'board') {
-      return {
-        style,
-        width: 0,
-        padding: 0
-      }
-    }
+    // The logic below was forcing window-relative centering which breaks when
+    // the collection is inside a constrained container (standard Notion page).
+    // Relying on CSS layout is safer.
 
-    const width = windowWidth
-    // TODO: customize for mobile?
-    const maxNotionBodyWidth = 708
-    let notionBodyWidth = maxNotionBodyWidth
+    // if (collectionView?.type !== 'table' && collectionView?.type !== 'board') {
+    //   return {
+    //     style,
+    //     width: 0,
+    //     padding: 0
+    //   }
+    // }
 
-    if (parentPage?.format?.page_full_width) {
-      notionBodyWidth = Math.trunc(width - 2 * Math.min(96, width * 0.08))
-    } else {
-      notionBodyWidth =
-        width < maxNotionBodyWidth
-          ? Math.trunc(width - width * 0.02) // 2vw
-          : maxNotionBodyWidth
-    }
+    // const width = windowWidth
+    // // TODO: customize for mobile?
+    // const maxNotionBodyWidth = 708
+    // let notionBodyWidth = maxNotionBodyWidth
 
-    const padding =
-      isServer && !isMounted ? 96 : Math.trunc((width - notionBodyWidth) / 2)
-    style.paddingLeft = padding
-    style.paddingRight = padding
+    // if (parentPage?.format?.page_full_width) {
+    //   notionBodyWidth = Math.trunc(width - 2 * Math.min(96, width * 0.08))
+    // } else {
+    //   notionBodyWidth =
+    //     width < maxNotionBodyWidth
+    //       ? Math.trunc(width - width * 0.02) // 2vw
+    //       : maxNotionBodyWidth
+    // }
+
+    // const padding =
+    //   isServer && !isMounted ? 96 : Math.trunc((width - notionBodyWidth) / 2)
+    // style.paddingLeft = padding
+    // style.paddingRight = padding
 
     return {
       style,
-      width,
-      padding
+      width: undefined,
+      padding: 0
     }
-  }, [windowWidth, parentPage, collectionView?.type, isMounted])
+  }, []) // Remove dependencies as we use defaults
 
   // console.log({
   //   width,
@@ -256,7 +258,7 @@ function CollectionViewTabs({
           className={cs(
             'notion-collection-view-tabs-content-item',
             collectionViewId === viewId &&
-              'notion-collection-view-tabs-content-item-active'
+            'notion-collection-view-tabs-content-item-active'
           )}
         >
           <CollectionViewColumnDesc
