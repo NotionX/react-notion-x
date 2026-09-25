@@ -61,6 +61,10 @@ Options:
   -h, --help  display help for command
 ```
 
+### Escaped equations
+
+Some published pages return equations with an extra escaping layer, such as `\\frac` and literal `\n`. Use `--decode-escaped-math` for those pages, or `notionPageToMarkdown(recordMap, { decodeEscapedMath: true })` programmatically. This decodes one layer in inline and display equations without changing the input record map. It is opt-in because doubled backslashes can also be valid TeX matrix row breaks; ordinary pages should keep the default.
+
 ### Examples
 
 | Notion Page | Page ID | Markdown Output | Supported? | Notes |
