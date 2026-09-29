@@ -227,6 +227,12 @@ export function NotionContextProvider({
 
   if (wrappedThemeComponents.nextLink) {
     wrappedThemeComponents.nextLink = wrapNextLink(themeComponents.nextLink)
+
+    // Use Next.js links for internal page links (client-side navigation)
+    // unless a custom PageLink was provided
+    if (!themeComponents.PageLink) {
+      wrappedThemeComponents.PageLink = wrappedThemeComponents.nextLink
+    }
   }
 
   // ensure the user can't override default components with falsy values
