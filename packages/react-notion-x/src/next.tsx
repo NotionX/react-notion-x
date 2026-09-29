@@ -46,28 +46,31 @@ export function wrapNextLink(NextLink: any) {
   return ({
     href,
     as,
-    passHref,
-    prefetch,
+    passHref: _passHref,
+    prefetch = false,
     replace,
     scroll,
     shallow,
     locale,
     ...linkProps
   }: any) => {
+    // Next.js links render their own <a>, so anchor props are passed straight
+    // through (`legacyBehavior` is deprecated).
+    //
+    // Prefetching defaults to off: collection views can render dozens of page
+    // links at once, and prefetching them all would render every linked page
+    // on the server in a burst (and can hit Notion's rate limits).
     return (
       <NextLink
         href={href}
         as={as}
-        passHref={passHref}
         prefetch={prefetch}
         replace={replace}
         scroll={scroll}
         shallow={shallow}
         locale={locale}
-        legacyBehavior
-      >
-        <a {...linkProps} />
-      </NextLink>
+        {...linkProps}
+      />
     )
   }
 }
