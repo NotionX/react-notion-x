@@ -1514,6 +1514,10 @@ svg.notion-page-icon {
 .notion-collection {
   align-self: center;
   min-width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  padding: 4px;
+  margin: -4px;
 }
 
 .notion-collection-header {
@@ -1578,8 +1582,8 @@ svg.notion-page-icon {
 }
 
 .notion-table {
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 100%;
   align-self: center;
   overflow: auto hidden;
 }
@@ -2024,8 +2028,8 @@ svg.notion-page-icon {
 }
 
 .notion-board {
-  width: 100vw;
-  max-width: 100vw;
+  width: 100%;
+  max-width: 100%;
   align-self: center;
   overflow: auto hidden;
 }
