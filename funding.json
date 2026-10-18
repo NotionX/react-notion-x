@@ -1,0 +1,144 @@
+{
+  "$schema": "https://fundingjson.org/schema/v1.1.0.json",
+  "version": "v1.1.0",
+  "entity": {
+    "type": "individual",
+    "role": "owner",
+    "name": "Travis Fischer",
+    "email": "travis@transitivebullsh.it",
+    "description": "Open source developer. Creator and maintainer of react-notion-x and its notion-* packages (notion-client, notion-types, notion-utils, notion-compat and notion-x-to-md), which power tens of thousands of Notion-backed websites, along with related projects such as nextjs-notion-starter-kit.",
+    "webpageUrl": {
+      "url": "https://transitivebullsh.it",
+      "wellKnown": "https://transitivebullsh.it/.well-known/funding-manifest-urls"
+    }
+  },
+  "projects": [
+    {
+      "guid": "react-notion-x",
+      "name": "react-notion-x",
+      "description": "Fast and accurate React renderer for Notion. Renders Notion pages and databases with full TypeScript support, SSR and lazy-loaded heavy components. Used in production by tens of thousands of websites.",
+      "webpageUrl": {
+        "url": "https://github.com/NotionX/react-notion-x"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/NotionX/react-notion-x"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": [
+        "web-development",
+        "publishing",
+        "developer-tools",
+        "react",
+        "notion",
+        "typescript"
+      ]
+    },
+    {
+      "guid": "notion-client",
+      "name": "notion-client",
+      "description": "Robust TypeScript client for the unofficial Notion API. Fetches full Notion pages and databases and runs in Node.js, Bun, Deno and edge runtimes.",
+      "webpageUrl": {
+        "url": "https://github.com/NotionX/react-notion-x/blob/master/packages/notion-client/readme.md"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/NotionX/react-notion-x"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["api", "developer-tools", "notion", "typescript"]
+    },
+    {
+      "guid": "notion-types",
+      "name": "notion-types",
+      "description": "TypeScript types for core Notion data structures, shared by react-notion-x and the other notion-* packages.",
+      "webpageUrl": {
+        "url": "https://github.com/NotionX/react-notion-x/blob/master/packages/notion-types/readme.md"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/NotionX/react-notion-x"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["developer-tools", "notion", "typescript"]
+    },
+    {
+      "guid": "notion-utils",
+      "name": "notion-utils",
+      "description": "Useful utilities for working with Notion data. Supports any JS environment including browsers.",
+      "webpageUrl": {
+        "url": "https://github.com/NotionX/react-notion-x/blob/master/packages/notion-utils/readme.md"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/NotionX/react-notion-x"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["developer-tools", "web-development", "notion", "typescript"]
+    },
+    {
+      "guid": "notion-compat",
+      "name": "notion-compat",
+      "description": "Compatibility layer between the official Notion API and the unofficial private API, so official API data can be rendered with react-notion-x.",
+      "webpageUrl": {
+        "url": "https://github.com/NotionX/react-notion-x/blob/master/packages/notion-compat/readme.md"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/NotionX/react-notion-x"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": ["api", "developer-tools", "notion", "typescript"]
+    },
+    {
+      "guid": "notion-x-to-md",
+      "name": "notion-x-to-md",
+      "description": "Converts a Notion page to Markdown. Very useful for LLMs.",
+      "webpageUrl": {
+        "url": "https://github.com/NotionX/react-notion-x/blob/master/packages/notion-x-to-md/readme.md"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/NotionX/react-notion-x"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": [
+        "artificial-intelligence",
+        "developer-tools",
+        "notion",
+        "markdown"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "github-sponsors",
+        "type": "payment-provider",
+        "address": "https://github.com/sponsors/transitive-bullshit",
+        "description": "GitHub Sponsors, one-time or monthly."
+      },
+      {
+        "guid": "bank-transfer",
+        "type": "bank",
+        "description": "Bank transfer. Email travis@transitivebullsh.it for account details."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "maintenance",
+        "status": "active",
+        "name": "Maintenance",
+        "description": "Ongoing maintenance of react-notion-x and its notion-* packages: keeping up with changes to Notion's data format and block types, fixing rendering bugs, triaging issues, reviewing pull requests and publishing releases.",
+        "amount": 10000,
+        "currency": "USD",
+        "frequency": "yearly",
+        "channels": ["bank-transfer", "github-sponsors"]
+      },
+      {
+        "guid": "sponsor",
+        "status": "active",
+        "name": "Sponsor",
+        "description": "Sponsor any amount, one-time or monthly.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": ["github-sponsors"]
+      }
+    ]
+  }
+}
