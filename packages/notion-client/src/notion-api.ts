@@ -47,6 +47,35 @@ const getNotionFileUrls = (
   return urls
 }
 
+const getNotionUserIds = (
+  value: unknown,
+  userIds = new Set<string>()
+): Set<string> => {
+  if (Array.isArray(value)) {
+    // A user mention is the `['u', userId]` decoration, either directly or
+    // inside an external link `['‣', [['u', userId]]]`, which is how a Person
+    // property stores its value.
+    if (value[0] === 'u' && typeof value[1] === 'string') {
+      userIds.add(value[1])
+      return userIds
+    }
+
+    for (const item of value) {
+      getNotionUserIds(item, userIds)
+    }
+
+    return userIds
+  }
+
+  if (value && typeof value === 'object') {
+    for (const item of Object.values(value)) {
+      getNotionUserIds(item, userIds)
+    }
+  }
+
+  return userIds
+}
+
 /**
  * Main Notion API client.
  */
@@ -288,6 +317,46 @@ export class NotionAPI {
     if (fetchRelationPages) {
       const newBlocks = await this.fetchRelationPages(recordMap, ofetchOptions)
       recordMap.block = { ...recordMap.block, ...newBlocks }
+    }
+
+    // Neither `loadPageChunk` nor `queryCollection` returns the `notion_user`
+    // records a page refers to, so Person properties and @user mentions have
+    // nothing to render from. Notion's own client syncs them separately, so
+    // fetch every user referenced by a block property and not already in the
+    // record map in a single call.
+    const missingUserIds = Array.from(
+      getNotionUserIds(
+        Object.values(recordMap.block).map(
+          (block) => getBlockValue(block)?.properties
+        )
+      )
+    ).filter((userId) => !recordMap.notion_user[userId])
+
+    if (missingUserIds.length > 0) {
+      try {
+        const { recordMap: syncedRecordMap } =
+          await this.fetch<notion.PageChunk>({
+            endpoint: 'syncRecordValuesMain',
+            body: {
+              requests: missingUserIds.map((userId) => ({
+                pointer: { table: 'notion_user', id: userId },
+                version: -1
+              }))
+            },
+            ofetchOptions
+          })
+
+        recordMap.notion_user = {
+          ...recordMap.notion_user,
+          ...syncedRecordMap.notion_user
+        }
+      } catch (err: any) {
+        console.warn(
+          'NotionAPI user sync error',
+          { pageId, userIds: missingUserIds },
+          err.message
+        )
+      }
     }
 
     // Optionally fetch signed URLs for any embedded files.
