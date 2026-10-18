@@ -272,7 +272,7 @@ export function Text({
                   return null
                 }
                 return (
-                  <GracefulImage
+                  <img
                     className='notion-custom-emoji'
                     src={emojiUrl}
                     alt='custom emoji'
