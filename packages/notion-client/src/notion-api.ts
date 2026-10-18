@@ -206,6 +206,58 @@ export class NotionAPI {
         }
       })
 
+      // A `collection_view` record only arrives with the page chunk, and
+      // `getPage` fetches chunk 0 only. A database block beyond it (a long
+      // page, or a block nested in a column or toggle) is loaded through
+      // `getBlocks`, which returns blocks and nothing else, and
+      // `queryCollection` does not return the view either, so
+      // `recordMap.collection_view` stays empty and `Collection` has nothing
+      // to render (#374 is this, moving with the chunk boundary).
+      // `syncRecordValuesMain` answers for a view record when asked, so fetch
+      // whatever is missing in a single call before querying each collection:
+      // the query needs the view's own filter/sort.
+      const missingCollectionViewInstances = allCollectionInstances.filter(
+        ({ collectionViewId }) => !recordMap.collection_view[collectionViewId]
+      )
+
+      if (missingCollectionViewInstances.length > 0) {
+        try {
+          const { recordMap: syncedRecordMap } =
+            await this.fetch<notion.PageChunk>({
+              endpoint: 'syncRecordValuesMain',
+              body: {
+                requests: missingCollectionViewInstances.map(
+                  ({ collectionViewId, spaceId }) => ({
+                    pointer: {
+                      table: 'collection_view',
+                      id: collectionViewId,
+                      ...(spaceId && { spaceId })
+                    },
+                    version: -1
+                  })
+                )
+              },
+              ofetchOptions
+            })
+
+          recordMap.collection_view = {
+            ...recordMap.collection_view,
+            ...syncedRecordMap.collection_view
+          }
+        } catch (err: any) {
+          console.warn(
+            'NotionAPI collection view sync error',
+            {
+              pageId,
+              collectionViewIds: missingCollectionViewInstances.map(
+                ({ collectionViewId }) => collectionViewId
+              )
+            },
+            err.message
+          )
+        }
+      }
+
       // fetch data for all collection view instances
       await pMap(
         allCollectionInstances,
