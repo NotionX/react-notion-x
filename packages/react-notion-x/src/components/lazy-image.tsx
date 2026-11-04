@@ -54,6 +54,17 @@ export function LazyImage({
     [src, zoomRef, zoomable]
   )
 
+  // Server-rendered images may finish loading before React hydrates, in which
+  // case the `load` event fires before `onLoad` is attached and the image
+  // would stay hidden (`.lazy-image-real` is opacity 0 until loaded).
+  const imgRef = React.useRef<HTMLImageElement>(null)
+  React.useEffect(() => {
+    const img = imgRef.current
+    if (img && !isLoaded && img.complete && img.naturalWidth > 0) {
+      onLoad({ target: img })
+    }
+  }, [isLoaded, onLoad])
+
   if (previewImage) {
     const aspectRatio = previewImage.originalHeight / previewImage.originalWidth
 
@@ -113,6 +124,7 @@ export function LazyImage({
         />
 
         <img
+          ref={imgRef}
           className='lazy-image-real'
           src={src}
           alt={alt}
@@ -154,6 +166,7 @@ export function LazyImage({
     // Default image element
     return (
       <img
+        ref={imgRef}
         className={className}
         style={style}
         src={src}
