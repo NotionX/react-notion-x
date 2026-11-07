@@ -227,6 +227,7 @@ export function NotionContextProvider({
 
   if (wrappedThemeComponents.nextLink) {
     wrappedThemeComponents.nextLink = wrapNextLink(themeComponents.nextLink)
+    wrappedThemeComponents.PageLink ??= wrappedThemeComponents.nextLink
   }
 
   // ensure the user can't override default components with falsy values
